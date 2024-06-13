@@ -21,6 +21,8 @@
 		4F082E992C1A6194002263ED /* SystemBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E982C1A6194002263ED /* SystemBackgroundViewController.m */; };
 		4F082E9C2C1B4505002263ED /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F082E9B2C1B4505002263ED /* UniformTypeIdentifiers.framework */; };
 		4F082E9F2C1B4831002263ED /* CustomDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E9E2C1B4831002263ED /* CustomDocument.mm */; };
+		4F082EA82C1B53C8002263ED /* ContentHuggingElementsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082EA72C1B53C8002263ED /* ContentHuggingElementsViewController.mm */; };
+		4F082EAC2C1B59C1002263ED /* CalendarViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082EAB2C1B59C1002263ED /* CalendarViewController.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +52,10 @@
 		4F082E9B2C1B4505002263ED /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
 		4F082E9D2C1B4831002263ED /* CustomDocument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDocument.h; sourceTree = "<group>"; };
 		4F082E9E2C1B4831002263ED /* CustomDocument.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomDocument.mm; sourceTree = "<group>"; };
+		4F082EA62C1B53C8002263ED /* ContentHuggingElementsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContentHuggingElementsViewController.h; sourceTree = "<group>"; };
+		4F082EA72C1B53C8002263ED /* ContentHuggingElementsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ContentHuggingElementsViewController.mm; sourceTree = "<group>"; };
+		4F082EAA2C1B59C1002263ED /* CalendarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
+		4F082EAB2C1B59C1002263ED /* CalendarViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CalendarViewController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +112,8 @@
 				4F082E712C18E23B002263ED /* SceneActivation */,
 				4F082E782C18FD03002263ED /* CustomDocument */,
 				4F082E962C1A617C002263ED /* SystemBackground */,
+				4F082EA52C1B53BE002263ED /* ContentHuggingElements */,
+				4F082EA92C1B59AD002263ED /* Calendar */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -158,6 +166,24 @@
 				4F082E9B2C1B4505002263ED /* UniformTypeIdentifiers.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4F082EA52C1B53BE002263ED /* ContentHuggingElements */ = {
+			isa = PBXGroup;
+			children = (
+				4F082EA62C1B53C8002263ED /* ContentHuggingElementsViewController.h */,
+				4F082EA72C1B53C8002263ED /* ContentHuggingElementsViewController.mm */,
+			);
+			path = ContentHuggingElements;
+			sourceTree = "<group>";
+		};
+		4F082EA92C1B59AD002263ED /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				4F082EAA2C1B59C1002263ED /* CalendarViewController.h */,
+				4F082EAB2C1B59C1002263ED /* CalendarViewController.mm */,
+			);
+			path = Calendar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -230,10 +256,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F082E992C1A6194002263ED /* SystemBackgroundViewController.m in Sources */,
+				4F082EA82C1B53C8002263ED /* ContentHuggingElementsViewController.mm in Sources */,
 				4F082E702C18A045002263ED /* ListEnvironmentContentConfiguration.mm in Sources */,
 				4F082E772C18E349002263ED /* OrangeSceneDelegate.m in Sources */,
 				4F082E492C188D6C002263ED /* AppDelegate.m in Sources */,
 				4F082E742C18E269002263ED /* SceneActivationViewController.mm in Sources */,
+				4F082EAC2C1B59C1002263ED /* CalendarViewController.mm in Sources */,
 				4F082E9F2C1B4831002263ED /* CustomDocument.mm in Sources */,
 				4F082E622C188E34002263ED /* MainCollectionViewController.mm in Sources */,
 				4F082E7B2C18FD18002263ED /* CustomDocumentViewController.mm in Sources */,
@@ -387,7 +415,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -416,7 +444,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

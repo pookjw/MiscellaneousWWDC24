@@ -10,6 +10,8 @@
 #import "SceneActivationViewController.h"
 #import "CustomDocumentViewController.h"
 #import "SystemBackgroundViewController.h"
+#import "ContentHuggingElementsViewController.h"
+#import "CalendarViewController.h"
 #import <objc/message.h>
 
 __attribute__((objc_direct_members))
@@ -95,7 +97,9 @@ __attribute__((objc_direct_members))
         ListEnvironmentCollectionViewController.class,
         SceneActivationViewController.class,
         CustomDocumentViewController.class,
-        SystemBackgroundViewController.class
+        SystemBackgroundViewController.class,
+        ContentHuggingElementsViewController.class,
+        CalendarViewController.class
     ];
 }
 
