@@ -14,24 +14,36 @@
 @property (retain, readonly, nonatomic) UIPasteControl *pasteControl;
 @property (retain, readonly, nonatomic) UIBarButtonItem *pasteControlBarButtonItem;
 @property (retain, readonly, nonatomic) UIBarButtonItem *textFormattingBarButtonItem;
+@property (retain, readonly, nonatomic) UIBarButtonItem *updateTextHighlightAttributesBarButtomItem;
+@property (retain, readonly, nonatomic) UIBarButtonItem *applyTextHighlightStyleBarButtomItem;
+@property (retain, readonly, nonatomic) UIBarButtonItem *applyTextHighlightColorSchemeBarButtomItem;
+@property (retain, readonly, nonatomic) UIBarButtonItem *addAdaptiveImageGlyphBarButtonItem;
 @end
 
 @implementation TextViewController
 @synthesize pasteControl = _pasteControl;
 @synthesize pasteControlBarButtonItem = _pasteControlBarButtonItem;
 @synthesize textFormattingBarButtonItem = _textFormattingBarButtonItem;
+@synthesize updateTextHighlightAttributesBarButtomItem = _updateTextHighlightAttributesBarButtomItem;
+@synthesize applyTextHighlightStyleBarButtomItem = _applyTextHighlightStyleBarButtomItem;
+@synthesize applyTextHighlightColorSchemeBarButtomItem = _applyTextHighlightColorSchemeBarButtomItem;
+@synthesize addAdaptiveImageGlyphBarButtonItem = _addAdaptiveImageGlyphBarButtonItem;
 
 - (void)dealloc {
     [_pasteControl release];
     [_pasteControlBarButtonItem release];
     [_textFormattingBarButtonItem release];
+    [_updateTextHighlightAttributesBarButtomItem release];
+    [_applyTextHighlightStyleBarButtomItem release];
+    [_applyTextHighlightColorSchemeBarButtomItem release];
+    [_addAdaptiveImageGlyphBarButtonItem release];
     [super dealloc];
 }
 
 - (void)loadView {
     UITextView *textView = [UITextView new];
     textView.allowsEditingTextAttributes = YES;
-//    textView.supportsAdaptiveImageGlyph = YES;
+    textView.supportsAdaptiveImageGlyph = YES;
 //    textView.writingToolsBehavior = UIWritingToolsBehaviorComplete;
 //    textView.writingToolsAllowedInputOptions = UIWritingToolsAllowedInputOptionsTable;
     self.view = textView;
@@ -45,7 +57,11 @@
     
     navigationItem.leftBarButtonItems = @[
         self.pasteControlBarButtonItem,
-        self.textFormattingBarButtonItem
+        self.textFormattingBarButtonItem,
+        self.updateTextHighlightAttributesBarButtomItem,
+        self.applyTextHighlightStyleBarButtomItem,
+        self.applyTextHighlightColorSchemeBarButtomItem,
+        self.addAdaptiveImageGlyphBarButtonItem
     ];
 }
 
@@ -87,6 +103,42 @@
     return [textFormattingBarButtonItem autorelease];
 }
 
+- (UIBarButtonItem *)updateTextHighlightAttributesBarButtomItem {
+    if (auto updateTextHighlightAttributesBarButtomItem = _updateTextHighlightAttributesBarButtomItem) return updateTextHighlightAttributesBarButtomItem;
+    
+    UIBarButtonItem *updateTextHighlightAttributesBarButtomItem = [[UIBarButtonItem alloc] initWithTitle:@"1" style:UIBarButtonItemStylePlain target:self action:@selector(updateTextHighlightAttributesBarButtomItemDidTrigger:)];
+    
+    _updateTextHighlightAttributesBarButtomItem = [updateTextHighlightAttributesBarButtomItem retain];
+    return [updateTextHighlightAttributesBarButtomItem autorelease];
+}
+
+- (UIBarButtonItem *)applyTextHighlightStyleBarButtomItem {
+    if (auto applyTextHighlightStyleBarButtomItem = _applyTextHighlightStyleBarButtomItem) return applyTextHighlightStyleBarButtomItem;
+    
+    UIBarButtonItem *applyTextHighlightStyleBarButtomItem = [[UIBarButtonItem alloc] initWithTitle:@"2" style:UIBarButtonItemStylePlain target:self action:@selector(applyTextHighlightStyleBarButtomItemDidTrigger:)];
+    
+    _applyTextHighlightStyleBarButtomItem = [applyTextHighlightStyleBarButtomItem retain];
+    return [applyTextHighlightStyleBarButtomItem autorelease];
+}
+
+- (UIBarButtonItem *)applyTextHighlightColorSchemeBarButtomItem {
+    if (auto applyTextHighlightColorSchemeBarButtomItem = _applyTextHighlightColorSchemeBarButtomItem) return applyTextHighlightColorSchemeBarButtomItem;
+    
+    UIBarButtonItem *applyTextHighlightColorSchemeBarButtomItem = [[UIBarButtonItem alloc] initWithTitle:@"3" style:UIBarButtonItemStylePlain target:self action:@selector(applyTextHighlightColorSchemeBarButtomItemDidTrigger:)];
+    
+    _applyTextHighlightColorSchemeBarButtomItem = [applyTextHighlightColorSchemeBarButtomItem retain];
+    return [applyTextHighlightColorSchemeBarButtomItem autorelease];
+}
+
+- (UIBarButtonItem *)addAdaptiveImageGlyphBarButtonItem {
+    if (auto addAdaptiveImageGlyphBarButtonItem = _addAdaptiveImageGlyphBarButtonItem) return addAdaptiveImageGlyphBarButtonItem;
+    
+    UIBarButtonItem *addAdaptiveImageGlyphBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"4" style:UIBarButtonItemStylePlain target:self action:@selector(addAdaptiveImageGlyphBarButtonItemDidTrigger:)];
+    
+    _addAdaptiveImageGlyphBarButtonItem = [addAdaptiveImageGlyphBarButtonItem retain];
+    return [addAdaptiveImageGlyphBarButtonItem autorelease];
+}
+
 - (void)textFormattingBarButtonItemDidTrigger:(UIBarButtonItem *)sender {
     /* UITextFormattingViewControllerConfiguration */
 //    id configuration = [objc_lookUpClass("UITextFormattingViewControllerConfiguration") new];
@@ -108,6 +160,61 @@
     
     [self presentViewController:textFormattingViewController animated:YES completion:nil];
     [textFormattingViewController release];
+}
+
+- (void)updateTextHighlightAttributesBarButtomItemDidTrigger:(UIBarButtonItem *)sender {
+    self.textView.textHighlightAttributes = @{
+        NSBackgroundColorAttributeName: UIColor.orangeColor,
+        NSForegroundColorAttributeName: UIColor.greenColor
+    };
+}
+
+- (void)applyTextHighlightStyleBarButtomItemDidTrigger:(UIBarButtonItem *)sender {
+    NSMutableAttributedString *attributedText = [self.textView.attributedText mutableCopy];
+    
+    [attributedText addAttributes:@{
+        NSTextHighlightStyleAttributeName: NSTextHighlightStyleDefault
+    } 
+                            range:NSMakeRange(0, attributedText.length)];
+    
+    self.textView.attributedText = attributedText;
+    [attributedText release];
+}
+
+- (void)applyTextHighlightColorSchemeBarButtomItemDidTrigger:(UIBarButtonItem *)sender {
+    NSMutableAttributedString *attributedText = [self.textView.attributedText mutableCopy];
+    
+    [attributedText addAttributes:@{
+        NSTextHighlightColorSchemeAttributeName: NSTextHighlightColorSchemePink
+    } 
+                            range:NSMakeRange(0, attributedText.length)];
+    
+    self.textView.attributedText = attributedText;
+    [attributedText release];
+}
+
+- (void)addAdaptiveImageGlyphBarButtonItemDidTrigger:(UIBarButtonItem *)sender {
+    NSMutableAttributedString *attributedText = [self.textView.attributedText mutableCopy];
+    
+    /*
+     po [NSAdaptiveImageGlyph contentType]
+     <_UTCoreType 0x100b54b40> public.heic (not dynamic, declared)
+     
+     -[__NSAdaptiveImageGlyphStorage initWithImageContent:]에서 nil 나옴
+     */
+    NSData *imageContent = [[NSData alloc] initWithContentsOfURL:[NSBundle.mainBundle URLForResource:@"robot" withExtension:@"heic"]];
+    NSAdaptiveImageGlyph *adaptiveImageGlyph = [[NSAdaptiveImageGlyph alloc] initWithImageContent:imageContent];
+    [imageContent release];
+    assert(adaptiveImageGlyph != nil);
+    
+    NSAttributedString *adaptiveImageGlyphAttributedString = [NSAttributedString attributedStringWithAdaptiveImageGlyph:adaptiveImageGlyph attributes:@{}];
+    
+    [attributedText appendAttributedString:adaptiveImageGlyphAttributedString];
+    
+    [adaptiveImageGlyph release];
+    
+    self.textView.attributedText = attributedText;
+    [attributedText release];
 }
 
 @end

@@ -24,6 +24,7 @@
 		4F082EA82C1B53C8002263ED /* ContentHuggingElementsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082EA72C1B53C8002263ED /* ContentHuggingElementsViewController.mm */; };
 		4F082EAC2C1B59C1002263ED /* CalendarViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082EAB2C1B59C1002263ED /* CalendarViewController.mm */; };
 		4FA8EEE92C1C012A00B1358A /* TextViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEE82C1C012A00B1358A /* TextViewController.mm */; };
+		4FA8EEEB2C1C174F00B1358A /* robot.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4FA8EEEA2C1C174F00B1358A /* robot.heic */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		4F082EAB2C1B59C1002263ED /* CalendarViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CalendarViewController.mm; sourceTree = "<group>"; };
 		4FA8EEE72C1C012A00B1358A /* TextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
 		4FA8EEE82C1C012A00B1358A /* TextViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TextViewController.mm; sourceTree = "<group>"; };
+		4FA8EEEA2C1C174F00B1358A /* robot.heic */ = {isa = PBXFileReference; lastKnownFileType = file; path = robot.heic; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 		4F082E462C188D6C002263ED /* MiscellaneousUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				4FA8EEEA2C1C174F00B1358A /* robot.heic */,
 				4F082E472C188D6C002263ED /* AppDelegate.h */,
 				4F082E482C188D6C002263ED /* AppDelegate.m */,
 				4F082E4A2C188D6C002263ED /* SceneDelegate.h */,
@@ -256,6 +259,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FA8EEEB2C1C174F00B1358A /* robot.heic in Resources */,
 				4F082E542C188D6D002263ED /* Assets.xcassets in Resources */,
 				4F082E572C188D6D002263ED /* Base in Resources */,
 			);
