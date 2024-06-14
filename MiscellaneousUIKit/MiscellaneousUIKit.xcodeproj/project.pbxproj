@@ -23,6 +23,7 @@
 		4F082E9F2C1B4831002263ED /* CustomDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E9E2C1B4831002263ED /* CustomDocument.mm */; };
 		4F082EA82C1B53C8002263ED /* ContentHuggingElementsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082EA72C1B53C8002263ED /* ContentHuggingElementsViewController.mm */; };
 		4F082EAC2C1B59C1002263ED /* CalendarViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082EAB2C1B59C1002263ED /* CalendarViewController.mm */; };
+		4FA8EEE92C1C012A00B1358A /* TextViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEE82C1C012A00B1358A /* TextViewController.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,8 @@
 		4F082EA72C1B53C8002263ED /* ContentHuggingElementsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ContentHuggingElementsViewController.mm; sourceTree = "<group>"; };
 		4F082EAA2C1B59C1002263ED /* CalendarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		4F082EAB2C1B59C1002263ED /* CalendarViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CalendarViewController.mm; sourceTree = "<group>"; };
+		4FA8EEE72C1C012A00B1358A /* TextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
+		4FA8EEE82C1C012A00B1358A /* TextViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TextViewController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +117,7 @@
 				4F082E962C1A617C002263ED /* SystemBackground */,
 				4F082EA52C1B53BE002263ED /* ContentHuggingElements */,
 				4F082EA92C1B59AD002263ED /* Calendar */,
+				4FA8EEE62C1C010F00B1358A /* TextView */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -184,6 +188,15 @@
 				4F082EAB2C1B59C1002263ED /* CalendarViewController.mm */,
 			);
 			path = Calendar;
+			sourceTree = "<group>";
+		};
+		4FA8EEE62C1C010F00B1358A /* TextView */ = {
+			isa = PBXGroup;
+			children = (
+				4FA8EEE72C1C012A00B1358A /* TextViewController.h */,
+				4FA8EEE82C1C012A00B1358A /* TextViewController.mm */,
+			);
+			path = TextView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,6 +277,7 @@
 				4F082EAC2C1B59C1002263ED /* CalendarViewController.mm in Sources */,
 				4F082E9F2C1B4831002263ED /* CustomDocument.mm in Sources */,
 				4F082E622C188E34002263ED /* MainCollectionViewController.mm in Sources */,
+				4FA8EEE92C1C012A00B1358A /* TextViewController.mm in Sources */,
 				4F082E7B2C18FD18002263ED /* CustomDocumentViewController.mm in Sources */,
 				4F082E6C2C189EF0002263ED /* ListEnvironmentCollectionViewController.mm in Sources */,
 				4F082E5A2C188D6D002263ED /* main.m in Sources */,

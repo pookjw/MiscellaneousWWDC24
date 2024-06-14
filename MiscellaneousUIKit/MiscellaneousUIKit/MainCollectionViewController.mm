@@ -12,6 +12,7 @@
 #import "SystemBackgroundViewController.h"
 #import "ContentHuggingElementsViewController.h"
 #import "CalendarViewController.h"
+#import "TextViewController.h"
 #import <objc/message.h>
 
 __attribute__((objc_direct_members))
@@ -99,7 +100,8 @@ __attribute__((objc_direct_members))
         CustomDocumentViewController.class,
         SystemBackgroundViewController.class,
         ContentHuggingElementsViewController.class,
-        CalendarViewController.class
+        CalendarViewController.class,
+        TextViewController.class
     ];
 }
 
