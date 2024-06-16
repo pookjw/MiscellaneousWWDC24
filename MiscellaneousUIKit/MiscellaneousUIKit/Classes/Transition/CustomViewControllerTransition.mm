@@ -86,7 +86,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
             [toView.bottomAnchor constraintEqualToAnchor:containerView.bottomAnchor]
         ]];
         
-//        portalView.alpha = 0.;
+        portalView.alpha = 0.;
         portalView.transform = CGAffineTransformMakeScale(finalFrame.size.width / sourceRect.size.width, finalFrame.size.height / sourceRect.size.height);
         portalView.frame = containerView.bounds;
         
