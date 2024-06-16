@@ -13,6 +13,7 @@
 #import "ContentHuggingElementsViewController.h"
 #import "CalendarViewController.h"
 #import "TextViewController.h"
+#import "FromTransitionViewController.h"
 #import <objc/message.h>
 
 __attribute__((objc_direct_members))
@@ -101,7 +102,8 @@ __attribute__((objc_direct_members))
         SystemBackgroundViewController.class,
         ContentHuggingElementsViewController.class,
         CalendarViewController.class,
-        TextViewController.class
+        TextViewController.class,
+        FromTransitionViewController.class
     ];
 }
 

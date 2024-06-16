@@ -18,6 +18,7 @@
 @property (retain, readonly, nonatomic) UIBarButtonItem *applyTextHighlightStyleBarButtomItem;
 @property (retain, readonly, nonatomic) UIBarButtonItem *applyTextHighlightColorSchemeBarButtomItem;
 @property (retain, readonly, nonatomic) UIBarButtonItem *addAdaptiveImageGlyphBarButtonItem;
+@property (retain, readonly, nonatomic) UIBarButtonItem *addLocalizedNumberFormatBarButtonItem;
 @end
 
 @implementation TextViewController
@@ -28,6 +29,7 @@
 @synthesize applyTextHighlightStyleBarButtomItem = _applyTextHighlightStyleBarButtomItem;
 @synthesize applyTextHighlightColorSchemeBarButtomItem = _applyTextHighlightColorSchemeBarButtomItem;
 @synthesize addAdaptiveImageGlyphBarButtonItem = _addAdaptiveImageGlyphBarButtonItem;
+@synthesize addLocalizedNumberFormatBarButtonItem = _addLocalizedNumberFormatBarButtonItem;
 
 - (void)dealloc {
     [_pasteControl release];
@@ -37,6 +39,7 @@
     [_applyTextHighlightStyleBarButtomItem release];
     [_applyTextHighlightColorSchemeBarButtomItem release];
     [_addAdaptiveImageGlyphBarButtonItem release];
+    [_addLocalizedNumberFormatBarButtonItem release];
     [super dealloc];
 }
 
@@ -44,6 +47,8 @@
     UITextView *textView = [UITextView new];
     textView.allowsEditingTextAttributes = YES;
     textView.supportsAdaptiveImageGlyph = YES;
+    
+    // TODO: Writing Tools with iPad
 //    textView.writingToolsBehavior = UIWritingToolsBehaviorComplete;
 //    textView.writingToolsAllowedInputOptions = UIWritingToolsAllowedInputOptionsTable;
     self.view = textView;
@@ -61,7 +66,8 @@
         self.updateTextHighlightAttributesBarButtomItem,
         self.applyTextHighlightStyleBarButtomItem,
         self.applyTextHighlightColorSchemeBarButtomItem,
-        self.addAdaptiveImageGlyphBarButtonItem
+        self.addAdaptiveImageGlyphBarButtonItem,
+        self.addLocalizedNumberFormatBarButtonItem
     ];
 }
 
@@ -139,6 +145,15 @@
     return [addAdaptiveImageGlyphBarButtonItem autorelease];
 }
 
+- (UIBarButtonItem *)addLocalizedNumberFormatBarButtonItem {
+    if (auto addLocalizedNumberFormatBarButtonItem = _addLocalizedNumberFormatBarButtonItem) return addLocalizedNumberFormatBarButtonItem;
+    
+    UIBarButtonItem *addLocalizedNumberFormatBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"5" style:UIBarButtonItemStylePlain target:self action:@selector(addLocalizedNumberFormatBarButtonItemDidTrigger:)];
+    
+    _addLocalizedNumberFormatBarButtonItem = [addLocalizedNumberFormatBarButtonItem retain];
+    return [addLocalizedNumberFormatBarButtonItem autorelease];
+}
+
 - (void)textFormattingBarButtonItemDidTrigger:(UIBarButtonItem *)sender {
     /* UITextFormattingViewControllerConfiguration */
 //    id configuration = [objc_lookUpClass("UITextFormattingViewControllerConfiguration") new];
@@ -202,7 +217,7 @@
      
      -[__NSAdaptiveImageGlyphStorage initWithImageContent:]에서 nil 나옴
      */
-    NSData *imageContent = [[NSData alloc] initWithContentsOfURL:[NSBundle.mainBundle URLForResource:@"robot" withExtension:@"heic"]];
+    NSData *imageContent = [[NSData alloc] initWithContentsOfURL:[NSBundle.mainBundle URLForResource:@"image" withExtension:@"heic"]];
     NSAdaptiveImageGlyph *adaptiveImageGlyph = [[NSAdaptiveImageGlyph alloc] initWithImageContent:imageContent];
     [imageContent release];
     assert(adaptiveImageGlyph != nil);
@@ -212,6 +227,18 @@
     [attributedText appendAttributedString:adaptiveImageGlyphAttributedString];
     
     [adaptiveImageGlyph release];
+    
+    self.textView.attributedText = attributedText;
+    [attributedText release];
+}
+
+- (void)addLocalizedNumberFormatBarButtonItemDidTrigger:(UIBarButtonItem *)sender {
+    NSMutableAttributedString *attributedText = [self.textView.attributedText mutableCopy];
+    
+    [attributedText addAttributes:@{
+        NSLocalizedNumberFormatAttributeName: [NSLocalizedNumberFormatRule automatic]
+    } 
+                            range:NSMakeRange(0, attributedText.length)];
     
     self.textView.attributedText = attributedText;
     [attributedText release];

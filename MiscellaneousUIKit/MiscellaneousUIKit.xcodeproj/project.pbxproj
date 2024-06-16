@@ -24,7 +24,11 @@
 		4F082EA82C1B53C8002263ED /* ContentHuggingElementsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082EA72C1B53C8002263ED /* ContentHuggingElementsViewController.mm */; };
 		4F082EAC2C1B59C1002263ED /* CalendarViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082EAB2C1B59C1002263ED /* CalendarViewController.mm */; };
 		4FA8EEE92C1C012A00B1358A /* TextViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEE82C1C012A00B1358A /* TextViewController.mm */; };
-		4FA8EEEB2C1C174F00B1358A /* robot.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4FA8EEEA2C1C174F00B1358A /* robot.heic */; };
+		4FA8EEED2C1CD3B000B1358A /* image.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4FA8EEEC2C1CD3B000B1358A /* image.heic */; };
+		4FA8EEF12C1CDBCA00B1358A /* FromTransitionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEF02C1CDBCA00B1358A /* FromTransitionViewController.mm */; };
+		4FA8EEF42C1CDBD700B1358A /* ToTransitionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEF32C1CDBD700B1358A /* ToTransitionViewController.mm */; };
+		4FA8EEF72C1CE0E200B1358A /* CustomViewControllerTransition.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEF62C1CE0E200B1358A /* CustomViewControllerTransition.mm */; };
+		4FA8EEFA2C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEF92C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,7 +64,15 @@
 		4F082EAB2C1B59C1002263ED /* CalendarViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CalendarViewController.mm; sourceTree = "<group>"; };
 		4FA8EEE72C1C012A00B1358A /* TextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
 		4FA8EEE82C1C012A00B1358A /* TextViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TextViewController.mm; sourceTree = "<group>"; };
-		4FA8EEEA2C1C174F00B1358A /* robot.heic */ = {isa = PBXFileReference; lastKnownFileType = file; path = robot.heic; sourceTree = "<group>"; };
+		4FA8EEEC2C1CD3B000B1358A /* image.heic */ = {isa = PBXFileReference; lastKnownFileType = file; path = image.heic; sourceTree = "<group>"; };
+		4FA8EEEF2C1CDBCA00B1358A /* FromTransitionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FromTransitionViewController.h; sourceTree = "<group>"; };
+		4FA8EEF02C1CDBCA00B1358A /* FromTransitionViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FromTransitionViewController.mm; sourceTree = "<group>"; };
+		4FA8EEF22C1CDBD700B1358A /* ToTransitionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToTransitionViewController.h; sourceTree = "<group>"; };
+		4FA8EEF32C1CDBD700B1358A /* ToTransitionViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ToTransitionViewController.mm; sourceTree = "<group>"; };
+		4FA8EEF52C1CE0E200B1358A /* CustomViewControllerTransition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomViewControllerTransition.h; sourceTree = "<group>"; };
+		4FA8EEF62C1CE0E200B1358A /* CustomViewControllerTransition.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomViewControllerTransition.mm; sourceTree = "<group>"; };
+		4FA8EEF82C1CE98100B1358A /* NSObject+Foundation_IvarDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Foundation_IvarDescription.h"; sourceTree = "<group>"; };
+		4FA8EEF92C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+Foundation_IvarDescription.mm"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +107,9 @@
 		4F082E462C188D6C002263ED /* MiscellaneousUIKit */ = {
 			isa = PBXGroup;
 			children = (
-				4FA8EEEA2C1C174F00B1358A /* robot.heic */,
+				4FA8EEEC2C1CD3B000B1358A /* image.heic */,
+				4FA8EEF82C1CE98100B1358A /* NSObject+Foundation_IvarDescription.h */,
+				4FA8EEF92C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm */,
 				4F082E472C188D6C002263ED /* AppDelegate.h */,
 				4F082E482C188D6C002263ED /* AppDelegate.m */,
 				4F082E4A2C188D6C002263ED /* SceneDelegate.h */,
@@ -121,6 +135,7 @@
 				4F082EA52C1B53BE002263ED /* ContentHuggingElements */,
 				4F082EA92C1B59AD002263ED /* Calendar */,
 				4FA8EEE62C1C010F00B1358A /* TextView */,
+				4FA8EEEE2C1CDBAD00B1358A /* Transition */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -202,6 +217,19 @@
 			path = TextView;
 			sourceTree = "<group>";
 		};
+		4FA8EEEE2C1CDBAD00B1358A /* Transition */ = {
+			isa = PBXGroup;
+			children = (
+				4FA8EEEF2C1CDBCA00B1358A /* FromTransitionViewController.h */,
+				4FA8EEF02C1CDBCA00B1358A /* FromTransitionViewController.mm */,
+				4FA8EEF22C1CDBD700B1358A /* ToTransitionViewController.h */,
+				4FA8EEF32C1CDBD700B1358A /* ToTransitionViewController.mm */,
+				4FA8EEF52C1CE0E200B1358A /* CustomViewControllerTransition.h */,
+				4FA8EEF62C1CE0E200B1358A /* CustomViewControllerTransition.mm */,
+			);
+			path = Transition;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -259,9 +287,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4FA8EEEB2C1C174F00B1358A /* robot.heic in Resources */,
 				4F082E542C188D6D002263ED /* Assets.xcassets in Resources */,
 				4F082E572C188D6D002263ED /* Base in Resources */,
+				4FA8EEED2C1CD3B000B1358A /* image.heic in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,9 +301,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F082E992C1A6194002263ED /* SystemBackgroundViewController.m in Sources */,
+				4FA8EEFA2C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm in Sources */,
+				4FA8EEF72C1CE0E200B1358A /* CustomViewControllerTransition.mm in Sources */,
 				4F082EA82C1B53C8002263ED /* ContentHuggingElementsViewController.mm in Sources */,
 				4F082E702C18A045002263ED /* ListEnvironmentContentConfiguration.mm in Sources */,
 				4F082E772C18E349002263ED /* OrangeSceneDelegate.m in Sources */,
+				4FA8EEF42C1CDBD700B1358A /* ToTransitionViewController.mm in Sources */,
+				4FA8EEF12C1CDBCA00B1358A /* FromTransitionViewController.mm in Sources */,
 				4F082E492C188D6C002263ED /* AppDelegate.m in Sources */,
 				4F082E742C18E269002263ED /* SceneActivationViewController.mm in Sources */,
 				4F082EAC2C1B59C1002263ED /* CalendarViewController.mm in Sources */,
