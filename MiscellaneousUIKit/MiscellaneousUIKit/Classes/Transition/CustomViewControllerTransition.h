@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CustomViewControllerTransition : UIViewControllerTransition
 @property (copy, readonly, nonatomic) __kindof UIView * (^sourceViewProvider)(void);
+@property (readonly, nonatomic) BOOL isInteracting;
 - (instancetype)initWithSourceViewProvider:(__kindof UIView * (^)())sourceViewProvider;
 @end
 

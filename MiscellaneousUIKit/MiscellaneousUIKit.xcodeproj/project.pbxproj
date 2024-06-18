@@ -30,6 +30,7 @@
 		4FA8EEF42C1CDBD700B1358A /* ToTransitionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEF32C1CDBD700B1358A /* ToTransitionViewController.mm */; };
 		4FA8EEF72C1CE0E200B1358A /* CustomViewControllerTransition.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEF62C1CE0E200B1358A /* CustomViewControllerTransition.mm */; };
 		4FA8EEFA2C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEF92C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm */; };
+		4FAD987B2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAD987A2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +77,8 @@
 		4FA8EEF62C1CE0E200B1358A /* CustomViewControllerTransition.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomViewControllerTransition.mm; sourceTree = "<group>"; };
 		4FA8EEF82C1CE98100B1358A /* NSObject+Foundation_IvarDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Foundation_IvarDescription.h"; sourceTree = "<group>"; };
 		4FA8EEF92C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+Foundation_IvarDescription.mm"; sourceTree = "<group>"; };
+		4FAD98792C217CF400A5C513 /* CustomDismissPercentageInteraction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDismissPercentageInteraction.h; sourceTree = "<group>"; };
+		4FAD987A2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomDismissPercentageInteraction.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -231,6 +234,8 @@
 				4FA8EEF62C1CE0E200B1358A /* CustomViewControllerTransition.mm */,
 				4F455F012C2038D200CDE688 /* CustomTransitionController.h */,
 				4F455F022C2038D200CDE688 /* CustomTransitionController.mm */,
+				4FAD98792C217CF400A5C513 /* CustomDismissPercentageInteraction.h */,
+				4FAD987A2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm */,
 			);
 			path = Transition;
 			sourceTree = "<group>";
@@ -309,6 +314,7 @@
 				4FA8EEFA2C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4FA8EEF72C1CE0E200B1358A /* CustomViewControllerTransition.mm in Sources */,
 				4F082EA82C1B53C8002263ED /* ContentHuggingElementsViewController.mm in Sources */,
+				4FAD987B2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm in Sources */,
 				4F082E702C18A045002263ED /* ListEnvironmentContentConfiguration.mm in Sources */,
 				4F082E772C18E349002263ED /* OrangeSceneDelegate.m in Sources */,
 				4FA8EEF42C1CDBD700B1358A /* ToTransitionViewController.mm in Sources */,

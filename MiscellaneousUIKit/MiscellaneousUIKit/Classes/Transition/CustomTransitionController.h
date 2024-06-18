@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (retain, nonatomic, readonly) CustomViewControllerTransition *clientTransition;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithClientTransition:(CustomViewControllerTransition *)clientTransition isAppearing:(BOOL)isAppearing;
+- (instancetype)initWithClientTransition:(CustomViewControllerTransition *)clientTransition isAppearing:(BOOL)isAppearing interactiveTransitioning:(id<UIViewControllerInteractiveTransitioning>)interactiveTransitioning;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -36,6 +36,7 @@
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"robot"]];
     imageView.contentMode = UIViewContentModeScaleAspectFit;
+    imageView.userInteractionEnabled = YES;
     
     _imageView = [imageView retain];
     return [imageView autorelease];

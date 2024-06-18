@@ -66,40 +66,38 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 - (void)tapGestureRecognizerDidTrigger:(UITapGestureRecognizer *)sender {
     ToTransitionViewController *viewController = [ToTransitionViewController new];
 //    
-    UIZoomTransitionOptions *options = [UIZoomTransitionOptions new];
-    options.interactiveDismissShouldBegin = ^BOOL(UIZoomTransitionInteractionContext * _Nonnull context) {
-        return YES;
-    };
-    
-    options.alignmentRectProvider = ^CGRect(UIZoomTransitionAlignmentRectContext * _Nonnull context) {
-        return CGRectNull;
-    };
-    
-    options.dimmingColor = UIColor.systemPinkColor;
-    options.dimmingVisualEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
-    
-    __weak auto weakSelf = self;
-    UIViewControllerTransition *transition = [UIViewControllerTransition zoomWithOptions:options sourceViewProvider:^UIView * _Nullable(UIZoomTransitionSourceViewProviderContext * _Nonnull context) {
-        return weakSelf.imageView;
-    }];
-    
-    [options release];
+//    UIZoomTransitionOptions *options = [UIZoomTransitionOptions new];
+//    options.interactiveDismissShouldBegin = ^BOOL(UIZoomTransitionInteractionContext * _Nonnull context) {
+//        return YES;
+//    };
+//    
+//    options.alignmentRectProvider = ^CGRect(UIZoomTransitionAlignmentRectContext * _Nonnull context) {
+//        return CGRectNull;
+//    };
+//    
+//    options.dimmingColor = UIColor.systemPinkColor;
+//    options.dimmingVisualEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
+//    
+//    __weak auto weakSelf = self;
+//    UIViewControllerTransition *transition = [UIViewControllerTransition zoomWithOptions:options sourceViewProvider:^UIView * _Nullable(UIZoomTransitionSourceViewProviderContext * _Nonnull context) {
+//        return weakSelf.imageView;
+//    }];
+//    
+//    [options release];
     
 //    UIViewControllerTransition *transition = [UIViewControllerTransition coverVerticalTransition];
     
-//    __weak auto weakSelf = self;
-//    CustomViewControllerTransition *transition = [[[CustomViewControllerTransition alloc] initWithSourceViewProvider:^__kindof UIView * _Nonnull{
-//        return weakSelf.imageView;
-//    }] autorelease];
+    __weak auto weakSelf = self;
+    CustomViewControllerTransition *transition = [[[CustomViewControllerTransition alloc] initWithSourceViewProvider:^__kindof UIView * _Nonnull{
+        return weakSelf.imageView;
+    }] autorelease];
     
     viewController.preferredTransition = transition;
 
     NSLog(@"%@", viewController.presentationController);
     
     [self presentViewController:viewController animated:YES completion:^{
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            pause();
-        });
+        
     }];
     [viewController release];
 }
