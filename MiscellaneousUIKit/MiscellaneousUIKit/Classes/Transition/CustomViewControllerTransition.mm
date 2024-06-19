@@ -60,8 +60,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 - (void)_wasAssignedToViewController:(__kindof UIViewController *)viewController {
     viewController.modalPresentationStyle = UIModalPresentationFullScreen;
     
-//    CustomDismissPercentageInteraction *interaction = [CustomDismissPercentageInteraction new];
-    CustomDismissCustomInteraction *interaction = [CustomDismissCustomInteraction new];
+    CustomDismissPercentageInteraction *interaction = [CustomDismissPercentageInteraction new];
+//    CustomDismissCustomInteraction *interaction = [CustomDismissCustomInteraction new];
     [viewController.view addInteraction:interaction];
     self.dismissInteraction = interaction;
     [interaction release];
