@@ -179,7 +179,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     
     [containerView layoutIfNeeded];
     
-    [UIView animateWithDuration:1.0 animations:^{
+    UIViewPropertyAnimator *animator = [[UIViewPropertyAnimator alloc] initWithDuration:3.0 curve:UIViewAnimationCurveEaseInOut animations:^{
         fromView.alpha = 0.;
         fromView.layer.cornerRadius = 0.;
         fromView.transform = CGAffineTransformMakeScale(sourceRect.size.width / fromView.frame.size.width, sourceRect.size.height / fromView.frame.size.height);
@@ -189,13 +189,38 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         portalView.frame = sourceRect;
         
         [containerView layoutIfNeeded];
-    }
-                     completion:^(BOOL finished) {
+    }];
+    
+    [animator addCompletion:^(UIViewAnimatingPosition finalPosition) {
         sourceView.alpha = 1.;
         [portalView removeFromSuperview];
         [fromView removeFromSuperview];
-        [transitionContext completeTransition:finished];
+        [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
     }];
+    
+//    [animator startAnimation];
+    NSUUID *_currentTrackedAnimationsUUID = ((id (*)(Class, SEL))objc_msgSend)(UIViewPropertyAnimator.class, sel_registerName("_currentTrackedAnimationsUUID"));
+    ((void (*)(Class, SEL, id, id, id))objc_msgSend)(UIViewPropertyAnimator.class, sel_registerName("_saveTrackingAnimator:forUUID:andDescription:"), animator, _currentTrackedAnimationsUUID, nil);
+    
+    [animator release];
+    
+//    [UIView animateWithDuration:1.0 animations:^{
+//        fromView.alpha = 0.;
+//        fromView.layer.cornerRadius = 0.;
+//        fromView.transform = CGAffineTransformMakeScale(sourceRect.size.width / fromView.frame.size.width, sourceRect.size.height / fromView.frame.size.height);
+//        
+//        portalView.alpha = 1.;
+//        portalView.transform = CGAffineTransformIdentity;
+//        portalView.frame = sourceRect;
+//        
+//        [containerView layoutIfNeeded];
+//    }
+//                     completion:^(BOOL finished) {
+//        sourceView.alpha = 1.;
+//        [portalView removeFromSuperview];
+//        [fromView removeFromSuperview];
+//        [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+//    }];
     
     [portalView release];
 }

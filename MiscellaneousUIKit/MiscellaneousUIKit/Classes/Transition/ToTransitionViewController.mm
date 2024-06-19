@@ -38,8 +38,16 @@
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     imageView.userInteractionEnabled = YES;
     
+//    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureRecognizerDidTrigger:)];
+//    [imageView addGestureRecognizer:tapGestureRecognizer];
+//    [tapGestureRecognizer release];
+    
     _imageView = [imageView retain];
     return [imageView autorelease];
 }
+
+//- (void)tapGestureRecognizerDidTrigger:(UITapGestureRecognizer *)sender {
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
 
 @end
