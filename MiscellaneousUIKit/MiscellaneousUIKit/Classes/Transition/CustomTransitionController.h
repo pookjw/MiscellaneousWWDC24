@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CustomTransitionController : NSObject <UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning>
+@interface CustomTransitionController : NSObject <UIViewControllerAnimatedTransitioning>
 @property (retain, nonatomic, readonly) CustomViewControllerTransition *clientTransition;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;

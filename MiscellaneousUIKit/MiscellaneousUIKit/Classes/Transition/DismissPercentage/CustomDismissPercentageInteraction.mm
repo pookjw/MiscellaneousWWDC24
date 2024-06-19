@@ -15,23 +15,15 @@
 @end
 
 @implementation CustomDismissPercentageInteraction
-@synthesize percentDrivenInteractiveTransition = _percentDrivenInteractiveTransition;
+@synthesize interactiveTransitioning = _interactiveTransitioning;
 
 + (void *)panGestureContextKey {
     static void *panGestureContextKey = &panGestureContextKey;
     return panGestureContextKey;
 }
 
-- (instancetype)init {
-    if (self = [super init]) {
-        
-    }
-    
-    return self;
-}
-
 - (void)dealloc {
-    [_percentDrivenInteractiveTransition release];
+    [_interactiveTransitioning release];
     [super dealloc];
 }
 
@@ -49,13 +41,13 @@
     [view addGestureRecognizer:[self makePanGestureRecognizer]];
 }
 
-- (UIPercentDrivenInteractiveTransition *)percentDrivenInteractiveTransition {
-    if (auto percentDrivenInteractiveTransition = _percentDrivenInteractiveTransition) return percentDrivenInteractiveTransition;
+- (UIPercentDrivenInteractiveTransition *)interactiveTransitioning {
+    if (auto interactiveTransitioning = _interactiveTransitioning) return interactiveTransitioning;
     
-    UIPercentDrivenInteractiveTransition *percentDrivenInteractiveTransition = [UIPercentDrivenInteractiveTransition new];
+    UIPercentDrivenInteractiveTransition *interactiveTransitioning = [UIPercentDrivenInteractiveTransition new];
     
-    _percentDrivenInteractiveTransition = [percentDrivenInteractiveTransition retain];
-    return [percentDrivenInteractiveTransition autorelease];
+    _interactiveTransitioning = [interactiveTransitioning retain];
+    return [interactiveTransitioning autorelease];
 }
 
 - (UIPanGestureRecognizer *)makePanGestureRecognizer {
@@ -90,12 +82,12 @@
             CGPoint translation = [sender translationInView:sender.view];
             
             NSLog(@"%lf", translation.y / 500.0);
-            [self.percentDrivenInteractiveTransition updateInteractiveTransition:MIN(1.0, translation.y / 500.0)];
+            [self.interactiveTransitioning updateInteractiveTransition:MIN(1.0, translation.y / 500.0)];
             break;
         }
         case UIGestureRecognizerStateEnded:
 //            self.percentDrivenInteractiveTransition.completionSpeed = 0.999;
-            [self.percentDrivenInteractiveTransition finishInteractiveTransition];
+            [self.interactiveTransitioning finishInteractiveTransition];
             break;
         default:
             break;

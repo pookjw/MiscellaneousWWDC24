@@ -24,6 +24,8 @@
 		4F082EA82C1B53C8002263ED /* ContentHuggingElementsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082EA72C1B53C8002263ED /* ContentHuggingElementsViewController.mm */; };
 		4F082EAC2C1B59C1002263ED /* CalendarViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082EAB2C1B59C1002263ED /* CalendarViewController.mm */; };
 		4F455F032C2038D200CDE688 /* CustomTransitionController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F022C2038D200CDE688 /* CustomTransitionController.mm */; };
+		4F8BD38D2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38C2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm */; };
+		4F8BD3902C22E1520031535F /* CustomDismissCustomInteraction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38F2C22E1520031535F /* CustomDismissCustomInteraction.mm */; };
 		4FA8EEE92C1C012A00B1358A /* TextViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEE82C1C012A00B1358A /* TextViewController.mm */; };
 		4FA8EEED2C1CD3B000B1358A /* image.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4FA8EEEC2C1CD3B000B1358A /* image.heic */; };
 		4FA8EEF12C1CDBCA00B1358A /* FromTransitionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEF02C1CDBCA00B1358A /* FromTransitionViewController.mm */; };
@@ -66,6 +68,11 @@
 		4F082EAB2C1B59C1002263ED /* CalendarViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CalendarViewController.mm; sourceTree = "<group>"; };
 		4F455F012C2038D200CDE688 /* CustomTransitionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTransitionController.h; sourceTree = "<group>"; };
 		4F455F022C2038D200CDE688 /* CustomTransitionController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomTransitionController.mm; sourceTree = "<group>"; };
+		4F8BD38B2C22E11F0031535F /* CustomDismissInteractiveTransitioning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDismissInteractiveTransitioning.h; sourceTree = "<group>"; };
+		4F8BD38C2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomDismissInteractiveTransitioning.mm; sourceTree = "<group>"; };
+		4F8BD38E2C22E1520031535F /* CustomDismissCustomInteraction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDismissCustomInteraction.h; sourceTree = "<group>"; };
+		4F8BD38F2C22E1520031535F /* CustomDismissCustomInteraction.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomDismissCustomInteraction.mm; sourceTree = "<group>"; };
+		4F8BD3932C22E2B70031535F /* CustomDimissInteractable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDimissInteractable.h; sourceTree = "<group>"; };
 		4FA8EEE72C1C012A00B1358A /* TextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
 		4FA8EEE82C1C012A00B1358A /* TextViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TextViewController.mm; sourceTree = "<group>"; };
 		4FA8EEEC2C1CD3B000B1358A /* image.heic */ = {isa = PBXFileReference; lastKnownFileType = file; path = image.heic; sourceTree = "<group>"; };
@@ -214,6 +221,26 @@
 			path = Calendar;
 			sourceTree = "<group>";
 		};
+		4F8BD3912C22E1580031535F /* DismissPercentage */ = {
+			isa = PBXGroup;
+			children = (
+				4FAD98792C217CF400A5C513 /* CustomDismissPercentageInteraction.h */,
+				4FAD987A2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm */,
+			);
+			path = DismissPercentage;
+			sourceTree = "<group>";
+		};
+		4F8BD3922C22E1760031535F /* DismissCustom */ = {
+			isa = PBXGroup;
+			children = (
+				4F8BD38B2C22E11F0031535F /* CustomDismissInteractiveTransitioning.h */,
+				4F8BD38C2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm */,
+				4F8BD38E2C22E1520031535F /* CustomDismissCustomInteraction.h */,
+				4F8BD38F2C22E1520031535F /* CustomDismissCustomInteraction.mm */,
+			);
+			path = DismissCustom;
+			sourceTree = "<group>";
+		};
 		4FA8EEE62C1C010F00B1358A /* TextView */ = {
 			isa = PBXGroup;
 			children = (
@@ -234,8 +261,9 @@
 				4FA8EEF62C1CE0E200B1358A /* CustomViewControllerTransition.mm */,
 				4F455F012C2038D200CDE688 /* CustomTransitionController.h */,
 				4F455F022C2038D200CDE688 /* CustomTransitionController.mm */,
-				4FAD98792C217CF400A5C513 /* CustomDismissPercentageInteraction.h */,
-				4FAD987A2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm */,
+				4F8BD3932C22E2B70031535F /* CustomDimissInteractable.h */,
+				4F8BD3922C22E1760031535F /* DismissCustom */,
+				4F8BD3912C22E1580031535F /* DismissPercentage */,
 			);
 			path = Transition;
 			sourceTree = "<group>";
@@ -316,7 +344,9 @@
 				4F082EA82C1B53C8002263ED /* ContentHuggingElementsViewController.mm in Sources */,
 				4FAD987B2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm in Sources */,
 				4F082E702C18A045002263ED /* ListEnvironmentContentConfiguration.mm in Sources */,
+				4F8BD3902C22E1520031535F /* CustomDismissCustomInteraction.mm in Sources */,
 				4F082E772C18E349002263ED /* OrangeSceneDelegate.m in Sources */,
+				4F8BD38D2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm in Sources */,
 				4FA8EEF42C1CDBD700B1358A /* ToTransitionViewController.mm in Sources */,
 				4FA8EEF12C1CDBCA00B1358A /* FromTransitionViewController.mm in Sources */,
 				4F082E492C188D6C002263ED /* AppDelegate.m in Sources */,
