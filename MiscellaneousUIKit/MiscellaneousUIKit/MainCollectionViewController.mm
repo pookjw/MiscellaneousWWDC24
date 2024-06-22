@@ -14,6 +14,7 @@
 #import "CalendarViewController.h"
 #import "TextViewController.h"
 #import "FromTransitionViewController.h"
+#import "TabBarController.h"
 #import <objc/message.h>
 
 __attribute__((objc_direct_members))
@@ -103,7 +104,8 @@ __attribute__((objc_direct_members))
         ContentHuggingElementsViewController.class,
         CalendarViewController.class,
         TextViewController.class,
-        FromTransitionViewController.class
+        FromTransitionViewController.class,
+        TabBarController.class
     ];
 }
 
@@ -126,6 +128,10 @@ __attribute__((objc_direct_members))
     
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
     [rootViewController release];
+    
+    if ([_class isEqual:TabBarController.class]) {
+        navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
+    }
     
     [self presentViewController:navigationController animated:YES completion:nil];
     [navigationController release];

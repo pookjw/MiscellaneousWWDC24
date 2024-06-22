@@ -23,6 +23,10 @@
 		4F082E9F2C1B4831002263ED /* CustomDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E9E2C1B4831002263ED /* CustomDocument.mm */; };
 		4F082EA82C1B53C8002263ED /* ContentHuggingElementsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082EA72C1B53C8002263ED /* ContentHuggingElementsViewController.mm */; };
 		4F082EAC2C1B59C1002263ED /* CalendarViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082EAB2C1B59C1002263ED /* CalendarViewController.mm */; };
+		4F1F02282C23CD6C004F7EFF /* TabBarController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F02272C23CD6C004F7EFF /* TabBarController.mm */; };
+		4F1F022B2C23CE25004F7EFF /* PinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F022A2C23CE25004F7EFF /* PinkViewController.m */; };
+		4F1F022E2C23CE3A004F7EFF /* CyanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F022D2C23CE3A004F7EFF /* CyanViewController.m */; };
+		4F1F02312C23CE4F004F7EFF /* OrangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F02302C23CE4F004F7EFF /* OrangeViewController.m */; };
 		4F455F032C2038D200CDE688 /* CustomTransitionController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F022C2038D200CDE688 /* CustomTransitionController.mm */; };
 		4F8BD38D2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38C2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm */; };
 		4F8BD3902C22E1520031535F /* CustomDismissCustomInteraction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38F2C22E1520031535F /* CustomDismissCustomInteraction.mm */; };
@@ -66,6 +70,14 @@
 		4F082EA72C1B53C8002263ED /* ContentHuggingElementsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ContentHuggingElementsViewController.mm; sourceTree = "<group>"; };
 		4F082EAA2C1B59C1002263ED /* CalendarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		4F082EAB2C1B59C1002263ED /* CalendarViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CalendarViewController.mm; sourceTree = "<group>"; };
+		4F1F02262C23CD6C004F7EFF /* TabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
+		4F1F02272C23CD6C004F7EFF /* TabBarController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TabBarController.mm; sourceTree = "<group>"; };
+		4F1F02292C23CE25004F7EFF /* PinkViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PinkViewController.h; sourceTree = "<group>"; };
+		4F1F022A2C23CE25004F7EFF /* PinkViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PinkViewController.m; sourceTree = "<group>"; };
+		4F1F022C2C23CE3A004F7EFF /* CyanViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CyanViewController.h; sourceTree = "<group>"; };
+		4F1F022D2C23CE3A004F7EFF /* CyanViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CyanViewController.m; sourceTree = "<group>"; };
+		4F1F022F2C23CE4F004F7EFF /* OrangeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrangeViewController.h; sourceTree = "<group>"; };
+		4F1F02302C23CE4F004F7EFF /* OrangeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrangeViewController.m; sourceTree = "<group>"; };
 		4F455F012C2038D200CDE688 /* CustomTransitionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTransitionController.h; sourceTree = "<group>"; };
 		4F455F022C2038D200CDE688 /* CustomTransitionController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomTransitionController.mm; sourceTree = "<group>"; };
 		4F8BD38B2C22E11F0031535F /* CustomDismissInteractiveTransitioning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDismissInteractiveTransitioning.h; sourceTree = "<group>"; };
@@ -149,6 +161,7 @@
 				4F082EA92C1B59AD002263ED /* Calendar */,
 				4FA8EEE62C1C010F00B1358A /* TextView */,
 				4FA8EEEE2C1CDBAD00B1358A /* Transition */,
+				4F1F02252C23CD54004F7EFF /* TabBar */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -219,6 +232,21 @@
 				4F082EAB2C1B59C1002263ED /* CalendarViewController.mm */,
 			);
 			path = Calendar;
+			sourceTree = "<group>";
+		};
+		4F1F02252C23CD54004F7EFF /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				4F1F02262C23CD6C004F7EFF /* TabBarController.h */,
+				4F1F02272C23CD6C004F7EFF /* TabBarController.mm */,
+				4F1F02292C23CE25004F7EFF /* PinkViewController.h */,
+				4F1F022A2C23CE25004F7EFF /* PinkViewController.m */,
+				4F1F022C2C23CE3A004F7EFF /* CyanViewController.h */,
+				4F1F022D2C23CE3A004F7EFF /* CyanViewController.m */,
+				4F1F022F2C23CE4F004F7EFF /* OrangeViewController.h */,
+				4F1F02302C23CE4F004F7EFF /* OrangeViewController.m */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 		4F8BD3912C22E1580031535F /* DismissPercentage */ = {
@@ -344,17 +372,21 @@
 				4F082EA82C1B53C8002263ED /* ContentHuggingElementsViewController.mm in Sources */,
 				4FAD987B2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm in Sources */,
 				4F082E702C18A045002263ED /* ListEnvironmentContentConfiguration.mm in Sources */,
+				4F1F02312C23CE4F004F7EFF /* OrangeViewController.m in Sources */,
 				4F8BD3902C22E1520031535F /* CustomDismissCustomInteraction.mm in Sources */,
 				4F082E772C18E349002263ED /* OrangeSceneDelegate.m in Sources */,
 				4F8BD38D2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm in Sources */,
 				4FA8EEF42C1CDBD700B1358A /* ToTransitionViewController.mm in Sources */,
+				4F1F022E2C23CE3A004F7EFF /* CyanViewController.m in Sources */,
 				4FA8EEF12C1CDBCA00B1358A /* FromTransitionViewController.mm in Sources */,
 				4F082E492C188D6C002263ED /* AppDelegate.m in Sources */,
 				4F082E742C18E269002263ED /* SceneActivationViewController.mm in Sources */,
 				4F082EAC2C1B59C1002263ED /* CalendarViewController.mm in Sources */,
 				4F082E9F2C1B4831002263ED /* CustomDocument.mm in Sources */,
 				4F082E622C188E34002263ED /* MainCollectionViewController.mm in Sources */,
+				4F1F022B2C23CE25004F7EFF /* PinkViewController.m in Sources */,
 				4FA8EEE92C1C012A00B1358A /* TextViewController.mm in Sources */,
+				4F1F02282C23CD6C004F7EFF /* TabBarController.mm in Sources */,
 				4F082E7B2C18FD18002263ED /* CustomDocumentViewController.mm in Sources */,
 				4F082E6C2C189EF0002263ED /* ListEnvironmentCollectionViewController.mm in Sources */,
 				4F082E5A2C188D6D002263ED /* main.m in Sources */,
