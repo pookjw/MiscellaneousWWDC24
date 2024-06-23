@@ -9,7 +9,7 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 
-@interface TextViewController ()
+@interface TextViewController () <UITextViewDelegate>
 @property (readonly, nonatomic) UITextView *textView;
 @property (retain, readonly, nonatomic) UIPasteControl *pasteControl;
 @property (retain, readonly, nonatomic) UIBarButtonItem *pasteControlBarButtonItem;
@@ -49,8 +49,10 @@
     textView.supportsAdaptiveImageGlyph = YES;
     
     // TODO: Writing Tools with iPad
-//    textView.writingToolsBehavior = UIWritingToolsBehaviorComplete;
-//    textView.writingToolsAllowedInputOptions = UIWritingToolsAllowedInputOptionsTable;
+    textView.writingToolsBehavior = UIWritingToolsBehaviorComplete;
+    textView.writingToolsAllowedInputOptions = UIWritingToolsAllowedInputOptionsTable;
+    textView.delegate = self;
+    
     self.view = textView;
     [textView release];
 }
@@ -242,6 +244,10 @@
     
     self.textView.attributedText = attributedText;
     [attributedText release];
+}
+
+- (void)textViewWritingToolsWillBegin:(UITextView *)textView {
+    NSLog(@"%s", __func__);
 }
 
 @end
