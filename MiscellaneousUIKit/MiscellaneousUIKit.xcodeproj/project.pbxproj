@@ -28,6 +28,11 @@
 		4F1F022E2C23CE3A004F7EFF /* CyanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F022D2C23CE3A004F7EFF /* CyanViewController.m */; };
 		4F1F02312C23CE4F004F7EFF /* OrangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F02302C23CE4F004F7EFF /* OrangeViewController.m */; };
 		4F455F032C2038D200CDE688 /* CustomTransitionController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F022C2038D200CDE688 /* CustomTransitionController.mm */; };
+		4F455F1A2C27EBE400CDE688 /* JitterAnimationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F192C27EBE400CDE688 /* JitterAnimationViewController.mm */; };
+		4F455F1E2C280C4A00CDE688 /* TabBar2Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F1D2C280C4A00CDE688 /* TabBar2Controller.m */; };
+		4F455F222C281AAC00CDE688 /* UpdateLinkViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F212C281AAC00CDE688 /* UpdateLinkViewController.mm */; };
+		4F46CFCC2C282AF5005AC6AF /* ProminenceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46CFCB2C282AF5005AC6AF /* ProminenceViewController.mm */; };
+		4F46CFD02C282D9A005AC6AF /* FontPickerPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46CFCF2C282D9A005AC6AF /* FontPickerPresenterViewController.mm */; };
 		4F8BD38D2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38C2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm */; };
 		4F8BD3902C22E1520031535F /* CustomDismissCustomInteraction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38F2C22E1520031535F /* CustomDismissCustomInteraction.mm */; };
 		4FA8EEE92C1C012A00B1358A /* TextViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEE82C1C012A00B1358A /* TextViewController.mm */; };
@@ -80,6 +85,16 @@
 		4F1F02302C23CE4F004F7EFF /* OrangeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrangeViewController.m; sourceTree = "<group>"; };
 		4F455F012C2038D200CDE688 /* CustomTransitionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTransitionController.h; sourceTree = "<group>"; };
 		4F455F022C2038D200CDE688 /* CustomTransitionController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomTransitionController.mm; sourceTree = "<group>"; };
+		4F455F182C27EBE400CDE688 /* JitterAnimationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JitterAnimationViewController.h; sourceTree = "<group>"; };
+		4F455F192C27EBE400CDE688 /* JitterAnimationViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = JitterAnimationViewController.mm; sourceTree = "<group>"; };
+		4F455F1C2C280C4A00CDE688 /* TabBar2Controller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBar2Controller.h; sourceTree = "<group>"; };
+		4F455F1D2C280C4A00CDE688 /* TabBar2Controller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBar2Controller.m; sourceTree = "<group>"; };
+		4F455F202C281AAC00CDE688 /* UpdateLinkViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdateLinkViewController.h; sourceTree = "<group>"; };
+		4F455F212C281AAC00CDE688 /* UpdateLinkViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = UpdateLinkViewController.mm; sourceTree = "<group>"; };
+		4F46CFCA2C282AF5005AC6AF /* ProminenceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProminenceViewController.h; sourceTree = "<group>"; };
+		4F46CFCB2C282AF5005AC6AF /* ProminenceViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ProminenceViewController.mm; sourceTree = "<group>"; };
+		4F46CFCE2C282D9A005AC6AF /* FontPickerPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FontPickerPresenterViewController.h; sourceTree = "<group>"; };
+		4F46CFCF2C282D9A005AC6AF /* FontPickerPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FontPickerPresenterViewController.mm; sourceTree = "<group>"; };
 		4F8BD38B2C22E11F0031535F /* CustomDismissInteractiveTransitioning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDismissInteractiveTransitioning.h; sourceTree = "<group>"; };
 		4F8BD38C2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomDismissInteractiveTransitioning.mm; sourceTree = "<group>"; };
 		4F8BD38E2C22E1520031535F /* CustomDismissCustomInteraction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDismissCustomInteraction.h; sourceTree = "<group>"; };
@@ -162,6 +177,11 @@
 				4FA8EEE62C1C010F00B1358A /* TextView */,
 				4FA8EEEE2C1CDBAD00B1358A /* Transition */,
 				4F1F02252C23CD54004F7EFF /* TabBar */,
+				4F455F1B2C280C3900CDE688 /* TabBar2 */,
+				4F455F172C27EBCA00CDE688 /* JitterAnimation */,
+				4F455F1F2C281A8E00CDE688 /* UpdateLink */,
+				4F46CFC92C282AD6005AC6AF /* Prominence */,
+				4F46CFCD2C282D7C005AC6AF /* FontPickerPresenter */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -247,6 +267,51 @@
 				4F1F02302C23CE4F004F7EFF /* OrangeViewController.m */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		4F455F172C27EBCA00CDE688 /* JitterAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				4F455F182C27EBE400CDE688 /* JitterAnimationViewController.h */,
+				4F455F192C27EBE400CDE688 /* JitterAnimationViewController.mm */,
+			);
+			path = JitterAnimation;
+			sourceTree = "<group>";
+		};
+		4F455F1B2C280C3900CDE688 /* TabBar2 */ = {
+			isa = PBXGroup;
+			children = (
+				4F455F1C2C280C4A00CDE688 /* TabBar2Controller.h */,
+				4F455F1D2C280C4A00CDE688 /* TabBar2Controller.m */,
+			);
+			path = TabBar2;
+			sourceTree = "<group>";
+		};
+		4F455F1F2C281A8E00CDE688 /* UpdateLink */ = {
+			isa = PBXGroup;
+			children = (
+				4F455F202C281AAC00CDE688 /* UpdateLinkViewController.h */,
+				4F455F212C281AAC00CDE688 /* UpdateLinkViewController.mm */,
+			);
+			path = UpdateLink;
+			sourceTree = "<group>";
+		};
+		4F46CFC92C282AD6005AC6AF /* Prominence */ = {
+			isa = PBXGroup;
+			children = (
+				4F46CFCA2C282AF5005AC6AF /* ProminenceViewController.h */,
+				4F46CFCB2C282AF5005AC6AF /* ProminenceViewController.mm */,
+			);
+			path = Prominence;
+			sourceTree = "<group>";
+		};
+		4F46CFCD2C282D7C005AC6AF /* FontPickerPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				4F46CFCE2C282D9A005AC6AF /* FontPickerPresenterViewController.h */,
+				4F46CFCF2C282D9A005AC6AF /* FontPickerPresenterViewController.mm */,
+			);
+			path = FontPickerPresenter;
 			sourceTree = "<group>";
 		};
 		4F8BD3912C22E1580031535F /* DismissPercentage */ = {
@@ -368,6 +433,7 @@
 			files = (
 				4F082E992C1A6194002263ED /* SystemBackgroundViewController.m in Sources */,
 				4FA8EEFA2C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm in Sources */,
+				4F46CFCC2C282AF5005AC6AF /* ProminenceViewController.mm in Sources */,
 				4FA8EEF72C1CE0E200B1358A /* CustomViewControllerTransition.mm in Sources */,
 				4F082EA82C1B53C8002263ED /* ContentHuggingElementsViewController.mm in Sources */,
 				4FAD987B2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm in Sources */,
@@ -385,9 +451,13 @@
 				4F082E9F2C1B4831002263ED /* CustomDocument.mm in Sources */,
 				4F082E622C188E34002263ED /* MainCollectionViewController.mm in Sources */,
 				4F1F022B2C23CE25004F7EFF /* PinkViewController.m in Sources */,
+				4F46CFD02C282D9A005AC6AF /* FontPickerPresenterViewController.mm in Sources */,
 				4FA8EEE92C1C012A00B1358A /* TextViewController.mm in Sources */,
+				4F455F1E2C280C4A00CDE688 /* TabBar2Controller.m in Sources */,
 				4F1F02282C23CD6C004F7EFF /* TabBarController.mm in Sources */,
 				4F082E7B2C18FD18002263ED /* CustomDocumentViewController.mm in Sources */,
+				4F455F222C281AAC00CDE688 /* UpdateLinkViewController.mm in Sources */,
+				4F455F1A2C27EBE400CDE688 /* JitterAnimationViewController.mm in Sources */,
 				4F082E6C2C189EF0002263ED /* ListEnvironmentCollectionViewController.mm in Sources */,
 				4F082E5A2C188D6D002263ED /* main.m in Sources */,
 				4F082E4C2C188D6C002263ED /* SceneDelegate.m in Sources */,

@@ -15,6 +15,11 @@
 #import "TextViewController.h"
 #import "FromTransitionViewController.h"
 #import "TabBarController.h"
+#import "TabBar2Controller.h"
+#import "JitterAnimationViewController.h"
+#import "UpdateLinkViewController.h"
+#import "ProminenceViewController.h"
+#import "FontPickerPresenterViewController.h"
 #import <objc/message.h>
 
 __attribute__((objc_direct_members))
@@ -105,7 +110,12 @@ __attribute__((objc_direct_members))
         CalendarViewController.class,
         TextViewController.class,
         FromTransitionViewController.class,
-        TabBarController.class
+        TabBarController.class,
+        TabBar2Controller.class,
+        JitterAnimationViewController.class,
+        UpdateLinkViewController.class,
+        ProminenceViewController.class,
+        FontPickerPresenterViewController.class
     ];
 }
 
@@ -129,7 +139,7 @@ __attribute__((objc_direct_members))
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
     [rootViewController release];
     
-    if ([_class isEqual:TabBarController.class]) {
+    if ([rootViewController isKindOfClass:UITabBarController.class]) {
         navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
     }
     
