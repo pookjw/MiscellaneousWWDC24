@@ -46,7 +46,13 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     objc_super superInfo = { self, [self class] };
     ((void (*)(objc_super *, SEL, id, id))objc_msgSendSuper2)(&superInfo, _cmd, toWindow, fromWindow);
     
+    fromWindow.toolbar = nil;
     toWindow.toolbar = self.toolbar;
+    
+    // window에 붙어야 작동함
+    self.toolbar.itemIdentifiers = @[
+        self.updateTextHighlightAttributesToolbarItem.itemIdentifier
+    ];
 }
 
 - (NSScrollView *)scrollView {
@@ -76,9 +82,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier:@"TextViewToolbar"];
     
     toolbar.delegate = self;
-    toolbar.itemIdentifiers = @[
-        @"updateTextHighlightAttributes"
-    ];
     
     _toolbar = [toolbar retain];
     return [toolbar autorelease];
