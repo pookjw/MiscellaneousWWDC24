@@ -12,20 +12,6 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 
-// _UITabContainerView _UITabBarControllerVisualStyle_Pad
-namespace mu_UITabBarControllerVisualStyle_Pad {
-    namespace _isTabBarHidden {
-        BOOL (*original)(id, SEL);
-        BOOL custom(id, SEL) {
-            return NO;
-        }
-        void swizzle() {
-            Method method = class_getInstanceMethod(objc_lookUpClass("_UITabBarControllerVisualStyle_Pad"), sel_registerName("wantsDefaultTabBar"));
-            original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
-            method_setImplementation(method, reinterpret_cast<IMP>(custom));
-        }
-    }
-}
 
 @interface TabBarController ()
 @end
@@ -33,7 +19,9 @@ namespace mu_UITabBarControllerVisualStyle_Pad {
 @implementation TabBarController
 
 + (void)load {
-    mu_UITabBarControllerVisualStyle_Pad::_isTabBarHidden::swizzle();
+    NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.UIKit"];
+    [userDefaults setObject:@YES forKey:@"UseFloatingTabBar"];
+    [userDefaults release];
 }
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -42,7 +30,24 @@ namespace mu_UITabBarControllerVisualStyle_Pad {
         CyanViewController *cyanViewController = [CyanViewController new];
         OrangeViewController *orangeViewController = [OrangeViewController new];
         
-        [self setViewControllers:@[pinkViewController, cyanViewController, orangeViewController]];
+        UITab *pinkTab = [[UITab alloc] initWithTitle:@"Pink" image:[UIImage systemImageNamed:@"1.circle"] identifier:@"Pink" viewControllerProvider:^UIViewController * _Nonnull(__kindof UITab * _Nonnull) {
+            return [[PinkViewController new] autorelease];
+        }];
+        UITab *cyanTab = [[UITab alloc] initWithTitle:@"Cyan" image:[UIImage systemImageNamed:@"2.circle"] identifier:@"Cyan" viewControllerProvider:^UIViewController * _Nonnull(__kindof UITab * _Nonnull) {
+            return [[CyanViewController new] autorelease];
+        }];
+        UITab *orangeTab = [[UITab alloc] initWithTitle:@"Orange" image:[UIImage systemImageNamed:@"3.circle"] identifier:@"Orange" viewControllerProvider:^UIViewController * _Nonnull(__kindof UITab * _Nonnull) {
+//            return [[OrangeViewController new] autorelease];
+            return orangeViewController;
+        }];
+        
+        [self setTabs:@[pinkTab, cyanTab, orangeTab]];
+        
+        [pinkTab release];
+        [cyanTab release];
+        [orangeTab release];
+        
+//        [self setSelectedViewController:orangeViewController];
         
         [pinkViewController release];
         [cyanViewController release];
@@ -53,7 +58,7 @@ namespace mu_UITabBarControllerVisualStyle_Pad {
         navigationItem.rightBarButtonItem = dismissBarButtonItem;
         [dismissBarButtonItem release];
         
-//        self.mode = UITabBarControllerModeTabSidebar;
+        self.mode = UITabBarControllerModeTabSidebar;
 //        self.mode = (UITabBarControllerMode)3;
     }
     
