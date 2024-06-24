@@ -22,6 +22,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 @property (retain, nonatomic, readonly) NSToolbarItem *applyTextHighlightStyleToolbarItem;
 @property (retain, nonatomic, readonly) NSToolbarItem *applyTextHighlightColorSchemeToolbarItem;
 @property (retain, nonatomic, readonly) NSToolbarItem *addAdaptiveImageGlyphToolbarItem;
+@property (retain, nonatomic, readonly) NSToolbarItem *addLocalizedNumberFormatToolbarItem;
 @end
 
 @implementation TextViewController
@@ -32,6 +33,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 @synthesize applyTextHighlightStyleToolbarItem = _applyTextHighlightStyleToolbarItem;
 @synthesize applyTextHighlightColorSchemeToolbarItem = _applyTextHighlightColorSchemeToolbarItem;
 @synthesize addAdaptiveImageGlyphToolbarItem = _addAdaptiveImageGlyphToolbarItem;
+@synthesize addLocalizedNumberFormatToolbarItem = _addLocalizedNumberFormatToolbarItem;
 
 - (void)dealloc {
     [_scrollView release];
@@ -41,6 +43,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     [_applyTextHighlightStyleToolbarItem release];
     [_applyTextHighlightColorSchemeToolbarItem release];
     [_addAdaptiveImageGlyphToolbarItem release];
+    [_addLocalizedNumberFormatToolbarItem release];
     [super dealloc];
 }
 
@@ -146,6 +149,18 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     return [addAdaptiveImageGlyphToolbarItem autorelease];
 }
 
+- (NSToolbarItem *)addLocalizedNumberFormatToolbarItem {
+    if (auto addLocalizedNumberFormatToolbarItem = _addLocalizedNumberFormatToolbarItem) return addLocalizedNumberFormatToolbarItem;
+    
+    NSToolbarItem *addLocalizedNumberFormatToolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:@"addLocalizedNumberFormat"];
+    addLocalizedNumberFormatToolbarItem.title = @"5";
+    addLocalizedNumberFormatToolbarItem.target = self;
+    addLocalizedNumberFormatToolbarItem.action = @selector(addLocalizedNumberFormatToolbarItemDidTrigger:);
+    
+    _addLocalizedNumberFormatToolbarItem = [addLocalizedNumberFormatToolbarItem retain];
+    return [addLocalizedNumberFormatToolbarItem autorelease];
+}
+
 - (void)updateTextHighlightAttributesToolbarItemDidTrigger:(NSToolbarItem *)sender {
     self.textView.textHighlightAttributes = @{
         NSBackgroundColorAttributeName: NSColor.orangeColor,
@@ -179,8 +194,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 }
 
 - (void)addAdaptiveImageGlyphToolbarItemDidTrigger:(NSToolbarItem *)sender {
-    NSMutableAttributedString *attributedString = [self.textView.attributedString mutableCopy];
-    
     /*
      po [NSAdaptiveImageGlyph contentType]
      <_UTCoreType 0x100b54b40> public.heic (not dynamic, declared)
@@ -192,8 +205,33 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     NSAdaptiveImageGlyph *adaptiveImageGlyph = [[NSAdaptiveImageGlyph alloc] initWithImageContent:imageContent];
     [imageContent release];
     assert(adaptiveImageGlyph != nil);
+    [adaptiveImageGlyph autorelease];
     
-    // TODO
+//    NSData *archive = [[NSData alloc] initWithContentsOfURL:[NSBundle.mainBundle URLForResource:@"adaptiveImageGlyph" withExtension:@"plist"]];
+//    NSError * _Nullable error = nil;
+//    NSAdaptiveImageGlyph *adaptiveImageGlyph = [NSKeyedUnarchiver unarchivedObjectOfClass:NSAdaptiveImageGlyph.class fromData:archive error:&error];
+//    assert(adaptiveImageGlyph != nil);
+//    assert(error != nil);
+    
+    //
+    
+    NSMutableAttributedString *attributedString = [self.textView.attributedString mutableCopy];
+    
+    NSAttributedString *adaptiveImageGlyphAttributedString = [NSAttributedString attributedStringWithAdaptiveImageGlyph:adaptiveImageGlyph attributes:@{}];
+    
+    [attributedString appendLocalizedFormat:adaptiveImageGlyphAttributedString];
+    
+    [self.textView.textStorage setAttributedString:attributedString];
+    [attributedString release];
+}
+
+- (void)addLocalizedNumberFormatToolbarItemDidTrigger:(NSToolbarItem *)sender {
+    NSMutableAttributedString *attributedString = [self.textView.attributedString mutableCopy];
+    
+    [attributedString addAttributes:@{
+        NSLocalizedNumberFormatAttributeName: [NSLocalizedNumberFormatRule automatic]
+    }
+                              range:NSMakeRange(0, attributedString.length)];
     
     [self.textView.textStorage setAttributedString:attributedString];
     [attributedString release];
@@ -204,7 +242,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         self.updateTextHighlightAttributesToolbarItem.itemIdentifier,
         self.applyTextHighlightStyleToolbarItem.itemIdentifier,
         self.applyTextHighlightColorSchemeToolbarItem.itemIdentifier,
-        self.addAdaptiveImageGlyphToolbarItem.itemIdentifier
+        self.addAdaptiveImageGlyphToolbarItem.itemIdentifier,
+        self.addLocalizedNumberFormatToolbarItem.itemIdentifier
     ];
 }
 
@@ -221,6 +260,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         return self.applyTextHighlightColorSchemeToolbarItem;
     } else if ([itemIdentifier isEqualToString:self.addAdaptiveImageGlyphToolbarItem.itemIdentifier]) {
         return self.addAdaptiveImageGlyphToolbarItem;
+    } else if ([itemIdentifier isEqualToString:self.addLocalizedNumberFormatToolbarItem.itemIdentifier]) {
+        return self.addLocalizedNumberFormatToolbarItem;
     } else {
         return nil;
     }

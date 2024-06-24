@@ -24,6 +24,7 @@
 		4F46D0172C286267005AC6AF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F46D0162C286267005AC6AF /* QuartzCore.framework */; };
 		4F46D01B2C2870AE005AC6AF /* ToolbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F46D01A2C2870AE005AC6AF /* ToolbarViewController.m */; };
 		4F5EB68F2C297E120019E2D5 /* image.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4F5EB68E2C297E120019E2D5 /* image.heic */; };
+		4F5EEEEF2C29B866001E345D /* adaptiveImageGlyph.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4F5EEEEE2C29B866001E345D /* adaptiveImageGlyph.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		4F46D0192C2870AE005AC6AF /* ToolbarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolbarViewController.h; sourceTree = "<group>"; };
 		4F46D01A2C2870AE005AC6AF /* ToolbarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToolbarViewController.m; sourceTree = "<group>"; };
 		4F5EB68E2C297E120019E2D5 /* image.heic */ = {isa = PBXFileReference; lastKnownFileType = file; path = image.heic; sourceTree = "<group>"; };
+		4F5EEEEE2C29B866001E345D /* adaptiveImageGlyph.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = adaptiveImageGlyph.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 		4F46CFDC2C28308E005AC6AF /* MiscellaneousAppKit */ = {
 			isa = PBXGroup;
 			children = (
+				4F5EEEEE2C29B866001E345D /* adaptiveImageGlyph.plist */,
 				4F46CFDD2C28308E005AC6AF /* AppDelegate.h */,
 				4F46CFDE2C28308E005AC6AF /* AppDelegate.mm */,
 				4F46CFFF2C28549A005AC6AF /* NSObject+Foundation_IvarDescription.h */,
@@ -222,6 +225,7 @@
 				4F5EB68F2C297E120019E2D5 /* image.heic in Resources */,
 				4F46D00D2C286011005AC6AF /* ClassTableCellView.xib in Resources */,
 				4F46D0122C286168005AC6AF /* ClassTableRowView.xib in Resources */,
+				4F5EEEEF2C29B866001E345D /* adaptiveImageGlyph.plist in Resources */,
 				4F46CFE42C28308F005AC6AF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
