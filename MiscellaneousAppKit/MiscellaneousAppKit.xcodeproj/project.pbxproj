@@ -23,6 +23,7 @@
 		4F46D0152C286262005AC6AF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F46D0142C286262005AC6AF /* Cocoa.framework */; };
 		4F46D0172C286267005AC6AF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F46D0162C286267005AC6AF /* QuartzCore.framework */; };
 		4F46D01B2C2870AE005AC6AF /* ToolbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F46D01A2C2870AE005AC6AF /* ToolbarViewController.m */; };
+		4F5EB68F2C297E120019E2D5 /* image.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4F5EB68E2C297E120019E2D5 /* image.heic */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		4F46D0162C286267005AC6AF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4F46D0192C2870AE005AC6AF /* ToolbarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolbarViewController.h; sourceTree = "<group>"; };
 		4F46D01A2C2870AE005AC6AF /* ToolbarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToolbarViewController.m; sourceTree = "<group>"; };
+		4F5EB68E2C297E120019E2D5 /* image.heic */ = {isa = PBXFileReference; lastKnownFileType = file; path = image.heic; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				4F46CFE32C28308F005AC6AF /* Assets.xcassets */,
 				4F46CFE82C28308F005AC6AF /* main.m */,
 				4F46CFEA2C28308F005AC6AF /* MiscellaneousAppKit.entitlements */,
+				4F5EB68E2C297E120019E2D5 /* image.heic */,
 			);
 			path = MiscellaneousAppKit;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F5EB68F2C297E120019E2D5 /* image.heic in Resources */,
 				4F46D00D2C286011005AC6AF /* ClassTableCellView.xib in Resources */,
 				4F46D0122C286168005AC6AF /* ClassTableRowView.xib in Resources */,
 				4F46CFE42C28308F005AC6AF /* Assets.xcassets in Resources */,

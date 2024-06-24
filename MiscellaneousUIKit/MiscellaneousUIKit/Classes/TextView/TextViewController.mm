@@ -217,7 +217,8 @@
      po [NSAdaptiveImageGlyph contentType]
      <_UTCoreType 0x100b54b40> public.heic (not dynamic, declared)
      
-     -[__NSAdaptiveImageGlyphStorage initWithImageContent:]에서 nil 나옴
+     -[__NSAdaptiveImageGlyphStorage initWithImageContent:]에서 nil 나옴.
+     -[__NSAdaptiveImageGlyphStorage initWithImageContent:]에서 마지막 -objectForKeyedSubscript: 두 개가 0x0이 나올텐데 여기에 아무 NSString 넣어주면 init 성공함
      */
     NSData *imageContent = [[NSData alloc] initWithContentsOfURL:[NSBundle.mainBundle URLForResource:@"image" withExtension:@"heic"]];
     NSAdaptiveImageGlyph *adaptiveImageGlyph = [[NSAdaptiveImageGlyph alloc] initWithImageContent:imageContent];

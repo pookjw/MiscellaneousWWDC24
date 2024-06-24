@@ -12,12 +12,16 @@
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
 // TODO: NSRuler 써보기
+// TODO: NSForegroundColorAttributeName이 작동하지 않는 것 제보하기
 
 @interface TextViewController () <NSToolbarDelegate>
 @property (retain, nonatomic, readonly) NSScrollView *scrollView;
 @property (retain, nonatomic, readonly) NSTextView *textView;
 @property (retain, nonatomic, readonly) NSToolbar *toolbar;
 @property (retain, nonatomic, readonly) NSToolbarItem *updateTextHighlightAttributesToolbarItem;
+@property (retain, nonatomic, readonly) NSToolbarItem *applyTextHighlightStyleToolbarItem;
+@property (retain, nonatomic, readonly) NSToolbarItem *applyTextHighlightColorSchemeToolbarItem;
+@property (retain, nonatomic, readonly) NSToolbarItem *addAdaptiveImageGlyphToolbarItem;
 @end
 
 @implementation TextViewController
@@ -25,12 +29,18 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 @synthesize textView = _textView;
 @synthesize toolbar = _toolbar;
 @synthesize updateTextHighlightAttributesToolbarItem = _updateTextHighlightAttributesToolbarItem;
+@synthesize applyTextHighlightStyleToolbarItem = _applyTextHighlightStyleToolbarItem;
+@synthesize applyTextHighlightColorSchemeToolbarItem = _applyTextHighlightColorSchemeToolbarItem;
+@synthesize addAdaptiveImageGlyphToolbarItem = _addAdaptiveImageGlyphToolbarItem;
 
 - (void)dealloc {
     [_scrollView release];
     [_textView release];
     [_toolbar release];
     [_updateTextHighlightAttributesToolbarItem release];
+    [_applyTextHighlightStyleToolbarItem release];
+    [_applyTextHighlightColorSchemeToolbarItem release];
+    [_addAdaptiveImageGlyphToolbarItem release];
     [super dealloc];
 }
 
@@ -50,9 +60,10 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     toWindow.toolbar = self.toolbar;
     
     // window에 붙어야 작동함
-    self.toolbar.itemIdentifiers = @[
-        self.updateTextHighlightAttributesToolbarItem.itemIdentifier
-    ];
+//    self.toolbar.itemIdentifiers = @[
+//        self.updateTextHighlightAttributesToolbarItem.itemIdentifier,
+//        self.applyTextHighlightStyleToolbarItem.itemIdentifier
+//    ];
 }
 
 - (NSScrollView *)scrollView {
@@ -99,13 +110,101 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     return [updateTextHighlightAttributesToolbarItem autorelease];
 }
 
-- (void)updateTextHighlightAttributesToolbarItemDidTrigger:(NSToolbarItem *)sender {
+- (NSToolbarItem *)applyTextHighlightStyleToolbarItem {
+    if (auto applyTextHighlightStyleToolbarItem = _applyTextHighlightStyleToolbarItem) return applyTextHighlightStyleToolbarItem;
     
+    NSToolbarItem *applyTextHighlightStyleToolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:@"applyTextHighlightStyle"];
+    applyTextHighlightStyleToolbarItem.title = @"2";
+    applyTextHighlightStyleToolbarItem.target = self;
+    applyTextHighlightStyleToolbarItem.action = @selector(applyTextHighlightStyleToolbarItemDidTrigger:);
+    
+    _applyTextHighlightStyleToolbarItem = [applyTextHighlightStyleToolbarItem retain];
+    return [applyTextHighlightStyleToolbarItem autorelease];
+}
+
+- (NSToolbarItem *)applyTextHighlightColorSchemeToolbarItem {
+    if (auto applyTextHighlightColorSchemeToolbarItem = _applyTextHighlightColorSchemeToolbarItem) return applyTextHighlightColorSchemeToolbarItem;
+    
+    NSToolbarItem *applyTextHighlightColorSchemeToolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:@"applyTextHighlightColorScheme"];
+    applyTextHighlightColorSchemeToolbarItem.title = @"3";
+    applyTextHighlightColorSchemeToolbarItem.target = self;
+    applyTextHighlightColorSchemeToolbarItem.action = @selector(applyTextHighlightColorSchemeToolbarItemDidTrigger:);
+    
+    _applyTextHighlightColorSchemeToolbarItem = [applyTextHighlightColorSchemeToolbarItem retain];
+    return [applyTextHighlightColorSchemeToolbarItem autorelease];
+}
+
+- (NSToolbarItem *)addAdaptiveImageGlyphToolbarItem {
+    if (auto addAdaptiveImageGlyphToolbarItem = _addAdaptiveImageGlyphToolbarItem) return addAdaptiveImageGlyphToolbarItem;
+    
+    NSToolbarItem *addAdaptiveImageGlyphToolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:@"addAdaptiveImageGlyphToolbarItem"];
+    addAdaptiveImageGlyphToolbarItem.title = @"4";
+    addAdaptiveImageGlyphToolbarItem.target = self;
+    addAdaptiveImageGlyphToolbarItem.action = @selector(addAdaptiveImageGlyphToolbarItemDidTrigger:);
+    
+    _addAdaptiveImageGlyphToolbarItem = [addAdaptiveImageGlyphToolbarItem retain];
+    return [addAdaptiveImageGlyphToolbarItem autorelease];
+}
+
+- (void)updateTextHighlightAttributesToolbarItemDidTrigger:(NSToolbarItem *)sender {
+    self.textView.textHighlightAttributes = @{
+        NSBackgroundColorAttributeName: NSColor.orangeColor,
+        NSForegroundColorAttributeName: NSColor.blueColor
+    };
+}
+
+- (void)applyTextHighlightStyleToolbarItemDidTrigger:(NSToolbarItem *)sender {
+    NSMutableAttributedString *attributedString = [self.textView.attributedString mutableCopy];
+    
+    [attributedString addAttributes:@{
+        NSTextHighlightStyleAttributeName: NSTextHighlightStyleDefault
+    } 
+                              range:NSMakeRange(0, attributedString.length)];
+    
+//    ((void (*)(id, SEL, id))objc_msgSend)(self.textView, sel_registerName("setAttributedText:"), attributedString);
+    [self.textView.textStorage setAttributedString:attributedString];
+    [attributedString release];
+}
+
+- (void)applyTextHighlightColorSchemeToolbarItemDidTrigger:(NSToolbarItem *)sender {
+    NSMutableAttributedString *attributedString = [self.textView.attributedString mutableCopy];
+    
+    [attributedString addAttributes:@{
+        NSTextHighlightColorSchemeAttributeName: NSTextHighlightColorSchemePink
+    }
+                              range:NSMakeRange(0, attributedString.length)];
+    
+    [self.textView.textStorage setAttributedString:attributedString];
+    [attributedString release];
+}
+
+- (void)addAdaptiveImageGlyphToolbarItemDidTrigger:(NSToolbarItem *)sender {
+    NSMutableAttributedString *attributedString = [self.textView.attributedString mutableCopy];
+    
+    /*
+     po [NSAdaptiveImageGlyph contentType]
+     <_UTCoreType 0x100b54b40> public.heic (not dynamic, declared)
+     
+     -[__NSAdaptiveImageGlyphStorage initWithImageContent:]에서 nil 나옴.
+     -[__NSAdaptiveImageGlyphStorage initWithImageContent:]에서 마지막 -objectForKeyedSubscript: 두 개가 0x0이 나올텐데 여기에 아무 NSString 넣어주면 init 성공함
+     */
+    NSData *imageContent = [[NSData alloc] initWithContentsOfURL:[NSBundle.mainBundle URLForResource:@"image" withExtension:@"heic"]];
+    NSAdaptiveImageGlyph *adaptiveImageGlyph = [[NSAdaptiveImageGlyph alloc] initWithImageContent:imageContent];
+    [imageContent release];
+    assert(adaptiveImageGlyph != nil);
+    
+    // TODO
+    
+    [self.textView.textStorage setAttributedString:attributedString];
+    [attributedString release];
 }
 
 - (NSArray<NSToolbarItemIdentifier> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
     return @[
-        self.updateTextHighlightAttributesToolbarItem.itemIdentifier
+        self.updateTextHighlightAttributesToolbarItem.itemIdentifier,
+        self.applyTextHighlightStyleToolbarItem.itemIdentifier,
+        self.applyTextHighlightColorSchemeToolbarItem.itemIdentifier,
+        self.addAdaptiveImageGlyphToolbarItem.itemIdentifier
     ];
 }
 
@@ -116,6 +215,12 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSToolbarItemIdentifier)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
     if ([itemIdentifier isEqualToString:self.updateTextHighlightAttributesToolbarItem.itemIdentifier]) {
         return self.updateTextHighlightAttributesToolbarItem;
+    } else if ([itemIdentifier isEqualToString:self.applyTextHighlightStyleToolbarItem.itemIdentifier]) {
+        return self.applyTextHighlightStyleToolbarItem;
+    } else if ([itemIdentifier isEqualToString:self.applyTextHighlightColorSchemeToolbarItem.itemIdentifier]) {
+        return self.applyTextHighlightColorSchemeToolbarItem;
+    } else if ([itemIdentifier isEqualToString:self.addAdaptiveImageGlyphToolbarItem.itemIdentifier]) {
+        return self.addAdaptiveImageGlyphToolbarItem;
     } else {
         return nil;
     }
