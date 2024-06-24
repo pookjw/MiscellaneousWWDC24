@@ -25,6 +25,9 @@
 		4F46D01B2C2870AE005AC6AF /* ToolbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F46D01A2C2870AE005AC6AF /* ToolbarViewController.m */; };
 		4F5EB68F2C297E120019E2D5 /* image.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4F5EB68E2C297E120019E2D5 /* image.heic */; };
 		4F5EEEEF2C29B866001E345D /* adaptiveImageGlyph.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4F5EEEEE2C29B866001E345D /* adaptiveImageGlyph.plist */; };
+		4F5EEF3F2C29C531001E345D /* BaseMenu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5EEF3D2C29C530001E345D /* BaseMenu.mm */; };
+		4F5EEF402C29C531001E345D /* EditMenuItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5EEF3A2C29C530001E345D /* EditMenuItem.mm */; };
+		4F5EEF412C29C531001E345D /* AppMenuItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5EEF382C29C530001E345D /* AppMenuItem.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +61,12 @@
 		4F46D01A2C2870AE005AC6AF /* ToolbarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToolbarViewController.m; sourceTree = "<group>"; };
 		4F5EB68E2C297E120019E2D5 /* image.heic */ = {isa = PBXFileReference; lastKnownFileType = file; path = image.heic; sourceTree = "<group>"; };
 		4F5EEEEE2C29B866001E345D /* adaptiveImageGlyph.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = adaptiveImageGlyph.plist; sourceTree = "<group>"; };
+		4F5EEF372C29C530001E345D /* AppMenuItem.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AppMenuItem.hpp; sourceTree = "<group>"; };
+		4F5EEF382C29C530001E345D /* AppMenuItem.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppMenuItem.mm; sourceTree = "<group>"; };
+		4F5EEF392C29C530001E345D /* EditMenuItem.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EditMenuItem.hpp; sourceTree = "<group>"; };
+		4F5EEF3A2C29C530001E345D /* EditMenuItem.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = EditMenuItem.mm; sourceTree = "<group>"; };
+		4F5EEF3C2C29C530001E345D /* BaseMenu.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BaseMenu.hpp; sourceTree = "<group>"; };
+		4F5EEF3D2C29C530001E345D /* BaseMenu.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BaseMenu.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +107,7 @@
 				4F46CFDE2C28308E005AC6AF /* AppDelegate.mm */,
 				4F46CFFF2C28549A005AC6AF /* NSObject+Foundation_IvarDescription.h */,
 				4F46D0002C28549A005AC6AF /* NSObject+Foundation_IvarDescription.mm */,
+				4F5EEF3E2C29C530001E345D /* Menu */,
 				4F46CFF72C2835E2005AC6AF /* Root */,
 				4F46CFFE2C283610005AC6AF /* ClassesList */,
 				4F46D0182C287099005AC6AF /* Toolbar */,
@@ -163,6 +173,27 @@
 				4F46D01A2C2870AE005AC6AF /* ToolbarViewController.m */,
 			);
 			path = Toolbar;
+			sourceTree = "<group>";
+		};
+		4F5EEF3B2C29C530001E345D /* MenuItem */ = {
+			isa = PBXGroup;
+			children = (
+				4F5EEF372C29C530001E345D /* AppMenuItem.hpp */,
+				4F5EEF382C29C530001E345D /* AppMenuItem.mm */,
+				4F5EEF392C29C530001E345D /* EditMenuItem.hpp */,
+				4F5EEF3A2C29C530001E345D /* EditMenuItem.mm */,
+			);
+			path = MenuItem;
+			sourceTree = "<group>";
+		};
+		4F5EEF3E2C29C530001E345D /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				4F5EEF3B2C29C530001E345D /* MenuItem */,
+				4F5EEF3C2C29C530001E345D /* BaseMenu.hpp */,
+				4F5EEF3D2C29C530001E345D /* BaseMenu.mm */,
+			);
+			path = Menu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -248,6 +279,9 @@
 				4F46D0102C286152005AC6AF /* ClassTableRowView.mm in Sources */,
 				4F46CFF62C28349B005AC6AF /* RootSplitViewController.mm in Sources */,
 				4F46CFFD2C283609005AC6AF /* ClassesListViewController.mm in Sources */,
+				4F5EEF3F2C29C531001E345D /* BaseMenu.mm in Sources */,
+				4F5EEF402C29C531001E345D /* EditMenuItem.mm in Sources */,
+				4F5EEF412C29C531001E345D /* AppMenuItem.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

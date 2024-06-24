@@ -74,6 +74,13 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     
     NSScrollView *scrollView = [NSScrollView new];
     scrollView.documentView = self.textView;
+    scrollView.hasHorizontalRuler = YES;
+    scrollView.hasVerticalRuler = YES;
+    
+    assert(scrollView.horizontalRulerView != nil);
+    scrollView.horizontalRulerView.measurementUnits = NSRulerViewUnitCentimeters;
+    scrollView.verticalRulerView.measurementUnits = NSRulerViewUnitCentimeters;
+    
     scrollView.drawsBackground = NO;
     
     _scrollView = [scrollView retain];
