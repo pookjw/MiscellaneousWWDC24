@@ -11,6 +11,7 @@
 #import "ClassesListTableView.h"
 #import "ToolbarViewController.h"
 #import "TextViewController.h"
+#import "RulerViewController.h"
 
 APPKIT_EXTERN NSString * const NSTableViewCurrentRowSelectionUserInfoKey;
 APPKIT_EXTERN NSString * const NSTableViewPreviousRowSelectionUserInfoKey;
@@ -80,7 +81,8 @@ APPKIT_EXTERN NSString * const NSTableViewPreviousRowSelectionUserInfoKey;
 - (NSArray<Class> *)classes {
     return @[
         ToolbarViewController.class,
-        TextViewController.class
+        TextViewController.class,
+        RulerViewController.class
     ];
 }
 

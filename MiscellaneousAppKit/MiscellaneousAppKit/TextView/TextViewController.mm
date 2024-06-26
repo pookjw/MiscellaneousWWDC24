@@ -77,9 +77,11 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     scrollView.hasHorizontalRuler = YES;
     scrollView.hasVerticalRuler = YES;
     
-    assert(scrollView.horizontalRulerView != nil);
+    scrollView.rulersVisible = YES;
     scrollView.horizontalRulerView.measurementUnits = NSRulerViewUnitCentimeters;
     scrollView.verticalRulerView.measurementUnits = NSRulerViewUnitCentimeters;
+    
+    scrollView.horizontalRulerView.originOffset = -100.;
     
     scrollView.drawsBackground = NO;
     
