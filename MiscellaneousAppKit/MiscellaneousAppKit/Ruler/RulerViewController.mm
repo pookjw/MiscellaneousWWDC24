@@ -58,6 +58,12 @@ NSRulerViewUnitName const MARulerViewUnitCentimeter = @"MARulerViewUnitMillimete
     scrollView.drawsBackground = NO;
     
     scrollView.horizontalRulerView.clientView = self.customRulerView;
+    NSTextField *textField_1 = [NSTextField new];
+    textField_1.stringValue = @"Test";
+    ((void (*)(id, SEL, CGSize))objc_msgSend)(textField_1, sel_registerName("setFrameSize:"), CGSizeMake(0, 50.));
+    scrollView.horizontalRulerView.accessoryView = textField_1;
+    [textField_1 release];
+    
     scrollView.verticalRulerView.clientView = self.customRulerView;
     
     for (NSUInteger i = 0; i < 10; i++) {
