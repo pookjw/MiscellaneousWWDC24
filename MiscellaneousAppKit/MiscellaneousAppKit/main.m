@@ -8,6 +8,7 @@
 #import <Cocoa/Cocoa.h>
 #import "AppDelegate.h"
 #import "BaseMenu.hpp"
+#import "NSObject+Foundation_IvarDescription.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {

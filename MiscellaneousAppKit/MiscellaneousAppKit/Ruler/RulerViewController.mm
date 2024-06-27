@@ -7,20 +7,24 @@
 
 #import "RulerViewController.h"
 #import "CustomRulerMarker.h"
-#import "CustomRulerView.h"
+#import "RulerContentView.h"
+#import "RulerView.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 
 NSRulerViewUnitName const MARulerViewUnitCentimeter = @"MARulerViewUnitMillimeter";
 
 @interface RulerViewController ()
-@property (retain, nonatomic, readonly) NSScrollView *scrollView;
-@property (retain, nonatomic, readonly) CustomRulerView *customRulerView;
+@property (retain, nonatomic, readonly) MyScrollView *scrollView;
+@property (retain, nonatomic, readonly) RulerContentView *rulerContentView;
+@property (retain, nonatomic, readonly) NSButton *moveRulerlineButton;
+@property (assign, nonatomic) CGFloat rulerlineLocation;
 @end
 
 @implementation RulerViewController
 @synthesize scrollView = _scrollView;
-@synthesize customRulerView = _customRulerView;
+@synthesize rulerContentView = _rulerContentView;
+@synthesize moveRulerlineButton = _moveRulerlineButton;
 
 + (void)load {
     [NSRulerView registerUnitWithName:MARulerViewUnitCentimeter
@@ -32,19 +36,40 @@ NSRulerViewUnitName const MARulerViewUnitCentimeter = @"MARulerViewUnitMillimete
 
 - (void)dealloc {
     [_scrollView release];
-    [_customRulerView release];
+    [_rulerContentView release];
+    [_moveRulerlineButton release];
     [super dealloc];
 }
 
-- (void)loadView {
-    self.view = self.scrollView;
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.rulerlineLocation = 0.;
+    
+    MyScrollView *scrollView = self.scrollView;
+    NSButton *moveRulerLineButton = self.moveRulerlineButton;
+    
+    scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    moveRulerLineButton.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [self.view addSubview:scrollView];
+    [self.view addSubview:moveRulerLineButton];
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [scrollView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
+        [scrollView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
+        [scrollView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+        [scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+        [moveRulerLineButton.trailingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.trailingAnchor],
+        [moveRulerLineButton.bottomAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.bottomAnchor]
+    ]];
 }
 
-- (NSScrollView *)scrollView {
+- (MyScrollView *)scrollView {
     if (auto scrollView = _scrollView) return scrollView;
     
-    NSScrollView *scrollView = [NSScrollView new];
-    scrollView.documentView = self.customRulerView;
+    MyScrollView *scrollView = [MyScrollView new];
+    scrollView.documentView = self.rulerContentView;
     scrollView.hasHorizontalRuler = YES;
     scrollView.hasVerticalRuler = YES;
     
@@ -57,14 +82,30 @@ NSRulerViewUnitName const MARulerViewUnitCentimeter = @"MARulerViewUnitMillimete
     
     scrollView.drawsBackground = NO;
     
-    scrollView.horizontalRulerView.clientView = self.customRulerView;
+    scrollView.horizontalRulerView.clientView = self.rulerContentView;
+    scrollView.verticalRulerView.clientView = self.rulerContentView;
+    
+    // 줄자 두께
+    scrollView.horizontalRulerView.ruleThickness = 40.;
+    
+//    scrollView.horizontalRulerView.reservedThicknessForMarkers = 40.;
+    
+    //
+    
     NSTextField *textField_1 = [NSTextField new];
     textField_1.stringValue = @"Test";
-    ((void (*)(id, SEL, CGSize))objc_msgSend)(textField_1, sel_registerName("setFrameSize:"), CGSizeMake(0, 50.));
+    ((void (*)(id, SEL, CGSize))objc_msgSend)(textField_1, sel_registerName("setFrameSize:"), CGSizeMake(0., 50.));
     scrollView.horizontalRulerView.accessoryView = textField_1;
     [textField_1 release];
     
-    scrollView.verticalRulerView.clientView = self.customRulerView;
+    NSTextField *textField_2 = [NSTextField new];
+    textField_2.stringValue = @"Test";
+    ((void (*)(id, SEL, CGSize))objc_msgSend)(textField_2, sel_registerName("setFrameSize:"), CGSizeMake(50., 0.));
+    scrollView.verticalRulerView.accessoryView = textField_2;
+    [textField_2 release];
+    
+    
+    //
     
     for (NSUInteger i = 0; i < 10; i++) {
         CustomRulerMarker *horizontalRulerMaker = [[CustomRulerMarker alloc] initWithRulerView:scrollView.horizontalRulerView markerLocation:(CGFloat)i * 30. image:[NSImage imageWithSystemSymbolName:@"apple.logo" accessibilityDescription:nil] imageOrigin:NSZeroPoint];
@@ -85,25 +126,30 @@ NSRulerViewUnitName const MARulerViewUnitCentimeter = @"MARulerViewUnitMillimete
     return [scrollView autorelease];
 }
 
-//- (NSTextView *)textView {
-//    if (auto textView = _textView) return textView;
-//    
-//    NSTextView *textView = [NSTextView new];
-//    textView.autoresizingMask = NSViewWidthSizable;
-//    textView.usesRuler = NO;
-//    
-//    _textView = [textView retain];
-//    return [textView autorelease];
-//}
+- (RulerContentView *)rulerContentView {
+    if (auto rulerContentView = _rulerContentView) return rulerContentView;
+    
+    RulerContentView *rulerContentView = [RulerContentView new];
+    rulerContentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    
+    _rulerContentView = [rulerContentView retain];
+    return [rulerContentView autorelease];
+}
 
-- (CustomRulerView *)customRulerView {
-    if (auto customRulerView = _customRulerView) return customRulerView;
+- (NSButton *)moveRulerlineButton {
+    if (auto moveRulerLineButton = _moveRulerlineButton) return moveRulerLineButton;
     
-    CustomRulerView *customRulerView = [CustomRulerView new];
-    customRulerView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    NSButton *moveRulerLineButton = [NSButton buttonWithTitle:@"Move Line" target:self action:@selector(moveRulerlineButtonDidTrigger:)];
     
-    _customRulerView = [customRulerView retain];
-    return [customRulerView autorelease];
+    _moveRulerlineButton = [moveRulerLineButton retain];
+    return moveRulerLineButton;
+}
+
+- (void)moveRulerlineButtonDidTrigger:(NSButton *)sender {
+    // oldLocation이 0보타 작으면 이전 line이 남고, 크거나 같으면 안 남음
+    [self.scrollView.horizontalRulerView moveRulerlineFromLocation:-1. toLocation:self.rulerlineLocation];
+    
+    self.rulerlineLocation += 100.;
 }
 
 @end

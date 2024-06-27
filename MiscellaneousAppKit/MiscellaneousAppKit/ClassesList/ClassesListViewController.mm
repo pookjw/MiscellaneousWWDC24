@@ -12,6 +12,8 @@
 #import "ToolbarViewController.h"
 #import "TextViewController.h"
 #import "RulerViewController.h"
+#import "PopUpButtonsViewController.h"
+#import "CursorViewController.h"
 
 APPKIT_EXTERN NSString * const NSTableViewCurrentRowSelectionUserInfoKey;
 APPKIT_EXTERN NSString * const NSTableViewPreviousRowSelectionUserInfoKey;
@@ -82,7 +84,9 @@ APPKIT_EXTERN NSString * const NSTableViewPreviousRowSelectionUserInfoKey;
     return @[
         ToolbarViewController.class,
         TextViewController.class,
-        RulerViewController.class
+        RulerViewController.class,
+        PopUpButtonsViewController.class,
+        CursorViewController.class
     ];
 }
 

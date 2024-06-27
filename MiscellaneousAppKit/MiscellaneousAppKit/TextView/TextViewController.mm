@@ -11,9 +11,6 @@
 
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
-// TODO: NSRuler 써보기
-// TODO: NSForegroundColorAttributeName이 작동하지 않는 것 제보하기
-
 @interface TextViewController () <NSToolbarDelegate>
 @property (retain, nonatomic, readonly) NSScrollView *scrollView;
 @property (retain, nonatomic, readonly) NSTextView *textView;
@@ -23,6 +20,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 @property (retain, nonatomic, readonly) NSToolbarItem *applyTextHighlightColorSchemeToolbarItem;
 @property (retain, nonatomic, readonly) NSToolbarItem *addAdaptiveImageGlyphToolbarItem;
 @property (retain, nonatomic, readonly) NSToolbarItem *addLocalizedNumberFormatToolbarItem;
+@property (retain, nonatomic, readonly) NSToolbarItem *highlightToolbarItem;
 @end
 
 @implementation TextViewController
@@ -34,6 +32,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 @synthesize applyTextHighlightColorSchemeToolbarItem = _applyTextHighlightColorSchemeToolbarItem;
 @synthesize addAdaptiveImageGlyphToolbarItem = _addAdaptiveImageGlyphToolbarItem;
 @synthesize addLocalizedNumberFormatToolbarItem = _addLocalizedNumberFormatToolbarItem;
+@synthesize highlightToolbarItem = _highlightToolbarItem;
 
 - (void)dealloc {
     [_scrollView release];
@@ -44,6 +43,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     [_applyTextHighlightColorSchemeToolbarItem release];
     [_addAdaptiveImageGlyphToolbarItem release];
     [_addLocalizedNumberFormatToolbarItem release];
+    [_highlightToolbarItem release];
     [super dealloc];
 }
 
@@ -59,7 +59,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     objc_super superInfo = { self, [self class] };
     ((void (*)(objc_super *, SEL, id, id))objc_msgSendSuper2)(&superInfo, _cmd, toWindow, fromWindow);
     
-    fromWindow.toolbar = nil;
+//    fromWindow.toolbar = nil;
     toWindow.toolbar = self.toolbar;
     
     // window에 붙어야 작동함
@@ -94,6 +94,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     
     NSTextView *textView = [NSTextView new];
     textView.autoresizingMask = NSViewWidthSizable;
+    textView.mathExpressionCompletionType = NSTextInputTraitTypeYes;
     
     _textView = [textView retain];
     return [textView autorelease];
@@ -168,6 +169,18 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     
     _addLocalizedNumberFormatToolbarItem = [addLocalizedNumberFormatToolbarItem retain];
     return [addLocalizedNumberFormatToolbarItem autorelease];
+}
+
+- (NSToolbarItem *)highlightToolbarItem {
+    if (auto highlightToolbarItem = _highlightToolbarItem) return highlightToolbarItem;
+    
+    NSToolbarItem *highlightToolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:@"highlightToolbarItem"];
+    highlightToolbarItem.title = @"6";
+    highlightToolbarItem.target = self;
+    highlightToolbarItem.action = @selector(highlightToolbarItemDidTrigger:);
+    
+    _highlightToolbarItem = [highlightToolbarItem retain];
+    return [highlightToolbarItem autorelease];
 }
 
 - (void)updateTextHighlightAttributesToolbarItemDidTrigger:(NSToolbarItem *)sender {
@@ -246,13 +259,20 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     [attributedString release];
 }
 
+- (void)highlightToolbarItemDidTrigger:(NSToolbarItem *)sender {
+    [self.textView highlight:sender];
+    
+    NSLog(@"%@", self.textView.attributedString);
+}
+
 - (NSArray<NSToolbarItemIdentifier> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
     return @[
         self.updateTextHighlightAttributesToolbarItem.itemIdentifier,
         self.applyTextHighlightStyleToolbarItem.itemIdentifier,
         self.applyTextHighlightColorSchemeToolbarItem.itemIdentifier,
         self.addAdaptiveImageGlyphToolbarItem.itemIdentifier,
-        self.addLocalizedNumberFormatToolbarItem.itemIdentifier
+        self.addLocalizedNumberFormatToolbarItem.itemIdentifier,
+        self.highlightToolbarItem.itemIdentifier
     ];
 }
 
@@ -271,6 +291,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         return self.addAdaptiveImageGlyphToolbarItem;
     } else if ([itemIdentifier isEqualToString:self.addLocalizedNumberFormatToolbarItem.itemIdentifier]) {
         return self.addLocalizedNumberFormatToolbarItem;
+    } else if ([itemIdentifier isEqualToString:self.highlightToolbarItem.itemIdentifier]) {
+        return self.highlightToolbarItem;
     } else {
         return nil;
     }

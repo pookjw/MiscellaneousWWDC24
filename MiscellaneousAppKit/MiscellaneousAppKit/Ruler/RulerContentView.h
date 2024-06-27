@@ -1,5 +1,5 @@
 //
-//  CustomRulerView.h
+//  RulerContentView.h
 //  MiscellaneousAppKit
 //
 //  Created by Jinwoo Kim on 6/26/24.
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CustomRulerView : NSView
+@interface RulerContentView : NSView
 
 @end
 
