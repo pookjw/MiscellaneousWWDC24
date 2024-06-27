@@ -78,6 +78,7 @@
     [stackView addArrangedSubview:self.popUpButton2];
     [stackView addArrangedSubview:self.pullDownButton];
     [stackView addArrangedSubview:self.pullDownButton2];
+    
     _stackView = [stackView retain];
     return [stackView autorelease];
 }
