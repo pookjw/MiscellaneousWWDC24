@@ -10,6 +10,7 @@
 		4F06D01E2C2D67650003A0E5 /* CursorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F06D01D2C2D67650003A0E5 /* CursorViewController.mm */; };
 		4F099D892C2C664E00797D6B /* RulerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F099D882C2C664E00797D6B /* RulerView.mm */; };
 		4F099D8D2C2C73E500797D6B /* PopUpButtonsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F099D8C2C2C73E500797D6B /* PopUpButtonsViewController.mm */; };
+		4F26EFCA2C2DC799007D63F3 /* NSMenuItem+MAPopUpButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F26EFC92C2DC799007D63F3 /* NSMenuItem+MAPopUpButton.m */; };
 		4F46CFDF2C28308E005AC6AF /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46CFDE2C28308E005AC6AF /* AppDelegate.mm */; };
 		4F46CFE42C28308F005AC6AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F46CFE32C28308F005AC6AF /* Assets.xcassets */; };
 		4F46CFE92C28308F005AC6AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F46CFE82C28308F005AC6AF /* main.m */; };
@@ -43,6 +44,8 @@
 		4F099D882C2C664E00797D6B /* RulerView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RulerView.mm; sourceTree = "<group>"; };
 		4F099D8B2C2C73E500797D6B /* PopUpButtonsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopUpButtonsViewController.h; sourceTree = "<group>"; };
 		4F099D8C2C2C73E500797D6B /* PopUpButtonsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PopUpButtonsViewController.mm; sourceTree = "<group>"; };
+		4F26EFC82C2DC799007D63F3 /* NSMenuItem+MAPopUpButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMenuItem+MAPopUpButton.h"; sourceTree = "<group>"; };
+		4F26EFC92C2DC799007D63F3 /* NSMenuItem+MAPopUpButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMenuItem+MAPopUpButton.m"; sourceTree = "<group>"; };
 		4F46CFDA2C28308E005AC6AF /* MiscellaneousAppKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiscellaneousAppKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F46CFDD2C28308E005AC6AF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4F46CFDE2C28308E005AC6AF /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
@@ -143,6 +146,8 @@
 				4F46CFDE2C28308E005AC6AF /* AppDelegate.mm */,
 				4F46CFFF2C28549A005AC6AF /* NSObject+Foundation_IvarDescription.h */,
 				4F46D0002C28549A005AC6AF /* NSObject+Foundation_IvarDescription.mm */,
+				4F26EFC82C2DC799007D63F3 /* NSMenuItem+MAPopUpButton.h */,
+				4F26EFC92C2DC799007D63F3 /* NSMenuItem+MAPopUpButton.m */,
 				4F5EEF3E2C29C530001E345D /* Menu */,
 				4F46CFF72C2835E2005AC6AF /* Root */,
 				4F46CFFE2C283610005AC6AF /* ClassesList */,
@@ -340,6 +345,7 @@
 				4F099D8D2C2C73E500797D6B /* PopUpButtonsViewController.mm in Sources */,
 				4F46CFFD2C283609005AC6AF /* ClassesListViewController.mm in Sources */,
 				4F5EEF3F2C29C531001E345D /* BaseMenu.mm in Sources */,
+				4F26EFCA2C2DC799007D63F3 /* NSMenuItem+MAPopUpButton.m in Sources */,
 				4F5EEF402C29C531001E345D /* EditMenuItem.mm in Sources */,
 				4F5EEF412C29C531001E345D /* AppMenuItem.mm in Sources */,
 			);

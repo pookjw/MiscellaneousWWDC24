@@ -6,6 +6,7 @@
 //
 
 #import "CursorViewController.h"
+#import "NSMenuItem+MAPopUpButton.h"
 #include <vector>
 #include <algorithm>
 #import <objc/message.h>
@@ -32,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self addDefaultCursorButtons];
+    [self addDefaultCursorPopUpButtons];
     
     //
     
@@ -89,7 +90,7 @@
     [NSCursor unhide];
 }
 
-- (void)addDefaultCursorButtons {
+- (void)addDefaultCursorPopUpButtons {
     // Private Cursor들도 있음
     
     std::vector<SEL> selectors {
@@ -98,23 +99,78 @@
         @selector(closedHandCursor),
         @selector(crosshairCursor),
         @selector(disappearingItemCursor),
-        @selector(dragCopyCursor),
-        @selector(<#selector#>)
+        @selector(dragCopyCursor)
+//        @selector(<#selector#>)
     };
     
     std::for_each(selectors.cbegin(), selectors.cend(), [stackView = self.stackView, self](SEL aSelector) {
-        NSButton *defaultCursorButton = [NSButton buttonWithTitle:NSStringFromSelector(aSelector) target:self action:@selector(defaultCursorButtonDidTrigger:)];
-        [stackView addArrangedSubview:defaultCursorButton];
+        NSMenu *menu = [NSMenu new];
+        
+        //
+        
+        NSMenuItem *pushMenuItem = [[NSMenuItem alloc] initWithTitle:@"Push" action:@selector(defaultCursorPushMenuItemDidTrigger:) keyEquivalent:@""];
+        pushMenuItem.target = self;
+        [menu addItem:pushMenuItem];
+        [pushMenuItem release];
+        
+        //
+        
+        NSMenuItem *setMenuItem = [[NSMenuItem alloc] initWithTitle:@"Set" action:@selector(defaultCursorSetMenuItemDidTrigger:) keyEquivalent:@""];
+        setMenuItem.target = self;
+        [menu addItem:setMenuItem];
+        [setMenuItem release];
+        
+        //
+        
+        NSMenuItem *popMenuItem = [[NSMenuItem alloc] initWithTitle:@"Pop" action:@selector(defaultCursorPopMenuItemDidTrigger:) keyEquivalent:@""];
+        popMenuItem.target = self;
+        [menu addItem:popMenuItem];
+        [popMenuItem release];
+        
+        //
+        
+        NSPopUpButton *defaultCursorPopUpButton = [NSPopUpButton pullDownButtonWithTitle:NSStringFromSelector(aSelector) menu:menu];
+        [menu release];
+        
+        [stackView addArrangedSubview:defaultCursorPopUpButton];
     });
 }
 
-- (void)defaultCursorButtonDidTrigger:(NSButton *)sender {
-    SEL aSelector = NSSelectorFromString(sender.title);
+- (NSCursor *)cursorFomMenuItem:(NSMenuItem *)menuItem {
+    NSPopUpButton *popUpButton = [menuItem MA_popupButton];
+    NSCursor *cursor = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(NSCursor.class, NSSelectorFromString(popUpButton.title));
     
-    NSCursor *cursor = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(NSCursor.class, aSelector);
-    
-//    [cursor push];
-    [cursor set];
+    return cursor;
 }
+
+- (void)defaultCursorPushMenuItemDidTrigger:(NSMenuItem *)sender {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSCursor *cursor = [self cursorFomMenuItem:sender];
+        [cursor push];
+    });
+}
+
+- (void)defaultCursorSetMenuItemDidTrigger:(NSMenuItem *)sender {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSCursor *cursor = [self cursorFomMenuItem:sender];
+        [cursor set];
+    });
+}
+
+- (void)defaultCursorPopMenuItemDidTrigger:(NSMenuItem *)sender {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSCursor *cursor = [self cursorFomMenuItem:sender];
+        [cursor pop];
+    });
+}
+
+//- (void)defaultCursorPullDownButtonDidTrigger:(NSButton *)sender {
+//    SEL aSelector = NSSelectorFromString(sender.title);
+//    
+//    NSCursor *cursor = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(NSCursor.class, aSelector);
+//    
+////    [cursor push];
+//    [cursor set];
+//}
 
 @end

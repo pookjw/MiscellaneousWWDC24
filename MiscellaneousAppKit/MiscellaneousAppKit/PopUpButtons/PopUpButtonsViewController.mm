@@ -6,29 +6,9 @@
 //
 
 #import "PopUpButtonsViewController.h"
+#import "NSMenuItem+MAPopUpButton.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
-
-@interface NSMenuItem (MAPBPrivate)
-@end
-
-@implementation NSMenuItem (MAPBPrivate)
-
-- (NSPopUpButton *)_MAPBPrivate_popUpButton {
-    // _NSMenuImpl
-    id _extra;
-    object_getInstanceVariable(self.menu, "_extra", (void **)&_extra);
-    
-    __kindof NSView *_menuOwner;
-    object_getInstanceVariable(_extra, "_menuOwner", (void **)&_menuOwner);
-    
-    NSPopUpButtonCell *cell = (NSPopUpButtonCell *)_menuOwner;
-    NSPopUpButton *button = (NSPopUpButton *)cell.controlView;
-    
-    return button;
-}
-
-@end
 
 // popUpButton의 경우 Menu Item이 선택되면 -[NSPopUpButtonCell setMenuItem:]이 호출되면서 Title이 바뀜
 @interface PopUpButtonsViewController ()
@@ -195,7 +175,7 @@
     NSLog(@"%s", sel_getName(_cmd));
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [[sender _MAPBPrivate_popUpButton] selectItem:sender.menu.itemArray.firstObject];
+        [[sender MA_popupButton] selectItem:sender.menu.itemArray.firstObject];
     });
 }
 
