@@ -3,13 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		4F06D01E2C2D67650003A0E5 /* CursorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F06D01D2C2D67650003A0E5 /* CursorViewController.mm */; };
 		4F099D892C2C664E00797D6B /* RulerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F099D882C2C664E00797D6B /* RulerView.mm */; };
 		4F099D8D2C2C73E500797D6B /* PopUpButtonsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F099D8C2C2C73E500797D6B /* PopUpButtonsViewController.mm */; };
+		4F1C70F22C2EBB3C002E096A /* AnimatedCursor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C70F12C2EBB3C002E096A /* AnimatedCursor.mm */; };
 		4F26EFCA2C2DC799007D63F3 /* NSMenuItem+MAPopUpButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F26EFC92C2DC799007D63F3 /* NSMenuItem+MAPopUpButton.m */; };
 		4F46CFDF2C28308E005AC6AF /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46CFDE2C28308E005AC6AF /* AppDelegate.mm */; };
 		4F46CFE42C28308F005AC6AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F46CFE32C28308F005AC6AF /* Assets.xcassets */; };
@@ -44,6 +45,8 @@
 		4F099D882C2C664E00797D6B /* RulerView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RulerView.mm; sourceTree = "<group>"; };
 		4F099D8B2C2C73E500797D6B /* PopUpButtonsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopUpButtonsViewController.h; sourceTree = "<group>"; };
 		4F099D8C2C2C73E500797D6B /* PopUpButtonsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PopUpButtonsViewController.mm; sourceTree = "<group>"; };
+		4F1C70F02C2EBB3C002E096A /* AnimatedCursor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimatedCursor.h; sourceTree = "<group>"; };
+		4F1C70F12C2EBB3C002E096A /* AnimatedCursor.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AnimatedCursor.mm; sourceTree = "<group>"; };
 		4F26EFC82C2DC799007D63F3 /* NSMenuItem+MAPopUpButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMenuItem+MAPopUpButton.h"; sourceTree = "<group>"; };
 		4F26EFC92C2DC799007D63F3 /* NSMenuItem+MAPopUpButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMenuItem+MAPopUpButton.m"; sourceTree = "<group>"; };
 		4F46CFDA2C28308E005AC6AF /* MiscellaneousAppKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiscellaneousAppKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,6 +93,10 @@
 		4F9E0F402C2BCDDE00EF098D /* RulerContentView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RulerContentView.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		4F1C70D32C2EBAC2002E096A /* Cursors */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Cursors; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		4F46CFD72C28308E005AC6AF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -108,6 +115,8 @@
 			children = (
 				4F06D01C2C2D67650003A0E5 /* CursorViewController.h */,
 				4F06D01D2C2D67650003A0E5 /* CursorViewController.mm */,
+				4F1C70F02C2EBB3C002E096A /* AnimatedCursor.h */,
+				4F1C70F12C2EBB3C002E096A /* AnimatedCursor.mm */,
 			);
 			path = Cursor;
 			sourceTree = "<group>";
@@ -141,6 +150,7 @@
 		4F46CFDC2C28308E005AC6AF /* MiscellaneousAppKit */ = {
 			isa = PBXGroup;
 			children = (
+				4F1C70D32C2EBAC2002E096A /* Cursors */,
 				4F5EEEEE2C29B866001E345D /* adaptiveImageGlyph.plist */,
 				4F46CFDD2C28308E005AC6AF /* AppDelegate.h */,
 				4F46CFDE2C28308E005AC6AF /* AppDelegate.mm */,
@@ -270,6 +280,9 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				4F1C70D32C2EBAC2002E096A /* Cursors */,
+			);
 			name = MiscellaneousAppKit;
 			productName = MiscellaneousAppKit;
 			productReference = 4F46CFDA2C28308E005AC6AF /* MiscellaneousAppKit.app */;
@@ -329,6 +342,7 @@
 			files = (
 				4F9E0F412C2BCDDE00EF098D /* RulerContentView.mm in Sources */,
 				4F46D00B2C285FF3005AC6AF /* ClassTableCellView.mm in Sources */,
+				4F1C70F22C2EBB3C002E096A /* AnimatedCursor.mm in Sources */,
 				4F5EB6932C29D4480019E2D5 /* RulerViewController.mm in Sources */,
 				4F46D0042C2856E7005AC6AF /* ClassesListTableView.m in Sources */,
 				4F46CFF32C28332B005AC6AF /* RootWindowController.mm in Sources */,

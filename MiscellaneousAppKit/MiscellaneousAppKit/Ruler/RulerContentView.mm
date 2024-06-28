@@ -26,4 +26,12 @@
     
 }
 
+- (void)mouseDown:(NSEvent *)event {
+    [super mouseDown:event];
+    
+    if (event.type == NSEventTypeLeftMouseDown) {
+        NSLog(@"Hello!");
+    }
+}
+
 @end
