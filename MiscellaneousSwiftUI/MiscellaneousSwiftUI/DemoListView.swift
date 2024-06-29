@@ -20,6 +20,7 @@ struct DemoListView: View {
                     Text(String(describing: demo))
                 }
             }
+            .navigationTitle("Miscellaneous")
         }
     }
 }

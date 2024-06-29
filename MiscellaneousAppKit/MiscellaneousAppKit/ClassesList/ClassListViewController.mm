@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 6/23/24.
 //
 
-#import "ClassesListViewController.h"
+#import "ClassListViewController.h"
 #import "ClassTableCellView.h"
 #import "ClassTableRowView.h"
 #import "ClassesListTableView.h"
@@ -14,17 +14,18 @@
 #import "RulerViewController.h"
 #import "PopUpButtonsViewController.h"
 #import "CursorViewController.h"
+#import "StagedWindowViewController.h"
 
 APPKIT_EXTERN NSString * const NSTableViewCurrentRowSelectionUserInfoKey;
 APPKIT_EXTERN NSString * const NSTableViewPreviousRowSelectionUserInfoKey;
 
-@interface ClassesListViewController () <NSTableViewDataSource, NSTableViewDelegate>
+@interface ClassListViewController () <NSTableViewDataSource, NSTableViewDelegate>
 @property (retain, readonly, nonatomic) NSScrollView *scrollView;
 @property (retain, readonly, nonatomic) ClassesListTableView *tableView;
 @property (retain, readonly, nonatomic) NSArray<Class> *classes;
 @end
 
-@implementation ClassesListViewController
+@implementation ClassListViewController
 @synthesize scrollView = _scrollView;
 @synthesize tableView = _tableView;
 
@@ -86,7 +87,8 @@ APPKIT_EXTERN NSString * const NSTableViewPreviousRowSelectionUserInfoKey;
         TextViewController.class,
         RulerViewController.class,
         PopUpButtonsViewController.class,
-        CursorViewController.class
+        CursorViewController.class,
+        StagedWindowViewController.class
     ];
 }
 
@@ -110,7 +112,7 @@ APPKIT_EXTERN NSString * const NSTableViewPreviousRowSelectionUserInfoKey;
     NSIndexSet *indexSet = notification.userInfo[NSTableViewCurrentRowSelectionUserInfoKey];
     Class selectedClass = self.classes[indexSet.firstIndex];
     
-    [self.delegate classesListViewController:self didSelectClass:selectedClass];
+    [self.delegate classListViewController:self didSelectClass:selectedClass];
 }
 
 @end

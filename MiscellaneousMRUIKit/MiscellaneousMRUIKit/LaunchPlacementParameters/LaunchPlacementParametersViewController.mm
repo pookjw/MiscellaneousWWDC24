@@ -8,20 +8,7 @@
 #import "LaunchPlacementParametersViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
-
-struct MRUISize3D {
-    CGFloat width;
-    CGFloat height;
-    CGFloat depth;
-};
-
-static inline MRUISize3D MRUISize3DMake(CGFloat width, CGFloat height, CGFloat depth) {
-    MRUISize3D size3D;
-    size3D.width = width;
-    size3D.height = height;
-    size3D.depth = depth;
-    return size3D;
-}
+#import "MRUISize3D.h"
 
 @interface LaunchPlacementParametersViewController ()
 @property (retain, nonatomic) UIButton *button;

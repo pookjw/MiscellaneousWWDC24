@@ -7,6 +7,9 @@
 
 #import "ClassListViewController.h"
 #import "LaunchPlacementParametersViewController.h"
+#import "VolumetricWorldAlignmentBehaviorViewController.h"
+#import "DefaultWorldScalingViewController.h"
+#import "HomeIndicatorViewController.h"
 
 @interface ClassListViewController ()
 @property (retain, readonly, nonatomic) UICollectionViewCellRegistration *cellRegistration;
@@ -61,7 +64,10 @@
 
 - (NSArray<Class> *)classes {
     return @[
-        LaunchPlacementParametersViewController.class
+        LaunchPlacementParametersViewController.class,
+        VolumetricWorldAlignmentBehaviorViewController.class,
+        DefaultWorldScalingViewController.class,
+        HomeIndicatorViewController.class
     ];
 }
 

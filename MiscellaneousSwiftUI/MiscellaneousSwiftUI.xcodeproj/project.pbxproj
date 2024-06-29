@@ -13,6 +13,16 @@
 		4F1C710F2C2F1640002E096A /* DefaultWindowPlacementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C710E2C2F1640002E096A /* DefaultWindowPlacementView.swift */; };
 		4F1C71112C2F1658002E096A /* DemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C71102C2F1658002E096A /* DemoListView.swift */; };
 		4F1C71132C2F1662002E096A /* Demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C71122C2F1662002E096A /* Demo.swift */; };
+		4F26D2F22C2FEAD80097B837 /* WindowIdealSizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D2F12C2FEAD80097B837 /* WindowIdealSizeView.swift */; };
+		4F26D32D2C2FEE610097B837 /* NSObject+Foundation_IvarDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D32C2C2FEE610097B837 /* NSObject+Foundation_IvarDescription.mm */; };
+		4F26D3302C2FF3B10097B837 /* WindowIdealPlacementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D32F2C2FF3B10097B837 /* WindowIdealPlacementView.swift */; };
+		4F26D3332C2FF4B00097B837 /* VolumeWorldAlignmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3322C2FF4B00097B837 /* VolumeWorldAlignmentView.swift */; };
+		4F26D3442C3005AC0097B837 /* DefaultWorldScalingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3432C3005AC0097B837 /* DefaultWorldScalingView.swift */; };
+		4F26D34E2C300B380097B837 /* DefaultLaunchBehaviorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D34D2C300B380097B837 /* DefaultLaunchBehaviorView.swift */; };
+		4F26D3512C300EB10097B837 /* WindowManagerRoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3502C300EB10097B837 /* WindowManagerRoleView.swift */; };
+		4F26D3902C301FDC0097B837 /* RestorationBehaviorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D38F2C301FDC0097B837 /* RestorationBehaviorView.swift */; };
+		4F26D3932C30206A0097B837 /* PersistentSystemOverlaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3922C30206A0097B837 /* PersistentSystemOverlaysView.swift */; };
+		4F26D39C2C305E040097B837 /* WindowLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D39B2C305E040097B837 /* WindowLevelView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +33,17 @@
 		4F1C710E2C2F1640002E096A /* DefaultWindowPlacementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultWindowPlacementView.swift; sourceTree = "<group>"; };
 		4F1C71102C2F1658002E096A /* DemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoListView.swift; sourceTree = "<group>"; };
 		4F1C71122C2F1662002E096A /* Demo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo.swift; sourceTree = "<group>"; };
+		4F26D2F12C2FEAD80097B837 /* WindowIdealSizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowIdealSizeView.swift; sourceTree = "<group>"; };
+		4F26D32B2C2FEE610097B837 /* NSObject+Foundation_IvarDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Foundation_IvarDescription.h"; sourceTree = "<group>"; };
+		4F26D32C2C2FEE610097B837 /* NSObject+Foundation_IvarDescription.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+Foundation_IvarDescription.mm"; sourceTree = "<group>"; };
+		4F26D32F2C2FF3B10097B837 /* WindowIdealPlacementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowIdealPlacementView.swift; sourceTree = "<group>"; };
+		4F26D3322C2FF4B00097B837 /* VolumeWorldAlignmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeWorldAlignmentView.swift; sourceTree = "<group>"; };
+		4F26D3432C3005AC0097B837 /* DefaultWorldScalingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultWorldScalingView.swift; sourceTree = "<group>"; };
+		4F26D34D2C300B380097B837 /* DefaultLaunchBehaviorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLaunchBehaviorView.swift; sourceTree = "<group>"; };
+		4F26D3502C300EB10097B837 /* WindowManagerRoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManagerRoleView.swift; sourceTree = "<group>"; };
+		4F26D38F2C301FDC0097B837 /* RestorationBehaviorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorationBehaviorView.swift; sourceTree = "<group>"; };
+		4F26D3922C30206A0097B837 /* PersistentSystemOverlaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentSystemOverlaysView.swift; sourceTree = "<group>"; };
+		4F26D39B2C305E040097B837 /* WindowLevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLevelView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,10 +76,21 @@
 		4F1C70FE2C2F15CD002E096A /* MiscellaneousSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				4F26D32B2C2FEE610097B837 /* NSObject+Foundation_IvarDescription.h */,
+				4F26D32C2C2FEE610097B837 /* NSObject+Foundation_IvarDescription.mm */,
 				4F1C70FF2C2F15CD002E096A /* MiscellaneousSwiftUIApp.swift */,
 				4F1C71102C2F1658002E096A /* DemoListView.swift */,
 				4F1C71122C2F1662002E096A /* Demo.swift */,
 				4F1C710D2C2F1634002E096A /* DefaultWindowPlacement */,
+				4F26D2F02C2FEACD0097B837 /* WindowIdealSize */,
+				4F26D32E2C2FF3A00097B837 /* WindowIdealPlacement */,
+				4F26D3312C2FF49D0097B837 /* VolumeWorldAlignment */,
+				4F26D3422C30059B0097B837 /* DefaultWorldScaling */,
+				4F26D34C2C300B280097B837 /* DefaultLaunchBehavior */,
+				4F26D34F2C300E910097B837 /* WindowManagerRole */,
+				4F26D38E2C301FCB0097B837 /* RestorationBehavior */,
+				4F26D3912C30205D0097B837 /* PersistentSystemOverlays */,
+				4F26D39A2C305DF20097B837 /* WindowLevel */,
 				4F1C71032C2F15CE002E096A /* Assets.xcassets */,
 				4F1C71052C2F15CE002E096A /* Preview Content */,
 			);
@@ -79,6 +111,78 @@
 				4F1C710E2C2F1640002E096A /* DefaultWindowPlacementView.swift */,
 			);
 			path = DefaultWindowPlacement;
+			sourceTree = "<group>";
+		};
+		4F26D2F02C2FEACD0097B837 /* WindowIdealSize */ = {
+			isa = PBXGroup;
+			children = (
+				4F26D2F12C2FEAD80097B837 /* WindowIdealSizeView.swift */,
+			);
+			path = WindowIdealSize;
+			sourceTree = "<group>";
+		};
+		4F26D32E2C2FF3A00097B837 /* WindowIdealPlacement */ = {
+			isa = PBXGroup;
+			children = (
+				4F26D32F2C2FF3B10097B837 /* WindowIdealPlacementView.swift */,
+			);
+			path = WindowIdealPlacement;
+			sourceTree = "<group>";
+		};
+		4F26D3312C2FF49D0097B837 /* VolumeWorldAlignment */ = {
+			isa = PBXGroup;
+			children = (
+				4F26D3322C2FF4B00097B837 /* VolumeWorldAlignmentView.swift */,
+			);
+			path = VolumeWorldAlignment;
+			sourceTree = "<group>";
+		};
+		4F26D3422C30059B0097B837 /* DefaultWorldScaling */ = {
+			isa = PBXGroup;
+			children = (
+				4F26D3432C3005AC0097B837 /* DefaultWorldScalingView.swift */,
+			);
+			path = DefaultWorldScaling;
+			sourceTree = "<group>";
+		};
+		4F26D34C2C300B280097B837 /* DefaultLaunchBehavior */ = {
+			isa = PBXGroup;
+			children = (
+				4F26D34D2C300B380097B837 /* DefaultLaunchBehaviorView.swift */,
+			);
+			path = DefaultLaunchBehavior;
+			sourceTree = "<group>";
+		};
+		4F26D34F2C300E910097B837 /* WindowManagerRole */ = {
+			isa = PBXGroup;
+			children = (
+				4F26D3502C300EB10097B837 /* WindowManagerRoleView.swift */,
+			);
+			path = WindowManagerRole;
+			sourceTree = "<group>";
+		};
+		4F26D38E2C301FCB0097B837 /* RestorationBehavior */ = {
+			isa = PBXGroup;
+			children = (
+				4F26D38F2C301FDC0097B837 /* RestorationBehaviorView.swift */,
+			);
+			path = RestorationBehavior;
+			sourceTree = "<group>";
+		};
+		4F26D3912C30205D0097B837 /* PersistentSystemOverlays */ = {
+			isa = PBXGroup;
+			children = (
+				4F26D3922C30206A0097B837 /* PersistentSystemOverlaysView.swift */,
+			);
+			path = PersistentSystemOverlays;
+			sourceTree = "<group>";
+		};
+		4F26D39A2C305DF20097B837 /* WindowLevel */ = {
+			isa = PBXGroup;
+			children = (
+				4F26D39B2C305E040097B837 /* WindowLevelView.swift */,
+			);
+			path = WindowLevel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,8 +256,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F1C710F2C2F1640002E096A /* DefaultWindowPlacementView.swift in Sources */,
+				4F26D34E2C300B380097B837 /* DefaultLaunchBehaviorView.swift in Sources */,
+				4F26D3932C30206A0097B837 /* PersistentSystemOverlaysView.swift in Sources */,
+				4F26D39C2C305E040097B837 /* WindowLevelView.swift in Sources */,
+				4F26D32D2C2FEE610097B837 /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4F1C71132C2F1662002E096A /* Demo.swift in Sources */,
+				4F26D3512C300EB10097B837 /* WindowManagerRoleView.swift in Sources */,
+				4F26D3332C2FF4B00097B837 /* VolumeWorldAlignmentView.swift in Sources */,
+				4F26D3302C2FF3B10097B837 /* WindowIdealPlacementView.swift in Sources */,
+				4F26D2F22C2FEAD80097B837 /* WindowIdealSizeView.swift in Sources */,
 				4F1C71112C2F1658002E096A /* DemoListView.swift in Sources */,
+				4F26D3902C301FDC0097B837 /* RestorationBehaviorView.swift in Sources */,
+				4F26D3442C3005AC0097B837 /* DefaultWorldScalingView.swift in Sources */,
 				4F1C71002C2F15CD002E096A /* MiscellaneousSwiftUIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

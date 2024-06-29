@@ -6,25 +6,25 @@
 //
 
 #import "RootSplitViewController.h"
-#import "ClassesListViewController.h"
+#import "ClassListViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 
-@interface RootSplitViewController () <ClassesListViewControllerDelegate>
-@property (retain, readonly, nonatomic) ClassesListViewController *classesListViewController;
+@interface RootSplitViewController () <ClassListViewControllerDelegate>
+@property (retain, readonly, nonatomic) ClassListViewController *classListViewController;
 @property (retain, readonly, nonatomic) NSViewController *emptyViewController;
 @property (retain, readonly, nonatomic) NSSplitViewItem *classesListSplitViewItem;
 @property (retain, readonly, nonatomic) NSSplitViewItem *emptySplitViewItem;
 @end
 
 @implementation RootSplitViewController
-@synthesize classesListViewController = _classesListViewController;
+@synthesize classListViewController = _classListViewController;
 @synthesize emptyViewController = _emptyViewController;
 @synthesize classesListSplitViewItem = _classesListSplitViewItem;
 @synthesize emptySplitViewItem = _emptySplitViewItem;
 
 - (void)dealloc {
-    [_classesListViewController release];
+    [_classListViewController release];
     [_emptySplitViewItem release];
     [_classesListSplitViewItem release];
     [_emptyViewController release];
@@ -36,14 +36,14 @@
     self.splitViewItems = @[self.classesListSplitViewItem, self.emptySplitViewItem];
 }
 
-- (ClassesListViewController *)classesListViewController {
-    if (auto classesListViewController = _classesListViewController) return classesListViewController;
+- (ClassListViewController *)classListViewController {
+    if (auto classListViewController = _classListViewController) return classListViewController;
     
-    ClassesListViewController *classesListViewController = [ClassesListViewController new];
-    classesListViewController.delegate = self;
+    ClassListViewController *classListViewController = [ClassListViewController new];
+    classListViewController.delegate = self;
     
-    _classesListViewController = [classesListViewController retain];
-    return [classesListViewController autorelease];
+    _classListViewController = [classListViewController retain];
+    return [classListViewController autorelease];
 }
 
 - (NSViewController *)emptyViewController {
@@ -58,7 +58,7 @@
 - (NSSplitViewItem *)classesListSplitViewItem {
     if (auto classesListSplitViewItem = _classesListSplitViewItem) return classesListSplitViewItem;
     
-    NSSplitViewItem *classesListSplitViewItem = [NSSplitViewItem sidebarWithViewController:self.classesListViewController];
+    NSSplitViewItem *classesListSplitViewItem = [NSSplitViewItem sidebarWithViewController:self.classListViewController];
     
     classesListSplitViewItem.canCollapse = NO;
     ((void (*)(id, SEL, CGFloat))objc_msgSend)(classesListSplitViewItem, sel_registerName("setMinimumSize:"), 100.0);
@@ -76,7 +76,7 @@
     return emptySplitViewItem;
 }
 
-- (void)classesListViewController:(ClassesListViewController *)classesListViewController didSelectClass:(Class)selectedClass {
+- (void)classListViewController:(ClassListViewController *)classListViewController didSelectClass:(Class)selectedClass {
     __kindof NSViewController *viewController = [selectedClass new];
     
     NSSplitViewItem *contentListSplitViewItem = [NSSplitViewItem contentListWithViewController:viewController];

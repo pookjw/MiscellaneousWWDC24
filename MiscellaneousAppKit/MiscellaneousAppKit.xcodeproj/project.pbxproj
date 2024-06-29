@@ -11,13 +11,14 @@
 		4F099D892C2C664E00797D6B /* RulerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F099D882C2C664E00797D6B /* RulerView.mm */; };
 		4F099D8D2C2C73E500797D6B /* PopUpButtonsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F099D8C2C2C73E500797D6B /* PopUpButtonsViewController.mm */; };
 		4F1C70F22C2EBB3C002E096A /* AnimatedCursor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C70F12C2EBB3C002E096A /* AnimatedCursor.mm */; };
+		4F26D38D2C3017500097B837 /* StagedWindowViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D38C2C3017500097B837 /* StagedWindowViewController.mm */; };
 		4F26EFCA2C2DC799007D63F3 /* NSMenuItem+MAPopUpButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F26EFC92C2DC799007D63F3 /* NSMenuItem+MAPopUpButton.m */; };
 		4F46CFDF2C28308E005AC6AF /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46CFDE2C28308E005AC6AF /* AppDelegate.mm */; };
 		4F46CFE42C28308F005AC6AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F46CFE32C28308F005AC6AF /* Assets.xcassets */; };
 		4F46CFE92C28308F005AC6AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F46CFE82C28308F005AC6AF /* main.m */; };
 		4F46CFF32C28332B005AC6AF /* RootWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46CFF22C28332B005AC6AF /* RootWindowController.mm */; };
 		4F46CFF62C28349B005AC6AF /* RootSplitViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46CFF52C28349B005AC6AF /* RootSplitViewController.mm */; };
-		4F46CFFD2C283609005AC6AF /* ClassesListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46CFFC2C283609005AC6AF /* ClassesListViewController.mm */; };
+		4F46CFFD2C283609005AC6AF /* ClassListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46CFFC2C283609005AC6AF /* ClassListViewController.mm */; };
 		4F46D0012C28549A005AC6AF /* NSObject+Foundation_IvarDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46D0002C28549A005AC6AF /* NSObject+Foundation_IvarDescription.mm */; };
 		4F46D0042C2856E7005AC6AF /* ClassesListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F46D0032C2856E7005AC6AF /* ClassesListTableView.m */; };
 		4F46D0082C285C1E005AC6AF /* TextViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46D0072C285C1E005AC6AF /* TextViewController.mm */; };
@@ -47,6 +48,8 @@
 		4F099D8C2C2C73E500797D6B /* PopUpButtonsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PopUpButtonsViewController.mm; sourceTree = "<group>"; };
 		4F1C70F02C2EBB3C002E096A /* AnimatedCursor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimatedCursor.h; sourceTree = "<group>"; };
 		4F1C70F12C2EBB3C002E096A /* AnimatedCursor.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AnimatedCursor.mm; sourceTree = "<group>"; };
+		4F26D38B2C3017500097B837 /* StagedWindowViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StagedWindowViewController.h; sourceTree = "<group>"; };
+		4F26D38C2C3017500097B837 /* StagedWindowViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = StagedWindowViewController.mm; sourceTree = "<group>"; };
 		4F26EFC82C2DC799007D63F3 /* NSMenuItem+MAPopUpButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMenuItem+MAPopUpButton.h"; sourceTree = "<group>"; };
 		4F26EFC92C2DC799007D63F3 /* NSMenuItem+MAPopUpButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMenuItem+MAPopUpButton.m"; sourceTree = "<group>"; };
 		4F46CFDA2C28308E005AC6AF /* MiscellaneousAppKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiscellaneousAppKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,8 +62,8 @@
 		4F46CFF22C28332B005AC6AF /* RootWindowController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RootWindowController.mm; sourceTree = "<group>"; };
 		4F46CFF42C28349B005AC6AF /* RootSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootSplitViewController.h; sourceTree = "<group>"; };
 		4F46CFF52C28349B005AC6AF /* RootSplitViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RootSplitViewController.mm; sourceTree = "<group>"; };
-		4F46CFFB2C283609005AC6AF /* ClassesListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassesListViewController.h; sourceTree = "<group>"; };
-		4F46CFFC2C283609005AC6AF /* ClassesListViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ClassesListViewController.mm; sourceTree = "<group>"; };
+		4F46CFFB2C283609005AC6AF /* ClassListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassListViewController.h; sourceTree = "<group>"; };
+		4F46CFFC2C283609005AC6AF /* ClassListViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ClassListViewController.mm; sourceTree = "<group>"; };
 		4F46CFFF2C28549A005AC6AF /* NSObject+Foundation_IvarDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Foundation_IvarDescription.h"; sourceTree = "<group>"; };
 		4F46D0002C28549A005AC6AF /* NSObject+Foundation_IvarDescription.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+Foundation_IvarDescription.mm"; sourceTree = "<group>"; };
 		4F46D0022C2856E7005AC6AF /* ClassesListTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassesListTableView.h; sourceTree = "<group>"; };
@@ -130,6 +133,15 @@
 			path = PopUpButtons;
 			sourceTree = "<group>";
 		};
+		4F26D38A2C3017120097B837 /* StagedWindow */ = {
+			isa = PBXGroup;
+			children = (
+				4F26D38B2C3017500097B837 /* StagedWindowViewController.h */,
+				4F26D38C2C3017500097B837 /* StagedWindowViewController.mm */,
+			);
+			path = StagedWindow;
+			sourceTree = "<group>";
+		};
 		4F46CFD12C28308E005AC6AF = {
 			isa = PBXGroup;
 			children = (
@@ -166,6 +178,7 @@
 				4F5EB6902C29D42C0019E2D5 /* Ruler */,
 				4F099D8A2C2C729A00797D6B /* PopUpButtons */,
 				4F06D01B2C2D67570003A0E5 /* Cursor */,
+				4F26D38A2C3017120097B837 /* StagedWindow */,
 				4F46CFE32C28308F005AC6AF /* Assets.xcassets */,
 				4F46CFE82C28308F005AC6AF /* main.m */,
 				4F46CFEA2C28308F005AC6AF /* MiscellaneousAppKit.entitlements */,
@@ -188,8 +201,8 @@
 		4F46CFFE2C283610005AC6AF /* ClassesList */ = {
 			isa = PBXGroup;
 			children = (
-				4F46CFFB2C283609005AC6AF /* ClassesListViewController.h */,
-				4F46CFFC2C283609005AC6AF /* ClassesListViewController.mm */,
+				4F46CFFB2C283609005AC6AF /* ClassListViewController.h */,
+				4F46CFFC2C283609005AC6AF /* ClassListViewController.mm */,
 				4F46D0022C2856E7005AC6AF /* ClassesListTableView.h */,
 				4F46D0032C2856E7005AC6AF /* ClassesListTableView.m */,
 				4F46D0092C285FF3005AC6AF /* ClassTableCellView.h */,
@@ -357,7 +370,8 @@
 				4F46CFF62C28349B005AC6AF /* RootSplitViewController.mm in Sources */,
 				4F06D01E2C2D67650003A0E5 /* CursorViewController.mm in Sources */,
 				4F099D8D2C2C73E500797D6B /* PopUpButtonsViewController.mm in Sources */,
-				4F46CFFD2C283609005AC6AF /* ClassesListViewController.mm in Sources */,
+				4F26D38D2C3017500097B837 /* StagedWindowViewController.mm in Sources */,
+				4F46CFFD2C283609005AC6AF /* ClassListViewController.mm in Sources */,
 				4F5EEF3F2C29C531001E345D /* BaseMenu.mm in Sources */,
 				4F26EFCA2C2DC799007D63F3 /* NSMenuItem+MAPopUpButton.m in Sources */,
 				4F5EEF402C29C531001E345D /* EditMenuItem.mm in Sources */,

@@ -13,6 +13,13 @@
 		4F1C71332C2F2443002E096A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C71322C2F2443002E096A /* main.m */; };
 		4F26D2EB2C2FDBFC0097B837 /* ClassListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D2EA2C2FDBFC0097B837 /* ClassListViewController.mm */; };
 		4F26D2EF2C2FDDED0097B837 /* LaunchPlacementParametersViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D2EE2C2FDDED0097B837 /* LaunchPlacementParametersViewController.mm */; };
+		4F26D3372C2FF84A0097B837 /* VolumetricWorldAlignmentBehaviorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3362C2FF84A0097B837 /* VolumetricWorldAlignmentBehaviorViewController.mm */; };
+		4F26D33A2C2FF9040097B837 /* LaunchPlacementParametersWindowScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3392C2FF9040097B837 /* LaunchPlacementParametersWindowScene.mm */; };
+		4F26D33D2C2FF9E80097B837 /* VolumetricWorldAlignmentBehaviorWindowScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D33C2C2FF9E80097B837 /* VolumetricWorldAlignmentBehaviorWindowScene.mm */; };
+		4F26D3412C2FFAD20097B837 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F26D3402C2FFAD20097B837 /* QuartzCore.framework */; };
+		4F26D3482C3008170097B837 /* DefaultWorldScalingViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3472C3008170097B837 /* DefaultWorldScalingViewController.mm */; };
+		4F26D34B2C30086F0097B837 /* DefaultWorldScalingSceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D34A2C30086F0097B837 /* DefaultWorldScalingSceneDelegate.m */; };
+		4F26D3992C305B9F0097B837 /* HomeIndicatorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3982C305B9F0097B837 /* HomeIndicatorViewController.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +35,20 @@
 		4F26D2EA2C2FDBFC0097B837 /* ClassListViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ClassListViewController.mm; sourceTree = "<group>"; };
 		4F26D2ED2C2FDDED0097B837 /* LaunchPlacementParametersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaunchPlacementParametersViewController.h; sourceTree = "<group>"; };
 		4F26D2EE2C2FDDED0097B837 /* LaunchPlacementParametersViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LaunchPlacementParametersViewController.mm; sourceTree = "<group>"; };
+		4F26D3352C2FF84A0097B837 /* VolumetricWorldAlignmentBehaviorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VolumetricWorldAlignmentBehaviorViewController.h; sourceTree = "<group>"; };
+		4F26D3362C2FF84A0097B837 /* VolumetricWorldAlignmentBehaviorViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VolumetricWorldAlignmentBehaviorViewController.mm; sourceTree = "<group>"; };
+		4F26D3382C2FF9040097B837 /* LaunchPlacementParametersWindowScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaunchPlacementParametersWindowScene.h; sourceTree = "<group>"; };
+		4F26D3392C2FF9040097B837 /* LaunchPlacementParametersWindowScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LaunchPlacementParametersWindowScene.mm; sourceTree = "<group>"; };
+		4F26D33B2C2FF9E80097B837 /* VolumetricWorldAlignmentBehaviorWindowScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VolumetricWorldAlignmentBehaviorWindowScene.h; sourceTree = "<group>"; };
+		4F26D33C2C2FF9E80097B837 /* VolumetricWorldAlignmentBehaviorWindowScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VolumetricWorldAlignmentBehaviorWindowScene.mm; sourceTree = "<group>"; };
+		4F26D33E2C2FFAC00097B837 /* MRUISize3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MRUISize3D.h; sourceTree = "<group>"; };
+		4F26D3402C2FFAD20097B837 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4F26D3462C3008170097B837 /* DefaultWorldScalingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefaultWorldScalingViewController.h; sourceTree = "<group>"; };
+		4F26D3472C3008170097B837 /* DefaultWorldScalingViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DefaultWorldScalingViewController.mm; sourceTree = "<group>"; };
+		4F26D3492C30086F0097B837 /* DefaultWorldScalingSceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefaultWorldScalingSceneDelegate.h; sourceTree = "<group>"; };
+		4F26D34A2C30086F0097B837 /* DefaultWorldScalingSceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DefaultWorldScalingSceneDelegate.m; sourceTree = "<group>"; };
+		4F26D3972C305B9F0097B837 /* HomeIndicatorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeIndicatorViewController.h; sourceTree = "<group>"; };
+		4F26D3982C305B9F0097B837 /* HomeIndicatorViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = HomeIndicatorViewController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F26D3412C2FFAD20097B837 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +68,7 @@
 			children = (
 				4F1C711F2C2F2442002E096A /* MiscellaneousMRUIKit */,
 				4F1C711E2C2F2442002E096A /* Products */,
+				4F26D33F2C2FFAD20097B837 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -66,7 +89,11 @@
 				4F1C71242C2F2442002E096A /* SceneDelegate.m */,
 				4F26D2E92C2FDBFC0097B837 /* ClassListViewController.h */,
 				4F26D2EA2C2FDBFC0097B837 /* ClassListViewController.mm */,
+				4F26D33E2C2FFAC00097B837 /* MRUISize3D.h */,
 				4F26D2EC2C2FDDD10097B837 /* LaunchPlacementParameters */,
+				4F26D3342C2FF8360097B837 /* VolumetricWorldAlignmentBehavior */,
+				4F26D3452C3007DE0097B837 /* DefaultWorldScaling */,
+				4F26D3942C305B800097B837 /* HomeIndicator */,
 				4F1C712C2C2F2443002E096A /* Assets.xcassets */,
 				4F1C71312C2F2443002E096A /* Info.plist */,
 				4F1C71322C2F2443002E096A /* main.m */,
@@ -79,8 +106,49 @@
 			children = (
 				4F26D2ED2C2FDDED0097B837 /* LaunchPlacementParametersViewController.h */,
 				4F26D2EE2C2FDDED0097B837 /* LaunchPlacementParametersViewController.mm */,
+				4F26D3382C2FF9040097B837 /* LaunchPlacementParametersWindowScene.h */,
+				4F26D3392C2FF9040097B837 /* LaunchPlacementParametersWindowScene.mm */,
 			);
 			path = LaunchPlacementParameters;
+			sourceTree = "<group>";
+		};
+		4F26D3342C2FF8360097B837 /* VolumetricWorldAlignmentBehavior */ = {
+			isa = PBXGroup;
+			children = (
+				4F26D3352C2FF84A0097B837 /* VolumetricWorldAlignmentBehaviorViewController.h */,
+				4F26D3362C2FF84A0097B837 /* VolumetricWorldAlignmentBehaviorViewController.mm */,
+				4F26D33B2C2FF9E80097B837 /* VolumetricWorldAlignmentBehaviorWindowScene.h */,
+				4F26D33C2C2FF9E80097B837 /* VolumetricWorldAlignmentBehaviorWindowScene.mm */,
+			);
+			path = VolumetricWorldAlignmentBehavior;
+			sourceTree = "<group>";
+		};
+		4F26D33F2C2FFAD20097B837 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4F26D3402C2FFAD20097B837 /* QuartzCore.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4F26D3452C3007DE0097B837 /* DefaultWorldScaling */ = {
+			isa = PBXGroup;
+			children = (
+				4F26D3462C3008170097B837 /* DefaultWorldScalingViewController.h */,
+				4F26D3472C3008170097B837 /* DefaultWorldScalingViewController.mm */,
+				4F26D3492C30086F0097B837 /* DefaultWorldScalingSceneDelegate.h */,
+				4F26D34A2C30086F0097B837 /* DefaultWorldScalingSceneDelegate.m */,
+			);
+			path = DefaultWorldScaling;
+			sourceTree = "<group>";
+		};
+		4F26D3942C305B800097B837 /* HomeIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				4F26D3972C305B9F0097B837 /* HomeIndicatorViewController.h */,
+				4F26D3982C305B9F0097B837 /* HomeIndicatorViewController.mm */,
+			);
+			path = HomeIndicator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,10 +220,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F1C71222C2F2442002E096A /* AppDelegate.m in Sources */,
+				4F26D3482C3008170097B837 /* DefaultWorldScalingViewController.mm in Sources */,
+				4F26D3992C305B9F0097B837 /* HomeIndicatorViewController.mm in Sources */,
+				4F26D33A2C2FF9040097B837 /* LaunchPlacementParametersWindowScene.mm in Sources */,
 				4F26D2EB2C2FDBFC0097B837 /* ClassListViewController.mm in Sources */,
+				4F26D34B2C30086F0097B837 /* DefaultWorldScalingSceneDelegate.m in Sources */,
 				4F26D2EF2C2FDDED0097B837 /* LaunchPlacementParametersViewController.mm in Sources */,
 				4F1C71332C2F2443002E096A /* main.m in Sources */,
 				4F1C71252C2F2442002E096A /* SceneDelegate.m in Sources */,
+				4F26D3372C2FF84A0097B837 /* VolumetricWorldAlignmentBehaviorViewController.mm in Sources */,
+				4F26D33D2C2FF9E80097B837 /* VolumetricWorldAlignmentBehaviorWindowScene.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +379,7 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = 7;
+				XROS_DEPLOYMENT_TARGET = 1.0;
 			};
 			name = Debug;
 		};
@@ -335,6 +410,7 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = 7;
+				XROS_DEPLOYMENT_TARGET = 1.0;
 			};
 			name = Release;
 		};

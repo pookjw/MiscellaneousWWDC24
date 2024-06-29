@@ -8,7 +8,7 @@
 #import "RootWindowController.h"
 #import "RootSplitViewController.h"
 
-@interface RootWindowController ()
+@interface RootWindowController () <NSWindowDelegate>
 @property (retain, readonly, nonatomic) RootSplitViewController *rootSplitViewController;
 @property (retain, readonly, nonatomic) NSToolbar *toolbar;
 @end
@@ -38,6 +38,7 @@
         window.contentViewController = rootSplitViewController;
         
         window.toolbar = self.toolbar;
+        window.delegate = self;
     }
     
     [window release];
@@ -72,6 +73,10 @@
     
     _toolbar = [toolbar retain];
     return [toolbar autorelease];
+}
+
+- (NSRect)windowWillUseStandardFrame:(NSWindow *)window defaultFrame:(NSRect)newFrame {
+    return NSMakeRect(window.frame.origin.x, window.frame.origin.y, 300., 300.);
 }
 
 @end

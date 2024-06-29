@@ -7,6 +7,9 @@
 
 #import "AppDelegate.h"
 #import "SceneDelegate.h"
+#import "LaunchPlacementParametersWindowScene.h"
+#import "VolumetricWorldAlignmentBehaviorWindowScene.h"
+#import "DefaultWorldScalingSceneDelegate.h"
 
 @interface AppDelegate ()
 @end
@@ -18,8 +21,21 @@
 }
 
 - (UISceneConfiguration *)application:(UIApplication *)application configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession options:(UISceneConnectionOptions *)options {
+    NSUserActivity * _Nullable userActivity = options.userActivities.allObjects.firstObject;
+    NSString * _Nullable activityType = userActivity.activityType;
+    
     UISceneConfiguration *configuration = [connectingSceneSession.configuration copy];
-    configuration.delegateClass = SceneDelegate.class;
+    
+    if ([activityType isEqualToString:@"LaunchPlacementParameters"]) {
+        configuration.delegateClass = LaunchPlacementParametersWindowScene.class;
+    } else if ([activityType isEqualToString:@"VolumetricWorldAlignmentBehavior"]) {
+        configuration.delegateClass = VolumetricWorldAlignmentBehaviorWindowScene.class;
+    } else if ([activityType isEqualToString:@"DefaultWorldScaling"]) {
+        configuration.delegateClass = DefaultWorldScalingSceneDelegate.class;
+    } else {
+        configuration.delegateClass = SceneDelegate.class;
+    }
+    
     return [configuration autorelease];
 }
 
