@@ -44,6 +44,7 @@ struct MiscellaneousSwiftUIApp: App {
              
              등
              */
+            
             return WindowPlacement.init(.leading(context.windows.first!) ,size: CGSize(width: 300.0, height: 300.0))
         }
 #endif
