@@ -54,6 +54,7 @@ static inline MRUISize3D MRUISize3DMake(CGFloat width, CGFloat height, CGFloat d
         NSUserActivity *userActivity = [[NSUserActivity alloc] initWithActivityType:@"LaunchPlacementParameters"];
         
         UIWindowSceneActivationConfiguration *configuration = [[UIWindowSceneActivationConfiguration alloc] initWithUserActivity:userActivity];
+        [userActivity release];
         
         UIWindowSceneActivationRequestOptions *options = [UIWindowSceneActivationRequestOptions new];
         
