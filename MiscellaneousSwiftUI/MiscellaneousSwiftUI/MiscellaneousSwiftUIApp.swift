@@ -131,7 +131,7 @@ struct MiscellaneousSwiftUIApp: App {
         }
         .persistentSystemOverlays(persistentSystemOverlaysVisibility)
         
-        #if os(macOS)
+#if os(macOS)
         Window("", id: "WindowLevel") {
             Button("Toggle") {
                 var copy: WindowLevel = windowLevel
@@ -162,6 +162,6 @@ struct MiscellaneousSwiftUIApp: App {
             }
         }
         .windowLevel(windowLevel)
-        #endif
+#endif
     }
 }
