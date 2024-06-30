@@ -14,7 +14,11 @@ import CoreGraphics
 @main
 struct MiscellaneousSwiftUIApp: App {
     @State private var persistentSystemOverlaysVisibility: Visibility = .hidden
+#if os(macOS)
     @State private var windowLevel: WindowLevel = .normal
+    @State private var isAlertScenePresented: Bool = false
+    @State private var dialogSuppressionButtonSelected: Bool = false
+#endif
     
     var body: some Scene {
         WindowGroup {
@@ -162,6 +166,59 @@ struct MiscellaneousSwiftUIApp: App {
             }
         }
         .windowLevel(windowLevel)
+        
+        Window("Test", id: "BlendedWindow") {
+            HStack {
+                Color.clear
+                    .frame(width: 100.0)
+                
+                Color.orange
+                    .opacity(0.5)
+                    .gesture(WindowDragGesture()) // https://x.com/_silgen_name/status/1807406184984682794
+            }
+            .ignoresSafeArea()
+            .toolbar(removing: .title)
+            .toolbarBackgroundVisibility(.hidden, for: .windowToolbar)
+            .containerBackground(.thickMaterial, for: .window)
+        }
+        
+        Window("", id: "AlertScenePresenter") {
+            Button("Show Alert") {
+                isAlertScenePresented = true
+            }
+        }
+        
+        AlertScene("Alert!!!", isPresented: $isAlertScenePresented) {
+            Button("Foo!") {
+                
+            }
+        } message: {
+            VStack {
+                Text("Hello World!")
+            }
+        }
+        .dialogIcon(Image(systemName: "arrow.up.doc.on.clipboard"))
+        .dialogSeverity(.standard)
+        .dialogSuppressionToggle("Hello!", isSuppressed: $dialogSuppressionButtonSelected)
+        .onChange(of: dialogSuppressionButtonSelected, initial: true) { oldValue, newValue in
+            print(newValue)
+        }
+        
+        Window("", id: "WindowBackgroundDragBehavior") {
+            Text("Hello World!")
+        }
+        .windowBackgroundDragBehavior(.enabled)
+#endif
+        
+#if os(visionOS)
+        WindowGroup(id: "VolumeViewpointChange") {
+            Color.orange
+                .onVolumeViewpointChange(updateStrategy: .all, initial: true) { oldValue, newValue in
+                    // -[UIView setNeedsLayout]에서 걸어보면 어디서 변경되는지 알 수 있음
+                    print(newValue)
+                }
+        }
+        .windowStyle(.volumetric)
 #endif
     }
 }

@@ -32,6 +32,13 @@ enum Demo: Int, Identifiable, CaseIterable {
     
 #if os(macOS)
     case windowLevel
+    case blendedWindow
+    case alertScenePresenter
+    case windowBackgroundDragBehavior
+#endif
+    
+#if os(visionOS)
+    case volumeViewpointChange
 #endif
     
     var id: Int {
@@ -75,6 +82,17 @@ enum Demo: Int, Identifiable, CaseIterable {
 #if os(macOS)
         case .windowLevel:
             WindowLevelView()
+        case .blendedWindow:
+            BlendedWindowView()
+        case .alertScenePresenter:
+            AlertScenePresenterView()
+        case .windowBackgroundDragBehavior:
+            WindowBackgroundDragBehaviorView()
+#endif
+            
+#if os(visionOS)
+        case .volumeViewpointChange:
+            VolumeViewpointChangeView()
 #endif
         }
     }

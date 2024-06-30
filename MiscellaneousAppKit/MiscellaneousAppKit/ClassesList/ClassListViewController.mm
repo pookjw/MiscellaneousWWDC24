@@ -15,6 +15,8 @@
 #import "PopUpButtonsViewController.h"
 #import "CursorViewController.h"
 #import "StagedWindowViewController.h"
+#import "WindowMovableViewController.h"
+#import "AlertStyleViewController.h"
 
 APPKIT_EXTERN NSString * const NSTableViewCurrentRowSelectionUserInfoKey;
 APPKIT_EXTERN NSString * const NSTableViewPreviousRowSelectionUserInfoKey;
@@ -88,7 +90,9 @@ APPKIT_EXTERN NSString * const NSTableViewPreviousRowSelectionUserInfoKey;
         RulerViewController.class,
         PopUpButtonsViewController.class,
         CursorViewController.class,
-        StagedWindowViewController.class
+        StagedWindowViewController.class,
+        WindowMovableViewController.class,
+        AlertStyleViewController.class
     ];
 }
 

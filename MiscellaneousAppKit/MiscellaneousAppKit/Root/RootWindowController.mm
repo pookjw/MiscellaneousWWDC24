@@ -8,6 +8,15 @@
 #import "RootWindowController.h"
 #import "RootSplitViewController.h"
 
+@interface RootWindow : NSWindow
+@end
+
+@implementation RootWindow
+
+//- (void)_resetDragMargins {}
+
+@end
+
 @interface RootWindowController () <NSWindowDelegate>
 @property (retain, readonly, nonatomic) RootSplitViewController *rootSplitViewController;
 @property (retain, readonly, nonatomic) NSToolbar *toolbar;
@@ -28,10 +37,11 @@
 }
 
 - (instancetype)init {
-    NSWindow *window = [[NSWindow alloc] initWithContentRect:NSMakeRect(0., 0., 600., 400.) styleMask:NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskFullSizeContentView | NSWindowStyleMaskResizable | NSWindowStyleMaskTitled backing:NSBackingStoreBuffered defer:YES];
+    NSWindow *window = [[RootWindow alloc] initWithContentRect:NSMakeRect(0., 0., 600., 400.) styleMask:NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskFullSizeContentView | NSWindowStyleMaskResizable | NSWindowStyleMaskTitled backing:NSBackingStoreBuffered defer:YES];
     
     window.title = NSProcessInfo.processInfo.processName;
     window.releasedWhenClosed = NO;
+    window.movableByWindowBackground = YES;
     
     if (self = [super initWithWindow:window]) {
         RootSplitViewController *rootSplitViewController = self.rootSplitViewController;
