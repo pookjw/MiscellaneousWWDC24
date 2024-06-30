@@ -28,5 +28,4 @@
     [window release];
 }
 
-
 @end

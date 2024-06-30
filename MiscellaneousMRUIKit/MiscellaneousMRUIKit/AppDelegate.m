@@ -10,6 +10,7 @@
 #import "LaunchPlacementParametersWindowScene.h"
 #import "VolumetricWorldAlignmentBehaviorWindowScene.h"
 #import "DefaultWorldScalingSceneDelegate.h"
+#import "ViewpointAzimuthWindowScene.h"
 
 @interface AppDelegate ()
 @end
@@ -32,6 +33,8 @@
         configuration.delegateClass = VolumetricWorldAlignmentBehaviorWindowScene.class;
     } else if ([activityType isEqualToString:@"DefaultWorldScaling"]) {
         configuration.delegateClass = DefaultWorldScalingSceneDelegate.class;
+    } else if ([activityType isEqualToString:@"ViewpointAzimuth"]) {
+        configuration.delegateClass = ViewpointAzimuthWindowScene.class;
     } else {
         configuration.delegateClass = SceneDelegate.class;
     }

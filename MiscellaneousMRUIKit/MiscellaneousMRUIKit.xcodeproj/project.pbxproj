@@ -11,6 +11,8 @@
 		4F1C71252C2F2442002E096A /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C71242C2F2442002E096A /* SceneDelegate.m */; };
 		4F1C712D2C2F2443002E096A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F1C712C2C2F2443002E096A /* Assets.xcassets */; };
 		4F1C71332C2F2443002E096A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C71322C2F2443002E096A /* main.m */; };
+		4F1C713C2C31CB3C002E096A /* ViewpointAzimuthViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C713B2C31CB3C002E096A /* ViewpointAzimuthViewController.mm */; };
+		4F1C713F2C31CB9D002E096A /* ViewpointAzimuthWindowScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C713E2C31CB9D002E096A /* ViewpointAzimuthWindowScene.m */; };
 		4F26D2EB2C2FDBFC0097B837 /* ClassListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D2EA2C2FDBFC0097B837 /* ClassListViewController.mm */; };
 		4F26D2EF2C2FDDED0097B837 /* LaunchPlacementParametersViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D2EE2C2FDDED0097B837 /* LaunchPlacementParametersViewController.mm */; };
 		4F26D3372C2FF84A0097B837 /* VolumetricWorldAlignmentBehaviorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3362C2FF84A0097B837 /* VolumetricWorldAlignmentBehaviorViewController.mm */; };
@@ -31,6 +33,10 @@
 		4F1C712C2C2F2443002E096A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4F1C71312C2F2443002E096A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4F1C71322C2F2443002E096A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4F1C713A2C31CB3C002E096A /* ViewpointAzimuthViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewpointAzimuthViewController.h; sourceTree = "<group>"; };
+		4F1C713B2C31CB3C002E096A /* ViewpointAzimuthViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewpointAzimuthViewController.mm; sourceTree = "<group>"; };
+		4F1C713D2C31CB9D002E096A /* ViewpointAzimuthWindowScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewpointAzimuthWindowScene.h; sourceTree = "<group>"; };
+		4F1C713E2C31CB9D002E096A /* ViewpointAzimuthWindowScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewpointAzimuthWindowScene.m; sourceTree = "<group>"; };
 		4F26D2E92C2FDBFC0097B837 /* ClassListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassListViewController.h; sourceTree = "<group>"; };
 		4F26D2EA2C2FDBFC0097B837 /* ClassListViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ClassListViewController.mm; sourceTree = "<group>"; };
 		4F26D2ED2C2FDDED0097B837 /* LaunchPlacementParametersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaunchPlacementParametersViewController.h; sourceTree = "<group>"; };
@@ -94,11 +100,23 @@
 				4F26D3342C2FF8360097B837 /* VolumetricWorldAlignmentBehavior */,
 				4F26D3452C3007DE0097B837 /* DefaultWorldScaling */,
 				4F26D3942C305B800097B837 /* HomeIndicator */,
+				4F1C71392C31CB23002E096A /* ViewpointAzimuth */,
 				4F1C712C2C2F2443002E096A /* Assets.xcassets */,
 				4F1C71312C2F2443002E096A /* Info.plist */,
 				4F1C71322C2F2443002E096A /* main.m */,
 			);
 			path = MiscellaneousMRUIKit;
+			sourceTree = "<group>";
+		};
+		4F1C71392C31CB23002E096A /* ViewpointAzimuth */ = {
+			isa = PBXGroup;
+			children = (
+				4F1C713A2C31CB3C002E096A /* ViewpointAzimuthViewController.h */,
+				4F1C713B2C31CB3C002E096A /* ViewpointAzimuthViewController.mm */,
+				4F1C713D2C31CB9D002E096A /* ViewpointAzimuthWindowScene.h */,
+				4F1C713E2C31CB9D002E096A /* ViewpointAzimuthWindowScene.m */,
+			);
+			path = ViewpointAzimuth;
 			sourceTree = "<group>";
 		};
 		4F26D2EC2C2FDDD10097B837 /* LaunchPlacementParameters */ = {
@@ -221,9 +239,11 @@
 			files = (
 				4F1C71222C2F2442002E096A /* AppDelegate.m in Sources */,
 				4F26D3482C3008170097B837 /* DefaultWorldScalingViewController.mm in Sources */,
+				4F1C713C2C31CB3C002E096A /* ViewpointAzimuthViewController.mm in Sources */,
 				4F26D3992C305B9F0097B837 /* HomeIndicatorViewController.mm in Sources */,
 				4F26D33A2C2FF9040097B837 /* LaunchPlacementParametersWindowScene.mm in Sources */,
 				4F26D2EB2C2FDBFC0097B837 /* ClassListViewController.mm in Sources */,
+				4F1C713F2C31CB9D002E096A /* ViewpointAzimuthWindowScene.m in Sources */,
 				4F26D34B2C30086F0097B837 /* DefaultWorldScalingSceneDelegate.m in Sources */,
 				4F26D2EF2C2FDDED0097B837 /* LaunchPlacementParametersViewController.mm in Sources */,
 				4F1C71332C2F2443002E096A /* main.m in Sources */,

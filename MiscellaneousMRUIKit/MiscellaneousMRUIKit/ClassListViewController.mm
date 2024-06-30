@@ -10,6 +10,7 @@
 #import "VolumetricWorldAlignmentBehaviorViewController.h"
 #import "DefaultWorldScalingViewController.h"
 #import "HomeIndicatorViewController.h"
+#import "ViewpointAzimuthViewController.h"
 
 @interface ClassListViewController ()
 @property (retain, readonly, nonatomic) UICollectionViewCellRegistration *cellRegistration;
@@ -67,7 +68,8 @@
         LaunchPlacementParametersViewController.class,
         VolumetricWorldAlignmentBehaviorViewController.class,
         DefaultWorldScalingViewController.class,
-        HomeIndicatorViewController.class
+        HomeIndicatorViewController.class,
+        ViewpointAzimuthViewController.class
     ];
 }
 
