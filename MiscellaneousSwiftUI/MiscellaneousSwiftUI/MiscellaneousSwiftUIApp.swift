@@ -220,7 +220,7 @@ struct MiscellaneousSwiftUIApp: App {
                         
                     }
                 })
-                .supportedVolumeViewpoints([.front]) // Window Indicator 및 Ornaments의 방향을 강제할 수 있음. MRUIKit으로도 해보기
+                .supportedVolumeViewpoints([.right]) // Window Indicator 및 Ornaments의 방향을 강제할 수 있음.
                 .onVolumeViewpointChange(updateStrategy: .all, initial: true) { oldValue, newValue in
                     // -[UIView setNeedsLayout]에서 걸어보면 어디서 변경되는지 알 수 있음
                     print(newValue)

@@ -35,9 +35,12 @@
     window.rootViewController = rootViewController;
     [rootViewController release];
     
+    ((void (*)(id, SEL, id, id))objc_msgSend)(rootViewController.view, sel_registerName("setValue:forPreferenceKey:"), @(2), objc_lookUpClass("MRUISupportedVolumeViewpointsPreferenceKey"));
+    
     self.window = window;
     [window makeKeyAndVisible];
     [window release];
+    
 }
 
 - (void)viewpointAzimuthTraitDidChange:(UIWindow *)sender {
@@ -46,6 +49,8 @@
 
 - (void)rawViewpointAzimuthTraitDidChange:(UIWindow *)sender {
     NSLog(@"UITraitRawViewpointAzimuth: %lf", [sender.traitCollection valueForCGFloatTrait:objc_lookUpClass("UITraitRawViewpointAzimuth")]);
+    
+//    ((void (*)(id, SEL, id, id))objc_msgSend)(sender.rootViewController.view, sel_registerName("setValue:forPreferenceKey:"), @2, @"MRUISupportedVolumeViewpointsPreferenceKey");
 }
 
 @end
