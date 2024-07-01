@@ -20,6 +20,8 @@ struct MiscellaneousSwiftUIApp: App {
     @State private var dialogSuppressionButtonSelected: Bool = false
 #endif
     
+    @State private var toolbarLabelStyle: ToolbarLabelStyle = .automatic
+    
     var body: some Scene {
         WindowGroup {
             DemoListView()
@@ -213,12 +215,86 @@ struct MiscellaneousSwiftUIApp: App {
 #if os(visionOS)
         WindowGroup(id: "VolumeViewpointChange") {
             Color.orange
+                .ornament(attachmentAnchor: .scene(.bottomFront), ornament: { 
+                    Button("Hello!") { 
+                        
+                    }
+                })
+                .supportedVolumeViewpoints([.front]) // Window Indicator 및 Ornaments의 방향을 강제할 수 있음. MRUIKit으로도 해보기
                 .onVolumeViewpointChange(updateStrategy: .all, initial: true) { oldValue, newValue in
                     // -[UIView setNeedsLayout]에서 걸어보면 어디서 변경되는지 알 수 있음
                     print(newValue)
                 }
         }
         .windowStyle(.volumetric)
+#endif
+        
+#if os(macOS)
+        Settings { 
+            Text("Hello Settings!")
+                .frame(minWidth: 400.0, minHeight: 400.0)
+        }
+        // 안해도 되는듯?
+//        .restorationBehavior(.disabled)
+        
+        MenuBarExtra("Miscellaneous?", systemImage: "airtag") { 
+            Button("Test 1") { 
+                
+            }
+        }
+        .menuBarExtraStyle(.menu)
+        
+        UtilityWindow("Hello!", id: "Utility") { 
+            Text("Hello")
+                .containerBackground(.thickMaterial, for: .window)
+        }
+#endif
+        
+        WindowGroup("Foo", id: "ToolbarPresenter") { 
+            Text("Hello World!")
+                .toolbar { 
+                    ToolbarItem(placement: .navigation) { 
+                        Button { 
+                            
+                        } label: { 
+                            Label("Item 1", systemImage: "1.circle")
+                        }
+                    }
+                    
+                    ToolbarItem(placement: .principal) { 
+                        Button { 
+                            
+                        } label: { 
+                            Label("Item 2", systemImage: "2.circle")
+                        }
+                    }
+                    
+                    ToolbarItem(placement: .primaryAction) { 
+                        Button { 
+                            
+                        } label: { 
+                            Label("Item 3", systemImage: "3.circle")
+                        }
+                    }
+                }
+        }
+        .windowToolbarLabelStyle($toolbarLabelStyle)
+        
+#if os(visionOS)
+        WindowGroup("Foo", id: "PushWindow") { 
+            Color.orange
+        }
+#endif
+        
+#if os(macOS)
+        WindowGroup("Foo", id: "WindowVisibilityToggle") { 
+//            WindowVisibilityToggle(windowID: "WindowVisibilityToggle")
+            Text("Apple Feedback")
+        }
+        
+        WindowGroup("Foo", id: "WindowButtonsBehavior") { 
+            WindowButtonsBehaviorPresenterView.WindowView()
+        }
 #endif
     }
 }

@@ -17,6 +17,7 @@
 #import "StagedWindowViewController.h"
 #import "WindowMovableViewController.h"
 #import "AlertStyleViewController.h"
+#import "HUDWindowPresenterViewController.h"
 
 APPKIT_EXTERN NSString * const NSTableViewCurrentRowSelectionUserInfoKey;
 APPKIT_EXTERN NSString * const NSTableViewPreviousRowSelectionUserInfoKey;
@@ -92,7 +93,8 @@ APPKIT_EXTERN NSString * const NSTableViewPreviousRowSelectionUserInfoKey;
         CursorViewController.class,
         StagedWindowViewController.class,
         WindowMovableViewController.class,
-        AlertStyleViewController.class
+        AlertStyleViewController.class,
+        HUDWindowPresenterViewController.class
     ];
 }
 

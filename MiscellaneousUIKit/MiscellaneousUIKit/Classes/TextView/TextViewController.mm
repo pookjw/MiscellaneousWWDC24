@@ -8,6 +8,7 @@
 #import "TextViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
+#import <TargetConditionals.h>
 
 @interface TextViewController () <UITextViewDelegate>
 @property (readonly, nonatomic) UITextView *textView;
@@ -48,10 +49,12 @@
     textView.allowsEditingTextAttributes = YES;
     textView.supportsAdaptiveImageGlyph = YES;
     
+#if !TARGET_OS_VISION
     // TODO: Writing Tools with iPad
     textView.writingToolsBehavior = UIWritingToolsBehaviorComplete;
     textView.writingToolsAllowedInputOptions = UIWritingToolsAllowedInputOptionsTable;
     textView.delegate = self;
+#endif
     
     self.view = textView;
     [textView release];

@@ -41,6 +41,22 @@ enum Demo: Int, Identifiable, CaseIterable {
     case volumeViewpointChange
 #endif
     
+#if os(macOS)
+    case settingsPresenter
+    case utilityPresenter
+#endif
+    
+    case toolbarPresenter
+    
+#if os(visionOS)
+    case pushWindowPresenter
+#endif
+    
+#if os(macOS)
+    case windowVisibilityTogglePresenter
+    case windowButtonsBehaviorPresenter
+#endif
+    
     var id: Int {
         rawValue
     }
@@ -93,6 +109,28 @@ enum Demo: Int, Identifiable, CaseIterable {
 #if os(visionOS)
         case .volumeViewpointChange:
             VolumeViewpointChangeView()
+#endif
+            
+#if os(macOS)
+        case .settingsPresenter:
+            SettingsPresenterView()
+        case .utilityPresenter:
+            UtilityPresenterView()
+#endif
+            
+        case .toolbarPresenter:
+            ToolbarPresenterView()
+            
+#if os(visionOS)
+        case .pushWindowPresenter:
+            PushWindowPresenterView()
+#endif
+            
+#if os(macOS)
+        case .windowVisibilityTogglePresenter:
+            WindowVisibilityTogglePresenterView()
+        case .windowButtonsBehaviorPresenter:
+            WindowButtonsBehaviorPresenterView()
 #endif
         }
     }
