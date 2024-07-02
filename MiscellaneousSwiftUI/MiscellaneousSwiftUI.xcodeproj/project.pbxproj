@@ -33,6 +33,8 @@
 		4FEC81422C3294E700AF4863 /* PushWindowPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEC81412C3294E700AF4863 /* PushWindowPresenterView.swift */; };
 		4FEC81452C32987C00AF4863 /* WindowVisibilityTogglePresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEC81442C32987C00AF4863 /* WindowVisibilityTogglePresenterView.swift */; };
 		4FEC81632C329F9C00AF4863 /* WindowButtonsBehaviorPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEC81622C329F9C00AF4863 /* WindowButtonsBehaviorPresenterView.swift */; };
+		4FF420032C34062A008BD2FC /* ProgressiveImmersionWindowPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF420022C34062A008BD2FC /* ProgressiveImmersionWindowPresenterView.swift */; };
+		4FF420062C340724008BD2FC /* ProgressiveImmersionSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF420052C340724008BD2FC /* ProgressiveImmersionSpace.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +66,8 @@
 		4FEC81412C3294E700AF4863 /* PushWindowPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushWindowPresenterView.swift; sourceTree = "<group>"; };
 		4FEC81442C32987C00AF4863 /* WindowVisibilityTogglePresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowVisibilityTogglePresenterView.swift; sourceTree = "<group>"; };
 		4FEC81622C329F9C00AF4863 /* WindowButtonsBehaviorPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowButtonsBehaviorPresenterView.swift; sourceTree = "<group>"; };
+		4FF420022C34062A008BD2FC /* ProgressiveImmersionWindowPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressiveImmersionWindowPresenterView.swift; sourceTree = "<group>"; };
+		4FF420052C340724008BD2FC /* ProgressiveImmersionSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressiveImmersionSpace.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +125,7 @@
 				4FEC81402C3294D700AF4863 /* PushWindowPresenter */,
 				4FEC81432C32986A00AF4863 /* WindowVisibilityTogglePresenter */,
 				4FEC81612C329F8900AF4863 /* WindowButtonsBehaviorPresenter */,
+				4FF420012C340618008BD2FC /* ProgressiveImmersionWindowPresenter */,
 				4F1C71032C2F15CE002E096A /* Assets.xcassets */,
 				4F1C71052C2F15CE002E096A /* Preview Content */,
 			);
@@ -295,6 +300,15 @@
 			path = WindowButtonsBehaviorPresenter;
 			sourceTree = "<group>";
 		};
+		4FF420012C340618008BD2FC /* ProgressiveImmersionWindowPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				4FF420022C34062A008BD2FC /* ProgressiveImmersionWindowPresenterView.swift */,
+				4FF420052C340724008BD2FC /* ProgressiveImmersionSpace.swift */,
+			);
+			path = ProgressiveImmersionWindowPresenter;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -371,6 +385,7 @@
 				4F26D34E2C300B380097B837 /* DefaultLaunchBehaviorView.swift in Sources */,
 				4F26D3932C30206A0097B837 /* PersistentSystemOverlaysView.swift in Sources */,
 				4FEC81632C329F9C00AF4863 /* WindowButtonsBehaviorPresenterView.swift in Sources */,
+				4FF420062C340724008BD2FC /* ProgressiveImmersionSpace.swift in Sources */,
 				4F26D3DE2C31C0650097B837 /* WindowBackgroundDragBehaviorView.swift in Sources */,
 				4F26D39C2C305E040097B837 /* WindowLevelView.swift in Sources */,
 				4F26D3A22C3131170097B837 /* BlendedWindowView.swift in Sources */,
@@ -386,6 +401,7 @@
 				4F26D2F22C2FEAD80097B837 /* WindowIdealSizeView.swift in Sources */,
 				4F1C71112C2F1658002E096A /* DemoListView.swift in Sources */,
 				4FEC81002C328E6600AF4863 /* UtilityPresenterView.swift in Sources */,
+				4FF420032C34062A008BD2FC /* ProgressiveImmersionWindowPresenterView.swift in Sources */,
 				4F26D3902C301FDC0097B837 /* RestorationBehaviorView.swift in Sources */,
 				4F26D3442C3005AC0097B837 /* DefaultWorldScalingView.swift in Sources */,
 				4F1C71002C2F15CD002E096A /* MiscellaneousSwiftUIApp.swift in Sources */,

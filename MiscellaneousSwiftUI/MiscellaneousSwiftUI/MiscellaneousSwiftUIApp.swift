@@ -296,5 +296,9 @@ struct MiscellaneousSwiftUIApp: App {
             WindowButtonsBehaviorPresenterView.WindowView()
         }
 #endif
+        
+#if os(visionOS)
+        ProgressiveImmersionSpace(windowID: "Progressive")
+#endif
     }
 }

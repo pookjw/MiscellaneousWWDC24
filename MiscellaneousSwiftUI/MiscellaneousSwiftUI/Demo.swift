@@ -57,6 +57,10 @@ enum Demo: Int, Identifiable, CaseIterable {
     case windowButtonsBehaviorPresenter
 #endif
     
+#if os(visionOS)
+    case progressiveImmersionWindowPresenter
+#endif
+    
     var id: Int {
         rawValue
     }
@@ -131,6 +135,11 @@ enum Demo: Int, Identifiable, CaseIterable {
             WindowVisibilityTogglePresenterView()
         case .windowButtonsBehaviorPresenter:
             WindowButtonsBehaviorPresenterView()
+#endif
+            
+#if os(visionOS)
+        case .progressiveImmersionWindowPresenter:
+            ProgressiveImmersionWindowPresenterView()
 #endif
         }
     }
