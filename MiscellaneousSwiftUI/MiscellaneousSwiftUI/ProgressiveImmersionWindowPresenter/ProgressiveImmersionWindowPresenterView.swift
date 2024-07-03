@@ -40,6 +40,20 @@ struct ProgressiveImmersionWindowPresenterView: View {
                 in: 0.1...1.0, 
                 step: 0.1
             )
+            
+            Stepper(
+                "Brightness",
+                value: .init(
+                    get: {
+                        ProgressiveImmersionSpace.Model.shared.immersiveContentBrightness
+                    },
+                    set: { newValue in
+                        ProgressiveImmersionSpace.Model.shared.immersiveContentBrightness = newValue
+                    }
+                ),
+                in: 0.1...1.0, 
+                step: 0.1
+            )
         }
     }
 }
