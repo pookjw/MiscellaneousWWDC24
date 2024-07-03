@@ -12,7 +12,7 @@
 @interface ImmersiveSceneClientSettingsViewController ()
 @property (retain, readonly, nonatomic) UIStackView *stackView;
 @property (retain, readonly, nonatomic) UIButton *requestSceneButton;
-@property (retain, readonly, nonatomic) UILabel *amountOfImmersionL
+@property (retain, readonly, nonatomic) UILabel *amountOfImmersionLabel;
 @property (retain, readonly, nonatomic) UIStepper *maximumAmountOfImmersionStepper;
 @end
 
@@ -20,6 +20,7 @@
 @synthesize stackView = _stackView;
 @synthesize requestSceneButton = _requestSceneButton;
 @synthesize maximumAmountOfImmersionStepper = _maximumAmountOfImmersionStepper;
+@synthesize amountOfImmersionLabel = _amountOfImmersionLabel;
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -43,17 +44,8 @@
     [_stackView release];
     [_requestSceneButton release];
     [_maximumAmountOfImmersionStepper release];
+    [_amountOfImmersionLabel release];
     [super dealloc];
-}
-
-- (BOOL)respondsToSelector:(SEL)aSelector {
-    BOOL responds = [super respondsToSelector:aSelector];
-    
-    if (!responds) {
-        NSLog(@"%s", sel_getName(aSelector));
-    }
-    
-    return responds;
 }
 
 - (void)loadView {
@@ -65,7 +57,8 @@
     
     UIStackView *stackView = [[UIStackView alloc] initWithArrangedSubviews:@[
         self.requestSceneButton,
-        self.maximumAmountOfImmersionStepper
+        self.maximumAmountOfImmersionStepper,
+        self.amountOfImmersionLabel
     ]];
     
     stackView.axis = UILayoutConstraintAxisVertical;
@@ -105,6 +98,19 @@
     return [maximumAmountOfImmersionStepper autorelease];
 }
 
+- (UILabel *)amountOfImmersionLabel {
+    if (auto amountOfImmersionLabel = _amountOfImmersionLabel) return amountOfImmersionLabel;
+    
+    UILabel *amountOfImmersionLabel = [UILabel new];
+    
+    amountOfImmersionLabel.textAlignment = NSTextAlignmentCenter;
+    amountOfImmersionLabel.backgroundColor = UIColor.blackColor;
+    amountOfImmersionLabel.textColor = UIColor.whiteColor;
+    
+    _amountOfImmersionLabel = [amountOfImmersionLabel retain];
+    return [amountOfImmersionLabel autorelease];
+}
+
 - (void)requestSceneButtonDidTrigger:(UIButton *)sender {
     id sceneRequestOptions = [objc_lookUpClass("MRUISceneRequestOptions") new];
     
@@ -122,9 +128,11 @@
     reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(initialClientSettings, NSSelectorFromString(@"setPreferredImmersionStyle:"), 4);
     reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(initialClientSettings, NSSelectorFromString(@"setAllowedImmersionStyles:"), 4);
     
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(initialClientSettings, sel_registerName("setInitialAmountOfImmersion:"), @0.1);
+    // 순서 중요함
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(initialClientSettings, sel_registerName("setMinimumAmountOfImmersion:"), @0.1);
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(initialClientSettings, sel_registerName("setMaximumAmountOfImmersion:"), @1.0);
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(initialClientSettings, sel_registerName("setInitialAmountOfImmersion:"), @0.1);
+    
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(initialClientSettings, sel_registerName("setAmbientBrightness:"), @0.1);
     
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(sceneRequestOptions, sel_registerName("setInitialClientSettings:"), initialClientSettings);
@@ -165,8 +173,6 @@
     // FBScene
     id fbsScene = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(scene, sel_registerName("_scene"));
     
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(fbsScene, sel_registerName("addObserver:"), self);
-    
     // MRUIImmersiveSceneClientSettings
     id clientSettings = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(fbsScene, sel_registerName("clientSettings"));
     [self updateMaximumAmountOfImmersionStepperWithClientSettings:clientSettings];
@@ -175,6 +181,8 @@
                                            selector:@selector(receivedDidChangeImmersionStateNotification:)
                                                name:@"_MRUISceneDidChangeImmersionStateNotification"
                                              object:scene];
+    
+    [self updateAmountOfImmersionLabelWithWindowScene:static_cast<UIWindowScene *>(scene)];
 }
 
 - (void)receivedSceneDidDisconnectNotificaiton:(NSNotification *)notification {
@@ -193,14 +201,7 @@
 - (void)receivedDidChangeImmersionStateNotification:(NSNotification *)notification {
     UIWindowScene *windowScene = static_cast<UIWindowScene *>(notification.object);
     
-    // MRUIImmersionState
-    id _immersionState = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(windowScene, sel_registerName("_immersionState"));
-    
-    double amountOfImmersion = reinterpret_cast<double (*)(id, SEL)>(objc_msgSend)(_immersionState, sel_registerName("amountOfImmersion"));
-}
-
-- (void)scene:(id)scene didUpdateSettings:(id)settingsUpdate {
-    NSLog(@"%@", settingsUpdate);
+    [self updateAmountOfImmersionLabelWithWindowScene:windowScene];
 }
 
 - (void)updateMaximumAmountOfImmersionStepperWithClientSettings:(id)clientSettings {
@@ -210,6 +211,15 @@
     UIStepper *maximumAmountOfImmersionStepper = self.maximumAmountOfImmersionStepper;
     maximumAmountOfImmersionStepper.minimumValue = minimumAmountOfImmersion.doubleValue;
     maximumAmountOfImmersionStepper.value = maximumAmountOfImmersion.doubleValue;
+}
+
+- (void)updateAmountOfImmersionLabelWithWindowScene:(UIWindowScene *)windowScene {
+    // MRUIImmersionState
+    id _immersionState = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(windowScene, sel_registerName("_immersionState"));
+    
+    double amountOfImmersion = reinterpret_cast<double (*)(id, SEL)>(objc_msgSend)(_immersionState, sel_registerName("amountOfImmersion"));
+    
+    self.amountOfImmersionLabel.text = [NSString stringWithFormat:@"%lf", amountOfImmersion];
 }
 
 @end

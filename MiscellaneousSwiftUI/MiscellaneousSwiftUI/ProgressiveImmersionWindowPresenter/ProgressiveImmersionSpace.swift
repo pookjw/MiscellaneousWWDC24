@@ -24,7 +24,7 @@ struct ProgressiveImmersionSpace: Scene {
                 }
         }
         .immersiveContentBrightness(.custom(0.1)) // Simulator라 차이 없는듯
-        .immersionStyle(selection: .constant(.progressive(0...1.0, initialAmount: 0.1)), in: .progressive(0...1.0, initialAmount: 1.0))
+        .immersionStyle(selection: .constant(.progressive(0...1.0, initialAmount: 0.1)), in: .progressive(0...1.0, initialAmount: 0.1))
     }
 }
 
