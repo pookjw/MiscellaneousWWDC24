@@ -16,10 +16,10 @@ struct UpperLimbSpace: Scene {
     
     var body: some Scene {
         ImmersiveSpace(id: windowID) {
-            Color.orange
-                .upperLimbVisibility(UpperLimbWindowPresenterView.Model.shared.visibility2)
+            Rectangle()
+                .upperLimbVisibility(UpperLimbWindowPresenterView.Model.shared.visibilityForView)
         }
-        .upperLimbVisibility(UpperLimbWindowPresenterView.Model.shared.visibility)
+        .upperLimbVisibility(UpperLimbWindowPresenterView.Model.shared.visibilityForWindow)
         .immersionStyle(selection: .constant(.full), in: .full)
     }
 }

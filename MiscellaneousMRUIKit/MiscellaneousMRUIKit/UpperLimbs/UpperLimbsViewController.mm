@@ -123,8 +123,6 @@
             if (![scene.session.role isEqualToString:UISceneSessionRoleImmersiveSpaceApplication]) continue;
             
             UIWindowScene *windowScene = static_cast<UIWindowScene *>(scene);
-            UIWindow *keyWindow = windowScene.keyWindow;
-            UIView *rootView = keyWindow.rootViewController.view;
             
             // FBSScene
             id fbsScene = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(windowScene, sel_registerName("_scene"));
@@ -154,18 +152,23 @@
     if (auto hideUpperLimbsButton = _hideUpperLimbsButton) return hideUpperLimbsButton;
     
     UIAction *primaryAction = [UIAction actionWithTitle:@"Hide Upper Limbs" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-        for (__kindof UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
-            if (![scene isKindOfClass:UIWindowScene.class]) continue;
-            if (![scene.session.role isEqualToString:UISceneSessionRoleImmersiveSpaceApplication]) continue;
-            
-            UIWindowScene *windowScene = static_cast<UIWindowScene *>(scene);
-            UIWindow *keyWindow = windowScene.keyWindow;
-            UIView *rootView = keyWindow.rootViewController.view;
-            
-            reinterpret_cast<void (*)(id, SEL, id, id)>(objc_msgSend)(rootView, sel_registerName("setValue:forPreferenceKey:"), @2, objc_lookUpClass("MRUIUpperLimbsVisibilityPreferenceKey"));
-            
-            break;
-        }
+//        for (__kindof UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
+//            if (![scene isKindOfClass:UIWindowScene.class]) continue;
+//            if (![scene.session.role isEqualToString:UISceneSessionRoleImmersiveSpaceApplication]) continue;
+//            
+//            UIWindowScene *windowScene = static_cast<UIWindowScene *>(scene);
+//            UIWindow *keyWindow = windowScene.keyWindow;
+//            UIView *rootView = keyWindow.rootViewController.view;
+//            
+//            reinterpret_cast<void (*)(id, SEL, id, id)>(objc_msgSend)(rootView, sel_registerName("setValue:forPreferenceKey:"), @2, objc_lookUpClass("MRUIUpperLimbsVisibilityPreferenceKey"));
+//            
+//            break;
+//        }
+        
+        // MRUIStage
+        id activeStage = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("MRUIStage"), sel_registerName("_activeStage"));
+        
+        reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(activeStage, sel_registerName("setPreferredVirtualHandsVisibility:"), 2);
     }];
     
     UIButton *hideUpperLimbsButton = [UIButton systemButtonWithPrimaryAction:primaryAction];

@@ -18,12 +18,12 @@ struct UpperLimbWindowPresenterView: View {
                 }
             }
             
-            Button(String(describing: Model.shared.visibility)) {
-                Model.shared.visibility.toggle()
+            Button("Show") {
+                Model.shared.visibilityForWindow.toggle()
             }
             
-            Button(String(describing: Model.shared.visibility2)) {
-                Model.shared.visibility2.toggle()
+            Button("Hide") {
+                Model.shared.visibilityForView.toggle()
             }
         }
     }
@@ -37,8 +37,8 @@ extension UpperLimbWindowPresenterView {
         
         private init() {}
         
-        var visibility: Visibility = .hidden
-        var visibility2: Visibility = .hidden
+        var visibilityForWindow: Visibility = .automatic
+        var visibilityForView: Visibility = .automatic
     }
 }
 
