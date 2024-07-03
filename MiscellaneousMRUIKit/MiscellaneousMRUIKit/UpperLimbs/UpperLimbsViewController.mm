@@ -12,6 +12,7 @@
 @interface UpperLimbsViewController ()
 @property (retain, readonly, nonatomic) UIStackView *stackView;
 @property (retain, readonly, nonatomic) UIButton *requestSceneButton;
+@property (retain, readonly, nonatomic) UIButton *addObserverButton;
 @property (retain, readonly, nonatomic) UIButton *automaticUpperLimbsButton;
 @property (retain, readonly, nonatomic) UIButton *showUpperLimbsButton;
 @property (retain, readonly, nonatomic) UIButton *hideUpperLimbsButton;
@@ -20,6 +21,7 @@
 @implementation UpperLimbsViewController
 @synthesize stackView = _stackView;
 @synthesize requestSceneButton = _requestSceneButton;
+@synthesize addObserverButton = _addObserverButton;
 @synthesize automaticUpperLimbsButton = _automaticUpperLimbsButton;
 @synthesize showUpperLimbsButton = _showUpperLimbsButton;
 @synthesize hideUpperLimbsButton = _hideUpperLimbsButton;
@@ -27,6 +29,7 @@
 - (void)dealloc {
     [_stackView release];
     [_requestSceneButton release];
+    [_addObserverButton release];
     [_automaticUpperLimbsButton release];
     [_showUpperLimbsButton release];
     [_hideUpperLimbsButton release];
@@ -42,6 +45,7 @@
     
     UIStackView *stackView = [[UIStackView alloc] initWithArrangedSubviews:@[
         self.requestSceneButton,
+        self.addObserverButton,
         self.automaticUpperLimbsButton,
         self.showUpperLimbsButton,
         self.hideUpperLimbsButton
@@ -51,8 +55,35 @@
     stackView.alignment = UIStackViewAlignmentFill;
     stackView.distribution = UIStackViewDistributionFillEqually;
     
-    _stackView = stackView;
+    _stackView = [stackView retain];
     return [stackView autorelease];
+}
+
+- (UIButton *)addObserverButton {
+    if (auto addObserverButton = _addObserverButton) return addObserverButton;
+    
+    __weak auto weakSelf = self;
+    
+    UIAction *primaryAction = [UIAction actionWithTitle:@"Add Observer" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+        for (__kindof UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
+            if (![scene isKindOfClass:UIWindowScene.class]) continue;
+            if (![scene.session.role isEqualToString:UISceneSessionRoleImmersiveSpaceApplication]) continue;
+            
+            UIWindowScene *windowScene = static_cast<UIWindowScene *>(scene);
+            
+            // FBSScene
+            id fbsScene = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(windowScene, sel_registerName("_scene"));
+            
+            reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(fbsScene, sel_registerName("addObserver:"), weakSelf);
+            
+            break;
+        }
+    }];
+    
+    UIButton *addObserverButton = [UIButton systemButtonWithPrimaryAction:primaryAction];
+    
+    _addObserverButton = [addObserverButton retain];
+    return addObserverButton;
 }
 
 - (UIButton *)requestSceneButton {
@@ -152,29 +183,61 @@
     if (auto hideUpperLimbsButton = _hideUpperLimbsButton) return hideUpperLimbsButton;
     
     UIAction *primaryAction = [UIAction actionWithTitle:@"Hide Upper Limbs" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-//        for (__kindof UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
-//            if (![scene isKindOfClass:UIWindowScene.class]) continue;
-//            if (![scene.session.role isEqualToString:UISceneSessionRoleImmersiveSpaceApplication]) continue;
-//            
-//            UIWindowScene *windowScene = static_cast<UIWindowScene *>(scene);
-//            UIWindow *keyWindow = windowScene.keyWindow;
-//            UIView *rootView = keyWindow.rootViewController.view;
-//            
-//            reinterpret_cast<void (*)(id, SEL, id, id)>(objc_msgSend)(rootView, sel_registerName("setValue:forPreferenceKey:"), @2, objc_lookUpClass("MRUIUpperLimbsVisibilityPreferenceKey"));
-//            
-//            break;
-//        }
+        for (__kindof UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
+            if (![scene isKindOfClass:UIWindowScene.class]) continue;
+            if (![scene.session.role isEqualToString:UISceneSessionRoleImmersiveSpaceApplication]) continue;
+            
+            UIWindowScene *windowScene = static_cast<UIWindowScene *>(scene);
+            UIWindow *keyWindow = windowScene.keyWindow;
+            UIView *rootView = keyWindow.rootViewController.view;
+            
+            reinterpret_cast<void (*)(id, SEL, id, id)>(objc_msgSend)(rootView, sel_registerName("setValue:forPreferenceKey:"), @2, objc_lookUpClass("MRUIUpperLimbsVisibilityPreferenceKey"));
+            
+            break;
+        }
         
         // MRUIStage
-        id activeStage = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("MRUIStage"), sel_registerName("_activeStage"));
-        
-        reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(activeStage, sel_registerName("setPreferredVirtualHandsVisibility:"), 2);
+//        id activeStage = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("MRUIStage"), sel_registerName("_activeStage"));
+//        
+//        reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(activeStage, sel_registerName("setPreferredVirtualHandsVisibility:"), 2);
     }];
     
     UIButton *hideUpperLimbsButton = [UIButton systemButtonWithPrimaryAction:primaryAction];
     
     _hideUpperLimbsButton = [hideUpperLimbsButton retain];
     return hideUpperLimbsButton;
+}
+
+// 안 됨...
+- (void)scene:(id)fbsScene didUpdateClientSettings:(id)updates {
+    for (__kindof UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
+        if (![scene isKindOfClass:UIWindowScene.class]) continue;
+        
+        UIWindowScene *windowScene = static_cast<UIWindowScene *>(scene);
+        
+        // FBSScene
+        id _scene = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(windowScene, sel_registerName("_scene"));
+        
+        if (![fbsScene isEqual:_scene]) continue;;
+        
+        // MRUIImmersiveSceneClientSettings
+        id clientSettings = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(_scene, sel_registerName("clientSettings"));
+        
+        NSUInteger preferredVirtualHandsVisibility = reinterpret_cast<NSUInteger (*)(id, SEL)>(objc_msgSend)(clientSettings, sel_registerName("preferredVirtualHandsVisibility"));
+        
+        UIWindow *keyWindow = windowScene.keyWindow;
+        UIView *rootView = keyWindow.rootViewController.view;
+        
+        // MRUIPreferenceHost
+        id mrui_preferenceHost = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(rootView, sel_registerName("mrui_preferenceHost"));
+        
+        NSMutableDictionary *_hostDefinedPreferences;
+        object_getInstanceVariable(mrui_preferenceHost, "_hostDefinedPreferences", (void **)&_hostDefinedPreferences);
+        
+        _hostDefinedPreferences[(id)objc_lookUpClass("MRUIUpperLimbsVisibilityPreferenceKey")] = @(preferredVirtualHandsVisibility);
+        
+        break;
+    }
 }
 
 @end
