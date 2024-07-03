@@ -13,6 +13,7 @@
 #import "ViewpointAzimuthViewController.h"
 #import "WorldTrackingCapabilitiesViewController.h"
 #import "ImmersiveSceneClientSettingsViewController.h"
+#import "UpperLimbsViewController.h"
 
 @interface ClassListViewController ()
 @property (retain, readonly, nonatomic) UICollectionViewCellRegistration *cellRegistration;
@@ -73,7 +74,8 @@
         HomeIndicatorViewController.class,
         ViewpointAzimuthViewController.class,
         WorldTrackingCapabilitiesViewController.class,
-        ImmersiveSceneClientSettingsViewController.class
+        ImmersiveSceneClientSettingsViewController.class,
+        UpperLimbsViewController.class
     ];
 }
 

@@ -24,6 +24,8 @@
 		4F26D3992C305B9F0097B837 /* HomeIndicatorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3982C305B9F0097B837 /* HomeIndicatorViewController.mm */; };
 		4FAA17752C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17742C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.mm */; };
 		4FAA17782C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17772C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.mm */; };
+		4FAA17842C357A1700188F35 /* UpperLimbsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17832C357A1700188F35 /* UpperLimbsViewController.mm */; };
+		4FAA17872C357B3400188F35 /* UpperLimbsWindowScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17862C357B3400188F35 /* UpperLimbsWindowScene.mm */; };
 		4FD5EF482C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD5EF472C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +64,10 @@
 		4FAA17742C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ImmersiveSceneClientSettingsViewController.mm; sourceTree = "<group>"; };
 		4FAA17762C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImmersiveSceneClientSettingsWindowScene.h; sourceTree = "<group>"; };
 		4FAA17772C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ImmersiveSceneClientSettingsWindowScene.mm; sourceTree = "<group>"; };
+		4FAA17822C357A1700188F35 /* UpperLimbsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpperLimbsViewController.h; sourceTree = "<group>"; };
+		4FAA17832C357A1700188F35 /* UpperLimbsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = UpperLimbsViewController.mm; sourceTree = "<group>"; };
+		4FAA17852C357B3400188F35 /* UpperLimbsWindowScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpperLimbsWindowScene.h; sourceTree = "<group>"; };
+		4FAA17862C357B3400188F35 /* UpperLimbsWindowScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = UpperLimbsWindowScene.mm; sourceTree = "<group>"; };
 		4FD5EF462C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorldTrackingCapabilitiesViewController.h; sourceTree = "<group>"; };
 		4FD5EF472C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WorldTrackingCapabilitiesViewController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,6 +118,7 @@
 				4F1C71392C31CB23002E096A /* ViewpointAzimuth */,
 				4FD5EF452C33139000CCCFA6 /* WorldTrackingCapabilities */,
 				4FAA17722C353B4500188F35 /* ImmersiveSceneClientSettings */,
+				4FAA17812C3579F000188F35 /* UpperLimbs */,
 				4F1C712C2C2F2443002E096A /* Assets.xcassets */,
 				4F1C71312C2F2443002E096A /* Info.plist */,
 				4F1C71322C2F2443002E096A /* main.m */,
@@ -189,6 +196,17 @@
 				4FAA17772C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.mm */,
 			);
 			path = ImmersiveSceneClientSettings;
+			sourceTree = "<group>";
+		};
+		4FAA17812C3579F000188F35 /* UpperLimbs */ = {
+			isa = PBXGroup;
+			children = (
+				4FAA17822C357A1700188F35 /* UpperLimbsViewController.h */,
+				4FAA17832C357A1700188F35 /* UpperLimbsViewController.mm */,
+				4FAA17852C357B3400188F35 /* UpperLimbsWindowScene.h */,
+				4FAA17862C357B3400188F35 /* UpperLimbsWindowScene.mm */,
+			);
+			path = UpperLimbs;
 			sourceTree = "<group>";
 		};
 		4FD5EF452C33139000CCCFA6 /* WorldTrackingCapabilities */ = {
@@ -273,6 +291,7 @@
 				4F1C713C2C31CB3C002E096A /* ViewpointAzimuthViewController.mm in Sources */,
 				4F26D3992C305B9F0097B837 /* HomeIndicatorViewController.mm in Sources */,
 				4F26D33A2C2FF9040097B837 /* LaunchPlacementParametersWindowScene.mm in Sources */,
+				4FAA17872C357B3400188F35 /* UpperLimbsWindowScene.mm in Sources */,
 				4F26D2EB2C2FDBFC0097B837 /* ClassListViewController.mm in Sources */,
 				4F1C713F2C31CB9D002E096A /* ViewpointAzimuthWindowScene.m in Sources */,
 				4F26D34B2C30086F0097B837 /* DefaultWorldScalingSceneDelegate.m in Sources */,
@@ -284,6 +303,7 @@
 				4F26D3372C2FF84A0097B837 /* VolumetricWorldAlignmentBehaviorViewController.mm in Sources */,
 				4FD5EF482C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm in Sources */,
 				4F26D33D2C2FF9E80097B837 /* VolumetricWorldAlignmentBehaviorWindowScene.mm in Sources */,
+				4FAA17842C357A1700188F35 /* UpperLimbsViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

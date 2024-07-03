@@ -27,6 +27,9 @@
 		4F26D3D72C31B8890097B837 /* AlertSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3D62C31B8890097B837 /* AlertSceneView.swift */; };
 		4F26D3DE2C31C0650097B837 /* WindowBackgroundDragBehaviorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3DD2C31C0650097B837 /* WindowBackgroundDragBehaviorView.swift */; };
 		4F26D3E12C31C1420097B837 /* VolumeViewpointChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3E02C31C1420097B837 /* VolumeViewpointChangeView.swift */; };
+		4FAA177B2C3572B400188F35 /* UpperLimbWindowPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA177A2C3572B400188F35 /* UpperLimbWindowPresenterView.swift */; };
+		4FAA177D2C3572FF00188F35 /* UpperLimbSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA177C2C3572FF00188F35 /* UpperLimbSpace.swift */; };
+		4FAA17802C35760E00188F35 /* MyDocumentLaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA177F2C35760E00188F35 /* MyDocumentLaunchView.swift */; };
 		4FEC80C52C3282B400AF4863 /* SettingsPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEC80C42C3282B400AF4863 /* SettingsPresenterView.swift */; };
 		4FEC81002C328E6600AF4863 /* UtilityPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEC80FF2C328E6600AF4863 /* UtilityPresenterView.swift */; };
 		4FEC813F2C32932C00AF4863 /* ToolbarPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEC813E2C32932C00AF4863 /* ToolbarPresenterView.swift */; };
@@ -60,6 +63,9 @@
 		4F26D3D62C31B8890097B837 /* AlertSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSceneView.swift; sourceTree = "<group>"; };
 		4F26D3DD2C31C0650097B837 /* WindowBackgroundDragBehaviorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowBackgroundDragBehaviorView.swift; sourceTree = "<group>"; };
 		4F26D3E02C31C1420097B837 /* VolumeViewpointChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeViewpointChangeView.swift; sourceTree = "<group>"; };
+		4FAA177A2C3572B400188F35 /* UpperLimbWindowPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpperLimbWindowPresenterView.swift; sourceTree = "<group>"; };
+		4FAA177C2C3572FF00188F35 /* UpperLimbSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpperLimbSpace.swift; sourceTree = "<group>"; };
+		4FAA177F2C35760E00188F35 /* MyDocumentLaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDocumentLaunchView.swift; sourceTree = "<group>"; };
 		4FEC80C42C3282B400AF4863 /* SettingsPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenterView.swift; sourceTree = "<group>"; };
 		4FEC80FF2C328E6600AF4863 /* UtilityPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityPresenterView.swift; sourceTree = "<group>"; };
 		4FEC813E2C32932C00AF4863 /* ToolbarPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarPresenterView.swift; sourceTree = "<group>"; };
@@ -126,6 +132,8 @@
 				4FEC81432C32986A00AF4863 /* WindowVisibilityTogglePresenter */,
 				4FEC81612C329F8900AF4863 /* WindowButtonsBehaviorPresenter */,
 				4FF420012C340618008BD2FC /* ProgressiveImmersionWindowPresenter */,
+				4FAA17792C35729800188F35 /* UpperLimbWindowPresenter */,
+				4FAA177E2C3575F500188F35 /* MyDocumentLaunch */,
 				4F1C71032C2F15CE002E096A /* Assets.xcassets */,
 				4F1C71052C2F15CE002E096A /* Preview Content */,
 			);
@@ -250,6 +258,23 @@
 				4F26D3E02C31C1420097B837 /* VolumeViewpointChangeView.swift */,
 			);
 			path = VolumeViewpointChange;
+			sourceTree = "<group>";
+		};
+		4FAA17792C35729800188F35 /* UpperLimbWindowPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				4FAA177A2C3572B400188F35 /* UpperLimbWindowPresenterView.swift */,
+				4FAA177C2C3572FF00188F35 /* UpperLimbSpace.swift */,
+			);
+			path = UpperLimbWindowPresenter;
+			sourceTree = "<group>";
+		};
+		4FAA177E2C3575F500188F35 /* MyDocumentLaunch */ = {
+			isa = PBXGroup;
+			children = (
+				4FAA177F2C35760E00188F35 /* MyDocumentLaunchView.swift */,
+			);
+			path = MyDocumentLaunch;
 			sourceTree = "<group>";
 		};
 		4FEC80C32C3282A200AF4863 /* SettingsPresenter */ = {
@@ -382,11 +407,13 @@
 				4F26D3D72C31B8890097B837 /* AlertSceneView.swift in Sources */,
 				4F1C710F2C2F1640002E096A /* DefaultWindowPlacementView.swift in Sources */,
 				4FEC813F2C32932C00AF4863 /* ToolbarPresenterView.swift in Sources */,
+				4FAA177D2C3572FF00188F35 /* UpperLimbSpace.swift in Sources */,
 				4F26D34E2C300B380097B837 /* DefaultLaunchBehaviorView.swift in Sources */,
 				4F26D3932C30206A0097B837 /* PersistentSystemOverlaysView.swift in Sources */,
 				4FEC81632C329F9C00AF4863 /* WindowButtonsBehaviorPresenterView.swift in Sources */,
 				4FF420062C340724008BD2FC /* ProgressiveImmersionSpace.swift in Sources */,
 				4F26D3DE2C31C0650097B837 /* WindowBackgroundDragBehaviorView.swift in Sources */,
+				4FAA17802C35760E00188F35 /* MyDocumentLaunchView.swift in Sources */,
 				4F26D39C2C305E040097B837 /* WindowLevelView.swift in Sources */,
 				4F26D3A22C3131170097B837 /* BlendedWindowView.swift in Sources */,
 				4FEC81452C32987C00AF4863 /* WindowVisibilityTogglePresenterView.swift in Sources */,
@@ -400,6 +427,7 @@
 				4FEC81422C3294E700AF4863 /* PushWindowPresenterView.swift in Sources */,
 				4F26D2F22C2FEAD80097B837 /* WindowIdealSizeView.swift in Sources */,
 				4F1C71112C2F1658002E096A /* DemoListView.swift in Sources */,
+				4FAA177B2C3572B400188F35 /* UpperLimbWindowPresenterView.swift in Sources */,
 				4FEC81002C328E6600AF4863 /* UtilityPresenterView.swift in Sources */,
 				4FF420032C34062A008BD2FC /* ProgressiveImmersionWindowPresenterView.swift in Sources */,
 				4F26D3902C301FDC0097B837 /* RestorationBehaviorView.swift in Sources */,

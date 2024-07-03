@@ -130,7 +130,7 @@
     reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(initialClientSettings, NSSelectorFromString(@"setAllowedImmersionStyles:"), 4);
     
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(initialClientSettings, sel_registerName("setMinimumAmountOfImmersion:"), @0.1);
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(initialClientSettings, sel_registerName("setMaximumAmountOfImmersion:"), @1.0);
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(initialClientSettings, sel_registerName("setMaximumAmountOfImmersion:"), @0.5);
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(initialClientSettings, sel_registerName("setInitialAmountOfImmersion:"), @0.1);
     
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(initialClientSettings, sel_registerName("setAmbientBrightness:"), @0.1);
@@ -156,9 +156,16 @@
     // FBSScene
     id fbsScene = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(sender.window.windowScene, sel_registerName("_scene"));
     
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(fbsScene, sel_registerName("updateUIClientSettingsWithBlock:"), ^(id /* (MRUIMutableSharedApplicationSceneClientSettings *) */ mutableSettings, Class resultClass) {
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(fbsScene, sel_registerName("updateClientSettingsWithTransitionBlock:"), ^(id /* (MRUIMutableSharedApplicationSceneClientSettings *) */ mutableSettings, id /* (FBSSceneTransitionContext *) */ _) {
         id otherSettings = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(mutableSettings, sel_registerName("otherSettings"));
         reinterpret_cast<void (*)(id, SEL, id, NSUInteger)>(objc_msgSend)(otherSettings, sel_registerName("setObject:forSetting:"), @(sender.value), 0xbbd);
+        
+        // FBSSceneTransitionContext
+        id transitionContext = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("FBSSceneTransitionContext"), sel_registerName("transitionContext"));
+        
+        id _currentAnimationSettings = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(UIView.class, sel_registerName("_currentAnimationSettings"));
+        
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(transitionContext, sel_registerName("setAnimationSettings:"), _currentAnimationSettings);
     });
 }
 

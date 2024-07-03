@@ -14,7 +14,6 @@
 @end
 
 @implementation ViewpointAzimuthViewController
-
 @synthesize button = _button;
 
 - (void)dealloc {

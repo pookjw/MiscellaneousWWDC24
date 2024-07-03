@@ -299,6 +299,8 @@ struct MiscellaneousSwiftUIApp: App {
         
 #if os(visionOS)
         ProgressiveImmersionSpace(windowID: "Progressive")
+        
+        UpperLimbSpace(windowID: "UpperLimb")
 #endif
     }
 }

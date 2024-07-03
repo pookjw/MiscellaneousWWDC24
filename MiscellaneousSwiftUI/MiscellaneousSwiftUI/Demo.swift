@@ -59,7 +59,10 @@ enum Demo: Int, Identifiable, CaseIterable {
     
 #if os(visionOS)
     case progressiveImmersionWindowPresenter
+    case upperLimbWindowPresenter
 #endif
+    
+    case myDocumentLaunch
     
     var id: Int {
         rawValue
@@ -140,7 +143,12 @@ enum Demo: Int, Identifiable, CaseIterable {
 #if os(visionOS)
         case .progressiveImmersionWindowPresenter:
             ProgressiveImmersionWindowPresenterView()
+        case .upperLimbWindowPresenter:
+            UpperLimbWindowPresenterView()
 #endif
+            
+        case .myDocumentLaunch:
+            MyDocumentLaunchView()
         }
     }
 }
