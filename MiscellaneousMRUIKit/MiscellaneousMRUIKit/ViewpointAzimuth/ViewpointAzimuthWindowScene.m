@@ -9,6 +9,8 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 
+// https://x.com/_silgen_name/status/1807468985073746020
+
 @interface ViewpointAzimuthWindowScene ()
 @property (retain, nonatomic, nullable) id<UITraitChangeRegistration> viewpointAzimuthTraitRegistration;
 @property (retain, nonatomic, nullable) id<UITraitChangeRegistration> rawViewpointAzimuthTraitRegistration;
@@ -50,6 +52,7 @@
 - (void)rawViewpointAzimuthTraitDidChange:(UIWindow *)sender {
     NSLog(@"UITraitRawViewpointAzimuth: %lf", [sender.traitCollection valueForCGFloatTrait:objc_lookUpClass("UITraitRawViewpointAzimuth")]);
     
+    // https://x.com/_silgen_name/status/1807814688841093613
 //    ((void (*)(id, SEL, id, id))objc_msgSend)(sender.rootViewController.view, sel_registerName("setValue:forPreferenceKey:"), @2, @"MRUISupportedVolumeViewpointsPreferenceKey");
 }
 
