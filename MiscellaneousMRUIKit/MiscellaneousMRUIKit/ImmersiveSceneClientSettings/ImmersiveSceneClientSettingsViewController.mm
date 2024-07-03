@@ -128,7 +128,6 @@
     reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(initialClientSettings, NSSelectorFromString(@"setPreferredImmersionStyle:"), 4);
     reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(initialClientSettings, NSSelectorFromString(@"setAllowedImmersionStyles:"), 4);
     
-    // 순서 중요함
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(initialClientSettings, sel_registerName("setMinimumAmountOfImmersion:"), @0.1);
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(initialClientSettings, sel_registerName("setMaximumAmountOfImmersion:"), @1.0);
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(initialClientSettings, sel_registerName("setInitialAmountOfImmersion:"), @0.1);
