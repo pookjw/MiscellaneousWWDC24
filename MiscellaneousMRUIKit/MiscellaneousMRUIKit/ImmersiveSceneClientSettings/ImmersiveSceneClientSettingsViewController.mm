@@ -106,6 +106,7 @@
     amountOfImmersionLabel.textAlignment = NSTextAlignmentCenter;
     amountOfImmersionLabel.backgroundColor = UIColor.blackColor;
     amountOfImmersionLabel.textColor = UIColor.whiteColor;
+    amountOfImmersionLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle1];
     
     _amountOfImmersionLabel = [amountOfImmersionLabel retain];
     return [amountOfImmersionLabel autorelease];
