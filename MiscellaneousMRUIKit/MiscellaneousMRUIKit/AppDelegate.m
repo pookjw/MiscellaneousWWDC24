@@ -11,6 +11,7 @@
 #import "VolumetricWorldAlignmentBehaviorWindowScene.h"
 #import "DefaultWorldScalingSceneDelegate.h"
 #import "ViewpointAzimuthWindowScene.h"
+#import "ImmersiveSceneClientSettingsWindowScene.h"
 
 @interface AppDelegate ()
 @end
@@ -35,6 +36,8 @@
         configuration.delegateClass = DefaultWorldScalingSceneDelegate.class;
     } else if ([activityType isEqualToString:@"ViewpointAzimuth"]) {
         configuration.delegateClass = ViewpointAzimuthWindowScene.class;
+    } else if ([activityType isEqualToString:@"ImmersiveSceneClientSettings"]) {
+        configuration.delegateClass = ImmersiveSceneClientSettingsWindowScene.class;
     } else {
         configuration.delegateClass = SceneDelegate.class;
     }

@@ -19,9 +19,12 @@ struct ProgressiveImmersionSpace: Scene {
             Color
                 .orange
                 .frame(width: 10_000.0, height: 10_000.0)
+                .onImmersionChange { context in
+                    print(context.amount)
+                }
         }
         .immersiveContentBrightness(.custom(0.1)) // Simulator라 차이 없는듯
-        .immersionStyle(selection: .constant(.progressive(0...Model.shared.maxProgressiveAmount, initialAmount: 0.1)), in: .progressive(0...Model.shared.maxProgressiveAmount, initialAmount: 0.1))
+        .immersionStyle(selection: .constant(.progressive(0...1.0, initialAmount: 0.1)), in: .progressive(0...1.0, initialAmount: 1.0))
     }
 }
 
