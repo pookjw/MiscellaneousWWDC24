@@ -60,6 +60,7 @@ enum Demo: Int, Identifiable, CaseIterable {
 #if os(visionOS)
     case progressiveImmersionWindowPresenter
     case upperLimbWindowPresenter
+    case immersiveEnvironmentPicker
 #endif
     
     case myDocumentLaunch
@@ -145,6 +146,8 @@ enum Demo: Int, Identifiable, CaseIterable {
             ProgressiveImmersionWindowPresenterView()
         case .upperLimbWindowPresenter:
             UpperLimbWindowPresenterView()
+        case .immersiveEnvironmentPicker:
+            ImmersiveEnvironmentPickerView()
 #endif
             
         case .myDocumentLaunch:
