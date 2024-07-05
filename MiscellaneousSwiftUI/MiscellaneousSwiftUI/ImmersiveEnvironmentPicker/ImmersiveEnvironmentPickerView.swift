@@ -7,10 +7,24 @@
 
 #if os(visionOS)
 
+// .cameraAnchor API (AVKit)
+// https://developer.apple.com/documentation/swiftui/view/oncameracaptureevent(isenabled:action:)
+// https://www.lovelili.fun/documentation/avkit/videoplayer/navigationtransition(_:)
+
 import SwiftUI
-import UIKit
 import AVKit
 import UniformTypeIdentifiers
+
+struct ImmersiveEnvironmentPickerView: View {
+    var body: some View {
+        VideoPlayerView(player: .init(url: Bundle.main.url(forResource: "video", withExtension: UTType.mpeg4Movie.preferredFilenameExtension)!))
+            .immersiveEnvironmentPicker { 
+                Button("Hello") { 
+                    
+                }
+            }
+    }
+}
 
 fileprivate struct VideoPlayerView: UIViewControllerRepresentable {
     private let player: AVPlayer
@@ -37,17 +51,6 @@ fileprivate struct VideoPlayerView: UIViewControllerRepresentable {
     
     func makeCoordinator() -> Coordinator {
         .init()
-    }
-}
-
-struct ImmersiveEnvironmentPickerView: View {
-    var body: some View {
-        VideoPlayerView(player: .init(url: Bundle.main.url(forResource: "video", withExtension: UTType.mpeg4Movie.preferredFilenameExtension)!))
-            .immersiveEnvironmentPicker { 
-                Button("Hello") { 
-                    
-                }
-            }
     }
 }
 

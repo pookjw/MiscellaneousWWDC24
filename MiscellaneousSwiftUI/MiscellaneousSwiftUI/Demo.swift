@@ -61,6 +61,7 @@ enum Demo: Int, Identifiable, CaseIterable {
     case progressiveImmersionWindowPresenter
     case upperLimbWindowPresenter
     case immersiveEnvironmentPicker
+    case fullScreenVideoPlayer
 #endif
     
     case myDocumentLaunch
@@ -148,6 +149,8 @@ enum Demo: Int, Identifiable, CaseIterable {
             UpperLimbWindowPresenterView()
         case .immersiveEnvironmentPicker:
             ImmersiveEnvironmentPickerView()
+        case .fullScreenVideoPlayer:
+            FullScreenVideoPlayerView()
 #endif
             
         case .myDocumentLaunch:
