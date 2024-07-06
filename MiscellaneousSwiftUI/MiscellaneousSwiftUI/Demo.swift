@@ -66,6 +66,10 @@ enum Demo: Int, Identifiable, CaseIterable {
     
     case myDocumentLaunch
     
+#if os(iOS)
+    case cameraCaptureEvent
+#endif
+    
     var id: Int {
         rawValue
     }
@@ -155,6 +159,12 @@ enum Demo: Int, Identifiable, CaseIterable {
             
         case .myDocumentLaunch:
             MyDocumentLaunchView()
+            
+#if os(iOS)
+    case .cameraCaptureEvent:
+        CameraCaptureEventView()
+#endif
         }
+        
     }
 }

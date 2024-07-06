@@ -28,6 +28,7 @@
 		4F26D3DE2C31C0650097B837 /* WindowBackgroundDragBehaviorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3DD2C31C0650097B837 /* WindowBackgroundDragBehaviorView.swift */; };
 		4F26D3E12C31C1420097B837 /* VolumeViewpointChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3E02C31C1420097B837 /* VolumeViewpointChangeView.swift */; };
 		4F8D7B042C38519A009FB46E /* FullScreenVideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8D7B032C38519A009FB46E /* FullScreenVideoPlayerView.swift */; };
+		4F8D7B072C385581009FB46E /* CameraCaptureEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8D7B062C385581009FB46E /* CameraCaptureEventView.swift */; };
 		4FAA177B2C3572B400188F35 /* UpperLimbWindowPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA177A2C3572B400188F35 /* UpperLimbWindowPresenterView.swift */; };
 		4FAA177D2C3572FF00188F35 /* UpperLimbSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA177C2C3572FF00188F35 /* UpperLimbSpace.swift */; };
 		4FAA17802C35760E00188F35 /* MyDocumentLaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA177F2C35760E00188F35 /* MyDocumentLaunchView.swift */; };
@@ -67,6 +68,7 @@
 		4F26D3DD2C31C0650097B837 /* WindowBackgroundDragBehaviorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowBackgroundDragBehaviorView.swift; sourceTree = "<group>"; };
 		4F26D3E02C31C1420097B837 /* VolumeViewpointChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeViewpointChangeView.swift; sourceTree = "<group>"; };
 		4F8D7B032C38519A009FB46E /* FullScreenVideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenVideoPlayerView.swift; sourceTree = "<group>"; };
+		4F8D7B062C385581009FB46E /* CameraCaptureEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureEventView.swift; sourceTree = "<group>"; };
 		4FAA177A2C3572B400188F35 /* UpperLimbWindowPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpperLimbWindowPresenterView.swift; sourceTree = "<group>"; };
 		4FAA177C2C3572FF00188F35 /* UpperLimbSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpperLimbSpace.swift; sourceTree = "<group>"; };
 		4FAA177F2C35760E00188F35 /* MyDocumentLaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDocumentLaunchView.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				4FDC2E5C2C36668E00768E12 /* ImmersiveEnvironmentPicker */,
 				4F8D7B022C385188009FB46E /* FullScreenVideoPlayer */,
 				4FAA177E2C3575F500188F35 /* MyDocumentLaunch */,
+				4F8D7B052C385576009FB46E /* CameraCaptureEvent */,
 				4F1C71032C2F15CE002E096A /* Assets.xcassets */,
 				4F1C71052C2F15CE002E096A /* Preview Content */,
 			);
@@ -275,6 +278,14 @@
 				4F8D7B032C38519A009FB46E /* FullScreenVideoPlayerView.swift */,
 			);
 			path = FullScreenVideoPlayer;
+			sourceTree = "<group>";
+		};
+		4F8D7B052C385576009FB46E /* CameraCaptureEvent */ = {
+			isa = PBXGroup;
+			children = (
+				4F8D7B062C385581009FB46E /* CameraCaptureEventView.swift */,
+			);
+			path = CameraCaptureEvent;
 			sourceTree = "<group>";
 		};
 		4FAA17792C35729800188F35 /* UpperLimbWindowPresenter */ = {
@@ -447,6 +458,7 @@
 				4F26D32D2C2FEE610097B837 /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4F1C71132C2F1662002E096A /* Demo.swift in Sources */,
 				4F26D3512C300EB10097B837 /* WindowManagerRoleView.swift in Sources */,
+				4F8D7B072C385581009FB46E /* CameraCaptureEventView.swift in Sources */,
 				4FEC80C52C3282B400AF4863 /* SettingsPresenterView.swift in Sources */,
 				4F26D3E12C31C1420097B837 /* VolumeViewpointChangeView.swift in Sources */,
 				4F26D3332C2FF4B00097B837 /* VolumeWorldAlignmentView.swift in Sources */,
@@ -597,6 +609,7 @@
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = Hello;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -629,6 +642,7 @@
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = Hello;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

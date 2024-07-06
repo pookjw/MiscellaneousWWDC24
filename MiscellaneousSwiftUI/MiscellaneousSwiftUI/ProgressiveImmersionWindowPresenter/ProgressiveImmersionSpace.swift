@@ -5,6 +5,8 @@
 //  Created by Jinwoo Kim on 7/2/24.
 //
 
+#if os(visionOS)
+
 import SwiftUI
 
 struct ProgressiveImmersionSpace: Scene {
@@ -42,3 +44,5 @@ extension ProgressiveImmersionSpace {
         private init() {}
     }
 }
+
+#endif

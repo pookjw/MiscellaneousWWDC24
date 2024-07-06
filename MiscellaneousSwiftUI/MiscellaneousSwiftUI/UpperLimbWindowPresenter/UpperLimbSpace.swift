@@ -5,6 +5,8 @@
 //  Created by Jinwoo Kim on 7/3/24.
 //
 
+#if os(visionOS)
+
 import SwiftUI
 
 struct UpperLimbSpace: Scene {
@@ -23,3 +25,5 @@ struct UpperLimbSpace: Scene {
         .immersionStyle(selection: .constant(.full), in: .full)
     }
 }
+
+#endif

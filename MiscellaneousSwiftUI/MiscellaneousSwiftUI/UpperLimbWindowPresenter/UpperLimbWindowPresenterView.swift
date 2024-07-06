@@ -5,6 +5,8 @@
 //  Created by Jinwoo Kim on 7/3/24.
 //
 
+#if os(visionOS)
+
 import SwiftUI
 
 struct UpperLimbWindowPresenterView: View {
@@ -58,3 +60,5 @@ extension Visibility {
 #Preview {
     UpperLimbWindowPresenterView()
 }
+
+#endif

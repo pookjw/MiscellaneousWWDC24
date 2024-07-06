@@ -18,8 +18,11 @@ import UniformTypeIdentifiers
 struct ImmersiveEnvironmentPickerView: View {
     var body: some View {
         VideoPlayerView(player: .init(url: Bundle.main.url(forResource: "video", withExtension: UTType.mpeg4Movie.preferredFilenameExtension)!))
-            .immersiveEnvironmentPicker { 
-                Button("Hello") { 
+            .immersiveEnvironmentPicker {
+                // SwiftUI.MenuStyleContext를 지원해야 해서 Custom View는 안 됨
+                MyView()
+                
+                Button("Button?") { 
                     
                 }
             }
@@ -51,6 +54,25 @@ fileprivate struct VideoPlayerView: UIViewControllerRepresentable {
     
     func makeCoordinator() -> Coordinator {
         .init()
+    }
+}
+
+fileprivate struct MyView: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> ContentViewController {
+        .init()
+    }
+    
+    func updateUIViewController(_ uiViewController: ContentViewController, context: Context) {
+        
+    }
+    
+    final class ContentViewController: UIViewController {
+        override func loadView() {
+            let label: UILabel = .init()
+            label.text = "Hello World!"
+            label.font = .preferredFont(forTextStyle: .title1)
+            view = label
+        }
     }
 }
 
