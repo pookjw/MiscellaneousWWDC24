@@ -11,6 +11,9 @@ struct MyTabPresenterView: View {
     @State private var isPresented: Bool = false
     
     var body: some View {
+#if os(macOS)
+        MyTabView()
+#else
         Button("Present") {
             isPresented = true
         }
@@ -22,12 +25,15 @@ struct MyTabPresenterView: View {
                 MyTabView()
             }
         }
+#endif
     }
 }
 
 fileprivate struct MyTabView: View {
     @Environment(\.dismiss) private var dismiss: DismissAction
+#if !os(macOS)
     @AppStorage("MyTabViewCustomizatiion") private var customization: TabViewCustomization
+#endif
     @State private var isShowingPopover = false
     @State private var selectedValue: Int = .zero
     
@@ -37,9 +43,11 @@ fileprivate struct MyTabView: View {
                 Color.red.ignoresSafeArea()
             }
             .customizationID("red")
+#if !os(macOS)
             .customizationBehavior(.reorderable, for: .automatic, .sidebar, .tabBar)
             .defaultVisibility(.visible, for: .automatic, .sidebar, .tabBar)
-//            .hidden()
+#endif
+            //            .hidden()
             .contextMenu {
                 Button("Hello") {}
             }
@@ -48,8 +56,10 @@ fileprivate struct MyTabView: View {
                 Color.orange.ignoresSafeArea()
             }
             .customizationID("orange")
+#if !os(macOS)
             .customizationBehavior(.disabled, for: .automatic, .sidebar, .tabBar)
             .defaultVisibility(.visible, for: .automatic, .sidebar, .tabBar)
+#endif
             
             Tab(value: 3) {
                 Color.yellow.ignoresSafeArea()
@@ -59,11 +69,13 @@ fileprivate struct MyTabView: View {
                         Color.yellow
                     }
             }
-            .popover(isPresented: $isShowingPopover) {
-                            Text("Popover Content")
-                                .padding()
-                        }
-
+            .badge("Badge!!!")
+            .popover(
+                isPresented: $isShowingPopover) {
+                    Text("Popover Content")
+                        .padding()
+                }
+            
             Tab(value: 4) {
                 Color.green.ignoresSafeArea()
                     .tabItem { // not work - deprecated
@@ -79,6 +91,14 @@ fileprivate struct MyTabView: View {
                 Color.purple.ignoresSafeArea()
             }
             .tabPlacement(.pinned)
+            .swipeActions(edge: .leading, allowsFullSwipe: true) { 
+                Button(role: .destructive) { 
+                    print("Foo!")
+                } label: { 
+                    Text("Foo")
+                }
+                
+            }
             
             //
             
@@ -88,14 +108,24 @@ fileprivate struct MyTabView: View {
                 } label: {
                     Text("Pink")
                 }
+                .badge("Badge!!!")
+                
             } header: {
                 // Custom View is not supported
-//                Button("Section") {
-//                    
-//                }
+                //                Button("Section") {
+                //                    
+                //                }
                 
                 // Image is not supported
                 Label("Section", systemImage: "fn")
+            }
+            .sectionActions { 
+                Button("Hello 1") { 
+                    
+                }
+                Button("Hello 2") { 
+                    
+                }
             }
         }
         .tabViewSidebarHeader {
@@ -108,30 +138,32 @@ fileprivate struct MyTabView: View {
             Text("Bottom Bar")
         }
         .tabViewStyle(.sidebarAdaptable)
+#if !os(macOS)
         .tabViewCustomization($customization)
-            .toolbar {
-                ToolbarItem(placement: .navigation) {
-                    Button("Dismiss") {
-                        dismiss()
-                    }
-                }
-                
-                ToolbarItem(placement: .navigation) {
-                    Button("Next") {
-                        selectedValue += 1
-                    }
-                }
-                
-                ToolbarItem(placement: .navigation) {
-                    Button("Popover") {
-                        isShowingPopover = true
-                    }
-                }
-                
-                ToolbarItem(placement: .navigation) {
-                    EditButton() // not work
+        .toolbar {
+            ToolbarItem(placement: .navigation) {
+                Button("Dismiss") {
+                    dismiss()
                 }
             }
+            
+            ToolbarItem(placement: .navigation) {
+                Button("Next") {
+                    selectedValue += 1
+                }
+            }
+            
+            ToolbarItem(placement: .navigation) {
+                Button("Popover") {
+                    isShowingPopover = true
+                }
+            }
+            
+            ToolbarItem(placement: .navigation) {
+                EditButton() // not work
+            }
+        }
+#endif
     }
 }
 

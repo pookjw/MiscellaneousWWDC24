@@ -321,7 +321,48 @@ void swizzle() {
 }
 
 - (UIContextMenuConfiguration *)tabBarController:(UITabBarController *)tabBarController sidebar:(UITabBarControllerSidebar *)sidebar contextMenuConfigurationForTab:(__kindof UITab *)tab {
+    UIContextMenuConfiguration *contextMenuConfiguration = [UIContextMenuConfiguration configurationWithIdentifier:nil
+                                                                                                   previewProvider:nil
+                                                                                                    actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+        NSMutableArray<UIMenuElement *> *children = [suggestedActions mutableCopy];
+        
+        UIAction *action = [UIAction actionWithTitle:@"Hello" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+            
+        }];
+        
+        [children addObject:action];
+        
+        UIMenu *menu = [UIMenu menuWithChildren:children];
+        [children release];
+        
+        return menu;
+    }];
     
+    return contextMenuConfiguration;
+}
+
+- (UISwipeActionsConfiguration *)tabBarController:(UITabBarController *)tabBarController sidebar:(UITabBarControllerSidebar *)sidebar leadingSwipeActionsConfigurationForTab:(__kindof UITab *)tab {
+    UIContextualAction *helloAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:@"Hello" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+        NSLog(@"Hello!");
+        completionHandler(YES);
+    }];
+    
+    UISwipeActionsConfiguration *swipeActionsConfiguration = [UISwipeActionsConfiguration configurationWithActions:@[helloAction]];
+    
+    swipeActionsConfiguration.performsFirstActionWithFullSwipe = YES;
+    return swipeActionsConfiguration;
+}
+
+- (UISwipeActionsConfiguration *)tabBarController:(UITabBarController *)tabBarController sidebar:(UITabBarControllerSidebar *)sidebar trailingSwipeActionsConfigurationForTab:(__kindof UITab *)tab {
+    UIContextualAction *helloAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"Hello" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+        NSLog(@"Hello!");
+        completionHandler(YES);
+    }];
+    
+    UISwipeActionsConfiguration *swipeActionsConfiguration = [UISwipeActionsConfiguration configurationWithActions:@[helloAction]];
+    
+    swipeActionsConfiguration.performsFirstActionWithFullSwipe = YES;
+    return swipeActionsConfiguration;
 }
 
 @end

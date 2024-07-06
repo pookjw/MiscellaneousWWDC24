@@ -13,21 +13,23 @@ struct RenameView: View {
     
     var body: some View {
         Color.red
-        .toolbar {
-            ToolbarItem(placement: .navigation) {
-//                RenameButton()
-                Button("Rename") {
-                    
-                    renameAction!()
+            .toolbar {
+                ToolbarItem(placement: .navigation) {
+                    //                RenameButton()
+                    Button("Rename") {
+                        
+                        renameAction!()
+                    }
                 }
             }
-        }
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbarRole(.editor)
-        .navigationTitle($title)
-//        .renameAction {
-//            isFocused = true
-//        }
+#if !os(macOS)
+            .navigationBarTitleDisplayMode(.inline)
+#endif
+            .toolbarRole(.editor)
+            .navigationTitle($title)
+        //        .renameAction {
+        //            isFocused = true
+        //        }
     }
 }
 
