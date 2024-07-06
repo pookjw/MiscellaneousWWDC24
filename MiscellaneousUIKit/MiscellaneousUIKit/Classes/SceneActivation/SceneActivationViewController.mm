@@ -44,12 +44,13 @@
 //        NSLog(@"%@", ((id (*)(id, SEL, id *))objc_msgSend)(copiedPlacement, sel_registerName("_createConfigurationWithError:"), &error));
 //        assert(!error);
 //        [copiedPlacement release];
-#endif
+#else
 //        __kindof UIWindowScenePlacement *placement = ((id (*)(Class, SEL, id))objc_msgSend)(objc_lookUpClass("_UIWindowSceneReplacePlacement"), sel_registerName("placementToReplaceSceneSession:"), weakSelf.view.window.windowScene.session);
         UIWindowSceneProminentPlacement *placement = [UIWindowSceneProminentPlacement prominentPlacement];
 //        UIWindowSceneStandardPlacement *placement = [UIWindowSceneStandardPlacement standardPlacement];
 //        __kindof UIWindowScenePlacement *placement = ((id (*)(Class, SEL, id))objc_msgSend)(objc_lookUpClass("_UIWindowSceneOrderedPlacement"), sel_registerName("orderedPlacementBelow:"), weakSelf.view.window.windowScene);
 //        OwnWindowScenePlacement *placement = [[OwnWindowScenePlacement new] autorelease];
+#endif
         
         options.placement = placement;
         

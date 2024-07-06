@@ -83,6 +83,7 @@ void swizzle() {
             greenViewController.view.backgroundColor = UIColor.systemGreenColor;
             return [greenViewController autorelease];
         }];
+        greenTab.badgeValue = @"Badge!";
         
         UITab *yellowTab = [[UITab alloc] initWithTitle:@"Yellow" image:nil identifier:@"Yello" viewControllerProvider:^UIViewController * _Nonnull(__kindof UITab * _Nonnull) {
             UIViewController *yellowViewController = [UIViewController new];
@@ -165,23 +166,49 @@ void swizzle() {
         
         UIBarButtonItem *resetAllBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Reset All" style:UIBarButtonItemStylePlain target:self action:@selector(resetAllBarButtonItemDidTrigger:)];
         
-        navigationItem.rightBarButtonItems = @[resetBarButtonItem, resetAllBarButtonItem];
+        UIBarButtonItem *presentPopoverBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Popover" style:UIBarButtonItemStylePlain target:self action:@selector(presentPopoverBarButtonItemDidTrigger:)];
+        
+        navigationItem.rightBarButtonItems = @[resetBarButtonItem, resetAllBarButtonItem, presentPopoverBarButtonItem];
         
         [resetBarButtonItem release];
         [resetAllBarButtonItem release];
+        [presentPopoverBarButtonItem release];
         
         self.mode = UITabBarControllerModeTabSidebar;
 //        self.mode = (UITabBarControllerMode)3;
         
         self.customizationIdentifier = @"Test";
-        self.sidebar.delegate = self;
+        
+        //
+        
+        UITabBarControllerSidebar *sidebar = self.sidebar;
+        
+        sidebar.delegate = self;
+        
+        UILabel *bottomBarView = [UILabel new];
+        bottomBarView.text = @"bottomBarView";
+        bottomBarView.textColor = UIColor.systemBlueColor;
+        bottomBarView.backgroundColor = UIColor.systemGrayColor;
+        bottomBarView.textAlignment = NSTextAlignmentCenter;
+        sidebar.bottomBarView = bottomBarView;
+        [bottomBarView release];
+        
+        UIListContentConfiguration *headerContentConfiguration = [UIListContentConfiguration headerConfiguration];
+        headerContentConfiguration.text = @"Header";
+        sidebar.headerContentConfiguration = headerContentConfiguration;
+        
+        UIListContentConfiguration *footerContentConfiguration = [UIListContentConfiguration headerConfiguration];
+        footerContentConfiguration.text = @"Footer";
+        sidebar.footerContentConfiguration = footerContentConfiguration;
+        
+        //
         
         __kindof UIView *_sidebarView = ((id (*)(id, SEL))objc_msgSend)(self.sidebar, sel_registerName("_sidebarView"));
         UINavigationItem *sidebarNavigationItem = ((id (*)(id, SEL))objc_msgSend)(_sidebarView, sel_registerName("navigationItem"));
         sidebarNavigationItem.title = @"Sidebar!!";
-        UIBarButtonItem *helloBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Hello" style:UIBarButtonItemStylePlain target:self action:@selector(helloBarButtonItemDidTrigger:)];
-        sidebarNavigationItem.leftBarButtonItems = [sidebarNavigationItem.leftBarButtonItems arrayByAddingObject:helloBarButtonItem];
-        [helloBarButtonItem release];
+        UIBarButtonItem *editBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Hello" style:UIBarButtonItemStylePlain target:self action:@selector(editBarButtonItemDidTrigger:)];
+        sidebarNavigationItem.leftBarButtonItems = [sidebarNavigationItem.leftBarButtonItems arrayByAddingObject:editBarButtonItem];
+        [editBarButtonItem release];
         
         //
         
@@ -233,13 +260,22 @@ void swizzle() {
 //    [userDefaults setObject:nil forKey:@"com.apple.UIKit.UITabCustomization"];
 }
 
-- (void)helloBarButtonItemDidTrigger:(UIBarButtonItem *)sender {
+- (void)editBarButtonItemDidTrigger:(UIBarButtonItem *)sender {
     id _tabModel;
     object_getInstanceVariable(self, "_tabModel", (void **)&_tabModel);
     
     self.editing = YES;
 //    ((void (*)(id, SEL, BOOL))objc_msgSend)(_tabModel, sel_registerName("setEditing:"), YES);
 //    ((void (*)(id, SEL, BOOL))objc_msgSend)(_tabModel, sel_registerName("setEditable:"), NO);
+}
+
+- (void)presentPopoverBarButtonItemDidTrigger:(UIBarButtonItem *)sender {
+    UIViewController *viewController = [UIViewController new];
+    viewController.modalPresentationStyle = UIModalPresentationPopover;
+    viewController.popoverPresentationController.sourceItem = self.selectedTab;
+    
+    [self presentViewController:viewController animated:YES completion:nil];
+    [viewController release];
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectTab:(UITab *)tab previousTab:(UITab *)prevTab {
@@ -273,12 +309,19 @@ void swizzle() {
     contentConfiguration.textProperties.font = [UIFont systemFontOfSize:30.0 weight:UIFontWeightHeavy];
     contentConfiguration.textProperties.color = UIColor.systemPinkColor;
     
+    contentConfiguration.secondaryText = @"Secondary!";
+    contentConfiguration.secondaryTextProperties.color = UIColor.systemGreenColor;
+    
     item.contentConfiguration = contentConfiguration;
     [contentConfiguration release];
     
     item.backgroundConfiguration = backgroundConfiguration;
     
     return item;
+}
+
+- (UIContextMenuConfiguration *)tabBarController:(UITabBarController *)tabBarController sidebar:(UITabBarControllerSidebar *)sidebar contextMenuConfigurationForTab:(__kindof UITab *)tab {
+    
 }
 
 @end

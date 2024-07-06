@@ -1,0 +1,140 @@
+//
+//  MyTabPresenterView.swift
+//  MiscellaneousSwiftUI
+//
+//  Created by Jinwoo Kim on 7/7/24.
+//
+
+import SwiftUI
+
+struct MyTabPresenterView: View {
+    @State private var isPresented: Bool = false
+    
+    var body: some View {
+        Button("Present") {
+            isPresented = true
+        }
+        .onAppear {
+            isPresented = true
+        }
+        .fullScreenCover(isPresented: $isPresented) {
+            NavigationStack {
+                MyTabView()
+            }
+        }
+    }
+}
+
+fileprivate struct MyTabView: View {
+    @Environment(\.dismiss) private var dismiss: DismissAction
+    @AppStorage("MyTabViewCustomizatiion") private var customization: TabViewCustomization
+    @State private var isShowingPopover = false
+    @State private var selectedValue: Int = .zero
+    
+    var body: some View {
+        TabView(selection: $selectedValue) {
+            Tab("Red", systemImage: "eraser.line.dashed.fill", value: .zero, role: .none) {
+                Color.red.ignoresSafeArea()
+            }
+            .customizationID("red")
+            .customizationBehavior(.reorderable, for: .automatic, .sidebar, .tabBar)
+            .defaultVisibility(.visible, for: .automatic, .sidebar, .tabBar)
+//            .hidden()
+            .contextMenu {
+                Button("Hello") {}
+            }
+            
+            Tab("Orange", systemImage: "eraser.fill", value: 1, role: .none) {
+                Color.orange.ignoresSafeArea()
+            }
+            .customizationID("orange")
+            .customizationBehavior(.disabled, for: .automatic, .sidebar, .tabBar)
+            .defaultVisibility(.visible, for: .automatic, .sidebar, .tabBar)
+            
+            Tab(value: 3) {
+                Color.yellow.ignoresSafeArea()
+            } label: {
+                Label("Yellow", systemImage: "externaldrive.fill.badge.plus")
+                    .background {
+                        Color.yellow
+                    }
+            }
+            .popover(isPresented: $isShowingPopover) {
+                            Text("Popover Content")
+                                .padding()
+                        }
+
+            Tab(value: 4) {
+                Color.green.ignoresSafeArea()
+                    .tabItem { // not work - deprecated
+                        Label("Green", systemImage: "person.3.sequence.fill")
+                    }
+            }
+            
+            Tab(value: 5, role: .search) {
+                Color.blue.ignoresSafeArea()
+            }
+            
+            Tab("Purple", systemImage: "person.3.sequence.fill", value: 6, role: .none) {
+                Color.purple.ignoresSafeArea()
+            }
+            .tabPlacement(.pinned)
+            
+            //
+            
+            TabSection {
+                Tab.init(value: 7, role: .none) {
+                    Color.pink.ignoresSafeArea()
+                } label: {
+                    Text("Pink")
+                }
+            } header: {
+                // Custom View is not supported
+//                Button("Section") {
+//                    
+//                }
+                
+                // Image is not supported
+                Label("Section", systemImage: "fn")
+            }
+        }
+        .tabViewSidebarHeader {
+            Text("Header")
+        }
+        .tabViewSidebarFooter {
+            Text("Footer")
+        }
+        .tabViewSidebarBottomBar {
+            Text("Bottom Bar")
+        }
+        .tabViewStyle(.sidebarAdaptable)
+        .tabViewCustomization($customization)
+            .toolbar {
+                ToolbarItem(placement: .navigation) {
+                    Button("Dismiss") {
+                        dismiss()
+                    }
+                }
+                
+                ToolbarItem(placement: .navigation) {
+                    Button("Next") {
+                        selectedValue += 1
+                    }
+                }
+                
+                ToolbarItem(placement: .navigation) {
+                    Button("Popover") {
+                        isShowingPopover = true
+                    }
+                }
+                
+                ToolbarItem(placement: .navigation) {
+                    EditButton() // not work
+                }
+            }
+    }
+}
+
+#Preview {
+    MyTabPresenterView()
+}

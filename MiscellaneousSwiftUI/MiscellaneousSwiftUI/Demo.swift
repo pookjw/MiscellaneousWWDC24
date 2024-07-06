@@ -64,11 +64,16 @@ enum Demo: Int, Identifiable, CaseIterable {
     case fullScreenVideoPlayer
 #endif
     
+#if os(iOS) || os(visionOS)
     case myDocumentLaunch
+#endif
     
 #if os(iOS)
     case cameraCaptureEvent
 #endif
+    
+    case rename
+    case myTabPresenter
     
     var id: Int {
         rawValue
@@ -157,14 +162,20 @@ enum Demo: Int, Identifiable, CaseIterable {
             FullScreenVideoPlayerView()
 #endif
             
+#if os(iOS) || os(visionOS)
         case .myDocumentLaunch:
             MyDocumentLaunchView()
+#endif
             
 #if os(iOS)
     case .cameraCaptureEvent:
         CameraCaptureEventView()
 #endif
+            
+        case .rename:
+            RenameView()
+        case .myTabPresenter:
+            MyTabPresenterView()
         }
-        
     }
 }

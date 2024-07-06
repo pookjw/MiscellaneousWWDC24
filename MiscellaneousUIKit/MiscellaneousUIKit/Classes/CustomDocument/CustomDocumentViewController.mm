@@ -119,13 +119,17 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     if (@available(iOS 18.0, *)) {
         UIDocumentViewControllerLaunchOptions *launchOptions = [UIDocumentViewControllerLaunchOptions new];
         
-        UIDocumentBrowserViewController *browserViewController = launchOptions.browserViewController;
+//        UIDocumentBrowserViewController *browserViewController = launchOptions.browserViewController;
+//        
+//        /* DOCConfiguration */
+//        id configuration = ((id (*)(id, SEL, id))objc_msgSend)(browserViewController, sel_registerName("configurationForOpeningDocumentsWithContentTypes:"), @[UTTypePNG.identifier, UTTypePNG.identifier]);
+//        ((void (*)(id, SEL, id))objc_msgSend)(browserViewController, sel_registerName("setConfiguration:"), configuration);
         
-        /* DOCConfiguration */
-        id configuration = ((id (*)(id, SEL, id))objc_msgSend)(browserViewController, sel_registerName("configurationForOpeningDocumentsWithContentTypes:"), @[UTTypePNG.identifier, UTTypeJPEG.identifier]);
-        ((void (*)(id, SEL, id))objc_msgSend)(browserViewController, sel_registerName("setConfiguration:"), configuration);
+        UIDocumentBrowserViewController *browserViewController = [[UIDocumentBrowserViewController alloc] initForOpeningContentTypes:@[UTTypePNG]];
+        launchOptions.browserViewController = browserViewController;
         
         browserViewController.delegate = self;
+        [browserViewController release];
         
         //
         

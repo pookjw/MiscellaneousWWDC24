@@ -27,11 +27,11 @@ namespace _UIDocument {
 @end
 @implementation UIDocument (Swizzle)
 + (void)load {
-    Method method = class_getClassMethod(self, sel_registerName("_documentWithContentsOfFileURL:error:"));
-    using namespace _UIDocument::_documentWithContentsOfFileURL_error;
-    
-    original = (decltype(original))method_getImplementation(method);
-    method_setImplementation(method, (IMP)custom);
+//    Method method = class_getClassMethod(self, sel_registerName("_documentWithContentsOfFileURL:error:"));
+//    using namespace _UIDocument::_documentWithContentsOfFileURL_error;
+//    
+//    original = (decltype(original))method_getImplementation(method);
+//    method_setImplementation(method, (IMP)custom);
 }
 @end
 
