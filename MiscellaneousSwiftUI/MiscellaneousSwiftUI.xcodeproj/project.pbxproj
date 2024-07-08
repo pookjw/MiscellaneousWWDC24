@@ -29,6 +29,10 @@
 		4F26D3E12C31C1420097B837 /* VolumeViewpointChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3E02C31C1420097B837 /* VolumeViewpointChangeView.swift */; };
 		4F7BC03F2C397F0000419197 /* RenameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC03E2C397F0000419197 /* RenameView.swift */; };
 		4F7BC0B52C39959300419197 /* MyTabPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC0B42C39959300419197 /* MyTabPresenterView.swift */; };
+		4F7BC0D42C3C048600419197 /* PresentationSizingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC0D32C3C048600419197 /* PresentationSizingView.swift */; };
+		4F7BC0F12C3C3AF800419197 /* DismissalConfirmationDialogPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC0F02C3C3AF800419197 /* DismissalConfirmationDialogPresenterView.swift */; };
+		4F7BC0F62C3C3C0A00419197 /* ConfirmationDialogPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC0F52C3C3C0A00419197 /* ConfirmationDialogPresenterView.swift */; };
+		4F7BC11E2C3C3DE800419197 /* MyToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC11D2C3C3DE800419197 /* MyToolbarView.swift */; };
 		4F8D7B042C38519A009FB46E /* FullScreenVideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8D7B032C38519A009FB46E /* FullScreenVideoPlayerView.swift */; };
 		4F8D7B072C385581009FB46E /* CameraCaptureEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8D7B062C385581009FB46E /* CameraCaptureEventView.swift */; };
 		4FAA177B2C3572B400188F35 /* UpperLimbWindowPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA177A2C3572B400188F35 /* UpperLimbWindowPresenterView.swift */; };
@@ -74,6 +78,10 @@
 		4F26D3E02C31C1420097B837 /* VolumeViewpointChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeViewpointChangeView.swift; sourceTree = "<group>"; };
 		4F7BC03E2C397F0000419197 /* RenameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameView.swift; sourceTree = "<group>"; };
 		4F7BC0B42C39959300419197 /* MyTabPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTabPresenterView.swift; sourceTree = "<group>"; };
+		4F7BC0D32C3C048600419197 /* PresentationSizingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationSizingView.swift; sourceTree = "<group>"; };
+		4F7BC0F02C3C3AF800419197 /* DismissalConfirmationDialogPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissalConfirmationDialogPresenterView.swift; sourceTree = "<group>"; };
+		4F7BC0F52C3C3C0A00419197 /* ConfirmationDialogPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationDialogPresenterView.swift; sourceTree = "<group>"; };
+		4F7BC11D2C3C3DE800419197 /* MyToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyToolbarView.swift; sourceTree = "<group>"; };
 		4F8D7B032C38519A009FB46E /* FullScreenVideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenVideoPlayerView.swift; sourceTree = "<group>"; };
 		4F8D7B062C385581009FB46E /* CameraCaptureEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureEventView.swift; sourceTree = "<group>"; };
 		4FAA177A2C3572B400188F35 /* UpperLimbWindowPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpperLimbWindowPresenterView.swift; sourceTree = "<group>"; };
@@ -161,6 +169,10 @@
 				4FAA43F92C3B8073003A2363 /* MyHSplit */,
 				4FAA43FC2C3B80A4003A2363 /* MyVSplit */,
 				4FAA43FF2C3B8648003A2363 /* PopoverPresenter */,
+				4F7BC0D02C3C047100419197 /* PresentationSizing */,
+				4F7BC0EF2C3C3ADD00419197 /* DismissalConfirmationDialogPresenter */,
+				4F7BC0F22C3C3BF200419197 /* ConfirmationDialogPresenter */,
+				4F7BC11C2C3C3DD700419197 /* MyToolbar */,
 				4F1C71032C2F15CE002E096A /* Assets.xcassets */,
 				4F1C71052C2F15CE002E096A /* Preview Content */,
 			);
@@ -301,6 +313,38 @@
 				4F7BC0B42C39959300419197 /* MyTabPresenterView.swift */,
 			);
 			path = MyTab;
+			sourceTree = "<group>";
+		};
+		4F7BC0D02C3C047100419197 /* PresentationSizing */ = {
+			isa = PBXGroup;
+			children = (
+				4F7BC0D32C3C048600419197 /* PresentationSizingView.swift */,
+			);
+			path = PresentationSizing;
+			sourceTree = "<group>";
+		};
+		4F7BC0EF2C3C3ADD00419197 /* DismissalConfirmationDialogPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				4F7BC0F02C3C3AF800419197 /* DismissalConfirmationDialogPresenterView.swift */,
+			);
+			path = DismissalConfirmationDialogPresenter;
+			sourceTree = "<group>";
+		};
+		4F7BC0F22C3C3BF200419197 /* ConfirmationDialogPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				4F7BC0F52C3C3C0A00419197 /* ConfirmationDialogPresenterView.swift */,
+			);
+			path = ConfirmationDialogPresenter;
+			sourceTree = "<group>";
+		};
+		4F7BC11C2C3C3DD700419197 /* MyToolbar */ = {
+			isa = PBXGroup;
+			children = (
+				4F7BC11D2C3C3DE800419197 /* MyToolbarView.swift */,
+			);
+			path = MyToolbar;
 			sourceTree = "<group>";
 		};
 		4F8D7B022C385188009FB46E /* FullScreenVideoPlayer */ = {
@@ -508,8 +552,10 @@
 				4FEC81632C329F9C00AF4863 /* WindowButtonsBehaviorPresenterView.swift in Sources */,
 				4FF420062C340724008BD2FC /* ProgressiveImmersionSpace.swift in Sources */,
 				4F26D3DE2C31C0650097B837 /* WindowBackgroundDragBehaviorView.swift in Sources */,
+				4F7BC0F62C3C3C0A00419197 /* ConfirmationDialogPresenterView.swift in Sources */,
 				4FAA17802C35760E00188F35 /* MyDocumentLaunchView.swift in Sources */,
 				4F26D39C2C305E040097B837 /* WindowLevelView.swift in Sources */,
+				4F7BC0D42C3C048600419197 /* PresentationSizingView.swift in Sources */,
 				4F7BC0B52C39959300419197 /* MyTabPresenterView.swift in Sources */,
 				4F26D3A22C3131170097B837 /* BlendedWindowView.swift in Sources */,
 				4FAA43FB2C3B8084003A2363 /* MyHSplitView.swift in Sources */,
@@ -517,7 +563,9 @@
 				4F26D32D2C2FEE610097B837 /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4F1C71132C2F1662002E096A /* Demo.swift in Sources */,
 				4F26D3512C300EB10097B837 /* WindowManagerRoleView.swift in Sources */,
+				4F7BC0F12C3C3AF800419197 /* DismissalConfirmationDialogPresenterView.swift in Sources */,
 				4F8D7B072C385581009FB46E /* CameraCaptureEventView.swift in Sources */,
+				4F7BC11E2C3C3DE800419197 /* MyToolbarView.swift in Sources */,
 				4FEC80C52C3282B400AF4863 /* SettingsPresenterView.swift in Sources */,
 				4F26D3E12C31C1420097B837 /* VolumeViewpointChangeView.swift in Sources */,
 				4F26D3332C2FF4B00097B837 /* VolumeWorldAlignmentView.swift in Sources */,

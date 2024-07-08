@@ -20,6 +20,7 @@
 #import "UpdateLinkViewController.h"
 #import "ProminenceViewController.h"
 #import "FontPickerPresenterViewController.h"
+#import "MyNavigationItemViewController.h"
 #import <objc/message.h>
 
 __attribute__((objc_direct_members))
@@ -115,7 +116,8 @@ __attribute__((objc_direct_members))
         JitterAnimationViewController.class,
         UpdateLinkViewController.class,
         ProminenceViewController.class,
-        FontPickerPresenterViewController.class
+        FontPickerPresenterViewController.class,
+        MyNavigationItemViewController.class
     ];
 }
 
@@ -139,7 +141,7 @@ __attribute__((objc_direct_members))
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
     [rootViewController release];
     
-    if ([rootViewController isKindOfClass:UITabBarController.class]) {
+    if ([rootViewController isKindOfClass:UITabBarController.class] || [rootViewController isKindOfClass:MyNavigationItemViewController.class]) {
         navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
     }
     

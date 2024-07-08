@@ -81,6 +81,14 @@ enum Demo: Int, Identifiable, CaseIterable {
 #endif
     
     case popoverPresenter
+    case presentationSizing
+    
+#if os(macOS)
+    case dismissalConfirmationDialogPresenter
+#endif
+    
+    case confirmationDialogPresenter
+    case myToolbar
     
     var id: Int {
         rawValue
@@ -175,8 +183,8 @@ enum Demo: Int, Identifiable, CaseIterable {
 #endif
             
 #if os(iOS)
-    case .cameraCaptureEvent:
-        CameraCaptureEventView()
+        case .cameraCaptureEvent:
+            CameraCaptureEventView()
 #endif
             
         case .rename:
@@ -192,6 +200,18 @@ enum Demo: Int, Identifiable, CaseIterable {
 #endif
         case .popoverPresenter:
             PopoverPresenterView()
+        case .presentationSizing:
+            PresentationSizingView()
+            
+#if os(macOS)
+        case .dismissalConfirmationDialogPresenter:
+            DismissalConfirmationDialogPresenterView()
+#endif
+            
+        case .confirmationDialogPresenter:
+            ConfirmationDialogPresenterView()
+        case .myToolbar:
+            MyToolbarView()
         }
     }
 }

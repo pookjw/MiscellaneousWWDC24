@@ -16,10 +16,10 @@ struct PopoverPresenterView: View {
             isPresented = true
         }
         .popover(isPresented: $isPresented, attachmentAnchor: .rect(.bounds)) { 
-//            Color.green
+            Color.green
 //                .padding()
 //                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            BlueView()
+//            BlueView()
 //                .frame(width: 300, height: 300)
                 .ignoresSafeArea()
                 .presentationSizing(.form)

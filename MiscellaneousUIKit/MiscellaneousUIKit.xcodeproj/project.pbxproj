@@ -33,6 +33,7 @@
 		4F455F222C281AAC00CDE688 /* UpdateLinkViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F212C281AAC00CDE688 /* UpdateLinkViewController.mm */; };
 		4F46CFCC2C282AF5005AC6AF /* ProminenceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46CFCB2C282AF5005AC6AF /* ProminenceViewController.mm */; };
 		4F46CFD02C282D9A005AC6AF /* FontPickerPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46CFCF2C282D9A005AC6AF /* FontPickerPresenterViewController.mm */; };
+		4F7BC13C2C3C43B900419197 /* MyNavigationItemViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC13B2C3C43B900419197 /* MyNavigationItemViewController.mm */; };
 		4F8BD38D2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38C2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm */; };
 		4F8BD3902C22E1520031535F /* CustomDismissCustomInteraction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38F2C22E1520031535F /* CustomDismissCustomInteraction.mm */; };
 		4FA8EEE92C1C012A00B1358A /* TextViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEE82C1C012A00B1358A /* TextViewController.mm */; };
@@ -95,6 +96,8 @@
 		4F46CFCB2C282AF5005AC6AF /* ProminenceViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ProminenceViewController.mm; sourceTree = "<group>"; };
 		4F46CFCE2C282D9A005AC6AF /* FontPickerPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FontPickerPresenterViewController.h; sourceTree = "<group>"; };
 		4F46CFCF2C282D9A005AC6AF /* FontPickerPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FontPickerPresenterViewController.mm; sourceTree = "<group>"; };
+		4F7BC13A2C3C43B900419197 /* MyNavigationItemViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyNavigationItemViewController.h; sourceTree = "<group>"; };
+		4F7BC13B2C3C43B900419197 /* MyNavigationItemViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MyNavigationItemViewController.mm; sourceTree = "<group>"; };
 		4F8BD38B2C22E11F0031535F /* CustomDismissInteractiveTransitioning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDismissInteractiveTransitioning.h; sourceTree = "<group>"; };
 		4F8BD38C2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomDismissInteractiveTransitioning.mm; sourceTree = "<group>"; };
 		4F8BD38E2C22E1520031535F /* CustomDismissCustomInteraction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDismissCustomInteraction.h; sourceTree = "<group>"; };
@@ -157,6 +160,7 @@
 				4F082E602C188E34002263ED /* MainCollectionViewController.h */,
 				4F082E612C188E34002263ED /* MainCollectionViewController.mm */,
 				4F082E632C18906E002263ED /* Classes */,
+				4F7BC1392C3C439700419197 /* MyNavigationItem */,
 				4F082E532C188D6D002263ED /* Assets.xcassets */,
 				4F082E552C188D6D002263ED /* LaunchScreen.storyboard */,
 				4F082E582C188D6D002263ED /* Info.plist */,
@@ -314,6 +318,15 @@
 			path = FontPickerPresenter;
 			sourceTree = "<group>";
 		};
+		4F7BC1392C3C439700419197 /* MyNavigationItem */ = {
+			isa = PBXGroup;
+			children = (
+				4F7BC13A2C3C43B900419197 /* MyNavigationItemViewController.h */,
+				4F7BC13B2C3C43B900419197 /* MyNavigationItemViewController.mm */,
+			);
+			path = MyNavigationItem;
+			sourceTree = "<group>";
+		};
 		4F8BD3912C22E1580031535F /* DismissPercentage */ = {
 			isa = PBXGroup;
 			children = (
@@ -461,6 +474,7 @@
 				4F082E6C2C189EF0002263ED /* ListEnvironmentCollectionViewController.mm in Sources */,
 				4F082E5A2C188D6D002263ED /* main.m in Sources */,
 				4F082E4C2C188D6C002263ED /* SceneDelegate.m in Sources */,
+				4F7BC13C2C3C43B900419197 /* MyNavigationItemViewController.mm in Sources */,
 				4F455F032C2038D200CDE688 /* CustomTransitionController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
