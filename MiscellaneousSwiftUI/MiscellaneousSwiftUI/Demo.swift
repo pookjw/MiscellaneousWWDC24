@@ -75,6 +75,13 @@ enum Demo: Int, Identifiable, CaseIterable {
     case rename
     case myTabPresenter
     
+#if os(macOS)
+    case myHSplit
+    case myVSplit
+#endif
+    
+    case popoverPresenter
+    
     var id: Int {
         rawValue
     }
@@ -176,6 +183,15 @@ enum Demo: Int, Identifiable, CaseIterable {
             RenameView()
         case .myTabPresenter:
             MyTabPresenterView()
+            
+#if os(macOS)
+        case .myHSplit:
+            MyHSplitView()
+        case .myVSplit:
+            MyVSplitView()
+#endif
+        case .popoverPresenter:
+            PopoverPresenterView()
         }
     }
 }

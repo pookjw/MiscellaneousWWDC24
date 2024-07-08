@@ -34,6 +34,9 @@
 		4FAA177B2C3572B400188F35 /* UpperLimbWindowPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA177A2C3572B400188F35 /* UpperLimbWindowPresenterView.swift */; };
 		4FAA177D2C3572FF00188F35 /* UpperLimbSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA177C2C3572FF00188F35 /* UpperLimbSpace.swift */; };
 		4FAA17802C35760E00188F35 /* MyDocumentLaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA177F2C35760E00188F35 /* MyDocumentLaunchView.swift */; };
+		4FAA43FB2C3B8084003A2363 /* MyHSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA43FA2C3B8084003A2363 /* MyHSplitView.swift */; };
+		4FAA43FE2C3B80B1003A2363 /* MyVSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA43FD2C3B80B1003A2363 /* MyVSplitView.swift */; };
+		4FAA44012C3B8657003A2363 /* PopoverPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA44002C3B8657003A2363 /* PopoverPresenterView.swift */; };
 		4FDC2E5E2C3666B900768E12 /* ImmersiveEnvironmentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FDC2E5D2C3666B900768E12 /* ImmersiveEnvironmentPickerView.swift */; };
 		4FDC2E602C3668D700768E12 /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 4FDC2E5F2C3668D700768E12 /* video.mp4 */; };
 		4FEC80C52C3282B400AF4863 /* SettingsPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEC80C42C3282B400AF4863 /* SettingsPresenterView.swift */; };
@@ -76,6 +79,9 @@
 		4FAA177A2C3572B400188F35 /* UpperLimbWindowPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpperLimbWindowPresenterView.swift; sourceTree = "<group>"; };
 		4FAA177C2C3572FF00188F35 /* UpperLimbSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpperLimbSpace.swift; sourceTree = "<group>"; };
 		4FAA177F2C35760E00188F35 /* MyDocumentLaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDocumentLaunchView.swift; sourceTree = "<group>"; };
+		4FAA43FA2C3B8084003A2363 /* MyHSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHSplitView.swift; sourceTree = "<group>"; };
+		4FAA43FD2C3B80B1003A2363 /* MyVSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVSplitView.swift; sourceTree = "<group>"; };
+		4FAA44002C3B8657003A2363 /* PopoverPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverPresenterView.swift; sourceTree = "<group>"; };
 		4FDC2E5D2C3666B900768E12 /* ImmersiveEnvironmentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmersiveEnvironmentPickerView.swift; sourceTree = "<group>"; };
 		4FDC2E5F2C3668D700768E12 /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
 		4FEC80C42C3282B400AF4863 /* SettingsPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenterView.swift; sourceTree = "<group>"; };
@@ -152,6 +158,9 @@
 				4F8D7B052C385576009FB46E /* CameraCaptureEvent */,
 				4F7BC03D2C397E8700419197 /* Rename */,
 				4F7BC0B32C39958400419197 /* MyTab */,
+				4FAA43F92C3B8073003A2363 /* MyHSplit */,
+				4FAA43FC2C3B80A4003A2363 /* MyVSplit */,
+				4FAA43FF2C3B8648003A2363 /* PopoverPresenter */,
 				4F1C71032C2F15CE002E096A /* Assets.xcassets */,
 				4F1C71052C2F15CE002E096A /* Preview Content */,
 			);
@@ -327,6 +336,30 @@
 			path = MyDocumentLaunch;
 			sourceTree = "<group>";
 		};
+		4FAA43F92C3B8073003A2363 /* MyHSplit */ = {
+			isa = PBXGroup;
+			children = (
+				4FAA43FA2C3B8084003A2363 /* MyHSplitView.swift */,
+			);
+			path = MyHSplit;
+			sourceTree = "<group>";
+		};
+		4FAA43FC2C3B80A4003A2363 /* MyVSplit */ = {
+			isa = PBXGroup;
+			children = (
+				4FAA43FD2C3B80B1003A2363 /* MyVSplitView.swift */,
+			);
+			path = MyVSplit;
+			sourceTree = "<group>";
+		};
+		4FAA43FF2C3B8648003A2363 /* PopoverPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				4FAA44002C3B8657003A2363 /* PopoverPresenterView.swift */,
+			);
+			path = PopoverPresenter;
+			sourceTree = "<group>";
+		};
 		4FDC2E5C2C36668E00768E12 /* ImmersiveEnvironmentPicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -463,10 +496,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FAA43FE2C3B80B1003A2363 /* MyVSplitView.swift in Sources */,
 				4F26D3D72C31B8890097B837 /* AlertSceneView.swift in Sources */,
 				4F1C710F2C2F1640002E096A /* DefaultWindowPlacementView.swift in Sources */,
 				4FEC813F2C32932C00AF4863 /* ToolbarPresenterView.swift in Sources */,
 				4FAA177D2C3572FF00188F35 /* UpperLimbSpace.swift in Sources */,
+				4FAA44012C3B8657003A2363 /* PopoverPresenterView.swift in Sources */,
 				4FDC2E5E2C3666B900768E12 /* ImmersiveEnvironmentPickerView.swift in Sources */,
 				4F26D34E2C300B380097B837 /* DefaultLaunchBehaviorView.swift in Sources */,
 				4F26D3932C30206A0097B837 /* PersistentSystemOverlaysView.swift in Sources */,
@@ -477,6 +512,7 @@
 				4F26D39C2C305E040097B837 /* WindowLevelView.swift in Sources */,
 				4F7BC0B52C39959300419197 /* MyTabPresenterView.swift in Sources */,
 				4F26D3A22C3131170097B837 /* BlendedWindowView.swift in Sources */,
+				4FAA43FB2C3B8084003A2363 /* MyHSplitView.swift in Sources */,
 				4FEC81452C32987C00AF4863 /* WindowVisibilityTogglePresenterView.swift in Sources */,
 				4F26D32D2C2FEE610097B837 /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4F1C71132C2F1662002E096A /* Demo.swift in Sources */,
