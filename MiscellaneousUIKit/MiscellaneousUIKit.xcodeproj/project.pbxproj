@@ -43,6 +43,7 @@
 		4FA8EEF72C1CE0E200B1358A /* CustomViewControllerTransition.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEF62C1CE0E200B1358A /* CustomViewControllerTransition.mm */; };
 		4FA8EEFA2C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEF92C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm */; };
 		4FAD987B2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAD987A2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm */; };
+		4FBEC51E2C3C568C008A2F17 /* SymbolEffectsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBEC51D2C3C568C008A2F17 /* SymbolEffectsViewController.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -116,6 +117,8 @@
 		4FA8EEF92C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+Foundation_IvarDescription.mm"; sourceTree = "<group>"; };
 		4FAD98792C217CF400A5C513 /* CustomDismissPercentageInteraction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDismissPercentageInteraction.h; sourceTree = "<group>"; };
 		4FAD987A2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomDismissPercentageInteraction.mm; sourceTree = "<group>"; };
+		4FBEC51C2C3C568C008A2F17 /* SymbolEffectsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SymbolEffectsViewController.h; sourceTree = "<group>"; };
+		4FBEC51D2C3C568C008A2F17 /* SymbolEffectsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SymbolEffectsViewController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,7 +163,6 @@
 				4F082E602C188E34002263ED /* MainCollectionViewController.h */,
 				4F082E612C188E34002263ED /* MainCollectionViewController.mm */,
 				4F082E632C18906E002263ED /* Classes */,
-				4F7BC1392C3C439700419197 /* MyNavigationItem */,
 				4F082E532C188D6D002263ED /* Assets.xcassets */,
 				4F082E552C188D6D002263ED /* LaunchScreen.storyboard */,
 				4F082E582C188D6D002263ED /* Info.plist */,
@@ -186,6 +188,8 @@
 				4F455F1F2C281A8E00CDE688 /* UpdateLink */,
 				4F46CFC92C282AD6005AC6AF /* Prominence */,
 				4F46CFCD2C282D7C005AC6AF /* FontPickerPresenter */,
+				4F7BC1392C3C439700419197 /* MyNavigationItem */,
+				4FBEC51B2C3C5672008A2F17 /* SymbolEffects */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -374,6 +378,15 @@
 			path = Transition;
 			sourceTree = "<group>";
 		};
+		4FBEC51B2C3C5672008A2F17 /* SymbolEffects */ = {
+			isa = PBXGroup;
+			children = (
+				4FBEC51C2C3C568C008A2F17 /* SymbolEffectsViewController.h */,
+				4FBEC51D2C3C568C008A2F17 /* SymbolEffectsViewController.mm */,
+			);
+			path = SymbolEffects;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -455,6 +468,7 @@
 				4F8BD3902C22E1520031535F /* CustomDismissCustomInteraction.mm in Sources */,
 				4F082E772C18E349002263ED /* OrangeSceneDelegate.m in Sources */,
 				4F8BD38D2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm in Sources */,
+				4FBEC51E2C3C568C008A2F17 /* SymbolEffectsViewController.mm in Sources */,
 				4FA8EEF42C1CDBD700B1358A /* ToTransitionViewController.mm in Sources */,
 				4F1F022E2C23CE3A004F7EFF /* CyanViewController.m in Sources */,
 				4FA8EEF12C1CDBCA00B1358A /* FromTransitionViewController.mm in Sources */,

@@ -21,6 +21,7 @@
 #import "ProminenceViewController.h"
 #import "FontPickerPresenterViewController.h"
 #import "MyNavigationItemViewController.h"
+#import "SymbolEffectsViewController.h"
 #import <objc/message.h>
 
 __attribute__((objc_direct_members))
@@ -117,7 +118,8 @@ __attribute__((objc_direct_members))
         UpdateLinkViewController.class,
         ProminenceViewController.class,
         FontPickerPresenterViewController.class,
-        MyNavigationItemViewController.class
+        MyNavigationItemViewController.class,
+        SymbolEffectsViewController.class
     ];
 }
 
