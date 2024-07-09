@@ -6,6 +6,9 @@
 //
 
 #import "UpdateLinkViewController.h"
+
+#if !TARGET_OS_MACCATALYST
+
 #import <objc/message.h>
 #import <objc/runtime.h>
 
@@ -126,3 +129,5 @@
 }
 
 @end
+
+#endif

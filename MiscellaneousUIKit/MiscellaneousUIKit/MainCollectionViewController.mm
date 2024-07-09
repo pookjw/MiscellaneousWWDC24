@@ -22,6 +22,7 @@
 #import "FontPickerPresenterViewController.h"
 #import "MyNavigationItemViewController.h"
 #import "SymbolEffectsViewController.h"
+#import "SymbolTransitionsViewController.h"
 #import <objc/message.h>
 
 __attribute__((objc_direct_members))
@@ -115,11 +116,14 @@ __attribute__((objc_direct_members))
         TabBarController.class,
         TabBar2Controller.class,
         JitterAnimationViewController.class,
+#if !TARGET_OS_MACCATALYST
         UpdateLinkViewController.class,
+#endif
         ProminenceViewController.class,
         FontPickerPresenterViewController.class,
         MyNavigationItemViewController.class,
-        SymbolEffectsViewController.class
+        SymbolEffectsViewController.class,
+        SymbolTransitionsViewController.class
     ];
 }
 

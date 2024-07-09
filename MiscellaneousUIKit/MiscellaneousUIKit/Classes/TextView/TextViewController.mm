@@ -52,7 +52,7 @@
 #if !TARGET_OS_VISION
     // TODO: Writing Tools with iPad
     textView.writingToolsBehavior = UIWritingToolsBehaviorComplete;
-    textView.writingToolsAllowedInputOptions = UIWritingToolsAllowedInputOptionsTable;
+//    textView.writingToolsAllowedInputOptions = UIWritingToolsAllowedInputOptionsTable;
     textView.delegate = self;
 #endif
     

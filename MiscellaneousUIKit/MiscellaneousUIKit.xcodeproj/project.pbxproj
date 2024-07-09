@@ -44,6 +44,7 @@
 		4FA8EEFA2C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEF92C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm */; };
 		4FAD987B2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAD987A2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm */; };
 		4FBEC51E2C3C568C008A2F17 /* SymbolEffectsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBEC51D2C3C568C008A2F17 /* SymbolEffectsViewController.mm */; };
+		4FDABC692C3D35DE00F928DB /* SymbolTransitionsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FDABC682C3D35DE00F928DB /* SymbolTransitionsViewController.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -119,6 +120,9 @@
 		4FAD987A2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomDismissPercentageInteraction.mm; sourceTree = "<group>"; };
 		4FBEC51C2C3C568C008A2F17 /* SymbolEffectsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SymbolEffectsViewController.h; sourceTree = "<group>"; };
 		4FBEC51D2C3C568C008A2F17 /* SymbolEffectsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SymbolEffectsViewController.mm; sourceTree = "<group>"; };
+		4FDABC672C3D35DE00F928DB /* SymbolTransitionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SymbolTransitionsViewController.h; sourceTree = "<group>"; };
+		4FDABC682C3D35DE00F928DB /* SymbolTransitionsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SymbolTransitionsViewController.mm; sourceTree = "<group>"; };
+		4FDABC6A2C3D3C5600F928DB /* MiscellaneousUIKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MiscellaneousUIKit.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +157,7 @@
 		4F082E462C188D6C002263ED /* MiscellaneousUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				4FDABC6A2C3D3C5600F928DB /* MiscellaneousUIKit.entitlements */,
 				4FA8EEEC2C1CD3B000B1358A /* image.heic */,
 				4FA8EEF82C1CE98100B1358A /* NSObject+Foundation_IvarDescription.h */,
 				4FA8EEF92C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm */,
@@ -190,6 +195,7 @@
 				4F46CFCD2C282D7C005AC6AF /* FontPickerPresenter */,
 				4F7BC1392C3C439700419197 /* MyNavigationItem */,
 				4FBEC51B2C3C5672008A2F17 /* SymbolEffects */,
+				4FDABC662C3D35C000F928DB /* SymbolTransitions */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -387,6 +393,15 @@
 			path = SymbolEffects;
 			sourceTree = "<group>";
 		};
+		4FDABC662C3D35C000F928DB /* SymbolTransitions */ = {
+			isa = PBXGroup;
+			children = (
+				4FDABC672C3D35DE00F928DB /* SymbolTransitionsViewController.h */,
+				4FDABC682C3D35DE00F928DB /* SymbolTransitionsViewController.mm */,
+			);
+			path = SymbolTransitions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -488,6 +503,7 @@
 				4F082E6C2C189EF0002263ED /* ListEnvironmentCollectionViewController.mm in Sources */,
 				4F082E5A2C188D6D002263ED /* main.m in Sources */,
 				4F082E4C2C188D6C002263ED /* SceneDelegate.m in Sources */,
+				4FDABC692C3D35DE00F928DB /* SymbolTransitionsViewController.mm in Sources */,
 				4F7BC13C2C3C43B900419197 /* MyNavigationItemViewController.mm in Sources */,
 				4F455F032C2038D200CDE688 /* CustomTransitionController.mm in Sources */,
 			);
@@ -628,6 +644,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MiscellaneousUIKit/MiscellaneousUIKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
@@ -645,8 +662,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.MiscellaneousUIKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = NO;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
 			};
@@ -657,6 +675,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MiscellaneousUIKit/MiscellaneousUIKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
@@ -674,8 +693,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.MiscellaneousUIKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = NO;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
 			};
