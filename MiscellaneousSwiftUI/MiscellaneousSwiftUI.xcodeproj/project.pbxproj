@@ -34,6 +34,7 @@
 		4F7BC0F12C3C3AF800419197 /* DismissalConfirmationDialogPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC0F02C3C3AF800419197 /* DismissalConfirmationDialogPresenterView.swift */; };
 		4F7BC0F62C3C3C0A00419197 /* ConfirmationDialogPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC0F52C3C3C0A00419197 /* ConfirmationDialogPresenterView.swift */; };
 		4F7BC11E2C3C3DE800419197 /* MyToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC11D2C3C3DE800419197 /* MyToolbarView.swift */; };
+		4F7C4AC12C3ED419008F106F /* WindowToolbarStylePresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7C4AC02C3ED419008F106F /* WindowToolbarStylePresenterView.swift */; };
 		4F8D7B042C38519A009FB46E /* FullScreenVideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8D7B032C38519A009FB46E /* FullScreenVideoPlayerView.swift */; };
 		4F8D7B072C385581009FB46E /* CameraCaptureEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8D7B062C385581009FB46E /* CameraCaptureEventView.swift */; };
 		4FAA177B2C3572B400188F35 /* UpperLimbWindowPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA177A2C3572B400188F35 /* UpperLimbWindowPresenterView.swift */; };
@@ -84,6 +85,7 @@
 		4F7BC0F02C3C3AF800419197 /* DismissalConfirmationDialogPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissalConfirmationDialogPresenterView.swift; sourceTree = "<group>"; };
 		4F7BC0F52C3C3C0A00419197 /* ConfirmationDialogPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationDialogPresenterView.swift; sourceTree = "<group>"; };
 		4F7BC11D2C3C3DE800419197 /* MyToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyToolbarView.swift; sourceTree = "<group>"; };
+		4F7C4AC02C3ED419008F106F /* WindowToolbarStylePresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowToolbarStylePresenterView.swift; sourceTree = "<group>"; };
 		4F8D7B032C38519A009FB46E /* FullScreenVideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenVideoPlayerView.swift; sourceTree = "<group>"; };
 		4F8D7B062C385581009FB46E /* CameraCaptureEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureEventView.swift; sourceTree = "<group>"; };
 		4FAA177A2C3572B400188F35 /* UpperLimbWindowPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpperLimbWindowPresenterView.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				4F7BC0F22C3C3BF200419197 /* ConfirmationDialogPresenter */,
 				4F7BC11C2C3C3DD700419197 /* MyToolbar */,
 				4F246BC82C3E9DFE00244583 /* LargeContent */,
+				4F7C4ABF2C3ED408008F106F /* WindowToolbarStylePresenter */,
 				4F1C71032C2F15CE002E096A /* Assets.xcassets */,
 				4F1C71052C2F15CE002E096A /* Preview Content */,
 			);
@@ -356,6 +359,14 @@
 				4F7BC11D2C3C3DE800419197 /* MyToolbarView.swift */,
 			);
 			path = MyToolbar;
+			sourceTree = "<group>";
+		};
+		4F7C4ABF2C3ED408008F106F /* WindowToolbarStylePresenter */ = {
+			isa = PBXGroup;
+			children = (
+				4F7C4AC02C3ED419008F106F /* WindowToolbarStylePresenterView.swift */,
+			);
+			path = WindowToolbarStylePresenter;
 			sourceTree = "<group>";
 		};
 		4F8D7B022C385188009FB46E /* FullScreenVideoPlayer */ = {
@@ -555,6 +566,7 @@
 				4F26D3D72C31B8890097B837 /* AlertSceneView.swift in Sources */,
 				4F1C710F2C2F1640002E096A /* DefaultWindowPlacementView.swift in Sources */,
 				4FEC813F2C32932C00AF4863 /* ToolbarPresenterView.swift in Sources */,
+				4F7C4AC12C3ED419008F106F /* WindowToolbarStylePresenterView.swift in Sources */,
 				4FAA177D2C3572FF00188F35 /* UpperLimbSpace.swift in Sources */,
 				4FAA44012C3B8657003A2363 /* PopoverPresenterView.swift in Sources */,
 				4FDC2E5E2C3666B900768E12 /* ImmersiveEnvironmentPickerView.swift in Sources */,

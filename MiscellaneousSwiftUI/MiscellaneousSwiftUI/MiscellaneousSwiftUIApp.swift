@@ -302,5 +302,9 @@ struct MiscellaneousSwiftUIApp: App {
         
         UpperLimbSpace(windowID: "UpperLimb")
 #endif
+        
+#if os(macOS)
+        WindowToolbarStylePresenterView.Scene()
+#endif
     }
 }

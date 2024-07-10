@@ -51,9 +51,9 @@ struct MyToolbarView: View {
             .toolbarRole(.editor)
 //            .toolbar(removing: .title)
             .toolbarTitleDisplayMode(.inline)
+#if !os(macOS)
             .toolbarColorScheme(.dark, for: .navigationBar)
             .toolbarBackgroundVisibility(.visible, for: .navigationBar)
-#if !os(macOS)
 //            .navigationBarTitleDisplayMode(.inline)
             .overlay { 
                 MyView()

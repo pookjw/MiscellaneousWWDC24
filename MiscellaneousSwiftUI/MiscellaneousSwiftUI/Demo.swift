@@ -91,6 +91,10 @@ enum Demo: Int, Identifiable, CaseIterable {
     case myToolbar
     case largeContent
     
+#if os(macOS)
+    case windowToolbarStylePresenter
+#endif
+    
     var id: Int {
         rawValue
     }
@@ -215,6 +219,11 @@ enum Demo: Int, Identifiable, CaseIterable {
             MyToolbarView()
         case .largeContent:
             LargeContentView()
+            
+#if os(macOS)
+        case .windowToolbarStylePresenter:
+            WindowToolbarStylePresenterView()
+#endif
         }
     }
 }
