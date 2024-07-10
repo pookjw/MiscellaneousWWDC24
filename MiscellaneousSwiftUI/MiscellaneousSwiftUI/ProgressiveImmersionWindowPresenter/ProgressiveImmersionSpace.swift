@@ -21,7 +21,7 @@ struct ProgressiveImmersionSpace: Scene {
             Color
                 .orange
                 .frame(width: 10_000.0, height: 10_000.0)
-                .onImmersionChange { context in
+                .onImmersionChange { _, context in
                     print(context.amount)
                 }
         }

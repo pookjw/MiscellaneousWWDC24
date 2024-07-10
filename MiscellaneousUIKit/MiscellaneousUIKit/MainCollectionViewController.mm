@@ -23,6 +23,8 @@
 #import "MyNavigationItemViewController.h"
 #import "SymbolEffectsViewController.h"
 #import "SymbolTransitionsViewController.h"
+#import "LegacyTabBarController.h"
+#import "LegacyTabBar2Controller.h"
 #import <objc/message.h>
 
 __attribute__((objc_direct_members))
@@ -123,7 +125,9 @@ __attribute__((objc_direct_members))
         FontPickerPresenterViewController.class,
         MyNavigationItemViewController.class,
         SymbolEffectsViewController.class,
-        SymbolTransitionsViewController.class
+        SymbolTransitionsViewController.class,
+        LegacyTabBarController.class,
+        LegacyTabBar2Controller.class
     ];
 }
 

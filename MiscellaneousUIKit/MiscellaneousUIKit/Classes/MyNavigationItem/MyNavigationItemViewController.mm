@@ -54,7 +54,8 @@
     
     navigationItem.centerItemGroups = @[
         [UIBarButtonItemGroup movableGroupWithCustomizationIdentifier:@"movable_1" representativeItem:nil items:@[noteBarButtonItem, bookPagesBarButtonItem]],
-        [UIBarButtonItemGroup optionalGroupWithCustomizationIdentifier:@"optional_3" inDefaultCustomization:NO representativeItem:nil items:@[ladybugBarButtonItem]]
+        [UIBarButtonItemGroup fixedGroupWithRepresentativeItem:nil items:@[ladybugBarButtonItem]]
+//        [UIBarButtonItemGroup optionalGroupWithCustomizationIdentifier:@"optional_3" inDefaultCustomization:NO representativeItem:nil items:@[ladybugBarButtonItem]]
     ];
     
     [noteBarButtonItem release];
@@ -120,6 +121,31 @@
     navigationItem.searchController = searchController;
     [searchController release];
     navigationItem.preferredSearchBarPlacement = UINavigationItemSearchBarPlacementInline;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    UINavigationItem *navigationItem = self.navigationItem;
+    
+    UINavigationBarAppearance *appearance = [UINavigationBarAppearance new];
+    appearance.backgroundEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleSystemChromeMaterial];
+    
+    [navigationItem setCompactAppearance:appearance];
+    [navigationItem setStandardAppearance:appearance];
+    [navigationItem setScrollEdgeAppearance:appearance];
+    [navigationItem setCompactScrollEdgeAppearance:appearance];
+    
+    [appearance release];
+    
+    [self.navigationController.navigationBar setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
+    self.navigationController.navigationBar.tintColor = UIColor.whiteColor;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController.navigationBar setOverrideUserInterfaceStyle:UIUserInterfaceStyleUnspecified];
+    self.navigationController.navigationBar.tintColor = nil;
 }
 
 - (void)doneBarButtonItemDidTrigger:(UIBarButtonItem *)sender {
