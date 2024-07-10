@@ -104,7 +104,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     
     //
     
-    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didToggleLargeContentViewer:) name:@"UILargeContentViewerInteractionEnabledStatusDidChangeNotification" object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didToggleLargeContentViewer:) name:UILargeContentViewerInteractionEnabledStatusDidChangeNotification object:nil];
 }
 
 - (void)didToggleLargeContentViewer:(NSNotification *)notification {
