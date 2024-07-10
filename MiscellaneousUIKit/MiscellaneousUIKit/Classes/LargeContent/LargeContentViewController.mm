@@ -20,7 +20,7 @@ namespace _UILargeContentViewerInteraction {
             return YES;
         }
         void swizzle() {
-            Method method = class_getClassMethod(UILargeContentViewerInteraction.class, sel_registerName("isEnabled"));
+            Method method = class_getClassMethod(UILargeContentViewerInteraction.class, @selector(isEnabled));
             original = (decltype(original))method_getImplementation(method);
             method_setImplementation(method, (IMP)custom);
         }
@@ -101,6 +101,14 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     ];
     
     [showHUDBarButtonItem release];
+    
+    //
+    
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didToggleLargeContentViewer:) name:@"UILargeContentViewerInteractionEnabledStatusDidChangeNotification" object:nil];
+}
+
+- (void)didToggleLargeContentViewer:(NSNotification *)notification {
+    NSLog(@"%d", UILargeContentViewerInteraction.isEnabled);
 }
 
 - (void)showHUDBarButtonItemDidTrigger:(UIBarButtonItem *)sender {

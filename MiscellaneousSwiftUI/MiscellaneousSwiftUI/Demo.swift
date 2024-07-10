@@ -89,6 +89,7 @@ enum Demo: Int, Identifiable, CaseIterable {
     
     case confirmationDialogPresenter
     case myToolbar
+    case largeContent
     
     var id: Int {
         rawValue
@@ -212,6 +213,8 @@ enum Demo: Int, Identifiable, CaseIterable {
             ConfirmationDialogPresenterView()
         case .myToolbar:
             MyToolbarView()
+        case .largeContent:
+            LargeContentView()
         }
     }
 }

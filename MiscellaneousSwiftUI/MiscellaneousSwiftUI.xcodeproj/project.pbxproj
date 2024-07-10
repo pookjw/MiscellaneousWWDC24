@@ -13,6 +13,7 @@
 		4F1C710F2C2F1640002E096A /* DefaultWindowPlacementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C710E2C2F1640002E096A /* DefaultWindowPlacementView.swift */; };
 		4F1C71112C2F1658002E096A /* DemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C71102C2F1658002E096A /* DemoListView.swift */; };
 		4F1C71132C2F1662002E096A /* Demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C71122C2F1662002E096A /* Demo.swift */; };
+		4F246BCA2C3E9E9100244583 /* LargeContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F246BC92C3E9E9100244583 /* LargeContentView.swift */; };
 		4F26D2F22C2FEAD80097B837 /* WindowIdealSizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D2F12C2FEAD80097B837 /* WindowIdealSizeView.swift */; };
 		4F26D32D2C2FEE610097B837 /* NSObject+Foundation_IvarDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D32C2C2FEE610097B837 /* NSObject+Foundation_IvarDescription.mm */; };
 		4F26D3302C2FF3B10097B837 /* WindowIdealPlacementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D32F2C2FF3B10097B837 /* WindowIdealPlacementView.swift */; };
@@ -61,6 +62,7 @@
 		4F1C710E2C2F1640002E096A /* DefaultWindowPlacementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultWindowPlacementView.swift; sourceTree = "<group>"; };
 		4F1C71102C2F1658002E096A /* DemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoListView.swift; sourceTree = "<group>"; };
 		4F1C71122C2F1662002E096A /* Demo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo.swift; sourceTree = "<group>"; };
+		4F246BC92C3E9E9100244583 /* LargeContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeContentView.swift; sourceTree = "<group>"; };
 		4F26D2F12C2FEAD80097B837 /* WindowIdealSizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowIdealSizeView.swift; sourceTree = "<group>"; };
 		4F26D32B2C2FEE610097B837 /* NSObject+Foundation_IvarDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Foundation_IvarDescription.h"; sourceTree = "<group>"; };
 		4F26D32C2C2FEE610097B837 /* NSObject+Foundation_IvarDescription.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+Foundation_IvarDescription.mm"; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				4F7BC0EF2C3C3ADD00419197 /* DismissalConfirmationDialogPresenter */,
 				4F7BC0F22C3C3BF200419197 /* ConfirmationDialogPresenter */,
 				4F7BC11C2C3C3DD700419197 /* MyToolbar */,
+				4F246BC82C3E9DFE00244583 /* LargeContent */,
 				4F1C71032C2F15CE002E096A /* Assets.xcassets */,
 				4F1C71052C2F15CE002E096A /* Preview Content */,
 			);
@@ -193,6 +196,14 @@
 				4F1C710E2C2F1640002E096A /* DefaultWindowPlacementView.swift */,
 			);
 			path = DefaultWindowPlacement;
+			sourceTree = "<group>";
+		};
+		4F246BC82C3E9DFE00244583 /* LargeContent */ = {
+			isa = PBXGroup;
+			children = (
+				4F246BC92C3E9E9100244583 /* LargeContentView.swift */,
+			);
+			path = LargeContent;
 			sourceTree = "<group>";
 		};
 		4F26D2F02C2FEACD0097B837 /* WindowIdealSize */ = {
@@ -558,6 +569,7 @@
 				4F7BC0D42C3C048600419197 /* PresentationSizingView.swift in Sources */,
 				4F7BC0B52C39959300419197 /* MyTabPresenterView.swift in Sources */,
 				4F26D3A22C3131170097B837 /* BlendedWindowView.swift in Sources */,
+				4F246BCA2C3E9E9100244583 /* LargeContentView.swift in Sources */,
 				4FAA43FB2C3B8084003A2363 /* MyHSplitView.swift in Sources */,
 				4FEC81452C32987C00AF4863 /* WindowVisibilityTogglePresenterView.swift in Sources */,
 				4F26D32D2C2FEE610097B837 /* NSObject+Foundation_IvarDescription.mm in Sources */,
