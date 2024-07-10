@@ -25,6 +25,9 @@
 #import "SymbolTransitionsViewController.h"
 #import "LegacyTabBarController.h"
 #import "LegacyTabBar2Controller.h"
+#import "TabBarAppearanceViewController.h"
+#import "ToolbarAppearanceViewController.h"
+#import "LargeContentViewController.h"
 #import <objc/message.h>
 
 __attribute__((objc_direct_members))
@@ -127,7 +130,10 @@ __attribute__((objc_direct_members))
         SymbolEffectsViewController.class,
         SymbolTransitionsViewController.class,
         LegacyTabBarController.class,
-        LegacyTabBar2Controller.class
+        LegacyTabBar2Controller.class,
+        TabBarAppearanceViewController.class,
+        ToolbarAppearanceViewController.class,
+        LargeContentViewController.class
     ];
 }
 
@@ -152,7 +158,9 @@ __attribute__((objc_direct_members))
     [rootViewController release];
     
     if ([rootViewController isKindOfClass:UITabBarController.class] || [rootViewController isKindOfClass:MyNavigationItemViewController.class]) {
-        navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
+        if (![rootViewController isKindOfClass:TabBarAppearanceViewController.class]) {
+            navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
+        }
     }
     
     [self presentViewController:navigationController animated:YES completion:nil];

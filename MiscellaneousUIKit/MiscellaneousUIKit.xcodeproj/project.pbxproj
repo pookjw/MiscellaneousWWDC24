@@ -27,6 +27,7 @@
 		4F1F022B2C23CE25004F7EFF /* PinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F022A2C23CE25004F7EFF /* PinkViewController.m */; };
 		4F1F022E2C23CE3A004F7EFF /* CyanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F022D2C23CE3A004F7EFF /* CyanViewController.m */; };
 		4F1F02312C23CE4F004F7EFF /* OrangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F02302C23CE4F004F7EFF /* OrangeViewController.m */; };
+		4F246BC72C3E85CA00244583 /* LargeContentViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F246BC62C3E85CA00244583 /* LargeContentViewController.mm */; };
 		4F455F032C2038D200CDE688 /* CustomTransitionController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F022C2038D200CDE688 /* CustomTransitionController.mm */; };
 		4F455F1A2C27EBE400CDE688 /* JitterAnimationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F192C27EBE400CDE688 /* JitterAnimationViewController.mm */; };
 		4F455F1E2C280C4A00CDE688 /* TabBar2Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F1D2C280C4A00CDE688 /* TabBar2Controller.m */; };
@@ -38,6 +39,8 @@
 		4F7BC13C2C3C43B900419197 /* MyNavigationItemViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC13B2C3C43B900419197 /* MyNavigationItemViewController.mm */; };
 		4F8BD38D2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38C2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm */; };
 		4F8BD3902C22E1520031535F /* CustomDismissCustomInteraction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38F2C22E1520031535F /* CustomDismissCustomInteraction.mm */; };
+		4F9C08B32C3E2B5F009897D6 /* TabBarAppearanceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F9C08B22C3E2B5F009897D6 /* TabBarAppearanceViewController.mm */; };
+		4F9C08D42C3E5574009897D6 /* ToolbarAppearanceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F9C08D32C3E5574009897D6 /* ToolbarAppearanceViewController.mm */; };
 		4FA8EEE92C1C012A00B1358A /* TextViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEE82C1C012A00B1358A /* TextViewController.mm */; };
 		4FA8EEED2C1CD3B000B1358A /* image.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4FA8EEEC2C1CD3B000B1358A /* image.heic */; };
 		4FA8EEF12C1CDBCA00B1358A /* FromTransitionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEF02C1CDBCA00B1358A /* FromTransitionViewController.mm */; };
@@ -88,6 +91,8 @@
 		4F1F022D2C23CE3A004F7EFF /* CyanViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CyanViewController.m; sourceTree = "<group>"; };
 		4F1F022F2C23CE4F004F7EFF /* OrangeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrangeViewController.h; sourceTree = "<group>"; };
 		4F1F02302C23CE4F004F7EFF /* OrangeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrangeViewController.m; sourceTree = "<group>"; };
+		4F246BC52C3E85CA00244583 /* LargeContentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LargeContentViewController.h; sourceTree = "<group>"; };
+		4F246BC62C3E85CA00244583 /* LargeContentViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LargeContentViewController.mm; sourceTree = "<group>"; };
 		4F455F012C2038D200CDE688 /* CustomTransitionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTransitionController.h; sourceTree = "<group>"; };
 		4F455F022C2038D200CDE688 /* CustomTransitionController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomTransitionController.mm; sourceTree = "<group>"; };
 		4F455F182C27EBE400CDE688 /* JitterAnimationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JitterAnimationViewController.h; sourceTree = "<group>"; };
@@ -111,6 +116,10 @@
 		4F8BD38E2C22E1520031535F /* CustomDismissCustomInteraction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDismissCustomInteraction.h; sourceTree = "<group>"; };
 		4F8BD38F2C22E1520031535F /* CustomDismissCustomInteraction.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomDismissCustomInteraction.mm; sourceTree = "<group>"; };
 		4F8BD3932C22E2B70031535F /* CustomDimissInteractable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDimissInteractable.h; sourceTree = "<group>"; };
+		4F9C08B12C3E2B5F009897D6 /* TabBarAppearanceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarAppearanceViewController.h; sourceTree = "<group>"; };
+		4F9C08B22C3E2B5F009897D6 /* TabBarAppearanceViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TabBarAppearanceViewController.mm; sourceTree = "<group>"; };
+		4F9C08D22C3E5574009897D6 /* ToolbarAppearanceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolbarAppearanceViewController.h; sourceTree = "<group>"; };
+		4F9C08D32C3E5574009897D6 /* ToolbarAppearanceViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ToolbarAppearanceViewController.mm; sourceTree = "<group>"; };
 		4FA8EEE72C1C012A00B1358A /* TextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
 		4FA8EEE82C1C012A00B1358A /* TextViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TextViewController.mm; sourceTree = "<group>"; };
 		4FA8EEEC2C1CD3B000B1358A /* image.heic */ = {isa = PBXFileReference; lastKnownFileType = file; path = image.heic; sourceTree = "<group>"; };
@@ -204,6 +213,9 @@
 				4FDABC662C3D35C000F928DB /* SymbolTransitions */,
 				4F5068AB2C3D98DA00293E81 /* LegacyTabBar */,
 				4F5068AF2C3D9D7400293E81 /* LegacyTabBar2 */,
+				4F9C08B02C3E2B3A009897D6 /* TabBarAppearance */,
+				4F9C08D12C3E555C009897D6 /* ToolbarAppearance */,
+				4F246BC42C3E85BA00244583 /* LargeContent */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -289,6 +301,15 @@
 				4F1F02302C23CE4F004F7EFF /* OrangeViewController.m */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		4F246BC42C3E85BA00244583 /* LargeContent */ = {
+			isa = PBXGroup;
+			children = (
+				4F246BC52C3E85CA00244583 /* LargeContentViewController.h */,
+				4F246BC62C3E85CA00244583 /* LargeContentViewController.mm */,
+			);
+			path = LargeContent;
 			sourceTree = "<group>";
 		};
 		4F455F172C27EBCA00CDE688 /* JitterAnimation */ = {
@@ -381,6 +402,24 @@
 				4F8BD38F2C22E1520031535F /* CustomDismissCustomInteraction.mm */,
 			);
 			path = DismissCustom;
+			sourceTree = "<group>";
+		};
+		4F9C08B02C3E2B3A009897D6 /* TabBarAppearance */ = {
+			isa = PBXGroup;
+			children = (
+				4F9C08B12C3E2B5F009897D6 /* TabBarAppearanceViewController.h */,
+				4F9C08B22C3E2B5F009897D6 /* TabBarAppearanceViewController.mm */,
+			);
+			path = TabBarAppearance;
+			sourceTree = "<group>";
+		};
+		4F9C08D12C3E555C009897D6 /* ToolbarAppearance */ = {
+			isa = PBXGroup;
+			children = (
+				4F9C08D22C3E5574009897D6 /* ToolbarAppearanceViewController.h */,
+				4F9C08D32C3E5574009897D6 /* ToolbarAppearanceViewController.mm */,
+			);
+			path = ToolbarAppearance;
 			sourceTree = "<group>";
 		};
 		4FA8EEE62C1C010F00B1358A /* TextView */ = {
@@ -499,6 +538,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F082E992C1A6194002263ED /* SystemBackgroundViewController.m in Sources */,
+				4F246BC72C3E85CA00244583 /* LargeContentViewController.mm in Sources */,
 				4F5068AE2C3D98F800293E81 /* LegacyTabBarController.mm in Sources */,
 				4FA8EEFA2C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4F5068B22C3D9D8800293E81 /* LegacyTabBar2Controller.mm in Sources */,
@@ -511,8 +551,10 @@
 				4F8BD3902C22E1520031535F /* CustomDismissCustomInteraction.mm in Sources */,
 				4F082E772C18E349002263ED /* OrangeSceneDelegate.m in Sources */,
 				4F8BD38D2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm in Sources */,
+				4F9C08B32C3E2B5F009897D6 /* TabBarAppearanceViewController.mm in Sources */,
 				4FBEC51E2C3C568C008A2F17 /* SymbolEffectsViewController.mm in Sources */,
 				4FA8EEF42C1CDBD700B1358A /* ToTransitionViewController.mm in Sources */,
+				4F9C08D42C3E5574009897D6 /* ToolbarAppearanceViewController.mm in Sources */,
 				4F1F022E2C23CE3A004F7EFF /* CyanViewController.m in Sources */,
 				4FA8EEF12C1CDBCA00B1358A /* FromTransitionViewController.mm in Sources */,
 				4F082E492C188D6C002263ED /* AppDelegate.m in Sources */,
