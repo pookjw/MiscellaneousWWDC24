@@ -21,6 +21,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 @property (retain, readonly, nonatomic) NSToolbarItem *bookmarkToolbarItem;
 @property (retain, readonly, nonatomic) NSToolbarItem *folderToolbarItem;
 @property (retain, readonly, nonatomic) NSToolbarItem *paperplaneToolbarItem;
+@property (retain, readonly, nonatomic) NSButton *changeWindowToolbarStyleButton;
 @end
 
 @implementation ChangeToolbarStyleViewController
@@ -31,6 +32,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 @synthesize bookmarkToolbarItem = _bookmarkToolbarItem;
 @synthesize folderToolbarItem = _folderToolbarItem;
 @synthesize paperplaneToolbarItem = _paperplaneToolbarItem;
+@synthesize changeWindowToolbarStyleButton = _changeWindowToolbarStyleButton;
 
 - (void)dealloc {
     [_toolbar release];
@@ -40,7 +42,20 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     [_bookmarkToolbarItem release];
     [_folderToolbarItem release];
     [_paperplaneToolbarItem release];
+    [_changeWindowToolbarStyleButton release];
     [super dealloc];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    NSButton *changeWindowToolbarStyleButton = self.changeWindowToolbarStyleButton;
+    changeWindowToolbarStyleButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:changeWindowToolbarStyleButton];
+    [NSLayoutConstraint activateConstraints:@[
+        [changeWindowToolbarStyleButton.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
+        [changeWindowToolbarStyleButton.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor]
+    ]];
 }
 
 - (void)_viewDidMoveToWindow:(NSWindow * _Nullable)toWindow fromWindow:(NSWindow * _Nullable)fromWindow {
@@ -51,7 +66,19 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         fromWindow.toolbar = nil;
     }
     
+    [fromWindow removeObserver:self forKeyPath:@"toolbarStyle"];
+    
     toWindow.toolbar = self.toolbar;
+    
+    [toWindow addObserver:self forKeyPath:@"toolbarStyle" options:NSKeyValueObservingOptionNew context:NULL];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"toolbarStyle"]) {
+        self.changeWindowToolbarStyleButton.title = [self stringFromToolbarStyle:((NSWindow *)object).toolbarStyle];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 - (NSToolbar *)toolbar {
@@ -61,7 +88,11 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     
     toolbar.allowsUserCustomization = YES;
     toolbar.delegate = self;
-    toolbar.centeredItemIdentifiers = [NSSet setWithArray:@[self.trashToolbarItem, self.bookmarkToolbarItem]];
+    
+    // pencilToolbarItem만 가운데에 놓는게 아니라, pencilToolbarItem를 가운데에 놓고 나머지 Item들을 근처에 배치하는 것
+//    toolbar.centeredItemIdentifiers = [NSSet setWithArray:@[self.pencilToolbarItem.itemIdentifier]];
+    
+//    toolbar.centeredItemIdentifier = self.pencilToolbarItem.itemIdentifier;
     
     _toolbar = [toolbar retain];
     return [toolbar autorelease];
@@ -169,13 +200,68 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     
 }
 
+- (NSButton *)changeWindowToolbarStyleButton {
+    if (auto changeWindowToolbarStyleButton = _changeWindowToolbarStyleButton) return changeWindowToolbarStyleButton;
+    
+    NSButton *changeWindowToolbarStyleButton = [NSButton buttonWithTitle:@"Automatic" target:self action:@selector(didTriggerChangeWindowToolbarStyleButton:)];
+    
+    changeWindowToolbarStyleButton.title = [self stringFromToolbarStyle:self.view.window.toolbarStyle];
+    
+    _changeWindowToolbarStyleButton = [changeWindowToolbarStyleButton retain];
+    return changeWindowToolbarStyleButton;
+}
+
+- (void)didTriggerChangeWindowToolbarStyleButton:(NSButton *)sender {
+    NSWindow *window = self.view.window;
+    NSWindowToolbarStyle toolbarStyle = window.toolbarStyle;
+    
+    switch (toolbarStyle) {
+        case NSWindowToolbarStyleAutomatic:
+            window.toolbarStyle = NSWindowToolbarStyleExpanded;
+            break;
+        case NSWindowToolbarStyleExpanded:
+            window.toolbarStyle = NSWindowToolbarStylePreference;
+            break;
+        case NSWindowToolbarStylePreference:
+            window.toolbarStyle = NSWindowToolbarStyleUnified;
+            break;
+        case NSWindowToolbarStyleUnified:
+            window.toolbarStyle = NSWindowToolbarStyleUnifiedCompact;
+            break;
+        case NSWindowToolbarStyleUnifiedCompact:
+            window.toolbarStyle = NSWindowToolbarStyleAutomatic;
+            break;
+        default:
+            break;
+    }
+    
+    window.toolbar.displayMode = NSToolbarDisplayModeIconAndLabel;
+}
+
+- (NSString *)stringFromToolbarStyle:(NSWindowToolbarStyle)toolbarStyle {
+    switch (toolbarStyle) {
+        case NSWindowToolbarStyleAutomatic:
+            return @"NSWindowToolbarStyleAutomatic";
+        case NSWindowToolbarStyleExpanded:
+            return @"NSWindowToolbarStyleExpanded";
+        case NSWindowToolbarStylePreference:
+            return @"NSWindowToolbarStylePreference";
+        case NSWindowToolbarStyleUnified:
+            return @"NSWindowToolbarStyleUnified";
+        case NSWindowToolbarStyleUnifiedCompact:
+            return @"NSWindowToolbarStyleUnifiedCompact";
+        default:
+            abort();
+    }
+}
+
 - (NSArray<NSToolbarItemIdentifier> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
     return @[
         self.pencilToolbarItem.itemIdentifier,
         self.lassoToolbarItem.itemIdentifier,
         self.trashToolbarItem.itemIdentifier,
         self.bookmarkToolbarItem.itemIdentifier,
-        NSToolbarFlexibleSpaceItemIdentifier,
+//        NSToolbarFlexibleSpaceItemIdentifier,
         self.folderToolbarItem.itemIdentifier,
         self.paperplaneToolbarItem.itemIdentifier
     ];

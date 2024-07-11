@@ -23,6 +23,7 @@
 		4F082E9F2C1B4831002263ED /* CustomDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E9E2C1B4831002263ED /* CustomDocument.mm */; };
 		4F082EA82C1B53C8002263ED /* ContentHuggingElementsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082EA72C1B53C8002263ED /* ContentHuggingElementsViewController.mm */; };
 		4F082EAC2C1B59C1002263ED /* CalendarViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082EAB2C1B59C1002263ED /* CalendarViewController.mm */; };
+		4F1871942C4029CB002E7DFC /* CircleProgressViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F1871932C4029CB002E7DFC /* CircleProgressViewController.mm */; };
 		4F1F02282C23CD6C004F7EFF /* TabBarController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F02272C23CD6C004F7EFF /* TabBarController.mm */; };
 		4F1F022B2C23CE25004F7EFF /* PinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F022A2C23CE25004F7EFF /* PinkViewController.m */; };
 		4F1F022E2C23CE3A004F7EFF /* CyanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F022D2C23CE3A004F7EFF /* CyanViewController.m */; };
@@ -83,6 +84,8 @@
 		4F082EA72C1B53C8002263ED /* ContentHuggingElementsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ContentHuggingElementsViewController.mm; sourceTree = "<group>"; };
 		4F082EAA2C1B59C1002263ED /* CalendarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		4F082EAB2C1B59C1002263ED /* CalendarViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CalendarViewController.mm; sourceTree = "<group>"; };
+		4F1871922C4029CB002E7DFC /* CircleProgressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CircleProgressViewController.h; sourceTree = "<group>"; };
+		4F1871932C4029CB002E7DFC /* CircleProgressViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CircleProgressViewController.mm; sourceTree = "<group>"; };
 		4F1F02262C23CD6C004F7EFF /* TabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
 		4F1F02272C23CD6C004F7EFF /* TabBarController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TabBarController.mm; sourceTree = "<group>"; };
 		4F1F02292C23CE25004F7EFF /* PinkViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PinkViewController.h; sourceTree = "<group>"; };
@@ -216,6 +219,7 @@
 				4F9C08B02C3E2B3A009897D6 /* TabBarAppearance */,
 				4F9C08D12C3E555C009897D6 /* ToolbarAppearance */,
 				4F246BC42C3E85BA00244583 /* LargeContent */,
+				4F18718F2C4029A9002E7DFC /* CircleProgress */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -286,6 +290,15 @@
 				4F082EAB2C1B59C1002263ED /* CalendarViewController.mm */,
 			);
 			path = Calendar;
+			sourceTree = "<group>";
+		};
+		4F18718F2C4029A9002E7DFC /* CircleProgress */ = {
+			isa = PBXGroup;
+			children = (
+				4F1871922C4029CB002E7DFC /* CircleProgressViewController.h */,
+				4F1871932C4029CB002E7DFC /* CircleProgressViewController.mm */,
+			);
+			path = CircleProgress;
 			sourceTree = "<group>";
 		};
 		4F1F02252C23CD54004F7EFF /* TabBar */ = {
@@ -498,6 +511,7 @@
 				TargetAttributes = {
 					4F082E432C188D6C002263ED = {
 						CreatedOnToolsVersion = 16.0;
+						LastSwiftMigration = 1600;
 					};
 				};
 			};
@@ -552,6 +566,7 @@
 				4F082E772C18E349002263ED /* OrangeSceneDelegate.m in Sources */,
 				4F8BD38D2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm in Sources */,
 				4F9C08B32C3E2B5F009897D6 /* TabBarAppearanceViewController.mm in Sources */,
+				4F1871942C4029CB002E7DFC /* CircleProgressViewController.mm in Sources */,
 				4FBEC51E2C3C568C008A2F17 /* SymbolEffectsViewController.mm in Sources */,
 				4FA8EEF42C1CDBD700B1358A /* ToTransitionViewController.mm in Sources */,
 				4F9C08D42C3E5574009897D6 /* ToolbarAppearanceViewController.mm in Sources */,
@@ -714,6 +729,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MiscellaneousUIKit/MiscellaneousUIKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -736,6 +752,8 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
 			};
 			name = Debug;
@@ -745,6 +763,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MiscellaneousUIKit/MiscellaneousUIKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -767,6 +786,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
 			};
 			name = Release;

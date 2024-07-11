@@ -55,34 +55,34 @@ extension WindowToolbarStylePresenterView {
     }
 }
 
-//extension WindowToolbarStyle {
-//    fileprivate func next() -> any WindowToolbarStyle {
-//        switch self {
-//        case is DefaultWindowToolbarStyle:
-//            return .unified(showsTitle: false)
-//        case let unified as UnifiedWindowToolbarStyle:
-//            let showsTitle: Bool = (Mirror(reflecting: unified).descendant("showsTitle") as? Bool) ?? false
-//            
-//            if !showsTitle {
-//                return .unified(showsTitle: true)
-//            } else {
-//                return .expanded
-//            }
-//        case is ExpandedWindowToolbarStyle:
-//            return .unifiedCompact(showsTitle: false)
-//        case let unifiedCompact as UnifiedCompactWindowToolbarStyle:
-//            let showsTitle: Bool = (Mirror(reflecting: unifiedCompact).descendant("showsTitle") as? Bool) ?? false
-//            
-//            if !showsTitle {
-//                return .unifiedCompact(showsTitle: true)
-//            } else {
-//                return .automatic
-//            }
-//        default:
-//            return .automatic
-//        }
-//    }
-//}
+extension WindowToolbarStyle {
+    fileprivate func next() -> any WindowToolbarStyle {
+        switch self {
+        case is DefaultWindowToolbarStyle:
+            return .unified(showsTitle: false)
+        case let unified as UnifiedWindowToolbarStyle:
+            let showsTitle: Bool = (Mirror(reflecting: unified).descendant("showsTitle") as? Bool) ?? false
+            
+            if !showsTitle {
+                return .unified(showsTitle: true)
+            } else {
+                return .expanded
+            }
+        case is ExpandedWindowToolbarStyle:
+            return .unifiedCompact(showsTitle: false)
+        case let unifiedCompact as UnifiedCompactWindowToolbarStyle:
+            let showsTitle: Bool = (Mirror(reflecting: unifiedCompact).descendant("showsTitle") as? Bool) ?? false
+            
+            if !showsTitle {
+                return .unifiedCompact(showsTitle: true)
+            } else {
+                return .automatic
+            }
+        default:
+            return .automatic
+        }
+    }
+}
 
 #Preview {
     WindowToolbarStylePresenterView()

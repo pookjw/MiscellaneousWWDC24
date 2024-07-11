@@ -28,6 +28,7 @@
 #import "TabBarAppearanceViewController.h"
 #import "ToolbarAppearanceViewController.h"
 #import "LargeContentViewController.h"
+#import "CircleProgressViewController.h"
 #import <objc/message.h>
 
 __attribute__((objc_direct_members))
@@ -133,7 +134,8 @@ __attribute__((objc_direct_members))
         LegacyTabBar2Controller.class,
         TabBarAppearanceViewController.class,
         ToolbarAppearanceViewController.class,
-        LargeContentViewController.class
+        LargeContentViewController.class,
+        CircleProgressViewController.class
     ];
 }
 
