@@ -59,7 +59,10 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     objc_super superInfo = { self, [self class] };
     ((void (*)(objc_super *, SEL, id, id))objc_msgSendSuper2)(&superInfo, _cmd, toWindow, fromWindow);
     
-//    fromWindow.toolbar = nil;
+    if ([fromWindow.toolbar isEqual:self.toolbar]) {
+        fromWindow.toolbar = nil;
+    }
+    
     toWindow.toolbar = self.toolbar;
     
     // window에 붙어야 작동함

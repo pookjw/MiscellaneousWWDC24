@@ -60,8 +60,6 @@
     
     window.collectionBehavior = NSWindowCollectionBehaviorFullScreenPrimary;
     [window makeKeyAndOrderFront:nil];
-    NSStatusWindowLevel;
-    CGWindowLevel f = kCGDesktopWindowLevel;
     [window release];
 }
 

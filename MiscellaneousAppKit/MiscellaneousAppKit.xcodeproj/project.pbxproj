@@ -39,6 +39,7 @@
 		4F5EEF412C29C531001E345D /* AppMenuItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5EEF382C29C530001E345D /* AppMenuItem.mm */; };
 		4F9E0F3E2C2BB1CD00EF098D /* CustomRulerMarker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F9E0F3D2C2BB1CD00EF098D /* CustomRulerMarker.mm */; };
 		4F9E0F412C2BCDDE00EF098D /* RulerContentView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F9E0F402C2BCDDE00EF098D /* RulerContentView.mm */; };
+		4FD8FBCB2C3FE322009B0B70 /* ChangeToolbarStyleViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD8FBCA2C3FE322009B0B70 /* ChangeToolbarStyleViewController.mm */; };
 		4FEC813C2C32910300AF4863 /* HUDWindowPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FEC813B2C32910300AF4863 /* HUDWindowPresenterViewController.mm */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +102,8 @@
 		4F9E0F3D2C2BB1CD00EF098D /* CustomRulerMarker.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomRulerMarker.mm; sourceTree = "<group>"; };
 		4F9E0F3F2C2BCDDE00EF098D /* RulerContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RulerContentView.h; sourceTree = "<group>"; };
 		4F9E0F402C2BCDDE00EF098D /* RulerContentView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RulerContentView.mm; sourceTree = "<group>"; };
+		4FD8FBC92C3FE322009B0B70 /* ChangeToolbarStyleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeToolbarStyleViewController.h; sourceTree = "<group>"; };
+		4FD8FBCA2C3FE322009B0B70 /* ChangeToolbarStyleViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ChangeToolbarStyleViewController.mm; sourceTree = "<group>"; };
 		4FEC813A2C32910300AF4863 /* HUDWindowPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HUDWindowPresenterViewController.h; sourceTree = "<group>"; };
 		4FEC813B2C32910300AF4863 /* HUDWindowPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = HUDWindowPresenterViewController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -209,6 +212,7 @@
 				4F26D3A32C3133F10097B837 /* WindowMovable */,
 				4F26D3D82C31BA400097B837 /* AlertStyle */,
 				4FEC81392C32900700AF4863 /* HUDWindowPresenter */,
+				4FD8FBC82C3FE2EF009B0B70 /* ChangeToolbarStyle */,
 				4F46CFE32C28308F005AC6AF /* Assets.xcassets */,
 				4F46CFE82C28308F005AC6AF /* main.m */,
 				4F46CFEA2C28308F005AC6AF /* MiscellaneousAppKit.entitlements */,
@@ -308,6 +312,15 @@
 			path = Menu;
 			sourceTree = "<group>";
 		};
+		4FD8FBC82C3FE2EF009B0B70 /* ChangeToolbarStyle */ = {
+			isa = PBXGroup;
+			children = (
+				4FD8FBC92C3FE322009B0B70 /* ChangeToolbarStyleViewController.h */,
+				4FD8FBCA2C3FE322009B0B70 /* ChangeToolbarStyleViewController.mm */,
+			);
+			path = ChangeToolbarStyle;
+			sourceTree = "<group>";
+		};
 		4FEC81392C32900700AF4863 /* HUDWindowPresenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -393,6 +406,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F9E0F412C2BCDDE00EF098D /* RulerContentView.mm in Sources */,
+				4FD8FBCB2C3FE322009B0B70 /* ChangeToolbarStyleViewController.mm in Sources */,
 				4F46D00B2C285FF3005AC6AF /* ClassTableCellView.mm in Sources */,
 				4F1C70F22C2EBB3C002E096A /* AnimatedCursor.mm in Sources */,
 				4F5EB6932C29D4480019E2D5 /* RulerViewController.mm in Sources */,
