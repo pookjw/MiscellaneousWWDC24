@@ -40,19 +40,30 @@
     [static_cast<UISearchController *>(self.parentViewController) setActive:NO];
 }
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    
+    if (searchController.searchBar.text.length == 0) {
+        searchController.searchSuggestions = nil;
+    } else {
+        UISearchSuggestionItem *item = [UISearchSuggestionItem suggestionWithLocalizedSuggestion:searchController.searchBar.text descriptionString:@"Hello!" iconImage:[UIImage systemImageNamed:@"cloud.hail"]];
+        
+        searchController.searchSuggestions = @[
+            item
+        ];
+    }
 }
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController selectingSearchSuggestion:(id<UISearchSuggestion>)searchSuggestion {
+    UISearchToken *token = [UISearchToken tokenWithIcon:[UIImage systemImageNamed:@"cloud.rain.fill"] text:searchController.searchBar.text];
     
+    searchController.searchBar.searchTextField.tokens = @[token];
 }
 @end
 
 
-@interface MySearchViewController () <UISearchControllerDelegate>
+@interface MySearchViewController () <UISearchControllerDelegate, UISearchBarDelegate>
 @property (retain, readonly, nonatomic) UIBarButtonItem *dismissBarButtonItem;
 @property (retain, readonly, nonatomic) UIStackView *stackView;
 @property (retain, readonly, nonatomic) UIButton *activateSearchBarButton;
 @property (retain, readonly, nonatomic) UIButton *toggleShowsCancelButtonOnSearchBarButton;
+@property (retain, readonly, nonatomic) UIButton *showsSearchResultsControllerButton;
 @property (retain, readonly, nonatomic) UISearchController *searchController;
 @property (retain, readonly, nonatomic) MySearchResultsController *searchResultsController;
 @end
@@ -62,6 +73,7 @@
 @synthesize stackView = _stackView;
 @synthesize activateSearchBarButton = _activateSearchBarButton;
 @synthesize toggleShowsCancelButtonOnSearchBarButton = _toggleShowsCancelButtonOnSearchBarButton;
+@synthesize showsSearchResultsControllerButton = _showsSearchResultsControllerButton;
 @synthesize searchController = _searchController;
 @synthesize searchResultsController = _searchResultsController;
 
@@ -70,6 +82,7 @@
     [_stackView release];
     [_activateSearchBarButton release];
     [_toggleShowsCancelButtonOnSearchBarButton release];
+    [_showsSearchResultsControllerButton release];
     [_searchController release];
     [_searchResultsController release];
     [super dealloc];
@@ -113,8 +126,9 @@
     if (auto stackView = _stackView) return stackView;
     
     UIStackView *stackView = [[UIStackView alloc] initWithArrangedSubviews:@[
-//        self.activateSearchBarButton,
-        self.toggleShowsCancelButtonOnSearchBarButton
+        self.activateSearchBarButton,
+        self.toggleShowsCancelButtonOnSearchBarButton,
+        self.showsSearchResultsControllerButton
     ]];
     
     stackView.axis = UILayoutConstraintAxisVertical;
@@ -155,6 +169,21 @@
     return [toggleShowsCancelButtonOnSearchBarButton autorelease];
 }
 
+- (UIButton *)showsSearchResultsControllerButton {
+    if (auto showsSearchResultsControllerButton = _showsSearchResultsControllerButton) return showsSearchResultsControllerButton;
+    
+    UIButton *showsSearchResultsControllerButton = [UIButton new];
+    
+    UIButtonConfiguration *configuration = [UIButtonConfiguration tintedButtonConfiguration];
+    configuration.title = @"Toggle showsSearchResultsController";
+    showsSearchResultsControllerButton.configuration = configuration;
+    
+    [showsSearchResultsControllerButton addTarget:self action:@selector(didTriggerShowsSearchResultsControllerButton:) forControlEvents:UIControlEventPrimaryActionTriggered];
+    
+    _showsSearchResultsControllerButton = [showsSearchResultsControllerButton retain];
+    return [showsSearchResultsControllerButton autorelease];
+}
+
 - (void)didTriggerDismissBarButtonItem:(UIBarButtonItem *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -173,6 +202,11 @@
         auto name = ivar_getName(ivar);
         return !std::strcmp(name, "_searchBarVisualProviderFlags");
     });
+    
+    if (ivars + ivarsCount == ivar) {
+        NSLog(@"Not supported");
+        return;
+    }
     
     /*
      _searchBarVisualProviderFlags에서 showsCancelButton 까지의 offset은 18이다.
@@ -208,6 +242,10 @@
     }];
 }
 
+- (void)didTriggerShowsSearchResultsControllerButton:(UIButton *)sender {
+    self.searchController.showsSearchResultsController = !self.searchController.showsSearchResultsController;
+}
+
 - (UISearchController *)searchController {
     if (auto searchController = _searchController) return searchController;
     
@@ -217,6 +255,19 @@
 //    searchController.obscuresBackgroundDuringPresentation = YES;
     searchController.hidesNavigationBarDuringPresentation = NO;
     searchController.automaticallyShowsCancelButton = NO;
+    searchController.searchBar.searchBarStyle = UISearchBarStyleProminent;
+    searchController.searchBar.showsBookmarkButton = YES;
+    searchController.automaticallyShowsSearchResultsController = NO;
+//    searchController.searchBar.barStyle = UIBarStyleBlack;
+    
+    
+    searchController.searchBar.delegate = self;
+    searchController.searchBar.scopeButtonTitles = @[@"1", @"2"];
+    searchController.scopeBarActivation = UISearchControllerScopeBarActivationOnSearchActivation;
+    
+    searchController.searchBar.searchTextField.tokenBackgroundColor = UIColor.systemPinkColor;
+    searchController.searchBar.searchTextField.allowsCopyingTokens = YES;
+    searchController.searchBar.searchTextField.allowsDeletingTokens = NO;
     
     _searchController = [searchController retain];
     return [searchController autorelease];
@@ -248,7 +299,7 @@
 }
 
 - (void)willPresentSearchController:(UISearchController *)searchController {
-    
+    searchController.showsSearchResultsController = !searchController.showsSearchResultsController;
 }
 
 - (void)searchController:(UISearchController *)searchController didChangeFromSearchBarPlacement:(UINavigationItemSearchBarPlacement)previousPlacement {
@@ -259,7 +310,7 @@
     
 }
 
-- (void)_searchController:(UISearchController *)searchController insertSearchFieldTextSuggestion:(id)arg3 {
+- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
     
 }
 

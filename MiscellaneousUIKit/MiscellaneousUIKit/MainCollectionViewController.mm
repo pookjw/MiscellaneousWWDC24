@@ -30,6 +30,7 @@
 #import "LargeContentViewController.h"
 #import "CircleProgressViewController.h"
 #import "MySearchViewController.h"
+#import "InputAssistantItemViewController.h"
 #import <objc/message.h>
 
 __attribute__((objc_direct_members))
@@ -112,6 +113,7 @@ __attribute__((objc_direct_members))
 
 - (NSArray<Class> *)classes {
     return @[
+        InputAssistantItemViewController.class,
         MySearchViewController.class,
         CircleProgressViewController.class,
         LargeContentViewController.class,
