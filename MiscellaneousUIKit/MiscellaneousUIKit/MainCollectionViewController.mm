@@ -29,6 +29,7 @@
 #import "ToolbarAppearanceViewController.h"
 #import "LargeContentViewController.h"
 #import "CircleProgressViewController.h"
+#import "MySearchViewController.h"
 #import <objc/message.h>
 
 __attribute__((objc_direct_members))
@@ -111,33 +112,35 @@ __attribute__((objc_direct_members))
 
 - (NSArray<Class> *)classes {
     return @[
-        ListEnvironmentCollectionViewController.class,
-        SceneActivationViewController.class,
-        CustomDocumentViewController.class,
-        SystemBackgroundViewController.class,
-        ContentHuggingElementsViewController.class,
-        CalendarViewController.class,
-        TextViewController.class,
-        FromTransitionViewController.class,
-        TabBarController.class,
-        TabBar2Controller.class,
-        JitterAnimationViewController.class,
+        MySearchViewController.class,
+        CircleProgressViewController.class,
+        LargeContentViewController.class,
+        ToolbarAppearanceViewController.class,
+        TabBarAppearanceViewController.class,
+        LegacyTabBar2Controller.class,
+        LegacyTabBarController.class,
+        SymbolTransitionsViewController.class,
+        SymbolEffectsViewController.class,
+        MyNavigationItemViewController.class,
+        FontPickerPresenterViewController.class,
+        ProminenceViewController.class,
 #if !TARGET_OS_MACCATALYST
         UpdateLinkViewController.class,
 #endif
-        ProminenceViewController.class,
-        FontPickerPresenterViewController.class,
-        MyNavigationItemViewController.class,
-        SymbolEffectsViewController.class,
-        SymbolTransitionsViewController.class,
-        LegacyTabBarController.class,
-        LegacyTabBar2Controller.class,
-        TabBarAppearanceViewController.class,
-        ToolbarAppearanceViewController.class,
-        LargeContentViewController.class,
-        CircleProgressViewController.class
+        JitterAnimationViewController.class,
+        TabBar2Controller.class,
+        TabBarController.class,
+        FromTransitionViewController.class,
+        TextViewController.class,
+        CalendarViewController.class,
+        ContentHuggingElementsViewController.class,
+        SystemBackgroundViewController.class,
+        CustomDocumentViewController.class,
+        SceneActivationViewController.class,
+        ListEnvironmentCollectionViewController.class
     ];
 }
+
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
@@ -159,7 +162,7 @@ __attribute__((objc_direct_members))
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
     [rootViewController release];
     
-    if ([rootViewController isKindOfClass:UITabBarController.class] || [rootViewController isKindOfClass:MyNavigationItemViewController.class]) {
+    if ([rootViewController isKindOfClass:UITabBarController.class] || [rootViewController isKindOfClass:MyNavigationItemViewController.class] || [rootViewController isKindOfClass:MySearchViewController.class]) {
         if (![rootViewController isKindOfClass:TabBarAppearanceViewController.class]) {
             navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
         }

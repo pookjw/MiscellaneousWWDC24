@@ -43,6 +43,7 @@
 		4FAA43FB2C3B8084003A2363 /* MyHSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA43FA2C3B8084003A2363 /* MyHSplitView.swift */; };
 		4FAA43FE2C3B80B1003A2363 /* MyVSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA43FD2C3B80B1003A2363 /* MyVSplitView.swift */; };
 		4FAA44012C3B8657003A2363 /* PopoverPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA44002C3B8657003A2363 /* PopoverPresenterView.swift */; };
+		4FD8FBE42C403E68009B0B70 /* SearchableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD8FBE32C403E68009B0B70 /* SearchableView.swift */; };
 		4FDC2E5E2C3666B900768E12 /* ImmersiveEnvironmentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FDC2E5D2C3666B900768E12 /* ImmersiveEnvironmentPickerView.swift */; };
 		4FDC2E602C3668D700768E12 /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 4FDC2E5F2C3668D700768E12 /* video.mp4 */; };
 		4FEC80C52C3282B400AF4863 /* SettingsPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEC80C42C3282B400AF4863 /* SettingsPresenterView.swift */; };
@@ -94,6 +95,7 @@
 		4FAA43FA2C3B8084003A2363 /* MyHSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHSplitView.swift; sourceTree = "<group>"; };
 		4FAA43FD2C3B80B1003A2363 /* MyVSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVSplitView.swift; sourceTree = "<group>"; };
 		4FAA44002C3B8657003A2363 /* PopoverPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverPresenterView.swift; sourceTree = "<group>"; };
+		4FD8FBE32C403E68009B0B70 /* SearchableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableView.swift; sourceTree = "<group>"; };
 		4FDC2E5D2C3666B900768E12 /* ImmersiveEnvironmentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmersiveEnvironmentPickerView.swift; sourceTree = "<group>"; };
 		4FDC2E5F2C3668D700768E12 /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
 		4FEC80C42C3282B400AF4863 /* SettingsPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenterView.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				4F7BC11C2C3C3DD700419197 /* MyToolbar */,
 				4F246BC82C3E9DFE00244583 /* LargeContent */,
 				4F7C4ABF2C3ED408008F106F /* WindowToolbarStylePresenter */,
+				4FD8FBE22C403E4D009B0B70 /* Searchable */,
 				4F1C71032C2F15CE002E096A /* Assets.xcassets */,
 				4F1C71052C2F15CE002E096A /* Preview Content */,
 			);
@@ -426,6 +429,14 @@
 			path = PopoverPresenter;
 			sourceTree = "<group>";
 		};
+		4FD8FBE22C403E4D009B0B70 /* Searchable */ = {
+			isa = PBXGroup;
+			children = (
+				4FD8FBE32C403E68009B0B70 /* SearchableView.swift */,
+			);
+			path = Searchable;
+			sourceTree = "<group>";
+		};
 		4FDC2E5C2C36668E00768E12 /* ImmersiveEnvironmentPicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -586,6 +597,7 @@
 				4FEC81452C32987C00AF4863 /* WindowVisibilityTogglePresenterView.swift in Sources */,
 				4F26D32D2C2FEE610097B837 /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4F1C71132C2F1662002E096A /* Demo.swift in Sources */,
+				4FD8FBE42C403E68009B0B70 /* SearchableView.swift in Sources */,
 				4F26D3512C300EB10097B837 /* WindowManagerRoleView.swift in Sources */,
 				4F7BC0F12C3C3AF800419197 /* DismissalConfirmationDialogPresenterView.swift in Sources */,
 				4F8D7B072C385581009FB46E /* CameraCaptureEventView.swift in Sources */,

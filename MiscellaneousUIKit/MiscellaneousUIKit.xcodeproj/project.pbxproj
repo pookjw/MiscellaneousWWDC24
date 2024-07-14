@@ -51,6 +51,7 @@
 		4FAD987B2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAD987A2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm */; };
 		4FBEC51E2C3C568C008A2F17 /* SymbolEffectsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBEC51D2C3C568C008A2F17 /* SymbolEffectsViewController.mm */; };
 		4FDABC692C3D35DE00F928DB /* SymbolTransitionsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FDABC682C3D35DE00F928DB /* SymbolTransitionsViewController.mm */; };
+		4FECC0E82C4186490033CD3C /* MySearchViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FECC0E72C4186490033CD3C /* MySearchViewController.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -141,6 +142,8 @@
 		4FDABC672C3D35DE00F928DB /* SymbolTransitionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SymbolTransitionsViewController.h; sourceTree = "<group>"; };
 		4FDABC682C3D35DE00F928DB /* SymbolTransitionsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SymbolTransitionsViewController.mm; sourceTree = "<group>"; };
 		4FDABC6A2C3D3C5600F928DB /* MiscellaneousUIKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MiscellaneousUIKit.entitlements; sourceTree = "<group>"; };
+		4FECC0E62C4186490033CD3C /* MySearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MySearchViewController.h; sourceTree = "<group>"; };
+		4FECC0E72C4186490033CD3C /* MySearchViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MySearchViewController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,6 +223,7 @@
 				4F9C08D12C3E555C009897D6 /* ToolbarAppearance */,
 				4F246BC42C3E85BA00244583 /* LargeContent */,
 				4F18718F2C4029A9002E7DFC /* CircleProgress */,
+				4FECC0E52C4186320033CD3C /* MySearch */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -480,6 +484,15 @@
 			path = SymbolTransitions;
 			sourceTree = "<group>";
 		};
+		4FECC0E52C4186320033CD3C /* MySearch */ = {
+			isa = PBXGroup;
+			children = (
+				4FECC0E62C4186490033CD3C /* MySearchViewController.h */,
+				4FECC0E72C4186490033CD3C /* MySearchViewController.mm */,
+			);
+			path = MySearch;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -589,6 +602,7 @@
 				4F082E5A2C188D6D002263ED /* main.m in Sources */,
 				4F082E4C2C188D6C002263ED /* SceneDelegate.m in Sources */,
 				4FDABC692C3D35DE00F928DB /* SymbolTransitionsViewController.mm in Sources */,
+				4FECC0E82C4186490033CD3C /* MySearchViewController.mm in Sources */,
 				4F7BC13C2C3C43B900419197 /* MyNavigationItemViewController.mm in Sources */,
 				4F455F032C2038D200CDE688 /* CustomTransitionController.mm in Sources */,
 			);

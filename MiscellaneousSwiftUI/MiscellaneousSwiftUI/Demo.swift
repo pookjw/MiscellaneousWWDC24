@@ -95,6 +95,8 @@ enum Demo: Int, Identifiable, CaseIterable {
     case windowToolbarStylePresenter
 #endif
     
+    case searchable
+    
     var id: Int {
         rawValue
     }
@@ -224,6 +226,9 @@ enum Demo: Int, Identifiable, CaseIterable {
         case .windowToolbarStylePresenter:
             WindowToolbarStylePresenterView()
 #endif
+            
+        case .searchable:
+            SearchableView()
         }
     }
 }
