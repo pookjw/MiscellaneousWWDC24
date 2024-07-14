@@ -23,6 +23,7 @@
 		4F082E9F2C1B4831002263ED /* CustomDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E9E2C1B4831002263ED /* CustomDocument.mm */; };
 		4F082EA82C1B53C8002263ED /* ContentHuggingElementsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082EA72C1B53C8002263ED /* ContentHuggingElementsViewController.mm */; };
 		4F082EAC2C1B59C1002263ED /* CalendarViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082EAB2C1B59C1002263ED /* CalendarViewController.mm */; };
+		4F0CBAA52C43D3FA00743DE2 /* MySearchViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F0CBAA32C43D3FA00743DE2 /* MySearchViewController.mm */; };
 		4F1871942C4029CB002E7DFC /* CircleProgressViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F1871932C4029CB002E7DFC /* CircleProgressViewController.mm */; };
 		4F1F02282C23CD6C004F7EFF /* TabBarController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F02272C23CD6C004F7EFF /* TabBarController.mm */; };
 		4F1F022B2C23CE25004F7EFF /* PinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F022A2C23CE25004F7EFF /* PinkViewController.m */; };
@@ -51,7 +52,6 @@
 		4FAD987B2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAD987A2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm */; };
 		4FBEC51E2C3C568C008A2F17 /* SymbolEffectsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBEC51D2C3C568C008A2F17 /* SymbolEffectsViewController.mm */; };
 		4FDABC692C3D35DE00F928DB /* SymbolTransitionsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FDABC682C3D35DE00F928DB /* SymbolTransitionsViewController.mm */; };
-		4FECC0E82C4186490033CD3C /* MySearchViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FECC0E72C4186490033CD3C /* MySearchViewController.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +85,8 @@
 		4F082EA72C1B53C8002263ED /* ContentHuggingElementsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ContentHuggingElementsViewController.mm; sourceTree = "<group>"; };
 		4F082EAA2C1B59C1002263ED /* CalendarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		4F082EAB2C1B59C1002263ED /* CalendarViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CalendarViewController.mm; sourceTree = "<group>"; };
+		4F0CBAA22C43D3FA00743DE2 /* MySearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MySearchViewController.h; sourceTree = "<group>"; };
+		4F0CBAA32C43D3FA00743DE2 /* MySearchViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MySearchViewController.mm; sourceTree = "<group>"; };
 		4F1871922C4029CB002E7DFC /* CircleProgressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CircleProgressViewController.h; sourceTree = "<group>"; };
 		4F1871932C4029CB002E7DFC /* CircleProgressViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CircleProgressViewController.mm; sourceTree = "<group>"; };
 		4F1F02262C23CD6C004F7EFF /* TabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
@@ -142,8 +144,6 @@
 		4FDABC672C3D35DE00F928DB /* SymbolTransitionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SymbolTransitionsViewController.h; sourceTree = "<group>"; };
 		4FDABC682C3D35DE00F928DB /* SymbolTransitionsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SymbolTransitionsViewController.mm; sourceTree = "<group>"; };
 		4FDABC6A2C3D3C5600F928DB /* MiscellaneousUIKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MiscellaneousUIKit.entitlements; sourceTree = "<group>"; };
-		4FECC0E62C4186490033CD3C /* MySearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MySearchViewController.h; sourceTree = "<group>"; };
-		4FECC0E72C4186490033CD3C /* MySearchViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MySearchViewController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,7 +223,7 @@
 				4F9C08D12C3E555C009897D6 /* ToolbarAppearance */,
 				4F246BC42C3E85BA00244583 /* LargeContent */,
 				4F18718F2C4029A9002E7DFC /* CircleProgress */,
-				4FECC0E52C4186320033CD3C /* MySearch */,
+				4F0CBAA42C43D3FA00743DE2 /* MySearch */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -294,6 +294,15 @@
 				4F082EAB2C1B59C1002263ED /* CalendarViewController.mm */,
 			);
 			path = Calendar;
+			sourceTree = "<group>";
+		};
+		4F0CBAA42C43D3FA00743DE2 /* MySearch */ = {
+			isa = PBXGroup;
+			children = (
+				4F0CBAA22C43D3FA00743DE2 /* MySearchViewController.h */,
+				4F0CBAA32C43D3FA00743DE2 /* MySearchViewController.mm */,
+			);
+			path = MySearch;
 			sourceTree = "<group>";
 		};
 		4F18718F2C4029A9002E7DFC /* CircleProgress */ = {
@@ -484,15 +493,6 @@
 			path = SymbolTransitions;
 			sourceTree = "<group>";
 		};
-		4FECC0E52C4186320033CD3C /* MySearch */ = {
-			isa = PBXGroup;
-			children = (
-				4FECC0E62C4186490033CD3C /* MySearchViewController.h */,
-				4FECC0E72C4186490033CD3C /* MySearchViewController.mm */,
-			);
-			path = MySearch;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -601,8 +601,8 @@
 				4F082E6C2C189EF0002263ED /* ListEnvironmentCollectionViewController.mm in Sources */,
 				4F082E5A2C188D6D002263ED /* main.m in Sources */,
 				4F082E4C2C188D6C002263ED /* SceneDelegate.m in Sources */,
+				4F0CBAA52C43D3FA00743DE2 /* MySearchViewController.mm in Sources */,
 				4FDABC692C3D35DE00F928DB /* SymbolTransitionsViewController.mm in Sources */,
-				4FECC0E82C4186490033CD3C /* MySearchViewController.mm in Sources */,
 				4F7BC13C2C3C43B900419197 /* MyNavigationItemViewController.mm in Sources */,
 				4F455F032C2038D200CDE688 /* CustomTransitionController.mm in Sources */,
 			);
