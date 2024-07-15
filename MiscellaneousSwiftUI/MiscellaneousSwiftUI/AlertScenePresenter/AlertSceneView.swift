@@ -5,6 +5,8 @@
 //  Created by Jinwoo Kim on 7/1/24.
 //
 
+#if !os(tvOS)
+
 import SwiftUI
 
 struct AlertScenePresenterView: View {
@@ -20,3 +22,5 @@ struct AlertScenePresenterView: View {
 #Preview {
     AlertScenePresenterView()
 }
+
+#endif

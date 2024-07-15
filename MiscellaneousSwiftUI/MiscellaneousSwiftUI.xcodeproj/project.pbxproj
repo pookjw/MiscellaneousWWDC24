@@ -37,6 +37,9 @@
 		4F7C4AC12C3ED419008F106F /* WindowToolbarStylePresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7C4AC02C3ED419008F106F /* WindowToolbarStylePresenterView.swift */; };
 		4F8D7B042C38519A009FB46E /* FullScreenVideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8D7B032C38519A009FB46E /* FullScreenVideoPlayerView.swift */; };
 		4F8D7B072C385581009FB46E /* CameraCaptureEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8D7B062C385581009FB46E /* CameraCaptureEventView.swift */; };
+		4FA4EA4B2C451615005CD097 /* FocusedTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA4EA4A2C451615005CD097 /* FocusedTextFieldView.swift */; };
+		4FA4EA4E2C4518A9005CD097 /* FocusedScenePresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA4EA4D2C4518A9005CD097 /* FocusedScenePresenterView.swift */; };
+		4FA4EA512C4521D3005CD097 /* FocusedTVMacView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA4EA502C4521D3005CD097 /* FocusedTVMacView.swift */; };
 		4FAA177B2C3572B400188F35 /* UpperLimbWindowPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA177A2C3572B400188F35 /* UpperLimbWindowPresenterView.swift */; };
 		4FAA177D2C3572FF00188F35 /* UpperLimbSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA177C2C3572FF00188F35 /* UpperLimbSpace.swift */; };
 		4FAA17802C35760E00188F35 /* MyDocumentLaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA177F2C35760E00188F35 /* MyDocumentLaunchView.swift */; };
@@ -89,6 +92,9 @@
 		4F7C4AC02C3ED419008F106F /* WindowToolbarStylePresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowToolbarStylePresenterView.swift; sourceTree = "<group>"; };
 		4F8D7B032C38519A009FB46E /* FullScreenVideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenVideoPlayerView.swift; sourceTree = "<group>"; };
 		4F8D7B062C385581009FB46E /* CameraCaptureEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCaptureEventView.swift; sourceTree = "<group>"; };
+		4FA4EA4A2C451615005CD097 /* FocusedTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusedTextFieldView.swift; sourceTree = "<group>"; };
+		4FA4EA4D2C4518A9005CD097 /* FocusedScenePresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusedScenePresenterView.swift; sourceTree = "<group>"; };
+		4FA4EA502C4521D3005CD097 /* FocusedTVMacView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusedTVMacView.swift; sourceTree = "<group>"; };
 		4FAA177A2C3572B400188F35 /* UpperLimbWindowPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpperLimbWindowPresenterView.swift; sourceTree = "<group>"; };
 		4FAA177C2C3572FF00188F35 /* UpperLimbSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpperLimbSpace.swift; sourceTree = "<group>"; };
 		4FAA177F2C35760E00188F35 /* MyDocumentLaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDocumentLaunchView.swift; sourceTree = "<group>"; };
@@ -182,6 +188,9 @@
 				4F246BC82C3E9DFE00244583 /* LargeContent */,
 				4F7C4ABF2C3ED408008F106F /* WindowToolbarStylePresenter */,
 				4FD8FBE22C403E4D009B0B70 /* Searchable */,
+				4FA4EA492C451601005CD097 /* FocusedTextField */,
+				4FA4EA4C2C451893005CD097 /* FocusedScene */,
+				4FA4EA4F2C4521C7005CD097 /* FocusedTVMac */,
 				4F1C71032C2F15CE002E096A /* Assets.xcassets */,
 				4F1C71052C2F15CE002E096A /* Preview Content */,
 			);
@@ -388,6 +397,30 @@
 			path = CameraCaptureEvent;
 			sourceTree = "<group>";
 		};
+		4FA4EA492C451601005CD097 /* FocusedTextField */ = {
+			isa = PBXGroup;
+			children = (
+				4FA4EA4A2C451615005CD097 /* FocusedTextFieldView.swift */,
+			);
+			path = FocusedTextField;
+			sourceTree = "<group>";
+		};
+		4FA4EA4C2C451893005CD097 /* FocusedScene */ = {
+			isa = PBXGroup;
+			children = (
+				4FA4EA4D2C4518A9005CD097 /* FocusedScenePresenterView.swift */,
+			);
+			path = FocusedScene;
+			sourceTree = "<group>";
+		};
+		4FA4EA4F2C4521C7005CD097 /* FocusedTVMac */ = {
+			isa = PBXGroup;
+			children = (
+				4FA4EA502C4521D3005CD097 /* FocusedTVMacView.swift */,
+			);
+			path = FocusedTVMac;
+			sourceTree = "<group>";
+		};
 		4FAA17792C35729800188F35 /* UpperLimbWindowPresenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -589,6 +622,7 @@
 				4F7BC0F62C3C3C0A00419197 /* ConfirmationDialogPresenterView.swift in Sources */,
 				4FAA17802C35760E00188F35 /* MyDocumentLaunchView.swift in Sources */,
 				4F26D39C2C305E040097B837 /* WindowLevelView.swift in Sources */,
+				4FA4EA4E2C4518A9005CD097 /* FocusedScenePresenterView.swift in Sources */,
 				4F7BC0D42C3C048600419197 /* PresentationSizingView.swift in Sources */,
 				4F7BC0B52C39959300419197 /* MyTabPresenterView.swift in Sources */,
 				4F26D3A22C3131170097B837 /* BlendedWindowView.swift in Sources */,
@@ -611,11 +645,13 @@
 				4F26D2F22C2FEAD80097B837 /* WindowIdealSizeView.swift in Sources */,
 				4F1C71112C2F1658002E096A /* DemoListView.swift in Sources */,
 				4FAA177B2C3572B400188F35 /* UpperLimbWindowPresenterView.swift in Sources */,
+				4FA4EA4B2C451615005CD097 /* FocusedTextFieldView.swift in Sources */,
 				4FEC81002C328E6600AF4863 /* UtilityPresenterView.swift in Sources */,
 				4FF420032C34062A008BD2FC /* ProgressiveImmersionWindowPresenterView.swift in Sources */,
 				4F8D7B042C38519A009FB46E /* FullScreenVideoPlayerView.swift in Sources */,
 				4F26D3902C301FDC0097B837 /* RestorationBehaviorView.swift in Sources */,
 				4F26D3442C3005AC0097B837 /* DefaultWorldScalingView.swift in Sources */,
+				4FA4EA512C4521D3005CD097 /* FocusedTVMacView.swift in Sources */,
 				4F1C71002C2F15CD002E096A /* MiscellaneousSwiftUIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -767,11 +803,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.MiscellaneousSwiftUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2,3,7";
 			};
 			name = Debug;
 		};
@@ -800,11 +836,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.MiscellaneousSwiftUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2,3,7";
 			};
 			name = Release;
 		};

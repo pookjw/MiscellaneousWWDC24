@@ -13,7 +13,7 @@ struct DemoListView: View {
     
     var body: some View {
         NavigationStack(path: $paths) { 
-            List(Demo.allCases, id: \.self, selection: $selectedDemo) { demo in
+            List(Demo.allCases.reversed(), id: \.self, selection: $selectedDemo) { demo in
                 NavigationLink { 
                     demo.makeView()
                 } label: {

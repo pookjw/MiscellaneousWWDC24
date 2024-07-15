@@ -5,6 +5,8 @@
 //  Created by Jinwoo Kim on 7/6/24.
 //
 
+#if !os(tvOS)
+
 import SwiftUI
 
 struct RenameView: View {
@@ -36,3 +38,5 @@ struct RenameView: View {
 #Preview {
     RenameView()
 }
+
+#endif

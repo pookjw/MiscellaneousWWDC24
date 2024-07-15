@@ -5,6 +5,8 @@
 //  Created by Jinwoo Kim on 7/7/24.
 //
 
+#if !os(tvOS)
+
 import SwiftUI
 
 struct MyTabPresenterView: View {
@@ -170,3 +172,5 @@ fileprivate struct MyTabView: View {
 #Preview {
     MyTabPresenterView()
 }
+
+#endif

@@ -306,5 +306,9 @@ struct MiscellaneousSwiftUIApp: App {
 #if os(macOS)
         WindowToolbarStylePresenterView.Scene()
 #endif
+        
+#if !os(tvOS)
+        FocusedScenePresenterView.Scene()
+#endif
     }
 }

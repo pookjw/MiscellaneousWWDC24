@@ -26,9 +26,11 @@ enum Demo: Int, Identifiable, CaseIterable {
     case defaultLaunchBehavior
 #endif
     
+#if !os(tvOS)
     case windowManagerRole
     case restorationBehavior
     case persistentSystemOverlays
+#endif
     
 #if os(macOS)
     case windowLevel
@@ -46,7 +48,9 @@ enum Demo: Int, Identifiable, CaseIterable {
     case utilityPresenter
 #endif
     
+#if !os(tvOS)
     case toolbarPresenter
+#endif
     
 #if os(visionOS)
     case pushWindowPresenter
@@ -72,15 +76,20 @@ enum Demo: Int, Identifiable, CaseIterable {
     case cameraCaptureEvent
 #endif
     
+#if !os(tvOS)
     case rename
     case myTabPresenter
+#endif
     
 #if os(macOS)
     case myHSplit
     case myVSplit
 #endif
     
+#if !os(tvOS)
     case popoverPresenter
+#endif
+    
     case presentationSizing
     
 #if os(macOS)
@@ -88,7 +97,11 @@ enum Demo: Int, Identifiable, CaseIterable {
 #endif
     
     case confirmationDialogPresenter
+    
+#if !os(tvOS)
     case myToolbar
+#endif
+    
     case largeContent
     
 #if os(macOS)
@@ -96,6 +109,15 @@ enum Demo: Int, Identifiable, CaseIterable {
 #endif
     
     case searchable
+    case focusedTextField
+    
+#if !os(tvOS)
+    case focusedScenePresenter
+#endif
+    
+#if os(macOS) || os(tvOS)
+    case focusedTVMac
+#endif
     
     var id: Int {
         rawValue
@@ -127,13 +149,16 @@ enum Demo: Int, Identifiable, CaseIterable {
         case .defaultLaunchBehavior:
             DefaultLaunchBehaviorView()
 #endif
+        
             
+#if !os(tvOS)
         case .windowManagerRole:
             WindowManagerRoleView()
         case .restorationBehavior:
             RestorationBehaviorView()
         case .persistentSystemOverlays:
             PersistentSystemOverlaysView()
+#endif
             
 #if os(macOS)
         case .windowLevel:
@@ -158,8 +183,10 @@ enum Demo: Int, Identifiable, CaseIterable {
             UtilityPresenterView()
 #endif
             
+#if !os(tvOS)
         case .toolbarPresenter:
             ToolbarPresenterView()
+#endif
             
 #if os(visionOS)
         case .pushWindowPresenter:
@@ -194,10 +221,12 @@ enum Demo: Int, Identifiable, CaseIterable {
             CameraCaptureEventView()
 #endif
             
+#if !os(tvOS)
         case .rename:
             RenameView()
         case .myTabPresenter:
             MyTabPresenterView()
+#endif
             
 #if os(macOS)
         case .myHSplit:
@@ -205,8 +234,12 @@ enum Demo: Int, Identifiable, CaseIterable {
         case .myVSplit:
             MyVSplitView()
 #endif
+            
+#if !os(tvOS)
         case .popoverPresenter:
             PopoverPresenterView()
+#endif
+            
         case .presentationSizing:
             PresentationSizingView()
             
@@ -217,8 +250,12 @@ enum Demo: Int, Identifiable, CaseIterable {
             
         case .confirmationDialogPresenter:
             ConfirmationDialogPresenterView()
+            
+#if !os(tvOS)
         case .myToolbar:
             MyToolbarView()
+#endif
+            
         case .largeContent:
             LargeContentView()
             
@@ -229,6 +266,18 @@ enum Demo: Int, Identifiable, CaseIterable {
             
         case .searchable:
             SearchableView()
+        case .focusedTextField:
+            FocusedTextFieldView()
+            
+#if !os(tvOS)
+        case .focusedScenePresenter:
+            FocusedScenePresenterView()
+#endif
+            
+#if os(macOS) || os(tvOS)
+        case .focusedTVMac:
+            FocusedTVMacView()
+#endif
         }
     }
 }

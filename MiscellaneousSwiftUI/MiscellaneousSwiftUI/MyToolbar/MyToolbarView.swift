@@ -5,6 +5,8 @@
 //  Created by Jinwoo Kim on 7/9/24.
 //
 
+#if !os(tvOS)
+
 import SwiftUI
 
 struct MyToolbarView: View {
@@ -92,3 +94,5 @@ fileprivate struct MyView: UIViewControllerRepresentable {
 #Preview {
     MyToolbarView()
 }
+
+#endif

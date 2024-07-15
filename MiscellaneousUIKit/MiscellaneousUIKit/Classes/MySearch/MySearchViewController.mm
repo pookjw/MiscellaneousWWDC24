@@ -14,6 +14,8 @@
 
 // TODO: UISearchDisplayController도 알아보기
 
+// -[_UISearchSuggestionsListViewController initWithSearchController:]를 Swizzling해서 Custom Collection View Layout
+
 @interface MySearchResultsController : UIViewController <UISearchResultsUpdating>
 @end
 
@@ -53,7 +55,8 @@
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController selectingSearchSuggestion:(id<UISearchSuggestion>)searchSuggestion {
     UISearchToken *token = [UISearchToken tokenWithIcon:[UIImage systemImageNamed:@"cloud.rain.fill"] text:searchController.searchBar.text];
     
-    searchController.searchBar.searchTextField.tokens = @[token];
+//    searchController.searchBar.searchTextField.tokens = @[token];
+    [searchController.searchBar.searchTextField insertToken:token atIndex:0];
 }
 @end
 
@@ -256,7 +259,10 @@
     searchController.hidesNavigationBarDuringPresentation = NO;
     searchController.automaticallyShowsCancelButton = NO;
     searchController.searchBar.searchBarStyle = UISearchBarStyleProminent;
-    searchController.searchBar.showsBookmarkButton = YES;
+    searchController.searchBar.showsSearchResultsButton = YES;
+//    searchController.searchBar.showsBookmarkButton = YES;
+    searchController.searchBar.delegate = self;
+    
     searchController.automaticallyShowsSearchResultsController = NO;
 //    searchController.searchBar.barStyle = UIBarStyleBlack;
     
@@ -266,8 +272,15 @@
     searchController.scopeBarActivation = UISearchControllerScopeBarActivationOnSearchActivation;
     
     searchController.searchBar.searchTextField.tokenBackgroundColor = UIColor.systemPinkColor;
-    searchController.searchBar.searchTextField.allowsCopyingTokens = YES;
-    searchController.searchBar.searchTextField.allowsDeletingTokens = NO;
+    
+    // TODO
+    NSLog(@"%@", searchController.searchBar.searchTextField.tokenizer);
+    
+    
+    // 버그인듯? 복붙하면 이상해짐
+//    searchController.searchBar.searchTextField.allowsCopyingTokens = YES;
+    
+    searchController.searchBar.searchTextField.allowsDeletingTokens = YES;
     
     _searchController = [searchController retain];
     return [searchController autorelease];
@@ -299,7 +312,7 @@
 }
 
 - (void)willPresentSearchController:(UISearchController *)searchController {
-    searchController.showsSearchResultsController = !searchController.showsSearchResultsController;
+//    searchController.showsSearchResultsController = !searchController.showsSearchResultsController;
 }
 
 - (void)searchController:(UISearchController *)searchController didChangeFromSearchBarPlacement:(UINavigationItemSearchBarPlacement)previousPlacement {
@@ -312,6 +325,30 @@
 
 - (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
     
+}
+
+- (void)searchBarResultsListButtonClicked:(UISearchBar *)searchBar {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Results!" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }]];
+    
+    alertController.popoverPresentationController.sourceView = searchBar.searchTextField.rightView;
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)searchBarBookmarkButtonClicked:(UISearchBar *)searchBar {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Bookmark!" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }]];
+    
+    alertController.popoverPresentationController.sourceView = searchBar.searchTextField.rightView;
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 @end

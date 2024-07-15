@@ -9,8 +9,6 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 
-// validateVisibleItems이 뭔지 보기
-
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
 @interface ChangeToolbarStyleViewController () <NSToolbarDelegate>

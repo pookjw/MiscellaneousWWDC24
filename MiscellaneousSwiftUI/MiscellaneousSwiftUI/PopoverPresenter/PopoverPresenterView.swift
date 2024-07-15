@@ -5,6 +5,8 @@
 //  Created by Jinwoo Kim on 7/8/24.
 //
 
+#if !os(tvOS)
+
 import SwiftUI
 import ObjectiveC
 
@@ -149,3 +151,5 @@ fileprivate struct PopoverModifierView: NSViewRepresentable {
 #Preview {
     PopoverPresenterView()
 }
+
+#endif

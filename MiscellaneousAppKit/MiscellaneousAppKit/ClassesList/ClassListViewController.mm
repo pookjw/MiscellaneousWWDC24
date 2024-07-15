@@ -19,6 +19,7 @@
 #import "AlertStyleViewController.h"
 #import "HUDWindowPresenterViewController.h"
 #import "ChangeToolbarStyleViewController.h"
+#import "SearchToolbarItemViewController.h"
 
 APPKIT_EXTERN NSString * const NSTableViewCurrentRowSelectionUserInfoKey;
 APPKIT_EXTERN NSString * const NSTableViewPreviousRowSelectionUserInfoKey;
@@ -87,16 +88,17 @@ APPKIT_EXTERN NSString * const NSTableViewPreviousRowSelectionUserInfoKey;
 
 - (NSArray<Class> *)classes {
     return @[
-        ToolbarViewController.class,
-        TextViewController.class,
-        RulerViewController.class,
-        PopUpButtonsViewController.class,
-        CursorViewController.class,
-        StagedWindowViewController.class,
-        WindowMovableViewController.class,
-        AlertStyleViewController.class,
+        SearchToolbarItemViewController.class,
+        ChangeToolbarStyleViewController.class,
         HUDWindowPresenterViewController.class,
-        ChangeToolbarStyleViewController.class
+        AlertStyleViewController.class,
+        WindowMovableViewController.class,
+        StagedWindowViewController.class,
+        CursorViewController.class,
+        PopUpButtonsViewController.class,
+        RulerViewController.class,
+        TextViewController.class,
+        ToolbarViewController.class
     ];
 }
 

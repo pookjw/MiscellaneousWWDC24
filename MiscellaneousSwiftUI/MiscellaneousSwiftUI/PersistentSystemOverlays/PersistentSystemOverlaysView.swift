@@ -5,6 +5,8 @@
 //  Created by Jinwoo Kim on 6/29/24.
 //
 
+#if !os(tvOS)
+
 import SwiftUI
 
 struct PersistentSystemOverlaysView: View {
@@ -20,3 +22,5 @@ struct PersistentSystemOverlaysView: View {
 #Preview {
     PersistentSystemOverlaysView()
 }
+
+#endif

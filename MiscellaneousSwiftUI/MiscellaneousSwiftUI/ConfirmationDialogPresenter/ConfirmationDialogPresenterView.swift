@@ -14,6 +14,12 @@ struct ConfirmationDialogPresenterView: View {
         Button("Present") {
             isPresnted = true
         }
+//        .alert("Test", isPresented: $isPresnted, actions: { 
+//            
+//        }) { 
+//            Text("Message!")
+//        }
+        // Regular Size Class에서 UIAlertController.Style.actionSheet로 뜸
         .confirmationDialog("Test", isPresented: $isPresnted, titleVisibility: .visible) {
             Button("Done?") {
                 
