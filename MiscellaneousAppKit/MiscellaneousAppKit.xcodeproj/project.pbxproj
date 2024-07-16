@@ -31,6 +31,7 @@
 		4F46D0152C286262005AC6AF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F46D0142C286262005AC6AF /* Cocoa.framework */; };
 		4F46D0172C286267005AC6AF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F46D0162C286267005AC6AF /* QuartzCore.framework */; };
 		4F46D01B2C2870AE005AC6AF /* ToolbarViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46D01A2C2870AE005AC6AF /* ToolbarViewController.mm */; };
+		4F4DB63E2C46BE1600B628B9 /* ValidateToolbarViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4DB63D2C46BE1600B628B9 /* ValidateToolbarViewController.mm */; };
 		4F5EB68F2C297E120019E2D5 /* image.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4F5EB68E2C297E120019E2D5 /* image.heic */; };
 		4F5EB6932C29D4480019E2D5 /* RulerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5EB6922C29D4480019E2D5 /* RulerViewController.mm */; };
 		4F5EEEEF2C29B866001E345D /* adaptiveImageGlyph.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4F5EEEEE2C29B866001E345D /* adaptiveImageGlyph.plist */; };
@@ -89,6 +90,8 @@
 		4F46D0162C286267005AC6AF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4F46D0192C2870AE005AC6AF /* ToolbarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolbarViewController.h; sourceTree = "<group>"; };
 		4F46D01A2C2870AE005AC6AF /* ToolbarViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ToolbarViewController.mm; sourceTree = "<group>"; };
+		4F4DB63C2C46BE1600B628B9 /* ValidateToolbarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ValidateToolbarViewController.h; sourceTree = "<group>"; };
+		4F4DB63D2C46BE1600B628B9 /* ValidateToolbarViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ValidateToolbarViewController.mm; sourceTree = "<group>"; };
 		4F5EB68E2C297E120019E2D5 /* image.heic */ = {isa = PBXFileReference; lastKnownFileType = file; path = image.heic; sourceTree = "<group>"; };
 		4F5EB6912C29D4480019E2D5 /* RulerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RulerViewController.h; sourceTree = "<group>"; };
 		4F5EB6922C29D4480019E2D5 /* RulerViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RulerViewController.mm; sourceTree = "<group>"; };
@@ -217,6 +220,7 @@
 				4FEC81392C32900700AF4863 /* HUDWindowPresenter */,
 				4FD8FBC82C3FE2EF009B0B70 /* ChangeToolbarStyle */,
 				4FC2EDA52C457AA900BEFEAB /* SearchToolbarItem */,
+				4F4DB63B2C46BE0000B628B9 /* ValidateToolbar */,
 				4F46CFE32C28308F005AC6AF /* Assets.xcassets */,
 				4F46CFE82C28308F005AC6AF /* main.m */,
 				4F46CFEA2C28308F005AC6AF /* MiscellaneousAppKit.entitlements */,
@@ -278,6 +282,15 @@
 				4F46D01A2C2870AE005AC6AF /* ToolbarViewController.mm */,
 			);
 			path = Toolbar;
+			sourceTree = "<group>";
+		};
+		4F4DB63B2C46BE0000B628B9 /* ValidateToolbar */ = {
+			isa = PBXGroup;
+			children = (
+				4F4DB63C2C46BE1600B628B9 /* ValidateToolbarViewController.h */,
+				4F4DB63D2C46BE1600B628B9 /* ValidateToolbarViewController.mm */,
+			);
+			path = ValidateToolbar;
 			sourceTree = "<group>";
 		};
 		4F5EB6902C29D42C0019E2D5 /* Ruler */ = {
@@ -426,6 +439,7 @@
 				4FC2EDA82C457ACF00BEFEAB /* SearchToolbarItemViewController.mm in Sources */,
 				4F46D0042C2856E7005AC6AF /* ClassesListTableView.m in Sources */,
 				4F46CFF32C28332B005AC6AF /* RootWindowController.mm in Sources */,
+				4F4DB63E2C46BE1600B628B9 /* ValidateToolbarViewController.mm in Sources */,
 				4F46D0012C28549A005AC6AF /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4F9E0F3E2C2BB1CD00EF098D /* CustomRulerMarker.mm in Sources */,
 				4F46D01B2C2870AE005AC6AF /* ToolbarViewController.mm in Sources */,

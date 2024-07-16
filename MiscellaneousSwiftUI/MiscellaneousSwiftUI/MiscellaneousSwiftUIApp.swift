@@ -169,20 +169,7 @@ struct MiscellaneousSwiftUIApp: App {
         }
         .windowLevel(windowLevel)
         
-        Window("Test", id: "BlendedWindow") {
-            HStack {
-                Color.clear
-                    .frame(width: 100.0)
-                
-                Color.orange
-                    .opacity(0.5)
-                    .gesture(WindowDragGesture()) // https://x.com/_silgen_name/status/1807406184984682794
-            }
-            .ignoresSafeArea()
-            .toolbar(removing: .title)
-            .toolbarBackgroundVisibility(.hidden, for: .windowToolbar)
-            .containerBackground(.thickMaterial, for: .window)
-        }
+        BlendedWindowView.Scene()
         
         Window("", id: "AlertScenePresenter") {
             Button("Show Alert") {

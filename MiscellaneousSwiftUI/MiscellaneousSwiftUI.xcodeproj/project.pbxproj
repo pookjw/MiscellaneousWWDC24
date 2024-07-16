@@ -28,6 +28,7 @@
 		4F26D3D72C31B8890097B837 /* AlertSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3D62C31B8890097B837 /* AlertSceneView.swift */; };
 		4F26D3DE2C31C0650097B837 /* WindowBackgroundDragBehaviorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3DD2C31C0650097B837 /* WindowBackgroundDragBehaviorView.swift */; };
 		4F26D3E12C31C1420097B837 /* VolumeViewpointChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3E02C31C1420097B837 /* VolumeViewpointChangeView.swift */; };
+		4F4DB6412C46C7C800B628B9 /* SceneStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4DB6402C46C7C800B628B9 /* SceneStateView.swift */; };
 		4F7BC03F2C397F0000419197 /* RenameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC03E2C397F0000419197 /* RenameView.swift */; };
 		4F7BC0B52C39959300419197 /* MyTabPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC0B42C39959300419197 /* MyTabPresenterView.swift */; };
 		4F7BC0D42C3C048600419197 /* PresentationSizingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC0D32C3C048600419197 /* PresentationSizingView.swift */; };
@@ -83,6 +84,7 @@
 		4F26D3D62C31B8890097B837 /* AlertSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSceneView.swift; sourceTree = "<group>"; };
 		4F26D3DD2C31C0650097B837 /* WindowBackgroundDragBehaviorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowBackgroundDragBehaviorView.swift; sourceTree = "<group>"; };
 		4F26D3E02C31C1420097B837 /* VolumeViewpointChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeViewpointChangeView.swift; sourceTree = "<group>"; };
+		4F4DB6402C46C7C800B628B9 /* SceneStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneStateView.swift; sourceTree = "<group>"; };
 		4F7BC03E2C397F0000419197 /* RenameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameView.swift; sourceTree = "<group>"; };
 		4F7BC0B42C39959300419197 /* MyTabPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTabPresenterView.swift; sourceTree = "<group>"; };
 		4F7BC0D32C3C048600419197 /* PresentationSizingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationSizingView.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				4FA4EA492C451601005CD097 /* FocusedTextField */,
 				4FA4EA4C2C451893005CD097 /* FocusedScene */,
 				4FA4EA4F2C4521C7005CD097 /* FocusedTVMac */,
+				4F4DB63F2C46C7A800B628B9 /* SceneState */,
 				4F1C71032C2F15CE002E096A /* Assets.xcassets */,
 				4F1C71052C2F15CE002E096A /* Preview Content */,
 			);
@@ -323,6 +326,14 @@
 				4F26D3E02C31C1420097B837 /* VolumeViewpointChangeView.swift */,
 			);
 			path = VolumeViewpointChange;
+			sourceTree = "<group>";
+		};
+		4F4DB63F2C46C7A800B628B9 /* SceneState */ = {
+			isa = PBXGroup;
+			children = (
+				4F4DB6402C46C7C800B628B9 /* SceneStateView.swift */,
+			);
+			path = SceneState;
 			sourceTree = "<group>";
 		};
 		4F7BC03D2C397E8700419197 /* Rename */ = {
@@ -615,6 +626,7 @@
 				4FAA44012C3B8657003A2363 /* PopoverPresenterView.swift in Sources */,
 				4FDC2E5E2C3666B900768E12 /* ImmersiveEnvironmentPickerView.swift in Sources */,
 				4F26D34E2C300B380097B837 /* DefaultLaunchBehaviorView.swift in Sources */,
+				4F4DB6412C46C7C800B628B9 /* SceneStateView.swift in Sources */,
 				4F26D3932C30206A0097B837 /* PersistentSystemOverlaysView.swift in Sources */,
 				4FEC81632C329F9C00AF4863 /* WindowButtonsBehaviorPresenterView.swift in Sources */,
 				4FF420062C340724008BD2FC /* ProgressiveImmersionSpace.swift in Sources */,

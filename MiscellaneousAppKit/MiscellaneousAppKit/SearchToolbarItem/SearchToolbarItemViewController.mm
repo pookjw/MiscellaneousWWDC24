@@ -9,9 +9,6 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 
-// validateVisibleItems이 뭔지 보기
-// NSControlTextEditingDelegate 써보기 https://t.co/RuWGIkIlWl
-
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
 @interface SearchToolbarItemViewController () <NSToolbarDelegate, NSSearchFieldDelegate, NSMenuDelegate>
@@ -260,17 +257,22 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 }
 
 - (NSArray<NSString *> *)control:(NSControl *)control textView:(NSTextView *)textView completions:(NSArray<NSString *> *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index {
-    NSArray<NSString *> *recentSearches = self.searchToolbarItem.searchField.recentSearches;
+    NSArray<NSString *> *keywords = @[@"apple", @"banana", @"cherry", @"date", @"elderberry", @"fig", @"grape", @"honeydew", @"kiwi", @"lemon"];
     
     NSMutableArray<NSString *> *matches = [NSMutableArray new];
+    NSString *partialString = [textView.string substringWithRange:charRange];
     
     /*
      NSAnchoredSearch = 시작 부분만 검색
      */
     NSUInteger rangeOptions = NSAnchoredSearch | NSCaseInsensitiveSearch;
     
-    for (NSString *reentSearch in recentSearches) {
+    for (NSString *keyword in keywords) {
+        NSRange foundRange = [keyword rangeOfString:partialString options:rangeOptions range:NSMakeRange(0, keyword.length)];
         
+        if (foundRange.location != NSNotFound) {
+            [matches addObject:keyword];
+        }
     }
     
     return [matches autorelease];
@@ -304,7 +306,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 #pragma mark - NSMenuDelegate
 
 - (NSInteger)numberOfItemsInMenu:(NSMenu *)menu {
-    NSLog(@"%ld", self.searchToolbarItem.searchField.recentSearches.count);
     return self.searchToolbarItem.searchField.recentSearches.count;
 }
 
@@ -320,6 +321,5 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 - (void)didTriggerRecentsMenuItem:(NSMenuItem *)sender {
     NSLog(@"%@", sender.title);
 }
-
 
 @end

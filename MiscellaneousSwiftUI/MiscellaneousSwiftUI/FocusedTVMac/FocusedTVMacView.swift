@@ -11,9 +11,6 @@
 
 import SwiftUI
 
-// TODO: onMoveCommand (tvOS)
-// TODO: macOS에서 Search Bar 써보기 + Token이 있는지
-
 struct FocusedTVMacView: View {
     enum FocusedField {
         case firstName, lastName

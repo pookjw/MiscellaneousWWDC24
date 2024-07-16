@@ -119,6 +119,8 @@ enum Demo: Int, Identifiable, CaseIterable {
     case focusedTVMac
 #endif
     
+    case sceneState
+    
     var id: Int {
         rawValue
     }
@@ -149,7 +151,7 @@ enum Demo: Int, Identifiable, CaseIterable {
         case .defaultLaunchBehavior:
             DefaultLaunchBehaviorView()
 #endif
-        
+            
             
 #if !os(tvOS)
         case .windowManagerRole:
@@ -278,6 +280,9 @@ enum Demo: Int, Identifiable, CaseIterable {
         case .focusedTVMac:
             FocusedTVMacView()
 #endif
+            
+        case .sceneState:
+            SceneStateView()
         }
     }
 }
