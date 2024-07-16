@@ -22,6 +22,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 @property (retain, readonly, nonatomic) NSButton *toggleSearchInteractionButton;
 @property (retain, readonly, nonatomic) NSButton *logRecentSearchesButton;
 @property (retain, readonly, nonatomic) NSButton *clearRecentSearchesButton;
+@property (nonatomic) BOOL completePosting;
+@property (nonatomic) BOOL commandHandling;
 @end
 
 @implementation SearchToolbarItemViewController
@@ -216,6 +218,74 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 - (void)searchFieldDidEndSearching:(NSSearchField *)sender {
     NSLog(@"%s", __func__);
+}
+
+- (void)controlTextDidChange:(NSNotification *)obj {
+    NSTextView *textView = obj.userInfo[@"NSFieldEditor"];
+    BOOL shouldComplete;
+    
+    if (_commandHandling) {
+        shouldComplete = NO;
+    } else {
+        // NSTextViewCompletionController
+        id completionController = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("NSTextViewCompletionController"), sel_registerName("sharedController"));
+        
+        // NSTextViewCompletionTableView
+        __kindof NSTableView *tableView;
+        object_getInstanceVariable(completionController, "_tableView", reinterpret_cast<void **>(&tableView));
+        
+        if (tableView == nil) {
+            shouldComplete = YES;
+        } else {
+            NSInteger selectedRow = tableView.selectedRow;
+            
+            if (selectedRow == -1 || selectedRow == NSNotFound) {
+                shouldComplete = YES;
+            } else {
+                shouldComplete = NO;
+            }
+        }
+    }
+    
+    if (shouldComplete) {
+        [textView complete:nil];
+    }
+    
+    // complete -> completion list뜸 -> 자동으로 첫번째꺼가 선택됨 -> 글자가 바뀜 -> completion -> 반복되는 현상 방지
+//    if (!self.completePosting && !self.commandHandling) {
+//        _completePosting = YES;
+//        [textView complete:nil];
+//        _completePosting = NO;
+//    }
+}
+
+- (NSArray<NSString *> *)control:(NSControl *)control textView:(NSTextView *)textView completions:(NSArray<NSString *> *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index {
+    NSArray<NSString *> *recentSearches = self.searchToolbarItem.searchField.recentSearches;
+    
+    NSMutableArray<NSString *> *matches = [NSMutableArray new];
+    
+    /*
+     NSAnchoredSearch = 시작 부분만 검색
+     */
+    NSUInteger rangeOptions = NSAnchoredSearch | NSCaseInsensitiveSearch;
+    
+    for (NSString *reentSearch in recentSearches) {
+        
+    }
+    
+    return [matches autorelease];
+}
+
+// 삭제가 될 때는 Completion Menu를 띄우면 안 되므로, 삭제될 때를 감지해서 _commandHandling 값을 바꿔줌
+- (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector {
+    if ([textView respondsToSelector:commandSelector]) {
+        _commandHandling = YES;
+        reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(textView, commandSelector);
+        _commandHandling = NO;
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 - (NSArray *)textField:(NSTextField *)textField textView:(NSTextView *)textView candidatesForSelectedRange:(NSRange)selectedRange {
