@@ -22,6 +22,8 @@
 		4F26D3482C3008170097B837 /* DefaultWorldScalingViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3472C3008170097B837 /* DefaultWorldScalingViewController.mm */; };
 		4F26D34B2C30086F0097B837 /* DefaultWorldScalingSceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D34A2C30086F0097B837 /* DefaultWorldScalingSceneDelegate.m */; };
 		4F26D3992C305B9F0097B837 /* HomeIndicatorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3982C305B9F0097B837 /* HomeIndicatorViewController.mm */; };
+		4F7902322C53AFA500A3E913 /* VolumeBaseplateVisibilityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7902312C53AFA500A3E913 /* VolumeBaseplateVisibilityViewController.mm */; };
+		4F7902352C53B02000A3E913 /* VolumeBaseplateVisibilitySceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7902342C53B02000A3E913 /* VolumeBaseplateVisibilitySceneDelegate.mm */; };
 		4FAA17752C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17742C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.mm */; };
 		4FAA17782C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17772C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.mm */; };
 		4FAA17842C357A1700188F35 /* UpperLimbsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17832C357A1700188F35 /* UpperLimbsViewController.mm */; };
@@ -60,6 +62,10 @@
 		4F26D34A2C30086F0097B837 /* DefaultWorldScalingSceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DefaultWorldScalingSceneDelegate.m; sourceTree = "<group>"; };
 		4F26D3972C305B9F0097B837 /* HomeIndicatorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeIndicatorViewController.h; sourceTree = "<group>"; };
 		4F26D3982C305B9F0097B837 /* HomeIndicatorViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = HomeIndicatorViewController.mm; sourceTree = "<group>"; };
+		4F7902302C53AFA500A3E913 /* VolumeBaseplateVisibilityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VolumeBaseplateVisibilityViewController.h; sourceTree = "<group>"; };
+		4F7902312C53AFA500A3E913 /* VolumeBaseplateVisibilityViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VolumeBaseplateVisibilityViewController.mm; sourceTree = "<group>"; };
+		4F7902332C53B02000A3E913 /* VolumeBaseplateVisibilitySceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VolumeBaseplateVisibilitySceneDelegate.h; sourceTree = "<group>"; };
+		4F7902342C53B02000A3E913 /* VolumeBaseplateVisibilitySceneDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VolumeBaseplateVisibilitySceneDelegate.mm; sourceTree = "<group>"; };
 		4FAA17732C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImmersiveSceneClientSettingsViewController.h; sourceTree = "<group>"; };
 		4FAA17742C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ImmersiveSceneClientSettingsViewController.mm; sourceTree = "<group>"; };
 		4FAA17762C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImmersiveSceneClientSettingsWindowScene.h; sourceTree = "<group>"; };
@@ -119,6 +125,7 @@
 				4FD5EF452C33139000CCCFA6 /* WorldTrackingCapabilities */,
 				4FAA17722C353B4500188F35 /* ImmersiveSceneClientSettings */,
 				4FAA17812C3579F000188F35 /* UpperLimbs */,
+				4F79022F2C53AEF900A3E913 /* VolumeBaseplateVisibility */,
 				4F1C712C2C2F2443002E096A /* Assets.xcassets */,
 				4F1C71312C2F2443002E096A /* Info.plist */,
 				4F1C71322C2F2443002E096A /* main.m */,
@@ -185,6 +192,17 @@
 				4F26D3982C305B9F0097B837 /* HomeIndicatorViewController.mm */,
 			);
 			path = HomeIndicator;
+			sourceTree = "<group>";
+		};
+		4F79022F2C53AEF900A3E913 /* VolumeBaseplateVisibility */ = {
+			isa = PBXGroup;
+			children = (
+				4F7902302C53AFA500A3E913 /* VolumeBaseplateVisibilityViewController.h */,
+				4F7902312C53AFA500A3E913 /* VolumeBaseplateVisibilityViewController.mm */,
+				4F7902332C53B02000A3E913 /* VolumeBaseplateVisibilitySceneDelegate.h */,
+				4F7902342C53B02000A3E913 /* VolumeBaseplateVisibilitySceneDelegate.mm */,
+			);
+			path = VolumeBaseplateVisibility;
 			sourceTree = "<group>";
 		};
 		4FAA17722C353B4500188F35 /* ImmersiveSceneClientSettings */ = {
@@ -291,9 +309,11 @@
 				4F1C713C2C31CB3C002E096A /* ViewpointAzimuthViewController.mm in Sources */,
 				4F26D3992C305B9F0097B837 /* HomeIndicatorViewController.mm in Sources */,
 				4F26D33A2C2FF9040097B837 /* LaunchPlacementParametersWindowScene.mm in Sources */,
+				4F7902322C53AFA500A3E913 /* VolumeBaseplateVisibilityViewController.mm in Sources */,
 				4FAA17872C357B3400188F35 /* UpperLimbsWindowScene.mm in Sources */,
 				4F26D2EB2C2FDBFC0097B837 /* ClassListViewController.mm in Sources */,
 				4F1C713F2C31CB9D002E096A /* ViewpointAzimuthWindowScene.m in Sources */,
+				4F7902352C53B02000A3E913 /* VolumeBaseplateVisibilitySceneDelegate.mm in Sources */,
 				4F26D34B2C30086F0097B837 /* DefaultWorldScalingSceneDelegate.m in Sources */,
 				4F26D2EF2C2FDDED0097B837 /* LaunchPlacementParametersViewController.mm in Sources */,
 				4FAA17782C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.mm in Sources */,

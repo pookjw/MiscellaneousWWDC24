@@ -13,6 +13,7 @@
 #import "ViewpointAzimuthWindowScene.h"
 #import "ImmersiveSceneClientSettingsWindowScene.h"
 #import "UpperLimbsWindowScene.h"
+#import "VolumeBaseplateVisibilitySceneDelegate.h"
 
 @interface AppDelegate ()
 @end
@@ -41,6 +42,8 @@
         configuration.delegateClass = ImmersiveSceneClientSettingsWindowScene.class;
     } else if ([activityType isEqualToString:@"UpperLimbs"]) {
         configuration.delegateClass = UpperLimbsWindowScene.class;
+    } else if ([activityType isEqualToString:@"VolumeBaseplateVisibility"]) {
+        configuration.delegateClass = VolumeBaseplateVisibilitySceneDelegate.class;
     } else {
         configuration.delegateClass = SceneDelegate.class;
     }
