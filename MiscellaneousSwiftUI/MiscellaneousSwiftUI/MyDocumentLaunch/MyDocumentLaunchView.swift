@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 7/3/24.
 //
 
-#if os(iOS) || os(visionOS)
+#if os(iOS)
 
 // https://x.com/_silgen_name/status/1809548907548143771
 // DocumentGroupLaunchScene은 UIKit 처럼 Info.plist의 설정을 따름. 그래서 for contentTypes: [UTType] 및 onDocumentOpen이 존재하지 않음

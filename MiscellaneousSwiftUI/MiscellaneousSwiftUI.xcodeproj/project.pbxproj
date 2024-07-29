@@ -47,6 +47,7 @@
 		4FAA43FB2C3B8084003A2363 /* MyHSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA43FA2C3B8084003A2363 /* MyHSplitView.swift */; };
 		4FAA43FE2C3B80B1003A2363 /* MyVSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA43FD2C3B80B1003A2363 /* MyVSplitView.swift */; };
 		4FAA44012C3B8657003A2363 /* PopoverPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA44002C3B8657003A2363 /* PopoverPresenterView.swift */; };
+		4FD14B2B2C57DC5B00F132BF /* WorldTrackingLimitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD14B2A2C57DC5B00F132BF /* WorldTrackingLimitationView.swift */; };
 		4FD8FBE42C403E68009B0B70 /* SearchableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD8FBE32C403E68009B0B70 /* SearchableView.swift */; };
 		4FDC2E5E2C3666B900768E12 /* ImmersiveEnvironmentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FDC2E5D2C3666B900768E12 /* ImmersiveEnvironmentPickerView.swift */; };
 		4FDC2E602C3668D700768E12 /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 4FDC2E5F2C3668D700768E12 /* video.mp4 */; };
@@ -103,6 +104,7 @@
 		4FAA43FA2C3B8084003A2363 /* MyHSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHSplitView.swift; sourceTree = "<group>"; };
 		4FAA43FD2C3B80B1003A2363 /* MyVSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVSplitView.swift; sourceTree = "<group>"; };
 		4FAA44002C3B8657003A2363 /* PopoverPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverPresenterView.swift; sourceTree = "<group>"; };
+		4FD14B2A2C57DC5B00F132BF /* WorldTrackingLimitationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldTrackingLimitationView.swift; sourceTree = "<group>"; };
 		4FD8FBE32C403E68009B0B70 /* SearchableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableView.swift; sourceTree = "<group>"; };
 		4FDC2E5D2C3666B900768E12 /* ImmersiveEnvironmentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmersiveEnvironmentPickerView.swift; sourceTree = "<group>"; };
 		4FDC2E5F2C3668D700768E12 /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				4FA4EA4C2C451893005CD097 /* FocusedScene */,
 				4FA4EA4F2C4521C7005CD097 /* FocusedTVMac */,
 				4F4DB63F2C46C7A800B628B9 /* SceneState */,
+				4FD14B292C57DC3000F132BF /* WorldTrackingLimitation */,
 				4F1C71032C2F15CE002E096A /* Assets.xcassets */,
 				4F1C71052C2F15CE002E096A /* Preview Content */,
 			);
@@ -473,6 +476,14 @@
 			path = PopoverPresenter;
 			sourceTree = "<group>";
 		};
+		4FD14B292C57DC3000F132BF /* WorldTrackingLimitation */ = {
+			isa = PBXGroup;
+			children = (
+				4FD14B2A2C57DC5B00F132BF /* WorldTrackingLimitationView.swift */,
+			);
+			path = WorldTrackingLimitation;
+			sourceTree = "<group>";
+		};
 		4FD8FBE22C403E4D009B0B70 /* Searchable */ = {
 			isa = PBXGroup;
 			children = (
@@ -618,6 +629,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FAA43FE2C3B80B1003A2363 /* MyVSplitView.swift in Sources */,
+				4FD14B2B2C57DC5B00F132BF /* WorldTrackingLimitationView.swift in Sources */,
 				4F26D3D72C31B8890097B837 /* AlertSceneView.swift in Sources */,
 				4F1C710F2C2F1640002E096A /* DefaultWindowPlacementView.swift in Sources */,
 				4FEC813F2C32932C00AF4863 /* ToolbarPresenterView.swift in Sources */,

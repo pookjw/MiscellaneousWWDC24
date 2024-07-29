@@ -68,7 +68,7 @@ enum Demo: Int, Identifiable, CaseIterable {
     case fullScreenVideoPlayer
 #endif
     
-#if os(iOS) || os(visionOS)
+#if os(iOS)
     case myDocumentLaunch
 #endif
     
@@ -120,6 +120,10 @@ enum Demo: Int, Identifiable, CaseIterable {
 #endif
     
     case sceneState
+    
+#if os(visionOS)
+    case worldTrackingLimitation
+#endif
     
     var id: Int {
         rawValue
@@ -213,7 +217,7 @@ enum Demo: Int, Identifiable, CaseIterable {
             FullScreenVideoPlayerView()
 #endif
             
-#if os(iOS) || os(visionOS)
+#if os(iOS)
         case .myDocumentLaunch:
             MyDocumentLaunchView()
 #endif
@@ -283,6 +287,11 @@ enum Demo: Int, Identifiable, CaseIterable {
             
         case .sceneState:
             SceneStateView()
+            
+#if os(visionOS)
+        case .worldTrackingLimitation:
+            WorldTrackingLimitationView()
+#endif
         }
     }
 }
