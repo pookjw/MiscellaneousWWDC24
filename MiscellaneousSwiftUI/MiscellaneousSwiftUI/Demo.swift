@@ -125,6 +125,13 @@ enum Demo: Int, Identifiable, CaseIterable {
     case worldTrackingLimitation
 #endif
     
+    case privacy
+    case labelsHidden
+    
+#if os(macOS)
+    case textInputCompletion
+#endif
+    
     var id: Int {
         rawValue
     }
@@ -292,6 +299,13 @@ enum Demo: Int, Identifiable, CaseIterable {
         case .worldTrackingLimitation:
             WorldTrackingLimitationView()
 #endif
+            
+        case .privacy:
+            PrivacyView()
+        case .labelsHidden:
+            LabelsHiddenView()
+        case .textInputCompletion:
+            TextInputCompletionView()
         }
     }
 }

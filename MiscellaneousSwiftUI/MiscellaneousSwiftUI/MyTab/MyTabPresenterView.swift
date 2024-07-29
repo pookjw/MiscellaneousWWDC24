@@ -34,7 +34,8 @@ struct MyTabPresenterView: View {
 fileprivate struct MyTabView: View {
     @Environment(\.dismiss) private var dismiss: DismissAction
 #if !os(macOS)
-    @AppStorage("MyTabViewCustomizatiion") private var customization: TabViewCustomization
+    @AppStorage("MyTabViewCustomizatiion", store: .standard) private var customization: TabViewCustomization
+//    @SceneStorage("MyTabViewCustomizatiion", store: .standard) private var customization: TabViewCustomization
 #endif
     @State private var isShowingPopover = false
     @State private var selectedValue: Int = .zero
