@@ -28,6 +28,7 @@
 		4F26D3D72C31B8890097B837 /* AlertSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3D62C31B8890097B837 /* AlertSceneView.swift */; };
 		4F26D3DE2C31C0650097B837 /* WindowBackgroundDragBehaviorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3DD2C31C0650097B837 /* WindowBackgroundDragBehaviorView.swift */; };
 		4F26D3E12C31C1420097B837 /* VolumeViewpointChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3E02C31C1420097B837 /* VolumeViewpointChangeView.swift */; };
+		4F3AFC9D2C57F07000F810CF /* PointerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3AFC9C2C57F07000F810CF /* PointerView.swift */; };
 		4F4DB6412C46C7C800B628B9 /* SceneStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4DB6402C46C7C800B628B9 /* SceneStateView.swift */; };
 		4F7BC03F2C397F0000419197 /* RenameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC03E2C397F0000419197 /* RenameView.swift */; };
 		4F7BC0B52C39959300419197 /* MyTabPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC0B42C39959300419197 /* MyTabPresenterView.swift */; };
@@ -88,6 +89,7 @@
 		4F26D3D62C31B8890097B837 /* AlertSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSceneView.swift; sourceTree = "<group>"; };
 		4F26D3DD2C31C0650097B837 /* WindowBackgroundDragBehaviorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowBackgroundDragBehaviorView.swift; sourceTree = "<group>"; };
 		4F26D3E02C31C1420097B837 /* VolumeViewpointChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeViewpointChangeView.swift; sourceTree = "<group>"; };
+		4F3AFC9C2C57F07000F810CF /* PointerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerView.swift; sourceTree = "<group>"; };
 		4F4DB6402C46C7C800B628B9 /* SceneStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneStateView.swift; sourceTree = "<group>"; };
 		4F7BC03E2C397F0000419197 /* RenameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameView.swift; sourceTree = "<group>"; };
 		4F7BC0B42C39959300419197 /* MyTabPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTabPresenterView.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				4FD14B302C57E6D100F132BF /* Privacy */,
 				4FD14B482C57E94E00F132BF /* LabelsHidden */,
 				4FD14B4B2C57EA0D00F132BF /* TextInputCompletion */,
+				4F3AFC9B2C57F05D00F810CF /* Pointer */,
 				4F1C71032C2F15CE002E096A /* Assets.xcassets */,
 				4F1C71052C2F15CE002E096A /* Preview Content */,
 			);
@@ -338,6 +341,14 @@
 				4F26D3E02C31C1420097B837 /* VolumeViewpointChangeView.swift */,
 			);
 			path = VolumeViewpointChange;
+			sourceTree = "<group>";
+		};
+		4F3AFC9B2C57F05D00F810CF /* Pointer */ = {
+			isa = PBXGroup;
+			children = (
+				4F3AFC9C2C57F07000F810CF /* PointerView.swift */,
+			);
+			path = Pointer;
 			sourceTree = "<group>";
 		};
 		4F4DB63F2C46C7A800B628B9 /* SceneState */ = {
@@ -692,6 +703,7 @@
 				4FD14B4A2C57E95B00F132BF /* LabelsHiddenView.swift in Sources */,
 				4FD8FBE42C403E68009B0B70 /* SearchableView.swift in Sources */,
 				4F26D3512C300EB10097B837 /* WindowManagerRoleView.swift in Sources */,
+				4F3AFC9D2C57F07000F810CF /* PointerView.swift in Sources */,
 				4FD14B342C57E6F100F132BF /* PrivacyView.swift in Sources */,
 				4F7BC0F12C3C3AF800419197 /* DismissalConfirmationDialogPresenterView.swift in Sources */,
 				4F8D7B072C385581009FB46E /* CameraCaptureEventView.swift in Sources */,

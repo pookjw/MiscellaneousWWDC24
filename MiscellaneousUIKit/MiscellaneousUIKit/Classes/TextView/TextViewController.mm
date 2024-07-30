@@ -48,13 +48,7 @@
     UITextView *textView = [UITextView new];
     textView.allowsEditingTextAttributes = YES;
     textView.supportsAdaptiveImageGlyph = YES;
-    
-#if !TARGET_OS_VISION
-    // TODO: Writing Tools with iPad
-    textView.writingToolsBehavior = UIWritingToolsBehaviorComplete;
-//    textView.writingToolsAllowedInputOptions = UIWritingToolsAllowedInputOptionsTable;
     textView.delegate = self;
-#endif
     
     self.view = textView;
     [textView release];

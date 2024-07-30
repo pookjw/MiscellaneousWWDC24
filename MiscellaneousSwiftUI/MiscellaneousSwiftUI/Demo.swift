@@ -132,6 +132,10 @@ enum Demo: Int, Identifiable, CaseIterable {
     case textInputCompletion
 #endif
     
+#if os(macOS) || os(visionOS)
+    case pointer
+#endif
+    
     var id: Int {
         rawValue
     }
@@ -304,8 +308,15 @@ enum Demo: Int, Identifiable, CaseIterable {
             PrivacyView()
         case .labelsHidden:
             LabelsHiddenView()
+#if os(macOS)
         case .textInputCompletion:
             TextInputCompletionView()
+#endif
+      
+#if os(macOS) || os(visionOS)
+        case .pointer:
+            PointerView()
+#endif
         }
     }
 }
