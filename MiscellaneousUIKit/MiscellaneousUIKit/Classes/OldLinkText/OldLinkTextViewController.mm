@@ -9,6 +9,7 @@
 
 #import "OldLinkTextViewController.h"
 #import <SafariServices/SafariServices.h>
+#import <objc/message.h>
 #import <objc/runtime.h>
 
 void *safariViewControllerContextKey = &safariViewControllerContextKey;
@@ -41,9 +42,9 @@ void *safariViewControllerContextKey = &safariViewControllerContextKey;
     textView.editable = NO;
     textView.selectable = NO;
     
-    NSAttributedString *attributedString_1 = [[NSAttributedString alloc] initWithString:@"Swift Forum: "];
+    NSAttributedString *attributedString_1 = [[NSAttributedString alloc] initWithString:@"Swift Forum: " attributes:@{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleTitle1]}];
     
-    NSAttributedString *attributedString_2 = [[NSAttributedString alloc] initWithString:@"forums.swift.org" attributes:@{NSLinkAttributeName: [NSURL URLWithString:@"https://forums.swift.org"]}];
+    NSAttributedString *attributedString_2 = [[NSAttributedString alloc] initWithString:@"forums.swift.org" attributes:@{NSLinkAttributeName: [NSURL URLWithString:@"https://forums.swift.org"], NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleTitle1]}];
     
     NSMutableAttributedString *result = [NSMutableAttributedString new];
     [result appendAttributedString:attributedString_1];
@@ -140,6 +141,8 @@ void *safariViewControllerContextKey = &safariViewControllerContextKey;
     
     [parameters release];
     [target release];
+    
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(highlightPreview, sel_registerName("set_springboardPlatterStyle:"), YES);
     
     return [highlightPreview autorelease];
 }

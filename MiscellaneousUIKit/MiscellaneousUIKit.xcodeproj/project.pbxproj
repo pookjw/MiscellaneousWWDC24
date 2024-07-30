@@ -54,7 +54,6 @@
 		4FA8EEF72C1CE0E200B1358A /* CustomViewControllerTransition.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEF62C1CE0E200B1358A /* CustomViewControllerTransition.mm */; };
 		4FA8EEFA2C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEF92C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm */; };
 		4FAD987B2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAD987A2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm */; };
-		4FB9FC3F2C58C2C9006B3245 /* TargetedPreviewViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FB9FC3E2C58C2C9006B3245 /* TargetedPreviewViewController.mm */; };
 		4FB9FC422C58C2D6006B3245 /* NewLinkTextViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FB9FC412C58C2D6006B3245 /* NewLinkTextViewController.mm */; };
 		4FB9FC462C58C4E5006B3245 /* OldLinkTextViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FB9FC452C58C4E5006B3245 /* OldLinkTextViewController.mm */; };
 		4FBEC51E2C3C568C008A2F17 /* SymbolEffectsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBEC51D2C3C568C008A2F17 /* SymbolEffectsViewController.mm */; };
@@ -153,8 +152,6 @@
 		4FA8EEF92C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+Foundation_IvarDescription.mm"; sourceTree = "<group>"; };
 		4FAD98792C217CF400A5C513 /* CustomDismissPercentageInteraction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDismissPercentageInteraction.h; sourceTree = "<group>"; };
 		4FAD987A2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomDismissPercentageInteraction.mm; sourceTree = "<group>"; };
-		4FB9FC3D2C58C2C9006B3245 /* TargetedPreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TargetedPreviewViewController.h; sourceTree = "<group>"; };
-		4FB9FC3E2C58C2C9006B3245 /* TargetedPreviewViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TargetedPreviewViewController.mm; sourceTree = "<group>"; };
 		4FB9FC402C58C2D6006B3245 /* NewLinkTextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewLinkTextViewController.h; sourceTree = "<group>"; };
 		4FB9FC412C58C2D6006B3245 /* NewLinkTextViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NewLinkTextViewController.mm; sourceTree = "<group>"; };
 		4FB9FC442C58C4E5006B3245 /* OldLinkTextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OldLinkTextViewController.h; sourceTree = "<group>"; };
@@ -249,7 +246,6 @@
 				4F3AFC9E2C57F63400F810CF /* PointerInteraction */,
 				4FB9FC3B2C58C244006B3245 /* NewLinkText */,
 				4FB9FC432C58C4D5006B3245 /* OldLinkText */,
-				4FB9FC3C2C58C2B4006B3245 /* TargetedPreview */,
 				4F5D11C62C58AD5E000C12C3 /* WritingTools */,
 			);
 			path = Classes;
@@ -539,15 +535,6 @@
 			path = NewLinkText;
 			sourceTree = "<group>";
 		};
-		4FB9FC3C2C58C2B4006B3245 /* TargetedPreview */ = {
-			isa = PBXGroup;
-			children = (
-				4FB9FC3D2C58C2C9006B3245 /* TargetedPreviewViewController.h */,
-				4FB9FC3E2C58C2C9006B3245 /* TargetedPreviewViewController.mm */,
-			);
-			path = TargetedPreview;
-			sourceTree = "<group>";
-		};
 		4FB9FC432C58C4D5006B3245 /* OldLinkText */ = {
 			isa = PBXGroup;
 			children = (
@@ -654,7 +641,6 @@
 				4F5068B22C3D9D8800293E81 /* LegacyTabBar2Controller.mm in Sources */,
 				4F46CFCC2C282AF5005AC6AF /* ProminenceViewController.mm in Sources */,
 				4FA8EEF72C1CE0E200B1358A /* CustomViewControllerTransition.mm in Sources */,
-				4FB9FC3F2C58C2C9006B3245 /* TargetedPreviewViewController.mm in Sources */,
 				4F5D11C52C58AD5A000C12C3 /* WritingToolsViewController.mm in Sources */,
 				4F082EA82C1B53C8002263ED /* ContentHuggingElementsViewController.mm in Sources */,
 				4FAD987B2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm in Sources */,

@@ -34,7 +34,6 @@
 #import "PointerInteractionViewController.h"
 #import "NewLinkTextViewController.h"
 #import "OldLinkTextViewController.h"
-#import "TargetedPreviewViewController.h"
 #import "WritingToolsViewController.h"
 #import <objc/message.h>
 
@@ -119,7 +118,6 @@ __attribute__((objc_direct_members))
 - (NSArray<Class> *)classes {
     return @[
         WritingToolsViewController.class,
-        TargetedPreviewViewController.class,
         OldLinkTextViewController.class,
         NewLinkTextViewController.class,
         PointerInteractionViewController.class,
