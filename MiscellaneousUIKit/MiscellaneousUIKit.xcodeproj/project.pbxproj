@@ -42,6 +42,7 @@
 		4F5068AE2C3D98F800293E81 /* LegacyTabBarController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5068AD2C3D98F800293E81 /* LegacyTabBarController.mm */; };
 		4F5068B22C3D9D8800293E81 /* LegacyTabBar2Controller.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5068B12C3D9D8800293E81 /* LegacyTabBar2Controller.mm */; };
 		4F5D11C52C58AD5A000C12C3 /* WritingToolsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5D11C42C58AD5A000C12C3 /* WritingToolsViewController.mm */; };
+		4F5FE5F62C5A0B950044345D /* article.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4F5FE5F52C5A0AE70044345D /* article.txt */; };
 		4F7BC13C2C3C43B900419197 /* MyNavigationItemViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC13B2C3C43B900419197 /* MyNavigationItemViewController.mm */; };
 		4F8BD38D2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38C2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm */; };
 		4F8BD3902C22E1520031535F /* CustomDismissCustomInteraction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38F2C22E1520031535F /* CustomDismissCustomInteraction.mm */; };
@@ -128,6 +129,7 @@
 		4F5068B12C3D9D8800293E81 /* LegacyTabBar2Controller.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LegacyTabBar2Controller.mm; sourceTree = "<group>"; };
 		4F5D11C32C58AD5A000C12C3 /* WritingToolsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WritingToolsViewController.h; sourceTree = "<group>"; };
 		4F5D11C42C58AD5A000C12C3 /* WritingToolsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WritingToolsViewController.mm; sourceTree = "<group>"; };
+		4F5FE5F52C5A0AE70044345D /* article.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = article.txt; sourceTree = "<group>"; };
 		4F7BC13A2C3C43B900419197 /* MyNavigationItemViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyNavigationItemViewController.h; sourceTree = "<group>"; };
 		4F7BC13B2C3C43B900419197 /* MyNavigationItemViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MyNavigationItemViewController.mm; sourceTree = "<group>"; };
 		4F8BD38B2C22E11F0031535F /* CustomDismissInteractiveTransitioning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDismissInteractiveTransitioning.h; sourceTree = "<group>"; };
@@ -448,6 +450,7 @@
 			children = (
 				4F5D11C32C58AD5A000C12C3 /* WritingToolsViewController.h */,
 				4F5D11C42C58AD5A000C12C3 /* WritingToolsViewController.mm */,
+				4F5FE5F52C5A0AE70044345D /* article.txt */,
 			);
 			path = WritingTools;
 			sourceTree = "<group>";
@@ -621,6 +624,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F082E542C188D6D002263ED /* Assets.xcassets in Resources */,
+				4F5FE5F62C5A0B950044345D /* article.txt in Resources */,
 				4F082E572C188D6D002263ED /* Base in Resources */,
 				4FA8EEED2C1CD3B000B1358A /* image.heic in Resources */,
 			);

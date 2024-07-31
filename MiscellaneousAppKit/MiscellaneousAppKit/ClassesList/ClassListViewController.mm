@@ -21,6 +21,7 @@
 #import "ChangeToolbarStyleViewController.h"
 #import "SearchToolbarItemViewController.h"
 #import "ValidateToolbarViewController.h"
+#import "WritingToolsViewController.h"
 
 APPKIT_EXTERN NSString * const NSTableViewCurrentRowSelectionUserInfoKey;
 APPKIT_EXTERN NSString * const NSTableViewPreviousRowSelectionUserInfoKey;
@@ -89,6 +90,7 @@ APPKIT_EXTERN NSString * const NSTableViewPreviousRowSelectionUserInfoKey;
 
 - (NSArray<Class> *)classes {
     return @[
+        WritingToolsViewController.class,
         ValidateToolbarViewController.class,
         SearchToolbarItemViewController.class,
         ChangeToolbarStyleViewController.class,
