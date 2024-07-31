@@ -1,0 +1,409 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 60;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4F172B202C5A90C4009A1DBC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B1F2C5A90C4009A1DBC /* QuartzCore.framework */; };
+		4F172B222C5A90CA009A1DBC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B212C5A90CA009A1DBC /* CoreGraphics.framework */; };
+		4F172B242C5A90D0009A1DBC /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B232C5A90D0009A1DBC /* AVKit.framework */; };
+		4F172B262C5A90D5009A1DBC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B252C5A90D5009A1DBC /* AVFoundation.framework */; };
+		4F85F3522C5A963E00C25410 /* DigitalCrownViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3512C5A963E00C25410 /* DigitalCrownViewController.mm */; };
+		4F85F3552C5A9CDA00C25410 /* DigitalCrownView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3542C5A9CDA00C25410 /* DigitalCrownView.mm */; };
+		4F86742D2C5A88DC00825FE5 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F86742C2C5A88DC00825FE5 /* main.mm */; };
+		4F8674302C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F86742F2C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.mm */; };
+		4F8674332C5A893900825FE5 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8674322C5A893900825FE5 /* AppDelegate.mm */; };
+		4F8A34D22C5A861500E3CFC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F8A34D12C5A861500E3CFC4 /* Assets.xcassets */; };
+		4F9879BA2C5A8A2700E4D2F3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9879B92C5A8A2700E4D2F3 /* UIKit.framework */; };
+		4F9879BC2C5A8A2A00E4D2F3 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9879BB2C5A8A2A00E4D2F3 /* WatchKit.framework */; };
+		4F9879BE2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9879BD2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework */; };
+		4FFEA7DB2C5A8C9000313CAC /* SceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFEA7DA2C5A8C9000313CAC /* SceneDelegate.mm */; };
+		4FFEA7DE2C5A8D6D00313CAC /* ClassListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFEA7DD2C5A8D6D00313CAC /* ClassListViewController.mm */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4F172B1F2C5A90C4009A1DBC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		4F172B212C5A90CA009A1DBC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		4F172B232C5A90D0009A1DBC /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/AVKit.framework; sourceTree = DEVELOPER_DIR; };
+		4F172B252C5A90D5009A1DBC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		4F85F3502C5A963E00C25410 /* DigitalCrownViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DigitalCrownViewController.h; sourceTree = "<group>"; };
+		4F85F3512C5A963E00C25410 /* DigitalCrownViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DigitalCrownViewController.mm; sourceTree = "<group>"; };
+		4F85F3532C5A9CDA00C25410 /* DigitalCrownView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DigitalCrownView.h; sourceTree = "<group>"; };
+		4F85F3542C5A9CDA00C25410 /* DigitalCrownView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DigitalCrownView.mm; sourceTree = "<group>"; };
+		4F86742C2C5A88DC00825FE5 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
+		4F86742E2C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Foundation_IvarDescription.h"; sourceTree = "<group>"; };
+		4F86742F2C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+Foundation_IvarDescription.mm"; sourceTree = "<group>"; };
+		4F8674312C5A893900825FE5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		4F8674322C5A893900825FE5 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		4F8A34CA2C5A861400E3CFC4 /* MiscellaneousPepperUICore Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MiscellaneousPepperUICore Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F8A34D12C5A861500E3CFC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4F9879B92C5A8A2700E4D2F3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		4F9879BB2C5A8A2A00E4D2F3 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/WatchKit.framework; sourceTree = DEVELOPER_DIR; };
+		4F9879BD2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = DEVELOPER_DIR; };
+		4FFEA7D92C5A8C9000313CAC /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		4FFEA7DA2C5A8C9000313CAC /* SceneDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SceneDelegate.mm; sourceTree = "<group>"; };
+		4FFEA7DC2C5A8D6D00313CAC /* ClassListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassListViewController.h; sourceTree = "<group>"; };
+		4FFEA7DD2C5A8D6D00313CAC /* ClassListViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ClassListViewController.mm; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4F8A34C72C5A861400E3CFC4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F172B202C5A90C4009A1DBC /* QuartzCore.framework in Frameworks */,
+				4F9879BE2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework in Frameworks */,
+				4F172B242C5A90D0009A1DBC /* AVKit.framework in Frameworks */,
+				4F9879BA2C5A8A2700E4D2F3 /* UIKit.framework in Frameworks */,
+				4F172B222C5A90CA009A1DBC /* CoreGraphics.framework in Frameworks */,
+				4F172B262C5A90D5009A1DBC /* AVFoundation.framework in Frameworks */,
+				4F9879BC2C5A8A2A00E4D2F3 /* WatchKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4F85F34F2C5A960A00C25410 /* DigitalCrown */ = {
+			isa = PBXGroup;
+			children = (
+				4F85F3502C5A963E00C25410 /* DigitalCrownViewController.h */,
+				4F85F3512C5A963E00C25410 /* DigitalCrownViewController.mm */,
+				4F85F3532C5A9CDA00C25410 /* DigitalCrownView.h */,
+				4F85F3542C5A9CDA00C25410 /* DigitalCrownView.mm */,
+			);
+			path = DigitalCrown;
+			sourceTree = "<group>";
+		};
+		4F8A34C12C5A861400E3CFC4 = {
+			isa = PBXGroup;
+			children = (
+				4F8A34CC2C5A861400E3CFC4 /* MiscellaneousPepperUICore */,
+				4F8A34CB2C5A861400E3CFC4 /* Products */,
+				4F9879B82C5A8A2600E4D2F3 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		4F8A34CB2C5A861400E3CFC4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4F8A34CA2C5A861400E3CFC4 /* MiscellaneousPepperUICore Watch App.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4F8A34CC2C5A861400E3CFC4 /* MiscellaneousPepperUICore */ = {
+			isa = PBXGroup;
+			children = (
+				4F8674312C5A893900825FE5 /* AppDelegate.h */,
+				4F8674322C5A893900825FE5 /* AppDelegate.mm */,
+				4FFEA7D92C5A8C9000313CAC /* SceneDelegate.h */,
+				4FFEA7DA2C5A8C9000313CAC /* SceneDelegate.mm */,
+				4F8A34D12C5A861500E3CFC4 /* Assets.xcassets */,
+				4F86742C2C5A88DC00825FE5 /* main.mm */,
+				4F86742E2C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.h */,
+				4F86742F2C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.mm */,
+				4FFEA7DC2C5A8D6D00313CAC /* ClassListViewController.h */,
+				4FFEA7DD2C5A8D6D00313CAC /* ClassListViewController.mm */,
+				4F85F34F2C5A960A00C25410 /* DigitalCrown */,
+			);
+			path = MiscellaneousPepperUICore;
+			sourceTree = "<group>";
+		};
+		4F9879B82C5A8A2600E4D2F3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4F172B252C5A90D5009A1DBC /* AVFoundation.framework */,
+				4F172B232C5A90D0009A1DBC /* AVKit.framework */,
+				4F172B212C5A90CA009A1DBC /* CoreGraphics.framework */,
+				4F172B1F2C5A90C4009A1DBC /* QuartzCore.framework */,
+				4F9879BD2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework */,
+				4F9879BB2C5A8A2A00E4D2F3 /* WatchKit.framework */,
+				4F9879B92C5A8A2700E4D2F3 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4F8A34C92C5A861400E3CFC4 /* MiscellaneousPepperUICore Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4F8A34D82C5A861500E3CFC4 /* Build configuration list for PBXNativeTarget "MiscellaneousPepperUICore Watch App" */;
+			buildPhases = (
+				4F8A34C62C5A861400E3CFC4 /* Sources */,
+				4F8A34C72C5A861400E3CFC4 /* Frameworks */,
+				4F8A34C82C5A861400E3CFC4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MiscellaneousPepperUICore Watch App";
+			productName = "MiscellaneousPepperUICore Watch App";
+			productReference = 4F8A34CA2C5A861400E3CFC4 /* MiscellaneousPepperUICore Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4F8A34C22C5A861400E3CFC4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					4F8A34C92C5A861400E3CFC4 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = 4F8A34C52C5A861400E3CFC4 /* Build configuration list for PBXProject "MiscellaneousPepperUICore" */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4F8A34C12C5A861400E3CFC4;
+			productRefGroup = 4F8A34CB2C5A861400E3CFC4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4F8A34C92C5A861400E3CFC4 /* MiscellaneousPepperUICore Watch App */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4F8A34C82C5A861400E3CFC4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F8A34D22C5A861500E3CFC4 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4F8A34C62C5A861400E3CFC4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F86742D2C5A88DC00825FE5 /* main.mm in Sources */,
+				4F8674302C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.mm in Sources */,
+				4F8674332C5A893900825FE5 /* AppDelegate.mm in Sources */,
+				4FFEA7DE2C5A8D6D00313CAC /* ClassListViewController.mm in Sources */,
+				4FFEA7DB2C5A8C9000313CAC /* SceneDelegate.mm in Sources */,
+				4F85F3552C5A9CDA00C25410 /* DigitalCrownView.mm in Sources */,
+				4F85F3522C5A963E00C25410 /* DigitalCrownViewController.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4F8A34D62C5A861500E3CFC4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		4F8A34D72C5A861500E3CFC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		4F8A34D92C5A861500E3CFC4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = MiscellaneousPepperUICore;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = .watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Debug;
+		};
+		4F8A34DA2C5A861500E3CFC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = MiscellaneousPepperUICore;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = .watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4F8A34C52C5A861400E3CFC4 /* Build configuration list for PBXProject "MiscellaneousPepperUICore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4F8A34D62C5A861500E3CFC4 /* Debug */,
+				4F8A34D72C5A861500E3CFC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4F8A34D82C5A861500E3CFC4 /* Build configuration list for PBXNativeTarget "MiscellaneousPepperUICore Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4F8A34D92C5A861500E3CFC4 /* Debug */,
+				4F8A34DA2C5A861500E3CFC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4F8A34C22C5A861400E3CFC4 /* Project object */;
+}
