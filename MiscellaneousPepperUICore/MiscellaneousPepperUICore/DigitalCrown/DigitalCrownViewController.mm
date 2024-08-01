@@ -11,6 +11,14 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 
+// puic_didEnterAlwaysOn, puic_didExitAlwaysOn
+// SPPUICPageViewController
+
+/*
+ PUICCrownIndicatorContext
+ PUICCrownInputSequencer
+ */
+
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
 @implementation DigitalCrownViewController
@@ -28,13 +36,10 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("UIViewController"), "_DigitalCrownViewController", 0);
+        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_DigitalCrownViewController", 0);
         
         IMP dealloc = class_getMethodImplementation(self, @selector(dealloc));
         assert(class_addMethod(_dynamicIsa, @selector(dealloc), dealloc, NULL));
-        
-        IMP respondsToSelector = class_getMethodImplementation(self, @selector(respondsToSelector:));
-        assert(class_addMethod(_dynamicIsa, @selector(respondsToSelector:), respondsToSelector, NULL));
         
         IMP loadView = class_getMethodImplementation(self, @selector(loadView));
         assert(class_addMethod(_dynamicIsa, @selector(loadView), loadView, NULL));
@@ -42,17 +47,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
         assert(class_addMethod(_dynamicIsa, @selector(viewDidLoad), viewDidLoad, NULL));
         
-        IMP crownInputSequencerOffsetDidChange = class_getMethodImplementation(self, @selector(crownInputSequencerOffsetDidChange:));
-        assert(class_addMethod(_dynamicIsa, @selector(crownInputSequencerOffsetDidChange:), crownInputSequencerOffsetDidChange, NULL));
-        
-        IMP isFirstResponderForSequencer = class_getMethodImplementation(self, @selector(isFirstResponderForSequencer:));
-        assert(class_addMethod(_dynamicIsa, @selector(isFirstResponderForSequencer:), isFirstResponderForSequencer, NULL));
-        
-        assert(class_addIvar(_dynamicIsa, "_crownInputSequencer", sizeof(id), sizeof(id), @encode(id)));
-        
-        
-        class_addProtocol(_dynamicIsa, NSProtocolFromString(@"PUICCrownInputSequencerDelegate"));
-        class_addProtocol(_dynamicIsa, NSProtocolFromString(@"PUICCrownInputSequencerDetentsDataSource"));
+        IMP didTriggerFlashIndicatorBarButtonItem = class_getMethodImplementation(self, @selector(didTriggerFlashIndicatorBarButtonItem:));
+        assert(class_addMethod(_dynamicIsa, @selector(didTriggerFlashIndicatorBarButtonItem:), didTriggerFlashIndicatorBarButtonItem, NULL));
         
         dynamicIsa = _dynamicIsa;
     });
@@ -63,29 +59,14 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-missing-super-calls"
 - (void)dealloc {
-    id _crownInputSequencer;
-    object_getInstanceVariable(self, "_crownInputSequencer", reinterpret_cast<void **>(&_crownInputSequencer));
-    [_crownInputSequencer release];
-    
     objc_super superInfo = { self, [self class] };
     reinterpret_cast<void (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
 }
 #pragma clang diagnostic pop
 
-- (BOOL)respondsToSelector:(SEL)aSelector {
-    objc_super superInfo = { self, [self class] };
-    BOOL responds = reinterpret_cast<BOOL (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
-    
-    if (!responds) {
-        NSLog(@"%s", sel_getName(aSelector));
-    }
-    
-    return responds;
-}
-
 - (void)loadView {
-//    objc_super superInfo = { self, [self class] };
-//    reinterpret_cast<void (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
+    objc_super superInfo = { self, [self class] };
+    reinterpret_cast<void (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
     
     DigitalCrownView *view = [DigitalCrownView new];
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self, sel_registerName("setView:"), view);
@@ -96,40 +77,24 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     objc_super superInfo = { self, [self class] };
     reinterpret_cast<void (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
     
+    id navigationItem = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("navigationItem"));
+    
+    id flashIndicatorBarButtonItem = reinterpret_cast<id (*)(id, SEL, id, NSInteger, id, SEL)>(objc_msgSend)([objc_lookUpClass("UIBarButtonItem") alloc], sel_registerName("initWithImage:style:target:action:"), [UIImage systemImageNamed:@"flashlight.off.fill"], 0, self, @selector(didTriggerFlashIndicatorBarButtonItem:));
+    
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(navigationItem, sel_registerName("setRightBarButtonItems:"), @[
+        flashIndicatorBarButtonItem
+    ]);
+    
+    [flashIndicatorBarButtonItem release];
+}
+
+- (void)didTriggerFlashIndicatorBarButtonItem:(id)sender {
     id view = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("view"));
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(view, sel_registerName("setBackgroundColor:"), UIColor.cyanColor);
+    id _crownInputSequencer;
+    object_getInstanceVariable(view, "_crownInputSequencer", reinterpret_cast<void **>(&_crownInputSequencer));
+    id crownIndicatorContext = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(_crownInputSequencer, sel_registerName("crownIndicatorContext"));
     
-    //
-    
-    id crownInputSequencer = [objc_lookUpClass("PUICCrownInputSequencer") new];
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(crownInputSequencer, sel_registerName("setView:"), view);
-    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setContinuous:"), YES);
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(crownInputSequencer, sel_registerName("setMetricsDelegate:"), self);
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(crownInputSequencer, sel_registerName("setDelegate:"), self);
-    
-    object_setInstanceVariable(self, "_crownInputSequencer", [crownInputSequencer retain]);
-    [crownInputSequencer release];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [view becomeFirstResponder];
-        
-        BOOL isFirstResponder = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(view, sel_registerName("isFirstResponder"));
-        assert(isFirstResponder);
-        
-        id _crownInputSequencer;
-        object_getInstanceVariable(self, "_crownInputSequencer", reinterpret_cast<void **>(&_crownInputSequencer));
-        NSLog(@"%@", _crownInputSequencer);
-        
-        reinterpret_cast<double (*)(id, SEL)>(objc_msgSend)(_crownInputSequencer, sel_registerName("start"));
-    });
-}
-
-- (void)crownInputSequencerOffsetDidChange:(id)crownInputSequencer {
-    NSLog(@"%@", crownInputSequencer);
-}
-
-- (_Bool) isFirstResponderForSequencer:(id)arg1 {
-    return YES;
+    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(crownIndicatorContext, sel_registerName("flashCrownIndicator"));
 }
 
 @end

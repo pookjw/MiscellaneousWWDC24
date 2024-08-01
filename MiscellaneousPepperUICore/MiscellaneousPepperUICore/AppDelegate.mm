@@ -47,4 +47,8 @@ OBJC_EXPORT id _Nullable objc_msgSend_noarg(id _Nullable self, SEL _Nonnull _cmd
     return nil;
 }
 
+- (void)applicationWillSuspend:(id)application {
+    
+}
+
 @end

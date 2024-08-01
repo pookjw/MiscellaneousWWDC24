@@ -28,12 +28,22 @@
 - (void)scene:(id)scene willConnectToSession:(id)session options:(id)connectionOptions {
     id window = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("UIWindow") alloc], sel_registerName("initWithWindowScene:"), scene);
     
-    ClassListViewController *rootViewController = [ClassListViewController new];
-    id navigationController = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("PUICNavigationController") alloc], sel_registerName("initWithRootViewController:"), rootViewController);
-    [rootViewController release];
+    // -[SPHostingViewController initWithInterfaceDescription:bundle:stringsFileName:]
+    id rootViewController = reinterpret_cast<id (*)(id, SEL, id, id, id)>(objc_msgSend)([objc_lookUpClass("SPHostingViewController") alloc], sel_registerName("initWithInterfaceDescription:bundle:stringsFileName:"), nil, nil, nil);
     
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(window, sel_registerName("setRootViewController:"), navigationController);
-    [navigationController release];
+    ClassListViewController *classListViewController = [ClassListViewController new];
+    id navigationController = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("PUICNavigationController") alloc], sel_registerName("initWithRootViewController:"), classListViewController);
+    [classListViewController release];
+    
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(rootViewController, sel_registerName("addChildViewController:"), navigationController);
+    id navigationView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(navigationController, sel_registerName("view"));
+    id rootView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(rootViewController, sel_registerName("view"));
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(rootView, sel_registerName("addSubview:"), navigationView);
+    reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(navigationView, sel_registerName("setAutoresizingMask:"), (1 << 1) ^ (1 << 4));
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(navigationController, sel_registerName("didMoveToParentViewController:"), rootViewController);
+    
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(window, sel_registerName("setRootViewController:"), rootViewController);
+    [rootViewController release];
     
     self.window = window;
     reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(window, sel_registerName("makeKeyAndVisible"));

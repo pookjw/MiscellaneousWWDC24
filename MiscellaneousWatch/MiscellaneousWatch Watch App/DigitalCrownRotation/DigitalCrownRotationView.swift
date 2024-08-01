@@ -18,9 +18,10 @@ struct DigitalCrownRotationView: View {
                 Text("Accessory!")
             }
             .digitalCrownRotation(
-                $rotation,
+                detent: $rotation,
                 from: 0.0,
                 through: 10.0,
+                by: 1.0,
                 sensitivity: .high,
                 isContinuous: true,
                 isHapticFeedbackEnabled: true,
