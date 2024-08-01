@@ -11,9 +11,26 @@
 
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
+namespace _PUICCrownIndicatorWindow {
+namespace isInternalWindow {
+BOOL (*original)(id, SEL);
+BOOL custom(id self, SEL _cmd) {
+    return NO;
+}
+void swizzle() {
+    Method method = class_getInstanceMethod(objc_lookUpClass("PUICCrownIndicatorWindow"), sel_registerName("isInternalWindow"));
+    original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
+    method_setImplementation(method, reinterpret_cast<IMP>(custom));
+}
+}
+}
+
+//
+
 @implementation DigitalCrownView
 
 + (void)load {
+    _PUICCrownIndicatorWindow::isInternalWindow::swizzle();
     [self dynamicIsa];
 }
 
@@ -33,6 +50,9 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         
         IMP dealloc = class_getMethodImplementation(self, @selector(dealloc));
         assert(class_addMethod(_dynamicIsa, @selector(dealloc), dealloc, NULL));
+        
+        IMP description = class_getMethodImplementation(self, @selector(description));
+        assert(class_addMethod(_dynamicIsa, @selector(description), description, NULL));
         
         IMP respondsToSelector = class_getMethodImplementation(self, @selector(respondsToSelector:));
         assert(class_addMethod(_dynamicIsa, @selector(respondsToSelector:), respondsToSelector, NULL));
@@ -61,7 +81,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"PUICCrownInputSequencerDelegate")));
 //        assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"PUICCrownInputSequencerDetentsDataSource")));
         assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"PUICCrownInputSequencerDataSource")));
-        assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"PUICCrownInputSequencerMetricsDelegate")));
+//        assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"PUICCrownInputSequencerMetricsDelegate")));
         
         dynamicIsa = _dynamicIsa;
     });
@@ -78,15 +98,19 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(crownInputSequencer, sel_registerName("setView:"), self);
         
         // Start~End 범위를 초과할 때 초기화 할지 말지
-        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setContinuous:"), NO);
+        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setContinuous:"), YES);
         
-        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setMinorDetentsEnabled:"), NO);
+        // 이렇게 해야 Haptic 재생이 됨
+        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setMinorDetentsEnabled:"), YES);
+        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setRubberBandingEnabled:"), YES);
+        reinterpret_cast<void (*)(id, SEL, NSInteger)>(objc_msgSend)(crownInputSequencer, sel_registerName("setRubberBandHapticsLocation:"), 3);
         
         reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(crownInputSequencer, sel_registerName("setDelegate:"), self);
         reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(crownInputSequencer, sel_registerName("setDataSource:"), self);
 //        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(crownInputSequencer, sel_registerName("setMetricsDelegate:"), self);
         
         // detent API는 deprecated 인듯 작동 안함. -crownInputSequencerWillBecomeIdle:withCrownVelocity:targetOffset:에서 구현해야함
+        // -[PUICCrownInputSequencer setActiveDetentChangeHapticEnabled:]에서 아무것도 안하는 것을 보아 더 이상 안 쓰이는 것으로 추정
 //        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(crownInputSequencer, sel_registerName("setDetentsDataSource:"), self);
 //        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(crownInputSequencer, sel_registerName("setStaticDetents:"), @[
 //            reinterpret_cast<id (*)(Class, SEL, CGFloat)>(objc_msgSend)(objc_lookUpClass("PUICCrownInputSequencerDetent"), sel_registerName("detentWithOffset:"), 1.0)
@@ -106,12 +130,15 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 //        reinterpret_cast<void (*)(id, SEL, CGFloat)>(objc_msgSend)(crownInputSequencer, sel_registerName("setDecelerationRate:"), 0.5);
         
         reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setMinorDetentsEnabled:"), NO);
+//        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setWantsCrownIndicatorStyledForTouchInput:"), YES);
 //        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setSmoothingEnabled:"), YES);
         
         // 안 되나?
         id accLabel = [objc_lookUpClass("UILabel") new];
         reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(accLabel, sel_registerName("setText:"), @"Acc");
-        reinterpret_cast<void (*)(id, SEL, id, CGFloat, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setAccessoryView:withPadding:autoHide:"), accLabel, 8.0, YES);
+        reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(accLabel, sel_registerName("sizeToFit"));
+        id crownIndicatorContext = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(crownInputSequencer, sel_registerName("crownIndicatorContext"));
+        reinterpret_cast<void (*)(id, SEL, id, CGFloat, BOOL, BOOL)>(objc_msgSend)(crownIndicatorContext, sel_registerName("setAccessoryView:withPadding:autoHide:animated:"), accLabel, 8.0, YES, YES);
         [accLabel release];
         
         //
@@ -128,14 +155,16 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(label, sel_registerName("setTranslatesAutoresizingMaskIntoConstraints:"), NO);
         reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self, sel_registerName("addSubview:"), label);
         
+        id view_layoutMarginsGuide = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("layoutMarginsGuide"));
+        
         id label_centerYAnchor = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(label, sel_registerName("centerYAnchor"));
-        id view_centerYAnchor = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("centerYAnchor"));
+        id view_centerYAnchor = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(view_layoutMarginsGuide, sel_registerName("centerYAnchor"));
         
         id label_leadingAnchor = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(label, sel_registerName("leadingAnchor"));
-        id view_leadingAnchor = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("leadingAnchor"));
+        id view_leadingAnchor = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(view_layoutMarginsGuide, sel_registerName("leadingAnchor"));
         
         id label_trailingAnchor = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(label, sel_registerName("trailingAnchor"));
-        id view_trailingAnchor = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("trailingAnchor"));
+        id view_trailingAnchor = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(view_layoutMarginsGuide, sel_registerName("trailingAnchor"));
         
         id centerYConstraint = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)(label_centerYAnchor, sel_registerName("constraintEqualToAnchor:"), view_centerYAnchor);
         id leadingConstraint = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)(label_leadingAnchor, sel_registerName("constraintEqualToAnchor:"), view_leadingAnchor);
@@ -171,6 +200,10 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     reinterpret_cast<void (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
 }
 #pragma clang diagnostic pop
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%s: %p>", class_getName(self.class), self];
+}
 
 - (BOOL)respondsToSelector:(SEL)aSelector {
     objc_super superInfo = { self, [self class] };

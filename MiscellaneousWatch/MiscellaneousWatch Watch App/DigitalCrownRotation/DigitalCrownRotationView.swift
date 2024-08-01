@@ -13,27 +13,28 @@ struct DigitalCrownRotationView: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
             .focusable()
-            .digitalCrownAccessory(.visible)
+            .digitalCrownAccessory(.automatic)
             .digitalCrownAccessory {
                 Text("Accessory!")
             }
             .digitalCrownRotation(
-                detent: $rotation,
+//                detent: $rotation,
+                $rotation,
                 from: 0.0,
                 through: 10.0,
-                by: 1.0,
+//                by: 1.0,
                 sensitivity: .high,
                 isContinuous: true,
                 isHapticFeedbackEnabled: true,
                 onChange: { event in
-                    print(event)
+//                    print(event)
                 },
                 onIdle: {
                     
                 }
             )
             .onChange(of: rotation) { oldValue, newValue in
-                print(newValue)
+//                print(newValue)
             }
     }
 }
