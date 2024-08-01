@@ -9,6 +9,12 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 
+/*
+ - PUICCrownInputSequencerOffsetDidChangeNotification
+ - PUICCrownInputSequencerOffsetDidReachBoundaryNotification (userInfo 있음)
+ - PUICCrownInputSequencerIdleDidChangeNotification
+ */
+
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
 namespace _PUICCrownIndicatorWindow {
