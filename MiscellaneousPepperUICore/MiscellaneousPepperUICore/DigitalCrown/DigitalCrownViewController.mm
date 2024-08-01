@@ -23,8 +23,6 @@
  _PUISwitchInternalView
  PUICHapticFeedback
  PUICAnimatedEmojiView
- 
- -[PUICDetentGenerator generateDetent:withStrength:velocity:]로 Crown Haptic 재생
  */
 
 OBJC_EXPORT id objc_msgSendSuper2(void);

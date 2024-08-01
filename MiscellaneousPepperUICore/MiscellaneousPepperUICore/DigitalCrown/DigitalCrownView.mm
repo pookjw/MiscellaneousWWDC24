@@ -101,23 +101,39 @@ void swizzle() {
         reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setContinuous:"), YES);
         
         // 이렇게 해야 Haptic 재생이 됨
-        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setMinorDetentsEnabled:"), YES);
+//        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setMinorDetentsEnabled:"), YES);
         reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setRubberBandingEnabled:"), YES);
+        /*
+         0 : 재생 안함
+         1 : Start -> End로 이동할 때만 재생
+         2 : End -> Start로 이동할 때만 재생
+         3 : Start <-> End 모두 재생
+         Continuous일 때만 재생
+         재생은 -[PUICDetentGenerator generateDetent:withStrength:velocity:]에서 처리함
+         */
         reinterpret_cast<void (*)(id, SEL, NSInteger)>(objc_msgSend)(crownInputSequencer, sel_registerName("setRubberBandHapticsLocation:"), 3);
+        /* END */
         
         reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(crownInputSequencer, sel_registerName("setDelegate:"), self);
         reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(crownInputSequencer, sel_registerName("setDataSource:"), self);
 //        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(crownInputSequencer, sel_registerName("setMetricsDelegate:"), self);
         
-        // detent API는 deprecated 인듯 작동 안함. -crownInputSequencerWillBecomeIdle:withCrownVelocity:targetOffset:에서 구현해야함
+        // detent API는 deprecated 인듯 작동 안함
         // -[PUICCrownInputSequencer setActiveDetentChangeHapticEnabled:]에서 아무것도 안하는 것을 보아 더 이상 안 쓰이는 것으로 추정
 //        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(crownInputSequencer, sel_registerName("setDetentsDataSource:"), self);
 //        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(crownInputSequencer, sel_registerName("setStaticDetents:"), @[
-//            reinterpret_cast<id (*)(Class, SEL, CGFloat)>(objc_msgSend)(objc_lookUpClass("PUICCrownInputSequencerDetent"), sel_registerName("detentWithOffset:"), 1.0)
+//            reinterpret_cast<id (*)(Class, SEL, CGFloat)>(objc_msgSend)(objc_lookUpClass("PUICCrownInputSequencerDetent"), sel_registerName("detentWithOffset:"), 1.0),
+//            reinterpret_cast<id (*)(Class, SEL, CGFloat)>(objc_msgSend)(objc_lookUpClass("PUICCrownInputSequencerDetent"), sel_registerName("detentWithOffset:"), 2.0),
+//            reinterpret_cast<id (*)(Class, SEL, CGFloat)>(objc_msgSend)(objc_lookUpClass("PUICCrownInputSequencerDetent"), sel_registerName("detentWithOffset:"), 3.0),
+//            reinterpret_cast<id (*)(Class, SEL, CGFloat)>(objc_msgSend)(objc_lookUpClass("PUICCrownInputSequencerDetent"), sel_registerName("detentWithOffset:"), 4.0),
+//            reinterpret_cast<id (*)(Class, SEL, CGFloat)>(objc_msgSend)(objc_lookUpClass("PUICCrownInputSequencerDetent"), sel_registerName("detentWithOffset:"), 5.0),
+//            reinterpret_cast<id (*)(Class, SEL, CGFloat)>(objc_msgSend)(objc_lookUpClass("PUICCrownInputSequencerDetent"), sel_registerName("detentWithOffset:"), 6.0),
+//            reinterpret_cast<id (*)(Class, SEL, CGFloat)>(objc_msgSend)(objc_lookUpClass("PUICCrownInputSequencerDetent"), sel_registerName("detentWithOffset:"), 7.0)
+//            
 //        ]);
         
-        reinterpret_cast<void (*)(id, SEL, double)>(objc_msgSend)(crownInputSequencer, sel_registerName("setStart:"), 0.0);
-        reinterpret_cast<void (*)(id, SEL, double)>(objc_msgSend)(crownInputSequencer, sel_registerName("setEnd:"), 10.0);
+        reinterpret_cast<void (*)(id, SEL, CGFloat)>(objc_msgSend)(crownInputSequencer, sel_registerName("setStart:"), 0.0);
+        reinterpret_cast<void (*)(id, SEL, CGFloat)>(objc_msgSend)(crownInputSequencer, sel_registerName("setEnd:"), 10.0);
         
         /*
          0 : Automatic (1)
@@ -127,9 +143,8 @@ void swizzle() {
         reinterpret_cast<void (*)(id, SEL, long)>(objc_msgSend)(crownInputSequencer, sel_registerName("setCrownIndicatorMode:"), 2);
         reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setCrownIndicatorVisible:"), YES);
         
-//        reinterpret_cast<void (*)(id, SEL, CGFloat)>(objc_msgSend)(crownInputSequencer, sel_registerName("setDecelerationRate:"), 0.5);
+        reinterpret_cast<void (*)(id, SEL, CGFloat)>(objc_msgSend)(crownInputSequencer, sel_registerName("setDecelerationRate:"), 0.996);
         
-        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setMinorDetentsEnabled:"), NO);
 //        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setWantsCrownIndicatorStyledForTouchInput:"), YES);
 //        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setSmoothingEnabled:"), YES);
         

@@ -21,13 +21,13 @@ struct DigitalCrownRotationView: View {
 //                detent: $rotation,
                 $rotation,
                 from: 0.0,
-                through: 10.0,
+                through: 100.0,
 //                by: 1.0,
                 sensitivity: .high,
                 isContinuous: true,
                 isHapticFeedbackEnabled: true,
                 onChange: { event in
-//                    print(event)
+                    print(event)
                 },
                 onIdle: {
                     
