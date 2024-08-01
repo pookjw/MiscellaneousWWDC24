@@ -119,7 +119,6 @@ void swizzle() {
 - (void)_viewDidMoveToWindow:(NSWindow * _Nullable)toWindow fromWindow:(NSWindow * _Nullable)fromWindow {
     objc_super superInfo = { self, [self class] };
     reinterpret_cast<void (*)(objc_super *, SEL, id, id)>(objc_msgSendSuper2)(&superInfo, _cmd, toWindow, fromWindow);
-    reinterpret_cast<void (*)(objc_super *, SEL, id, id)>(objc_msgSendSuper2)(&superInfo, _cmd, toWindow, fromWindow);
     
     if ([fromWindow.toolbar isEqual:self.toolbar]) {
         fromWindow.toolbar = nil;
