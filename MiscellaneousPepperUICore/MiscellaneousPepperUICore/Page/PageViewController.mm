@@ -49,13 +49,15 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     objc_super superInfo = { self, [self class] };
-    self = reinterpret_cast<id (*)(objc_super *, SEL, NSUInteger, NSInteger, BOOL, NSInteger)>(objc_msgSendSuper2)(&superInfo, sel_registerName("initWithNavigationOrientation:titleBehavior:shouldPreloadChildViewControllers:pageTransform:"), 1, 0, NO, 0);
+    self = reinterpret_cast<id (*)(objc_super *, SEL, NSUInteger, NSInteger, BOOL, NSInteger)>(objc_msgSendSuper2)(&superInfo, sel_registerName("initWithNavigationOrientation:titleBehavior:shouldPreloadChildViewControllers:pageTransform:"), 1, 1, NO, 1);
     
     if (self) {
         id cyanViewController = [objc_lookUpClass("SPViewController") new];
         id cyanView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(cyanViewController, sel_registerName("view"));
         UIColor *systemCyanColor = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(UIColor.class, sel_registerName("systemCyanColor"));
         reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(cyanView, sel_registerName("setBackgroundColor:"), systemCyanColor);
+        
+        //
         
         id pinkViewController = [objc_lookUpClass("SPViewController") new];
         id pinkView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(pinkViewController, sel_registerName("view"));
@@ -64,13 +66,52 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         
         //
         
+        id yellowGreenViewController = [objc_lookUpClass("SPViewController") new];
+        id yellowView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(yellowGreenViewController, sel_registerName("view"));
+        UIColor *systemYellowColor = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(UIColor.class, sel_registerName("systemYellowColor"));
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(yellowView, sel_registerName("setBackgroundColor:"), systemYellowColor);
+        
+        id greenView = [objc_lookUpClass("UIView") new];
+        UIColor *systemGreenColor = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(UIColor.class, sel_registerName("systemGreenColor"));
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(greenView, sel_registerName("setBackgroundColor:"), systemGreenColor);
+        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(greenView, sel_registerName("setTranslatesAutoresizingMaskIntoConstraints:"), NO);
+        
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(yellowView, sel_registerName("addSubview:"), greenView);
+        
+        id yellowView_safeAreaLayoutGuide = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(yellowView, sel_registerName("safeAreaLayoutGuide"));
+        
+        id yellowView_topAnchor = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(yellowView_safeAreaLayoutGuide, sel_registerName("topAnchor"));
+        id yellowView_leadingAnchor = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(yellowView_safeAreaLayoutGuide, sel_registerName("leadingAnchor"));
+        id yellowView_trailingAnchor = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(yellowView_safeAreaLayoutGuide, sel_registerName("trailingAnchor"));
+        id yellowView_bottomAnchor = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(yellowView_safeAreaLayoutGuide, sel_registerName("bottomAnchor"));
+        
+        id greenView_topAnchor = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(greenView, sel_registerName("topAnchor"));
+        id greenView_leadingAnchor = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(greenView, sel_registerName("leadingAnchor"));
+        id greenView_trailingAnchor = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(greenView, sel_registerName("trailingAnchor"));
+        id greenView_bottomAnchor = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(greenView, sel_registerName("bottomAnchor"));
+        
+        id topConstraint = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)(yellowView_topAnchor, sel_registerName("constraintEqualToAnchor:"), greenView_topAnchor);
+        id leadingConstraint = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)(yellowView_leadingAnchor, sel_registerName("constraintEqualToAnchor:"), greenView_leadingAnchor);
+        id trailingConstraint = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)(yellowView_trailingAnchor, sel_registerName("constraintEqualToAnchor:"), greenView_trailingAnchor);
+        id bottomConstraint = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)(yellowView_bottomAnchor, sel_registerName("constraintEqualToAnchor:"), greenView_bottomAnchor);
+        
+        reinterpret_cast<void (*)(Class, SEL, id)>(objc_msgSend)(objc_lookUpClass("NSLayoutConstraint"), sel_registerName("activateConstraints:"), @[
+            topConstraint, leadingConstraint, trailingConstraint, bottomConstraint
+        ]);
+        
+        [greenView release];
+        
+        //
+        
         reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self, sel_registerName("setViewControllers:"), @[
             cyanViewController,
-            pinkViewController
+            pinkViewController,
+            yellowGreenViewController
         ]);
         
         [cyanViewController release];
         [pinkViewController release];
+        [yellowGreenViewController release];
         
         NSLog(@"%@", reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("viewControllers")));
     }
