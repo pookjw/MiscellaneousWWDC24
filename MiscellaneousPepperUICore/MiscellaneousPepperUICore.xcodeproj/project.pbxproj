@@ -20,6 +20,7 @@
 		4F9879BA2C5A8A2700E4D2F3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9879B92C5A8A2700E4D2F3 /* UIKit.framework */; };
 		4F9879BC2C5A8A2A00E4D2F3 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9879BB2C5A8A2A00E4D2F3 /* WatchKit.framework */; };
 		4F9879BE2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9879BD2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework */; };
+		4FCD98E72C5CEB97001022A9 /* PageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD98E62C5CEB97001022A9 /* PageViewController.mm */; };
 		4FFEA7DB2C5A8C9000313CAC /* SceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFEA7DA2C5A8C9000313CAC /* SceneDelegate.mm */; };
 		4FFEA7DE2C5A8D6D00313CAC /* ClassListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFEA7DD2C5A8D6D00313CAC /* ClassListViewController.mm */; };
 /* End PBXBuildFile section */
@@ -43,6 +44,8 @@
 		4F9879B92C5A8A2700E4D2F3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F9879BB2C5A8A2A00E4D2F3 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/WatchKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F9879BD2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = DEVELOPER_DIR; };
+		4FCD98E52C5CEB97001022A9 /* PageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
+		4FCD98E62C5CEB97001022A9 /* PageViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PageViewController.mm; sourceTree = "<group>"; };
 		4FFEA7D92C5A8C9000313CAC /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		4FFEA7DA2C5A8C9000313CAC /* SceneDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SceneDelegate.mm; sourceTree = "<group>"; };
 		4FFEA7DC2C5A8D6D00313CAC /* ClassListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassListViewController.h; sourceTree = "<group>"; };
@@ -109,6 +112,7 @@
 				4FFEA7DC2C5A8D6D00313CAC /* ClassListViewController.h */,
 				4FFEA7DD2C5A8D6D00313CAC /* ClassListViewController.mm */,
 				4F85F34F2C5A960A00C25410 /* DigitalCrown */,
+				4FCD98E42C5CEB7F001022A9 /* Page */,
 			);
 			path = MiscellaneousPepperUICore;
 			sourceTree = "<group>";
@@ -125,6 +129,15 @@
 				4F9879B92C5A8A2700E4D2F3 /* UIKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4FCD98E42C5CEB7F001022A9 /* Page */ = {
+			isa = PBXGroup;
+			children = (
+				4FCD98E52C5CEB97001022A9 /* PageViewController.h */,
+				4FCD98E62C5CEB97001022A9 /* PageViewController.mm */,
+			);
+			path = Page;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,6 +212,7 @@
 				4F86742D2C5A88DC00825FE5 /* main.mm in Sources */,
 				4F8674302C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4F8674332C5A893900825FE5 /* AppDelegate.mm in Sources */,
+				4FCD98E72C5CEB97001022A9 /* PageViewController.mm in Sources */,
 				4FFEA7DE2C5A8D6D00313CAC /* ClassListViewController.mm in Sources */,
 				4FFEA7DB2C5A8C9000313CAC /* SceneDelegate.mm in Sources */,
 				4F85F3552C5A9CDA00C25410 /* DigitalCrownView.mm in Sources */,

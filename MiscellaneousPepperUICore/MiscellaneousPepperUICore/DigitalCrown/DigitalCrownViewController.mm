@@ -12,17 +12,16 @@
 #import <objc/runtime.h>
 
 // puic_didEnterAlwaysOn, puic_didExitAlwaysOn
-// SPPUICPageViewController
 
 /*
- PUICCrownIndicatorContext
- PUICCrownInputSequencer
  PUICSlider
  PUICQuickboardNumberPadView
  PUICTimeOffsetInputView
  _PUISwitchInternalView
  PUICHapticFeedback
  PUICAnimatedEmojiView
+ PUICPageIndicatorView
+ PUICMaterialPageIndicatorView
  */
 
 OBJC_EXPORT id objc_msgSendSuper2(void);

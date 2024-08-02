@@ -10,6 +10,7 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import "DigitalCrownViewController.h"
+#import "PageViewController.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
@@ -17,6 +18,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 + (NSArray<Class> *)classes {
     return @[
+        PageViewController.class,
         DigitalCrownViewController.class
     ];
 }
