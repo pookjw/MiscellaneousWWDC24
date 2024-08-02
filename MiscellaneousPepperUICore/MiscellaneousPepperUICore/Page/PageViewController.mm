@@ -38,8 +38,24 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP description = class_getMethodImplementation(self, @selector(description));
         assert(class_addMethod(_dynamicIsa, @selector(description), description, NULL));
         
+        IMP respondsToSelector = class_getMethodImplementation(self, @selector(respondsToSelector:));
+        assert(class_addMethod(_dynamicIsa, @selector(respondsToSelector:), respondsToSelector, NULL));
+        
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
         assert(class_addMethod(_dynamicIsa, @selector(viewDidLoad), viewDidLoad, NULL));
+        
+        IMP didTriggerNextBarButtonItem = class_getMethodImplementation(self, @selector(didTriggerNextBarButtonItem:));
+        assert(class_addMethod(_dynamicIsa, @selector(didTriggerNextBarButtonItem:), didTriggerNextBarButtonItem, NULL));
+        
+        IMP pageViewController_didChangeToIndex = class_getMethodImplementation(self, @selector(pageViewController:didChangeToIndex:));
+        assert(class_addMethod(_dynamicIsa, @selector(pageViewController:didChangeToIndex:), pageViewController_didChangeToIndex, NULL));
+        
+        IMP collectionView_didSelectItemAtIndexPath = class_getMethodImplementation(self, @selector(collectionView:didSelectItemAtIndexPath:));
+        assert(class_addMethod(_dynamicIsa, @selector(collectionView:didSelectItemAtIndexPath:), collectionView_didSelectItemAtIndexPath, NULL));
+        
+        //
+        
+//        assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"PUICStatusBarCubicContainerDataSource")));
         
         dynamicIsa = _dynamicIsa;
     });
@@ -49,7 +65,15 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     objc_super superInfo = { self, [self class] };
-    self = reinterpret_cast<id (*)(objc_super *, SEL, NSUInteger, NSInteger, BOOL, NSInteger)>(objc_msgSendSuper2)(&superInfo, sel_registerName("initWithNavigationOrientation:titleBehavior:shouldPreloadChildViewControllers:pageTransform:"), 1, 1, NO, 1);
+    
+    // navigationOrientation
+    //  - 0 : Horizontal
+    //  - 1 : Vertical
+    
+    // pageTransform
+    //  - 0 : Blur When Vertical
+    //  - 1 : None
+    self = reinterpret_cast<id (*)(objc_super *, SEL, NSUInteger, NSInteger, BOOL, NSInteger)>(objc_msgSendSuper2)(&superInfo, sel_registerName("initWithNavigationOrientation:titleBehavior:shouldPreloadChildViewControllers:pageTransform:"), 1, 0, NO, 0);
     
     if (self) {
         id cyanViewController = [objc_lookUpClass("SPViewController") new];
@@ -113,7 +137,9 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         [pinkViewController release];
         [yellowGreenViewController release];
         
-        NSLog(@"%@", reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("viewControllers")));
+        //
+        
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self, sel_registerName("setDelegate:"), self);
     }
     
     return self;
@@ -131,14 +157,82 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     return [NSString stringWithFormat:@"<%s: %p>", class_getName(self.class), self];
 }
 
+- (BOOL)respondsToSelector:(SEL)aSelector {
+    objc_super superInfo = { self, [self class] };
+    BOOL responds = reinterpret_cast<BOOL (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
+    
+    if (!responds) {
+        NSLog(@"%s", sel_getName(aSelector));
+    }
+    
+    return responds;
+}
+
 - (void)viewDidLoad {
     objc_super superInfo = { self, [self class] };
     reinterpret_cast<void (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
     
     id navigationItem = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("navigationItem"));
     
-    // View Controller 바뀔 때마다 업데이트 해보기
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(navigationItem, sel_registerName("setTitle:"), @"Page!");
+    NSInteger currentIndex = reinterpret_cast<NSInteger (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("currentIndex"));
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(navigationItem, sel_registerName("setTitle:"), [NSNumber numberWithInteger:currentIndex].stringValue);
+    
+    //
+    
+    id nextBarButtonItem = reinterpret_cast<id (*)(id, SEL, id, NSInteger, id, SEL)>(objc_msgSend)([objc_lookUpClass("UIBarButtonItem") alloc], sel_registerName("initWithImage:style:target:action:"), [UIImage systemImageNamed:@"opticid"], 0, self, @selector(didTriggerNextBarButtonItem:));
+    
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(navigationItem, sel_registerName("setRightBarButtonItems:"), @[
+        nextBarButtonItem
+    ]);
+    
+    [nextBarButtonItem release];
+    
+    //
+    
+    // ??
+//    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(self, sel_registerName("setAvoidsContentScrollViewLoop:"), YES);
+    
+    //
+    
+    // 안 되는듯?
+    // -[PUICCarouselBackgroundView setBackgroundView:allowsVibrancy:forIndexPath:]에서 backgroundsForIndexPaths (ivar)이 비어 있어서 아무것도 안함
+    
+//    UIImage *image = [UIImage imageNamed:@"image"];
+//    id imageView = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("UIImageView") alloc], sel_registerName("initWithImage:"), image);
+//    reinterpret_cast<void (*)(id, SEL, NSInteger)>(objc_msgSend)(imageView, sel_registerName("setContentMode:"), 2);
+//    reinterpret_cast<void (*)(id, SEL, id, BOOL, NSUInteger)>(objc_msgSend)(self, sel_registerName("setBackgroundView:allowsVibrancy:atPageIndex:"), imageView, YES, 1);
+//    [imageView release];
+    
+    //
+    
+    // 안 되는듯?
+//    id verticalModeCubicTitleView = reinterpret_cast<id (*)(id, SEL, CGRect)>(objc_msgSend)([objc_lookUpClass("PUICStatusBarCubicContainer") alloc], sel_registerName("initWithFrame:"), CGRectMake(0., 0., 100., 100.));
+//    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(verticalModeCubicTitleView, sel_registerName("setDataSource:"), self);
+//    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(verticalModeCubicTitleView, sel_registerName("setBackgroundColor:"), UIColor.whiteColor);
+//    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self, sel_registerName("setVerticalModeCubicTitleView:"), verticalModeCubicTitleView);
+//    [verticalModeCubicTitleView release];
+}
+
+- (void)didTriggerNextBarButtonItem:(id)sender {
+    NSInteger currentIndex = reinterpret_cast<NSInteger (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("currentIndex"));
+    
+    NSArray *viewControllers = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("viewControllers"));
+    
+    if (currentIndex + 1 < viewControllers.count) {
+        reinterpret_cast<void (*)(id, SEL, NSInteger, BOOL)>(objc_msgSend)(self, sel_registerName("setCurrentIndex:animated:"), currentIndex + 1, YES);
+    } else {
+        reinterpret_cast<void (*)(id, SEL, NSInteger, BOOL)>(objc_msgSend)(self, sel_registerName("setCurrentIndex:animated:"), 0, YES);
+    }
+}
+
+- (void)pageViewController:(id)pageViewController didChangeToIndex:(NSInteger)index {
+    id navigationItem = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("navigationItem"));
+    
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(navigationItem, sel_registerName("setTitle:"), [NSNumber numberWithInteger:index].stringValue);
+}
+
+- (void)collectionView:(id)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"%@", indexPath);
 }
 
 @end
