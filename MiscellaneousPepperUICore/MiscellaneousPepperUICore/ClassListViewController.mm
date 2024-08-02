@@ -11,6 +11,7 @@
 #import <objc/runtime.h>
 #import "DigitalCrownViewController.h"
 #import "PageViewController.h"
+#import "SlidersViewController.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
@@ -18,6 +19,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 + (NSArray<Class> *)classes {
     return @[
+        SlidersViewController.class,
         PageViewController.class,
         DigitalCrownViewController.class
     ];

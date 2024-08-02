@@ -10,6 +10,7 @@ import SwiftUI
 enum Demo: Int, Identifiable, CaseIterable {
     case digitalCrownRotation
     case myTab
+    case mySliderView
     
     var id: Int {
         rawValue
@@ -22,6 +23,8 @@ enum Demo: Int, Identifiable, CaseIterable {
             DigitalCrownRotationView()
         case .myTab:
             MyTabView()
+        case .mySliderView:
+            MySliderView()
         }
     }
 }

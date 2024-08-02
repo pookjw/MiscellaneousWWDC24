@@ -77,9 +77,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 }
 
 - (void)loadView {
-    objc_super superInfo = { self, [self class] };
-    reinterpret_cast<void (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
-    
     DigitalCrownView *view = [DigitalCrownView new];
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self, sel_registerName("setView:"), view);
     [view release];

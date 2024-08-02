@@ -13,6 +13,7 @@
 		4F172B262C5A90D5009A1DBC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B252C5A90D5009A1DBC /* AVFoundation.framework */; };
 		4F85F3522C5A963E00C25410 /* DigitalCrownViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3512C5A963E00C25410 /* DigitalCrownViewController.mm */; };
 		4F85F3552C5A9CDA00C25410 /* DigitalCrownView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3542C5A9CDA00C25410 /* DigitalCrownView.mm */; };
+		4F85F3942C5D350000C25410 /* SlidersViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3932C5D350000C25410 /* SlidersViewController.mm */; };
 		4F86742D2C5A88DC00825FE5 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F86742C2C5A88DC00825FE5 /* main.mm */; };
 		4F8674302C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F86742F2C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.mm */; };
 		4F8674332C5A893900825FE5 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8674322C5A893900825FE5 /* AppDelegate.mm */; };
@@ -34,6 +35,8 @@
 		4F85F3512C5A963E00C25410 /* DigitalCrownViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DigitalCrownViewController.mm; sourceTree = "<group>"; };
 		4F85F3532C5A9CDA00C25410 /* DigitalCrownView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DigitalCrownView.h; sourceTree = "<group>"; };
 		4F85F3542C5A9CDA00C25410 /* DigitalCrownView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DigitalCrownView.mm; sourceTree = "<group>"; };
+		4F85F3922C5D350000C25410 /* SlidersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlidersViewController.h; sourceTree = "<group>"; };
+		4F85F3932C5D350000C25410 /* SlidersViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SlidersViewController.mm; sourceTree = "<group>"; };
 		4F86742C2C5A88DC00825FE5 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		4F86742E2C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Foundation_IvarDescription.h"; sourceTree = "<group>"; };
 		4F86742F2C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+Foundation_IvarDescription.mm"; sourceTree = "<group>"; };
@@ -81,6 +84,15 @@
 			path = DigitalCrown;
 			sourceTree = "<group>";
 		};
+		4F85F3912C5D34ED00C25410 /* Sliders */ = {
+			isa = PBXGroup;
+			children = (
+				4F85F3922C5D350000C25410 /* SlidersViewController.h */,
+				4F85F3932C5D350000C25410 /* SlidersViewController.mm */,
+			);
+			path = Sliders;
+			sourceTree = "<group>";
+		};
 		4F8A34C12C5A861400E3CFC4 = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +125,7 @@
 				4FFEA7DD2C5A8D6D00313CAC /* ClassListViewController.mm */,
 				4F85F34F2C5A960A00C25410 /* DigitalCrown */,
 				4FCD98E42C5CEB7F001022A9 /* Page */,
+				4F85F3912C5D34ED00C25410 /* Sliders */,
 			);
 			path = MiscellaneousPepperUICore;
 			sourceTree = "<group>";
@@ -212,6 +225,7 @@
 				4F86742D2C5A88DC00825FE5 /* main.mm in Sources */,
 				4F8674302C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4F8674332C5A893900825FE5 /* AppDelegate.mm in Sources */,
+				4F85F3942C5D350000C25410 /* SlidersViewController.mm in Sources */,
 				4FCD98E72C5CEB97001022A9 /* PageViewController.mm in Sources */,
 				4FFEA7DE2C5A8D6D00313CAC /* ClassListViewController.mm in Sources */,
 				4FFEA7DB2C5A8C9000313CAC /* SceneDelegate.mm in Sources */,
