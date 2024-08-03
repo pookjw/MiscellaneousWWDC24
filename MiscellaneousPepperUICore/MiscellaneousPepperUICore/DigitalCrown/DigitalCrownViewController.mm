@@ -22,6 +22,12 @@
  PUICAnimatedEmojiView
  PUICPageIndicatorView
  PUICMaterialPageIndicatorView
+ PUICActionViewController
+ PUICQuickboardViewController
+ PUICButton
+ ArouetButton
+ ArouetBlinkingButton
+ PUICActivityIndicatorView
  */
 
 OBJC_EXPORT id objc_msgSendSuper2(void);

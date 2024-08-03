@@ -11,9 +11,12 @@
 		4F172B222C5A90CA009A1DBC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B212C5A90CA009A1DBC /* CoreGraphics.framework */; };
 		4F172B242C5A90D0009A1DBC /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B232C5A90D0009A1DBC /* AVKit.framework */; };
 		4F172B262C5A90D5009A1DBC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B252C5A90D5009A1DBC /* AVFoundation.framework */; };
+		4F47EA502C5E267700B6D032 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47EA4F2C5E267700B6D032 /* MapKit.framework */; };
 		4F85F3522C5A963E00C25410 /* DigitalCrownViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3512C5A963E00C25410 /* DigitalCrownViewController.mm */; };
 		4F85F3552C5A9CDA00C25410 /* DigitalCrownView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3542C5A9CDA00C25410 /* DigitalCrownView.mm */; };
 		4F85F3942C5D350000C25410 /* SlidersViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3932C5D350000C25410 /* SlidersViewController.mm */; };
+		4F85F39B2C5E1CC200C25410 /* AlertPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F39A2C5E1CC200C25410 /* AlertPresenterViewController.mm */; };
+		4F85F39F2C5E1FDC00C25410 /* SheetPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F39E2C5E1FDC00C25410 /* SheetPresenterViewController.mm */; };
 		4F86742D2C5A88DC00825FE5 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F86742C2C5A88DC00825FE5 /* main.mm */; };
 		4F8674302C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F86742F2C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.mm */; };
 		4F8674332C5A893900825FE5 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8674322C5A893900825FE5 /* AppDelegate.mm */; };
@@ -21,6 +24,7 @@
 		4F9879BA2C5A8A2700E4D2F3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9879B92C5A8A2700E4D2F3 /* UIKit.framework */; };
 		4F9879BC2C5A8A2A00E4D2F3 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9879BB2C5A8A2A00E4D2F3 /* WatchKit.framework */; };
 		4F9879BE2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9879BD2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework */; };
+		4FA997BD2C5E3369000E5AFB /* Symbols.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FA997BC2C5E3369000E5AFB /* Symbols.framework */; };
 		4FCD98E72C5CEB97001022A9 /* PageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD98E62C5CEB97001022A9 /* PageViewController.mm */; };
 		4FFEA7DB2C5A8C9000313CAC /* SceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFEA7DA2C5A8C9000313CAC /* SceneDelegate.mm */; };
 		4FFEA7DE2C5A8D6D00313CAC /* ClassListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFEA7DD2C5A8D6D00313CAC /* ClassListViewController.mm */; };
@@ -31,12 +35,17 @@
 		4F172B212C5A90CA009A1DBC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		4F172B232C5A90D0009A1DBC /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/AVKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F172B252C5A90D5009A1DBC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		4F47EA4F2C5E267700B6D032 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F85F3502C5A963E00C25410 /* DigitalCrownViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DigitalCrownViewController.h; sourceTree = "<group>"; };
 		4F85F3512C5A963E00C25410 /* DigitalCrownViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DigitalCrownViewController.mm; sourceTree = "<group>"; };
 		4F85F3532C5A9CDA00C25410 /* DigitalCrownView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DigitalCrownView.h; sourceTree = "<group>"; };
 		4F85F3542C5A9CDA00C25410 /* DigitalCrownView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DigitalCrownView.mm; sourceTree = "<group>"; };
 		4F85F3922C5D350000C25410 /* SlidersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlidersViewController.h; sourceTree = "<group>"; };
 		4F85F3932C5D350000C25410 /* SlidersViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SlidersViewController.mm; sourceTree = "<group>"; };
+		4F85F3992C5E1CC200C25410 /* AlertPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlertPresenterViewController.h; sourceTree = "<group>"; };
+		4F85F39A2C5E1CC200C25410 /* AlertPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AlertPresenterViewController.mm; sourceTree = "<group>"; };
+		4F85F39D2C5E1FDC00C25410 /* SheetPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SheetPresenterViewController.h; sourceTree = "<group>"; };
+		4F85F39E2C5E1FDC00C25410 /* SheetPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SheetPresenterViewController.mm; sourceTree = "<group>"; };
 		4F86742C2C5A88DC00825FE5 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		4F86742E2C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Foundation_IvarDescription.h"; sourceTree = "<group>"; };
 		4F86742F2C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+Foundation_IvarDescription.mm"; sourceTree = "<group>"; };
@@ -47,6 +56,7 @@
 		4F9879B92C5A8A2700E4D2F3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F9879BB2C5A8A2A00E4D2F3 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/WatchKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F9879BD2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = DEVELOPER_DIR; };
+		4FA997BC2C5E3369000E5AFB /* Symbols.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Symbols.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/Symbols.framework; sourceTree = DEVELOPER_DIR; };
 		4FCD98E52C5CEB97001022A9 /* PageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
 		4FCD98E62C5CEB97001022A9 /* PageViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PageViewController.mm; sourceTree = "<group>"; };
 		4FFEA7D92C5A8C9000313CAC /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
@@ -62,8 +72,10 @@
 			files = (
 				4F172B202C5A90C4009A1DBC /* QuartzCore.framework in Frameworks */,
 				4F9879BE2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework in Frameworks */,
+				4F47EA502C5E267700B6D032 /* MapKit.framework in Frameworks */,
 				4F172B242C5A90D0009A1DBC /* AVKit.framework in Frameworks */,
 				4F9879BA2C5A8A2700E4D2F3 /* UIKit.framework in Frameworks */,
+				4FA997BD2C5E3369000E5AFB /* Symbols.framework in Frameworks */,
 				4F172B222C5A90CA009A1DBC /* CoreGraphics.framework in Frameworks */,
 				4F172B262C5A90D5009A1DBC /* AVFoundation.framework in Frameworks */,
 				4F9879BC2C5A8A2A00E4D2F3 /* WatchKit.framework in Frameworks */,
@@ -91,6 +103,24 @@
 				4F85F3932C5D350000C25410 /* SlidersViewController.mm */,
 			);
 			path = Sliders;
+			sourceTree = "<group>";
+		};
+		4F85F3982C5E1CA700C25410 /* AlertPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				4F85F3992C5E1CC200C25410 /* AlertPresenterViewController.h */,
+				4F85F39A2C5E1CC200C25410 /* AlertPresenterViewController.mm */,
+			);
+			path = AlertPresenter;
+			sourceTree = "<group>";
+		};
+		4F85F39C2C5E1F7700C25410 /* SheetPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				4F85F39D2C5E1FDC00C25410 /* SheetPresenterViewController.h */,
+				4F85F39E2C5E1FDC00C25410 /* SheetPresenterViewController.mm */,
+			);
+			path = SheetPresenter;
 			sourceTree = "<group>";
 		};
 		4F8A34C12C5A861400E3CFC4 = {
@@ -126,6 +156,8 @@
 				4F85F34F2C5A960A00C25410 /* DigitalCrown */,
 				4FCD98E42C5CEB7F001022A9 /* Page */,
 				4F85F3912C5D34ED00C25410 /* Sliders */,
+				4F85F3982C5E1CA700C25410 /* AlertPresenter */,
+				4F85F39C2C5E1F7700C25410 /* SheetPresenter */,
 			);
 			path = MiscellaneousPepperUICore;
 			sourceTree = "<group>";
@@ -133,6 +165,8 @@
 		4F9879B82C5A8A2600E4D2F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4FA997BC2C5E3369000E5AFB /* Symbols.framework */,
+				4F47EA4F2C5E267700B6D032 /* MapKit.framework */,
 				4F172B252C5A90D5009A1DBC /* AVFoundation.framework */,
 				4F172B232C5A90D0009A1DBC /* AVKit.framework */,
 				4F172B212C5A90CA009A1DBC /* CoreGraphics.framework */,
@@ -224,6 +258,7 @@
 			files = (
 				4F86742D2C5A88DC00825FE5 /* main.mm in Sources */,
 				4F8674302C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.mm in Sources */,
+				4F85F39B2C5E1CC200C25410 /* AlertPresenterViewController.mm in Sources */,
 				4F8674332C5A893900825FE5 /* AppDelegate.mm in Sources */,
 				4F85F3942C5D350000C25410 /* SlidersViewController.mm in Sources */,
 				4FCD98E72C5CEB97001022A9 /* PageViewController.mm in Sources */,
@@ -231,6 +266,7 @@
 				4FFEA7DB2C5A8C9000313CAC /* SceneDelegate.mm in Sources */,
 				4F85F3552C5A9CDA00C25410 /* DigitalCrownView.mm in Sources */,
 				4F85F3522C5A963E00C25410 /* DigitalCrownViewController.mm in Sources */,
+				4F85F39F2C5E1FDC00C25410 /* SheetPresenterViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

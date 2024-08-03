@@ -6,6 +6,7 @@
 //
 
 #import "SlidersViewController.h"
+#import <UIKit/UIKit.h>
 #import <objc/message.h>
 #import <objc/runtime.h>
 
@@ -129,7 +130,23 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     reinterpret_cast<void (*)(id, SEL, float, BOOL)>(objc_msgSend)(puicSlider, sel_registerName("setValue:animated:"), 0.5f, NO);
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(puicSlider, sel_registerName("setDelegate:"), self);
     
-    // minimumValueView maximumValueView compactAccessoryImage hapticFeedbackEnabled
+    UIImage *minusImage = [UIImage systemImageNamed:@"minus"];
+    id minimumValueView = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("UIImageView") alloc], sel_registerName("initWithImage:"), minusImage);
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(puicSlider, sel_registerName("setMinimumValueView:"), minimumValueView);
+    [minimumValueView release];
+    
+    UIImage *plusImage = [UIImage systemImageNamed:@"plus"];
+    id maximumValueView = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("UIImageView") alloc], sel_registerName("initWithImage:"), plusImage);
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(puicSlider, sel_registerName("setMaximumValueView:"), maximumValueView);
+    [maximumValueView release];
+    
+    // 안 되는듯
+    UIImage *balloonImage = [UIImage systemImageNamed:@"balloon.fill"];
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(puicSlider, sel_registerName("setCompactAccessoryImage:"), balloonImage);
+    
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(puicSlider, sel_registerName("setHapticFeedbackEnabled:"), YES);
+    reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(puicSlider, sel_registerName("setNumberOfSteps:"), 4);
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(puicSlider, sel_registerName("setShouldAutomaticallAdjustValueOnTouch:"), YES);
     
     //
     

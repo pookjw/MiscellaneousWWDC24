@@ -154,8 +154,7 @@ void swizzle() {
 //        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setWantsCrownIndicatorStyledForTouchInput:"), YES);
 //        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setSmoothingEnabled:"), YES);
         
-        // 안 되나?
-        id accLabel = [objc_lookUpClass("UILabel") new];
+        id accLabel = [objc_lookUpClass("PUICHyphenatedLabel") new];
         reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(accLabel, sel_registerName("setText:"), @"Acc");
         reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(accLabel, sel_registerName("sizeToFit"));
         id crownIndicatorContext = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(crownInputSequencer, sel_registerName("crownIndicatorContext"));
@@ -169,7 +168,7 @@ void swizzle() {
         
         //
         
-        id label = [objc_lookUpClass("UILabel") new];
+        id label = [objc_lookUpClass("PUICHyphenatedLabel") new];
         reinterpret_cast<void (*)(id, SEL, NSInteger)>(objc_msgSend)(label, sel_registerName("setNumberOfLines:"), 0);
         reinterpret_cast<void (*)(id, SEL, NSInteger)>(objc_msgSend)(label, sel_registerName("setTextAlignment:"), 1);
         reinterpret_cast<void (*)(id, SEL, CGFloat)>(objc_msgSend)(label, sel_registerName("setMinimumScaleFactor:"), 0.1);
