@@ -19,6 +19,8 @@
 #import "TimeOffsetInputViewController.h"
 #import "QuickboardNumberPadViewController.h"
 #import "SwitchViewController.h"
+#import "CompositionPresenterViewController.h"
+#import "MessagePresenterViewController.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
@@ -26,6 +28,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 + (NSArray<Class> *)classes {
     return @[
+        MessagePresenterViewController.class,
+        CompositionPresenterViewController.class,
         SwitchViewController.class,
         QuickboardNumberPadViewController.class,
         TimeOffsetInputViewController.class,
