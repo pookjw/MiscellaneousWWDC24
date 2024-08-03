@@ -14,6 +14,7 @@
 #import "SlidersViewController.h"
 #import "AlertPresenterViewController.h"
 #import "SheetPresenterViewController.h"
+#import "PickerViewController.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
@@ -21,6 +22,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 + (NSArray<Class> *)classes {
     return @[
+        PickerViewController.class,
         SheetPresenterViewController.class,
         AlertPresenterViewController.class,
         SlidersViewController.class,

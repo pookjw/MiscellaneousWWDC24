@@ -12,6 +12,7 @@ enum Demo: Int, Identifiable, CaseIterable {
     case myTab
     case mySlider
     case myAlert
+    case myDatePicker
     
     var id: Int {
         rawValue
@@ -28,6 +29,8 @@ enum Demo: Int, Identifiable, CaseIterable {
             MySliderView()
         case .myAlert:
             MyAlertView()
+        case .myDatePicker:
+            MyDatePickerView()
         }
     }
 }
