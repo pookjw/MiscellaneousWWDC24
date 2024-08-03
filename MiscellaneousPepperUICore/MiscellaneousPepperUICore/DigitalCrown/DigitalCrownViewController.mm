@@ -15,8 +15,6 @@
 
 /*
  PUICSlider
- PUICQuickboardNumberPadView
- _PUISwitchInternalView
  PUICHapticFeedback
  PUICPageIndicatorView
  PUICMaterialPageIndicatorView
@@ -25,6 +23,17 @@
  PUICButton
  ArouetButton
  ArouetBlinkingButton
+ 
+ ColorPicker
+ UIColorWell
+ 
+ CollectionView
+ SearchController
+ 
+ PUICStatusBarManager
+ PUICApplicationStatusBarItem
+ 
+ arouet 검색해서 다 써보기
  */
 
 OBJC_EXPORT id objc_msgSendSuper2(void);

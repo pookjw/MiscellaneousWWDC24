@@ -15,6 +15,7 @@
 		4F3B20B92C5E471000D88762 /* ActivityIndicatorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3B20B82C5E471000D88762 /* ActivityIndicatorViewController.mm */; };
 		4F3B20C12C5E4A5A00D88762 /* TimeOffsetInputViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3B20C02C5E4A5A00D88762 /* TimeOffsetInputViewController.mm */; };
 		4F3B20E02C5E50E600D88762 /* QuickboardNumberPadViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3B20DF2C5E50E600D88762 /* QuickboardNumberPadViewController.mm */; };
+		4F3B20E72C5E551700D88762 /* SwitchViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3B20E62C5E551700D88762 /* SwitchViewController.mm */; };
 		4F47EA502C5E267700B6D032 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47EA4F2C5E267700B6D032 /* MapKit.framework */; };
 		4F85F3522C5A963E00C25410 /* DigitalCrownViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3512C5A963E00C25410 /* DigitalCrownViewController.mm */; };
 		4F85F3552C5A9CDA00C25410 /* DigitalCrownView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3542C5A9CDA00C25410 /* DigitalCrownView.mm */; };
@@ -47,6 +48,8 @@
 		4F3B20C02C5E4A5A00D88762 /* TimeOffsetInputViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TimeOffsetInputViewController.mm; sourceTree = "<group>"; };
 		4F3B20DE2C5E50E600D88762 /* QuickboardNumberPadViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickboardNumberPadViewController.h; sourceTree = "<group>"; };
 		4F3B20DF2C5E50E600D88762 /* QuickboardNumberPadViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = QuickboardNumberPadViewController.mm; sourceTree = "<group>"; };
+		4F3B20E52C5E551700D88762 /* SwitchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitchViewController.h; sourceTree = "<group>"; };
+		4F3B20E62C5E551700D88762 /* SwitchViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SwitchViewController.mm; sourceTree = "<group>"; };
 		4F47EA4F2C5E267700B6D032 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F85F3502C5A963E00C25410 /* DigitalCrownViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DigitalCrownViewController.h; sourceTree = "<group>"; };
 		4F85F3512C5A963E00C25410 /* DigitalCrownViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DigitalCrownViewController.mm; sourceTree = "<group>"; };
@@ -133,6 +136,15 @@
 			path = QuickboardNumberPad;
 			sourceTree = "<group>";
 		};
+		4F3B20E42C5E54FD00D88762 /* Switch */ = {
+			isa = PBXGroup;
+			children = (
+				4F3B20E52C5E551700D88762 /* SwitchViewController.h */,
+				4F3B20E62C5E551700D88762 /* SwitchViewController.mm */,
+			);
+			path = Switch;
+			sourceTree = "<group>";
+		};
 		4F85F34F2C5A960A00C25410 /* DigitalCrown */ = {
 			isa = PBXGroup;
 			children = (
@@ -210,6 +222,7 @@
 				4F3B20B62C5E46F800D88762 /* ActivityIndicator */,
 				4F3B20BE2C5E4A4800D88762 /* TimeOffsetInput */,
 				4F3B20DD2C5E50D300D88762 /* QuickboardNumberPad */,
+				4F3B20E42C5E54FD00D88762 /* Switch */,
 			);
 			path = MiscellaneousPepperUICore;
 			sourceTree = "<group>";
@@ -310,6 +323,7 @@
 			files = (
 				4F86742D2C5A88DC00825FE5 /* main.mm in Sources */,
 				4F8674302C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.mm in Sources */,
+				4F3B20E72C5E551700D88762 /* SwitchViewController.mm in Sources */,
 				4F85F39B2C5E1CC200C25410 /* AlertPresenterViewController.mm in Sources */,
 				4F3B20C12C5E4A5A00D88762 /* TimeOffsetInputViewController.mm in Sources */,
 				4F8674332C5A893900825FE5 /* AppDelegate.mm in Sources */,
