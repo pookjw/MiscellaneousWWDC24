@@ -43,6 +43,12 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
         assert(class_addMethod(_dynamicIsa, @selector(viewDidLoad), viewDidLoad, NULL));
         
+        IMP uiSliderValueChanged = class_getMethodImplementation(self, @selector(uiSliderValueChanged:));
+        assert(class_addMethod(_dynamicIsa, @selector(uiSliderValueChanged:), uiSliderValueChanged, NULL));
+        
+        IMP puicSliderValueChanged = class_getMethodImplementation(self, @selector(puicSliderValueChanged:));
+        assert(class_addMethod(_dynamicIsa, @selector(puicSliderValueChanged:), puicSliderValueChanged, NULL));
+        
         IMP sliderDidBeginCrownInteraction = class_getMethodImplementation(self, @selector(sliderDidBeginCrownInteraction:));
         assert(class_addMethod(_dynamicIsa, @selector(sliderDidBeginCrownInteraction:), sliderDidBeginCrownInteraction, NULL));
         
@@ -103,7 +109,11 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 - (void)loadView {
     id uiSlider = [objc_lookUpClass("UISlider") new];
+    
+    reinterpret_cast<void (*)(id, SEL, float)>(objc_msgSend)(uiSlider, sel_registerName("setMinimumValue:"), 0.f);
+    reinterpret_cast<void (*)(id, SEL, float)>(objc_msgSend)(uiSlider, sel_registerName("setMaximumValue:"), 1.f);
     reinterpret_cast<void (*)(id, SEL, float, BOOL)>(objc_msgSend)(uiSlider, sel_registerName("setValue:animated:"), 0.5f, NO);
+    reinterpret_cast<void (*)(id, SEL, id, SEL, NSUInteger)>(objc_msgSend)(uiSlider, sel_registerName("addTarget:action:forControlEvents:"), self, @selector(uiSliderValueChanged:), 1 << 12);
     
     //
     
@@ -112,6 +122,10 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     //  - 1 : Step
     //  - 2 : Circular
     id puicSlider = reinterpret_cast<id (*)(id, SEL, NSInteger)>(objc_msgSend)([objc_lookUpClass("PUICSlider") alloc], sel_registerName("initWithSliderStyle:"), 1);
+    
+    reinterpret_cast<void (*)(id, SEL, float)>(objc_msgSend)(puicSlider, sel_registerName("setMinimumValue:"), 0.f);
+    reinterpret_cast<void (*)(id, SEL, float)>(objc_msgSend)(puicSlider, sel_registerName("setMaximumValue:"), 1.f);
+    reinterpret_cast<void (*)(id, SEL, id, SEL, NSUInteger)>(objc_msgSend)(puicSlider, sel_registerName("addTarget:action:forControlEvents:"), self, @selector(puicSliderValueChanged:), 1 << 12);
     reinterpret_cast<void (*)(id, SEL, float, BOOL)>(objc_msgSend)(puicSlider, sel_registerName("setValue:animated:"), 0.5f, NO);
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(puicSlider, sel_registerName("setDelegate:"), self);
     
@@ -141,6 +155,24 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     //
     
     
+}
+
+- (void)uiSliderValueChanged:(id)sender {
+    float value = reinterpret_cast<float (*)(id, SEL)>(objc_msgSend)(sender, sel_registerName("value"));
+    
+    id _puicSlider;
+    object_getInstanceVariable(self, "_puicSlider", reinterpret_cast<void **>(&_puicSlider));
+    
+    reinterpret_cast<void (*)(id, SEL, float, BOOL)>(objc_msgSend)(_puicSlider, sel_registerName("setValue:animated:"), value, YES);
+}
+
+- (void)puicSliderValueChanged:(id)sender {
+    float value = reinterpret_cast<float (*)(id, SEL)>(objc_msgSend)(sender, sel_registerName("value"));
+    
+    id _uiSlider;
+    object_getInstanceVariable(self, "_uiSlider", reinterpret_cast<void **>(&_uiSlider));
+    
+    reinterpret_cast<void (*)(id, SEL, float, BOOL)>(objc_msgSend)(_uiSlider, sel_registerName("setValue:animated:"), value, YES);
 }
 
 - (void)sliderDidBeginCrownInteraction:(id)slider {
