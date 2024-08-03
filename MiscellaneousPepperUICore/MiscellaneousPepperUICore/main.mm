@@ -16,8 +16,7 @@ int main(int argc, char * argv[]) {
     
     @autoreleasepool {
         // PUICListCollectionViewLayoutDelegate PUICListCollectionViewDelegate
-        NSLog(@"%@", [NSObject _fd__protocolDescriptionForProtocol:NSProtocolFromString(@"PUICPickerViewDataSource")]);
-        NSLog(@"%@", [NSObject _fd__protocolDescriptionForProtocol:NSProtocolFromString(@"PUICPickerViewDelegate")]);
+        NSLog(@"%@", [NSObject _fd__protocolDescriptionForProtocol:NSProtocolFromString(@"PUICWheelsOfTimeDelegate")]);
     }
     
     int result = UIApplicationMain(argc, argv, @"SPApplication", NSStringFromClass(AppDelegate.class));

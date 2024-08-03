@@ -17,9 +17,9 @@
  PUICSlider
  PUICQuickboardNumberPadView
  PUICTimeOffsetInputView
+ PUICWheelsOfTimeDialView
  _PUISwitchInternalView
  PUICHapticFeedback
- PUICAnimatedEmojiView
  PUICPageIndicatorView
  PUICMaterialPageIndicatorView
  PUICActionViewController
@@ -27,7 +27,6 @@
  PUICButton
  ArouetButton
  ArouetBlinkingButton
- PUICActivityIndicatorView
  */
 
 OBJC_EXPORT id objc_msgSendSuper2(void);

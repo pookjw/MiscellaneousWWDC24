@@ -12,6 +12,8 @@
 		4F172B242C5A90D0009A1DBC /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B232C5A90D0009A1DBC /* AVKit.framework */; };
 		4F172B262C5A90D5009A1DBC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B252C5A90D5009A1DBC /* AVFoundation.framework */; };
 		4F3B20B52C5E3D4700D88762 /* PickerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3B20B42C5E3D4700D88762 /* PickerViewController.mm */; };
+		4F3B20B92C5E471000D88762 /* ActivityIndicatorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3B20B82C5E471000D88762 /* ActivityIndicatorViewController.mm */; };
+		4F3B20C12C5E4A5A00D88762 /* TimeOffsetInputViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3B20C02C5E4A5A00D88762 /* TimeOffsetInputViewController.mm */; };
 		4F47EA502C5E267700B6D032 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47EA4F2C5E267700B6D032 /* MapKit.framework */; };
 		4F85F3522C5A963E00C25410 /* DigitalCrownViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3512C5A963E00C25410 /* DigitalCrownViewController.mm */; };
 		4F85F3552C5A9CDA00C25410 /* DigitalCrownView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3542C5A9CDA00C25410 /* DigitalCrownView.mm */; };
@@ -38,6 +40,10 @@
 		4F172B252C5A90D5009A1DBC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		4F3B20B32C5E3D4700D88762 /* PickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerViewController.h; sourceTree = "<group>"; };
 		4F3B20B42C5E3D4700D88762 /* PickerViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PickerViewController.mm; sourceTree = "<group>"; };
+		4F3B20B72C5E471000D88762 /* ActivityIndicatorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityIndicatorViewController.h; sourceTree = "<group>"; };
+		4F3B20B82C5E471000D88762 /* ActivityIndicatorViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ActivityIndicatorViewController.mm; sourceTree = "<group>"; };
+		4F3B20BF2C5E4A5A00D88762 /* TimeOffsetInputViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeOffsetInputViewController.h; sourceTree = "<group>"; };
+		4F3B20C02C5E4A5A00D88762 /* TimeOffsetInputViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TimeOffsetInputViewController.mm; sourceTree = "<group>"; };
 		4F47EA4F2C5E267700B6D032 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F85F3502C5A963E00C25410 /* DigitalCrownViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DigitalCrownViewController.h; sourceTree = "<group>"; };
 		4F85F3512C5A963E00C25410 /* DigitalCrownViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DigitalCrownViewController.mm; sourceTree = "<group>"; };
@@ -95,6 +101,24 @@
 				4F3B20B42C5E3D4700D88762 /* PickerViewController.mm */,
 			);
 			path = Picker;
+			sourceTree = "<group>";
+		};
+		4F3B20B62C5E46F800D88762 /* ActivityIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				4F3B20B72C5E471000D88762 /* ActivityIndicatorViewController.h */,
+				4F3B20B82C5E471000D88762 /* ActivityIndicatorViewController.mm */,
+			);
+			path = ActivityIndicator;
+			sourceTree = "<group>";
+		};
+		4F3B20BE2C5E4A4800D88762 /* TimeOffsetInput */ = {
+			isa = PBXGroup;
+			children = (
+				4F3B20BF2C5E4A5A00D88762 /* TimeOffsetInputViewController.h */,
+				4F3B20C02C5E4A5A00D88762 /* TimeOffsetInputViewController.mm */,
+			);
+			path = TimeOffsetInput;
 			sourceTree = "<group>";
 		};
 		4F85F34F2C5A960A00C25410 /* DigitalCrown */ = {
@@ -171,6 +195,8 @@
 				4F85F3982C5E1CA700C25410 /* AlertPresenter */,
 				4F85F39C2C5E1F7700C25410 /* SheetPresenter */,
 				4F3B20B22C5E3D3600D88762 /* Picker */,
+				4F3B20B62C5E46F800D88762 /* ActivityIndicator */,
+				4F3B20BE2C5E4A4800D88762 /* TimeOffsetInput */,
 			);
 			path = MiscellaneousPepperUICore;
 			sourceTree = "<group>";
@@ -272,6 +298,7 @@
 				4F86742D2C5A88DC00825FE5 /* main.mm in Sources */,
 				4F8674302C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4F85F39B2C5E1CC200C25410 /* AlertPresenterViewController.mm in Sources */,
+				4F3B20C12C5E4A5A00D88762 /* TimeOffsetInputViewController.mm in Sources */,
 				4F8674332C5A893900825FE5 /* AppDelegate.mm in Sources */,
 				4F3B20B52C5E3D4700D88762 /* PickerViewController.mm in Sources */,
 				4F85F3942C5D350000C25410 /* SlidersViewController.mm in Sources */,
@@ -279,6 +306,7 @@
 				4FFEA7DE2C5A8D6D00313CAC /* ClassListViewController.mm in Sources */,
 				4FFEA7DB2C5A8C9000313CAC /* SceneDelegate.mm in Sources */,
 				4F85F3552C5A9CDA00C25410 /* DigitalCrownView.mm in Sources */,
+				4F3B20B92C5E471000D88762 /* ActivityIndicatorViewController.mm in Sources */,
 				4F85F3522C5A963E00C25410 /* DigitalCrownViewController.mm in Sources */,
 				4F85F39F2C5E1FDC00C25410 /* SheetPresenterViewController.mm in Sources */,
 			);

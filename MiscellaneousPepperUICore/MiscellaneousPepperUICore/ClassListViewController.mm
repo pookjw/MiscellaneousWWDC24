@@ -15,6 +15,8 @@
 #import "AlertPresenterViewController.h"
 #import "SheetPresenterViewController.h"
 #import "PickerViewController.h"
+#import "ActivityIndicatorViewController.h"
+#import "TimeOffsetInputViewController.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
@@ -22,6 +24,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 + (NSArray<Class> *)classes {
     return @[
+        TimeOffsetInputViewController.class,
+        ActivityIndicatorViewController.class,
         PickerViewController.class,
         SheetPresenterViewController.class,
         AlertPresenterViewController.class,

@@ -176,6 +176,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     //
     
     id contentViewController = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(alertController, sel_registerName("contentViewController"));
+    id contentViewController_navigationItem = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(contentViewController, sel_registerName("navigationItem"));
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(contentViewController_navigationItem, sel_registerName("setTitle:"), @"Title");
     
     id mapView = reinterpret_cast<id (*)(id, SEL, CGRect)>(objc_msgSend)([objc_lookUpClass("MKMapView") alloc], sel_registerName("initWithFrame:"), CGRectNull);
     id contentView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(contentViewController, sel_registerName("view"));
