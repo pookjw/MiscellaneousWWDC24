@@ -16,8 +16,6 @@
 /*
  PUICSlider
  PUICQuickboardNumberPadView
- PUICTimeOffsetInputView
- PUICWheelsOfTimeDialView
  _PUISwitchInternalView
  PUICHapticFeedback
  PUICPageIndicatorView
