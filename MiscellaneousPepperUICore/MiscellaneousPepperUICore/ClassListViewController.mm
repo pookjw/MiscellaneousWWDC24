@@ -21,6 +21,11 @@
 #import "SwitchViewController.h"
 #import "CompositionPresenterViewController.h"
 #import "MessagePresenterViewController.h"
+#import "StatusBarPlacementViewController.h"
+#import "StatusBarItemViewController.h"
+#import "StatusBarAlphaViewController.h"
+#import "StatusBarTimeStyleViewController.h"
+#import "AlwaysOnViewController.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
@@ -28,6 +33,11 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 + (NSArray<Class> *)classes {
     return @[
+        AlwaysOnViewController.class,
+        StatusBarTimeStyleViewController.class,
+        StatusBarAlphaViewController.class,
+        StatusBarItemViewController.class,
+        StatusBarPlacementViewController.class,
         MessagePresenterViewController.class,
         CompositionPresenterViewController.class,
         SwitchViewController.class,

@@ -18,6 +18,12 @@
 		4F3B20E72C5E551700D88762 /* SwitchViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3B20E62C5E551700D88762 /* SwitchViewController.mm */; };
 		4F3B20EE2C5E81BF00D88762 /* CompositionPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3B20ED2C5E81BF00D88762 /* CompositionPresenterViewController.mm */; };
 		4F3B20FE2C5E8DA800D88762 /* MessagePresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3B20FD2C5E8DA800D88762 /* MessagePresenterViewController.mm */; };
+		4F4604452C5F713B00C12A68 /* StatusBarPlacementViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4604442C5F713B00C12A68 /* StatusBarPlacementViewController.mm */; };
+		4F4604492C5F75DE00C12A68 /* StatusBarItemViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4604482C5F75DE00C12A68 /* StatusBarItemViewController.mm */; };
+		4F46044D2C5F785F00C12A68 /* StatusBarAlphaViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46044C2C5F785F00C12A68 /* StatusBarAlphaViewController.mm */; };
+		4F4604512C5F7C9400C12A68 /* StatusBarTimeStyleViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4604502C5F7C9400C12A68 /* StatusBarTimeStyleViewController.mm */; };
+		4F4604562C5F801F00C12A68 /* AlwaysOnViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4604552C5F801F00C12A68 /* AlwaysOnViewController.mm */; };
+		4F4604732C5FC6FB00C12A68 /* EffectiveVisibilityView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4604722C5FC6FB00C12A68 /* EffectiveVisibilityView.mm */; };
 		4F47EA502C5E267700B6D032 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47EA4F2C5E267700B6D032 /* MapKit.framework */; };
 		4F85F3522C5A963E00C25410 /* DigitalCrownViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3512C5A963E00C25410 /* DigitalCrownViewController.mm */; };
 		4F85F3552C5A9CDA00C25410 /* DigitalCrownView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3542C5A9CDA00C25410 /* DigitalCrownView.mm */; };
@@ -56,6 +62,19 @@
 		4F3B20ED2C5E81BF00D88762 /* CompositionPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CompositionPresenterViewController.mm; sourceTree = "<group>"; };
 		4F3B20FC2C5E8DA800D88762 /* MessagePresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessagePresenterViewController.h; sourceTree = "<group>"; };
 		4F3B20FD2C5E8DA800D88762 /* MessagePresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MessagePresenterViewController.mm; sourceTree = "<group>"; };
+		4F4604432C5F713B00C12A68 /* StatusBarPlacementViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatusBarPlacementViewController.h; sourceTree = "<group>"; };
+		4F4604442C5F713B00C12A68 /* StatusBarPlacementViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = StatusBarPlacementViewController.mm; sourceTree = "<group>"; };
+		4F4604472C5F75DE00C12A68 /* StatusBarItemViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatusBarItemViewController.h; sourceTree = "<group>"; };
+		4F4604482C5F75DE00C12A68 /* StatusBarItemViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = StatusBarItemViewController.mm; sourceTree = "<group>"; };
+		4F46044B2C5F785F00C12A68 /* StatusBarAlphaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatusBarAlphaViewController.h; sourceTree = "<group>"; };
+		4F46044C2C5F785F00C12A68 /* StatusBarAlphaViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = StatusBarAlphaViewController.mm; sourceTree = "<group>"; };
+		4F46044F2C5F7C9400C12A68 /* StatusBarTimeStyleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatusBarTimeStyleViewController.h; sourceTree = "<group>"; };
+		4F4604502C5F7C9400C12A68 /* StatusBarTimeStyleViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = StatusBarTimeStyleViewController.mm; sourceTree = "<group>"; };
+		4F4604522C5F7F9A00C12A68 /* MiscellaneousPepperUICore-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "MiscellaneousPepperUICore-Watch-App-Info.plist"; sourceTree = "<group>"; };
+		4F4604542C5F801F00C12A68 /* AlwaysOnViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlwaysOnViewController.h; sourceTree = "<group>"; };
+		4F4604552C5F801F00C12A68 /* AlwaysOnViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AlwaysOnViewController.mm; sourceTree = "<group>"; };
+		4F4604712C5FC6FB00C12A68 /* EffectiveVisibilityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EffectiveVisibilityView.h; sourceTree = "<group>"; };
+		4F4604722C5FC6FB00C12A68 /* EffectiveVisibilityView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = EffectiveVisibilityView.mm; sourceTree = "<group>"; };
 		4F47EA4F2C5E267700B6D032 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F85F3502C5A963E00C25410 /* DigitalCrownViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DigitalCrownViewController.h; sourceTree = "<group>"; };
 		4F85F3512C5A963E00C25410 /* DigitalCrownViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DigitalCrownViewController.mm; sourceTree = "<group>"; };
@@ -169,6 +188,53 @@
 			path = MessagePresenter;
 			sourceTree = "<group>";
 		};
+		4F4604422C5F711F00C12A68 /* StatusBarPlacement */ = {
+			isa = PBXGroup;
+			children = (
+				4F4604432C5F713B00C12A68 /* StatusBarPlacementViewController.h */,
+				4F4604442C5F713B00C12A68 /* StatusBarPlacementViewController.mm */,
+			);
+			path = StatusBarPlacement;
+			sourceTree = "<group>";
+		};
+		4F4604462C5F75CF00C12A68 /* StatusBarItem */ = {
+			isa = PBXGroup;
+			children = (
+				4F4604472C5F75DE00C12A68 /* StatusBarItemViewController.h */,
+				4F4604482C5F75DE00C12A68 /* StatusBarItemViewController.mm */,
+			);
+			path = StatusBarItem;
+			sourceTree = "<group>";
+		};
+		4F46044A2C5F784B00C12A68 /* StatusBarAlpha */ = {
+			isa = PBXGroup;
+			children = (
+				4F46044B2C5F785F00C12A68 /* StatusBarAlphaViewController.h */,
+				4F46044C2C5F785F00C12A68 /* StatusBarAlphaViewController.mm */,
+			);
+			path = StatusBarAlpha;
+			sourceTree = "<group>";
+		};
+		4F46044E2C5F7C7E00C12A68 /* StatusBarTimeStyle */ = {
+			isa = PBXGroup;
+			children = (
+				4F46044F2C5F7C9400C12A68 /* StatusBarTimeStyleViewController.h */,
+				4F4604502C5F7C9400C12A68 /* StatusBarTimeStyleViewController.mm */,
+			);
+			path = StatusBarTimeStyle;
+			sourceTree = "<group>";
+		};
+		4F4604532C5F7FAA00C12A68 /* AlwaysOn */ = {
+			isa = PBXGroup;
+			children = (
+				4F4604542C5F801F00C12A68 /* AlwaysOnViewController.h */,
+				4F4604552C5F801F00C12A68 /* AlwaysOnViewController.mm */,
+				4F4604712C5FC6FB00C12A68 /* EffectiveVisibilityView.h */,
+				4F4604722C5FC6FB00C12A68 /* EffectiveVisibilityView.mm */,
+			);
+			path = AlwaysOn;
+			sourceTree = "<group>";
+		};
 		4F85F34F2C5A960A00C25410 /* DigitalCrown */ = {
 			isa = PBXGroup;
 			children = (
@@ -210,6 +276,7 @@
 		4F8A34C12C5A861400E3CFC4 = {
 			isa = PBXGroup;
 			children = (
+				4F4604522C5F7F9A00C12A68 /* MiscellaneousPepperUICore-Watch-App-Info.plist */,
 				4F8A34CC2C5A861400E3CFC4 /* MiscellaneousPepperUICore */,
 				4F8A34CB2C5A861400E3CFC4 /* Products */,
 				4F9879B82C5A8A2600E4D2F3 /* Frameworks */,
@@ -249,6 +316,11 @@
 				4F3B20E42C5E54FD00D88762 /* Switch */,
 				4F3B20EB2C5E81AA00D88762 /* CompositionPresenter */,
 				4F3B20FB2C5E8D8A00D88762 /* MessagePresenter */,
+				4F4604422C5F711F00C12A68 /* StatusBarPlacement */,
+				4F4604462C5F75CF00C12A68 /* StatusBarItem */,
+				4F46044A2C5F784B00C12A68 /* StatusBarAlpha */,
+				4F46044E2C5F7C7E00C12A68 /* StatusBarTimeStyle */,
+				4F4604532C5F7FAA00C12A68 /* AlwaysOn */,
 			);
 			path = MiscellaneousPepperUICore;
 			sourceTree = "<group>";
@@ -351,20 +423,26 @@
 				4F8674302C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4F3B20E72C5E551700D88762 /* SwitchViewController.mm in Sources */,
 				4F85F39B2C5E1CC200C25410 /* AlertPresenterViewController.mm in Sources */,
+				4F4604562C5F801F00C12A68 /* AlwaysOnViewController.mm in Sources */,
 				4F3B20C12C5E4A5A00D88762 /* TimeOffsetInputViewController.mm in Sources */,
+				4F46044D2C5F785F00C12A68 /* StatusBarAlphaViewController.mm in Sources */,
 				4F8674332C5A893900825FE5 /* AppDelegate.mm in Sources */,
 				4F3B20B52C5E3D4700D88762 /* PickerViewController.mm in Sources */,
 				4F85F3942C5D350000C25410 /* SlidersViewController.mm in Sources */,
+				4F4604512C5F7C9400C12A68 /* StatusBarTimeStyleViewController.mm in Sources */,
 				4F3B20EE2C5E81BF00D88762 /* CompositionPresenterViewController.mm in Sources */,
 				4F3B20E02C5E50E600D88762 /* QuickboardNumberPadViewController.mm in Sources */,
 				4FCD98E72C5CEB97001022A9 /* PageViewController.mm in Sources */,
 				4FFEA7DE2C5A8D6D00313CAC /* ClassListViewController.mm in Sources */,
 				4FFEA7DB2C5A8C9000313CAC /* SceneDelegate.mm in Sources */,
+				4F4604732C5FC6FB00C12A68 /* EffectiveVisibilityView.mm in Sources */,
 				4F85F3552C5A9CDA00C25410 /* DigitalCrownView.mm in Sources */,
 				4F3B20FE2C5E8DA800D88762 /* MessagePresenterViewController.mm in Sources */,
 				4F3B20B92C5E471000D88762 /* ActivityIndicatorViewController.mm in Sources */,
 				4F85F3522C5A963E00C25410 /* DigitalCrownViewController.mm in Sources */,
 				4F85F39F2C5E1FDC00C25410 /* SheetPresenterViewController.mm in Sources */,
+				4F4604452C5F713B00C12A68 /* StatusBarPlacementViewController.mm in Sources */,
+				4F4604492C5F75DE00C12A68 /* StatusBarItemViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,6 +573,7 @@
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MiscellaneousPepperUICore-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MiscellaneousPepperUICore;
 				INFOPLIST_KEY_NSContactsUsageDescription = Hello;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -525,6 +604,7 @@
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MiscellaneousPepperUICore-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MiscellaneousPepperUICore;
 				INFOPLIST_KEY_NSContactsUsageDescription = Hello;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";

@@ -10,6 +10,7 @@
 		4F3B20B12C5E3AE000D88762 /* MyDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3B20B02C5E3AE000D88762 /* MyDatePickerView.swift */; };
 		4F3B20E32C5E543200D88762 /* MyToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3B20E22C5E543200D88762 /* MyToggleView.swift */; };
 		4F3B20EA2C5E570600D88762 /* MyStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3B20E92C5E570600D88762 /* MyStepperView.swift */; };
+		4F4604592C5F863E00C12A68 /* MyTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4604582C5F863E00C12A68 /* MyTimelineView.swift */; };
 		4F85F3902C5D33B700C25410 /* MySliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F38F2C5D33B700C25410 /* MySliderView.swift */; };
 		4F85F3972C5E1B7C00C25410 /* MyAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3962C5E1B7C00C25410 /* MyAlertView.swift */; };
 		4F8674242C5A866900825FE5 /* Demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8674232C5A866700825FE5 /* Demo.swift */; };
@@ -25,6 +26,7 @@
 		4F3B20B02C5E3AE000D88762 /* MyDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDatePickerView.swift; sourceTree = "<group>"; };
 		4F3B20E22C5E543200D88762 /* MyToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyToggleView.swift; sourceTree = "<group>"; };
 		4F3B20E92C5E570600D88762 /* MyStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStepperView.swift; sourceTree = "<group>"; };
+		4F4604582C5F863E00C12A68 /* MyTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTimelineView.swift; sourceTree = "<group>"; };
 		4F85F38F2C5D33B700C25410 /* MySliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySliderView.swift; sourceTree = "<group>"; };
 		4F85F3962C5E1B7C00C25410 /* MyAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAlertView.swift; sourceTree = "<group>"; };
 		4F8674232C5A866700825FE5 /* Demo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo.swift; sourceTree = "<group>"; };
@@ -70,6 +72,14 @@
 				4F3B20E92C5E570600D88762 /* MyStepperView.swift */,
 			);
 			path = Stepper;
+			sourceTree = "<group>";
+		};
+		4F4604572C5F863100C12A68 /* Timeline */ = {
+			isa = PBXGroup;
+			children = (
+				4F4604582C5F863E00C12A68 /* MyTimelineView.swift */,
+			);
+			path = Timeline;
 			sourceTree = "<group>";
 		};
 		4F85F38E2C5D33A800C25410 /* Slider */ = {
@@ -125,6 +135,7 @@
 				4F3B20AF2C5E3AD100D88762 /* DatePicker */,
 				4F3B20E12C5E541500D88762 /* Toggle */,
 				4F3B20E82C5E56FA00D88762 /* Stepper */,
+				4F4604572C5F863100C12A68 /* Timeline */,
 				4F8A34EB2C5A864100E3CFC4 /* Assets.xcassets */,
 				4F8A34ED2C5A864100E3CFC4 /* Preview Content */,
 			);
@@ -227,6 +238,7 @@
 				4F8A34E82C5A864000E3CFC4 /* MiscellaneousWatchApp.swift in Sources */,
 				4F3B20B12C5E3AE000D88762 /* MyDatePickerView.swift in Sources */,
 				4FCD98E32C5CE9A1001022A9 /* MyTabView.swift in Sources */,
+				4F4604592C5F863E00C12A68 /* MyTimelineView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
