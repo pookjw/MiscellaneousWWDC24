@@ -240,9 +240,15 @@
     [self.searchController.searchBar setNeedsLayout];
     [searchFieldContainerView setNeedsLayout];
     
-    [UIView animateWithDuration:1.0 animations:^{
+    [UIView animateWithDuration:1.0 delay:0 usingSpringWithDamping:0.2 initialSpringVelocity:5.0 options:UIViewAnimationOptionCurveLinear animations:^{
         reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(self.searchController.searchBar, sel_registerName("layoutBelowIfNeeded"));
+    } completion:^(BOOL finished) {
+        
     }];
+    
+//    [UIView animateWithDuration:1.0 animations:^{
+//        reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(self.searchController.searchBar, sel_registerName("layoutBelowIfNeeded"));
+//    }];
 }
 
 - (void)didTriggerShowsSearchResultsControllerButton:(UIButton *)sender {
