@@ -41,9 +41,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP puic_statusBarAlpha = class_getMethodImplementation(self, @selector(puic_statusBarAlpha));
         assert(class_addMethod(_dynamicIsa, @selector(puic_statusBarAlpha), puic_statusBarAlpha, NULL));
         
-        IMP puic_statusBarTimeStyle = class_getMethodImplementation(self, @selector(puic_statusBarTimeStyle));
-        assert(class_addMethod(_dynamicIsa, @selector(puic_statusBarTimeStyle), puic_statusBarTimeStyle, NULL));
-        
         assert(class_addIvar(_dynamicIsa, "_mpu_puic_statusBarAlpha", sizeof(CGFloat), sizeof(CGFloat), @encode(CGFloat)));
         
         //
@@ -103,10 +100,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     object_getInstanceVariable(self, "_mpu_puic_statusBarAlpha", reinterpret_cast<void **>(&_mpu_puic_statusBarAlpha));
     NSLog(@"%lf", _mpu_puic_statusBarAlpha);
     return _mpu_puic_statusBarAlpha;
-}
-
-- (NSUInteger)puic_statusBarTimeStyle {
-    return 1;
 }
 
 @end

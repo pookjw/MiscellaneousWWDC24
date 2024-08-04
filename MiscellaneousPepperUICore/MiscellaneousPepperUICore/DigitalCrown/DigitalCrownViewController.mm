@@ -29,7 +29,10 @@
  
  PUICContentUnavailableView
  
- setNetworkActivityIndicatorVisible:
+ Video Player (SwiftUI?)
+ 
+ Request 할 때 PUICNotificationSceneSpecification 넣으면 될듯?
+ PUICNotificationWindowSceneDelegate
  */
 
 OBJC_EXPORT id objc_msgSendSuper2(void);

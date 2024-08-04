@@ -35,6 +35,11 @@ OBJC_EXPORT id _Nullable objc_msgSend_noarg(id _Nullable self, SEL _Nonnull _cmd
     return [newConfiguration autorelease];
 }
 
+// Not Called
+- (NSUInteger)application:(id)application supportedInterfaceOrientationsForWindow:(id)window {
+    return 30;
+}
+
 - (void)didReceiveNonClockKitEvent {
     
 }

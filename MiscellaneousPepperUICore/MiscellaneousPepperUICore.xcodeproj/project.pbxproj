@@ -24,6 +24,9 @@
 		4F4604512C5F7C9400C12A68 /* StatusBarTimeStyleViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4604502C5F7C9400C12A68 /* StatusBarTimeStyleViewController.mm */; };
 		4F4604562C5F801F00C12A68 /* AlwaysOnViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4604552C5F801F00C12A68 /* AlwaysOnViewController.mm */; };
 		4F4604732C5FC6FB00C12A68 /* EffectiveVisibilityView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4604722C5FC6FB00C12A68 /* EffectiveVisibilityView.mm */; };
+		4F4604772C5FD72000C12A68 /* NetworkActivityIndicatorVisibleViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4604762C5FD72000C12A68 /* NetworkActivityIndicatorVisibleViewController.mm */; };
+		4F46047B2C5FD8FB00C12A68 /* DisablesSleepGestureViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46047A2C5FD8FB00C12A68 /* DisablesSleepGestureViewController.mm */; };
+		4F46047F2C5FDBDA00C12A68 /* WantsAutorotationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46047E2C5FDBDA00C12A68 /* WantsAutorotationViewController.mm */; };
 		4F47EA502C5E267700B6D032 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47EA4F2C5E267700B6D032 /* MapKit.framework */; };
 		4F85F3522C5A963E00C25410 /* DigitalCrownViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3512C5A963E00C25410 /* DigitalCrownViewController.mm */; };
 		4F85F3552C5A9CDA00C25410 /* DigitalCrownView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3542C5A9CDA00C25410 /* DigitalCrownView.mm */; };
@@ -75,6 +78,12 @@
 		4F4604552C5F801F00C12A68 /* AlwaysOnViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AlwaysOnViewController.mm; sourceTree = "<group>"; };
 		4F4604712C5FC6FB00C12A68 /* EffectiveVisibilityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EffectiveVisibilityView.h; sourceTree = "<group>"; };
 		4F4604722C5FC6FB00C12A68 /* EffectiveVisibilityView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = EffectiveVisibilityView.mm; sourceTree = "<group>"; };
+		4F4604752C5FD72000C12A68 /* NetworkActivityIndicatorVisibleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkActivityIndicatorVisibleViewController.h; sourceTree = "<group>"; };
+		4F4604762C5FD72000C12A68 /* NetworkActivityIndicatorVisibleViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NetworkActivityIndicatorVisibleViewController.mm; sourceTree = "<group>"; };
+		4F4604792C5FD8FB00C12A68 /* DisablesSleepGestureViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisablesSleepGestureViewController.h; sourceTree = "<group>"; };
+		4F46047A2C5FD8FB00C12A68 /* DisablesSleepGestureViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DisablesSleepGestureViewController.mm; sourceTree = "<group>"; };
+		4F46047D2C5FDBDA00C12A68 /* WantsAutorotationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WantsAutorotationViewController.h; sourceTree = "<group>"; };
+		4F46047E2C5FDBDA00C12A68 /* WantsAutorotationViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WantsAutorotationViewController.mm; sourceTree = "<group>"; };
 		4F47EA4F2C5E267700B6D032 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F85F3502C5A963E00C25410 /* DigitalCrownViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DigitalCrownViewController.h; sourceTree = "<group>"; };
 		4F85F3512C5A963E00C25410 /* DigitalCrownViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DigitalCrownViewController.mm; sourceTree = "<group>"; };
@@ -235,6 +244,33 @@
 			path = AlwaysOn;
 			sourceTree = "<group>";
 		};
+		4F4604742C5FD70800C12A68 /* NetworkActivityIndicatorVisible */ = {
+			isa = PBXGroup;
+			children = (
+				4F4604752C5FD72000C12A68 /* NetworkActivityIndicatorVisibleViewController.h */,
+				4F4604762C5FD72000C12A68 /* NetworkActivityIndicatorVisibleViewController.mm */,
+			);
+			path = NetworkActivityIndicatorVisible;
+			sourceTree = "<group>";
+		};
+		4F4604782C5FD8EE00C12A68 /* DisablesSleepGesture */ = {
+			isa = PBXGroup;
+			children = (
+				4F4604792C5FD8FB00C12A68 /* DisablesSleepGestureViewController.h */,
+				4F46047A2C5FD8FB00C12A68 /* DisablesSleepGestureViewController.mm */,
+			);
+			path = DisablesSleepGesture;
+			sourceTree = "<group>";
+		};
+		4F46047C2C5FDBCD00C12A68 /* WantsAutorotation */ = {
+			isa = PBXGroup;
+			children = (
+				4F46047D2C5FDBDA00C12A68 /* WantsAutorotationViewController.h */,
+				4F46047E2C5FDBDA00C12A68 /* WantsAutorotationViewController.mm */,
+			);
+			path = WantsAutorotation;
+			sourceTree = "<group>";
+		};
 		4F85F34F2C5A960A00C25410 /* DigitalCrown */ = {
 			isa = PBXGroup;
 			children = (
@@ -321,6 +357,9 @@
 				4F46044A2C5F784B00C12A68 /* StatusBarAlpha */,
 				4F46044E2C5F7C7E00C12A68 /* StatusBarTimeStyle */,
 				4F4604532C5F7FAA00C12A68 /* AlwaysOn */,
+				4F4604742C5FD70800C12A68 /* NetworkActivityIndicatorVisible */,
+				4F4604782C5FD8EE00C12A68 /* DisablesSleepGesture */,
+				4F46047C2C5FDBCD00C12A68 /* WantsAutorotation */,
 			);
 			path = MiscellaneousPepperUICore;
 			sourceTree = "<group>";
@@ -428,13 +467,16 @@
 				4F46044D2C5F785F00C12A68 /* StatusBarAlphaViewController.mm in Sources */,
 				4F8674332C5A893900825FE5 /* AppDelegate.mm in Sources */,
 				4F3B20B52C5E3D4700D88762 /* PickerViewController.mm in Sources */,
+				4F46047B2C5FD8FB00C12A68 /* DisablesSleepGestureViewController.mm in Sources */,
 				4F85F3942C5D350000C25410 /* SlidersViewController.mm in Sources */,
 				4F4604512C5F7C9400C12A68 /* StatusBarTimeStyleViewController.mm in Sources */,
 				4F3B20EE2C5E81BF00D88762 /* CompositionPresenterViewController.mm in Sources */,
+				4F4604772C5FD72000C12A68 /* NetworkActivityIndicatorVisibleViewController.mm in Sources */,
 				4F3B20E02C5E50E600D88762 /* QuickboardNumberPadViewController.mm in Sources */,
 				4FCD98E72C5CEB97001022A9 /* PageViewController.mm in Sources */,
 				4FFEA7DE2C5A8D6D00313CAC /* ClassListViewController.mm in Sources */,
 				4FFEA7DB2C5A8C9000313CAC /* SceneDelegate.mm in Sources */,
+				4F46047F2C5FDBDA00C12A68 /* WantsAutorotationViewController.mm in Sources */,
 				4F4604732C5FC6FB00C12A68 /* EffectiveVisibilityView.mm in Sources */,
 				4F85F3552C5A9CDA00C25410 /* DigitalCrownView.mm in Sources */,
 				4F3B20FE2C5E8DA800D88762 /* MessagePresenterViewController.mm in Sources */,

@@ -26,6 +26,9 @@
 #import "StatusBarAlphaViewController.h"
 #import "StatusBarTimeStyleViewController.h"
 #import "AlwaysOnViewController.h"
+#import "NetworkActivityIndicatorVisibleViewController.h"
+#import "DisablesSleepGestureViewController.h"
+#import "WantsAutorotationViewController.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
@@ -33,6 +36,9 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 + (NSArray<Class> *)classes {
     return @[
+        WantsAutorotationViewController.class,
+        DisablesSleepGestureViewController.class,
+        NetworkActivityIndicatorVisibleViewController.class,
         AlwaysOnViewController.class,
         StatusBarTimeStyleViewController.class,
         StatusBarAlphaViewController.class,
