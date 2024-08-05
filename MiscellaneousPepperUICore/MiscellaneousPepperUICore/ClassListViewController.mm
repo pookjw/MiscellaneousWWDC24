@@ -31,6 +31,9 @@
 #import "WantsAutorotationViewController.h"
 #import "VideoPlayerViewController.h"
 #import "VolumeIndicatorViewController.h"
+#import "NotificationPresenterViewController.h"
+#import "ContentUnavailableViewController.h"
+#import "MenuPresenterViewController.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
@@ -38,6 +41,9 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 + (NSArray<Class> *)classes {
     return @[
+        MenuPresenterViewController.class,
+        ContentUnavailableViewController.class,
+        NotificationPresenterViewController.class,
         VolumeIndicatorViewController.class,
         VideoPlayerViewController.class,
         WantsAutorotationViewController.class,

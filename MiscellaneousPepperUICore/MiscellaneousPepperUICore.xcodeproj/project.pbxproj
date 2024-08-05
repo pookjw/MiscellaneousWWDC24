@@ -28,6 +28,9 @@
 		4F4604772C5FD72000C12A68 /* NetworkActivityIndicatorVisibleViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4604762C5FD72000C12A68 /* NetworkActivityIndicatorVisibleViewController.mm */; };
 		4F46047B2C5FD8FB00C12A68 /* DisablesSleepGestureViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46047A2C5FD8FB00C12A68 /* DisablesSleepGestureViewController.mm */; };
 		4F46047F2C5FDBDA00C12A68 /* WantsAutorotationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46047E2C5FDBDA00C12A68 /* WantsAutorotationViewController.mm */; };
+		4F4605072C6125A900C12A68 /* NotificationPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4605062C6125A900C12A68 /* NotificationPresenterViewController.mm */; };
+		4F46050B2C612D8D00C12A68 /* ContentUnavailableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46050A2C612D8D00C12A68 /* ContentUnavailableViewController.mm */; };
+		4F46050F2C61316200C12A68 /* MenuPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46050E2C61316200C12A68 /* MenuPresenterViewController.mm */; };
 		4F47EA502C5E267700B6D032 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47EA4F2C5E267700B6D032 /* MapKit.framework */; };
 		4F85F3522C5A963E00C25410 /* DigitalCrownViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3512C5A963E00C25410 /* DigitalCrownViewController.mm */; };
 		4F85F3552C5A9CDA00C25410 /* DigitalCrownView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3542C5A9CDA00C25410 /* DigitalCrownView.mm */; };
@@ -93,6 +96,12 @@
 		4F46047A2C5FD8FB00C12A68 /* DisablesSleepGestureViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DisablesSleepGestureViewController.mm; sourceTree = "<group>"; };
 		4F46047D2C5FDBDA00C12A68 /* WantsAutorotationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WantsAutorotationViewController.h; sourceTree = "<group>"; };
 		4F46047E2C5FDBDA00C12A68 /* WantsAutorotationViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WantsAutorotationViewController.mm; sourceTree = "<group>"; };
+		4F4605052C6125A900C12A68 /* NotificationPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationPresenterViewController.h; sourceTree = "<group>"; };
+		4F4605062C6125A900C12A68 /* NotificationPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NotificationPresenterViewController.mm; sourceTree = "<group>"; };
+		4F4605092C612D8D00C12A68 /* ContentUnavailableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContentUnavailableViewController.h; sourceTree = "<group>"; };
+		4F46050A2C612D8D00C12A68 /* ContentUnavailableViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ContentUnavailableViewController.mm; sourceTree = "<group>"; };
+		4F46050D2C61316200C12A68 /* MenuPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuPresenterViewController.h; sourceTree = "<group>"; };
+		4F46050E2C61316200C12A68 /* MenuPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MenuPresenterViewController.mm; sourceTree = "<group>"; };
 		4F47EA4F2C5E267700B6D032 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F85F3502C5A963E00C25410 /* DigitalCrownViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DigitalCrownViewController.h; sourceTree = "<group>"; };
 		4F85F3512C5A963E00C25410 /* DigitalCrownViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DigitalCrownViewController.mm; sourceTree = "<group>"; };
@@ -301,6 +310,33 @@
 			path = WantsAutorotation;
 			sourceTree = "<group>";
 		};
+		4F4605022C61258500C12A68 /* NotificationPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				4F4605052C6125A900C12A68 /* NotificationPresenterViewController.h */,
+				4F4605062C6125A900C12A68 /* NotificationPresenterViewController.mm */,
+			);
+			path = NotificationPresenter;
+			sourceTree = "<group>";
+		};
+		4F4605082C612D7D00C12A68 /* ContentUnavailable */ = {
+			isa = PBXGroup;
+			children = (
+				4F4605092C612D8D00C12A68 /* ContentUnavailableViewController.h */,
+				4F46050A2C612D8D00C12A68 /* ContentUnavailableViewController.mm */,
+			);
+			path = ContentUnavailable;
+			sourceTree = "<group>";
+		};
+		4F46050C2C61314900C12A68 /* MenuPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				4F46050D2C61316200C12A68 /* MenuPresenterViewController.h */,
+				4F46050E2C61316200C12A68 /* MenuPresenterViewController.mm */,
+			);
+			path = MenuPresenter;
+			sourceTree = "<group>";
+		};
 		4F85F34F2C5A960A00C25410 /* DigitalCrown */ = {
 			isa = PBXGroup;
 			children = (
@@ -394,6 +430,9 @@
 				4F46047C2C5FDBCD00C12A68 /* WantsAutorotation */,
 				4FF12C932C60956C00F82C15 /* VideoPlayer */,
 				4F02A0A32C60C60000C27CA7 /* VolumeIndicator */,
+				4F4605022C61258500C12A68 /* NotificationPresenter */,
+				4F4605082C612D7D00C12A68 /* ContentUnavailable */,
+				4F46050C2C61314900C12A68 /* MenuPresenter */,
 			);
 			path = MiscellaneousPepperUICore;
 			sourceTree = "<group>";
@@ -487,6 +526,7 @@
 				TargetAttributes = {
 					4F8A34C92C5A861400E3CFC4 = {
 						CreatedOnToolsVersion = 16.0;
+						LastSwiftMigration = 1600;
 					};
 				};
 			};
@@ -529,12 +569,15 @@
 				4F8674302C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4F3B20E72C5E551700D88762 /* SwitchViewController.mm in Sources */,
 				4F85F39B2C5E1CC200C25410 /* AlertPresenterViewController.mm in Sources */,
+				4F46050F2C61316200C12A68 /* MenuPresenterViewController.mm in Sources */,
 				4F4604562C5F801F00C12A68 /* AlwaysOnViewController.mm in Sources */,
 				4F3B20C12C5E4A5A00D88762 /* TimeOffsetInputViewController.mm in Sources */,
 				4F46044D2C5F785F00C12A68 /* StatusBarAlphaViewController.mm in Sources */,
+				4F4605072C6125A900C12A68 /* NotificationPresenterViewController.mm in Sources */,
 				4FF12CB32C60BB9E00F82C15 /* MyAVSlider.mm in Sources */,
 				4F8674332C5A893900825FE5 /* AppDelegate.mm in Sources */,
 				4F3B20B52C5E3D4700D88762 /* PickerViewController.mm in Sources */,
+				4F46050B2C612D8D00C12A68 /* ContentUnavailableViewController.mm in Sources */,
 				4F46047B2C5FD8FB00C12A68 /* DisablesSleepGestureViewController.mm in Sources */,
 				4F85F3942C5D350000C25410 /* SlidersViewController.mm in Sources */,
 				4F4604512C5F7C9400C12A68 /* StatusBarTimeStyleViewController.mm in Sources */,
@@ -682,6 +725,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
@@ -702,6 +746,7 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 11.0;
@@ -713,6 +758,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P53D29U9LJ;

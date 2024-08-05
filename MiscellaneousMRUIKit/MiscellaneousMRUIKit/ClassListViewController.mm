@@ -15,7 +15,7 @@
 #import "ImmersiveSceneClientSettingsViewController.h"
 #import "UpperLimbsViewController.h"
 #import "VolumeBaseplateVisibilityViewController.h"
-#import "WorldTrackingLimitationViewController.h"
+#import "WorldTrackingCapabilitiesViewController.h"
 
 @interface ClassListViewController ()
 @property (retain, readonly, nonatomic) UICollectionViewCellRegistration *cellRegistration;
@@ -70,7 +70,7 @@
 
 - (NSArray<Class> *)classes {
     return @[
-        WorldTrackingLimitationViewController.class,
+        WorldTrackingCapabilitiesViewController.class,
         LaunchPlacementParametersViewController.class,
         VolumetricWorldAlignmentBehaviorViewController.class,
         DefaultWorldScalingViewController.class,
