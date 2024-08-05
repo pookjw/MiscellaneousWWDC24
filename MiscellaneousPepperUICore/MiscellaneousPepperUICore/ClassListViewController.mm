@@ -29,6 +29,8 @@
 #import "NetworkActivityIndicatorVisibleViewController.h"
 #import "DisablesSleepGestureViewController.h"
 #import "WantsAutorotationViewController.h"
+#import "VideoPlayerViewController.h"
+#import "VolumeIndicatorViewController.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
@@ -36,6 +38,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 + (NSArray<Class> *)classes {
     return @[
+        VolumeIndicatorViewController.class,
+        VideoPlayerViewController.class,
         WantsAutorotationViewController.class,
         DisablesSleepGestureViewController.class,
         NetworkActivityIndicatorVisibleViewController.class,

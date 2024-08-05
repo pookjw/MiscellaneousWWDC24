@@ -146,7 +146,9 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     
     reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(puicSlider, sel_registerName("setHapticFeedbackEnabled:"), YES);
     reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(puicSlider, sel_registerName("setNumberOfSteps:"), 4);
-    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(puicSlider, sel_registerName("setShouldAutomaticallAdjustValueOnTouch:"), YES);
+    
+    // 터치로 값 조정할지 말지
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(puicSlider, sel_registerName("setShouldAutomaticallAdjustValueOnTouch:"), NO);
     
     //
     
@@ -198,6 +200,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 - (void)slider:(id)slider didTapTouchTarget:(NSInteger)touchTarget {
     NSLog(@"%ld", touchTarget);
+    
+    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(slider, sel_registerName("becomeFirstResponder"));
 }
 
 - (void)sliderDidEndCrownInteraction:(id)slider {

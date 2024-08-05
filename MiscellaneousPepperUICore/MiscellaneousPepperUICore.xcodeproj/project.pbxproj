@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F02A0A62C60C61100C27CA7 /* VolumeIndicatorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F02A0A52C60C61100C27CA7 /* VolumeIndicatorViewController.mm */; };
 		4F172B202C5A90C4009A1DBC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B1F2C5A90C4009A1DBC /* QuartzCore.framework */; };
 		4F172B222C5A90CA009A1DBC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B212C5A90CA009A1DBC /* CoreGraphics.framework */; };
 		4F172B242C5A90D0009A1DBC /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B232C5A90D0009A1DBC /* AVKit.framework */; };
@@ -42,11 +43,19 @@
 		4F9879BE2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9879BD2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework */; };
 		4FA997BD2C5E3369000E5AFB /* Symbols.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FA997BC2C5E3369000E5AFB /* Symbols.framework */; };
 		4FCD98E72C5CEB97001022A9 /* PageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD98E62C5CEB97001022A9 /* PageViewController.mm */; };
+		4FE056922C60C1BD00330E3A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE056912C60C1BD00330E3A /* CoreMedia.framework */; };
+		4FF12C962C60959500F82C15 /* VideoPlayerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FF12C952C60959500F82C15 /* VideoPlayerViewController.mm */; };
+		4FF12C9C2C60967700F82C15 /* 0.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 4FF12C972C60967700F82C15 /* 0.mp4 */; };
+		4FF12CB32C60BB9E00F82C15 /* MyAVSlider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FF12CB22C60BB9E00F82C15 /* MyAVSlider.mm */; };
+		4FF12CBA2C60BF5500F82C15 /* KeyValueObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF12CB52C60BF5500F82C15 /* KeyValueObservation.m */; };
+		4FF12CBB2C60BF5500F82C15 /* NSObject+KeyValueObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF12CB82C60BF5500F82C15 /* NSObject+KeyValueObservation.m */; };
 		4FFEA7DB2C5A8C9000313CAC /* SceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFEA7DA2C5A8C9000313CAC /* SceneDelegate.mm */; };
 		4FFEA7DE2C5A8D6D00313CAC /* ClassListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFEA7DD2C5A8D6D00313CAC /* ClassListViewController.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F02A0A42C60C61100C27CA7 /* VolumeIndicatorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VolumeIndicatorViewController.h; sourceTree = "<group>"; };
+		4F02A0A52C60C61100C27CA7 /* VolumeIndicatorViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VolumeIndicatorViewController.mm; sourceTree = "<group>"; };
 		4F172B1F2C5A90C4009A1DBC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		4F172B212C5A90CA009A1DBC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		4F172B232C5A90D0009A1DBC /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/AVKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -108,6 +117,17 @@
 		4FA997BC2C5E3369000E5AFB /* Symbols.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Symbols.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/Symbols.framework; sourceTree = DEVELOPER_DIR; };
 		4FCD98E52C5CEB97001022A9 /* PageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
 		4FCD98E62C5CEB97001022A9 /* PageViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PageViewController.mm; sourceTree = "<group>"; };
+		4FE056912C60C1BD00330E3A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
+		4FF12C942C60959500F82C15 /* VideoPlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoPlayerViewController.h; sourceTree = "<group>"; };
+		4FF12C952C60959500F82C15 /* VideoPlayerViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VideoPlayerViewController.mm; sourceTree = "<group>"; };
+		4FF12C972C60967700F82C15 /* 0.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 0.mp4; sourceTree = "<group>"; };
+		4FF12CB12C60BB9E00F82C15 /* MyAVSlider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAVSlider.h; sourceTree = "<group>"; };
+		4FF12CB22C60BB9E00F82C15 /* MyAVSlider.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MyAVSlider.mm; sourceTree = "<group>"; };
+		4FF12CB42C60BF5500F82C15 /* KeyValueObservation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyValueObservation.h; sourceTree = "<group>"; };
+		4FF12CB52C60BF5500F82C15 /* KeyValueObservation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyValueObservation.m; sourceTree = "<group>"; };
+		4FF12CB62C60BF5500F82C15 /* KeyValueObservation+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KeyValueObservation+Private.h"; sourceTree = "<group>"; };
+		4FF12CB72C60BF5500F82C15 /* NSObject+KeyValueObservation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+KeyValueObservation.h"; sourceTree = "<group>"; };
+		4FF12CB82C60BF5500F82C15 /* NSObject+KeyValueObservation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KeyValueObservation.m"; sourceTree = "<group>"; };
 		4FFEA7D92C5A8C9000313CAC /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		4FFEA7DA2C5A8C9000313CAC /* SceneDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SceneDelegate.mm; sourceTree = "<group>"; };
 		4FFEA7DC2C5A8D6D00313CAC /* ClassListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassListViewController.h; sourceTree = "<group>"; };
@@ -123,6 +143,7 @@
 				4F9879BE2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework in Frameworks */,
 				4F47EA502C5E267700B6D032 /* MapKit.framework in Frameworks */,
 				4F172B242C5A90D0009A1DBC /* AVKit.framework in Frameworks */,
+				4FE056922C60C1BD00330E3A /* CoreMedia.framework in Frameworks */,
 				4F9879BA2C5A8A2700E4D2F3 /* UIKit.framework in Frameworks */,
 				4FA997BD2C5E3369000E5AFB /* Symbols.framework in Frameworks */,
 				4F172B222C5A90CA009A1DBC /* CoreGraphics.framework in Frameworks */,
@@ -134,6 +155,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F02A0A32C60C60000C27CA7 /* VolumeIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				4F02A0A42C60C61100C27CA7 /* VolumeIndicatorViewController.h */,
+				4F02A0A52C60C61100C27CA7 /* VolumeIndicatorViewController.mm */,
+			);
+			path = VolumeIndicator;
+			sourceTree = "<group>";
+		};
 		4F3B20B22C5E3D3600D88762 /* Picker */ = {
 			isa = PBXGroup;
 			children = (
@@ -330,6 +360,8 @@
 		4F8A34CC2C5A861400E3CFC4 /* MiscellaneousPepperUICore */ = {
 			isa = PBXGroup;
 			children = (
+				4FF12CB92C60BF5500F82C15 /* KeyValueObservation */,
+				4FF12C9A2C60967700F82C15 /* Resources */,
 				4F8674312C5A893900825FE5 /* AppDelegate.h */,
 				4F8674322C5A893900825FE5 /* AppDelegate.mm */,
 				4FFEA7D92C5A8C9000313CAC /* SceneDelegate.h */,
@@ -360,6 +392,8 @@
 				4F4604742C5FD70800C12A68 /* NetworkActivityIndicatorVisible */,
 				4F4604782C5FD8EE00C12A68 /* DisablesSleepGesture */,
 				4F46047C2C5FDBCD00C12A68 /* WantsAutorotation */,
+				4FF12C932C60956C00F82C15 /* VideoPlayer */,
+				4F02A0A32C60C60000C27CA7 /* VolumeIndicator */,
 			);
 			path = MiscellaneousPepperUICore;
 			sourceTree = "<group>";
@@ -367,6 +401,7 @@
 		4F9879B82C5A8A2600E4D2F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4FE056912C60C1BD00330E3A /* CoreMedia.framework */,
 				4FA997BC2C5E3369000E5AFB /* Symbols.framework */,
 				4F47EA4F2C5E267700B6D032 /* MapKit.framework */,
 				4F172B252C5A90D5009A1DBC /* AVFoundation.framework */,
@@ -387,6 +422,37 @@
 				4FCD98E62C5CEB97001022A9 /* PageViewController.mm */,
 			);
 			path = Page;
+			sourceTree = "<group>";
+		};
+		4FF12C932C60956C00F82C15 /* VideoPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				4FF12C942C60959500F82C15 /* VideoPlayerViewController.h */,
+				4FF12C952C60959500F82C15 /* VideoPlayerViewController.mm */,
+				4FF12CB12C60BB9E00F82C15 /* MyAVSlider.h */,
+				4FF12CB22C60BB9E00F82C15 /* MyAVSlider.mm */,
+			);
+			path = VideoPlayer;
+			sourceTree = "<group>";
+		};
+		4FF12C9A2C60967700F82C15 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4FF12C972C60967700F82C15 /* 0.mp4 */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		4FF12CB92C60BF5500F82C15 /* KeyValueObservation */ = {
+			isa = PBXGroup;
+			children = (
+				4FF12CB42C60BF5500F82C15 /* KeyValueObservation.h */,
+				4FF12CB52C60BF5500F82C15 /* KeyValueObservation.m */,
+				4FF12CB62C60BF5500F82C15 /* KeyValueObservation+Private.h */,
+				4FF12CB72C60BF5500F82C15 /* NSObject+KeyValueObservation.h */,
+				4FF12CB82C60BF5500F82C15 /* NSObject+KeyValueObservation.m */,
+			);
+			path = KeyValueObservation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -448,6 +514,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F8A34D22C5A861500E3CFC4 /* Assets.xcassets in Resources */,
+				4FF12C9C2C60967700F82C15 /* 0.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,12 +532,16 @@
 				4F4604562C5F801F00C12A68 /* AlwaysOnViewController.mm in Sources */,
 				4F3B20C12C5E4A5A00D88762 /* TimeOffsetInputViewController.mm in Sources */,
 				4F46044D2C5F785F00C12A68 /* StatusBarAlphaViewController.mm in Sources */,
+				4FF12CB32C60BB9E00F82C15 /* MyAVSlider.mm in Sources */,
 				4F8674332C5A893900825FE5 /* AppDelegate.mm in Sources */,
 				4F3B20B52C5E3D4700D88762 /* PickerViewController.mm in Sources */,
 				4F46047B2C5FD8FB00C12A68 /* DisablesSleepGestureViewController.mm in Sources */,
 				4F85F3942C5D350000C25410 /* SlidersViewController.mm in Sources */,
 				4F4604512C5F7C9400C12A68 /* StatusBarTimeStyleViewController.mm in Sources */,
 				4F3B20EE2C5E81BF00D88762 /* CompositionPresenterViewController.mm in Sources */,
+				4F02A0A62C60C61100C27CA7 /* VolumeIndicatorViewController.mm in Sources */,
+				4FF12CBA2C60BF5500F82C15 /* KeyValueObservation.m in Sources */,
+				4FF12CBB2C60BF5500F82C15 /* NSObject+KeyValueObservation.m in Sources */,
 				4F4604772C5FD72000C12A68 /* NetworkActivityIndicatorVisibleViewController.mm in Sources */,
 				4F3B20E02C5E50E600D88762 /* QuickboardNumberPadViewController.mm in Sources */,
 				4FCD98E72C5CEB97001022A9 /* PageViewController.mm in Sources */,
@@ -479,6 +550,7 @@
 				4F46047F2C5FDBDA00C12A68 /* WantsAutorotationViewController.mm in Sources */,
 				4F4604732C5FC6FB00C12A68 /* EffectiveVisibilityView.mm in Sources */,
 				4F85F3552C5A9CDA00C25410 /* DigitalCrownView.mm in Sources */,
+				4FF12C962C60959500F82C15 /* VideoPlayerViewController.mm in Sources */,
 				4F3B20FE2C5E8DA800D88762 /* MessagePresenterViewController.mm in Sources */,
 				4F3B20B92C5E471000D88762 /* ActivityIndicatorViewController.mm in Sources */,
 				4F85F3522C5A963E00C25410 /* DigitalCrownViewController.mm in Sources */,
