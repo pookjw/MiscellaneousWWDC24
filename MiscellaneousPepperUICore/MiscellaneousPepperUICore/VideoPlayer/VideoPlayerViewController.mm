@@ -220,7 +220,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     id playbackControlsViewController = [self playbackControlsViewController];
     
     reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(playbackControlsViewController, sel_registerName("setIsInteractivelyScrubbing:"), NO);
-    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(slider, sel_registerName("becomeFirstResponder"));
+    reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(slider, sel_registerName("becomeFirstResponder"));
 }
 
 - (void)rateSliderValueChanged:(id)sender {

@@ -56,8 +56,8 @@ OBJC_EXPORT id _Nullable objc_msgSend_noarg(id _Nullable self, SEL _Nonnull _cmd
     
 }
 
-- (void)handleWatchActions:(id)arg1 completion:(id)arg2 {
-    abort(); // TODO
+- (void)handleWatchActions:(NSSet/* <PUICInitializeSessionServiceAction *> */ *)watchActions completion:(void (^)())completion {
+    completion();
 }
 
 @end

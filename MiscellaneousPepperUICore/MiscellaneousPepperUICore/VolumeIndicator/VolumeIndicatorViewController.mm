@@ -16,6 +16,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 + (void)load {
     assert(dlopen("/System/Library/PrivateFrameworks/NanoMediaUI.framework/NanoMediaUI", RTLD_NOW) != NULL);
+    assert(dlopen("/System/Library/PrivateFrameworks/NanoAudioControl.framework/NanoAudioControl", RTLD_NOW) != NULL);
     
     [self dynamicIsa];
 }
@@ -34,8 +35,26 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP description = class_getMethodImplementation(self, @selector(description));
         assert(class_addMethod(_dynamicIsa, @selector(description), description, NULL));
         
+        IMP respondsToSelector = class_getMethodImplementation(self, @selector(respondsToSelector:));
+        assert(class_addMethod(_dynamicIsa, @selector(respondsToSelector:), respondsToSelector, NULL));
+        
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
         assert(class_addMethod(_dynamicIsa, @selector(viewDidLoad), viewDidLoad, NULL));
+        
+        IMP volumeIndicatorDidAdjustVolume = class_getMethodImplementation(self, @selector(volumeIndicatorDidAdjustVolume:));
+        assert(class_addMethod(_dynamicIsa, @selector(volumeIndicatorDidAdjustVolume:), volumeIndicatorDidAdjustVolume, NULL));
+        
+        IMP volumeIndicatorDidBeginAdjustingVolume = class_getMethodImplementation(self, @selector(volumeIndicatorDidBeginAdjustingVolume:));
+        assert(class_addMethod(_dynamicIsa, @selector(volumeIndicatorDidBeginAdjustingVolume:), volumeIndicatorDidBeginAdjustingVolume, NULL));
+        
+        IMP volumeIndicatorDidEndAdjustingVolume = class_getMethodImplementation(self, @selector(volumeIndicatorDidEndAdjustingVolume:));
+        assert(class_addMethod(_dynamicIsa, @selector(volumeIndicatorDidEndAdjustingVolume:), volumeIndicatorDidEndAdjustingVolume, NULL));
+        
+        IMP volumeIndicatorWasTapped = class_getMethodImplementation(self, @selector(volumeIndicatorWasTapped:));
+        assert(class_addMethod(_dynamicIsa, @selector(volumeIndicatorWasTapped:), volumeIndicatorWasTapped, NULL));
+        
+        assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"NMUVolumeIndicatorControlDelegate")));
+        assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"NACVolumeControllerDelegate")));
         
         //
         
@@ -49,14 +68,38 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     return [NSString stringWithFormat:@"<%s: %p>", class_getName(self.class), self];
 }
 
+- (BOOL)respondsToSelector:(SEL)aSelector {
+    objc_super superInfo = { self, [self class] };
+    BOOL responds = reinterpret_cast<BOOL (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
+    
+    if (!responds) {
+        NSLog(@"%s", sel_getName(aSelector));
+    }
+    
+    return responds;
+}
+
 - (void)viewDidLoad {
     objc_super superInfo = { self, [self class] };
     reinterpret_cast<void (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
     
+    id view = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("view"));
+    
     id volumeIndicatorControl = [objc_lookUpClass("NMUVolumeIndicatorControl") new];
+    
+    id volumeController = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("NACVolumeControllerLocal") alloc], sel_registerName("initWithAudioCategory:"), @"Audio/Video");
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(volumeController, sel_registerName("setDelegate:"), self);
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(volumeIndicatorControl, sel_registerName("setVolumeController:"), volumeController);
+    [volumeController release];
+    
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(volumeIndicatorControl, sel_registerName("setDelegate:"), self);
+    reinterpret_cast<void (*)(id, SEL, float)>(objc_msgSend)(volumeIndicatorControl, sel_registerName("setMaximumVolume:"), 0.7f);
+    
+    // Not working?
+    reinterpret_cast<void (*)(id, SEL, float)>(objc_msgSend)(volumeIndicatorControl, sel_registerName("setEUVolumeLimit:"), 0.7f);
+    
     reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(volumeIndicatorControl, sel_registerName("setTranslatesAutoresizingMaskIntoConstraints:"), NO);
     
-    id view = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("view"));
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(view, sel_registerName("addSubview:"), volumeIndicatorControl);
     
     id view_layoutMarginsGuide = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(view, sel_registerName("layoutMarginsGuide"));
@@ -75,12 +118,25 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         centerYConstraint, centerXConstraint
     ]);
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [volumeIndicatorControl becomeFirstResponder];
-    });
-    
-    
+    reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(volumeIndicatorControl, sel_registerName("becomeFirstResponder"));
     [volumeIndicatorControl release];
+}
+
+- (void)volumeIndicatorDidAdjustVolume:(id)volumeIndicator {
+    float volume = reinterpret_cast<float (*)(id, SEL)>(objc_msgSend)(volumeIndicator, sel_registerName("volume"));
+    NSLog(@"%lf", volume);
+}
+
+- (void)volumeIndicatorDidBeginAdjustingVolume:(id)volumeIndicator {
+    
+}
+
+- (void)volumeIndicatorDidEndAdjustingVolume:(id)volumeIndicator {
+    
+}
+
+- (void)volumeIndicatorWasTapped:(id)volumeIndicator {
+    
 }
 
 @end
