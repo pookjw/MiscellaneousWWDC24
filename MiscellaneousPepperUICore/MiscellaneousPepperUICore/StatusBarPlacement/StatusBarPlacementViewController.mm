@@ -111,7 +111,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 }
 
 - (void)updateTitle __attribute__((objc_direct)) {
-    void *handle = dlopen("/System/Library/PrivateFrameworks/PepperUICore.framework/PepperUICore", RTLD_LAZY);
+    void *handle = dlopen("/System/Library/PrivateFrameworks/PepperUICore.framework/PepperUICore", RTLD_NOW);
     void *symbol = dlsym(handle, "NSStringFromPUICStatusBarPlacement");
     
     id navigationItem = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("navigationItem"));

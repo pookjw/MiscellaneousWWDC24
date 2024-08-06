@@ -62,6 +62,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     });
     
     id menu = reinterpret_cast<id (*)(Class, SEL, id)>(objc_msgSend)(objc_lookUpClass("UIMenu"), sel_registerName("menuWithChildren:"), @[menuAction]);
+    
+    // -setMenu:가 iOS랑 동작이 다르며 _UIVariableGestureContextMenuInteraction, UIContextMenuInteraction, _UIContextMenuContainerView 같은 것이 아예 존재 안함.
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(button, sel_registerName("setMenu:"), menu);
     
     reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(button, sel_registerName("setShowsMenuAsPrimaryAction:"), YES);
