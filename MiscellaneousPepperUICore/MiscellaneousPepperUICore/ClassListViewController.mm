@@ -34,6 +34,7 @@
 #import "NotificationPresenterViewController.h"
 #import "ContentUnavailableViewController.h"
 #import "MenuPresenterViewController.h"
+#import "MenuViewController.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
@@ -41,6 +42,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 + (NSArray<Class> *)classes {
     return @[
+        MenuViewController.class,
         MenuPresenterViewController.class,
         ContentUnavailableViewController.class,
         NotificationPresenterViewController.class,

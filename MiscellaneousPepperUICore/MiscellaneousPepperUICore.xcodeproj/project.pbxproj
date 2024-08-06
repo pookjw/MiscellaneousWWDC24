@@ -32,6 +32,7 @@
 		4F46050B2C612D8D00C12A68 /* ContentUnavailableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46050A2C612D8D00C12A68 /* ContentUnavailableViewController.mm */; };
 		4F46050F2C61316200C12A68 /* MenuPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46050E2C61316200C12A68 /* MenuPresenterViewController.mm */; };
 		4F47EA502C5E267700B6D032 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47EA4F2C5E267700B6D032 /* MapKit.framework */; };
+		4F790F4E2C620B9200CEECD9 /* MenuViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F790F4D2C620B9200CEECD9 /* MenuViewController.mm */; };
 		4F85F3522C5A963E00C25410 /* DigitalCrownViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3512C5A963E00C25410 /* DigitalCrownViewController.mm */; };
 		4F85F3552C5A9CDA00C25410 /* DigitalCrownView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3542C5A9CDA00C25410 /* DigitalCrownView.mm */; };
 		4F85F3942C5D350000C25410 /* SlidersViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3932C5D350000C25410 /* SlidersViewController.mm */; };
@@ -103,6 +104,8 @@
 		4F46050D2C61316200C12A68 /* MenuPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuPresenterViewController.h; sourceTree = "<group>"; };
 		4F46050E2C61316200C12A68 /* MenuPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MenuPresenterViewController.mm; sourceTree = "<group>"; };
 		4F47EA4F2C5E267700B6D032 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
+		4F790F4C2C620B9200CEECD9 /* MenuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		4F790F4D2C620B9200CEECD9 /* MenuViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MenuViewController.mm; sourceTree = "<group>"; };
 		4F85F3502C5A963E00C25410 /* DigitalCrownViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DigitalCrownViewController.h; sourceTree = "<group>"; };
 		4F85F3512C5A963E00C25410 /* DigitalCrownViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DigitalCrownViewController.mm; sourceTree = "<group>"; };
 		4F85F3532C5A9CDA00C25410 /* DigitalCrownView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DigitalCrownView.h; sourceTree = "<group>"; };
@@ -337,6 +340,15 @@
 			path = MenuPresenter;
 			sourceTree = "<group>";
 		};
+		4F790F4B2C620B6600CEECD9 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				4F790F4C2C620B9200CEECD9 /* MenuViewController.h */,
+				4F790F4D2C620B9200CEECD9 /* MenuViewController.mm */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
 		4F85F34F2C5A960A00C25410 /* DigitalCrown */ = {
 			isa = PBXGroup;
 			children = (
@@ -433,6 +445,7 @@
 				4F4605022C61258500C12A68 /* NotificationPresenter */,
 				4F4605082C612D7D00C12A68 /* ContentUnavailable */,
 				4F46050C2C61314900C12A68 /* MenuPresenter */,
+				4F790F4B2C620B6600CEECD9 /* Menu */,
 			);
 			path = MiscellaneousPepperUICore;
 			sourceTree = "<group>";
@@ -584,6 +597,7 @@
 				4F3B20EE2C5E81BF00D88762 /* CompositionPresenterViewController.mm in Sources */,
 				4F02A0A62C60C61100C27CA7 /* VolumeIndicatorViewController.mm in Sources */,
 				4FF12CBA2C60BF5500F82C15 /* KeyValueObservation.m in Sources */,
+				4F790F4E2C620B9200CEECD9 /* MenuViewController.mm in Sources */,
 				4FF12CBB2C60BF5500F82C15 /* NSObject+KeyValueObservation.m in Sources */,
 				4F4604772C5FD72000C12A68 /* NetworkActivityIndicatorVisibleViewController.mm in Sources */,
 				4F3B20E02C5E50E600D88762 /* QuickboardNumberPadViewController.mm in Sources */,

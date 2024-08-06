@@ -17,6 +17,7 @@ enum Demo: Int, Identifiable, CaseIterable {
     case myStepper
     case myTimeline
     case myVideoPlayer
+    case myMenu
     
     var id: Int {
         rawValue
@@ -43,6 +44,8 @@ enum Demo: Int, Identifiable, CaseIterable {
             MyTimelineView()
         case .myVideoPlayer:
             MyVideoPlayerView()
+        case .myMenu:
+            MyMenuView()
         }
     }
 }
