@@ -43,6 +43,9 @@
 		4F5068B22C3D9D8800293E81 /* LegacyTabBar2Controller.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5068B12C3D9D8800293E81 /* LegacyTabBar2Controller.mm */; };
 		4F5D11C52C58AD5A000C12C3 /* WritingToolsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5D11C42C58AD5A000C12C3 /* WritingToolsViewController.mm */; };
 		4F5FE5F62C5A0B950044345D /* article.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4F5FE5F52C5A0AE70044345D /* article.txt */; };
+		4F7941D02C7896760031F456 /* ProKeyboardViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7941CF2C7896760031F456 /* ProKeyboardViewController.mm */; };
+		4F7941D42C7897D50031F456 /* FloatingKeyboardViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7941D32C7897D50031F456 /* FloatingKeyboardViewController.mm */; };
+		4F7941D82C7898470031F456 /* SplitKeyboardViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7941D72C7898470031F456 /* SplitKeyboardViewController.mm */; };
 		4F7BC13C2C3C43B900419197 /* MyNavigationItemViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC13B2C3C43B900419197 /* MyNavigationItemViewController.mm */; };
 		4F8BD38D2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38C2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm */; };
 		4F8BD3902C22E1520031535F /* CustomDismissCustomInteraction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38F2C22E1520031535F /* CustomDismissCustomInteraction.mm */; };
@@ -130,6 +133,12 @@
 		4F5D11C32C58AD5A000C12C3 /* WritingToolsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WritingToolsViewController.h; sourceTree = "<group>"; };
 		4F5D11C42C58AD5A000C12C3 /* WritingToolsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WritingToolsViewController.mm; sourceTree = "<group>"; };
 		4F5FE5F52C5A0AE70044345D /* article.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = article.txt; sourceTree = "<group>"; };
+		4F7941CE2C7896760031F456 /* ProKeyboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProKeyboardViewController.h; sourceTree = "<group>"; };
+		4F7941CF2C7896760031F456 /* ProKeyboardViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ProKeyboardViewController.mm; sourceTree = "<group>"; };
+		4F7941D22C7897D50031F456 /* FloatingKeyboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FloatingKeyboardViewController.h; sourceTree = "<group>"; };
+		4F7941D32C7897D50031F456 /* FloatingKeyboardViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FloatingKeyboardViewController.mm; sourceTree = "<group>"; };
+		4F7941D62C7898470031F456 /* SplitKeyboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SplitKeyboardViewController.h; sourceTree = "<group>"; };
+		4F7941D72C7898470031F456 /* SplitKeyboardViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SplitKeyboardViewController.mm; sourceTree = "<group>"; };
 		4F7BC13A2C3C43B900419197 /* MyNavigationItemViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyNavigationItemViewController.h; sourceTree = "<group>"; };
 		4F7BC13B2C3C43B900419197 /* MyNavigationItemViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MyNavigationItemViewController.mm; sourceTree = "<group>"; };
 		4F8BD38B2C22E11F0031535F /* CustomDismissInteractiveTransitioning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDismissInteractiveTransitioning.h; sourceTree = "<group>"; };
@@ -249,6 +258,9 @@
 				4FB9FC3B2C58C244006B3245 /* NewLinkText */,
 				4FB9FC432C58C4D5006B3245 /* OldLinkText */,
 				4F5D11C62C58AD5E000C12C3 /* WritingTools */,
+				4F7941CD2C7896510031F456 /* ProKeyboard */,
+				4F7941D12C7897B80031F456 /* FloatingKeyboard */,
+				4F7941D52C78982B0031F456 /* SplitKeyboard */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -453,6 +465,33 @@
 				4F5FE5F52C5A0AE70044345D /* article.txt */,
 			);
 			path = WritingTools;
+			sourceTree = "<group>";
+		};
+		4F7941CD2C7896510031F456 /* ProKeyboard */ = {
+			isa = PBXGroup;
+			children = (
+				4F7941CE2C7896760031F456 /* ProKeyboardViewController.h */,
+				4F7941CF2C7896760031F456 /* ProKeyboardViewController.mm */,
+			);
+			path = ProKeyboard;
+			sourceTree = "<group>";
+		};
+		4F7941D12C7897B80031F456 /* FloatingKeyboard */ = {
+			isa = PBXGroup;
+			children = (
+				4F7941D22C7897D50031F456 /* FloatingKeyboardViewController.h */,
+				4F7941D32C7897D50031F456 /* FloatingKeyboardViewController.mm */,
+			);
+			path = FloatingKeyboard;
+			sourceTree = "<group>";
+		};
+		4F7941D52C78982B0031F456 /* SplitKeyboard */ = {
+			isa = PBXGroup;
+			children = (
+				4F7941D62C7898470031F456 /* SplitKeyboardViewController.h */,
+				4F7941D72C7898470031F456 /* SplitKeyboardViewController.mm */,
+			);
+			path = SplitKeyboard;
 			sourceTree = "<group>";
 		};
 		4F7BC1392C3C439700419197 /* MyNavigationItem */ = {
@@ -669,6 +708,7 @@
 				4F1F022B2C23CE25004F7EFF /* PinkViewController.m in Sources */,
 				4F46CFD02C282D9A005AC6AF /* FontPickerPresenterViewController.mm in Sources */,
 				4FA8EEE92C1C012A00B1358A /* TextViewController.mm in Sources */,
+				4F7941D02C7896760031F456 /* ProKeyboardViewController.mm in Sources */,
 				4F455F1E2C280C4A00CDE688 /* TabBar2Controller.m in Sources */,
 				4F1F02282C23CD6C004F7EFF /* TabBarController.mm in Sources */,
 				4F082E7B2C18FD18002263ED /* CustomDocumentViewController.mm in Sources */,
@@ -682,6 +722,8 @@
 				4F3AFCA12C57F64E00F810CF /* PointerInteractionViewController.mm in Sources */,
 				4FDABC692C3D35DE00F928DB /* SymbolTransitionsViewController.mm in Sources */,
 				4F7BC13C2C3C43B900419197 /* MyNavigationItemViewController.mm in Sources */,
+				4F7941D42C7897D50031F456 /* FloatingKeyboardViewController.mm in Sources */,
+				4F7941D82C7898470031F456 /* SplitKeyboardViewController.mm in Sources */,
 				4F455F032C2038D200CDE688 /* CustomTransitionController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

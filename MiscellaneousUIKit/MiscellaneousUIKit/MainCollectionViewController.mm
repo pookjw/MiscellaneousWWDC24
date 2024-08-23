@@ -35,6 +35,9 @@
 #import "NewLinkTextViewController.h"
 #import "OldLinkTextViewController.h"
 #import "WritingToolsViewController.h"
+#import "ProKeyboardViewController.h"
+#import "FloatingKeyboardViewController.h"
+#import "SplitKeyboardViewController.h"
 #import <objc/message.h>
 
 __attribute__((objc_direct_members))
@@ -117,6 +120,9 @@ __attribute__((objc_direct_members))
 
 - (NSArray<Class> *)classes {
     return @[
+        SplitKeyboardViewController.class,
+        FloatingKeyboardViewController.class,
+        ProKeyboardViewController.class,
         WritingToolsViewController.class,
         OldLinkTextViewController.class,
         NewLinkTextViewController.class,

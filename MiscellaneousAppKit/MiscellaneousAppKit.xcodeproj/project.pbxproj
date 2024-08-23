@@ -229,7 +229,7 @@
 				4FD8FBC82C3FE2EF009B0B70 /* ChangeToolbarStyle */,
 				4FC2EDA52C457AA900BEFEAB /* SearchToolbarItem */,
 				4F4DB63B2C46BE0000B628B9 /* ValidateToolbar */,
-				4F5FE6332C5A14C60044345D /* WritingToolsViewController */,
+				4F5FE6332C5A14C60044345D /* WritingTools */,
 				4F46CFE32C28308F005AC6AF /* Assets.xcassets */,
 				4F46CFE82C28308F005AC6AF /* main.m */,
 				4F46CFEA2C28308F005AC6AF /* MiscellaneousAppKit.entitlements */,
@@ -339,14 +339,14 @@
 			path = Menu;
 			sourceTree = "<group>";
 		};
-		4F5FE6332C5A14C60044345D /* WritingToolsViewController */ = {
+		4F5FE6332C5A14C60044345D /* WritingTools */ = {
 			isa = PBXGroup;
 			children = (
 				4F5FE6342C5A176D0044345D /* article.txt */,
 				4F5FE62F2C5A14B50044345D /* WritingToolsViewController.h */,
 				4F5FE6302C5A14B50044345D /* WritingToolsViewController.mm */,
 			);
-			path = WritingToolsViewController;
+			path = WritingTools;
 			sourceTree = "<group>";
 		};
 		4FC2EDA52C457AA900BEFEAB /* SearchToolbarItem */ = {
