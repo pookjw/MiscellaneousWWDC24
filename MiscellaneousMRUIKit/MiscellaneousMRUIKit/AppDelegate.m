@@ -14,6 +14,7 @@
 #import "ImmersiveSceneClientSettingsWindowScene.h"
 #import "UpperLimbsWindowScene.h"
 #import "VolumeBaseplateVisibilitySceneDelegate.h"
+#import "ToggleImmersiveStylesSceneDelegate.h"
 
 @interface AppDelegate ()
 @end
@@ -44,6 +45,8 @@
         configuration.delegateClass = UpperLimbsWindowScene.class;
     } else if ([activityType isEqualToString:@"VolumeBaseplateVisibility"]) {
         configuration.delegateClass = VolumeBaseplateVisibilitySceneDelegate.class;
+    } else if ([activityType isEqualToString:@"ToggleImmersiveStyles"]) {
+        configuration.delegateClass = ToggleImmersiveStylesSceneDelegate.class;
     } else {
         configuration.delegateClass = SceneDelegate.class;
     }

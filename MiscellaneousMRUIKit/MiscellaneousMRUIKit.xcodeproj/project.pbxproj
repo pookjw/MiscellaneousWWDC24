@@ -28,6 +28,8 @@
 		4FAA17782C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17772C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.mm */; };
 		4FAA17842C357A1700188F35 /* UpperLimbsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17832C357A1700188F35 /* UpperLimbsViewController.mm */; };
 		4FAA17872C357B3400188F35 /* UpperLimbsWindowScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17862C357B3400188F35 /* UpperLimbsWindowScene.mm */; };
+		4FD3D3822C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD3D3812C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm */; };
+		4FD3D3852C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD3D3842C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.mm */; };
 		4FD5EF482C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD5EF472C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +76,10 @@
 		4FAA17832C357A1700188F35 /* UpperLimbsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = UpperLimbsViewController.mm; sourceTree = "<group>"; };
 		4FAA17852C357B3400188F35 /* UpperLimbsWindowScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpperLimbsWindowScene.h; sourceTree = "<group>"; };
 		4FAA17862C357B3400188F35 /* UpperLimbsWindowScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = UpperLimbsWindowScene.mm; sourceTree = "<group>"; };
+		4FD3D3802C8066610001C3A4 /* ToggleImmersiveStylesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToggleImmersiveStylesViewController.h; sourceTree = "<group>"; };
+		4FD3D3812C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ToggleImmersiveStylesViewController.mm; sourceTree = "<group>"; };
+		4FD3D3832C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToggleImmersiveStylesSceneDelegate.h; sourceTree = "<group>"; };
+		4FD3D3842C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ToggleImmersiveStylesSceneDelegate.mm; sourceTree = "<group>"; };
 		4FD5EF462C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorldTrackingCapabilitiesViewController.h; sourceTree = "<group>"; };
 		4FD5EF472C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WorldTrackingCapabilitiesViewController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -126,6 +132,7 @@
 				4FAA17722C353B4500188F35 /* ImmersiveSceneClientSettings */,
 				4FAA17812C3579F000188F35 /* UpperLimbs */,
 				4F79022F2C53AEF900A3E913 /* VolumeBaseplateVisibility */,
+				4FD3D37F2C80664A0001C3A4 /* ToggleImmersiveStyles */,
 				4F1C712C2C2F2443002E096A /* Assets.xcassets */,
 				4F1C71312C2F2443002E096A /* Info.plist */,
 				4F1C71322C2F2443002E096A /* main.m */,
@@ -227,6 +234,17 @@
 			path = UpperLimbs;
 			sourceTree = "<group>";
 		};
+		4FD3D37F2C80664A0001C3A4 /* ToggleImmersiveStyles */ = {
+			isa = PBXGroup;
+			children = (
+				4FD3D3802C8066610001C3A4 /* ToggleImmersiveStylesViewController.h */,
+				4FD3D3812C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm */,
+				4FD3D3832C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.h */,
+				4FD3D3842C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.mm */,
+			);
+			path = ToggleImmersiveStyles;
+			sourceTree = "<group>";
+		};
 		4FD5EF452C33139000CCCFA6 /* WorldTrackingCapabilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -307,9 +325,11 @@
 				4F1C71222C2F2442002E096A /* AppDelegate.m in Sources */,
 				4F26D3482C3008170097B837 /* DefaultWorldScalingViewController.mm in Sources */,
 				4F1C713C2C31CB3C002E096A /* ViewpointAzimuthViewController.mm in Sources */,
+				4FD3D3822C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm in Sources */,
 				4F26D3992C305B9F0097B837 /* HomeIndicatorViewController.mm in Sources */,
 				4F26D33A2C2FF9040097B837 /* LaunchPlacementParametersWindowScene.mm in Sources */,
 				4F7902322C53AFA500A3E913 /* VolumeBaseplateVisibilityViewController.mm in Sources */,
+				4FD3D3852C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.mm in Sources */,
 				4FAA17872C357B3400188F35 /* UpperLimbsWindowScene.mm in Sources */,
 				4F26D2EB2C2FDBFC0097B837 /* ClassListViewController.mm in Sources */,
 				4F1C713F2C31CB9D002E096A /* ViewpointAzimuthWindowScene.m in Sources */,

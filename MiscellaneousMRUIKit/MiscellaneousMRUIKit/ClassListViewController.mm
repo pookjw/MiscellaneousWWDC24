@@ -16,6 +16,7 @@
 #import "UpperLimbsViewController.h"
 #import "VolumeBaseplateVisibilityViewController.h"
 #import "WorldTrackingCapabilitiesViewController.h"
+#import "ToggleImmersiveStylesViewController.h"
 
 @interface ClassListViewController ()
 @property (retain, readonly, nonatomic) UICollectionViewCellRegistration *cellRegistration;
@@ -70,6 +71,7 @@
 
 - (NSArray<Class> *)classes {
     return @[
+        ToggleImmersiveStylesViewController.class,
         WorldTrackingCapabilitiesViewController.class,
         LaunchPlacementParametersViewController.class,
         VolumetricWorldAlignmentBehaviorViewController.class,
