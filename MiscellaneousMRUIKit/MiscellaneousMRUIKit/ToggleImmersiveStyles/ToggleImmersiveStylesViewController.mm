@@ -158,9 +158,12 @@
     auto connectedImmsersiveScene = self.connectedImmsersiveScene;
     if (connectedImmsersiveScene == nil) return;
     
+    id fbsScene = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(connectedImmsersiveScene, sel_registerName("_scene"));
+    NSString *identifier = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(fbsScene, sel_registerName("identifier"));
+    
     id options = [objc_lookUpClass("MRUISceneRequestOptions") new];
     
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(options, sel_registerName("setSubstitutingSceneSessionIdentifier:"), connectedImmsersiveScene.session.persistentIdentifier);
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(options, sel_registerName("setSubstitutingSceneSessionIdentifier:"), identifier);
     reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(options, NSSelectorFromString(@"setInternalFrameworksScene:"), NO);
     reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(options, NSSelectorFromString(@"setDisableDefocusBehavior:"), NO);
     reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(options, NSSelectorFromString(@"setPreferredImmersionStyle:"), preferredImmersionStyle);
