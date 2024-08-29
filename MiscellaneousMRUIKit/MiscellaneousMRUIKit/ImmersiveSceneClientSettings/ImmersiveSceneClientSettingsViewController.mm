@@ -67,7 +67,7 @@
     stackView.alignment = UIStackViewAlignmentCenter;
     stackView.distribution = UIStackViewDistributionFill;
     
-    _stackView = stackView;
+    _stackView = [stackView retain];
     return [stackView autorelease];
 }
 
