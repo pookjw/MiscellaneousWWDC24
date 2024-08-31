@@ -91,9 +91,10 @@
     
     UIStepper *maximumAmountOfImmersionStepper = [UIStepper new];
     
-    maximumAmountOfImmersionStepper.stepValue = 0.1;
+    maximumAmountOfImmersionStepper.stepValue = 0.2;
     maximumAmountOfImmersionStepper.maximumValue = 1.0;
-    maximumAmountOfImmersionStepper.enabled = NO;
+    maximumAmountOfImmersionStepper.value = 0.2;
+//    maximumAmountOfImmersionStepper.enabled = NO;
     [maximumAmountOfImmersionStepper addTarget:self action:@selector(maximumAmountOfImmersionStepperDidTrigger:) forControlEvents:UIControlEventPrimaryActionTriggered];
     
     _maximumAmountOfImmersionStepper = [maximumAmountOfImmersionStepper retain];
@@ -132,7 +133,7 @@
     reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(initialClientSettings, NSSelectorFromString(@"setAllowedImmersionStyles:"), 4);
     
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(initialClientSettings, sel_registerName("setMinimumAmountOfImmersion:"), @0.1);
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(initialClientSettings, sel_registerName("setMaximumAmountOfImmersion:"), @0.5);
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(initialClientSettings, sel_registerName("setMaximumAmountOfImmersion:"), @(self.maximumAmountOfImmersionStepper.value));
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(initialClientSettings, sel_registerName("setInitialAmountOfImmersion:"), @0.1);
     
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(initialClientSettings, sel_registerName("setAmbientBrightness:"), @0.1);
@@ -177,7 +178,7 @@
     if (![scene isKindOfClass:UIWindowScene.class]) return;
     if (scene.session.role != UISceneSessionRoleImmersiveSpaceApplication) return;
     
-    self.maximumAmountOfImmersionStepper.enabled = YES;
+//    self.maximumAmountOfImmersionStepper.enabled = YES;
     
     // FBScene
     id fbsScene = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(scene, sel_registerName("_scene"));
