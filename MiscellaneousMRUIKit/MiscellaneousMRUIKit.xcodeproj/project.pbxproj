@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F05B7652C835061001ECA93 /* DemoSFBSViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F05B7642C835061001ECA93 /* DemoSFBSViewController.mm */; };
 		4F1C71222C2F2442002E096A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C71212C2F2442002E096A /* AppDelegate.m */; };
 		4F1C71252C2F2442002E096A /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C71242C2F2442002E096A /* SceneDelegate.m */; };
 		4F1C712D2C2F2443002E096A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F1C712C2C2F2443002E096A /* Assets.xcassets */; };
@@ -34,6 +35,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F05B7612C834CA5001ECA93 /* MiscellaneousMRUIKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MiscellaneousMRUIKit.entitlements; sourceTree = "<group>"; };
+		4F05B7632C835061001ECA93 /* DemoSFBSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoSFBSViewController.h; sourceTree = "<group>"; };
+		4F05B7642C835061001ECA93 /* DemoSFBSViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DemoSFBSViewController.mm; sourceTree = "<group>"; };
 		4F1C711D2C2F2442002E096A /* MiscellaneousMRUIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiscellaneousMRUIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F1C71202C2F2442002E096A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4F1C71212C2F2442002E096A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -96,6 +100,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F05B7622C835046001ECA93 /* DemoSFBS */ = {
+			isa = PBXGroup;
+			children = (
+				4F05B7632C835061001ECA93 /* DemoSFBSViewController.h */,
+				4F05B7642C835061001ECA93 /* DemoSFBSViewController.mm */,
+			);
+			path = DemoSFBS;
+			sourceTree = "<group>";
+		};
 		4F1C71142C2F2442002E096A = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +129,7 @@
 		4F1C711F2C2F2442002E096A /* MiscellaneousMRUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				4F05B7612C834CA5001ECA93 /* MiscellaneousMRUIKit.entitlements */,
 				4F1C71202C2F2442002E096A /* AppDelegate.h */,
 				4F1C71212C2F2442002E096A /* AppDelegate.m */,
 				4F1C71232C2F2442002E096A /* SceneDelegate.h */,
@@ -133,6 +147,7 @@
 				4FAA17812C3579F000188F35 /* UpperLimbs */,
 				4F79022F2C53AEF900A3E913 /* VolumeBaseplateVisibility */,
 				4FD3D37F2C80664A0001C3A4 /* ToggleImmersiveStyles */,
+				4F05B7622C835046001ECA93 /* DemoSFBS */,
 				4F1C712C2C2F2443002E096A /* Assets.xcassets */,
 				4F1C71312C2F2443002E096A /* Info.plist */,
 				4F1C71322C2F2443002E096A /* main.m */,
@@ -331,6 +346,7 @@
 				4F7902322C53AFA500A3E913 /* VolumeBaseplateVisibilityViewController.mm in Sources */,
 				4FD3D3852C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.mm in Sources */,
 				4FAA17872C357B3400188F35 /* UpperLimbsWindowScene.mm in Sources */,
+				4F05B7652C835061001ECA93 /* DemoSFBSViewController.mm in Sources */,
 				4F26D2EB2C2FDBFC0097B837 /* ClassListViewController.mm in Sources */,
 				4F1C713F2C31CB9D002E096A /* ViewpointAzimuthWindowScene.m in Sources */,
 				4F7902352C53B02000A3E913 /* VolumeBaseplateVisibilitySceneDelegate.mm in Sources */,
@@ -471,6 +487,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MiscellaneousMRUIKit/MiscellaneousMRUIKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
@@ -502,6 +519,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MiscellaneousMRUIKit/MiscellaneousMRUIKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
