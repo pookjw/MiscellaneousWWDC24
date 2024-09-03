@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>com.apple.surfboard.shutdown-client</key>
+	<true/>
+	<key>com.apple.surfboard.lock-screen-client</key>
+	<true/>
+	<key>com.apple.surfboard.application-service-client</key>
+	<true/>
+	<key>com.apple.surfboard.vhi-client</key>
+	<true/>
+	<key>com.apple.surfboard-ui.client</key>
+	<true/>
+	<key>com.apple.surfboard.entity-interaction-client</key>
+	<true/>
+	<key>com.apple.surfboard.scene-understanding-client</key>
+	<true/>
+	<key>com.apple.surfboard.immersion-client</key>
+	<true/>
+	<key>com.apple.surfboard.device-reset-client</key>
+	<true/>
+	<key>com.apple.surfboard.debug-service-client</key>
+	<true/>
+	<key>com.apple.surfboard.launcherservice.client</key>
+	<true/>
+	<key>com.apple.surfboard.placement-client</key>
+	<true/>
+</dict>
+</plist>

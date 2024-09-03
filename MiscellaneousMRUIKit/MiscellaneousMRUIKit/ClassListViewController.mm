@@ -17,6 +17,7 @@
 #import "VolumeBaseplateVisibilityViewController.h"
 #import "WorldTrackingCapabilitiesViewController.h"
 #import "ToggleImmersiveStylesViewController.h"
+#import "DemoSFBSViewController.h"
 
 @interface ClassListViewController ()
 @property (retain, readonly, nonatomic) UICollectionViewCellRegistration *cellRegistration;
@@ -71,6 +72,7 @@
 
 - (NSArray<Class> *)classes {
     return @[
+        DemoSFBSViewController.class,
         ToggleImmersiveStylesViewController.class,
         WorldTrackingCapabilitiesViewController.class,
         LaunchPlacementParametersViewController.class,
