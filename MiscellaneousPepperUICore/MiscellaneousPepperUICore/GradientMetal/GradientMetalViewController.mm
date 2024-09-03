@@ -1,0 +1,90 @@
+//
+//  GradientMetalViewController.mm
+//  MiscellaneousPepperUICore Watch App
+//
+//  Created by Jinwoo Kim on 9/3/24.
+//
+
+#import "GradientMetalViewController.h"
+#import <UIKit/UIKit.h>
+#import <objc/message.h>
+#import <objc/runtime.h>
+#import <dlfcn.h>
+#import "Renderer.h"
+
+OBJC_EXPORT id objc_msgSendSuper2(void);
+
+@implementation GradientMetalViewController
+
++ (void)load {
+    assert(dlopen("/System/Library/Frameworks/MetalKit.framework/MetalKit", RTLD_NOW) != NULL);
+    assert(dlopen("/System/Library/Frameworks/ModelIO.framework/ModelIO", RTLD_NOW) != NULL);
+    
+    [self dynamisIsa];
+}
+
++ (instancetype)allocWithZone:(struct _NSZone *)zone {
+    return [[self dynamisIsa] allocWithZone:zone];
+}
+
++ (Class)dynamisIsa {
+    static Class dynamicIsa;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_GradientMetalViewController", 0);
+        
+        IMP dealloc = class_getMethodImplementation(self, @selector(dealloc));
+        assert(class_addMethod(_dynamicIsa, @selector(dealloc), dealloc, NULL));
+        
+        IMP description = class_getMethodImplementation(self, @selector(description));
+        assert(class_addMethod(_dynamicIsa, @selector(description), description, NULL));
+        
+        IMP loadView = class_getMethodImplementation(self, @selector(loadView));
+        assert(class_addMethod(_dynamicIsa, @selector(loadView), loadView, NULL));
+        
+        IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
+        assert(class_addMethod(_dynamicIsa, @selector(viewDidLoad), viewDidLoad, NULL));
+        
+        assert(class_addIvar(_dynamicIsa, "_renderer", sizeof(Renderer *), sizeof(Renderer *), @encode(Renderer *)));
+        
+        dynamicIsa = _dynamicIsa;
+    });
+    
+    return dynamicIsa;
+}
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wobjc-missing-super-calls"
+- (void)dealloc {
+    Renderer *_renderer;
+    object_getInstanceVariable(self, "_renderer", reinterpret_cast<void **>(&_renderer));
+    [_renderer release];
+    
+    objc_super superInfo = { self, [self class] };
+    reinterpret_cast<void (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
+}
+#pragma clang diagnostic pop
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%s: %p>", class_getName(self.class), self];
+}
+
+- (void)loadView {
+    id mtkView = [objc_lookUpClass("MTKView") new];
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self, sel_registerName("setView:"), mtkView);
+    [mtkView release];
+}
+
+- (void)viewDidLoad {
+    objc_super superInfo = { self, [self class] };
+    reinterpret_cast<void (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
+    
+    id view = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("view"));
+    
+    Renderer *renderer = [[Renderer alloc] initWithView:view];
+    object_setInstanceVariable(self, "_renderer", [renderer retain]);
+    [renderer release];
+}
+
+@end

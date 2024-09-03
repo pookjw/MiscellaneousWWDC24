@@ -33,6 +33,10 @@
 		4F46050B2C612D8D00C12A68 /* ContentUnavailableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46050A2C612D8D00C12A68 /* ContentUnavailableViewController.mm */; };
 		4F46050F2C61316200C12A68 /* MenuPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46050E2C61316200C12A68 /* MenuPresenterViewController.mm */; };
 		4F47EA502C5E267700B6D032 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47EA4F2C5E267700B6D032 /* MapKit.framework */; };
+		4F74A2572C86BF750039724E /* GradientMetalViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F74A2562C86BF750039724E /* GradientMetalViewController.mm */; };
+		4F74A25A2C86C1300039724E /* Grid.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F74A2592C86C1300039724E /* Grid.mm */; };
+		4F74A25D2C86C31D0039724E /* Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F74A25C2C86C31D0039724E /* Renderer.mm */; };
+		4F74A25F2C86C9480039724E /* shader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4F74A25E2C86C9480039724E /* shader.metal */; };
 		4F790F4E2C620B9200CEECD9 /* MenuViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F790F4D2C620B9200CEECD9 /* MenuViewController.mm */; };
 		4F85F3522C5A963E00C25410 /* DigitalCrownViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3512C5A963E00C25410 /* DigitalCrownViewController.mm */; };
 		4F85F3552C5A9CDA00C25410 /* DigitalCrownView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3542C5A9CDA00C25410 /* DigitalCrownView.mm */; };
@@ -108,6 +112,13 @@
 		4F46050D2C61316200C12A68 /* MenuPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuPresenterViewController.h; sourceTree = "<group>"; };
 		4F46050E2C61316200C12A68 /* MenuPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MenuPresenterViewController.mm; sourceTree = "<group>"; };
 		4F47EA4F2C5E267700B6D032 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
+		4F74A2552C86BF750039724E /* GradientMetalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GradientMetalViewController.h; sourceTree = "<group>"; };
+		4F74A2562C86BF750039724E /* GradientMetalViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GradientMetalViewController.mm; sourceTree = "<group>"; };
+		4F74A2582C86C1300039724E /* Grid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
+		4F74A2592C86C1300039724E /* Grid.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Grid.mm; sourceTree = "<group>"; };
+		4F74A25B2C86C31D0039724E /* Renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
+		4F74A25C2C86C31D0039724E /* Renderer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Renderer.mm; sourceTree = "<group>"; };
+		4F74A25E2C86C9480039724E /* shader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = shader.metal; sourceTree = "<group>"; };
 		4F790F4C2C620B9200CEECD9 /* MenuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		4F790F4D2C620B9200CEECD9 /* MenuViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MenuViewController.mm; sourceTree = "<group>"; };
 		4F85F3502C5A963E00C25410 /* DigitalCrownViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DigitalCrownViewController.h; sourceTree = "<group>"; };
@@ -355,6 +366,20 @@
 			path = MenuPresenter;
 			sourceTree = "<group>";
 		};
+		4F74A2542C86BF500039724E /* GradientMetal */ = {
+			isa = PBXGroup;
+			children = (
+				4F74A2552C86BF750039724E /* GradientMetalViewController.h */,
+				4F74A2562C86BF750039724E /* GradientMetalViewController.mm */,
+				4F74A2582C86C1300039724E /* Grid.h */,
+				4F74A2592C86C1300039724E /* Grid.mm */,
+				4F74A25B2C86C31D0039724E /* Renderer.h */,
+				4F74A25C2C86C31D0039724E /* Renderer.mm */,
+				4F74A25E2C86C9480039724E /* shader.metal */,
+			);
+			path = GradientMetal;
+			sourceTree = "<group>";
+		};
 		4F790F4B2C620B6600CEECD9 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
@@ -462,6 +487,7 @@
 				4F46050C2C61314900C12A68 /* MenuPresenter */,
 				4F790F4B2C620B6600CEECD9 /* Menu */,
 				4F3DC43D2C627173006A52B8 /* PhotoPickerPresenter */,
+				4F74A2542C86BF500039724E /* GradientMetal */,
 			);
 			path = MiscellaneousPepperUICore;
 			sourceTree = "<group>";
@@ -608,9 +634,11 @@
 				4F8674332C5A893900825FE5 /* AppDelegate.mm in Sources */,
 				4F3DC4402C627180006A52B8 /* PhotoPickerPresenterViewController.mm in Sources */,
 				4F3B20B52C5E3D4700D88762 /* PickerViewController.mm in Sources */,
+				4F74A25A2C86C1300039724E /* Grid.mm in Sources */,
 				4F46050B2C612D8D00C12A68 /* ContentUnavailableViewController.mm in Sources */,
 				4F46047B2C5FD8FB00C12A68 /* DisablesSleepGestureViewController.mm in Sources */,
 				4F85F3942C5D350000C25410 /* SlidersViewController.mm in Sources */,
+				4F74A2572C86BF750039724E /* GradientMetalViewController.mm in Sources */,
 				4F4604512C5F7C9400C12A68 /* StatusBarTimeStyleViewController.mm in Sources */,
 				4F3B20EE2C5E81BF00D88762 /* CompositionPresenterViewController.mm in Sources */,
 				4F02A0A62C60C61100C27CA7 /* VolumeIndicatorViewController.mm in Sources */,
@@ -621,10 +649,12 @@
 				4F3B20E02C5E50E600D88762 /* QuickboardNumberPadViewController.mm in Sources */,
 				4FCD98E72C5CEB97001022A9 /* PageViewController.mm in Sources */,
 				4FFEA7DE2C5A8D6D00313CAC /* ClassListViewController.mm in Sources */,
+				4F74A25D2C86C31D0039724E /* Renderer.mm in Sources */,
 				4FFEA7DB2C5A8C9000313CAC /* SceneDelegate.mm in Sources */,
 				4F46047F2C5FDBDA00C12A68 /* WantsAutorotationViewController.mm in Sources */,
 				4F4604732C5FC6FB00C12A68 /* EffectiveVisibilityView.mm in Sources */,
 				4F85F3552C5A9CDA00C25410 /* DigitalCrownView.mm in Sources */,
+				4F74A25F2C86C9480039724E /* shader.metal in Sources */,
 				4FF12C962C60959500F82C15 /* VideoPlayerViewController.mm in Sources */,
 				4F3B20FE2C5E8DA800D88762 /* MessagePresenterViewController.mm in Sources */,
 				4F3B20B92C5E471000D88762 /* ActivityIndicatorViewController.mm in Sources */,
@@ -645,7 +675,7 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++23";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -706,7 +736,7 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++23";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;

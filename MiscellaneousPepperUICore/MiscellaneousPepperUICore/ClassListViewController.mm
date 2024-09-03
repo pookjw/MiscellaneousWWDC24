@@ -36,6 +36,7 @@
 #import "MenuPresenterViewController.h"
 #import "MenuViewController.h"
 #import "PhotoPickerPresenterViewController.h"
+#import "GradientMetalViewController.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
@@ -43,6 +44,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 + (NSArray<Class> *)classes {
     return @[
+        GradientMetalViewController.class,
         PhotoPickerPresenterViewController.class,
         MenuViewController.class,
         MenuPresenterViewController.class,
@@ -145,6 +147,14 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     });
     
     object_setInstanceVariable(self, "_cellRegistration", [cellRegistration retain]);
+    
+    //
+    
+    id viewController = [[ClassListViewController classes][0] new];
+    
+    id navigationController = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("navigationController"));
+    reinterpret_cast<void (*)(id, SEL, id, BOOL)>(objc_msgSend)(navigationController, sel_registerName("pushViewController:animated:"), viewController, YES);
+    [viewController release];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(id)collectionView {
