@@ -127,7 +127,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 - (void)touchesBegan:(NSSet *)touches withEvent:(id)event {
     Renderer *renderer;
     object_getInstanceVariable(self, "_renderer", reinterpret_cast<void **>(&renderer));
-    renderer.showGrid = !renderer.showGrid;
+    renderer.showGrid ^= 1;
     
     objc_super superInfo = { self, [self class] };
     reinterpret_cast<void (*)(objc_super *, SEL, id, id)>(objc_msgSendSuper2)(&superInfo, _cmd, touches, event);
