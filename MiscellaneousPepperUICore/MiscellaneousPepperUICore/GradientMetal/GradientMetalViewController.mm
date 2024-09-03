@@ -46,6 +46,15 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
         assert(class_addMethod(_dynamicIsa, @selector(viewDidLoad), viewDidLoad, NULL));
         
+        IMP viewWillAppear = class_getMethodImplementation(self, @selector(viewWillAppear:));
+        assert(class_addMethod(_dynamicIsa, @selector(viewWillAppear:), viewWillAppear, NULL));
+        
+        IMP viewWillDisappear = class_getMethodImplementation(self, @selector(viewWillDisappear:));
+        assert(class_addMethod(_dynamicIsa, @selector(viewWillDisappear:), viewWillDisappear, NULL));
+        
+        IMP touchesBegan_withEvent = class_getMethodImplementation(self, @selector(touchesBegan:withEvent:));
+        assert(class_addMethod(_dynamicIsa, @selector(touchesBegan:withEvent:), touchesBegan_withEvent, NULL));
+        
         assert(class_addIvar(_dynamicIsa, "_renderer", sizeof(Renderer *), sizeof(Renderer *), @encode(Renderer *)));
         
         dynamicIsa = _dynamicIsa;
@@ -85,6 +94,28 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     Renderer *renderer = [[Renderer alloc] initWithView:view];
     object_setInstanceVariable(self, "_renderer", [renderer retain]);
     [renderer release];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    objc_super superInfo = { self, [self class] };
+    reinterpret_cast<void (*)(objc_super *, SEL, BOOL)>(objc_msgSendSuper2)(&superInfo, _cmd, animated);
+    
+    id application = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("UIApplication"), sel_registerName("sharedApplication"));
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(application, sel_registerName("setDisablesSleepGesture:"), YES);
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    objc_super superInfo = { self, [self class] };
+    reinterpret_cast<void (*)(objc_super *, SEL, BOOL)>(objc_msgSendSuper2)(&superInfo, _cmd, animated);
+    
+    id application = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("UIApplication"), sel_registerName("sharedApplication"));
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(application, sel_registerName("setDisablesSleepGesture:"), NO);
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(id)event {
+    Renderer *renderer;
+    object_getInstanceVariable(self, "_renderer", reinterpret_cast<void **>(&renderer));
+    renderer.showGrid = !renderer.showGrid;
 }
 
 @end
