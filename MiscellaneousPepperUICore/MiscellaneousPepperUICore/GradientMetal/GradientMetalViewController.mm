@@ -108,6 +108,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     
     id application = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("UIApplication"), sel_registerName("sharedApplication"));
     reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(application, sel_registerName("setDisablesSleepGesture:"), YES);
+    reinterpret_cast<void (*)(id, SEL, double)>(objc_msgSend)(application, sel_registerName("setExtendedIdleTime:"), DBL_MAX);
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -116,6 +117,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     
     id application = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("UIApplication"), sel_registerName("sharedApplication"));
     reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(application, sel_registerName("setDisablesSleepGesture:"), NO);
+    reinterpret_cast<void (*)(id, SEL, double)>(objc_msgSend)(application, sel_registerName("setExtendedIdleTime:"), 0.);
 }
 
 - (BOOL)prefersStatusBarHidden {
