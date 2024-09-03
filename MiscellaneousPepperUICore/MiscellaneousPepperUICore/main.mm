@@ -6,15 +6,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <dlfcn.h>
 #import "AppDelegate.h"
 
 UIKIT_EXTERN int UIApplicationMain(int argc, char * _Nullable argv[_Nonnull], NSString * _Nullable principalClassName, NSString * _Nullable delegateClassName);
-UIKIT_EXTERN NSURL *_restorationPath(NSString *);
 
 int main(int argc, char * argv[]) {
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
     
     @autoreleasepool {
+        [NSUserDefaults.standardUserDefaults setBool:YES forKey:@"UIStateRestorationDebugLogging"];
+        
         // PUICListCollectionViewLayoutDelegate PUICListCollectionViewDelegate
         NSLog(@"%@", [NSObject _fd__protocolDescriptionForProtocol:NSProtocolFromString(@"PUICMenuViewControllerDelegate")]);
 //        NSLog(@"%@", [NSObject _fd__protocolDescriptionForProtocol:NSProtocolFromString(@"PUICDictationViewControllerDelegate")]);

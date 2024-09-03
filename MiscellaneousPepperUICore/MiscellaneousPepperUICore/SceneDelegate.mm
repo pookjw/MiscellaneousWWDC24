@@ -10,19 +10,61 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 
+OBJC_EXPORT id objc_msgSendSuper2(void);
+
 @interface SceneDelegate ()
-@property (strong, nonatomic) id window;
 @end
 
 @implementation SceneDelegate
 
 + (void)load {
-    assert(class_addProtocol(self, NSProtocolFromString(@"UISceneDelegate")));
+    [self dynamisIsa];
 }
 
++ (instancetype)allocWithZone:(struct _NSZone *)zone {
+    return [[self dynamisIsa] allocWithZone:zone];
+}
+
++ (Class)dynamisIsa {
+    static Class dynamicIsa;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("UIResponder"), "_SceneDelegate", 0);
+        
+        IMP dealloc = class_getMethodImplementation(self, @selector(dealloc));
+        assert(class_addMethod(_dynamicIsa, @selector(dealloc), dealloc, NULL));
+        
+        IMP description = class_getMethodImplementation(self, @selector(description));
+        assert(class_addMethod(_dynamicIsa, @selector(description), description, NULL));
+        
+        
+        IMP scene_willConnectToSession = class_getMethodImplementation(self, @selector(scene:willConnectToSession:options:));
+        assert(class_addMethod(_dynamicIsa, @selector(scene:willConnectToSession:options:), scene_willConnectToSession, NULL));
+        
+        assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"UIWindowSceneDelegate")));
+        
+        dynamicIsa = _dynamicIsa;
+    });
+    
+    return dynamicIsa;
+}
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wobjc-missing-super-calls"
 - (void)dealloc {
+    id _window;
+    object_getInstanceVariable(self, "_window", reinterpret_cast<void **>(&_window));
+    
     [_window release];
-    [super dealloc];
+    
+    objc_super superInfo = { self, [self class] };
+    reinterpret_cast<void (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
+}
+#pragma clang diagnostic pop
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%s: %p>", class_getName(self.class), self];
 }
 
 - (void)scene:(id)scene willConnectToSession:(id)session options:(id)connectionOptions {
@@ -45,7 +87,7 @@
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(window, sel_registerName("setRootViewController:"), rootViewController);
     [rootViewController release];
     
-    self.window = window;
+    object_setInstanceVariable(self, "_window", [window retain]);
     reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(window, sel_registerName("makeKeyAndVisible"));
     [window release];
 }

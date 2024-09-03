@@ -10,6 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SceneDelegate : NSObject
++ (Class)dynamisIsa;
 @end
 
 NS_ASSUME_NONNULL_END
