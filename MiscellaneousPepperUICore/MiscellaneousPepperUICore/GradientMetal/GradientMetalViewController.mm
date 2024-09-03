@@ -52,6 +52,9 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP viewWillDisappear = class_getMethodImplementation(self, @selector(viewWillDisappear:));
         assert(class_addMethod(_dynamicIsa, @selector(viewWillDisappear:), viewWillDisappear, NULL));
         
+        IMP prefersStatusBarHidden = class_getMethodImplementation(self, @selector(prefersStatusBarHidden));
+        assert(class_addMethod(_dynamicIsa, @selector(prefersStatusBarHidden), prefersStatusBarHidden, NULL));
+        
         IMP touchesBegan_withEvent = class_getMethodImplementation(self, @selector(touchesBegan:withEvent:));
         assert(class_addMethod(_dynamicIsa, @selector(touchesBegan:withEvent:), touchesBegan_withEvent, NULL));
         
@@ -94,6 +97,9 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     Renderer *renderer = [[Renderer alloc] initWithView:view];
     object_setInstanceVariable(self, "_renderer", [renderer retain]);
     [renderer release];
+    
+//    id navigationItem = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("navigationItem"));
+//    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(navigationItem, sel_registerName("setHidesBackButton:"), YES);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -112,10 +118,17 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(application, sel_registerName("setDisablesSleepGesture:"), NO);
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(id)event {
     Renderer *renderer;
     object_getInstanceVariable(self, "_renderer", reinterpret_cast<void **>(&renderer));
     renderer.showGrid = !renderer.showGrid;
+    
+    objc_super superInfo = { self, [self class] };
+    reinterpret_cast<void (*)(objc_super *, SEL, id, id)>(objc_msgSendSuper2)(&superInfo, _cmd, touches, event);
 }
 
 @end
