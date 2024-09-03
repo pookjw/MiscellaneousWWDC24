@@ -137,7 +137,6 @@ typedef struct {
         reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(colorRenderPipelineDescriptor, sel_registerName("setFragmentFunction:"), colorFragmentFunction);
         [colorFragmentFunction release];
         reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(colorRenderPipelineDescriptor, sel_registerName("setVertexDescriptor:"), MTKMetalVertexDescriptorFromModelIOWithError(colorVertexDescriptor, &error));
-        [colorVertexDescriptor release];
         assert(error == nil);
         reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(colorRenderPipelineDescriptor, sel_registerName("setShaderValidation:"), 1 /* MTLShaderValidationEnabled */);
         
@@ -149,6 +148,15 @@ typedef struct {
         [colorRenderPipelineDescriptor release];
         assert(error == nil);
         
+        id allocator = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("MTKMeshBufferAllocator") alloc], sel_registerName("initWithDevice:"), device);
+        id colorMDLMesh = reinterpret_cast<id (*)(id, SEL, simd_float3, simd_uint2, NSUInteger, id)>(objc_msgSend)([objc_lookUpClass("MDLMesh") alloc], sel_registerName("initPlaneWithExtent:segments:geometryType:allocator:"), simd_make_float3(2.f, 2.f, 2.f), simd_make_uint2(1, 1), 2 /* MDLGeometryTypeTriangles */, allocator);
+        [allocator release];
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(colorMDLMesh, sel_registerName("setVertexDescriptor:"), colorVertexDescriptor);
+        [colorVertexDescriptor release];
+        id colorMTKMesh = reinterpret_cast<id (*)(id, SEL, id, id, id *)>(objc_msgSend)([objc_lookUpClass("MTKMesh") alloc], sel_registerName("initWithMesh:device:error:"), colorMDLMesh, device, &error);
+        [colorMDLMesh release];
+        assert(error == nil);
+        
         //
         
         _showGrid = YES;
@@ -157,12 +165,14 @@ typedef struct {
         _gridRenderPipelineState = [gridRenderPipelineState retain];
         _colorRenderPipelineState = [colorRenderPipelineState retain];
         _grid = [grid retain];
+        _colorMTKMesh = [colorMTKMesh retain];
         
         [device release];
         [commandQueue release];
         [gridRenderPipelineState release];
         [colorRenderPipelineState release];
         [grid release];
+        [colorMTKMesh release];
     }
     
     return self;
@@ -175,6 +185,7 @@ typedef struct {
     [_gridRenderPipelineState release];
     [_colorRenderPipelineState release];
     [_grid release];
+    [_colorMTKMesh release];
     [super dealloc];
 }
 
@@ -210,7 +221,28 @@ typedef struct {
     //
     
     simd_uint2 size = simd_make_uint2(_size.width, _size.height);
-    reinterpret_cast<void (*)(id, SEL, const void *, NSUInteger, NSUInteger)>(objc_msgSend)(renderCommandEncoder, sel_registerName("setFragmentBytes:"), &size, sizeof(simd_uint2), 0);
+    reinterpret_cast<void (*)(id, SEL, const void *, NSUInteger, NSUInteger)>(objc_msgSend)(renderCommandEncoder, sel_registerName("setFragmentBytes:length:atIndex:"), &size, sizeof(simd_uint2), 0);
+    reinterpret_cast<void (*)(id, SEL, const void *, NSUInteger, NSUInteger)>(objc_msgSend)(renderCommandEncoder, sel_registerName("setFragmentBytes:length:atIndex:"), &_colorPivot, sizeof(float), 1);
+    
+    reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(renderCommandEncoder, sel_registerName("setTriangleFillMode:"), 0 /* MTLTriangleFillModeFill */);
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(renderCommandEncoder, sel_registerName("setRenderPipelineState:"), _colorRenderPipelineState);
+    
+    NSArray *colorMTKMeshVertexBuffers = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(_colorMTKMesh, sel_registerName("vertexBuffers"));
+    [colorMTKMeshVertexBuffers enumerateObjectsUsingBlock:^(id  _Nonnull meshBuffer, NSUInteger idx, BOOL * _Nonnull stop) {
+        id buffer = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(meshBuffer, sel_registerName("buffer"));
+        reinterpret_cast<void (*)(id, SEL, id, NSUInteger, NSUInteger)>(objc_msgSend)(renderCommandEncoder, sel_registerName("setVertexBuffer:offset:atIndex:"), buffer, 0, idx);
+    }];
+    
+    NSArray *colorMTKSubmeshes = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(_colorMTKMesh, sel_registerName("submeshes"));
+    for (id submesh in colorMTKSubmeshes) {
+        NSUInteger indexCount = reinterpret_cast<NSUInteger (*)(id, SEL)>(objc_msgSend)(submesh, sel_registerName("indexCount"));
+        NSUInteger indexType = reinterpret_cast<NSUInteger (*)(id, SEL)>(objc_msgSend)(submesh, sel_registerName("indexType"));
+        id indexBuffer = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(submesh, sel_registerName("indexBuffer"));
+        id buffer = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(indexBuffer, sel_registerName("buffer"));
+        NSUInteger offset = reinterpret_cast<NSUInteger (*)(id, SEL)>(objc_msgSend)(indexBuffer, sel_registerName("offset"));
+        
+        reinterpret_cast<void (*)(id, SEL, NSUInteger, NSUInteger, NSUInteger, id, NSUInteger)>(objc_msgSend)(renderCommandEncoder, sel_registerName("drawIndexedPrimitives:indexCount:indexType:indexBuffer:indexBufferOffset:"), 3 /* MTLPrimitiveTypeTriangle */, indexCount, indexType, buffer, offset);
+    }
     
     //
     
