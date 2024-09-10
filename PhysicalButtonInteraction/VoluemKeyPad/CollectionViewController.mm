@@ -7,9 +7,12 @@
 
 #import "CollectionViewController.h"
 #import "UIScrollView+VolumeControl.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface CollectionViewController ()
 @property (retain, readonly, nonatomic) UICollectionViewCellRegistration *cellRegistration;
+@property (strong, nonatomic) AVCaptureSession *captureSession;
+@property (strong, nonatomic) AVCaptureVideoPreviewLayer *previewLayer;
 @end
 
 @implementation CollectionViewController
@@ -26,6 +29,8 @@
 
 - (void)dealloc {
     [_cellRegistration release];
+    [_captureSession release];
+    [_previewLayer release];
     [super dealloc];
 }
 
@@ -35,6 +40,32 @@
     
     [self.collectionView vc_setVerticalScrollWithVolumeButtonsEnabled:YES];
 //    self.collectionView.allowsKeyboardScrolling = YES;
+    
+    UIBarButtonItem *startSessionBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"camera"] style:UIBarButtonItemStylePlain target:self action:@selector(didTriggerStartSessionBarButtonItem:)];
+    self.navigationItem.rightBarButtonItem = startSessionBarButtonItem;
+    [startSessionBarButtonItem release];
+}
+
+- (void)didTriggerStartSessionBarButtonItem:(UIBarButtonItem *)sender {
+    AVCaptureSession *session = [[AVCaptureSession alloc] init];
+    session.sessionPreset = AVCaptureSessionPresetHigh;
+    
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    
+    NSError *error = nil;
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
+    assert(error == nil);
+    
+    [session addInput:input];
+    
+    self.previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:session];
+//    self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+//    self.previewLayer.frame = self.view.bounds;
+//    [self.view.layer addSublayer:self.previewLayer];
+    
+    [session startRunning];
+    self.captureSession = session;
+    [session release];
 }
 
 - (UICollectionViewCellRegistration *)cellRegistration {

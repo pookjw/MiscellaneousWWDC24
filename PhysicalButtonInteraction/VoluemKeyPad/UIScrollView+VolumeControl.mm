@@ -26,11 +26,11 @@
     if (self = [super init]) {
         _scrollView = scrollView;
         
-        NSSet *configurations = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("_UIPhysicalButtonConfiguration"), sel_registerName("_volumeConfigurations"));
-//        NSSet *configurations = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("AVCaptureEventInteraction"), sel_registerName("_captureButtonsConfigurationSet"));
-        id ringerConfiguration = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("_UIPhysicalButtonConfiguration"), sel_registerName("_ringerButtonDynamicActionConfiguration"));
+//        NSSet *configurations = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("_UIPhysicalButtonConfiguration"), sel_registerName("_volumeConfigurations"));
+        NSSet *configurations = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("AVCaptureEventInteraction"), sel_registerName("_captureButtonsConfigurationSet"));
+//        id configurations = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("_UIPhysicalButtonConfiguration"), sel_registerName("_ringerButtonDynamicActionConfiguration"));
         
-        id<UIInteraction> physicalButtonInteraction = reinterpret_cast<id (*)(id, SEL, id, id)>(objc_msgSend)([objc_lookUpClass("_UIPhysicalButtonInteraction") alloc], sel_registerName("initWithConfigurations:delegate:"), ringerConfiguration, self);
+        id<UIInteraction> physicalButtonInteraction = reinterpret_cast<id (*)(id, SEL, id, id)>(objc_msgSend)([objc_lookUpClass("_UIPhysicalButtonInteraction") alloc], sel_registerName("initWithConfigurations:delegate:"), configurations, self);
         
         reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(physicalButtonInteraction, sel_registerName("_setEnabled:"), YES);
         [scrollView addInteraction:physicalButtonInteraction];

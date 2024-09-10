@@ -16,6 +16,7 @@
 		4F7BC0362C3949E400419197 /* UIScrollView+VolumeControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC0352C3949E400419197 /* UIScrollView+VolumeControl.mm */; };
 		4F7BC0392C394A3500419197 /* NSObject+Foundation_IvarDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC0382C394A3500419197 /* NSObject+Foundation_IvarDescription.mm */; };
 		4F7BC03C2C3952F100419197 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F7BC03B2C3952F100419197 /* AVKit.framework */; };
+		4FE56D892C904DAB002B7720 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE56D882C904DAA002B7720 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		4F7BC0372C394A3500419197 /* NSObject+Foundation_IvarDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Foundation_IvarDescription.h"; sourceTree = "<group>"; };
 		4F7BC0382C394A3500419197 /* NSObject+Foundation_IvarDescription.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+Foundation_IvarDescription.mm"; sourceTree = "<group>"; };
 		4F7BC03B2C3952F100419197 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		4FE56D882C904DAA002B7720 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FE56D892C904DAB002B7720 /* AVFoundation.framework in Frameworks */,
 				4F7BC03C2C3952F100419197 /* AVKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,6 +93,7 @@
 		4F7BC03A2C3952F100419197 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4FE56D882C904DAA002B7720 /* AVFoundation.framework */,
 				4F7BC03B2C3952F100419197 /* AVKit.framework */,
 			);
 			name = Frameworks;
