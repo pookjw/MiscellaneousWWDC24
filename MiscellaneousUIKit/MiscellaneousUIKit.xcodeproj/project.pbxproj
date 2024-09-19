@@ -32,6 +32,8 @@
 		4F1F02312C23CE4F004F7EFF /* OrangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F02302C23CE4F004F7EFF /* OrangeViewController.m */; };
 		4F246BC72C3E85CA00244583 /* LargeContentViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F246BC62C3E85CA00244583 /* LargeContentViewController.mm */; };
 		4F3AFCA12C57F64E00F810CF /* PointerInteractionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3AFCA02C57F64E00F810CF /* PointerInteractionViewController.mm */; };
+		4F3DD69C2C9BDCF6006F6F49 /* BaselineViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3DD69B2C9BDCF6006F6F49 /* BaselineViewController.mm */; };
+		4F3DD6A32C9BE537006F6F49 /* CustomBaselineViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3DD6A22C9BE537006F6F49 /* CustomBaselineViewController.mm */; };
 		4F455F032C2038D200CDE688 /* CustomTransitionController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F022C2038D200CDE688 /* CustomTransitionController.mm */; };
 		4F455F1A2C27EBE400CDE688 /* JitterAnimationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F192C27EBE400CDE688 /* JitterAnimationViewController.mm */; };
 		4F455F1E2C280C4A00CDE688 /* TabBar2Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F1D2C280C4A00CDE688 /* TabBar2Controller.m */; };
@@ -113,6 +115,10 @@
 		4F246BC62C3E85CA00244583 /* LargeContentViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LargeContentViewController.mm; sourceTree = "<group>"; };
 		4F3AFC9F2C57F64E00F810CF /* PointerInteractionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PointerInteractionViewController.h; sourceTree = "<group>"; };
 		4F3AFCA02C57F64E00F810CF /* PointerInteractionViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PointerInteractionViewController.mm; sourceTree = "<group>"; };
+		4F3DD69A2C9BDCF6006F6F49 /* BaselineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaselineViewController.h; sourceTree = "<group>"; };
+		4F3DD69B2C9BDCF6006F6F49 /* BaselineViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BaselineViewController.mm; sourceTree = "<group>"; };
+		4F3DD6A12C9BE537006F6F49 /* CustomBaselineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomBaselineViewController.h; sourceTree = "<group>"; };
+		4F3DD6A22C9BE537006F6F49 /* CustomBaselineViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomBaselineViewController.mm; sourceTree = "<group>"; };
 		4F455F012C2038D200CDE688 /* CustomTransitionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTransitionController.h; sourceTree = "<group>"; };
 		4F455F022C2038D200CDE688 /* CustomTransitionController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomTransitionController.mm; sourceTree = "<group>"; };
 		4F455F182C27EBE400CDE688 /* JitterAnimationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JitterAnimationViewController.h; sourceTree = "<group>"; };
@@ -261,6 +267,8 @@
 				4F7941CD2C7896510031F456 /* ProKeyboard */,
 				4F7941D12C7897B80031F456 /* FloatingKeyboard */,
 				4F7941D52C78982B0031F456 /* SplitKeyboard */,
+				4F3DD6992C9BDCBF006F6F49 /* Baseline */,
+				4F3DD6A02C9BE523006F6F49 /* CustomBaseline */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -392,6 +400,24 @@
 				4F3AFCA02C57F64E00F810CF /* PointerInteractionViewController.mm */,
 			);
 			path = PointerInteraction;
+			sourceTree = "<group>";
+		};
+		4F3DD6992C9BDCBF006F6F49 /* Baseline */ = {
+			isa = PBXGroup;
+			children = (
+				4F3DD69A2C9BDCF6006F6F49 /* BaselineViewController.h */,
+				4F3DD69B2C9BDCF6006F6F49 /* BaselineViewController.mm */,
+			);
+			path = Baseline;
+			sourceTree = "<group>";
+		};
+		4F3DD6A02C9BE523006F6F49 /* CustomBaseline */ = {
+			isa = PBXGroup;
+			children = (
+				4F3DD6A12C9BE537006F6F49 /* CustomBaselineViewController.h */,
+				4F3DD6A22C9BE537006F6F49 /* CustomBaselineViewController.mm */,
+			);
+			path = CustomBaseline;
 			sourceTree = "<group>";
 		};
 		4F455F172C27EBCA00CDE688 /* JitterAnimation */ = {
@@ -695,10 +721,12 @@
 				4F8BD38D2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm in Sources */,
 				4F9C08B32C3E2B5F009897D6 /* TabBarAppearanceViewController.mm in Sources */,
 				4F1871942C4029CB002E7DFC /* CircleProgressViewController.mm in Sources */,
+				4F3DD6A32C9BE537006F6F49 /* CustomBaselineViewController.mm in Sources */,
 				4FBEC51E2C3C568C008A2F17 /* SymbolEffectsViewController.mm in Sources */,
 				4FA8EEF42C1CDBD700B1358A /* ToTransitionViewController.mm in Sources */,
 				4F9C08D42C3E5574009897D6 /* ToolbarAppearanceViewController.mm in Sources */,
 				4F1F022E2C23CE3A004F7EFF /* CyanViewController.m in Sources */,
+				4F3DD69C2C9BDCF6006F6F49 /* BaselineViewController.mm in Sources */,
 				4FA8EEF12C1CDBCA00B1358A /* FromTransitionViewController.mm in Sources */,
 				4F082E492C188D6C002263ED /* AppDelegate.m in Sources */,
 				4F082E742C18E269002263ED /* SceneActivationViewController.mm in Sources */,

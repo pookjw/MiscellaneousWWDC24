@@ -38,6 +38,8 @@
 #import "ProKeyboardViewController.h"
 #import "FloatingKeyboardViewController.h"
 #import "SplitKeyboardViewController.h"
+#import "BaselineViewController.h"
+#import "CustomBaselineViewController.h"
 #import <objc/message.h>
 
 __attribute__((objc_direct_members))
@@ -120,6 +122,8 @@ __attribute__((objc_direct_members))
 
 - (NSArray<Class> *)classes {
     return @[
+        CustomBaselineViewController.class,
+        BaselineViewController.class,
         SplitKeyboardViewController.class,
         FloatingKeyboardViewController.class,
         ProKeyboardViewController.class,

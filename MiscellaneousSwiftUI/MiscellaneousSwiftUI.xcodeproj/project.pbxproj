@@ -30,6 +30,8 @@
 		4F26D3E12C31C1420097B837 /* VolumeViewpointChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3E02C31C1420097B837 /* VolumeViewpointChangeView.swift */; };
 		4F3AFC9D2C57F07000F810CF /* PointerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3AFC9C2C57F07000F810CF /* PointerView.swift */; };
 		4F3DD6982C9BD4D1006F6F49 /* MyGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3DD6972C9BD4D1006F6F49 /* MyGridView.swift */; };
+		4F3DD69F2C9BDFF6006F6F49 /* MyViewThatFits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3DD69E2C9BDFF6006F6F49 /* MyViewThatFits.swift */; };
+		4F3DD6A62C9BF100006F6F49 /* CustomBaselineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3DD6A52C9BF100006F6F49 /* CustomBaselineView.swift */; };
 		4F4DB6412C46C7C800B628B9 /* SceneStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4DB6402C46C7C800B628B9 /* SceneStateView.swift */; };
 		4F7BC03F2C397F0000419197 /* RenameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC03E2C397F0000419197 /* RenameView.swift */; };
 		4F7BC0B52C39959300419197 /* MyTabPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC0B42C39959300419197 /* MyTabPresenterView.swift */; };
@@ -92,6 +94,8 @@
 		4F26D3E02C31C1420097B837 /* VolumeViewpointChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeViewpointChangeView.swift; sourceTree = "<group>"; };
 		4F3AFC9C2C57F07000F810CF /* PointerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerView.swift; sourceTree = "<group>"; };
 		4F3DD6972C9BD4D1006F6F49 /* MyGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGridView.swift; sourceTree = "<group>"; };
+		4F3DD69E2C9BDFF6006F6F49 /* MyViewThatFits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewThatFits.swift; sourceTree = "<group>"; };
+		4F3DD6A52C9BF100006F6F49 /* CustomBaselineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBaselineView.swift; sourceTree = "<group>"; };
 		4F4DB6402C46C7C800B628B9 /* SceneStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneStateView.swift; sourceTree = "<group>"; };
 		4F7BC03E2C397F0000419197 /* RenameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameView.swift; sourceTree = "<group>"; };
 		4F7BC0B42C39959300419197 /* MyTabPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTabPresenterView.swift; sourceTree = "<group>"; };
@@ -212,6 +216,8 @@
 				4FD14B4B2C57EA0D00F132BF /* TextInputCompletion */,
 				4F3AFC9B2C57F05D00F810CF /* Pointer */,
 				4F3DD6962C9BD4B9006F6F49 /* MyGrid */,
+				4F3DD69D2C9BDFE3006F6F49 /* MyViewThatFits */,
+				4F3DD6A42C9BF0F2006F6F49 /* CustomBaseline */,
 				4F1C71032C2F15CE002E096A /* Assets.xcassets */,
 				4F1C71052C2F15CE002E096A /* Preview Content */,
 			);
@@ -360,6 +366,22 @@
 				4F3DD6972C9BD4D1006F6F49 /* MyGridView.swift */,
 			);
 			path = MyGrid;
+			sourceTree = "<group>";
+		};
+		4F3DD69D2C9BDFE3006F6F49 /* MyViewThatFits */ = {
+			isa = PBXGroup;
+			children = (
+				4F3DD69E2C9BDFF6006F6F49 /* MyViewThatFits.swift */,
+			);
+			path = MyViewThatFits;
+			sourceTree = "<group>";
+		};
+		4F3DD6A42C9BF0F2006F6F49 /* CustomBaseline */ = {
+			isa = PBXGroup;
+			children = (
+				4F3DD6A52C9BF100006F6F49 /* CustomBaselineView.swift */,
+			);
+			path = CustomBaseline;
 			sourceTree = "<group>";
 		};
 		4F4DB63F2C46C7A800B628B9 /* SceneState */ = {
@@ -713,6 +735,7 @@
 				4F26D32D2C2FEE610097B837 /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4F1C71132C2F1662002E096A /* Demo.swift in Sources */,
 				4FD14B4A2C57E95B00F132BF /* LabelsHiddenView.swift in Sources */,
+				4F3DD69F2C9BDFF6006F6F49 /* MyViewThatFits.swift in Sources */,
 				4FD8FBE42C403E68009B0B70 /* SearchableView.swift in Sources */,
 				4F26D3512C300EB10097B837 /* WindowManagerRoleView.swift in Sources */,
 				4F3AFC9D2C57F07000F810CF /* PointerView.swift in Sources */,
@@ -734,6 +757,7 @@
 				4FF420032C34062A008BD2FC /* ProgressiveImmersionWindowPresenterView.swift in Sources */,
 				4F8D7B042C38519A009FB46E /* FullScreenVideoPlayerView.swift in Sources */,
 				4F26D3902C301FDC0097B837 /* RestorationBehaviorView.swift in Sources */,
+				4F3DD6A62C9BF100006F6F49 /* CustomBaselineView.swift in Sources */,
 				4F26D3442C3005AC0097B837 /* DefaultWorldScalingView.swift in Sources */,
 				4FA4EA512C4521D3005CD097 /* FocusedTVMacView.swift in Sources */,
 				4F1C71002C2F15CD002E096A /* MiscellaneousSwiftUIApp.swift in Sources */,

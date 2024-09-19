@@ -137,6 +137,8 @@ enum Demo: Int, Identifiable, CaseIterable {
 #endif
     
     case myGrid
+    case myViewThatFits
+    case customBaseline
     
     var id: Int {
         rawValue
@@ -321,6 +323,10 @@ enum Demo: Int, Identifiable, CaseIterable {
 #endif
         case .myGrid:
             MyGridView()
+        case .myViewThatFits:
+            MyViewThatFits()
+        case .customBaseline:
+            CustomBaselineView()
         }
     }
 }
