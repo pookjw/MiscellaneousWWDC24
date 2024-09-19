@@ -136,6 +136,8 @@ enum Demo: Int, Identifiable, CaseIterable {
     case pointer
 #endif
     
+    case myGrid
+    
     var id: Int {
         rawValue
     }
@@ -317,6 +319,8 @@ enum Demo: Int, Identifiable, CaseIterable {
         case .pointer:
             PointerView()
 #endif
+        case .myGrid:
+            MyGridView()
         }
     }
 }
