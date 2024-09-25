@@ -32,9 +32,11 @@ typedef struct {
 
 @implementation Renderer
 
-+ (void)load {
-    assert(class_addProtocol(self, NSProtocolFromString(@"MTKViewDelegate")));
-}
+// https://x.com/_silgen_name/status/1838782441827504251
+//+ (void)load {
+//    assert(dlopen("/System/Library/Frameworks/MetalKit.framework/MetalKit", RTLD_NOW) != NULL);
+//    assert(class_addProtocol(Renderer.class, NSProtocolFromString(@"MTKViewDelegate")));
+//}
 
 - (instancetype)initWithView:(id)view {
     if (self = [super init]) {
