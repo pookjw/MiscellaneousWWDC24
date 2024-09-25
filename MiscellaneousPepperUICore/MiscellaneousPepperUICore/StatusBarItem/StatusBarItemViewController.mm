@@ -43,14 +43,12 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         
         assert(class_addIvar(_dynamicIsa, "_mpu_preferredStatusBarPlacement", sizeof(NSInteger), sizeof(NSInteger), @encode(NSInteger)));
         
+        objc_registerClassPair(_dynamicIsa);
+        
         dynamicIsa = _dynamicIsa;
     });
     
     return dynamicIsa;
-}
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<%s: %p>", class_getName(self.class), self];
 }
 
 - (BOOL)respondsToSelector:(SEL)aSelector {

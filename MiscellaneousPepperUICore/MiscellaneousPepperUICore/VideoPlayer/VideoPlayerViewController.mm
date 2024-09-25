@@ -73,6 +73,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"PUICSliderDelegate")));
         assert(class_addIvar(_dynamicIsa, "_playerRateObservation", sizeof(id), sizeof(id), @encode(id)));
         
+        objc_registerClassPair(_dynamicIsa);
+        
         dynamicIsa = _dynamicIsa;
     });
     

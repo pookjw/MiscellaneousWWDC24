@@ -60,6 +60,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         
         assert(class_addIvar(_dynamicIsa, "_renderer", sizeof(Renderer *), sizeof(Renderer *), @encode(Renderer *)));
         
+        objc_registerClassPair(_dynamicIsa);
+        
         dynamicIsa = _dynamicIsa;
     });
     

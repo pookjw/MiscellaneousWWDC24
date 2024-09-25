@@ -113,6 +113,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         
         assert(class_addIvar(_dynamicIsa, "_cellRegistration", sizeof(id), sizeof(id), @encode(id)));
         
+        objc_registerClassPair(_dynamicIsa);
+        
         dynamicIsa = _dynamicIsa;
     });
     

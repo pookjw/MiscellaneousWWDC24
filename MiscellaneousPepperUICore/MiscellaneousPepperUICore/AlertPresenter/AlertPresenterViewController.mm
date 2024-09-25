@@ -38,6 +38,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
         assert(class_addMethod(_dynamicIsa, @selector(viewDidLoad), viewDidLoad, NULL));
         
+        objc_registerClassPair(_dynamicIsa);
         
         dynamicIsa = _dynamicIsa;
     });

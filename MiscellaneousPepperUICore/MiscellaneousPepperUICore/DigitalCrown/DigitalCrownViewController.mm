@@ -68,6 +68,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP didTriggerFlashIndicatorBarButtonItem = class_getMethodImplementation(self, @selector(didTriggerFlashIndicatorBarButtonItem:));
         assert(class_addMethod(_dynamicIsa, @selector(didTriggerFlashIndicatorBarButtonItem:), didTriggerFlashIndicatorBarButtonItem, NULL));
         
+        objc_registerClassPair(_dynamicIsa);
+        
         dynamicIsa = _dynamicIsa;
     });
     

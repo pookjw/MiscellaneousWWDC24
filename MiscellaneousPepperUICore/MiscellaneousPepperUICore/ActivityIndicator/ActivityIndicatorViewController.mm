@@ -54,6 +54,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         
         assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"PUICActivityIndicatorViewDelegate")));
         
+        objc_registerClassPair(_dynamicIsa);
+        
         dynamicIsa = _dynamicIsa;
     });
     

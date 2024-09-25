@@ -59,14 +59,12 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         
         assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"PUICActionSheetControllerDelegate")));
         
+        objc_registerClassPair(_dynamicIsa);
+        
         dynamicIsa = _dynamicIsa;
     });
     
     return dynamicIsa;
-}
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<%s: %p>", class_getName(self.class), self];
 }
 
 - (void)loadView {

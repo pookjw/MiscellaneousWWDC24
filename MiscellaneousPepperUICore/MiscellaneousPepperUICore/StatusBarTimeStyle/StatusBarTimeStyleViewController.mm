@@ -47,14 +47,12 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         
         //
         
+        objc_registerClassPair(_dynamicIsa);
+        
         dynamicIsa = _dynamicIsa;
     });
     
     return dynamicIsa;
-}
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<%s: %p>", class_getName(self.class), self];
 }
 
 - (void)viewDidLoad {

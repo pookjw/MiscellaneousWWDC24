@@ -47,14 +47,12 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP cancelButtonTapped = class_getMethodImplementation(self, @selector(cancelButtonTapped:));
         assert(class_addMethod(_dynamicIsa, @selector(cancelButtonTapped:), cancelButtonTapped, NULL));
         
+        objc_registerClassPair(_dynamicIsa);
+        
         dynamicIsa = _dynamicIsa;
     });
     
     return dynamicIsa;
-}
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<%s: %p>", class_getName(self.class), self];
 }
 
 - (BOOL)respondsToSelector:(SEL)aSelector {

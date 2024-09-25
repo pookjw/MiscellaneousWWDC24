@@ -62,6 +62,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         
         assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"UIApplicationDelegate")));
         
+        objc_registerClassPair(_dynamicIsa);
+        
         dynamicIsa = _dynamicIsa;
     });
     

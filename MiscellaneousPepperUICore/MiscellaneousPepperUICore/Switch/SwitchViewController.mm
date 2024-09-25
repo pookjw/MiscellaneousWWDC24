@@ -27,13 +27,15 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_QuickboardNumberPadViewController", 0);
+        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_SwitchViewController", 0);
         
         IMP description = class_getMethodImplementation(self, @selector(description));
         assert(class_addMethod(_dynamicIsa, @selector(description), description, NULL));
         
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
         assert(class_addMethod(_dynamicIsa, @selector(viewDidLoad), viewDidLoad, NULL));
+        
+        objc_registerClassPair(_dynamicIsa);
         
         dynamicIsa = _dynamicIsa;
     });

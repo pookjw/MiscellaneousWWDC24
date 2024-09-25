@@ -46,6 +46,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         
         //
         
+        objc_registerClassPair(_dynamicIsa);
+        
         dynamicIsa = _dynamicIsa;
     });
     

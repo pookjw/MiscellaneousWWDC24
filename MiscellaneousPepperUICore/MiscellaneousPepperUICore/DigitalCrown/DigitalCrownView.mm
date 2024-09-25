@@ -89,6 +89,8 @@ void swizzle() {
         assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"PUICCrownInputSequencerDataSource")));
 //        assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"PUICCrownInputSequencerMetricsDelegate")));
         
+        objc_registerClassPair(_dynamicIsa);
+        
         dynamicIsa = _dynamicIsa;
     });
     

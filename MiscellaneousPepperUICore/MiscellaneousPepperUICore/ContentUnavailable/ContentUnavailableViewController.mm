@@ -28,7 +28,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_NotificationPresenterViewController", 0);
+        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_ContentUnavailableViewController", 0);
         
         IMP description = class_getMethodImplementation(self, @selector(description));
         assert(class_addMethod(_dynamicIsa, @selector(description), description, NULL));
@@ -44,14 +44,12 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         
         //
         
+        objc_registerClassPair(_dynamicIsa);
+        
         dynamicIsa = _dynamicIsa;
     });
     
     return dynamicIsa;
-}
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<%s: %p>", class_getName(self.class), self];
 }
 
 - (void)loadView {
