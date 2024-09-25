@@ -33,9 +33,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP dealloc = class_getMethodImplementation(self, @selector(dealloc));
         assert(class_addMethod(_dynamicIsa, @selector(dealloc), dealloc, NULL));
         
-        IMP description = class_getMethodImplementation(self, @selector(description));
-        assert(class_addMethod(_dynamicIsa, @selector(description), description, NULL));
-        
         IMP application_didFinishLaunchingWithOptions = class_getMethodImplementation(self, @selector(application:didFinishLaunchingWithOptions:));
         assert(class_addMethod(_dynamicIsa, @selector(application:didFinishLaunchingWithOptions:), application_didFinishLaunchingWithOptions, NULL));
         
@@ -77,10 +74,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     reinterpret_cast<void (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
 }
 #pragma clang diagnostic pop
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<%s: %p>", class_getName(self.class), self];
-}
 
 - (BOOL)application:(id)application didFinishLaunchingWithOptions:(NSDictionary<NSString *, id> *)launchOptions {
     NSURL *scCacheURL = [[NSFileManager.defaultManager URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask].firstObject URLByAppendingPathComponent:@"Saved Application State" isDirectory:YES];

@@ -35,10 +35,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP dealloc = class_getMethodImplementation(self, @selector(dealloc));
         assert(class_addMethod(_dynamicIsa, @selector(dealloc), dealloc, NULL));
         
-        IMP description = class_getMethodImplementation(self, @selector(description));
-        assert(class_addMethod(_dynamicIsa, @selector(description), description, NULL));
-        
-        
         IMP scene_willConnectToSession = class_getMethodImplementation(self, @selector(scene:willConnectToSession:options:));
         assert(class_addMethod(_dynamicIsa, @selector(scene:willConnectToSession:options:), scene_willConnectToSession, NULL));
         
@@ -64,10 +60,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     reinterpret_cast<void (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
 }
 #pragma clang diagnostic pop
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<%s: %p>", class_getName(self.class), self];
-}
 
 - (void)scene:(id)scene willConnectToSession:(id)session options:(id)connectionOptions {
     id window = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("UIWindow") alloc], sel_registerName("initWithWindowScene:"), scene);

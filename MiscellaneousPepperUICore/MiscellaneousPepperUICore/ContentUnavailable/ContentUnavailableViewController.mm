@@ -30,9 +30,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     dispatch_once(&onceToken, ^{
         Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_ContentUnavailableViewController", 0);
         
-        IMP description = class_getMethodImplementation(self, @selector(description));
-        assert(class_addMethod(_dynamicIsa, @selector(description), description, NULL));
-        
         IMP loadView = class_getMethodImplementation(self, @selector(loadView));
         assert(class_addMethod(_dynamicIsa, @selector(loadView), loadView, NULL));
         

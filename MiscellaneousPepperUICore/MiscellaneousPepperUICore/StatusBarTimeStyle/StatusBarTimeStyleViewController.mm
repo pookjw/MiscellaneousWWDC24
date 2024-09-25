@@ -31,9 +31,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     dispatch_once(&onceToken, ^{
         Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_StatusBarTimeStyleViewController", 0);
         
-        IMP description = class_getMethodImplementation(self, @selector(description));
-        assert(class_addMethod(_dynamicIsa, @selector(description), description, NULL));
-        
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
         assert(class_addMethod(_dynamicIsa, @selector(viewDidLoad), viewDidLoad, NULL));
         

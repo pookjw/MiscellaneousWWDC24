@@ -37,9 +37,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP dealloc = class_getMethodImplementation(self, @selector(dealloc));
         assert(class_addMethod(_dynamicIsa, @selector(dealloc), dealloc, NULL));
         
-        IMP description = class_getMethodImplementation(self, @selector(description));
-        assert(class_addMethod(_dynamicIsa, @selector(description), description, NULL));
-        
         IMP loadView = class_getMethodImplementation(self, @selector(loadView));
         assert(class_addMethod(_dynamicIsa, @selector(loadView), loadView, NULL));
         
@@ -79,10 +76,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     reinterpret_cast<void (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
 }
 #pragma clang diagnostic pop
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<%s: %p>", class_getName(self.class), self];
-}
 
 - (void)loadView {
     id mtkView = [objc_lookUpClass("MTKView") new];

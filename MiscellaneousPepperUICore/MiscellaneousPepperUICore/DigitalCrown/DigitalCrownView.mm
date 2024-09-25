@@ -57,9 +57,6 @@ void swizzle() {
         IMP dealloc = class_getMethodImplementation(self, @selector(dealloc));
         assert(class_addMethod(_dynamicIsa, @selector(dealloc), dealloc, NULL));
         
-        IMP description = class_getMethodImplementation(self, @selector(description));
-        assert(class_addMethod(_dynamicIsa, @selector(description), description, NULL));
-        
         IMP respondsToSelector = class_getMethodImplementation(self, @selector(respondsToSelector:));
         assert(class_addMethod(_dynamicIsa, @selector(respondsToSelector:), respondsToSelector, NULL));
         
@@ -222,10 +219,6 @@ void swizzle() {
     reinterpret_cast<void (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
 }
 #pragma clang diagnostic pop
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<%s: %p>", class_getName(self.class), self];
-}
 
 - (BOOL)respondsToSelector:(SEL)aSelector {
     objc_super superInfo = { self, [self class] };

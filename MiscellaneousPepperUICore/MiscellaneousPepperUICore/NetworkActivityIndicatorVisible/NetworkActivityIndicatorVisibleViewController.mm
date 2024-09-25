@@ -29,9 +29,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     dispatch_once(&onceToken, ^{
         Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_NetworkActivityIndicatorVisibleViewController", 0);
         
-        IMP description = class_getMethodImplementation(self, @selector(description));
-        assert(class_addMethod(_dynamicIsa, @selector(description), description, NULL));
-        
         IMP loadView = class_getMethodImplementation(self, @selector(loadView));
         assert(class_addMethod(_dynamicIsa, @selector(loadView), loadView, NULL));
         
@@ -43,10 +40,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     });
     
     return dynamicIsa;
-}
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<%s: %p>", class_getName(self.class), self];
 }
 
 - (void)loadView {

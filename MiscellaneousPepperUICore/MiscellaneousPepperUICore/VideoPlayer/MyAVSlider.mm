@@ -32,9 +32,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP initWithFrame = class_getMethodImplementation(self, @selector(initWithFrame:));
         assert(class_addMethod(_dynamicIsa, @selector(initWithFrame:), initWithFrame, NULL));
         
-        IMP description = class_getMethodImplementation(self, @selector(description));
-        assert(class_addMethod(_dynamicIsa, @selector(description), description, NULL));
-        
         IMP becomeFirstResponder = class_getMethodImplementation(self, @selector(becomeFirstResponder));
         assert(class_addMethod(_dynamicIsa, @selector(becomeFirstResponder), becomeFirstResponder, NULL));
         
@@ -60,10 +57,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     }
     
     return self;
-}
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<%s: %p>", class_getName(self.class), self];
 }
 
 - (void)becomeFirstResponder {

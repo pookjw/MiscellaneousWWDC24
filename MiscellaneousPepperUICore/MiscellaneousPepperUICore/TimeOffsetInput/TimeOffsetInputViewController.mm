@@ -29,9 +29,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     dispatch_once(&onceToken, ^{
         Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_TimeOffsetInputViewController", 0);
         
-        IMP description = class_getMethodImplementation(self, @selector(description));
-        assert(class_addMethod(_dynamicIsa, @selector(description), description, NULL));
-        
         IMP respondsToSelector = class_getMethodImplementation(self, @selector(respondsToSelector:));
         assert(class_addMethod(_dynamicIsa, @selector(respondsToSelector:), respondsToSelector, NULL));
         
