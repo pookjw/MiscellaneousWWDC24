@@ -115,7 +115,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
      WAGUIGestureInteractionViewHandler
      WAGUIGestureInteractionHandler
      WatchGestureInteractionHandler
-     PUICScrollGestureHandler
+     PUICScrollGestureHandler (PUICListCollectionView에서 쓰임. Sequencer 기반)
      */
     id handler = [objc_lookUpClass("WatchGestureInteractionHandler") new];
     
