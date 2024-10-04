@@ -9,10 +9,16 @@
 #import <UIKit/UIKit.h>
 #import <objc/message.h>
 #import <objc/runtime.h>
+#import <dlfcn.h>
 
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
 @implementation SafariViewPresenterViewController
+
++ (void)load {
+    assert(dlopen("/System/Library/Frameworks/SafariServices.framework/SafariServices", RTLD_NOW) != nullptr);
+    [self dynamicIsa];
+}
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
     return [[self dynamicIsa] allocWithZone:zone];

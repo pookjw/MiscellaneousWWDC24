@@ -14,6 +14,10 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 @implementation WatchGesturesViewController
 
++ (void)load {
+    [self dynamicIsa];
+}
+
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
     return [[self dynamicIsa] allocWithZone:zone];
 }
