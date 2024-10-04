@@ -13,6 +13,12 @@
 
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
+struct CAFrameRateRange {
+  float minimum;
+  float maximum;
+  float preferred;
+};
+
 // https://developer.apple.com/documentation/watchos-apps/designing-your-app-for-the-always-on-state/
 
 @implementation AlwaysOnViewController
@@ -41,6 +47,12 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
         assert(class_addMethod(_dynamicIsa, @selector(viewDidLoad), viewDidLoad, NULL));
         
+        IMP _effectiveControllersForAlwaysOnTimelines = class_getMethodImplementation(self, @selector(_effectiveControllersForAlwaysOnTimelines));
+        assert(class_addMethod(_dynamicIsa, @selector(_effectiveControllersForAlwaysOnTimelines), _effectiveControllersForAlwaysOnTimelines, NULL));
+        
+        IMP _timelinesForDateInterval = class_getMethodImplementation(self, @selector(_timelinesForDateInterval:));
+        assert(class_addMethod(_dynamicIsa, @selector(_timelinesForDateInterval:), _timelinesForDateInterval, NULL));
+        
         IMP didReceiveEffectiveVisibilityDidChangeNotification = class_getMethodImplementation(self, @selector(didReceiveEffectiveVisibilityDidChangeNotification:));
         assert(class_addMethod(_dynamicIsa, @selector(didReceiveEffectiveVisibilityDidChangeNotification:), didReceiveEffectiveVisibilityDidChangeNotification, NULL));
         
@@ -59,7 +71,10 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP puic_willExitAlwaysOn = class_getMethodImplementation(self, @selector(puic_willExitAlwaysOn));
         assert(class_addMethod(_dynamicIsa, @selector(puic_willExitAlwaysOn), puic_willExitAlwaysOn, NULL));
         
-        assert(class_addIvar(_dynamicIsa, "_label", sizeof(id), sizeof(id), @encode(id)));
+        assert(class_addIvar(_dynamicIsa, "_stackView", sizeof(id), sizeof(id), @encode(id)));
+        assert(class_addIvar(_dynamicIsa, "_updatLinkLabel", sizeof(id), sizeof(id), @encode(id)));
+        assert(class_addIvar(_dynamicIsa, "_effectiveVisibilityView", sizeof(id), sizeof(id), @encode(id)));
+        assert(class_addIvar(_dynamicIsa, "_updateLink", sizeof(id), sizeof(id), @encode(id)));
         
         //
         
@@ -75,8 +90,21 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 #pragma clang diagnostic ignored "-Wobjc-missing-super-calls"
 - (void)dealloc {
     id _label;
-    object_getInstanceVariable(self, "_label", reinterpret_cast<void **>(&_label));
+    object_getInstanceVariable(self, "_effectiveVisibilityView", reinterpret_cast<void **>(&_label));
     [_label release];
+    
+    id _updatLinkLabel;
+    object_getInstanceVariable(self, "_updatLinkLabel", reinterpret_cast<void **>(&_updatLinkLabel));
+    [_updatLinkLabel release];
+    
+    EffectiveVisibilityView *_effectiveVisibilityView;
+    object_getInstanceVariable(self, "_effectiveVisibilityView", reinterpret_cast<void **>(&_effectiveVisibilityView));
+    [_effectiveVisibilityView release];
+    
+    id _updateLink;
+    object_getInstanceVariable(self, "_updateLink", reinterpret_cast<void **>(&_updateLink));
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_updateLink, sel_registerName("setEnabled:"), NO);
+    [_updateLink release];
     
     [NSNotificationCenter.defaultCenter removeObserver:self name:@"PUICApplicationEffectiveVisibilityDidChangeNotification" object:nil];
     [NSNotificationCenter.defaultCenter removeObserver:self name:@"PUICApplicationEnvironmentFrontmostScreenOffDidChangeNotification" object:nil];
@@ -87,17 +115,14 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 #pragma clang diagnostic pop
 
 - (void)loadView {
-    id view = [EffectiveVisibilityView new];
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self, sel_registerName("setView:"), view);
-    [view release];
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self, sel_registerName("setView:"), [self stackView]);
 }
 
 - (void)viewDidLoad {
     objc_super superInfo = { self, [self class] };
     reinterpret_cast<void (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
     
-    //
-    
+    // 또는 +[PUICAlwaysOnEnvironment alwaysOnSupported]
     BOOL _alwaysOnSupported = reinterpret_cast<BOOL (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("_UIBacklightEnvironment"), sel_registerName("_alwaysOnSupported"));
     
     // PUICApplicationSupportsAlwaysOn 또는 WKSupportsAlwaysOnDisplay (둘 중 하나만 1이면 됨)
@@ -114,8 +139,50 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
                                            selector:@selector(didReceiveEnvironmentFrontmostScreenOffDidChangeNotification:)
                                                name:@"PUICApplicationEnvironmentFrontmostScreenOffDidChangeNotification"
                                              object:nil];
+    
+    //
+    
+    id view = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("view"));
+    id updatLinkLabel = [self updatLinkLabel];
+    
+    id updateLink = reinterpret_cast<id (*)(Class, SEL, id, id)>(objc_msgSend)(objc_lookUpClass("UIUpdateLink"), sel_registerName("updateLinkForView:actionHandler:"), view, ^(id updateLink) {
+        id currentUpdateInfo = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(updateLink, sel_registerName("currentUpdateInfo"));
+        NSTimeInterval modelTime = reinterpret_cast<NSTimeInterval (*)(id, SEL)>(objc_msgSend)(currentUpdateInfo, sel_registerName("modelTime"));
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(updatLinkLabel, sel_registerName("setText:"), @(modelTime).stringValue);
+    });
+    
+    CAFrameRateRange preferredFrameRateRange = reinterpret_cast<CAFrameRateRange (*)(id, SEL)>(objc_msgSend)(updateLink, sel_registerName("preferredFrameRateRange"));
+    preferredFrameRateRange.maximum = 60;
+    preferredFrameRateRange.minimum = 1;
+    preferredFrameRateRange.preferred = 60;
+    reinterpret_cast<void (*)(id, SEL, CAFrameRateRange)>(objc_msgSend)(updateLink, sel_registerName("setPreferredFrameRateRange:"), preferredFrameRateRange);
+    
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(updateLink, sel_registerName("setRequiresContinuousUpdates:"), YES);
+//    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(updateLink, sel_registerName("setWantsLowLatencyEventDispatch:"), YES);
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(updateLink, sel_registerName("setEnabled:"), YES);
+    
+    object_setInstanceVariable(self, "_updateLink", reinterpret_cast<void *>([updateLink retain]));
 }
 
+- (NSArray *)_effectiveControllersForAlwaysOnTimelines {
+    return @[self];
+}
+
+- (NSArray *)_timelinesForDateInterval:(NSTimeInterval)dateInternal {
+    /*
+     BLSAlwaysOnTimeline
+     BLSAlwaysOnFrequencyPerMinuteTimeline
+     BLSAlwaysOnPeriodicTimeline
+     BLSAlwaysOnExplicitEntriesTimeline
+     */
+    
+    id timeline = reinterpret_cast<id (*)(id, SEL, NSTimeInterval, id, id, id)>(objc_msgSend)([objc_lookUpClass("BLSAlwaysOnPeriodicTimeline") alloc], sel_registerName("initWithUpdateInterval:startDate:identifier:configure:"), 1.0, [NSDate dateWithTimeIntervalSince1970:dateInternal], @"Foo", ^(id unconfiguredEntry, id entry){
+        // x1 = BLSAlwaysOnTimelineUnconfiguredEntry *
+        // x2 = BLSAlwaysOnTimelineEntry *
+    });
+    
+    return @[timeline];
+}
 
 - (void)didReceiveEffectiveVisibilityDidChangeNotification:(NSNotification *)notification {
     id sharedPUICApplication = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("PUICApplication"), sel_registerName("sharedPUICApplication"));
@@ -145,6 +212,51 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 - (void)puic_willExitAlwaysOn {
     objc_super superInfo = { self, [self class] };
     reinterpret_cast<void (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
+}
+
+- (id)stackView __attribute__((objc_direct)) {
+    id stackView = nil;
+    assert(object_getInstanceVariable(self, "_stackView", reinterpret_cast<void **>(&stackView)) != nullptr);
+    if (stackView != nil) {
+        return stackView;
+    }
+    
+    stackView = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("UIStackView") alloc], sel_registerName("initWithArrangedSubviews:"), @[[self updatLinkLabel], [self effectiveVisibilityView]]);
+    
+    reinterpret_cast<void (*)(id, SEL, NSInteger)>(objc_msgSend)(stackView, sel_registerName("setAxis:"), 1);
+    reinterpret_cast<void (*)(id, SEL, NSInteger)>(objc_msgSend)(stackView, sel_registerName("setAlignment:"), 0);
+    reinterpret_cast<void (*)(id, SEL, NSInteger)>(objc_msgSend)(stackView, sel_registerName("setDistribution:"), 1);
+    
+    object_setInstanceVariable(self, "_stackView", reinterpret_cast<void *>([stackView retain]));
+    return [stackView autorelease];
+}
+
+- (id)updatLinkLabel __attribute__((objc_direct)) {
+    id updatLinkLabel = nil;
+    assert(object_getInstanceVariable(self, "_updatLinkLabel", reinterpret_cast<void **>(&updatLinkLabel)));
+    if (updatLinkLabel != nil) {
+        return updatLinkLabel;
+    }
+    
+    updatLinkLabel = [objc_lookUpClass("UILabel") new];
+    reinterpret_cast<void (*)(id, SEL, NSTextAlignment)>(objc_msgSend)(updatLinkLabel, sel_registerName("setTextAlignment:"), NSTextAlignmentCenter);
+    
+    object_setInstanceVariable(self, "_updatLinkLabel", reinterpret_cast<void *>([updatLinkLabel retain]));
+    return [updatLinkLabel autorelease];
+}
+
+- (EffectiveVisibilityView *)effectiveVisibilityView __attribute__((objc_direct)) {
+    EffectiveVisibilityView *effectiveVisibilityView = nil;
+    assert(object_getInstanceVariable(self, "_effectiveVisibilityView", reinterpret_cast<void **>(&effectiveVisibilityView)));
+    if (effectiveVisibilityView != nil) {
+        return effectiveVisibilityView;
+    }
+    
+    effectiveVisibilityView = [EffectiveVisibilityView new];
+    
+    object_setInstanceVariable(self, "_effectiveVisibilityView", reinterpret_cast<void *>([effectiveVisibilityView retain]));
+    return [effectiveVisibilityView autorelease];
+    
 }
 
 @end

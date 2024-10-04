@@ -101,7 +101,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     objc_super superInfo = { self, [self class] };
     reinterpret_cast<void (*)(objc_super *, SEL, BOOL)>(objc_msgSendSuper2)(&superInfo, _cmd, animated);
     
-    id application = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("UIApplication"), sel_registerName("sharedApplication"));
+    id application = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("PUICApplication"), sel_registerName("sharedPUICApplication"));
     reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(application, sel_registerName("setDisablesSleepGesture:"), YES);
     reinterpret_cast<void (*)(id, SEL, double)>(objc_msgSend)(application, sel_registerName("setExtendedIdleTime:"), DBL_MAX);
 }
@@ -110,7 +110,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     objc_super superInfo = { self, [self class] };
     reinterpret_cast<void (*)(objc_super *, SEL, BOOL)>(objc_msgSendSuper2)(&superInfo, _cmd, animated);
     
-    id application = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("UIApplication"), sel_registerName("sharedApplication"));
+    id application = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("PUICApplication"), sel_registerName("sharedPUICApplication"));
     reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(application, sel_registerName("setDisablesSleepGesture:"), NO);
     reinterpret_cast<void (*)(id, SEL, double)>(objc_msgSend)(application, sel_registerName("setExtendedIdleTime:"), 0.);
 }

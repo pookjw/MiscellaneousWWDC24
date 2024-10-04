@@ -27,8 +27,9 @@
         _scrollView = scrollView;
         
 //        NSSet *configurations = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("_UIPhysicalButtonConfiguration"), sel_registerName("_volumeConfigurations"));
-        NSSet *configurations = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("AVCaptureEventInteraction"), sel_registerName("_captureButtonsConfigurationSet"));
+//        NSSet *configurations = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("AVCaptureEventInteraction"), sel_registerName("_captureButtonsConfigurationSet"));
 //        id configurations = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("_UIPhysicalButtonConfiguration"), sel_registerName("_ringerButtonDynamicActionConfiguration"));
+        NSSet *configurations = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("_UIPhysicalButtonConfiguration"), sel_registerName("_cameraShutterConfigurations"));
         
         id<UIInteraction> physicalButtonInteraction = reinterpret_cast<id (*)(id, SEL, id, id)>(objc_msgSend)([objc_lookUpClass("_UIPhysicalButtonInteraction") alloc], sel_registerName("initWithConfigurations:delegate:"), configurations, self);
         
