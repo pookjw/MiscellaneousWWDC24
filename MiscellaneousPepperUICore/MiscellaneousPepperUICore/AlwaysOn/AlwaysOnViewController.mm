@@ -89,10 +89,6 @@ struct CAFrameRateRange {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-missing-super-calls"
 - (void)dealloc {
-    id _label;
-    object_getInstanceVariable(self, "_effectiveVisibilityView", reinterpret_cast<void **>(&_label));
-    [_label release];
-    
     id _updatLinkLabel;
     object_getInstanceVariable(self, "_updatLinkLabel", reinterpret_cast<void **>(&_updatLinkLabel));
     [_updatLinkLabel release];

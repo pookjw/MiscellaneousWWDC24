@@ -39,6 +39,8 @@
 #import "MenuViewController.h"
 #import "PhotoPickerPresenterViewController.h"
 #import "GradientMetalViewController.h"
+#import "SafariViewPresenterViewController.h"
+#import "WatchGesturesViewController.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
@@ -46,6 +48,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 + (NSArray<Class> *)classes {
     return @[
+        WatchGesturesViewController.class,
+        SafariViewPresenterViewController.class,
         AlwaysOnViewController.class,
         GradientMetalViewController.class,
         PhotoPickerPresenterViewController.class,
