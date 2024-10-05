@@ -4,7 +4,12 @@
 <dict>
 	<key>PUICApplicationSupportsAlwaysOn</key>
 	<true/>
-	<key>UIApplicationSupportsMultipleScenes</key>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<true/>
+	</dict>
+	<key>WKApplication</key>
 	<true/>
 	<key>WKSupportsAlwaysOnDisplay</key>
 	<true/>

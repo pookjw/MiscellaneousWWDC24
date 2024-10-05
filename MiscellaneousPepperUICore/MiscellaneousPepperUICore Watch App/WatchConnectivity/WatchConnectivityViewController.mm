@@ -111,7 +111,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     objc_super superInfo = { self, [self class] };
     reinterpret_cast<void (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
     
-    assert(WCSession.isSupported);
+    assert([WCSession isSupported]);
     
     //
     

@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    assert(WCSession.isSupported);
+    assert([WCSession isSupported]);
     
     UIStackView *stackView = self.stackView;
     stackView.translatesAutoresizingMaskIntoConstraints = NO;

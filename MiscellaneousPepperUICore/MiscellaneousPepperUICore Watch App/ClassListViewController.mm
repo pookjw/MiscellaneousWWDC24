@@ -41,6 +41,8 @@
 #import "WatchGesturesViewController.h"
 #import "WatchConnectivityViewController.h"
 
+#warning CarouselUIServices
+
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
 @implementation ClassListViewController
