@@ -43,6 +43,12 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
         assert(class_addMethod(_dynamicIsa, @selector(viewDidLoad), viewDidLoad, NULL));
         
+        IMP safariViewController_didCompleteInitialLoad = class_getMethodImplementation(self, @selector(safariViewController:didCompleteInitialLoad:));
+        assert(class_addMethod(_dynamicIsa, @selector(safariViewController:didCompleteInitialLoad:), safariViewController_didCompleteInitialLoad, NULL));
+        
+        IMP safariViewController_initialLoadDidRedirectToURL = class_getMethodImplementation(self, @selector(safariViewController:initialLoadDidRedirectToURL:));
+        assert(class_addMethod(_dynamicIsa, @selector(safariViewController:initialLoadDidRedirectToURL:), safariViewController_initialLoadDidRedirectToURL, NULL));
+        
         Protocol *proto = NSProtocolFromString(@"SFSafariViewControllerDelegate");
         assert(proto != nullptr);
         assert(class_addProtocol(_dynamicIsa, proto));
@@ -133,6 +139,14 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 //    reinterpret_cast<void (*)(id, SEL, id, id, id)>(objc_msgSend)(windowScene, sel_registerName("openURL:options:completionHandler:"), url, nil, ^(BOOL success) {
 //        assert(success);
 //    });
+}
+
+- (void)safariViewController:(id)controller didCompleteInitialLoad:(BOOL) didLoadSuccessfully {
+    NSLog(@"%s", __func__);
+}
+
+- (void)safariViewController:(id)controller initialLoadDidRedirectToURL:(NSURL *)URL {
+    NSLog(@"%s: %@", sel_getName(_cmd), URL);
 }
 
 @end
