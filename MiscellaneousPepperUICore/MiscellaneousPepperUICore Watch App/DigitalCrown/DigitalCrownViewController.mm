@@ -100,6 +100,9 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     ]);
     
     [flashIndicatorBarButtonItem release];
+    
+    id view = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("view"));
+    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(view, sel_registerName("becomeFirstResponder"));
 }
 
 - (void)didTriggerFlashIndicatorBarButtonItem:(id)sender {

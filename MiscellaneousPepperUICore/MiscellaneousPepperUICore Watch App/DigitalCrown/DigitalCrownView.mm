@@ -248,8 +248,8 @@ void swizzle() {
 - (void)updateLabelWithCrownInputSequencer:(id)crownInputSequencer __attribute__((objc_direct)) {
     CGFloat offset = reinterpret_cast<CGFloat (*)(id, SEL)>(objc_msgSend)(crownInputSequencer, sel_registerName("offset"));
     
-    // -vecloty는 -averageCrownVelocity만 호출하므로 같은 값임
-    CGFloat averageCrownVelocity = reinterpret_cast<CGFloat (*)(id, SEL)>(objc_msgSend)(crownInputSequencer, sel_registerName("averageCrownVelocity"));
+    // -velocity는 -averageCrownVelocity만 호출하므로 같은 값임
+    double averageCrownVelocity = reinterpret_cast<CGFloat (*)(id, SEL)>(objc_msgSend)(crownInputSequencer, sel_registerName("averageCrownVelocity"));
     
     NSString *text = [NSString stringWithFormat:@"Offset: %lf\nVelocity: %lf", offset, averageCrownVelocity];
     
@@ -266,11 +266,11 @@ void swizzle() {
     return YES;
 }
 
-- (void)crownInputSequencerWillBecomeIdle:(id)arg1 withCrownVelocity:(CGFloat)arg2 targetOffset:(CGFloat *)arg3 {
-    CGFloat offset = reinterpret_cast<CGFloat (*)(id, SEL)>(objc_msgSend)(arg1, sel_registerName("offset"));
+- (void)crownInputSequencerWillBecomeIdle:(id)arg1 withCrownVelocity:(double)arg2 targetOffset:(CGFloat *)arg3 {
+    CGFloat offset = reinterpret_cast<double (*)(id, SEL)>(objc_msgSend)(arg1, sel_registerName("offset"));
     
     // arg2은 nan이 나옴
-    CGFloat velocity = reinterpret_cast<CGFloat (*)(id, SEL)>(objc_msgSend)(arg1, sel_registerName("velocity"));
+    double velocity = reinterpret_cast<double (*)(id, SEL)>(objc_msgSend)(arg1, sel_registerName("velocity"));
     
     if (velocity > 0) {
         *arg3 = ceil(offset);

@@ -18,7 +18,7 @@ int main(int argc, char * argv[]) {
         [NSUserDefaults.standardUserDefaults setBool:YES forKey:@"UIStateRestorationDebugLogging"];
         
         // PUICListCollectionViewLayoutDelegate PUICListCollectionViewDelegate
-        NSLog(@"%@", [NSObject _fd__protocolDescriptionForProtocol:NSProtocolFromString(@"PUICMenuViewControllerDelegate")]);
+        NSLog(@"%@", [NSObject _fd__protocolDescriptionForProtocol:NSProtocolFromString(@"PUICCrownInputSequencerDelegate")]);
 //        NSLog(@"%@", [NSObject _fd__protocolDescriptionForProtocol:NSProtocolFromString(@"PUICDictationViewControllerDelegate")]);
     }
     

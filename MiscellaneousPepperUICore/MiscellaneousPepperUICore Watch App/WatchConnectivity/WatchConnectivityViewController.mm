@@ -11,6 +11,8 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 
+#warning -[WCSession delegateSupportsActiveDeviceSwitch]
+
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
 @interface WatchConnectivityViewController () <WCSessionDelegate>
