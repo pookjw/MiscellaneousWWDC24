@@ -78,6 +78,15 @@ void swizzle() {
         IMP crownInputSequencerWillBecomeIdle_withCrownVelocity_targetOffset = class_getMethodImplementation(self, @selector(crownInputSequencerWillBecomeIdle:withCrownVelocity:targetOffset:));
         assert(class_addMethod(_dynamicIsa, @selector(crownInputSequencerWillBecomeIdle:withCrownVelocity:targetOffset:), crownInputSequencerWillBecomeIdle_withCrownVelocity_targetOffset, NULL));
         
+        IMP crownInputSequencerWillBeginDecelerating = class_getMethodImplementation(self, @selector(crownInputSequencerWillBeginDecelerating:));
+        assert(class_addMethod(_dynamicIsa, @selector(crownInputSequencerWillBeginDecelerating:), crownInputSequencerWillBeginDecelerating, NULL));
+        
+        IMP crownInputSequencerDidEndDecelerating = class_getMethodImplementation(self, @selector(crownInputSequencerDidEndDecelerating:));
+        assert(class_addMethod(_dynamicIsa, @selector(crownInputSequencerDidEndDecelerating:), crownInputSequencerDidEndDecelerating, NULL));
+        
+        IMP _crownInputSequencer_offsetDidChangeByDelta = class_getMethodImplementation(self, @selector(_crownInputSequencer:offsetDidChangeByDelta:));
+        assert(class_addMethod(_dynamicIsa, @selector(_crownInputSequencer:offsetDidChangeByDelta:), _crownInputSequencer_offsetDidChangeByDelta, NULL));
+        
         assert(class_addIvar(_dynamicIsa, "_crownInputSequencer", sizeof(id), sizeof(id), @encode(id)));
         assert(class_addIvar(_dynamicIsa, "_label", sizeof(id), sizeof(id), @encode(id)));
         
@@ -106,8 +115,13 @@ void swizzle() {
         reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setContinuous:"), YES);
         
         // 이렇게 해야 Haptic 재생이 됨
-//        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setMinorDetentsEnabled:"), YES);
         reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setRubberBandingEnabled:"), YES);
+        
+//        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setUseWideIdleCheck:"), YES);
+        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setSmoothingEnabled:"), YES);
+        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setMinorDetentsEnabled:"), YES);
+//        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setIsCurrentTrackedChild:"), YES);
+        
         /*
          0 : 재생 안함
          1 : Start -> End로 이동할 때만 재생
@@ -137,8 +151,8 @@ void swizzle() {
 //            
 //        ]);
         
-        reinterpret_cast<void (*)(id, SEL, CGFloat)>(objc_msgSend)(crownInputSequencer, sel_registerName("setStart:"), 0.0);
-        reinterpret_cast<void (*)(id, SEL, CGFloat)>(objc_msgSend)(crownInputSequencer, sel_registerName("setEnd:"), 10.0);
+        reinterpret_cast<void (*)(id, SEL, double)>(objc_msgSend)(crownInputSequencer, sel_registerName("setStart:"), 0.0);
+        reinterpret_cast<void (*)(id, SEL, double)>(objc_msgSend)(crownInputSequencer, sel_registerName("setEnd:"), 10.0);
         
         /*
          0 : Automatic (1)
@@ -148,7 +162,10 @@ void swizzle() {
         reinterpret_cast<void (*)(id, SEL, long)>(objc_msgSend)(crownInputSequencer, sel_registerName("setCrownIndicatorMode:"), 2);
         reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setCrownIndicatorVisible:"), YES);
         
-        reinterpret_cast<void (*)(id, SEL, CGFloat)>(objc_msgSend)(crownInputSequencer, sel_registerName("setDecelerationRate:"), 0.996);
+        reinterpret_cast<void (*)(id, SEL, double)>(objc_msgSend)(crownInputSequencer, sel_registerName("setDecelerationRate:"), 0.996);
+        reinterpret_cast<void (*)(id, SEL, double)>(objc_msgSend)(crownInputSequencer, sel_registerName("setDecelerationEpsilon:"), 0.0005);
+        reinterpret_cast<void (*)(id, SEL, double)>(objc_msgSend)(crownInputSequencer, sel_registerName("_setScreenPointsPerRevolution:"), 300.0);
+        reinterpret_cast<void (*)(id, SEL, double)>(objc_msgSend)(crownInputSequencer, sel_registerName("setOffsetPerRevolution:"), 1.0);
         
 //        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setWantsCrownIndicatorStyledForTouchInput:"), YES);
 //        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("setSmoothingEnabled:"), YES);
@@ -243,13 +260,17 @@ void swizzle() {
     object_getInstanceVariable(self, "_crownInputSequencer", reinterpret_cast<void **>(&_crownInputSequencer));
     
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(_crownInputSequencer, sel_registerName("updateWithCrownInputEvent:"), event);
+    
+    NSLog(@"----\nisIdle: %d\n_wheelVelocity: %lf\n----",
+          reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(_crownInputSequencer, sel_registerName("isIdle")),
+          reinterpret_cast<float (*)(id, SEL)>(objc_msgSend)(event, sel_registerName("_wheelVelocity")));
 }
 
 - (void)updateLabelWithCrownInputSequencer:(id)crownInputSequencer __attribute__((objc_direct)) {
-    CGFloat offset = reinterpret_cast<CGFloat (*)(id, SEL)>(objc_msgSend)(crownInputSequencer, sel_registerName("offset"));
+    double offset = reinterpret_cast<double (*)(id, SEL)>(objc_msgSend)(crownInputSequencer, sel_registerName("offset"));
     
     // -velocity는 -averageCrownVelocity만 호출하므로 같은 값임
-    double averageCrownVelocity = reinterpret_cast<CGFloat (*)(id, SEL)>(objc_msgSend)(crownInputSequencer, sel_registerName("averageCrownVelocity"));
+    double averageCrownVelocity = reinterpret_cast<double (*)(id, SEL)>(objc_msgSend)(crownInputSequencer, sel_registerName("averageCrownVelocity"));
     
     NSString *text = [NSString stringWithFormat:@"Offset: %lf\nVelocity: %lf", offset, averageCrownVelocity];
     
@@ -266,21 +287,36 @@ void swizzle() {
     return YES;
 }
 
-- (void)crownInputSequencerWillBecomeIdle:(id)arg1 withCrownVelocity:(double)arg2 targetOffset:(CGFloat *)arg3 {
-    CGFloat offset = reinterpret_cast<double (*)(id, SEL)>(objc_msgSend)(arg1, sel_registerName("offset"));
+- (void)crownInputSequencerWillBecomeIdle:(id)arg1 withCrownVelocity:(double)arg2 targetOffset:(double *)arg3 {
+    double offset = *arg3;
+    NSLog(@"%lf", offset);
     
-    // arg2은 nan이 나옴
-    double velocity = reinterpret_cast<double (*)(id, SEL)>(objc_msgSend)(arg1, sel_registerName("velocity"));
-    
-    if (velocity > 0) {
+    if (arg2 > 0) {
         *arg3 = ceil(offset);
     } else {
         *arg3 = floor(offset);
     }
 }
 
-- (BOOL)crownInputSequencer:(id)arg1 shouldRubberBandAtBoundary:(long)arg2 {
+- (BOOL)crownInputSequencer:(id)arg1 shouldRubberBandAtBoundary:(int)arg2 {
     return YES;
+}
+
+- (void)crownInputSequencerWillBeginDecelerating:(id)crownInputSequencer {
+    
+}
+
+- (void)crownInputSequencerDidEndDecelerating:(id)crownInputSequencer {
+    
+}
+
+- (void)_crownInputSequencer:(id)crownInputSequencer offsetDidChangeByDelta:(double)delta {
+//    double offset = reinterpret_cast<double (*)(id, SEL)>(objc_msgSend)(crownInputSequencer, sel_registerName("offset"));
+//    offset += delta;
+//    
+//    NSLog(@"%lf", offset);
+//
+//    reinterpret_cast<void (*)(id, SEL, double, BOOL, BOOL, BOOL)>(objc_msgSend)(crownInputSequencer, sel_registerName("_setOffset:notifyDelegate:suppressIndicatorVisibilityChanges:updateTargetOffset:"), offset, YES, NO, YES);
 }
 
 @end
