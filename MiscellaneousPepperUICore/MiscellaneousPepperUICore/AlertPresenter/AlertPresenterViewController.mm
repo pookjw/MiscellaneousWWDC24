@@ -42,6 +42,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     
     return dynamicIsa;
 }
+
 - (void)loadView {
     __weak auto weakSelf = self;
     
