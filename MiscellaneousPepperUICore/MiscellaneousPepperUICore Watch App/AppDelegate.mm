@@ -33,6 +33,9 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP dealloc = class_getMethodImplementation(self, @selector(dealloc));
         assert(class_addMethod(_dynamicIsa, @selector(dealloc), dealloc, NULL));
         
+        IMP respondsToSelector = class_getMethodImplementation(self, @selector(respondsToSelector:));
+        assert(class_addMethod(_dynamicIsa, @selector(respondsToSelector:), respondsToSelector, NULL));
+        
         IMP application_didFinishLaunchingWithOptions = class_getMethodImplementation(self, @selector(application:didFinishLaunchingWithOptions:));
         assert(class_addMethod(_dynamicIsa, @selector(application:didFinishLaunchingWithOptions:), application_didFinishLaunchingWithOptions, NULL));
         
@@ -78,6 +81,18 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 }
 #pragma clang diagnostic pop
 
+- (BOOL)respondsToSelector:(SEL)aSelector {
+    objc_super superInfo = { self, [self class] };
+    BOOL responds = reinterpret_cast<BOOL (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
+    
+    if (!responds) {
+        NSLog(@"%@: %s", NSStringFromClass(self.class), sel_getName(aSelector));
+    }
+    
+    return responds;
+}
+
+// __68-[SPApplicationDelegate application:_didFinishLaunchingWithOptions:]_block_invoke
 - (BOOL)application:(id)application didFinishLaunchingWithOptions:(NSDictionary<NSString *, id> *)launchOptions {
     NSURL *scCacheURL = [[NSFileManager.defaultManager URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask].firstObject URLByAppendingPathComponent:@"Saved Application State" isDirectory:YES];
     [NSFileManager.defaultManager removeItemAtURL:scCacheURL error:NULL];
