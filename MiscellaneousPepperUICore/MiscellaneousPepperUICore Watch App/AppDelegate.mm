@@ -57,6 +57,9 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP handleWatchActions_completion = class_getMethodImplementation(self, @selector(handleWatchActions:completion:));
         assert(class_addMethod(_dynamicIsa, @selector(handleWatchActions:completion:), handleWatchActions_completion, NULL));
         
+        IMP session_activationDidCompleteWithState_error = class_getMethodImplementation(self, @selector(session:activationDidCompleteWithState:error:));
+        assert(class_addMethod(_dynamicIsa, @selector(session:activationDidCompleteWithState:error:), session_activationDidCompleteWithState_error, NULL));
+        
         assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"UIApplicationDelegate")));
         
         objc_registerClassPair(_dynamicIsa);

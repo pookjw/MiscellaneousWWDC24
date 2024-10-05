@@ -3,170 +3,216 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4F02A0A62C60C61100C27CA7 /* VolumeIndicatorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F02A0A52C60C61100C27CA7 /* VolumeIndicatorViewController.mm */; };
 		4F172B202C5A90C4009A1DBC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B1F2C5A90C4009A1DBC /* QuartzCore.framework */; };
 		4F172B222C5A90CA009A1DBC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B212C5A90CA009A1DBC /* CoreGraphics.framework */; };
 		4F172B242C5A90D0009A1DBC /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B232C5A90D0009A1DBC /* AVKit.framework */; };
 		4F172B262C5A90D5009A1DBC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B252C5A90D5009A1DBC /* AVFoundation.framework */; };
-		4F2E2CE12CB0112600316C9E /* SafariViewPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F2E2CE02CB0112600316C9E /* SafariViewPresenterViewController.mm */; };
-		4F2E2CE82CB02B6000316C9E /* WatchGesturesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F2E2CE72CB02B6000316C9E /* WatchGesturesViewController.mm */; };
-		4F3B20B52C5E3D4700D88762 /* PickerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3B20B42C5E3D4700D88762 /* PickerViewController.mm */; };
-		4F3B20B92C5E471000D88762 /* ActivityIndicatorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3B20B82C5E471000D88762 /* ActivityIndicatorViewController.mm */; };
-		4F3B20C12C5E4A5A00D88762 /* TimeOffsetInputViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3B20C02C5E4A5A00D88762 /* TimeOffsetInputViewController.mm */; };
-		4F3B20E02C5E50E600D88762 /* QuickboardNumberPadViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3B20DF2C5E50E600D88762 /* QuickboardNumberPadViewController.mm */; };
-		4F3B20E72C5E551700D88762 /* SwitchViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3B20E62C5E551700D88762 /* SwitchViewController.mm */; };
-		4F3B20EE2C5E81BF00D88762 /* CompositionPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3B20ED2C5E81BF00D88762 /* CompositionPresenterViewController.mm */; };
-		4F3B20FE2C5E8DA800D88762 /* MessagePresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3B20FD2C5E8DA800D88762 /* MessagePresenterViewController.mm */; };
-		4F3DC4402C627180006A52B8 /* PhotoPickerPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3DC43F2C627180006A52B8 /* PhotoPickerPresenterViewController.mm */; };
-		4F4604452C5F713B00C12A68 /* StatusBarPlacementViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4604442C5F713B00C12A68 /* StatusBarPlacementViewController.mm */; };
-		4F4604492C5F75DE00C12A68 /* StatusBarItemViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4604482C5F75DE00C12A68 /* StatusBarItemViewController.mm */; };
-		4F46044D2C5F785F00C12A68 /* StatusBarAlphaViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46044C2C5F785F00C12A68 /* StatusBarAlphaViewController.mm */; };
-		4F4604512C5F7C9400C12A68 /* StatusBarTimeStyleViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4604502C5F7C9400C12A68 /* StatusBarTimeStyleViewController.mm */; };
-		4F4604562C5F801F00C12A68 /* AlwaysOnViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4604552C5F801F00C12A68 /* AlwaysOnViewController.mm */; };
-		4F4604732C5FC6FB00C12A68 /* EffectiveVisibilityView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4604722C5FC6FB00C12A68 /* EffectiveVisibilityView.mm */; };
-		4F4604772C5FD72000C12A68 /* NetworkActivityIndicatorVisibleViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4604762C5FD72000C12A68 /* NetworkActivityIndicatorVisibleViewController.mm */; };
-		4F46047B2C5FD8FB00C12A68 /* DisablesSleepGestureViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46047A2C5FD8FB00C12A68 /* DisablesSleepGestureViewController.mm */; };
-		4F46047F2C5FDBDA00C12A68 /* WantsAutorotationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46047E2C5FDBDA00C12A68 /* WantsAutorotationViewController.mm */; };
-		4F4605072C6125A900C12A68 /* NotificationPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4605062C6125A900C12A68 /* NotificationPresenterViewController.mm */; };
-		4F46050B2C612D8D00C12A68 /* ContentUnavailableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46050A2C612D8D00C12A68 /* ContentUnavailableViewController.mm */; };
-		4F46050F2C61316200C12A68 /* MenuPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46050E2C61316200C12A68 /* MenuPresenterViewController.mm */; };
+		4F27FA872CB11A2F00058509 /* WatchConnectivityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F27FA862CB11A2F00058509 /* WatchConnectivityViewController.mm */; };
 		4F47EA502C5E267700B6D032 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47EA4F2C5E267700B6D032 /* MapKit.framework */; };
-		4F74A2572C86BF750039724E /* GradientMetalViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F74A2562C86BF750039724E /* GradientMetalViewController.mm */; };
-		4F74A25A2C86C1300039724E /* Grid.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F74A2592C86C1300039724E /* Grid.mm */; };
-		4F74A25D2C86C31D0039724E /* Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F74A25C2C86C31D0039724E /* Renderer.mm */; };
-		4F74A25F2C86C9480039724E /* shader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4F74A25E2C86C9480039724E /* shader.metal */; };
-		4F790F4E2C620B9200CEECD9 /* MenuViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F790F4D2C620B9200CEECD9 /* MenuViewController.mm */; };
-		4F85F3522C5A963E00C25410 /* DigitalCrownViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3512C5A963E00C25410 /* DigitalCrownViewController.mm */; };
-		4F85F3552C5A9CDA00C25410 /* DigitalCrownView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3542C5A9CDA00C25410 /* DigitalCrownView.mm */; };
-		4F85F3942C5D350000C25410 /* SlidersViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F3932C5D350000C25410 /* SlidersViewController.mm */; };
-		4F85F39B2C5E1CC200C25410 /* AlertPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F39A2C5E1CC200C25410 /* AlertPresenterViewController.mm */; };
-		4F85F39F2C5E1FDC00C25410 /* SheetPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F85F39E2C5E1FDC00C25410 /* SheetPresenterViewController.mm */; };
-		4F86742D2C5A88DC00825FE5 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F86742C2C5A88DC00825FE5 /* main.mm */; };
-		4F8674302C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F86742F2C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.mm */; };
-		4F8674332C5A893900825FE5 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8674322C5A893900825FE5 /* AppDelegate.mm */; };
-		4F8A34D22C5A861500E3CFC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F8A34D12C5A861500E3CFC4 /* Assets.xcassets */; };
 		4F90E7442C62713F00F3E691 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F90E7432C62713F00F3E691 /* PhotosUI.framework */; };
+		4F94F8812CB10CC3002F31E2 /* 0.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 4F94F84B2CB10CC3002F31E2 /* 0.mp4 */; };
+		4F94F8822CB10CC3002F31E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F94F8782CB10CC3002F31E2 /* Assets.xcassets */; };
+		4F94F8832CB10CC3002F31E2 /* PickerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8462CB10CC3002F31E2 /* PickerViewController.mm */; };
+		4F94F8842CB10CC3002F31E2 /* StatusBarPlacementViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F85D2CB10CC3002F31E2 /* StatusBarPlacementViewController.mm */; };
+		4F94F8852CB10CC3002F31E2 /* MessagePresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8372CB10CC3002F31E2 /* MessagePresenterViewController.mm */; };
+		4F94F8862CB10CC3002F31E2 /* shader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8282CB10CC3002F31E2 /* shader.metal */; };
+		4F94F8872CB10CC3002F31E2 /* StatusBarItemViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F85A2CB10CC3002F31E2 /* StatusBarItemViewController.mm */; };
+		4F94F8882CB10CC3002F31E2 /* CompositionPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8152CB10CC3002F31E2 /* CompositionPresenterViewController.mm */; };
+		4F94F8892CB10CC3002F31E2 /* StatusBarAlphaViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8572CB10CC3002F31E2 /* StatusBarAlphaViewController.mm */; };
+		4F94F88A2CB10CC3002F31E2 /* KeyValueObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F82B2CB10CC3002F31E2 /* KeyValueObservation.m */; };
+		4F94F88B2CB10CC3002F31E2 /* ClassListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F87A2CB10CC3002F31E2 /* ClassListViewController.mm */; };
+		4F94F88C2CB10CC3002F31E2 /* TimeOffsetInputViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8662CB10CC3002F31E2 /* TimeOffsetInputViewController.mm */; };
+		4F94F88D2CB10CC3002F31E2 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8772CB10CC3002F31E2 /* AppDelegate.mm */; };
+		4F94F88E2CB10CC3002F31E2 /* NSObject+KeyValueObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F82E2CB10CC3002F31E2 /* NSObject+KeyValueObservation.m */; };
+		4F94F88F2CB10CC3002F31E2 /* DigitalCrownViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F81D2CB10CC3002F31E2 /* DigitalCrownViewController.mm */; };
+		4F94F8902CB10CC3002F31E2 /* Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8272CB10CC3002F31E2 /* Renderer.mm */; };
+		4F94F8912CB10CC3002F31E2 /* MenuViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8312CB10CC3002F31E2 /* MenuViewController.mm */; };
+		4F94F8922CB10CC3002F31E2 /* SafariViewPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F84E2CB10CC3002F31E2 /* SafariViewPresenterViewController.mm */; };
+		4F94F8932CB10CC3002F31E2 /* GradientMetalViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8232CB10CC3002F31E2 /* GradientMetalViewController.mm */; };
+		4F94F8942CB10CC3002F31E2 /* Grid.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8252CB10CC3002F31E2 /* Grid.mm */; };
+		4F94F8952CB10CC3002F31E2 /* WatchGesturesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8742CB10CC3002F31E2 /* WatchGesturesViewController.mm */; };
+		4F94F8962CB10CC3002F31E2 /* WantsAutorotationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8712CB10CC3002F31E2 /* WantsAutorotationViewController.mm */; };
+		4F94F8972CB10CC3002F31E2 /* ContentUnavailableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8182CB10CC3002F31E2 /* ContentUnavailableViewController.mm */; };
+		4F94F8982CB10CC3002F31E2 /* MyAVSlider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8692CB10CC3002F31E2 /* MyAVSlider.mm */; };
+		4F94F8992CB10CC3002F31E2 /* StatusBarTimeStyleViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8602CB10CC3002F31E2 /* StatusBarTimeStyleViewController.mm */; };
+		4F94F89A2CB10CC3002F31E2 /* SheetPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8512CB10CC3002F31E2 /* SheetPresenterViewController.mm */; };
+		4F94F89B2CB10CC3002F31E2 /* PhotoPickerPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8432CB10CC3002F31E2 /* PhotoPickerPresenterViewController.mm */; };
+		4F94F89C2CB10CC3002F31E2 /* DigitalCrownView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F81B2CB10CC3002F31E2 /* DigitalCrownView.mm */; };
+		4F94F89D2CB10CC3002F31E2 /* VolumeIndicatorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F86E2CB10CC3002F31E2 /* VolumeIndicatorViewController.mm */; };
+		4F94F89E2CB10CC3002F31E2 /* VideoPlayerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F86B2CB10CC3002F31E2 /* VideoPlayerViewController.mm */; };
+		4F94F89F2CB10CC3002F31E2 /* AlertPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F80D2CB10CC3002F31E2 /* AlertPresenterViewController.mm */; };
+		4F94F8A02CB10CC3002F31E2 /* NotificationPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F83D2CB10CC3002F31E2 /* NotificationPresenterViewController.mm */; };
+		4F94F8A12CB10CC3002F31E2 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F87B2CB10CC3002F31E2 /* main.mm */; };
+		4F94F8A22CB10CC3002F31E2 /* SceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F87F2CB10CC3002F31E2 /* SceneDelegate.mm */; };
+		4F94F8A32CB10CC3002F31E2 /* ActivityIndicatorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F80A2CB10CC3002F31E2 /* ActivityIndicatorViewController.mm */; };
+		4F94F8A42CB10CC3002F31E2 /* MenuPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8342CB10CC3002F31E2 /* MenuPresenterViewController.mm */; };
+		4F94F8A52CB10CC3002F31E2 /* QuickboardNumberPadViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8492CB10CC3002F31E2 /* QuickboardNumberPadViewController.mm */; };
+		4F94F8A62CB10CC3002F31E2 /* SlidersViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8542CB10CC3002F31E2 /* SlidersViewController.mm */; };
+		4F94F8A72CB10CC3002F31E2 /* EffectiveVisibilityView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8122CB10CC3002F31E2 /* EffectiveVisibilityView.mm */; };
+		4F94F8A82CB10CC3002F31E2 /* AlwaysOnViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8102CB10CC3002F31E2 /* AlwaysOnViewController.mm */; };
+		4F94F8A92CB10CC3002F31E2 /* NetworkActivityIndicatorVisibleViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F83A2CB10CC3002F31E2 /* NetworkActivityIndicatorVisibleViewController.mm */; };
+		4F94F8AA2CB10CC3002F31E2 /* PageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8402CB10CC3002F31E2 /* PageViewController.mm */; };
+		4F94F8AB2CB10CC3002F31E2 /* NSObject+Foundation_IvarDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F87D2CB10CC3002F31E2 /* NSObject+Foundation_IvarDescription.mm */; };
+		4F94F8AC2CB10CC3002F31E2 /* SwitchViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8632CB10CC3002F31E2 /* SwitchViewController.mm */; };
+		4F94F8AD2CB10CC3002F31E2 /* DisablesSleepGestureViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8202CB10CC3002F31E2 /* DisablesSleepGestureViewController.mm */; };
+		4F94F8F32CB111A8002F31E2 /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F94F8F22CB111A8002F31E2 /* WatchConnectivity.framework */; };
+		4F94F8F52CB111AE002F31E2 /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F94F8F42CB111AE002F31E2 /* WatchConnectivity.framework */; };
+		4F94F8F82CB114CF002F31E2 /* MiscellaneousPepperUICore Watch App.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4F8A34CA2C5A861400E3CFC4 /* MiscellaneousPepperUICore Watch App.app */; };
 		4F9879BA2C5A8A2700E4D2F3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9879B92C5A8A2700E4D2F3 /* UIKit.framework */; };
 		4F9879BC2C5A8A2A00E4D2F3 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9879BB2C5A8A2A00E4D2F3 /* WatchKit.framework */; };
 		4F9879BE2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9879BD2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework */; };
 		4FA997BD2C5E3369000E5AFB /* Symbols.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FA997BC2C5E3369000E5AFB /* Symbols.framework */; };
-		4FCD98E72C5CEB97001022A9 /* PageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD98E62C5CEB97001022A9 /* PageViewController.mm */; };
 		4FE056922C60C1BD00330E3A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE056912C60C1BD00330E3A /* CoreMedia.framework */; };
-		4FF12C962C60959500F82C15 /* VideoPlayerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FF12C952C60959500F82C15 /* VideoPlayerViewController.mm */; };
-		4FF12C9C2C60967700F82C15 /* 0.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 4FF12C972C60967700F82C15 /* 0.mp4 */; };
-		4FF12CB32C60BB9E00F82C15 /* MyAVSlider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FF12CB22C60BB9E00F82C15 /* MyAVSlider.mm */; };
-		4FF12CBA2C60BF5500F82C15 /* KeyValueObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF12CB52C60BF5500F82C15 /* KeyValueObservation.m */; };
-		4FF12CBB2C60BF5500F82C15 /* NSObject+KeyValueObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF12CB82C60BF5500F82C15 /* NSObject+KeyValueObservation.m */; };
-		4FFEA7DB2C5A8C9000313CAC /* SceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFEA7DA2C5A8C9000313CAC /* SceneDelegate.mm */; };
-		4FFEA7DE2C5A8D6D00313CAC /* ClassListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFEA7DD2C5A8D6D00313CAC /* ClassListViewController.mm */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		4F94F8F02CB10D72002F31E2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4F8A34C22C5A861400E3CFC4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4F8A34C92C5A861400E3CFC4;
+			remoteInfo = "MiscellaneousPepperUICore Watch App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4F94F8F72CB114BE002F31E2 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				4F94F8F82CB114CF002F31E2 /* MiscellaneousPepperUICore Watch App.app in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		4F02A0A42C60C61100C27CA7 /* VolumeIndicatorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VolumeIndicatorViewController.h; sourceTree = "<group>"; };
-		4F02A0A52C60C61100C27CA7 /* VolumeIndicatorViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VolumeIndicatorViewController.mm; sourceTree = "<group>"; };
 		4F172B1F2C5A90C4009A1DBC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		4F172B212C5A90CA009A1DBC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		4F172B232C5A90D0009A1DBC /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/AVKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F172B252C5A90D5009A1DBC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
-		4F2E2CDF2CB0112600316C9E /* SafariViewPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SafariViewPresenterViewController.h; sourceTree = "<group>"; };
-		4F2E2CE02CB0112600316C9E /* SafariViewPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SafariViewPresenterViewController.mm; sourceTree = "<group>"; };
-		4F2E2CE62CB02B6000316C9E /* WatchGesturesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WatchGesturesViewController.h; sourceTree = "<group>"; };
-		4F2E2CE72CB02B6000316C9E /* WatchGesturesViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WatchGesturesViewController.mm; sourceTree = "<group>"; };
-		4F3B20B32C5E3D4700D88762 /* PickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerViewController.h; sourceTree = "<group>"; };
-		4F3B20B42C5E3D4700D88762 /* PickerViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PickerViewController.mm; sourceTree = "<group>"; };
-		4F3B20B72C5E471000D88762 /* ActivityIndicatorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityIndicatorViewController.h; sourceTree = "<group>"; };
-		4F3B20B82C5E471000D88762 /* ActivityIndicatorViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ActivityIndicatorViewController.mm; sourceTree = "<group>"; };
-		4F3B20BF2C5E4A5A00D88762 /* TimeOffsetInputViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeOffsetInputViewController.h; sourceTree = "<group>"; };
-		4F3B20C02C5E4A5A00D88762 /* TimeOffsetInputViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TimeOffsetInputViewController.mm; sourceTree = "<group>"; };
-		4F3B20DE2C5E50E600D88762 /* QuickboardNumberPadViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickboardNumberPadViewController.h; sourceTree = "<group>"; };
-		4F3B20DF2C5E50E600D88762 /* QuickboardNumberPadViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = QuickboardNumberPadViewController.mm; sourceTree = "<group>"; };
-		4F3B20E52C5E551700D88762 /* SwitchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitchViewController.h; sourceTree = "<group>"; };
-		4F3B20E62C5E551700D88762 /* SwitchViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SwitchViewController.mm; sourceTree = "<group>"; };
-		4F3B20EC2C5E81BF00D88762 /* CompositionPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompositionPresenterViewController.h; sourceTree = "<group>"; };
-		4F3B20ED2C5E81BF00D88762 /* CompositionPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CompositionPresenterViewController.mm; sourceTree = "<group>"; };
-		4F3B20FC2C5E8DA800D88762 /* MessagePresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessagePresenterViewController.h; sourceTree = "<group>"; };
-		4F3B20FD2C5E8DA800D88762 /* MessagePresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MessagePresenterViewController.mm; sourceTree = "<group>"; };
-		4F3DC43E2C627180006A52B8 /* PhotoPickerPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoPickerPresenterViewController.h; sourceTree = "<group>"; };
-		4F3DC43F2C627180006A52B8 /* PhotoPickerPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PhotoPickerPresenterViewController.mm; sourceTree = "<group>"; };
-		4F4604432C5F713B00C12A68 /* StatusBarPlacementViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatusBarPlacementViewController.h; sourceTree = "<group>"; };
-		4F4604442C5F713B00C12A68 /* StatusBarPlacementViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = StatusBarPlacementViewController.mm; sourceTree = "<group>"; };
-		4F4604472C5F75DE00C12A68 /* StatusBarItemViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatusBarItemViewController.h; sourceTree = "<group>"; };
-		4F4604482C5F75DE00C12A68 /* StatusBarItemViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = StatusBarItemViewController.mm; sourceTree = "<group>"; };
-		4F46044B2C5F785F00C12A68 /* StatusBarAlphaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatusBarAlphaViewController.h; sourceTree = "<group>"; };
-		4F46044C2C5F785F00C12A68 /* StatusBarAlphaViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = StatusBarAlphaViewController.mm; sourceTree = "<group>"; };
-		4F46044F2C5F7C9400C12A68 /* StatusBarTimeStyleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatusBarTimeStyleViewController.h; sourceTree = "<group>"; };
-		4F4604502C5F7C9400C12A68 /* StatusBarTimeStyleViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = StatusBarTimeStyleViewController.mm; sourceTree = "<group>"; };
-		4F4604522C5F7F9A00C12A68 /* MiscellaneousPepperUICore-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "MiscellaneousPepperUICore-Watch-App-Info.plist"; sourceTree = "<group>"; };
-		4F4604542C5F801F00C12A68 /* AlwaysOnViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlwaysOnViewController.h; sourceTree = "<group>"; };
-		4F4604552C5F801F00C12A68 /* AlwaysOnViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AlwaysOnViewController.mm; sourceTree = "<group>"; };
-		4F4604712C5FC6FB00C12A68 /* EffectiveVisibilityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EffectiveVisibilityView.h; sourceTree = "<group>"; };
-		4F4604722C5FC6FB00C12A68 /* EffectiveVisibilityView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = EffectiveVisibilityView.mm; sourceTree = "<group>"; };
-		4F4604752C5FD72000C12A68 /* NetworkActivityIndicatorVisibleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkActivityIndicatorVisibleViewController.h; sourceTree = "<group>"; };
-		4F4604762C5FD72000C12A68 /* NetworkActivityIndicatorVisibleViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NetworkActivityIndicatorVisibleViewController.mm; sourceTree = "<group>"; };
-		4F4604792C5FD8FB00C12A68 /* DisablesSleepGestureViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisablesSleepGestureViewController.h; sourceTree = "<group>"; };
-		4F46047A2C5FD8FB00C12A68 /* DisablesSleepGestureViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DisablesSleepGestureViewController.mm; sourceTree = "<group>"; };
-		4F46047D2C5FDBDA00C12A68 /* WantsAutorotationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WantsAutorotationViewController.h; sourceTree = "<group>"; };
-		4F46047E2C5FDBDA00C12A68 /* WantsAutorotationViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WantsAutorotationViewController.mm; sourceTree = "<group>"; };
-		4F4605052C6125A900C12A68 /* NotificationPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationPresenterViewController.h; sourceTree = "<group>"; };
-		4F4605062C6125A900C12A68 /* NotificationPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NotificationPresenterViewController.mm; sourceTree = "<group>"; };
-		4F4605092C612D8D00C12A68 /* ContentUnavailableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContentUnavailableViewController.h; sourceTree = "<group>"; };
-		4F46050A2C612D8D00C12A68 /* ContentUnavailableViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ContentUnavailableViewController.mm; sourceTree = "<group>"; };
-		4F46050D2C61316200C12A68 /* MenuPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuPresenterViewController.h; sourceTree = "<group>"; };
-		4F46050E2C61316200C12A68 /* MenuPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MenuPresenterViewController.mm; sourceTree = "<group>"; };
+		4F27FA852CB11A2F00058509 /* WatchConnectivityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WatchConnectivityViewController.h; sourceTree = "<group>"; };
+		4F27FA862CB11A2F00058509 /* WatchConnectivityViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WatchConnectivityViewController.mm; sourceTree = "<group>"; };
+		4F4604522C5F7F9A00C12A68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4F47EA4F2C5E267700B6D032 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
-		4F74A2552C86BF750039724E /* GradientMetalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GradientMetalViewController.h; sourceTree = "<group>"; };
-		4F74A2562C86BF750039724E /* GradientMetalViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GradientMetalViewController.mm; sourceTree = "<group>"; };
-		4F74A2582C86C1300039724E /* Grid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
-		4F74A2592C86C1300039724E /* Grid.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Grid.mm; sourceTree = "<group>"; };
-		4F74A25B2C86C31D0039724E /* Renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
-		4F74A25C2C86C31D0039724E /* Renderer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Renderer.mm; sourceTree = "<group>"; };
-		4F74A25E2C86C9480039724E /* shader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = shader.metal; sourceTree = "<group>"; };
-		4F790F4C2C620B9200CEECD9 /* MenuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
-		4F790F4D2C620B9200CEECD9 /* MenuViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MenuViewController.mm; sourceTree = "<group>"; };
-		4F85F3502C5A963E00C25410 /* DigitalCrownViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DigitalCrownViewController.h; sourceTree = "<group>"; };
-		4F85F3512C5A963E00C25410 /* DigitalCrownViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DigitalCrownViewController.mm; sourceTree = "<group>"; };
-		4F85F3532C5A9CDA00C25410 /* DigitalCrownView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DigitalCrownView.h; sourceTree = "<group>"; };
-		4F85F3542C5A9CDA00C25410 /* DigitalCrownView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DigitalCrownView.mm; sourceTree = "<group>"; };
-		4F85F3922C5D350000C25410 /* SlidersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlidersViewController.h; sourceTree = "<group>"; };
-		4F85F3932C5D350000C25410 /* SlidersViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SlidersViewController.mm; sourceTree = "<group>"; };
-		4F85F3992C5E1CC200C25410 /* AlertPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlertPresenterViewController.h; sourceTree = "<group>"; };
-		4F85F39A2C5E1CC200C25410 /* AlertPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AlertPresenterViewController.mm; sourceTree = "<group>"; };
-		4F85F39D2C5E1FDC00C25410 /* SheetPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SheetPresenterViewController.h; sourceTree = "<group>"; };
-		4F85F39E2C5E1FDC00C25410 /* SheetPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SheetPresenterViewController.mm; sourceTree = "<group>"; };
-		4F86742C2C5A88DC00825FE5 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
-		4F86742E2C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Foundation_IvarDescription.h"; sourceTree = "<group>"; };
-		4F86742F2C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+Foundation_IvarDescription.mm"; sourceTree = "<group>"; };
-		4F8674312C5A893900825FE5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		4F8674322C5A893900825FE5 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		4F8A34CA2C5A861400E3CFC4 /* MiscellaneousPepperUICore Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MiscellaneousPepperUICore Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4F8A34D12C5A861500E3CFC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4F90E7432C62713F00F3E691 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/PhotosUI.framework; sourceTree = DEVELOPER_DIR; };
+		4F94F8092CB10CC3002F31E2 /* ActivityIndicatorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityIndicatorViewController.h; sourceTree = "<group>"; };
+		4F94F80A2CB10CC3002F31E2 /* ActivityIndicatorViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ActivityIndicatorViewController.mm; sourceTree = "<group>"; };
+		4F94F80C2CB10CC3002F31E2 /* AlertPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlertPresenterViewController.h; sourceTree = "<group>"; };
+		4F94F80D2CB10CC3002F31E2 /* AlertPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AlertPresenterViewController.mm; sourceTree = "<group>"; };
+		4F94F80F2CB10CC3002F31E2 /* AlwaysOnViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlwaysOnViewController.h; sourceTree = "<group>"; };
+		4F94F8102CB10CC3002F31E2 /* AlwaysOnViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AlwaysOnViewController.mm; sourceTree = "<group>"; };
+		4F94F8112CB10CC3002F31E2 /* EffectiveVisibilityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EffectiveVisibilityView.h; sourceTree = "<group>"; };
+		4F94F8122CB10CC3002F31E2 /* EffectiveVisibilityView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = EffectiveVisibilityView.mm; sourceTree = "<group>"; };
+		4F94F8142CB10CC3002F31E2 /* CompositionPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompositionPresenterViewController.h; sourceTree = "<group>"; };
+		4F94F8152CB10CC3002F31E2 /* CompositionPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CompositionPresenterViewController.mm; sourceTree = "<group>"; };
+		4F94F8172CB10CC3002F31E2 /* ContentUnavailableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContentUnavailableViewController.h; sourceTree = "<group>"; };
+		4F94F8182CB10CC3002F31E2 /* ContentUnavailableViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ContentUnavailableViewController.mm; sourceTree = "<group>"; };
+		4F94F81A2CB10CC3002F31E2 /* DigitalCrownView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DigitalCrownView.h; sourceTree = "<group>"; };
+		4F94F81B2CB10CC3002F31E2 /* DigitalCrownView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DigitalCrownView.mm; sourceTree = "<group>"; };
+		4F94F81C2CB10CC3002F31E2 /* DigitalCrownViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DigitalCrownViewController.h; sourceTree = "<group>"; };
+		4F94F81D2CB10CC3002F31E2 /* DigitalCrownViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DigitalCrownViewController.mm; sourceTree = "<group>"; };
+		4F94F81F2CB10CC3002F31E2 /* DisablesSleepGestureViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisablesSleepGestureViewController.h; sourceTree = "<group>"; };
+		4F94F8202CB10CC3002F31E2 /* DisablesSleepGestureViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DisablesSleepGestureViewController.mm; sourceTree = "<group>"; };
+		4F94F8222CB10CC3002F31E2 /* GradientMetalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GradientMetalViewController.h; sourceTree = "<group>"; };
+		4F94F8232CB10CC3002F31E2 /* GradientMetalViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GradientMetalViewController.mm; sourceTree = "<group>"; };
+		4F94F8242CB10CC3002F31E2 /* Grid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
+		4F94F8252CB10CC3002F31E2 /* Grid.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Grid.mm; sourceTree = "<group>"; };
+		4F94F8262CB10CC3002F31E2 /* Renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
+		4F94F8272CB10CC3002F31E2 /* Renderer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Renderer.mm; sourceTree = "<group>"; };
+		4F94F8282CB10CC3002F31E2 /* shader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = shader.metal; sourceTree = "<group>"; };
+		4F94F82A2CB10CC3002F31E2 /* KeyValueObservation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyValueObservation.h; sourceTree = "<group>"; };
+		4F94F82B2CB10CC3002F31E2 /* KeyValueObservation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyValueObservation.m; sourceTree = "<group>"; };
+		4F94F82C2CB10CC3002F31E2 /* KeyValueObservation+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KeyValueObservation+Private.h"; sourceTree = "<group>"; };
+		4F94F82D2CB10CC3002F31E2 /* NSObject+KeyValueObservation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+KeyValueObservation.h"; sourceTree = "<group>"; };
+		4F94F82E2CB10CC3002F31E2 /* NSObject+KeyValueObservation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KeyValueObservation.m"; sourceTree = "<group>"; };
+		4F94F8302CB10CC3002F31E2 /* MenuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		4F94F8312CB10CC3002F31E2 /* MenuViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MenuViewController.mm; sourceTree = "<group>"; };
+		4F94F8332CB10CC3002F31E2 /* MenuPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuPresenterViewController.h; sourceTree = "<group>"; };
+		4F94F8342CB10CC3002F31E2 /* MenuPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MenuPresenterViewController.mm; sourceTree = "<group>"; };
+		4F94F8362CB10CC3002F31E2 /* MessagePresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessagePresenterViewController.h; sourceTree = "<group>"; };
+		4F94F8372CB10CC3002F31E2 /* MessagePresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MessagePresenterViewController.mm; sourceTree = "<group>"; };
+		4F94F8392CB10CC3002F31E2 /* NetworkActivityIndicatorVisibleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkActivityIndicatorVisibleViewController.h; sourceTree = "<group>"; };
+		4F94F83A2CB10CC3002F31E2 /* NetworkActivityIndicatorVisibleViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NetworkActivityIndicatorVisibleViewController.mm; sourceTree = "<group>"; };
+		4F94F83C2CB10CC3002F31E2 /* NotificationPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationPresenterViewController.h; sourceTree = "<group>"; };
+		4F94F83D2CB10CC3002F31E2 /* NotificationPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NotificationPresenterViewController.mm; sourceTree = "<group>"; };
+		4F94F83F2CB10CC3002F31E2 /* PageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
+		4F94F8402CB10CC3002F31E2 /* PageViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PageViewController.mm; sourceTree = "<group>"; };
+		4F94F8422CB10CC3002F31E2 /* PhotoPickerPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoPickerPresenterViewController.h; sourceTree = "<group>"; };
+		4F94F8432CB10CC3002F31E2 /* PhotoPickerPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PhotoPickerPresenterViewController.mm; sourceTree = "<group>"; };
+		4F94F8452CB10CC3002F31E2 /* PickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerViewController.h; sourceTree = "<group>"; };
+		4F94F8462CB10CC3002F31E2 /* PickerViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PickerViewController.mm; sourceTree = "<group>"; };
+		4F94F8482CB10CC3002F31E2 /* QuickboardNumberPadViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickboardNumberPadViewController.h; sourceTree = "<group>"; };
+		4F94F8492CB10CC3002F31E2 /* QuickboardNumberPadViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = QuickboardNumberPadViewController.mm; sourceTree = "<group>"; };
+		4F94F84B2CB10CC3002F31E2 /* 0.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 0.mp4; sourceTree = "<group>"; };
+		4F94F84D2CB10CC3002F31E2 /* SafariViewPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SafariViewPresenterViewController.h; sourceTree = "<group>"; };
+		4F94F84E2CB10CC3002F31E2 /* SafariViewPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SafariViewPresenterViewController.mm; sourceTree = "<group>"; };
+		4F94F8502CB10CC3002F31E2 /* SheetPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SheetPresenterViewController.h; sourceTree = "<group>"; };
+		4F94F8512CB10CC3002F31E2 /* SheetPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SheetPresenterViewController.mm; sourceTree = "<group>"; };
+		4F94F8532CB10CC3002F31E2 /* SlidersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlidersViewController.h; sourceTree = "<group>"; };
+		4F94F8542CB10CC3002F31E2 /* SlidersViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SlidersViewController.mm; sourceTree = "<group>"; };
+		4F94F8562CB10CC3002F31E2 /* StatusBarAlphaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatusBarAlphaViewController.h; sourceTree = "<group>"; };
+		4F94F8572CB10CC3002F31E2 /* StatusBarAlphaViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = StatusBarAlphaViewController.mm; sourceTree = "<group>"; };
+		4F94F8592CB10CC3002F31E2 /* StatusBarItemViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatusBarItemViewController.h; sourceTree = "<group>"; };
+		4F94F85A2CB10CC3002F31E2 /* StatusBarItemViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = StatusBarItemViewController.mm; sourceTree = "<group>"; };
+		4F94F85C2CB10CC3002F31E2 /* StatusBarPlacementViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatusBarPlacementViewController.h; sourceTree = "<group>"; };
+		4F94F85D2CB10CC3002F31E2 /* StatusBarPlacementViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = StatusBarPlacementViewController.mm; sourceTree = "<group>"; };
+		4F94F85F2CB10CC3002F31E2 /* StatusBarTimeStyleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatusBarTimeStyleViewController.h; sourceTree = "<group>"; };
+		4F94F8602CB10CC3002F31E2 /* StatusBarTimeStyleViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = StatusBarTimeStyleViewController.mm; sourceTree = "<group>"; };
+		4F94F8622CB10CC3002F31E2 /* SwitchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitchViewController.h; sourceTree = "<group>"; };
+		4F94F8632CB10CC3002F31E2 /* SwitchViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SwitchViewController.mm; sourceTree = "<group>"; };
+		4F94F8652CB10CC3002F31E2 /* TimeOffsetInputViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeOffsetInputViewController.h; sourceTree = "<group>"; };
+		4F94F8662CB10CC3002F31E2 /* TimeOffsetInputViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TimeOffsetInputViewController.mm; sourceTree = "<group>"; };
+		4F94F8682CB10CC3002F31E2 /* MyAVSlider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAVSlider.h; sourceTree = "<group>"; };
+		4F94F8692CB10CC3002F31E2 /* MyAVSlider.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MyAVSlider.mm; sourceTree = "<group>"; };
+		4F94F86A2CB10CC3002F31E2 /* VideoPlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoPlayerViewController.h; sourceTree = "<group>"; };
+		4F94F86B2CB10CC3002F31E2 /* VideoPlayerViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VideoPlayerViewController.mm; sourceTree = "<group>"; };
+		4F94F86D2CB10CC3002F31E2 /* VolumeIndicatorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VolumeIndicatorViewController.h; sourceTree = "<group>"; };
+		4F94F86E2CB10CC3002F31E2 /* VolumeIndicatorViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VolumeIndicatorViewController.mm; sourceTree = "<group>"; };
+		4F94F8702CB10CC3002F31E2 /* WantsAutorotationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WantsAutorotationViewController.h; sourceTree = "<group>"; };
+		4F94F8712CB10CC3002F31E2 /* WantsAutorotationViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WantsAutorotationViewController.mm; sourceTree = "<group>"; };
+		4F94F8732CB10CC3002F31E2 /* WatchGesturesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WatchGesturesViewController.h; sourceTree = "<group>"; };
+		4F94F8742CB10CC3002F31E2 /* WatchGesturesViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WatchGesturesViewController.mm; sourceTree = "<group>"; };
+		4F94F8762CB10CC3002F31E2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		4F94F8772CB10CC3002F31E2 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		4F94F8782CB10CC3002F31E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4F94F8792CB10CC3002F31E2 /* ClassListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassListViewController.h; sourceTree = "<group>"; };
+		4F94F87A2CB10CC3002F31E2 /* ClassListViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ClassListViewController.mm; sourceTree = "<group>"; };
+		4F94F87B2CB10CC3002F31E2 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
+		4F94F87C2CB10CC3002F31E2 /* NSObject+Foundation_IvarDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Foundation_IvarDescription.h"; sourceTree = "<group>"; };
+		4F94F87D2CB10CC3002F31E2 /* NSObject+Foundation_IvarDescription.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+Foundation_IvarDescription.mm"; sourceTree = "<group>"; };
+		4F94F87E2CB10CC3002F31E2 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		4F94F87F2CB10CC3002F31E2 /* SceneDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SceneDelegate.mm; sourceTree = "<group>"; };
+		4F94F8B22CB10D2D002F31E2 /* MiscellaneousPepperUICore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiscellaneousPepperUICore.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F94F8F22CB111A8002F31E2 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.1.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
+		4F94F8F42CB111AE002F31E2 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.1.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
 		4F9879B92C5A8A2700E4D2F3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F9879BB2C5A8A2A00E4D2F3 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/WatchKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F9879BD2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = DEVELOPER_DIR; };
 		4FA997BC2C5E3369000E5AFB /* Symbols.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Symbols.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/Symbols.framework; sourceTree = DEVELOPER_DIR; };
-		4FCD98E52C5CEB97001022A9 /* PageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
-		4FCD98E62C5CEB97001022A9 /* PageViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PageViewController.mm; sourceTree = "<group>"; };
 		4FE056912C60C1BD00330E3A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
-		4FF12C942C60959500F82C15 /* VideoPlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoPlayerViewController.h; sourceTree = "<group>"; };
-		4FF12C952C60959500F82C15 /* VideoPlayerViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VideoPlayerViewController.mm; sourceTree = "<group>"; };
-		4FF12C972C60967700F82C15 /* 0.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 0.mp4; sourceTree = "<group>"; };
-		4FF12CB12C60BB9E00F82C15 /* MyAVSlider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAVSlider.h; sourceTree = "<group>"; };
-		4FF12CB22C60BB9E00F82C15 /* MyAVSlider.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MyAVSlider.mm; sourceTree = "<group>"; };
-		4FF12CB42C60BF5500F82C15 /* KeyValueObservation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyValueObservation.h; sourceTree = "<group>"; };
-		4FF12CB52C60BF5500F82C15 /* KeyValueObservation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyValueObservation.m; sourceTree = "<group>"; };
-		4FF12CB62C60BF5500F82C15 /* KeyValueObservation+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KeyValueObservation+Private.h"; sourceTree = "<group>"; };
-		4FF12CB72C60BF5500F82C15 /* NSObject+KeyValueObservation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+KeyValueObservation.h"; sourceTree = "<group>"; };
-		4FF12CB82C60BF5500F82C15 /* NSObject+KeyValueObservation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KeyValueObservation.m"; sourceTree = "<group>"; };
-		4FFEA7D92C5A8C9000313CAC /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
-		4FFEA7DA2C5A8C9000313CAC /* SceneDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SceneDelegate.mm; sourceTree = "<group>"; };
-		4FFEA7DC2C5A8D6D00313CAC /* ClassListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassListViewController.h; sourceTree = "<group>"; };
-		4FFEA7DD2C5A8D6D00313CAC /* ClassListViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ClassListViewController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4F94F8C82CB10D2E002F31E2 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 4F94F8B12CB10D2D002F31E2 /* MiscellaneousPepperUICore */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		4F94F8B32CB10D2D002F31E2 /* MiscellaneousPepperUICore */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (4F94F8C82CB10D2E002F31E2 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = MiscellaneousPepperUICore; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		4F8A34C72C5A861400E3CFC4 /* Frameworks */ = {
@@ -178,6 +224,7 @@
 				4F9879BE2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework in Frameworks */,
 				4F47EA502C5E267700B6D032 /* MapKit.framework in Frameworks */,
 				4F172B242C5A90D0009A1DBC /* AVKit.framework in Frameworks */,
+				4F94F8F52CB111AE002F31E2 /* WatchConnectivity.framework in Frameworks */,
 				4FE056922C60C1BD00330E3A /* CoreMedia.framework in Frameworks */,
 				4F9879BA2C5A8A2700E4D2F3 /* UIKit.framework in Frameworks */,
 				4FA997BD2C5E3369000E5AFB /* Symbols.framework in Frameworks */,
@@ -187,275 +234,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4F94F8AF2CB10D2D002F31E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F94F8F32CB111A8002F31E2 /* WatchConnectivity.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4F02A0A32C60C60000C27CA7 /* VolumeIndicator */ = {
+		4F27FA842CB11A1100058509 /* WatchConnectivity */ = {
 			isa = PBXGroup;
 			children = (
-				4F02A0A42C60C61100C27CA7 /* VolumeIndicatorViewController.h */,
-				4F02A0A52C60C61100C27CA7 /* VolumeIndicatorViewController.mm */,
+				4F27FA852CB11A2F00058509 /* WatchConnectivityViewController.h */,
+				4F27FA862CB11A2F00058509 /* WatchConnectivityViewController.mm */,
 			);
-			path = VolumeIndicator;
-			sourceTree = "<group>";
-		};
-		4F2E2CDE2CB010E300316C9E /* SafariViewPresenter */ = {
-			isa = PBXGroup;
-			children = (
-				4F2E2CDF2CB0112600316C9E /* SafariViewPresenterViewController.h */,
-				4F2E2CE02CB0112600316C9E /* SafariViewPresenterViewController.mm */,
-			);
-			path = SafariViewPresenter;
-			sourceTree = "<group>";
-		};
-		4F2E2CE52CB02B4000316C9E /* WatchGestures */ = {
-			isa = PBXGroup;
-			children = (
-				4F2E2CE62CB02B6000316C9E /* WatchGesturesViewController.h */,
-				4F2E2CE72CB02B6000316C9E /* WatchGesturesViewController.mm */,
-			);
-			path = WatchGestures;
-			sourceTree = "<group>";
-		};
-		4F3B20B22C5E3D3600D88762 /* Picker */ = {
-			isa = PBXGroup;
-			children = (
-				4F3B20B32C5E3D4700D88762 /* PickerViewController.h */,
-				4F3B20B42C5E3D4700D88762 /* PickerViewController.mm */,
-			);
-			path = Picker;
-			sourceTree = "<group>";
-		};
-		4F3B20B62C5E46F800D88762 /* ActivityIndicator */ = {
-			isa = PBXGroup;
-			children = (
-				4F3B20B72C5E471000D88762 /* ActivityIndicatorViewController.h */,
-				4F3B20B82C5E471000D88762 /* ActivityIndicatorViewController.mm */,
-			);
-			path = ActivityIndicator;
-			sourceTree = "<group>";
-		};
-		4F3B20BE2C5E4A4800D88762 /* TimeOffsetInput */ = {
-			isa = PBXGroup;
-			children = (
-				4F3B20BF2C5E4A5A00D88762 /* TimeOffsetInputViewController.h */,
-				4F3B20C02C5E4A5A00D88762 /* TimeOffsetInputViewController.mm */,
-			);
-			path = TimeOffsetInput;
-			sourceTree = "<group>";
-		};
-		4F3B20DD2C5E50D300D88762 /* QuickboardNumberPad */ = {
-			isa = PBXGroup;
-			children = (
-				4F3B20DE2C5E50E600D88762 /* QuickboardNumberPadViewController.h */,
-				4F3B20DF2C5E50E600D88762 /* QuickboardNumberPadViewController.mm */,
-			);
-			path = QuickboardNumberPad;
-			sourceTree = "<group>";
-		};
-		4F3B20E42C5E54FD00D88762 /* Switch */ = {
-			isa = PBXGroup;
-			children = (
-				4F3B20E52C5E551700D88762 /* SwitchViewController.h */,
-				4F3B20E62C5E551700D88762 /* SwitchViewController.mm */,
-			);
-			path = Switch;
-			sourceTree = "<group>";
-		};
-		4F3B20EB2C5E81AA00D88762 /* CompositionPresenter */ = {
-			isa = PBXGroup;
-			children = (
-				4F3B20EC2C5E81BF00D88762 /* CompositionPresenterViewController.h */,
-				4F3B20ED2C5E81BF00D88762 /* CompositionPresenterViewController.mm */,
-			);
-			path = CompositionPresenter;
-			sourceTree = "<group>";
-		};
-		4F3B20FB2C5E8D8A00D88762 /* MessagePresenter */ = {
-			isa = PBXGroup;
-			children = (
-				4F3B20FC2C5E8DA800D88762 /* MessagePresenterViewController.h */,
-				4F3B20FD2C5E8DA800D88762 /* MessagePresenterViewController.mm */,
-			);
-			path = MessagePresenter;
-			sourceTree = "<group>";
-		};
-		4F3DC43D2C627173006A52B8 /* PhotoPickerPresenter */ = {
-			isa = PBXGroup;
-			children = (
-				4F3DC43E2C627180006A52B8 /* PhotoPickerPresenterViewController.h */,
-				4F3DC43F2C627180006A52B8 /* PhotoPickerPresenterViewController.mm */,
-			);
-			path = PhotoPickerPresenter;
-			sourceTree = "<group>";
-		};
-		4F4604422C5F711F00C12A68 /* StatusBarPlacement */ = {
-			isa = PBXGroup;
-			children = (
-				4F4604432C5F713B00C12A68 /* StatusBarPlacementViewController.h */,
-				4F4604442C5F713B00C12A68 /* StatusBarPlacementViewController.mm */,
-			);
-			path = StatusBarPlacement;
-			sourceTree = "<group>";
-		};
-		4F4604462C5F75CF00C12A68 /* StatusBarItem */ = {
-			isa = PBXGroup;
-			children = (
-				4F4604472C5F75DE00C12A68 /* StatusBarItemViewController.h */,
-				4F4604482C5F75DE00C12A68 /* StatusBarItemViewController.mm */,
-			);
-			path = StatusBarItem;
-			sourceTree = "<group>";
-		};
-		4F46044A2C5F784B00C12A68 /* StatusBarAlpha */ = {
-			isa = PBXGroup;
-			children = (
-				4F46044B2C5F785F00C12A68 /* StatusBarAlphaViewController.h */,
-				4F46044C2C5F785F00C12A68 /* StatusBarAlphaViewController.mm */,
-			);
-			path = StatusBarAlpha;
-			sourceTree = "<group>";
-		};
-		4F46044E2C5F7C7E00C12A68 /* StatusBarTimeStyle */ = {
-			isa = PBXGroup;
-			children = (
-				4F46044F2C5F7C9400C12A68 /* StatusBarTimeStyleViewController.h */,
-				4F4604502C5F7C9400C12A68 /* StatusBarTimeStyleViewController.mm */,
-			);
-			path = StatusBarTimeStyle;
-			sourceTree = "<group>";
-		};
-		4F4604532C5F7FAA00C12A68 /* AlwaysOn */ = {
-			isa = PBXGroup;
-			children = (
-				4F4604542C5F801F00C12A68 /* AlwaysOnViewController.h */,
-				4F4604552C5F801F00C12A68 /* AlwaysOnViewController.mm */,
-				4F4604712C5FC6FB00C12A68 /* EffectiveVisibilityView.h */,
-				4F4604722C5FC6FB00C12A68 /* EffectiveVisibilityView.mm */,
-			);
-			path = AlwaysOn;
-			sourceTree = "<group>";
-		};
-		4F4604742C5FD70800C12A68 /* NetworkActivityIndicatorVisible */ = {
-			isa = PBXGroup;
-			children = (
-				4F4604752C5FD72000C12A68 /* NetworkActivityIndicatorVisibleViewController.h */,
-				4F4604762C5FD72000C12A68 /* NetworkActivityIndicatorVisibleViewController.mm */,
-			);
-			path = NetworkActivityIndicatorVisible;
-			sourceTree = "<group>";
-		};
-		4F4604782C5FD8EE00C12A68 /* DisablesSleepGesture */ = {
-			isa = PBXGroup;
-			children = (
-				4F4604792C5FD8FB00C12A68 /* DisablesSleepGestureViewController.h */,
-				4F46047A2C5FD8FB00C12A68 /* DisablesSleepGestureViewController.mm */,
-			);
-			path = DisablesSleepGesture;
-			sourceTree = "<group>";
-		};
-		4F46047C2C5FDBCD00C12A68 /* WantsAutorotation */ = {
-			isa = PBXGroup;
-			children = (
-				4F46047D2C5FDBDA00C12A68 /* WantsAutorotationViewController.h */,
-				4F46047E2C5FDBDA00C12A68 /* WantsAutorotationViewController.mm */,
-			);
-			path = WantsAutorotation;
-			sourceTree = "<group>";
-		};
-		4F4605022C61258500C12A68 /* NotificationPresenter */ = {
-			isa = PBXGroup;
-			children = (
-				4F4605052C6125A900C12A68 /* NotificationPresenterViewController.h */,
-				4F4605062C6125A900C12A68 /* NotificationPresenterViewController.mm */,
-			);
-			path = NotificationPresenter;
-			sourceTree = "<group>";
-		};
-		4F4605082C612D7D00C12A68 /* ContentUnavailable */ = {
-			isa = PBXGroup;
-			children = (
-				4F4605092C612D8D00C12A68 /* ContentUnavailableViewController.h */,
-				4F46050A2C612D8D00C12A68 /* ContentUnavailableViewController.mm */,
-			);
-			path = ContentUnavailable;
-			sourceTree = "<group>";
-		};
-		4F46050C2C61314900C12A68 /* MenuPresenter */ = {
-			isa = PBXGroup;
-			children = (
-				4F46050D2C61316200C12A68 /* MenuPresenterViewController.h */,
-				4F46050E2C61316200C12A68 /* MenuPresenterViewController.mm */,
-			);
-			path = MenuPresenter;
-			sourceTree = "<group>";
-		};
-		4F74A2542C86BF500039724E /* GradientMetal */ = {
-			isa = PBXGroup;
-			children = (
-				4F74A2552C86BF750039724E /* GradientMetalViewController.h */,
-				4F74A2562C86BF750039724E /* GradientMetalViewController.mm */,
-				4F74A2582C86C1300039724E /* Grid.h */,
-				4F74A2592C86C1300039724E /* Grid.mm */,
-				4F74A25B2C86C31D0039724E /* Renderer.h */,
-				4F74A25C2C86C31D0039724E /* Renderer.mm */,
-				4F74A25E2C86C9480039724E /* shader.metal */,
-			);
-			path = GradientMetal;
-			sourceTree = "<group>";
-		};
-		4F790F4B2C620B6600CEECD9 /* Menu */ = {
-			isa = PBXGroup;
-			children = (
-				4F790F4C2C620B9200CEECD9 /* MenuViewController.h */,
-				4F790F4D2C620B9200CEECD9 /* MenuViewController.mm */,
-			);
-			path = Menu;
-			sourceTree = "<group>";
-		};
-		4F85F34F2C5A960A00C25410 /* DigitalCrown */ = {
-			isa = PBXGroup;
-			children = (
-				4F85F3502C5A963E00C25410 /* DigitalCrownViewController.h */,
-				4F85F3512C5A963E00C25410 /* DigitalCrownViewController.mm */,
-				4F85F3532C5A9CDA00C25410 /* DigitalCrownView.h */,
-				4F85F3542C5A9CDA00C25410 /* DigitalCrownView.mm */,
-			);
-			path = DigitalCrown;
-			sourceTree = "<group>";
-		};
-		4F85F3912C5D34ED00C25410 /* Sliders */ = {
-			isa = PBXGroup;
-			children = (
-				4F85F3922C5D350000C25410 /* SlidersViewController.h */,
-				4F85F3932C5D350000C25410 /* SlidersViewController.mm */,
-			);
-			path = Sliders;
-			sourceTree = "<group>";
-		};
-		4F85F3982C5E1CA700C25410 /* AlertPresenter */ = {
-			isa = PBXGroup;
-			children = (
-				4F85F3992C5E1CC200C25410 /* AlertPresenterViewController.h */,
-				4F85F39A2C5E1CC200C25410 /* AlertPresenterViewController.mm */,
-			);
-			path = AlertPresenter;
-			sourceTree = "<group>";
-		};
-		4F85F39C2C5E1F7700C25410 /* SheetPresenter */ = {
-			isa = PBXGroup;
-			children = (
-				4F85F39D2C5E1FDC00C25410 /* SheetPresenterViewController.h */,
-				4F85F39E2C5E1FDC00C25410 /* SheetPresenterViewController.mm */,
-			);
-			path = SheetPresenter;
+			path = WatchConnectivity;
 			sourceTree = "<group>";
 		};
 		4F8A34C12C5A861400E3CFC4 = {
 			isa = PBXGroup;
 			children = (
-				4F4604522C5F7F9A00C12A68 /* MiscellaneousPepperUICore-Watch-App-Info.plist */,
-				4F8A34CC2C5A861400E3CFC4 /* MiscellaneousPepperUICore */,
+				4F94F8B32CB10D2D002F31E2 /* MiscellaneousPepperUICore */,
+				4F94F8802CB10CC3002F31E2 /* MiscellaneousPepperUICore Watch App */,
 				4F8A34CB2C5A861400E3CFC4 /* Products */,
 				4F9879B82C5A8A2600E4D2F3 /* Frameworks */,
 			);
@@ -465,62 +268,368 @@
 			isa = PBXGroup;
 			children = (
 				4F8A34CA2C5A861400E3CFC4 /* MiscellaneousPepperUICore Watch App.app */,
+				4F94F8B22CB10D2D002F31E2 /* MiscellaneousPepperUICore.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4F8A34CC2C5A861400E3CFC4 /* MiscellaneousPepperUICore */ = {
+		4F94F80B2CB10CC3002F31E2 /* ActivityIndicator */ = {
 			isa = PBXGroup;
 			children = (
-				4FF12CB92C60BF5500F82C15 /* KeyValueObservation */,
-				4FF12C9A2C60967700F82C15 /* Resources */,
-				4F8674312C5A893900825FE5 /* AppDelegate.h */,
-				4F8674322C5A893900825FE5 /* AppDelegate.mm */,
-				4FFEA7D92C5A8C9000313CAC /* SceneDelegate.h */,
-				4FFEA7DA2C5A8C9000313CAC /* SceneDelegate.mm */,
-				4F8A34D12C5A861500E3CFC4 /* Assets.xcassets */,
-				4F86742C2C5A88DC00825FE5 /* main.mm */,
-				4F86742E2C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.h */,
-				4F86742F2C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.mm */,
-				4FFEA7DC2C5A8D6D00313CAC /* ClassListViewController.h */,
-				4FFEA7DD2C5A8D6D00313CAC /* ClassListViewController.mm */,
-				4F85F34F2C5A960A00C25410 /* DigitalCrown */,
-				4FCD98E42C5CEB7F001022A9 /* Page */,
-				4F85F3912C5D34ED00C25410 /* Sliders */,
-				4F85F3982C5E1CA700C25410 /* AlertPresenter */,
-				4F85F39C2C5E1F7700C25410 /* SheetPresenter */,
-				4F3B20B22C5E3D3600D88762 /* Picker */,
-				4F3B20B62C5E46F800D88762 /* ActivityIndicator */,
-				4F3B20BE2C5E4A4800D88762 /* TimeOffsetInput */,
-				4F3B20DD2C5E50D300D88762 /* QuickboardNumberPad */,
-				4F3B20E42C5E54FD00D88762 /* Switch */,
-				4F3B20EB2C5E81AA00D88762 /* CompositionPresenter */,
-				4F3B20FB2C5E8D8A00D88762 /* MessagePresenter */,
-				4F4604422C5F711F00C12A68 /* StatusBarPlacement */,
-				4F4604462C5F75CF00C12A68 /* StatusBarItem */,
-				4F46044A2C5F784B00C12A68 /* StatusBarAlpha */,
-				4F46044E2C5F7C7E00C12A68 /* StatusBarTimeStyle */,
-				4F4604532C5F7FAA00C12A68 /* AlwaysOn */,
-				4F4604742C5FD70800C12A68 /* NetworkActivityIndicatorVisible */,
-				4F4604782C5FD8EE00C12A68 /* DisablesSleepGesture */,
-				4F46047C2C5FDBCD00C12A68 /* WantsAutorotation */,
-				4FF12C932C60956C00F82C15 /* VideoPlayer */,
-				4F02A0A32C60C60000C27CA7 /* VolumeIndicator */,
-				4F4605022C61258500C12A68 /* NotificationPresenter */,
-				4F4605082C612D7D00C12A68 /* ContentUnavailable */,
-				4F46050C2C61314900C12A68 /* MenuPresenter */,
-				4F790F4B2C620B6600CEECD9 /* Menu */,
-				4F3DC43D2C627173006A52B8 /* PhotoPickerPresenter */,
-				4F74A2542C86BF500039724E /* GradientMetal */,
-				4F2E2CDE2CB010E300316C9E /* SafariViewPresenter */,
-				4F2E2CE52CB02B4000316C9E /* WatchGestures */,
+				4F94F8092CB10CC3002F31E2 /* ActivityIndicatorViewController.h */,
+				4F94F80A2CB10CC3002F31E2 /* ActivityIndicatorViewController.mm */,
 			);
-			path = MiscellaneousPepperUICore;
+			path = ActivityIndicator;
+			sourceTree = "<group>";
+		};
+		4F94F80E2CB10CC3002F31E2 /* AlertPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F80C2CB10CC3002F31E2 /* AlertPresenterViewController.h */,
+				4F94F80D2CB10CC3002F31E2 /* AlertPresenterViewController.mm */,
+			);
+			path = AlertPresenter;
+			sourceTree = "<group>";
+		};
+		4F94F8132CB10CC3002F31E2 /* AlwaysOn */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F80F2CB10CC3002F31E2 /* AlwaysOnViewController.h */,
+				4F94F8102CB10CC3002F31E2 /* AlwaysOnViewController.mm */,
+				4F94F8112CB10CC3002F31E2 /* EffectiveVisibilityView.h */,
+				4F94F8122CB10CC3002F31E2 /* EffectiveVisibilityView.mm */,
+			);
+			path = AlwaysOn;
+			sourceTree = "<group>";
+		};
+		4F94F8162CB10CC3002F31E2 /* CompositionPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F8142CB10CC3002F31E2 /* CompositionPresenterViewController.h */,
+				4F94F8152CB10CC3002F31E2 /* CompositionPresenterViewController.mm */,
+			);
+			path = CompositionPresenter;
+			sourceTree = "<group>";
+		};
+		4F94F8192CB10CC3002F31E2 /* ContentUnavailable */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F8172CB10CC3002F31E2 /* ContentUnavailableViewController.h */,
+				4F94F8182CB10CC3002F31E2 /* ContentUnavailableViewController.mm */,
+			);
+			path = ContentUnavailable;
+			sourceTree = "<group>";
+		};
+		4F94F81E2CB10CC3002F31E2 /* DigitalCrown */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F81A2CB10CC3002F31E2 /* DigitalCrownView.h */,
+				4F94F81B2CB10CC3002F31E2 /* DigitalCrownView.mm */,
+				4F94F81C2CB10CC3002F31E2 /* DigitalCrownViewController.h */,
+				4F94F81D2CB10CC3002F31E2 /* DigitalCrownViewController.mm */,
+			);
+			path = DigitalCrown;
+			sourceTree = "<group>";
+		};
+		4F94F8212CB10CC3002F31E2 /* DisablesSleepGesture */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F81F2CB10CC3002F31E2 /* DisablesSleepGestureViewController.h */,
+				4F94F8202CB10CC3002F31E2 /* DisablesSleepGestureViewController.mm */,
+			);
+			path = DisablesSleepGesture;
+			sourceTree = "<group>";
+		};
+		4F94F8292CB10CC3002F31E2 /* GradientMetal */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F8222CB10CC3002F31E2 /* GradientMetalViewController.h */,
+				4F94F8232CB10CC3002F31E2 /* GradientMetalViewController.mm */,
+				4F94F8242CB10CC3002F31E2 /* Grid.h */,
+				4F94F8252CB10CC3002F31E2 /* Grid.mm */,
+				4F94F8262CB10CC3002F31E2 /* Renderer.h */,
+				4F94F8272CB10CC3002F31E2 /* Renderer.mm */,
+				4F94F8282CB10CC3002F31E2 /* shader.metal */,
+			);
+			path = GradientMetal;
+			sourceTree = "<group>";
+		};
+		4F94F82F2CB10CC3002F31E2 /* KeyValueObservation */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F82A2CB10CC3002F31E2 /* KeyValueObservation.h */,
+				4F94F82B2CB10CC3002F31E2 /* KeyValueObservation.m */,
+				4F94F82C2CB10CC3002F31E2 /* KeyValueObservation+Private.h */,
+				4F94F82D2CB10CC3002F31E2 /* NSObject+KeyValueObservation.h */,
+				4F94F82E2CB10CC3002F31E2 /* NSObject+KeyValueObservation.m */,
+			);
+			path = KeyValueObservation;
+			sourceTree = "<group>";
+		};
+		4F94F8322CB10CC3002F31E2 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F8302CB10CC3002F31E2 /* MenuViewController.h */,
+				4F94F8312CB10CC3002F31E2 /* MenuViewController.mm */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		4F94F8352CB10CC3002F31E2 /* MenuPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F8332CB10CC3002F31E2 /* MenuPresenterViewController.h */,
+				4F94F8342CB10CC3002F31E2 /* MenuPresenterViewController.mm */,
+			);
+			path = MenuPresenter;
+			sourceTree = "<group>";
+		};
+		4F94F8382CB10CC3002F31E2 /* MessagePresenter */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F8362CB10CC3002F31E2 /* MessagePresenterViewController.h */,
+				4F94F8372CB10CC3002F31E2 /* MessagePresenterViewController.mm */,
+			);
+			path = MessagePresenter;
+			sourceTree = "<group>";
+		};
+		4F94F83B2CB10CC3002F31E2 /* NetworkActivityIndicatorVisible */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F8392CB10CC3002F31E2 /* NetworkActivityIndicatorVisibleViewController.h */,
+				4F94F83A2CB10CC3002F31E2 /* NetworkActivityIndicatorVisibleViewController.mm */,
+			);
+			path = NetworkActivityIndicatorVisible;
+			sourceTree = "<group>";
+		};
+		4F94F83E2CB10CC3002F31E2 /* NotificationPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F83C2CB10CC3002F31E2 /* NotificationPresenterViewController.h */,
+				4F94F83D2CB10CC3002F31E2 /* NotificationPresenterViewController.mm */,
+			);
+			path = NotificationPresenter;
+			sourceTree = "<group>";
+		};
+		4F94F8412CB10CC3002F31E2 /* Page */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F83F2CB10CC3002F31E2 /* PageViewController.h */,
+				4F94F8402CB10CC3002F31E2 /* PageViewController.mm */,
+			);
+			path = Page;
+			sourceTree = "<group>";
+		};
+		4F94F8442CB10CC3002F31E2 /* PhotoPickerPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F8422CB10CC3002F31E2 /* PhotoPickerPresenterViewController.h */,
+				4F94F8432CB10CC3002F31E2 /* PhotoPickerPresenterViewController.mm */,
+			);
+			path = PhotoPickerPresenter;
+			sourceTree = "<group>";
+		};
+		4F94F8472CB10CC3002F31E2 /* Picker */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F8452CB10CC3002F31E2 /* PickerViewController.h */,
+				4F94F8462CB10CC3002F31E2 /* PickerViewController.mm */,
+			);
+			path = Picker;
+			sourceTree = "<group>";
+		};
+		4F94F84A2CB10CC3002F31E2 /* QuickboardNumberPad */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F8482CB10CC3002F31E2 /* QuickboardNumberPadViewController.h */,
+				4F94F8492CB10CC3002F31E2 /* QuickboardNumberPadViewController.mm */,
+			);
+			path = QuickboardNumberPad;
+			sourceTree = "<group>";
+		};
+		4F94F84C2CB10CC3002F31E2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F84B2CB10CC3002F31E2 /* 0.mp4 */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		4F94F84F2CB10CC3002F31E2 /* SafariViewPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F84D2CB10CC3002F31E2 /* SafariViewPresenterViewController.h */,
+				4F94F84E2CB10CC3002F31E2 /* SafariViewPresenterViewController.mm */,
+			);
+			path = SafariViewPresenter;
+			sourceTree = "<group>";
+		};
+		4F94F8522CB10CC3002F31E2 /* SheetPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F8502CB10CC3002F31E2 /* SheetPresenterViewController.h */,
+				4F94F8512CB10CC3002F31E2 /* SheetPresenterViewController.mm */,
+			);
+			path = SheetPresenter;
+			sourceTree = "<group>";
+		};
+		4F94F8552CB10CC3002F31E2 /* Sliders */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F8532CB10CC3002F31E2 /* SlidersViewController.h */,
+				4F94F8542CB10CC3002F31E2 /* SlidersViewController.mm */,
+			);
+			path = Sliders;
+			sourceTree = "<group>";
+		};
+		4F94F8582CB10CC3002F31E2 /* StatusBarAlpha */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F8562CB10CC3002F31E2 /* StatusBarAlphaViewController.h */,
+				4F94F8572CB10CC3002F31E2 /* StatusBarAlphaViewController.mm */,
+			);
+			path = StatusBarAlpha;
+			sourceTree = "<group>";
+		};
+		4F94F85B2CB10CC3002F31E2 /* StatusBarItem */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F8592CB10CC3002F31E2 /* StatusBarItemViewController.h */,
+				4F94F85A2CB10CC3002F31E2 /* StatusBarItemViewController.mm */,
+			);
+			path = StatusBarItem;
+			sourceTree = "<group>";
+		};
+		4F94F85E2CB10CC3002F31E2 /* StatusBarPlacement */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F85C2CB10CC3002F31E2 /* StatusBarPlacementViewController.h */,
+				4F94F85D2CB10CC3002F31E2 /* StatusBarPlacementViewController.mm */,
+			);
+			path = StatusBarPlacement;
+			sourceTree = "<group>";
+		};
+		4F94F8612CB10CC3002F31E2 /* StatusBarTimeStyle */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F85F2CB10CC3002F31E2 /* StatusBarTimeStyleViewController.h */,
+				4F94F8602CB10CC3002F31E2 /* StatusBarTimeStyleViewController.mm */,
+			);
+			path = StatusBarTimeStyle;
+			sourceTree = "<group>";
+		};
+		4F94F8642CB10CC3002F31E2 /* Switch */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F8622CB10CC3002F31E2 /* SwitchViewController.h */,
+				4F94F8632CB10CC3002F31E2 /* SwitchViewController.mm */,
+			);
+			path = Switch;
+			sourceTree = "<group>";
+		};
+		4F94F8672CB10CC3002F31E2 /* TimeOffsetInput */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F8652CB10CC3002F31E2 /* TimeOffsetInputViewController.h */,
+				4F94F8662CB10CC3002F31E2 /* TimeOffsetInputViewController.mm */,
+			);
+			path = TimeOffsetInput;
+			sourceTree = "<group>";
+		};
+		4F94F86C2CB10CC3002F31E2 /* VideoPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F8682CB10CC3002F31E2 /* MyAVSlider.h */,
+				4F94F8692CB10CC3002F31E2 /* MyAVSlider.mm */,
+				4F94F86A2CB10CC3002F31E2 /* VideoPlayerViewController.h */,
+				4F94F86B2CB10CC3002F31E2 /* VideoPlayerViewController.mm */,
+			);
+			path = VideoPlayer;
+			sourceTree = "<group>";
+		};
+		4F94F86F2CB10CC3002F31E2 /* VolumeIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F86D2CB10CC3002F31E2 /* VolumeIndicatorViewController.h */,
+				4F94F86E2CB10CC3002F31E2 /* VolumeIndicatorViewController.mm */,
+			);
+			path = VolumeIndicator;
+			sourceTree = "<group>";
+		};
+		4F94F8722CB10CC3002F31E2 /* WantsAutorotation */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F8702CB10CC3002F31E2 /* WantsAutorotationViewController.h */,
+				4F94F8712CB10CC3002F31E2 /* WantsAutorotationViewController.mm */,
+			);
+			path = WantsAutorotation;
+			sourceTree = "<group>";
+		};
+		4F94F8752CB10CC3002F31E2 /* WatchGestures */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F8732CB10CC3002F31E2 /* WatchGesturesViewController.h */,
+				4F94F8742CB10CC3002F31E2 /* WatchGesturesViewController.mm */,
+			);
+			path = WatchGestures;
+			sourceTree = "<group>";
+		};
+		4F94F8802CB10CC3002F31E2 /* MiscellaneousPepperUICore Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				4F94F80B2CB10CC3002F31E2 /* ActivityIndicator */,
+				4F94F80E2CB10CC3002F31E2 /* AlertPresenter */,
+				4F94F8132CB10CC3002F31E2 /* AlwaysOn */,
+				4F94F8162CB10CC3002F31E2 /* CompositionPresenter */,
+				4F94F8192CB10CC3002F31E2 /* ContentUnavailable */,
+				4F94F81E2CB10CC3002F31E2 /* DigitalCrown */,
+				4F94F8212CB10CC3002F31E2 /* DisablesSleepGesture */,
+				4F94F8292CB10CC3002F31E2 /* GradientMetal */,
+				4F94F82F2CB10CC3002F31E2 /* KeyValueObservation */,
+				4F94F8322CB10CC3002F31E2 /* Menu */,
+				4F94F8352CB10CC3002F31E2 /* MenuPresenter */,
+				4F94F8382CB10CC3002F31E2 /* MessagePresenter */,
+				4F94F83B2CB10CC3002F31E2 /* NetworkActivityIndicatorVisible */,
+				4F94F83E2CB10CC3002F31E2 /* NotificationPresenter */,
+				4F94F8412CB10CC3002F31E2 /* Page */,
+				4F94F8442CB10CC3002F31E2 /* PhotoPickerPresenter */,
+				4F94F8472CB10CC3002F31E2 /* Picker */,
+				4F94F84A2CB10CC3002F31E2 /* QuickboardNumberPad */,
+				4F94F84C2CB10CC3002F31E2 /* Resources */,
+				4F94F84F2CB10CC3002F31E2 /* SafariViewPresenter */,
+				4F94F8522CB10CC3002F31E2 /* SheetPresenter */,
+				4F94F8552CB10CC3002F31E2 /* Sliders */,
+				4F94F8582CB10CC3002F31E2 /* StatusBarAlpha */,
+				4F94F85B2CB10CC3002F31E2 /* StatusBarItem */,
+				4F94F85E2CB10CC3002F31E2 /* StatusBarPlacement */,
+				4F94F8612CB10CC3002F31E2 /* StatusBarTimeStyle */,
+				4F94F8642CB10CC3002F31E2 /* Switch */,
+				4F94F8672CB10CC3002F31E2 /* TimeOffsetInput */,
+				4F94F86C2CB10CC3002F31E2 /* VideoPlayer */,
+				4F94F86F2CB10CC3002F31E2 /* VolumeIndicator */,
+				4F94F8722CB10CC3002F31E2 /* WantsAutorotation */,
+				4F94F8752CB10CC3002F31E2 /* WatchGestures */,
+				4F27FA842CB11A1100058509 /* WatchConnectivity */,
+				4F94F8762CB10CC3002F31E2 /* AppDelegate.h */,
+				4F94F8772CB10CC3002F31E2 /* AppDelegate.mm */,
+				4F94F8782CB10CC3002F31E2 /* Assets.xcassets */,
+				4F4604522C5F7F9A00C12A68 /* Info.plist */,
+				4F94F8792CB10CC3002F31E2 /* ClassListViewController.h */,
+				4F94F87A2CB10CC3002F31E2 /* ClassListViewController.mm */,
+				4F94F87B2CB10CC3002F31E2 /* main.mm */,
+				4F94F87C2CB10CC3002F31E2 /* NSObject+Foundation_IvarDescription.h */,
+				4F94F87D2CB10CC3002F31E2 /* NSObject+Foundation_IvarDescription.mm */,
+				4F94F87E2CB10CC3002F31E2 /* SceneDelegate.h */,
+				4F94F87F2CB10CC3002F31E2 /* SceneDelegate.mm */,
+			);
+			path = "MiscellaneousPepperUICore Watch App";
 			sourceTree = "<group>";
 		};
 		4F9879B82C5A8A2600E4D2F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4F94F8F22CB111A8002F31E2 /* WatchConnectivity.framework */,
+				4F94F8F42CB111AE002F31E2 /* WatchConnectivity.framework */,
 				4F90E7432C62713F00F3E691 /* PhotosUI.framework */,
 				4FE056912C60C1BD00330E3A /* CoreMedia.framework */,
 				4FA997BC2C5E3369000E5AFB /* Symbols.framework */,
@@ -534,46 +643,6 @@
 				4F9879B92C5A8A2700E4D2F3 /* UIKit.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		4FCD98E42C5CEB7F001022A9 /* Page */ = {
-			isa = PBXGroup;
-			children = (
-				4FCD98E52C5CEB97001022A9 /* PageViewController.h */,
-				4FCD98E62C5CEB97001022A9 /* PageViewController.mm */,
-			);
-			path = Page;
-			sourceTree = "<group>";
-		};
-		4FF12C932C60956C00F82C15 /* VideoPlayer */ = {
-			isa = PBXGroup;
-			children = (
-				4FF12C942C60959500F82C15 /* VideoPlayerViewController.h */,
-				4FF12C952C60959500F82C15 /* VideoPlayerViewController.mm */,
-				4FF12CB12C60BB9E00F82C15 /* MyAVSlider.h */,
-				4FF12CB22C60BB9E00F82C15 /* MyAVSlider.mm */,
-			);
-			path = VideoPlayer;
-			sourceTree = "<group>";
-		};
-		4FF12C9A2C60967700F82C15 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				4FF12C972C60967700F82C15 /* 0.mp4 */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		4FF12CB92C60BF5500F82C15 /* KeyValueObservation */ = {
-			isa = PBXGroup;
-			children = (
-				4FF12CB42C60BF5500F82C15 /* KeyValueObservation.h */,
-				4FF12CB52C60BF5500F82C15 /* KeyValueObservation.m */,
-				4FF12CB62C60BF5500F82C15 /* KeyValueObservation+Private.h */,
-				4FF12CB72C60BF5500F82C15 /* NSObject+KeyValueObservation.h */,
-				4FF12CB82C60BF5500F82C15 /* NSObject+KeyValueObservation.m */,
-			);
-			path = KeyValueObservation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -596,6 +665,30 @@
 			productReference = 4F8A34CA2C5A861400E3CFC4 /* MiscellaneousPepperUICore Watch App.app */;
 			productType = "com.apple.product-type.application";
 		};
+		4F94F8B12CB10D2D002F31E2 /* MiscellaneousPepperUICore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4F94F8C92CB10D2E002F31E2 /* Build configuration list for PBXNativeTarget "MiscellaneousPepperUICore" */;
+			buildPhases = (
+				4F94F8AE2CB10D2D002F31E2 /* Sources */,
+				4F94F8AF2CB10D2D002F31E2 /* Frameworks */,
+				4F94F8B02CB10D2D002F31E2 /* Resources */,
+				4F94F8F72CB114BE002F31E2 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4F94F8F12CB10D72002F31E2 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				4F94F8B32CB10D2D002F31E2 /* MiscellaneousPepperUICore */,
+			);
+			name = MiscellaneousPepperUICore;
+			packageProductDependencies = (
+			);
+			productName = MiscellaneousPepperUICore;
+			productReference = 4F94F8B22CB10D2D002F31E2 /* MiscellaneousPepperUICore.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -609,6 +702,9 @@
 					4F8A34C92C5A861400E3CFC4 = {
 						CreatedOnToolsVersion = 16.0;
 						LastSwiftMigration = 1600;
+					};
+					4F94F8B12CB10D2D002F31E2 = {
+						CreatedOnToolsVersion = 16.1;
 					};
 				};
 			};
@@ -625,6 +721,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				4F94F8B12CB10D2D002F31E2 /* MiscellaneousPepperUICore */,
 				4F8A34C92C5A861400E3CFC4 /* MiscellaneousPepperUICore Watch App */,
 			);
 		};
@@ -635,8 +732,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F8A34D22C5A861500E3CFC4 /* Assets.xcassets in Resources */,
-				4FF12C9C2C60967700F82C15 /* 0.mp4 in Resources */,
+				4F94F8812CB10CC3002F31E2 /* 0.mp4 in Resources */,
+				4F94F8822CB10CC3002F31E2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F94F8B02CB10D2D002F31E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -647,53 +751,69 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F86742D2C5A88DC00825FE5 /* main.mm in Sources */,
-				4F8674302C5A88FD00825FE5 /* NSObject+Foundation_IvarDescription.mm in Sources */,
-				4F3B20E72C5E551700D88762 /* SwitchViewController.mm in Sources */,
-				4F85F39B2C5E1CC200C25410 /* AlertPresenterViewController.mm in Sources */,
-				4F46050F2C61316200C12A68 /* MenuPresenterViewController.mm in Sources */,
-				4F4604562C5F801F00C12A68 /* AlwaysOnViewController.mm in Sources */,
-				4F3B20C12C5E4A5A00D88762 /* TimeOffsetInputViewController.mm in Sources */,
-				4F46044D2C5F785F00C12A68 /* StatusBarAlphaViewController.mm in Sources */,
-				4F4605072C6125A900C12A68 /* NotificationPresenterViewController.mm in Sources */,
-				4FF12CB32C60BB9E00F82C15 /* MyAVSlider.mm in Sources */,
-				4F8674332C5A893900825FE5 /* AppDelegate.mm in Sources */,
-				4F3DC4402C627180006A52B8 /* PhotoPickerPresenterViewController.mm in Sources */,
-				4F3B20B52C5E3D4700D88762 /* PickerViewController.mm in Sources */,
-				4F74A25A2C86C1300039724E /* Grid.mm in Sources */,
-				4F46050B2C612D8D00C12A68 /* ContentUnavailableViewController.mm in Sources */,
-				4F46047B2C5FD8FB00C12A68 /* DisablesSleepGestureViewController.mm in Sources */,
-				4F85F3942C5D350000C25410 /* SlidersViewController.mm in Sources */,
-				4F74A2572C86BF750039724E /* GradientMetalViewController.mm in Sources */,
-				4F4604512C5F7C9400C12A68 /* StatusBarTimeStyleViewController.mm in Sources */,
-				4F3B20EE2C5E81BF00D88762 /* CompositionPresenterViewController.mm in Sources */,
-				4F02A0A62C60C61100C27CA7 /* VolumeIndicatorViewController.mm in Sources */,
-				4FF12CBA2C60BF5500F82C15 /* KeyValueObservation.m in Sources */,
-				4F790F4E2C620B9200CEECD9 /* MenuViewController.mm in Sources */,
-				4F2E2CE82CB02B6000316C9E /* WatchGesturesViewController.mm in Sources */,
-				4FF12CBB2C60BF5500F82C15 /* NSObject+KeyValueObservation.m in Sources */,
-				4F4604772C5FD72000C12A68 /* NetworkActivityIndicatorVisibleViewController.mm in Sources */,
-				4F3B20E02C5E50E600D88762 /* QuickboardNumberPadViewController.mm in Sources */,
-				4FCD98E72C5CEB97001022A9 /* PageViewController.mm in Sources */,
-				4FFEA7DE2C5A8D6D00313CAC /* ClassListViewController.mm in Sources */,
-				4F74A25D2C86C31D0039724E /* Renderer.mm in Sources */,
-				4FFEA7DB2C5A8C9000313CAC /* SceneDelegate.mm in Sources */,
-				4F46047F2C5FDBDA00C12A68 /* WantsAutorotationViewController.mm in Sources */,
-				4F4604732C5FC6FB00C12A68 /* EffectiveVisibilityView.mm in Sources */,
-				4F85F3552C5A9CDA00C25410 /* DigitalCrownView.mm in Sources */,
-				4F74A25F2C86C9480039724E /* shader.metal in Sources */,
-				4FF12C962C60959500F82C15 /* VideoPlayerViewController.mm in Sources */,
-				4F3B20FE2C5E8DA800D88762 /* MessagePresenterViewController.mm in Sources */,
-				4F3B20B92C5E471000D88762 /* ActivityIndicatorViewController.mm in Sources */,
-				4F2E2CE12CB0112600316C9E /* SafariViewPresenterViewController.mm in Sources */,
-				4F85F3522C5A963E00C25410 /* DigitalCrownViewController.mm in Sources */,
-				4F85F39F2C5E1FDC00C25410 /* SheetPresenterViewController.mm in Sources */,
-				4F4604452C5F713B00C12A68 /* StatusBarPlacementViewController.mm in Sources */,
-				4F4604492C5F75DE00C12A68 /* StatusBarItemViewController.mm in Sources */,
+				4F94F8832CB10CC3002F31E2 /* PickerViewController.mm in Sources */,
+				4F94F8842CB10CC3002F31E2 /* StatusBarPlacementViewController.mm in Sources */,
+				4F94F8852CB10CC3002F31E2 /* MessagePresenterViewController.mm in Sources */,
+				4F94F8862CB10CC3002F31E2 /* shader.metal in Sources */,
+				4F94F8872CB10CC3002F31E2 /* StatusBarItemViewController.mm in Sources */,
+				4F94F8882CB10CC3002F31E2 /* CompositionPresenterViewController.mm in Sources */,
+				4F94F8892CB10CC3002F31E2 /* StatusBarAlphaViewController.mm in Sources */,
+				4F94F88A2CB10CC3002F31E2 /* KeyValueObservation.m in Sources */,
+				4F94F88B2CB10CC3002F31E2 /* ClassListViewController.mm in Sources */,
+				4F94F88C2CB10CC3002F31E2 /* TimeOffsetInputViewController.mm in Sources */,
+				4F94F88D2CB10CC3002F31E2 /* AppDelegate.mm in Sources */,
+				4F94F88E2CB10CC3002F31E2 /* NSObject+KeyValueObservation.m in Sources */,
+				4F94F88F2CB10CC3002F31E2 /* DigitalCrownViewController.mm in Sources */,
+				4F94F8902CB10CC3002F31E2 /* Renderer.mm in Sources */,
+				4F94F8912CB10CC3002F31E2 /* MenuViewController.mm in Sources */,
+				4F94F8922CB10CC3002F31E2 /* SafariViewPresenterViewController.mm in Sources */,
+				4F94F8932CB10CC3002F31E2 /* GradientMetalViewController.mm in Sources */,
+				4F94F8942CB10CC3002F31E2 /* Grid.mm in Sources */,
+				4F94F8952CB10CC3002F31E2 /* WatchGesturesViewController.mm in Sources */,
+				4F94F8962CB10CC3002F31E2 /* WantsAutorotationViewController.mm in Sources */,
+				4F94F8972CB10CC3002F31E2 /* ContentUnavailableViewController.mm in Sources */,
+				4F94F8982CB10CC3002F31E2 /* MyAVSlider.mm in Sources */,
+				4F94F8992CB10CC3002F31E2 /* StatusBarTimeStyleViewController.mm in Sources */,
+				4F27FA872CB11A2F00058509 /* WatchConnectivityViewController.mm in Sources */,
+				4F94F89A2CB10CC3002F31E2 /* SheetPresenterViewController.mm in Sources */,
+				4F94F89B2CB10CC3002F31E2 /* PhotoPickerPresenterViewController.mm in Sources */,
+				4F94F89C2CB10CC3002F31E2 /* DigitalCrownView.mm in Sources */,
+				4F94F89D2CB10CC3002F31E2 /* VolumeIndicatorViewController.mm in Sources */,
+				4F94F89E2CB10CC3002F31E2 /* VideoPlayerViewController.mm in Sources */,
+				4F94F89F2CB10CC3002F31E2 /* AlertPresenterViewController.mm in Sources */,
+				4F94F8A02CB10CC3002F31E2 /* NotificationPresenterViewController.mm in Sources */,
+				4F94F8A12CB10CC3002F31E2 /* main.mm in Sources */,
+				4F94F8A22CB10CC3002F31E2 /* SceneDelegate.mm in Sources */,
+				4F94F8A32CB10CC3002F31E2 /* ActivityIndicatorViewController.mm in Sources */,
+				4F94F8A42CB10CC3002F31E2 /* MenuPresenterViewController.mm in Sources */,
+				4F94F8A52CB10CC3002F31E2 /* QuickboardNumberPadViewController.mm in Sources */,
+				4F94F8A62CB10CC3002F31E2 /* SlidersViewController.mm in Sources */,
+				4F94F8A72CB10CC3002F31E2 /* EffectiveVisibilityView.mm in Sources */,
+				4F94F8A82CB10CC3002F31E2 /* AlwaysOnViewController.mm in Sources */,
+				4F94F8A92CB10CC3002F31E2 /* NetworkActivityIndicatorVisibleViewController.mm in Sources */,
+				4F94F8AA2CB10CC3002F31E2 /* PageViewController.mm in Sources */,
+				4F94F8AB2CB10CC3002F31E2 /* NSObject+Foundation_IvarDescription.mm in Sources */,
+				4F94F8AC2CB10CC3002F31E2 /* SwitchViewController.mm in Sources */,
+				4F94F8AD2CB10CC3002F31E2 /* DisablesSleepGestureViewController.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F94F8AE2CB10D2D002F31E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4F94F8F12CB10D72002F31E2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4F8A34C92C5A861400E3CFC4 /* MiscellaneousPepperUICore Watch App */;
+			targetProxy = 4F94F8F02CB10D72002F31E2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		4F8A34D62C5A861500E3CFC4 /* Debug */ = {
@@ -821,17 +941,17 @@
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "MiscellaneousPepperUICore-Watch-App-Info.plist";
+				INFOPLIST_FILE = "MiscellaneousPepperUICore Watch App/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MiscellaneousPepperUICore;
 				INFOPLIST_KEY_NSContactsUsageDescription = Hello;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.pookjw.MiscellaneousPepperUICore;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = .watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.MiscellaneousPepperUICore.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -854,17 +974,17 @@
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "MiscellaneousPepperUICore-Watch-App-Info.plist";
+				INFOPLIST_FILE = "MiscellaneousPepperUICore Watch App/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MiscellaneousPepperUICore;
 				INFOPLIST_KEY_NSContactsUsageDescription = Hello;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.pookjw.MiscellaneousPepperUICore;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = .watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.MiscellaneousPepperUICore.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -873,6 +993,71 @@
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
 				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Release;
+		};
+		4F94F8CA2CB10D2E002F31E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MiscellaneousPepperUICore/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.MiscellaneousPepperUICore;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4F94F8CB2CB10D2E002F31E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MiscellaneousPepperUICore/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.MiscellaneousPepperUICore;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -893,6 +1078,15 @@
 			buildConfigurations = (
 				4F8A34D92C5A861500E3CFC4 /* Debug */,
 				4F8A34DA2C5A861500E3CFC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4F94F8C92CB10D2E002F31E2 /* Build configuration list for PBXNativeTarget "MiscellaneousPepperUICore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4F94F8CA2CB10D2E002F31E2 /* Debug */,
+				4F94F8CB2CB10D2E002F31E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

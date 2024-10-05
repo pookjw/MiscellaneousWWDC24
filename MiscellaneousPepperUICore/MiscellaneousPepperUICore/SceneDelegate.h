@@ -1,16 +1,12 @@
 //
 //  SceneDelegate.h
-//  MiscellaneousPepperUICore Watch App
+//  MiscellaneousPepperUICore
 //
-//  Created by Jinwoo Kim on 8/1/24.
+//  Created by Jinwoo Kim on 10/5/24.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface SceneDelegate : NSObject
-+ (Class)dynamisIsa;
+@interface SceneDelegate : UIResponder <UIWindowSceneDelegate>
+@property (strong, nonatomic) UIWindow *window;
 @end
-
-NS_ASSUME_NONNULL_END

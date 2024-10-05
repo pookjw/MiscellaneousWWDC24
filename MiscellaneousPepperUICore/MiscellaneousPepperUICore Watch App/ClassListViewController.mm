@@ -5,8 +5,6 @@
 //  Created by Jinwoo Kim on 8/1/24.
 //
 
-// TODO: SFSafariViewController
-
 #import "ClassListViewController.h"
 #import <UIKit/UIKit.h>
 #import <objc/message.h>
@@ -41,6 +39,7 @@
 #import "GradientMetalViewController.h"
 #import "SafariViewPresenterViewController.h"
 #import "WatchGesturesViewController.h"
+#import "WatchConnectivityViewController.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
@@ -48,6 +47,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 + (NSArray<Class> *)classes {
     return @[
+        WatchConnectivityViewController.class,
         WatchGesturesViewController.class,
         SafariViewPresenterViewController.class,
         AlwaysOnViewController.class,
