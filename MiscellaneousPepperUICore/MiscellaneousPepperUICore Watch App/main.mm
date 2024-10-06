@@ -6,19 +6,22 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <dlfcn.h>
+#import <WatchKit/WatchKit.h>
 #import "AppDelegate.h"
 
+WKI_EXTERN void spUtils_setRunningExtensionlessWKApp(BOOL);
 UIKIT_EXTERN int UIApplicationMain(int argc, char * _Nullable argv[_Nonnull], NSString * _Nullable principalClassName, NSString * _Nullable delegateClassName);
 
 int main(int argc, char * argv[]) {
+    spUtils_setRunningExtensionlessWKApp(YES);
+    
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
     
     @autoreleasepool {
         [NSUserDefaults.standardUserDefaults setBool:YES forKey:@"UIStateRestorationDebugLogging"];
         
         // PUICListCollectionViewLayoutDelegate PUICListCollectionViewDelegate
-        NSLog(@"%@", [NSObject _fd__protocolDescriptionForProtocol:NSProtocolFromString(@"PUICCrownInputSequencerDelegate")]);
+        NSLog(@"%@", [NSObject _fd__protocolDescriptionForProtocol:NSProtocolFromString(@"SPExtensionConnectionDelegate")]);
 //        NSLog(@"%@", [NSObject _fd__protocolDescriptionForProtocol:NSProtocolFromString(@"PUICDictationViewControllerDelegate")]);
     }
     

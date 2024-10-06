@@ -7,8 +7,10 @@
 
 #import "SceneDelegate.h"
 #import "ClassListViewController.h"
+#import "AppDelegate.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
+#include <dlfcn.h>
 
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
@@ -38,6 +40,15 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP scene_willConnectToSession = class_getMethodImplementation(self, @selector(scene:willConnectToSession:options:));
         assert(class_addMethod(_dynamicIsa, @selector(scene:willConnectToSession:options:), scene_willConnectToSession, NULL));
         
+        IMP sceneDidBecomeActive = class_getMethodImplementation(self, @selector(sceneDidBecomeActive:));
+        assert(class_addMethod(_dynamicIsa, @selector(sceneDidBecomeActive:), sceneDidBecomeActive, NULL));
+        
+        IMP sceneWillEnterForeground = class_getMethodImplementation(self, @selector(sceneWillEnterForeground:));
+        assert(class_addMethod(_dynamicIsa, @selector(sceneWillEnterForeground:), sceneWillEnterForeground, NULL));
+        
+        IMP sceneDidEnterBackground = class_getMethodImplementation(self, @selector(sceneDidEnterBackground:));
+        assert(class_addMethod(_dynamicIsa, @selector(sceneDidEnterBackground:), sceneDidEnterBackground, NULL));
+        
         assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"UIWindowSceneDelegate")));
         
         objc_registerClassPair(_dynamicIsa);
@@ -62,6 +73,29 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 #pragma clang diagnostic pop
 
 - (void)scene:(id)scene willConnectToSession:(id)session options:(id)connectionOptions {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        id application = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("SPApplication"), sel_registerName("sharedSPApplication"));
+        auto delegate = reinterpret_cast<AppDelegate * (*)(id, SEL)>(objc_msgSend)(application, sel_registerName("delegate"));
+        
+        id extensionConnection = delegate.extensionConnection;
+        assert(extensionConnection != nullptr);
+        
+        id companionLogger = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("SPCompanionLogger"), sel_registerName("sharedInstance"));
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(companionLogger, sel_registerName("setExtensionConnection:"), extensionConnection);
+        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(extensionConnection, sel_registerName("didFinishLaunching:"), YES);
+        
+        //
+        
+        NSString *clientIdentifier = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(extensionConnection, sel_registerName("clientIdentifier"));
+        id inProcessRemoteInterface = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(extensionConnection, sel_registerName("inProcessRemoteInterface"));
+        
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(inProcessRemoteInterface, sel_registerName("setAppClientIdentifier:"), clientIdentifier);
+        reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(inProcessRemoteInterface, sel_registerName("performDidFinishLaunchingCompletions"));
+    });
+    
+    //
+    
     id window = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("UIWindow") alloc], sel_registerName("initWithWindowScene:"), scene);
     
     // -[SPHostingViewController initWithInterfaceDescription:bundle:stringsFileName:]
@@ -84,6 +118,62 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     object_setInstanceVariable(self, "_window", [window retain]);
     reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(window, sel_registerName("makeKeyAndVisible"));
     [window release];
+}
+
+- (void)sceneDidBecomeActive:(id)scene {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        id application = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("SPApplication"), sel_registerName("sharedSPApplication"));
+        auto delegate = reinterpret_cast<AppDelegate * (*)(id, SEL)>(objc_msgSend)(application, sel_registerName("delegate"));
+        
+        id extensionConnection = delegate.extensionConnection;
+        assert(extensionConnection != nullptr);
+        
+        id inProcessRemoteInterface = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(extensionConnection, sel_registerName("inProcessRemoteInterface"));
+        
+        reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(extensionConnection, sel_registerName("didActivate"));
+        
+        void *handle = dlopen("/usr/lib/system/libxpc.dylib", RTLD_NOW);
+        void *symbol = dlsym(handle, "os_transaction_create");
+        assert(symbol != nullptr);
+        
+        NSString *name = [NSString stringWithFormat:@"appActive-%@", [NSUUID UUID].UUIDString];
+        static id transaction = reinterpret_cast<id (*)(const char *)>(symbol)([name cStringUsingEncoding:NSUTF8StringEncoding]);
+        
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(inProcessRemoteInterface, sel_registerName("performAfterApplicationDidFinishLaunching:"), ^{
+            
+        });
+    });
+}
+
+- (void)sceneWillEnterForeground:(id)scene {
+    id application = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("SPApplication"), sel_registerName("sharedSPApplication"));
+    auto delegate = reinterpret_cast<AppDelegate * (*)(id, SEL)>(objc_msgSend)(application, sel_registerName("delegate"));
+    
+    id extensionConnection = delegate.extensionConnection;
+    assert(extensionConnection != nullptr);
+    
+    id inProcessRemoteInterface = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(extensionConnection, sel_registerName("inProcessRemoteInterface"));
+    
+    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(extensionConnection, sel_registerName("appWillEnterForeground"));
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(inProcessRemoteInterface, sel_registerName("setAfterWillEnterForeground:"), YES);
+    
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(inProcessRemoteInterface, sel_registerName("performAfterApplicationDidFinishLaunching:"), ^{
+        
+    });
+}
+
+- (void)sceneDidEnterBackground:(id)scene {
+    id application = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("SPApplication"), sel_registerName("sharedSPApplication"));
+    auto delegate = reinterpret_cast<AppDelegate * (*)(id, SEL)>(objc_msgSend)(application, sel_registerName("delegate"));
+    
+    id extensionConnection = delegate.extensionConnection;
+    assert(extensionConnection != nullptr);
+    
+    id inProcessRemoteInterface = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(extensionConnection, sel_registerName("inProcessRemoteInterface"));
+    
+    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(extensionConnection, sel_registerName("appWillEnterForeground"));
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(inProcessRemoteInterface, sel_registerName("setAfterWillEnterForeground:"), NO);
 }
 
 @end

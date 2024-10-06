@@ -12,6 +12,7 @@
 		4F172B242C5A90D0009A1DBC /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B232C5A90D0009A1DBC /* AVKit.framework */; };
 		4F172B262C5A90D5009A1DBC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B252C5A90D5009A1DBC /* AVFoundation.framework */; };
 		4F27FA872CB11A2F00058509 /* WatchConnectivityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F27FA862CB11A2F00058509 /* WatchConnectivityViewController.mm */; };
+		4F2E2D4E2CB2E09500316C9E /* ExtensionDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F2E2D4D2CB2E09500316C9E /* ExtensionDelegate.mm */; };
 		4F47EA502C5E267700B6D032 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47EA4F2C5E267700B6D032 /* MapKit.framework */; };
 		4F90E7442C62713F00F3E691 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F90E7432C62713F00F3E691 /* PhotosUI.framework */; };
 		4F94F8812CB10CC3002F31E2 /* 0.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 4F94F84B2CB10CC3002F31E2 /* 0.mp4 */; };
@@ -99,6 +100,8 @@
 		4F172B252C5A90D5009A1DBC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		4F27FA852CB11A2F00058509 /* WatchConnectivityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WatchConnectivityViewController.h; sourceTree = "<group>"; };
 		4F27FA862CB11A2F00058509 /* WatchConnectivityViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WatchConnectivityViewController.mm; sourceTree = "<group>"; };
+		4F2E2D4C2CB2E09500316C9E /* ExtensionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtensionDelegate.h; sourceTree = "<group>"; };
+		4F2E2D4D2CB2E09500316C9E /* ExtensionDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ExtensionDelegate.mm; sourceTree = "<group>"; };
 		4F4604522C5F7F9A00C12A68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4F47EA4F2C5E267700B6D032 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F8A34CA2C5A861400E3CFC4 /* MiscellaneousPepperUICore Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MiscellaneousPepperUICore Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -612,6 +615,8 @@
 				4F27FA842CB11A1100058509 /* WatchConnectivity */,
 				4F94F8762CB10CC3002F31E2 /* AppDelegate.h */,
 				4F94F8772CB10CC3002F31E2 /* AppDelegate.mm */,
+				4F2E2D4C2CB2E09500316C9E /* ExtensionDelegate.h */,
+				4F2E2D4D2CB2E09500316C9E /* ExtensionDelegate.mm */,
 				4F94F8782CB10CC3002F31E2 /* Assets.xcassets */,
 				4F4604522C5F7F9A00C12A68 /* Info.plist */,
 				4F94F8792CB10CC3002F31E2 /* ClassListViewController.h */,
@@ -787,6 +792,7 @@
 				4F94F8A32CB10CC3002F31E2 /* ActivityIndicatorViewController.mm in Sources */,
 				4F94F8A42CB10CC3002F31E2 /* MenuPresenterViewController.mm in Sources */,
 				4F94F8A52CB10CC3002F31E2 /* QuickboardNumberPadViewController.mm in Sources */,
+				4F2E2D4E2CB2E09500316C9E /* ExtensionDelegate.mm in Sources */,
 				4F94F8A62CB10CC3002F31E2 /* SlidersViewController.mm in Sources */,
 				4F94F8A72CB10CC3002F31E2 /* EffectiveVisibilityView.mm in Sources */,
 				4F94F8A82CB10CC3002F31E2 /* AlwaysOnViewController.mm in Sources */,
@@ -948,6 +954,7 @@
 				INFOPLIST_KEY_NSContactsUsageDescription = Hello;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.pookjw.MiscellaneousPepperUICore;
+				INFOPLIST_KEY_WKExtensionDelegateClassName = ExtensionDelegate;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -981,6 +988,7 @@
 				INFOPLIST_KEY_NSContactsUsageDescription = Hello;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.pookjw.MiscellaneousPepperUICore;
+				INFOPLIST_KEY_WKExtensionDelegateClassName = ExtensionDelegate;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
