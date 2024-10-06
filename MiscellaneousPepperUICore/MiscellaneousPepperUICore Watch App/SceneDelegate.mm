@@ -133,6 +133,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         
         reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(extensionConnection, sel_registerName("didActivate"));
         
+        // 안해줘도 되는듯?
         void *handle = dlopen("/usr/lib/system/libxpc.dylib", RTLD_NOW);
         void *symbol = dlsym(handle, "os_transaction_create");
         assert(symbol != nullptr);
