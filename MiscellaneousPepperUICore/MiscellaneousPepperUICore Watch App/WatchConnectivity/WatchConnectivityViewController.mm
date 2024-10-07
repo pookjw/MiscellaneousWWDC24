@@ -59,6 +59,9 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP session_didReceiveMessage = class_getMethodImplementation(self, @selector(session:didReceiveMessage:));
         assert(class_addMethod(_dynamicIsa, @selector(session:didReceiveMessage:), session_didReceiveMessage, NULL));
         
+        IMP sessionReachabilityDidChange = class_getMethodImplementation(self, @selector(sessionReachabilityDidChange:));
+        assert(class_addMethod(_dynamicIsa, @selector(sessionReachabilityDidChange:), sessionReachabilityDidChange, NULL));
+        
         IMP session_didReceiveMessage_replyHandler = class_getMethodImplementation(self, @selector(session:didReceiveMessage:replyHandler:));
         assert(class_addMethod(_dynamicIsa, @selector(session:didReceiveMessage:replyHandler:), session_didReceiveMessage_replyHandler, NULL));
         
