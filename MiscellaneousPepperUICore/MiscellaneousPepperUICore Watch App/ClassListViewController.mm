@@ -40,6 +40,7 @@
 #import "SafariViewPresenterViewController.h"
 #import "WatchGesturesViewController.h"
 #import "WatchConnectivityViewController.h"
+#import "SwiftUIViewController.h"
 
 #warning CarouselUIServices
 
@@ -49,6 +50,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 + (NSArray<Class> *)classes {
     return @[
+        SwiftUIViewController.class,
         WatchConnectivityViewController.class,
         WatchGesturesViewController.class,
         SafariViewPresenterViewController.class,
