@@ -11,6 +11,8 @@
 		4F172B222C5A90CA009A1DBC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B212C5A90CA009A1DBC /* CoreGraphics.framework */; };
 		4F172B242C5A90D0009A1DBC /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B232C5A90D0009A1DBC /* AVKit.framework */; };
 		4F172B262C5A90D5009A1DBC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B252C5A90D5009A1DBC /* AVFoundation.framework */; };
+		4F1F92B52CBC9D91002C1B90 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F92B42CBC9D91002C1B90 /* SwiftUIView.swift */; };
+		4F1F92B82CBC9F39002C1B90 /* SwiftUIViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F92B72CBC9F39002C1B90 /* SwiftUIViewController.mm */; };
 		4F27FA872CB11A2F00058509 /* WatchConnectivityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F27FA862CB11A2F00058509 /* WatchConnectivityViewController.mm */; };
 		4F2E2D4E2CB2E09500316C9E /* ExtensionDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F2E2D4D2CB2E09500316C9E /* ExtensionDelegate.mm */; };
 		4F47EA502C5E267700B6D032 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47EA4F2C5E267700B6D032 /* MapKit.framework */; };
@@ -98,6 +100,10 @@
 		4F172B212C5A90CA009A1DBC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		4F172B232C5A90D0009A1DBC /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/AVKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F172B252C5A90D5009A1DBC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		4F1F92B32CBC9D91002C1B90 /* MiscellaneousPepperUICore Watch App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MiscellaneousPepperUICore Watch App-Bridging-Header.h"; sourceTree = "<group>"; };
+		4F1F92B42CBC9D91002C1B90 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		4F1F92B62CBC9F39002C1B90 /* SwiftUIViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftUIViewController.h; sourceTree = "<group>"; };
+		4F1F92B72CBC9F39002C1B90 /* SwiftUIViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SwiftUIViewController.mm; sourceTree = "<group>"; };
 		4F27FA852CB11A2F00058509 /* WatchConnectivityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WatchConnectivityViewController.h; sourceTree = "<group>"; };
 		4F27FA862CB11A2F00058509 /* WatchConnectivityViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WatchConnectivityViewController.mm; sourceTree = "<group>"; };
 		4F2E2D4C2CB2E09500316C9E /* ExtensionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtensionDelegate.h; sourceTree = "<group>"; };
@@ -248,6 +254,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F1F92B22CBC9D6A002C1B90 /* SwiftUIView */ = {
+			isa = PBXGroup;
+			children = (
+				4F1F92B42CBC9D91002C1B90 /* SwiftUIView.swift */,
+				4F1F92B62CBC9F39002C1B90 /* SwiftUIViewController.h */,
+				4F1F92B72CBC9F39002C1B90 /* SwiftUIViewController.mm */,
+			);
+			path = SwiftUIView;
+			sourceTree = "<group>";
+		};
 		4F27FA842CB11A1100058509 /* WatchConnectivity */ = {
 			isa = PBXGroup;
 			children = (
@@ -613,7 +629,9 @@
 				4F94F8722CB10CC3002F31E2 /* WantsAutorotation */,
 				4F94F8752CB10CC3002F31E2 /* WatchGestures */,
 				4F27FA842CB11A1100058509 /* WatchConnectivity */,
+				4F1F92B22CBC9D6A002C1B90 /* SwiftUIView */,
 				4F94F8762CB10CC3002F31E2 /* AppDelegate.h */,
+				4F1F92B32CBC9D91002C1B90 /* MiscellaneousPepperUICore Watch App-Bridging-Header.h */,
 				4F94F8772CB10CC3002F31E2 /* AppDelegate.mm */,
 				4F2E2D4C2CB2E09500316C9E /* ExtensionDelegate.h */,
 				4F2E2D4D2CB2E09500316C9E /* ExtensionDelegate.mm */,
@@ -706,7 +724,7 @@
 				TargetAttributes = {
 					4F8A34C92C5A861400E3CFC4 = {
 						CreatedOnToolsVersion = 16.0;
-						LastSwiftMigration = 1600;
+						LastSwiftMigration = 1610;
 					};
 					4F94F8B12CB10D2D002F31E2 = {
 						CreatedOnToolsVersion = 16.1;
@@ -762,6 +780,7 @@
 				4F94F8862CB10CC3002F31E2 /* shader.metal in Sources */,
 				4F94F8872CB10CC3002F31E2 /* StatusBarItemViewController.mm in Sources */,
 				4F94F8882CB10CC3002F31E2 /* CompositionPresenterViewController.mm in Sources */,
+				4F1F92B52CBC9D91002C1B90 /* SwiftUIView.swift in Sources */,
 				4F94F8892CB10CC3002F31E2 /* StatusBarAlphaViewController.mm in Sources */,
 				4F94F88A2CB10CC3002F31E2 /* KeyValueObservation.m in Sources */,
 				4F94F88B2CB10CC3002F31E2 /* ClassListViewController.mm in Sources */,
@@ -774,6 +793,7 @@
 				4F94F8922CB10CC3002F31E2 /* SafariViewPresenterViewController.mm in Sources */,
 				4F94F8932CB10CC3002F31E2 /* GradientMetalViewController.mm in Sources */,
 				4F94F8942CB10CC3002F31E2 /* Grid.mm in Sources */,
+				4F1F92B82CBC9F39002C1B90 /* SwiftUIViewController.mm in Sources */,
 				4F94F8952CB10CC3002F31E2 /* WatchGesturesViewController.mm in Sources */,
 				4F94F8962CB10CC3002F31E2 /* WantsAutorotationViewController.mm in Sources */,
 				4F94F8972CB10CC3002F31E2 /* ContentUnavailableViewController.mm in Sources */,
@@ -965,8 +985,10 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "MiscellaneousPepperUICore Watch App/MiscellaneousPepperUICore Watch App-Bridging-Header.h";
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 11.0;
 			};
@@ -999,7 +1021,9 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_OBJC_BRIDGING_HEADER = "MiscellaneousPepperUICore Watch App/MiscellaneousPepperUICore Watch App-Bridging-Header.h";
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
 				WATCHOS_DEPLOYMENT_TARGET = 11.0;
