@@ -49,6 +49,7 @@
 		4F7941D42C7897D50031F456 /* FloatingKeyboardViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7941D32C7897D50031F456 /* FloatingKeyboardViewController.mm */; };
 		4F7941D82C7898470031F456 /* SplitKeyboardViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7941D72C7898470031F456 /* SplitKeyboardViewController.mm */; };
 		4F7BC13C2C3C43B900419197 /* MyNavigationItemViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC13B2C3C43B900419197 /* MyNavigationItemViewController.mm */; };
+		4F83911C2CCCFEAE0005B8AC /* CustomViewMenuElementDynamicHeightViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F83911B2CCCFEAE0005B8AC /* CustomViewMenuElementDynamicHeightViewController.mm */; };
 		4F8BD38D2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38C2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm */; };
 		4F8BD3902C22E1520031535F /* CustomDismissCustomInteraction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38F2C22E1520031535F /* CustomDismissCustomInteraction.mm */; };
 		4F9C08B32C3E2B5F009897D6 /* TabBarAppearanceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F9C08B22C3E2B5F009897D6 /* TabBarAppearanceViewController.mm */; };
@@ -147,6 +148,8 @@
 		4F7941D72C7898470031F456 /* SplitKeyboardViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SplitKeyboardViewController.mm; sourceTree = "<group>"; };
 		4F7BC13A2C3C43B900419197 /* MyNavigationItemViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyNavigationItemViewController.h; sourceTree = "<group>"; };
 		4F7BC13B2C3C43B900419197 /* MyNavigationItemViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MyNavigationItemViewController.mm; sourceTree = "<group>"; };
+		4F83911A2CCCFEAE0005B8AC /* CustomViewMenuElementDynamicHeightViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomViewMenuElementDynamicHeightViewController.h; sourceTree = "<group>"; };
+		4F83911B2CCCFEAE0005B8AC /* CustomViewMenuElementDynamicHeightViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomViewMenuElementDynamicHeightViewController.mm; sourceTree = "<group>"; };
 		4F8BD38B2C22E11F0031535F /* CustomDismissInteractiveTransitioning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDismissInteractiveTransitioning.h; sourceTree = "<group>"; };
 		4F8BD38C2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomDismissInteractiveTransitioning.mm; sourceTree = "<group>"; };
 		4F8BD38E2C22E1520031535F /* CustomDismissCustomInteraction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDismissCustomInteraction.h; sourceTree = "<group>"; };
@@ -269,6 +272,7 @@
 				4F7941D52C78982B0031F456 /* SplitKeyboard */,
 				4F3DD6992C9BDCBF006F6F49 /* Baseline */,
 				4F3DD6A02C9BE523006F6F49 /* CustomBaseline */,
+				4F8391192CCCFE8F0005B8AC /* CustomViewMenuElementDynamicHeight */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -529,6 +533,15 @@
 			path = MyNavigationItem;
 			sourceTree = "<group>";
 		};
+		4F8391192CCCFE8F0005B8AC /* CustomViewMenuElementDynamicHeight */ = {
+			isa = PBXGroup;
+			children = (
+				4F83911A2CCCFEAE0005B8AC /* CustomViewMenuElementDynamicHeightViewController.h */,
+				4F83911B2CCCFEAE0005B8AC /* CustomViewMenuElementDynamicHeightViewController.mm */,
+			);
+			path = CustomViewMenuElementDynamicHeight;
+			sourceTree = "<group>";
+		};
 		4F8BD3912C22E1580031535F /* DismissPercentage */ = {
 			isa = PBXGroup;
 			children = (
@@ -749,6 +762,7 @@
 				4F0CBAA52C43D3FA00743DE2 /* MySearchViewController.mm in Sources */,
 				4F3AFCA12C57F64E00F810CF /* PointerInteractionViewController.mm in Sources */,
 				4FDABC692C3D35DE00F928DB /* SymbolTransitionsViewController.mm in Sources */,
+				4F83911C2CCCFEAE0005B8AC /* CustomViewMenuElementDynamicHeightViewController.mm in Sources */,
 				4F7BC13C2C3C43B900419197 /* MyNavigationItemViewController.mm in Sources */,
 				4F7941D42C7897D50031F456 /* FloatingKeyboardViewController.mm in Sources */,
 				4F7941D82C7898470031F456 /* SplitKeyboardViewController.mm in Sources */,

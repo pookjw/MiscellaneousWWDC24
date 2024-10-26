@@ -40,6 +40,7 @@
 #import "SplitKeyboardViewController.h"
 #import "BaselineViewController.h"
 #import "CustomBaselineViewController.h"
+#import "CustomViewMenuElementDynamicHeightViewController.h"
 #import <objc/message.h>
 
 __attribute__((objc_direct_members))
@@ -122,6 +123,7 @@ __attribute__((objc_direct_members))
 
 - (NSArray<Class> *)classes {
     return @[
+        CustomViewMenuElementDynamicHeightViewController.class,
         CustomBaselineViewController.class,
         BaselineViewController.class,
         SplitKeyboardViewController.class,
