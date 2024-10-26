@@ -65,14 +65,8 @@
         }]
          forControlEvents:UIControlEventPrimaryActionTriggered];
         
-        button.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:button];
-        [NSLayoutConstraint activateConstraints:@[
-            [button.topAnchor constraintEqualToAnchor:self.topAnchor],
-            [button.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-            [button.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-            [button.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
-        ]];
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self, sel_registerName("_addBoundsMatchingConstraintsForView:"), button);
     }
     
     return self;
