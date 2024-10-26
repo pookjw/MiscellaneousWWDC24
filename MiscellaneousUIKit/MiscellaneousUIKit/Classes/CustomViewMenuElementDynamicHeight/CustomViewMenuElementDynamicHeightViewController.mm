@@ -55,7 +55,7 @@
             id delegate = ((id (*)(id, SEL))objc_msgSend)(menuView, sel_registerName("delegate"));
             assert([delegate isKindOfClass:objc_lookUpClass("_UIContextMenuUIController")]);
             
-            // doing layout of Content View will trigger Collection View Layout Invalication (because UIMenu uses esmited height.)
+            // layout of Cell Content View will trigger Collection View Layout Invalidation (because UIMenu uses estimated height.)
             [unreainted.superview invalidateIntrinsicContentSize];
             [menuView layoutIfNeeded];
             
