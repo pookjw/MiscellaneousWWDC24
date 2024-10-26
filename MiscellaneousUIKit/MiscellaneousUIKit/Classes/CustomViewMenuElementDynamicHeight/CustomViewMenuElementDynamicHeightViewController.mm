@@ -49,6 +49,8 @@
             
             /* _UIContextMenuView * */
             __kindof UIView *menuView = unreainted.superview.superview.superview.superview.superview.superview;
+            
+            /* _UIContextMenuUIController * */
             id delegate = ((id (*)(id, SEL))objc_msgSend)(menuView, sel_registerName("delegate"));
             
             [unreainted.superview invalidateIntrinsicContentSize];
