@@ -57,9 +57,9 @@
             
             // layout of Cell Content View will trigger Collection View Layout Invalidation (because UIMenu uses estimated height.)
             [unreainted.superview invalidateIntrinsicContentSize];
-            [menuView layoutIfNeeded];
             
             [UIView animateWithDuration:0.2 animations:^{
+                [menuView layoutIfNeeded];
                 ((void (*)(id, SEL, BOOL, BOOL, BOOL))objc_msgSend)(delegate, sel_registerName("_updatePlatterAndActionViewLayoutForce:updateAttachment:adjustDetent:"), YES, NO, NO);
             }];
         }]
