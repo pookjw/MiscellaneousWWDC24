@@ -17,52 +17,52 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 + (void)load {
     assert(dlopen("/System/Library/Frameworks/SafariServices.framework/SafariServices", RTLD_NOW) != nullptr);
-    [self dynamicIsa];
+    [self class];
 }
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
-    return [[self dynamicIsa] allocWithZone:zone];
+    return [[self class] allocWithZone:zone];
 }
 
-+ (Class)dynamicIsa {
-    static Class dynamicIsa;
++ (Class)class {
+    static Class isa;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_SafariViewPresenterViewController", 0);
+        Class _isa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_SafariViewPresenterViewController", 0);
         
         IMP dealloc = class_getMethodImplementation(self, @selector(dealloc));
-        assert(class_addMethod(_dynamicIsa, @selector(dealloc), dealloc, NULL));
+        assert(class_addMethod(_isa, @selector(dealloc), dealloc, NULL));
         
         IMP respondsToSelector = class_getMethodImplementation(self, @selector(respondsToSelector:));
-        assert(class_addMethod(_dynamicIsa, @selector(respondsToSelector:), respondsToSelector, NULL));
+        assert(class_addMethod(_isa, @selector(respondsToSelector:), respondsToSelector, NULL));
         
         IMP loadView = class_getMethodImplementation(self, @selector(loadView));
-        assert(class_addMethod(_dynamicIsa, @selector(loadView), loadView, NULL));
+        assert(class_addMethod(_isa, @selector(loadView), loadView, NULL));
         
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
-        assert(class_addMethod(_dynamicIsa, @selector(viewDidLoad), viewDidLoad, NULL));
+        assert(class_addMethod(_isa, @selector(viewDidLoad), viewDidLoad, NULL));
         
         IMP safariViewController_didCompleteInitialLoad = class_getMethodImplementation(self, @selector(safariViewController:didCompleteInitialLoad:));
-        assert(class_addMethod(_dynamicIsa, @selector(safariViewController:didCompleteInitialLoad:), safariViewController_didCompleteInitialLoad, NULL));
+        assert(class_addMethod(_isa, @selector(safariViewController:didCompleteInitialLoad:), safariViewController_didCompleteInitialLoad, NULL));
         
         IMP safariViewController_initialLoadDidRedirectToURL = class_getMethodImplementation(self, @selector(safariViewController:initialLoadDidRedirectToURL:));
-        assert(class_addMethod(_dynamicIsa, @selector(safariViewController:initialLoadDidRedirectToURL:), safariViewController_initialLoadDidRedirectToURL, NULL));
+        assert(class_addMethod(_isa, @selector(safariViewController:initialLoadDidRedirectToURL:), safariViewController_initialLoadDidRedirectToURL, NULL));
         
         Protocol *proto = NSProtocolFromString(@"SFSafariViewControllerDelegate");
         assert(proto != nullptr);
-        assert(class_addProtocol(_dynamicIsa, proto));
+        assert(class_addProtocol(_isa, proto));
         
-        assert(class_addIvar(_dynamicIsa, "_prewarmingToken", sizeof(id), sizeof(id), @encode(id)));
+        assert(class_addIvar(_isa, "_prewarmingToken", sizeof(id), sizeof(id), @encode(id)));
         
         //
         
-        objc_registerClassPair(_dynamicIsa);
+        objc_registerClassPair(_isa);
         
-        dynamicIsa = _dynamicIsa;
+        isa = _isa;
     });
     
-    return dynamicIsa;
+    return isa;
 }
 
 #pragma clang diagnostic push

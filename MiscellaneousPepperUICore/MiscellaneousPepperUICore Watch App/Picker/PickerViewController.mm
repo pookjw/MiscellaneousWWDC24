@@ -15,41 +15,41 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 @implementation PickerViewController
 
 + (void)load {
-    [self dynamicIsa];
+    [self class];
 }
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
-    return [[self dynamicIsa] allocWithZone:zone];
+    return [[self class] allocWithZone:zone];
 }
 
-+ (Class)dynamicIsa {
-    static Class dynamicIsa;
++ (Class)class {
+    static Class isa;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_PickerViewController", 0);
+        Class _isa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_PickerViewController", 0);
         
         IMP respondsToSelector = class_getMethodImplementation(self, @selector(respondsToSelector:));
-        assert(class_addMethod(_dynamicIsa, @selector(respondsToSelector:), respondsToSelector, NULL));
+        assert(class_addMethod(_isa, @selector(respondsToSelector:), respondsToSelector, NULL));
         
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
-        assert(class_addMethod(_dynamicIsa, @selector(viewDidLoad), viewDidLoad, NULL));
+        assert(class_addMethod(_isa, @selector(viewDidLoad), viewDidLoad, NULL));
         
         IMP numberOfItemsInPickerView = class_getMethodImplementation(self, @selector(numberOfItemsInPickerView:));
-        assert(class_addMethod(_dynamicIsa, @selector(numberOfItemsInPickerView:), numberOfItemsInPickerView, NULL));
+        assert(class_addMethod(_isa, @selector(numberOfItemsInPickerView:), numberOfItemsInPickerView, NULL));
         
         IMP pickerView_viewForItemAtIndex = class_getMethodImplementation(self, @selector(pickerView:viewForItemAtIndex:));
-        assert(class_addMethod(_dynamicIsa, @selector(pickerView:viewForItemAtIndex:), pickerView_viewForItemAtIndex, NULL));
+        assert(class_addMethod(_isa, @selector(pickerView:viewForItemAtIndex:), pickerView_viewForItemAtIndex, NULL));
         
         IMP pickerView_didSelectItemAtIndex = class_getMethodImplementation(self, @selector(pickerView:didSelectItemAtIndex:));
-        assert(class_addMethod(_dynamicIsa, @selector(pickerView:didSelectItemAtIndex:), pickerView_didSelectItemAtIndex, NULL));
+        assert(class_addMethod(_isa, @selector(pickerView:didSelectItemAtIndex:), pickerView_didSelectItemAtIndex, NULL));
         
-        objc_registerClassPair(_dynamicIsa);
+        objc_registerClassPair(_isa);
         
-        dynamicIsa = _dynamicIsa;
+        isa = _isa;
     });
     
-    return dynamicIsa;
+    return isa;
 }
 
 - (BOOL)respondsToSelector:(SEL)aSelector {

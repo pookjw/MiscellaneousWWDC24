@@ -87,46 +87,46 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 }
 
 + (void)load {
-    [self dynamicIsa];
+    [self class];
 }
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
-    return [[self dynamicIsa] allocWithZone:zone];
+    return [[self class] allocWithZone:zone];
 }
 
-+ (Class)dynamicIsa {
-    static Class dynamicIsa;
++ (Class)class {
+    static Class isa;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("PUICListCollectionViewController"), "_ClassListViewController", 0);
+        Class _isa = objc_allocateClassPair(objc_lookUpClass("PUICListCollectionViewController"), "_ClassListViewController", 0);
         
         IMP dealloc = class_getMethodImplementation(self, @selector(dealloc));
-        assert(class_addMethod(_dynamicIsa, @selector(dealloc), dealloc, NULL));
+        assert(class_addMethod(_isa, @selector(dealloc), dealloc, NULL));
         
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
-        assert(class_addMethod(_dynamicIsa, @selector(viewDidLoad), viewDidLoad, NULL));
+        assert(class_addMethod(_isa, @selector(viewDidLoad), viewDidLoad, NULL));
         
         IMP numberOfSectionsInCollectionView = class_getMethodImplementation(self, @selector(numberOfSectionsInCollectionView:));
-        assert(class_addMethod(_dynamicIsa, @selector(numberOfSectionsInCollectionView:), numberOfSectionsInCollectionView, NULL));
+        assert(class_addMethod(_isa, @selector(numberOfSectionsInCollectionView:), numberOfSectionsInCollectionView, NULL));
         
         IMP collectionView_numberOfItemsInSection = class_getMethodImplementation(self, @selector(collectionView:numberOfItemsInSection:));
-        assert(class_addMethod(_dynamicIsa, @selector(collectionView:numberOfItemsInSection:), collectionView_numberOfItemsInSection, NULL));
+        assert(class_addMethod(_isa, @selector(collectionView:numberOfItemsInSection:), collectionView_numberOfItemsInSection, NULL));
         
         IMP collectionView_cellForItemAtIndexPath = class_getMethodImplementation(self, @selector(collectionView:cellForItemAtIndexPath:));
-        assert(class_addMethod(_dynamicIsa, @selector(collectionView:cellForItemAtIndexPath:), collectionView_cellForItemAtIndexPath, NULL));
+        assert(class_addMethod(_isa, @selector(collectionView:cellForItemAtIndexPath:), collectionView_cellForItemAtIndexPath, NULL));
         
         IMP collectionView_didSelectItemAtIndexPath = class_getMethodImplementation(self, @selector(collectionView:didSelectItemAtIndexPath:));
-        assert(class_addMethod(_dynamicIsa, @selector(collectionView:didSelectItemAtIndexPath:), collectionView_didSelectItemAtIndexPath, NULL));
+        assert(class_addMethod(_isa, @selector(collectionView:didSelectItemAtIndexPath:), collectionView_didSelectItemAtIndexPath, NULL));
         
-        assert(class_addIvar(_dynamicIsa, "_cellRegistration", sizeof(id), sizeof(id), @encode(id)));
+        assert(class_addIvar(_isa, "_cellRegistration", sizeof(id), sizeof(id), @encode(id)));
         
-        objc_registerClassPair(_dynamicIsa);
+        objc_registerClassPair(_isa);
         
-        dynamicIsa = _dynamicIsa;
+        isa = _isa;
     });
     
-    return dynamicIsa;
+    return isa;
 }
 
 #pragma clang diagnostic push

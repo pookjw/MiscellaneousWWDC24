@@ -17,39 +17,39 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 @implementation StatusBarTimeStyleViewController
 
 + (void)load {
-    [self dynamicIsa];
+    [self class];
 }
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
-    return [[self dynamicIsa] allocWithZone:zone];
+    return [[self class] allocWithZone:zone];
 }
 
-+ (Class)dynamicIsa {
-    static Class dynamicIsa;
++ (Class)class {
+    static Class isa;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_StatusBarTimeStyleViewController", 0);
+        Class _isa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_StatusBarTimeStyleViewController", 0);
         
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
-        assert(class_addMethod(_dynamicIsa, @selector(viewDidLoad), viewDidLoad, NULL));
+        assert(class_addMethod(_isa, @selector(viewDidLoad), viewDidLoad, NULL));
         
         IMP puic_statusBarTimeStyle = class_getMethodImplementation(self, @selector(puic_statusBarTimeStyle));
-        assert(class_addMethod(_dynamicIsa, @selector(puic_statusBarTimeStyle), puic_statusBarTimeStyle, NULL));
+        assert(class_addMethod(_isa, @selector(puic_statusBarTimeStyle), puic_statusBarTimeStyle, NULL));
         
         IMP puic_statusBarLayoutMargins = class_getMethodImplementation(self, @selector(puic_statusBarLayoutMargins));
-        assert(class_addMethod(_dynamicIsa, @selector(puic_statusBarLayoutMargins), puic_statusBarLayoutMargins, NULL));
+        assert(class_addMethod(_isa, @selector(puic_statusBarLayoutMargins), puic_statusBarLayoutMargins, NULL));
         
-        assert(class_addIvar(_dynamicIsa, "_mpu_puic_statusBarAlpha", sizeof(NSUInteger), sizeof(NSUInteger), @encode(NSUInteger)));
+        assert(class_addIvar(_isa, "_mpu_puic_statusBarAlpha", sizeof(NSUInteger), sizeof(NSUInteger), @encode(NSUInteger)));
         
         //
         
-        objc_registerClassPair(_dynamicIsa);
+        objc_registerClassPair(_isa);
         
-        dynamicIsa = _dynamicIsa;
+        isa = _isa;
     });
     
-    return dynamicIsa;
+    return isa;
 }
 
 - (void)viewDidLoad {

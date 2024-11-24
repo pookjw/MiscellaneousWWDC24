@@ -15,51 +15,51 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 @implementation PageViewController
 
 + (void)load {
-    [self dynamicIsa];
+    [self class];
 }
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
-    return [[self dynamicIsa] allocWithZone:zone];
+    return [[self class] allocWithZone:zone];
 }
 
-+ (Class)dynamicIsa {
-    static Class dynamicIsa;
++ (Class)class {
+    static Class isa;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPPUICPageViewController"), "_PageViewController", 0);
+        Class _isa = objc_allocateClassPair(objc_lookUpClass("SPPUICPageViewController"), "_PageViewController", 0);
         
         IMP initWithNibName_bundle = class_getMethodImplementation(self, @selector(initWithNibName:bundle:));
-        assert(class_addMethod(_dynamicIsa, @selector(initWithNibName:bundle:), initWithNibName_bundle, NULL));
+        assert(class_addMethod(_isa, @selector(initWithNibName:bundle:), initWithNibName_bundle, NULL));
         
         IMP dealloc = class_getMethodImplementation(self, @selector(dealloc));
-        assert(class_addMethod(_dynamicIsa, @selector(dealloc), dealloc, NULL));
+        assert(class_addMethod(_isa, @selector(dealloc), dealloc, NULL));
         
         IMP respondsToSelector = class_getMethodImplementation(self, @selector(respondsToSelector:));
-        assert(class_addMethod(_dynamicIsa, @selector(respondsToSelector:), respondsToSelector, NULL));
+        assert(class_addMethod(_isa, @selector(respondsToSelector:), respondsToSelector, NULL));
         
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
-        assert(class_addMethod(_dynamicIsa, @selector(viewDidLoad), viewDidLoad, NULL));
+        assert(class_addMethod(_isa, @selector(viewDidLoad), viewDidLoad, NULL));
         
         IMP didTriggerNextBarButtonItem = class_getMethodImplementation(self, @selector(didTriggerNextBarButtonItem:));
-        assert(class_addMethod(_dynamicIsa, @selector(didTriggerNextBarButtonItem:), didTriggerNextBarButtonItem, NULL));
+        assert(class_addMethod(_isa, @selector(didTriggerNextBarButtonItem:), didTriggerNextBarButtonItem, NULL));
         
         IMP pageViewController_didChangeToIndex = class_getMethodImplementation(self, @selector(pageViewController:didChangeToIndex:));
-        assert(class_addMethod(_dynamicIsa, @selector(pageViewController:didChangeToIndex:), pageViewController_didChangeToIndex, NULL));
+        assert(class_addMethod(_isa, @selector(pageViewController:didChangeToIndex:), pageViewController_didChangeToIndex, NULL));
         
         IMP collectionView_didSelectItemAtIndexPath = class_getMethodImplementation(self, @selector(collectionView:didSelectItemAtIndexPath:));
-        assert(class_addMethod(_dynamicIsa, @selector(collectionView:didSelectItemAtIndexPath:), collectionView_didSelectItemAtIndexPath, NULL));
+        assert(class_addMethod(_isa, @selector(collectionView:didSelectItemAtIndexPath:), collectionView_didSelectItemAtIndexPath, NULL));
         
         //
         
-//        assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"PUICStatusBarCubicContainerDataSource")));
+//        assert(class_addProtocol(_isa, NSProtocolFromString(@"PUICStatusBarCubicContainerDataSource")));
         
-        objc_registerClassPair(_dynamicIsa);
+        objc_registerClassPair(_isa);
         
-        dynamicIsa = _dynamicIsa;
+        isa = _isa;
     });
     
-    return dynamicIsa;
+    return isa;
 }
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {

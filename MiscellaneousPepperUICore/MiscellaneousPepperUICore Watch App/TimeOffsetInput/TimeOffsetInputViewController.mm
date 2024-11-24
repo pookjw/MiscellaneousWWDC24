@@ -15,41 +15,41 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 @implementation TimeOffsetInputViewController
 
 + (void)load {
-    [self dynamicIsa];
+    [self class];
 }
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
-    return [[self dynamicIsa] allocWithZone:zone];
+    return [[self class] allocWithZone:zone];
 }
 
-+ (Class)dynamicIsa {
-    static Class dynamicIsa;
++ (Class)class {
+    static Class isa;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_TimeOffsetInputViewController", 0);
+        Class _isa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_TimeOffsetInputViewController", 0);
         
         IMP respondsToSelector = class_getMethodImplementation(self, @selector(respondsToSelector:));
-        assert(class_addMethod(_dynamicIsa, @selector(respondsToSelector:), respondsToSelector, NULL));
+        assert(class_addMethod(_isa, @selector(respondsToSelector:), respondsToSelector, NULL));
         
         IMP loadView = class_getMethodImplementation(self, @selector(loadView));
-        assert(class_addMethod(_dynamicIsa, @selector(loadView), loadView, NULL));
+        assert(class_addMethod(_isa, @selector(loadView), loadView, NULL));
         
         IMP valueChanged = class_getMethodImplementation(self, @selector(valueChanged));
-        assert(class_addMethod(_dynamicIsa, @selector(valueChanged), valueChanged, NULL));
+        assert(class_addMethod(_isa, @selector(valueChanged), valueChanged, NULL));
         
         IMP setButtonTapped = class_getMethodImplementation(self, @selector(setButtonTapped:));
-        assert(class_addMethod(_dynamicIsa, @selector(setButtonTapped:), setButtonTapped, NULL));
+        assert(class_addMethod(_isa, @selector(setButtonTapped:), setButtonTapped, NULL));
         
         IMP cancelButtonTapped = class_getMethodImplementation(self, @selector(cancelButtonTapped:));
-        assert(class_addMethod(_dynamicIsa, @selector(cancelButtonTapped:), cancelButtonTapped, NULL));
+        assert(class_addMethod(_isa, @selector(cancelButtonTapped:), cancelButtonTapped, NULL));
         
-        objc_registerClassPair(_dynamicIsa);
+        objc_registerClassPair(_isa);
         
-        dynamicIsa = _dynamicIsa;
+        isa = _isa;
     });
     
-    return dynamicIsa;
+    return isa;
 }
 
 - (BOOL)respondsToSelector:(SEL)aSelector {

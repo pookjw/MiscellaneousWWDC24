@@ -22,60 +22,60 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 @implementation WatchConnectivityViewController
 
 + (void)load {
-    [self dynamicIsa];
+    [self class];
 }
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
-    return [[self dynamicIsa] allocWithZone:zone];
+    return [[self class] allocWithZone:zone];
 }
 
-+ (Class)dynamicIsa {
-    static Class dynamicIsa;
++ (Class)class {
+    static Class isa;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_WatchConnectivityViewController", 0);
+        Class _isa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_WatchConnectivityViewController", 0);
         
-        assert(class_addProtocol(_dynamicIsa, @protocol(WCSessionDelegate)));
+        assert(class_addProtocol(_isa, @protocol(WCSessionDelegate)));
         
         IMP dealloc = class_getMethodImplementation(self, @selector(dealloc));
-        assert(class_addMethod(_dynamicIsa, @selector(dealloc), dealloc, NULL));
+        assert(class_addMethod(_isa, @selector(dealloc), dealloc, NULL));
         
         IMP respondsToSelector = class_getMethodImplementation(self, @selector(respondsToSelector:));
-        assert(class_addMethod(_dynamicIsa, @selector(respondsToSelector:), respondsToSelector, NULL));
+        assert(class_addMethod(_isa, @selector(respondsToSelector:), respondsToSelector, NULL));
         
         IMP loadView = class_getMethodImplementation(self, @selector(loadView));
-        assert(class_addMethod(_dynamicIsa, @selector(loadView), loadView, NULL));
+        assert(class_addMethod(_isa, @selector(loadView), loadView, NULL));
         
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
-        assert(class_addMethod(_dynamicIsa, @selector(viewDidLoad), viewDidLoad, NULL));
+        assert(class_addMethod(_isa, @selector(viewDidLoad), viewDidLoad, NULL));
         
         IMP didTriggerActionMenuBarButtonItem = class_getMethodImplementation(self, @selector(didTriggerActionMenuBarButtonItem:));
-        assert(class_addMethod(_dynamicIsa, @selector(didTriggerActionMenuBarButtonItem:), didTriggerActionMenuBarButtonItem, NULL));
+        assert(class_addMethod(_isa, @selector(didTriggerActionMenuBarButtonItem:), didTriggerActionMenuBarButtonItem, NULL));
         
         IMP session_activationDidCompleteWithState_error = class_getMethodImplementation(self, @selector(session:activationDidCompleteWithState:error:));
-        assert(class_addMethod(_dynamicIsa, @selector(session:activationDidCompleteWithState:error:), session_activationDidCompleteWithState_error, NULL));
+        assert(class_addMethod(_isa, @selector(session:activationDidCompleteWithState:error:), session_activationDidCompleteWithState_error, NULL));
         
         IMP session_didReceiveMessage = class_getMethodImplementation(self, @selector(session:didReceiveMessage:));
-        assert(class_addMethod(_dynamicIsa, @selector(session:didReceiveMessage:), session_didReceiveMessage, NULL));
+        assert(class_addMethod(_isa, @selector(session:didReceiveMessage:), session_didReceiveMessage, NULL));
         
         IMP sessionReachabilityDidChange = class_getMethodImplementation(self, @selector(sessionReachabilityDidChange:));
-        assert(class_addMethod(_dynamicIsa, @selector(sessionReachabilityDidChange:), sessionReachabilityDidChange, NULL));
+        assert(class_addMethod(_isa, @selector(sessionReachabilityDidChange:), sessionReachabilityDidChange, NULL));
         
         IMP session_didReceiveMessage_replyHandler = class_getMethodImplementation(self, @selector(session:didReceiveMessage:replyHandler:));
-        assert(class_addMethod(_dynamicIsa, @selector(session:didReceiveMessage:replyHandler:), session_didReceiveMessage_replyHandler, NULL));
+        assert(class_addMethod(_isa, @selector(session:didReceiveMessage:replyHandler:), session_didReceiveMessage_replyHandler, NULL));
         
-        assert(class_addIvar(_dynamicIsa, "_session", sizeof(id), sizeof(id), @encode(id)));
-        assert(class_addIvar(_dynamicIsa, "_statusLabel", sizeof(id), sizeof(id), @encode(id)));
+        assert(class_addIvar(_isa, "_session", sizeof(id), sizeof(id), @encode(id)));
+        assert(class_addIvar(_isa, "_statusLabel", sizeof(id), sizeof(id), @encode(id)));
         
         //
         
-        objc_registerClassPair(_dynamicIsa);
+        objc_registerClassPair(_isa);
         
-        dynamicIsa = _dynamicIsa;
+        isa = _isa;
     });
     
-    return dynamicIsa;
+    return isa;
 }
 
 #pragma clang diagnostic push

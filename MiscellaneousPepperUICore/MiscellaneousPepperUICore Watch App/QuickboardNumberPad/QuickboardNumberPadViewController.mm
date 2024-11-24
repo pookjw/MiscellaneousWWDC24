@@ -15,51 +15,51 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 @implementation QuickboardNumberPadViewController
 
 + (void)load {
-    [self dynamicIsa];
+    [self class];
 }
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
-    return [[self dynamicIsa] allocWithZone:zone];
+    return [[self class] allocWithZone:zone];
 }
 
-+ (Class)dynamicIsa {
-    static Class dynamicIsa;
++ (Class)class {
+    static Class isa;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_QuickboardNumberPadViewController", 0);
+        Class _isa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_QuickboardNumberPadViewController", 0);
         
         IMP respondsToSelector = class_getMethodImplementation(self, @selector(respondsToSelector:));
-        assert(class_addMethod(_dynamicIsa, @selector(respondsToSelector:), respondsToSelector, NULL));
+        assert(class_addMethod(_isa, @selector(respondsToSelector:), respondsToSelector, NULL));
         
         IMP loadView = class_getMethodImplementation(self, @selector(loadView));
-        assert(class_addMethod(_dynamicIsa, @selector(loadView), loadView, NULL));
+        assert(class_addMethod(_isa, @selector(loadView), loadView, NULL));
         
         IMP numberPadView_didHighlightNumberPadCharacter = class_getMethodImplementation(self, @selector(numberPadView:didHighlightNumberPadCharacter:));
-        assert(class_addMethod(_dynamicIsa, @selector(numberPadView:didHighlightNumberPadCharacter:), numberPadView_didHighlightNumberPadCharacter, NULL));
+        assert(class_addMethod(_isa, @selector(numberPadView:didHighlightNumberPadCharacter:), numberPadView_didHighlightNumberPadCharacter, NULL));
         
         IMP numberPadView_didSelectNumberPadCharacter = class_getMethodImplementation(self, @selector(numberPadView:didSelectNumberPadCharacter:));
-        assert(class_addMethod(_dynamicIsa, @selector(numberPadView:didSelectNumberPadCharacter:), numberPadView_didSelectNumberPadCharacter, NULL));
+        assert(class_addMethod(_isa, @selector(numberPadView:didSelectNumberPadCharacter:), numberPadView_didSelectNumberPadCharacter, NULL));
         
         IMP numberPadView_didUnhighlightNumberPadCharacter = class_getMethodImplementation(self, @selector(numberPadView:didUnhighlightNumberPadCharacter:));
-        assert(class_addMethod(_dynamicIsa, @selector(numberPadView:didUnhighlightNumberPadCharacter:), numberPadView_didUnhighlightNumberPadCharacter, NULL));
+        assert(class_addMethod(_isa, @selector(numberPadView:didUnhighlightNumberPadCharacter:), numberPadView_didUnhighlightNumberPadCharacter, NULL));
         
         IMP numberPadViewDidSelectDelete = class_getMethodImplementation(self, @selector(numberPadViewDidSelectDelete:));
-        assert(class_addMethod(_dynamicIsa, @selector(numberPadViewDidSelectDelete:), numberPadViewDidSelectDelete, NULL));
+        assert(class_addMethod(_isa, @selector(numberPadViewDidSelectDelete:), numberPadViewDidSelectDelete, NULL));
         
         IMP numberPadViewDidSelectOK = class_getMethodImplementation(self, @selector(numberPadViewDidSelectOK:));
-        assert(class_addMethod(_dynamicIsa, @selector(numberPadViewDidSelectOK:), numberPadViewDidSelectOK, NULL));
+        assert(class_addMethod(_isa, @selector(numberPadViewDidSelectOK:), numberPadViewDidSelectOK, NULL));
         
         //
         
-        assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"PUICQuickboardNumberPadViewDelegate")));
+        assert(class_addProtocol(_isa, NSProtocolFromString(@"PUICQuickboardNumberPadViewDelegate")));
         
-        objc_registerClassPair(_dynamicIsa);
+        objc_registerClassPair(_isa);
         
-        dynamicIsa = _dynamicIsa;
+        isa = _isa;
     });
     
-    return dynamicIsa;
+    return isa;
 }
 
 - (BOOL)respondsToSelector:(SEL)aSelector {

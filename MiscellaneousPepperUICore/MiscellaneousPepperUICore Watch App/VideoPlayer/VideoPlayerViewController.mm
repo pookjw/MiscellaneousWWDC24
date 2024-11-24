@@ -38,44 +38,44 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 + (void)load {
     mpu_AVPlayerViewController::_showOrHidePlaybackControlsView::swizzle();
-    [self dynamicIsa];
+    [self class];
 }
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
-    return [[self dynamicIsa] allocWithZone:zone];
+    return [[self class] allocWithZone:zone];
 }
 
-+ (Class)dynamicIsa {
-    static Class dynamicIsa;
++ (Class)class {
+    static Class isa;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_VideoPlayerViewController", 0);
+        Class _isa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_VideoPlayerViewController", 0);
         
         IMP dealloc = class_getMethodImplementation(self, @selector(dealloc));
-        assert(class_addMethod(_dynamicIsa, @selector(dealloc), dealloc, NULL));
+        assert(class_addMethod(_isa, @selector(dealloc), dealloc, NULL));
         
         IMP loadView = class_getMethodImplementation(self, @selector(loadView));
-        assert(class_addMethod(_dynamicIsa, @selector(loadView), loadView, NULL));
+        assert(class_addMethod(_isa, @selector(loadView), loadView, NULL));
         
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
-        assert(class_addMethod(_dynamicIsa, @selector(viewDidLoad), viewDidLoad, NULL));
+        assert(class_addMethod(_isa, @selector(viewDidLoad), viewDidLoad, NULL));
         
         IMP slider_didTapTouchTarget = class_getMethodImplementation(self, @selector(slider:didTapTouchTarget:));
-        assert(class_addMethod(_dynamicIsa, @selector(slider:didTapTouchTarget:), slider_didTapTouchTarget, NULL));
+        assert(class_addMethod(_isa, @selector(slider:didTapTouchTarget:), slider_didTapTouchTarget, NULL));
         
         IMP rateSliderValueChanged = class_getMethodImplementation(self, @selector(rateSliderValueChanged:));
-        assert(class_addMethod(_dynamicIsa, @selector(rateSliderValueChanged:), rateSliderValueChanged, NULL));
+        assert(class_addMethod(_isa, @selector(rateSliderValueChanged:), rateSliderValueChanged, NULL));
         
-        assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"PUICSliderDelegate")));
-        assert(class_addIvar(_dynamicIsa, "_playerRateObservation", sizeof(id), sizeof(id), @encode(id)));
+        assert(class_addProtocol(_isa, NSProtocolFromString(@"PUICSliderDelegate")));
+        assert(class_addIvar(_isa, "_playerRateObservation", sizeof(id), sizeof(id), @encode(id)));
         
-        objc_registerClassPair(_dynamicIsa);
+        objc_registerClassPair(_isa);
         
-        dynamicIsa = _dynamicIsa;
+        isa = _isa;
     });
     
-    return dynamicIsa;
+    return isa;
 }
 
 #pragma clang diagnostic push

@@ -15,65 +15,65 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 @implementation SlidersViewController
 
 + (void)load {
-    [self dynamicIsa];
+    [self class];
 }
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
-    return [[self dynamicIsa] allocWithZone:zone];
+    return [[self class] allocWithZone:zone];
 }
 
-+ (Class)dynamicIsa {
-    static Class dynamicIsa;
++ (Class)class {
+    static Class isa;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_SlidersViewController", 0);
+        Class _isa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_SlidersViewController", 0);
         
         IMP dealloc = class_getMethodImplementation(self, @selector(dealloc));
-        assert(class_addMethod(_dynamicIsa, @selector(dealloc), dealloc, NULL));
+        assert(class_addMethod(_isa, @selector(dealloc), dealloc, NULL));
         
         IMP loadView = class_getMethodImplementation(self, @selector(loadView));
-        assert(class_addMethod(_dynamicIsa, @selector(loadView), loadView, NULL));
+        assert(class_addMethod(_isa, @selector(loadView), loadView, NULL));
         
         IMP respondsToSelector = class_getMethodImplementation(self, @selector(respondsToSelector:));
-        assert(class_addMethod(_dynamicIsa, @selector(respondsToSelector:), respondsToSelector, NULL));
+        assert(class_addMethod(_isa, @selector(respondsToSelector:), respondsToSelector, NULL));
         
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
-        assert(class_addMethod(_dynamicIsa, @selector(viewDidLoad), viewDidLoad, NULL));
+        assert(class_addMethod(_isa, @selector(viewDidLoad), viewDidLoad, NULL));
         
         IMP uiSliderValueChanged = class_getMethodImplementation(self, @selector(uiSliderValueChanged:));
-        assert(class_addMethod(_dynamicIsa, @selector(uiSliderValueChanged:), uiSliderValueChanged, NULL));
+        assert(class_addMethod(_isa, @selector(uiSliderValueChanged:), uiSliderValueChanged, NULL));
         
         IMP puicSliderValueChanged = class_getMethodImplementation(self, @selector(puicSliderValueChanged:));
-        assert(class_addMethod(_dynamicIsa, @selector(puicSliderValueChanged:), puicSliderValueChanged, NULL));
+        assert(class_addMethod(_isa, @selector(puicSliderValueChanged:), puicSliderValueChanged, NULL));
         
         IMP sliderDidBeginCrownInteraction = class_getMethodImplementation(self, @selector(sliderDidBeginCrownInteraction:));
-        assert(class_addMethod(_dynamicIsa, @selector(sliderDidBeginCrownInteraction:), sliderDidBeginCrownInteraction, NULL));
+        assert(class_addMethod(_isa, @selector(sliderDidBeginCrownInteraction:), sliderDidBeginCrownInteraction, NULL));
         
         IMP slider_didTapTouchTarget = class_getMethodImplementation(self, @selector(slider:didTapTouchTarget:));
-        assert(class_addMethod(_dynamicIsa, @selector(slider:didTapTouchTarget:), slider_didTapTouchTarget, NULL));
+        assert(class_addMethod(_isa, @selector(slider:didTapTouchTarget:), slider_didTapTouchTarget, NULL));
         
         IMP sliderDidEndCrownInteraction = class_getMethodImplementation(self, @selector(sliderDidEndCrownInteraction:));
-        assert(class_addMethod(_dynamicIsa, @selector(sliderDidEndCrownInteraction:), sliderDidEndCrownInteraction, NULL));
+        assert(class_addMethod(_isa, @selector(sliderDidEndCrownInteraction:), sliderDidEndCrownInteraction, NULL));
         
         IMP sliderDidRequestFocus = class_getMethodImplementation(self, @selector(sliderDidRequestFocus:));
-        assert(class_addMethod(_dynamicIsa, @selector(sliderDidRequestFocus:), sliderDidRequestFocus, NULL));
+        assert(class_addMethod(_isa, @selector(sliderDidRequestFocus:), sliderDidRequestFocus, NULL));
         
         //
         
-        assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"PUICSliderDelegate")));
+        assert(class_addProtocol(_isa, NSProtocolFromString(@"PUICSliderDelegate")));
         
-        assert(class_addIvar(_dynamicIsa, "_uiSlider", sizeof(id), sizeof(id), @encode(id)));
-        assert(class_addIvar(_dynamicIsa, "_puicSlider", sizeof(id), sizeof(id), @encode(id)));
+        assert(class_addIvar(_isa, "_uiSlider", sizeof(id), sizeof(id), @encode(id)));
+        assert(class_addIvar(_isa, "_puicSlider", sizeof(id), sizeof(id), @encode(id)));
         
         //
         
-        objc_registerClassPair(_dynamicIsa);
+        objc_registerClassPair(_isa);
         
-        dynamicIsa = _dynamicIsa;
+        isa = _isa;
     });
     
-    return dynamicIsa;
+    return isa;
 }
 
 #pragma clang diagnostic push

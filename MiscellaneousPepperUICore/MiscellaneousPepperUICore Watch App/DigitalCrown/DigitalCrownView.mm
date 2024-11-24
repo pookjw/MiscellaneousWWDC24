@@ -37,70 +37,70 @@ void swizzle() {
 
 + (void)load {
     _PUICCrownIndicatorWindow::isInternalWindow::swizzle();
-    [self dynamicIsa];
+    [self class];
 }
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
-    return [[self dynamicIsa] allocWithZone:zone];
+    return [[self class] allocWithZone:zone];
 }
 
-+ (Class)dynamicIsa {
-    static Class dynamicIsa;
++ (Class)class {
+    static Class isa;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("UIView"), "_DigitalCrownView", 0);
+        Class _isa = objc_allocateClassPair(objc_lookUpClass("UIView"), "_DigitalCrownView", 0);
         
         IMP initWithFrame= class_getMethodImplementation(self, @selector(initWithFrame:));
-        assert(class_addMethod(_dynamicIsa, @selector(initWithFrame:), initWithFrame, NULL));
+        assert(class_addMethod(_isa, @selector(initWithFrame:), initWithFrame, NULL));
         
         IMP dealloc = class_getMethodImplementation(self, @selector(dealloc));
-        assert(class_addMethod(_dynamicIsa, @selector(dealloc), dealloc, NULL));
+        assert(class_addMethod(_isa, @selector(dealloc), dealloc, NULL));
         
         IMP respondsToSelector = class_getMethodImplementation(self, @selector(respondsToSelector:));
-        assert(class_addMethod(_dynamicIsa, @selector(respondsToSelector:), respondsToSelector, NULL));
+        assert(class_addMethod(_isa, @selector(respondsToSelector:), respondsToSelector, NULL));
         
         IMP canBecomeFirstResponder = class_getMethodImplementation(self, @selector(canBecomeFirstResponder));
-        assert(class_addMethod(_dynamicIsa, @selector(canBecomeFirstResponder), canBecomeFirstResponder, NULL));
+        assert(class_addMethod(_isa, @selector(canBecomeFirstResponder), canBecomeFirstResponder, NULL));
         
         IMP _wheelChangedWithEvent = class_getMethodImplementation(self, @selector(_wheelChangedWithEvent:));
-        assert(class_addMethod(_dynamicIsa, @selector(_wheelChangedWithEvent:), _wheelChangedWithEvent, NULL));
+        assert(class_addMethod(_isa, @selector(_wheelChangedWithEvent:), _wheelChangedWithEvent, NULL));
         
         IMP crownInputSequencerOffsetDidChange = class_getMethodImplementation(self, @selector(crownInputSequencerOffsetDidChange:));
-        assert(class_addMethod(_dynamicIsa, @selector(crownInputSequencerOffsetDidChange:), crownInputSequencerOffsetDidChange, NULL));
+        assert(class_addMethod(_isa, @selector(crownInputSequencerOffsetDidChange:), crownInputSequencerOffsetDidChange, NULL));
         
         IMP isFirstResponderForSequencer = class_getMethodImplementation(self, @selector(isFirstResponderForSequencer:));
-        assert(class_addMethod(_dynamicIsa, @selector(isFirstResponderForSequencer:), isFirstResponderForSequencer, NULL));
+        assert(class_addMethod(_isa, @selector(isFirstResponderForSequencer:), isFirstResponderForSequencer, NULL));
         
         IMP crownInputSequencer_shouldRubberBandAtBoundary = class_getMethodImplementation(self, @selector(crownInputSequencer:shouldRubberBandAtBoundary:));
-        assert(class_addMethod(_dynamicIsa, @selector(crownInputSequencer:shouldRubberBandAtBoundary:), crownInputSequencer_shouldRubberBandAtBoundary, NULL));
+        assert(class_addMethod(_isa, @selector(crownInputSequencer:shouldRubberBandAtBoundary:), crownInputSequencer_shouldRubberBandAtBoundary, NULL));
         
         IMP crownInputSequencerWillBecomeIdle_withCrownVelocity_targetOffset = class_getMethodImplementation(self, @selector(crownInputSequencerWillBecomeIdle:withCrownVelocity:targetOffset:));
-        assert(class_addMethod(_dynamicIsa, @selector(crownInputSequencerWillBecomeIdle:withCrownVelocity:targetOffset:), crownInputSequencerWillBecomeIdle_withCrownVelocity_targetOffset, NULL));
+        assert(class_addMethod(_isa, @selector(crownInputSequencerWillBecomeIdle:withCrownVelocity:targetOffset:), crownInputSequencerWillBecomeIdle_withCrownVelocity_targetOffset, NULL));
         
         IMP crownInputSequencerWillBeginDecelerating = class_getMethodImplementation(self, @selector(crownInputSequencerWillBeginDecelerating:));
-        assert(class_addMethod(_dynamicIsa, @selector(crownInputSequencerWillBeginDecelerating:), crownInputSequencerWillBeginDecelerating, NULL));
+        assert(class_addMethod(_isa, @selector(crownInputSequencerWillBeginDecelerating:), crownInputSequencerWillBeginDecelerating, NULL));
         
         IMP crownInputSequencerDidEndDecelerating = class_getMethodImplementation(self, @selector(crownInputSequencerDidEndDecelerating:));
-        assert(class_addMethod(_dynamicIsa, @selector(crownInputSequencerDidEndDecelerating:), crownInputSequencerDidEndDecelerating, NULL));
+        assert(class_addMethod(_isa, @selector(crownInputSequencerDidEndDecelerating:), crownInputSequencerDidEndDecelerating, NULL));
         
         IMP _crownInputSequencer_offsetDidChangeByDelta = class_getMethodImplementation(self, @selector(_crownInputSequencer:offsetDidChangeByDelta:));
-        assert(class_addMethod(_dynamicIsa, @selector(_crownInputSequencer:offsetDidChangeByDelta:), _crownInputSequencer_offsetDidChangeByDelta, NULL));
+        assert(class_addMethod(_isa, @selector(_crownInputSequencer:offsetDidChangeByDelta:), _crownInputSequencer_offsetDidChangeByDelta, NULL));
         
-        assert(class_addIvar(_dynamicIsa, "_crownInputSequencer", sizeof(id), sizeof(id), @encode(id)));
-        assert(class_addIvar(_dynamicIsa, "_label", sizeof(id), sizeof(id), @encode(id)));
+        assert(class_addIvar(_isa, "_crownInputSequencer", sizeof(id), sizeof(id), @encode(id)));
+        assert(class_addIvar(_isa, "_label", sizeof(id), sizeof(id), @encode(id)));
         
-        assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"PUICCrownInputSequencerDelegate")));
-//        assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"PUICCrownInputSequencerDetentsDataSource")));
-        assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"PUICCrownInputSequencerDataSource")));
-//        assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"PUICCrownInputSequencerMetricsDelegate")));
+        assert(class_addProtocol(_isa, NSProtocolFromString(@"PUICCrownInputSequencerDelegate")));
+//        assert(class_addProtocol(_isa, NSProtocolFromString(@"PUICCrownInputSequencerDetentsDataSource")));
+        assert(class_addProtocol(_isa, NSProtocolFromString(@"PUICCrownInputSequencerDataSource")));
+//        assert(class_addProtocol(_isa, NSProtocolFromString(@"PUICCrownInputSequencerMetricsDelegate")));
         
-        objc_registerClassPair(_dynamicIsa);
+        objc_registerClassPair(_isa);
         
-        dynamicIsa = _dynamicIsa;
+        isa = _isa;
     });
     
-    return dynamicIsa;
+    return isa;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {

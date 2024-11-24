@@ -24,66 +24,66 @@ struct CAFrameRateRange {
 @implementation AlwaysOnViewController
 
 + (void)load {
-    [self dynamicIsa];
+    [self class];
 }
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
-    return [[self dynamicIsa] allocWithZone:zone];
+    return [[self class] allocWithZone:zone];
 }
 
-+ (Class)dynamicIsa {
-    static Class dynamicIsa;
++ (Class)class {
+    static Class isa;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_AlwaysOnViewController", 0);
+        Class _isa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_AlwaysOnViewController", 0);
         
         IMP dealloc = class_getMethodImplementation(self, @selector(dealloc));
-        assert(class_addMethod(_dynamicIsa, @selector(dealloc), dealloc, NULL));
+        assert(class_addMethod(_isa, @selector(dealloc), dealloc, NULL));
         
         IMP loadView = class_getMethodImplementation(self, @selector(loadView));
-        assert(class_addMethod(_dynamicIsa, @selector(loadView), loadView, NULL));
+        assert(class_addMethod(_isa, @selector(loadView), loadView, NULL));
         
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
-        assert(class_addMethod(_dynamicIsa, @selector(viewDidLoad), viewDidLoad, NULL));
+        assert(class_addMethod(_isa, @selector(viewDidLoad), viewDidLoad, NULL));
         
         IMP _effectiveControllersForAlwaysOnTimelines = class_getMethodImplementation(self, @selector(_effectiveControllersForAlwaysOnTimelines));
-        assert(class_addMethod(_dynamicIsa, @selector(_effectiveControllersForAlwaysOnTimelines), _effectiveControllersForAlwaysOnTimelines, NULL));
+        assert(class_addMethod(_isa, @selector(_effectiveControllersForAlwaysOnTimelines), _effectiveControllersForAlwaysOnTimelines, NULL));
         
         IMP _timelinesForDateInterval = class_getMethodImplementation(self, @selector(_timelinesForDateInterval:));
-        assert(class_addMethod(_dynamicIsa, @selector(_timelinesForDateInterval:), _timelinesForDateInterval, NULL));
+        assert(class_addMethod(_isa, @selector(_timelinesForDateInterval:), _timelinesForDateInterval, NULL));
         
         IMP didReceiveEffectiveVisibilityDidChangeNotification = class_getMethodImplementation(self, @selector(didReceiveEffectiveVisibilityDidChangeNotification:));
-        assert(class_addMethod(_dynamicIsa, @selector(didReceiveEffectiveVisibilityDidChangeNotification:), didReceiveEffectiveVisibilityDidChangeNotification, NULL));
+        assert(class_addMethod(_isa, @selector(didReceiveEffectiveVisibilityDidChangeNotification:), didReceiveEffectiveVisibilityDidChangeNotification, NULL));
         
         IMP didReceiveEnvironmentFrontmostScreenOffDidChangeNotification = class_getMethodImplementation(self, @selector(didReceiveEnvironmentFrontmostScreenOffDidChangeNotification:));
-        assert(class_addMethod(_dynamicIsa, @selector(didReceiveEnvironmentFrontmostScreenOffDidChangeNotification:), didReceiveEnvironmentFrontmostScreenOffDidChangeNotification, NULL));
+        assert(class_addMethod(_isa, @selector(didReceiveEnvironmentFrontmostScreenOffDidChangeNotification:), didReceiveEnvironmentFrontmostScreenOffDidChangeNotification, NULL));
         
         IMP puic_didEnterAlwaysOn = class_getMethodImplementation(self, @selector(puic_didEnterAlwaysOn));
-        assert(class_addMethod(_dynamicIsa, @selector(puic_didEnterAlwaysOn), puic_didEnterAlwaysOn, NULL));
+        assert(class_addMethod(_isa, @selector(puic_didEnterAlwaysOn), puic_didEnterAlwaysOn, NULL));
         
         IMP puic_didExitAlwaysOn = class_getMethodImplementation(self, @selector(puic_didExitAlwaysOn));
-        assert(class_addMethod(_dynamicIsa, @selector(puic_didExitAlwaysOn), puic_didExitAlwaysOn, NULL));
+        assert(class_addMethod(_isa, @selector(puic_didExitAlwaysOn), puic_didExitAlwaysOn, NULL));
         
         IMP puic_willEnterAlwaysOn = class_getMethodImplementation(self, @selector(puic_willEnterAlwaysOn));
-        assert(class_addMethod(_dynamicIsa, @selector(puic_willEnterAlwaysOn), puic_willEnterAlwaysOn, NULL));
+        assert(class_addMethod(_isa, @selector(puic_willEnterAlwaysOn), puic_willEnterAlwaysOn, NULL));
         
         IMP puic_willExitAlwaysOn = class_getMethodImplementation(self, @selector(puic_willExitAlwaysOn));
-        assert(class_addMethod(_dynamicIsa, @selector(puic_willExitAlwaysOn), puic_willExitAlwaysOn, NULL));
+        assert(class_addMethod(_isa, @selector(puic_willExitAlwaysOn), puic_willExitAlwaysOn, NULL));
         
-        assert(class_addIvar(_dynamicIsa, "_stackView", sizeof(id), sizeof(id), @encode(id)));
-        assert(class_addIvar(_dynamicIsa, "_updatLinkLabel", sizeof(id), sizeof(id), @encode(id)));
-        assert(class_addIvar(_dynamicIsa, "_effectiveVisibilityView", sizeof(id), sizeof(id), @encode(id)));
-        assert(class_addIvar(_dynamicIsa, "_updateLink", sizeof(id), sizeof(id), @encode(id)));
+        assert(class_addIvar(_isa, "_stackView", sizeof(id), sizeof(id), @encode(id)));
+        assert(class_addIvar(_isa, "_updatLinkLabel", sizeof(id), sizeof(id), @encode(id)));
+        assert(class_addIvar(_isa, "_effectiveVisibilityView", sizeof(id), sizeof(id), @encode(id)));
+        assert(class_addIvar(_isa, "_updateLink", sizeof(id), sizeof(id), @encode(id)));
         
         //
         
-        objc_registerClassPair(_dynamicIsa);
+        objc_registerClassPair(_isa);
         
-        dynamicIsa = _dynamicIsa;
+        isa = _isa;
     });
     
-    return dynamicIsa;
+    return isa;
 }
 
 #pragma clang diagnostic push

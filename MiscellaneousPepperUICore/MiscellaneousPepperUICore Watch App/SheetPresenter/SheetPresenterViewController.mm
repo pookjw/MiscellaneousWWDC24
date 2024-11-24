@@ -16,52 +16,52 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 @implementation SheetPresenterViewController
 
 + (void)load {
-    [self dynamicIsa];
+    [self class];
 }
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
-    return [[self dynamicIsa] allocWithZone:zone];
+    return [[self class] allocWithZone:zone];
 }
 
-+ (Class)dynamicIsa {
-    static Class dynamicIsa;
++ (Class)class {
+    static Class isa;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_SheetPresenterViewController", 0);
+        Class _isa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_SheetPresenterViewController", 0);
         
         IMP loadView = class_getMethodImplementation(self, @selector(loadView));
-        assert(class_addMethod(_dynamicIsa, @selector(loadView), loadView, NULL));
+        assert(class_addMethod(_isa, @selector(loadView), loadView, NULL));
         
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
-        assert(class_addMethod(_dynamicIsa, @selector(viewDidLoad), viewDidLoad, NULL));
+        assert(class_addMethod(_isa, @selector(viewDidLoad), viewDidLoad, NULL));
         
         IMP didTriggerPresentBarButtonItem = class_getMethodImplementation(self, @selector(didTriggerPresentBarButtonItem:));
-        assert(class_addMethod(_dynamicIsa, @selector(didTriggerPresentBarButtonItem:), didTriggerPresentBarButtonItem, NULL));
+        assert(class_addMethod(_isa, @selector(didTriggerPresentBarButtonItem:), didTriggerPresentBarButtonItem, NULL));
         
         IMP actionSheetController_didDismissWithActionAtIndexPath = class_getMethodImplementation(self, @selector(actionSheetController:didDismissWithActionAtIndexPath:));
-        assert(class_addMethod(_dynamicIsa, @selector(actionSheetController:didDismissWithActionAtIndexPath:), actionSheetController_didDismissWithActionAtIndexPath, NULL));
+        assert(class_addMethod(_isa, @selector(actionSheetController:didDismissWithActionAtIndexPath:), actionSheetController_didDismissWithActionAtIndexPath, NULL));
         
         IMP actionSheetController_didTapActionAtIndexPath = class_getMethodImplementation(self, @selector(actionSheetController:didTapActionAtIndexPath:));
-        assert(class_addMethod(_dynamicIsa, @selector(actionSheetController:didTapActionAtIndexPath:), actionSheetController_didTapActionAtIndexPath, NULL));
+        assert(class_addMethod(_isa, @selector(actionSheetController:didTapActionAtIndexPath:), actionSheetController_didTapActionAtIndexPath, NULL));
         
         IMP actionSheetController_willDismissWithActionAtIndexPath = class_getMethodImplementation(self, @selector(actionSheetController:willDismissWithActionAtIndexPath:));
-        assert(class_addMethod(_dynamicIsa, @selector(actionSheetController:willDismissWithActionAtIndexPath:), actionSheetController_willDismissWithActionAtIndexPath, NULL));
+        assert(class_addMethod(_isa, @selector(actionSheetController:willDismissWithActionAtIndexPath:), actionSheetController_willDismissWithActionAtIndexPath, NULL));
         
         IMP actionSheetController_willTapActionAtIndexPath = class_getMethodImplementation(self, @selector(actionSheetController:willTapActionAtIndexPath:));
-        assert(class_addMethod(_dynamicIsa, @selector(actionSheetController:willTapActionAtIndexPath:), actionSheetController_willTapActionAtIndexPath, NULL));
+        assert(class_addMethod(_isa, @selector(actionSheetController:willTapActionAtIndexPath:), actionSheetController_willTapActionAtIndexPath, NULL));
         
         IMP actionContentControllerCancel = class_getMethodImplementation(self, @selector(actionContentControllerCancel:));
-        assert(class_addMethod(_dynamicIsa, @selector(actionContentControllerCancel:), actionContentControllerCancel, NULL));
+        assert(class_addMethod(_isa, @selector(actionContentControllerCancel:), actionContentControllerCancel, NULL));
         
-        assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"PUICActionSheetControllerDelegate")));
+        assert(class_addProtocol(_isa, NSProtocolFromString(@"PUICActionSheetControllerDelegate")));
         
-        objc_registerClassPair(_dynamicIsa);
+        objc_registerClassPair(_isa);
         
-        dynamicIsa = _dynamicIsa;
+        isa = _isa;
     });
     
-    return dynamicIsa;
+    return isa;
 }
 
 - (void)loadView {

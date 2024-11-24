@@ -15,40 +15,40 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 @implementation EffectiveVisibilityView
 
 + (void)load {
-    [self dynamicIsa];
+    [self class];
 }
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
-    return [[self dynamicIsa] allocWithZone:zone];
+    return [[self class] allocWithZone:zone];
 }
 
-+ (Class)dynamicIsa {
-    static Class dynamicIsa;
++ (Class)class {
+    static Class isa;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("UIView"), "_EffectiveVisibilityView", 0);
+        Class _isa = objc_allocateClassPair(objc_lookUpClass("UIView"), "_EffectiveVisibilityView", 0);
         
         IMP initWithFrame = class_getMethodImplementation(self, @selector(initWithFrame:));
-        assert(class_addMethod(_dynamicIsa, @selector(initWithFrame:), initWithFrame, NULL));
+        assert(class_addMethod(_isa, @selector(initWithFrame:), initWithFrame, NULL));
         
         IMP dealloc = class_getMethodImplementation(self, @selector(dealloc));
-        assert(class_addMethod(_dynamicIsa, @selector(dealloc), dealloc, NULL));
+        assert(class_addMethod(_isa, @selector(dealloc), dealloc, NULL));
         
         IMP alwaysOnUpdateFidelityDidChange = class_getMethodImplementation(self, @selector(alwaysOnUpdateFidelityDidChange:));
-        assert(class_addMethod(_dynamicIsa, @selector(alwaysOnUpdateFidelityDidChange:), alwaysOnUpdateFidelityDidChange, NULL));
+        assert(class_addMethod(_isa, @selector(alwaysOnUpdateFidelityDidChange:), alwaysOnUpdateFidelityDidChange, NULL));
         
-        assert(class_addIvar(_dynamicIsa, "_label", sizeof(id), sizeof(id), @encode(id)));
-        assert(class_addIvar(_dynamicIsa, "_observer", sizeof(id), sizeof(id), @encode(id)));
+        assert(class_addIvar(_isa, "_label", sizeof(id), sizeof(id), @encode(id)));
+        assert(class_addIvar(_isa, "_observer", sizeof(id), sizeof(id), @encode(id)));
         
         //
         
-        objc_registerClassPair(_dynamicIsa);
+        objc_registerClassPair(_isa);
         
-        dynamicIsa = _dynamicIsa;
+        isa = _isa;
     });
     
-    return dynamicIsa;
+    return isa;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {

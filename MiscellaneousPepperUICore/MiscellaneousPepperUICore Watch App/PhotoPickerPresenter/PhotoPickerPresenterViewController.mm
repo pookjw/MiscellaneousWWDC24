@@ -16,36 +16,36 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 @implementation PhotoPickerPresenterViewController
 
 + (void)load {
-    [self dynamicIsa];
+    [self class];
 }
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
-    return [[self dynamicIsa] allocWithZone:zone];
+    return [[self class] allocWithZone:zone];
 }
 
-+ (Class)dynamicIsa {
-    static Class dynamicIsa;
++ (Class)class {
+    static Class isa;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_PhotoPickerPresenterViewController", 0);
+        Class _isa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_PhotoPickerPresenterViewController", 0);
         
         IMP loadView = class_getMethodImplementation(self, @selector(loadView));
-        assert(class_addMethod(_dynamicIsa, @selector(loadView), loadView, NULL));
+        assert(class_addMethod(_isa, @selector(loadView), loadView, NULL));
         
         IMP picker_didFinishPicking = class_getMethodImplementation(self, @selector(picker:didFinishPicking:));
-        assert(class_addMethod(_dynamicIsa, @selector(picker:didFinishPicking:), picker_didFinishPicking, NULL));
+        assert(class_addMethod(_isa, @selector(picker:didFinishPicking:), picker_didFinishPicking, NULL));
         
-        assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"PHPickerViewControllerDelegate")));
+        assert(class_addProtocol(_isa, NSProtocolFromString(@"PHPickerViewControllerDelegate")));
         
         //
         
-        objc_registerClassPair(_dynamicIsa);
+        objc_registerClassPair(_isa);
         
-        dynamicIsa = _dynamicIsa;
+        isa = _isa;
     });
     
-    return dynamicIsa;
+    return isa;
 }
 
 - (void)loadView {

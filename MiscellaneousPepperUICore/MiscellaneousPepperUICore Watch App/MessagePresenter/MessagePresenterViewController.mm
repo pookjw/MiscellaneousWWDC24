@@ -15,38 +15,38 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 @implementation MessagePresenterViewController
 
 + (void)load {
-    [self dynamicIsa];
+    [self class];
 }
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
-    return [[self dynamicIsa] allocWithZone:zone];
+    return [[self class] allocWithZone:zone];
 }
 
-+ (Class)dynamicIsa {
-    static Class dynamicIsa;
++ (Class)class {
+    static Class isa;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_MessagePresenterViewController", 0);
+        Class _isa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_MessagePresenterViewController", 0);
         
         IMP respondsToSelector = class_getMethodImplementation(self, @selector(respondsToSelector:));
-        assert(class_addMethod(_dynamicIsa, @selector(respondsToSelector:), respondsToSelector, NULL));
+        assert(class_addMethod(_isa, @selector(respondsToSelector:), respondsToSelector, NULL));
         
         IMP loadView = class_getMethodImplementation(self, @selector(loadView));
-        assert(class_addMethod(_dynamicIsa, @selector(loadView), loadView, NULL));
+        assert(class_addMethod(_isa, @selector(loadView), loadView, NULL));
         
         IMP quickboard_textEntered = class_getMethodImplementation(self, @selector(quickboard:textEntered:));
-        assert(class_addMethod(_dynamicIsa, @selector(quickboard:textEntered:), quickboard_textEntered, NULL));
+        assert(class_addMethod(_isa, @selector(quickboard:textEntered:), quickboard_textEntered, NULL));
         
         IMP quickboardInputCancelled = class_getMethodImplementation(self, @selector(quickboardInputCancelled:));
-        assert(class_addMethod(_dynamicIsa, @selector(quickboardInputCancelled:), quickboardInputCancelled, NULL));
+        assert(class_addMethod(_isa, @selector(quickboardInputCancelled:), quickboardInputCancelled, NULL));
         
-        objc_registerClassPair(_dynamicIsa);
+        objc_registerClassPair(_isa);
         
-        dynamicIsa = _dynamicIsa;
+        isa = _isa;
     });
     
-    return dynamicIsa;
+    return isa;
 }
 
 - (BOOL)respondsToSelector:(SEL)aSelector {

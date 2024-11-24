@@ -17,50 +17,49 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 + (void)load {
     assert(dlopen("/System/Library/PrivateFrameworks/NanoMediaUI.framework/NanoMediaUI", RTLD_NOW) != NULL);
     assert(dlopen("/System/Library/PrivateFrameworks/NanoAudioControl.framework/NanoAudioControl", RTLD_NOW) != NULL);
-    
-    [self dynamicIsa];
+    [self class];
 }
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
-    return [[self dynamicIsa] allocWithZone:zone];
+    return [[self class] allocWithZone:zone];
 }
 
-+ (Class)dynamicIsa {
-    static Class dynamicIsa;
++ (Class)class {
+    static Class isa;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        Class _dynamicIsa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_VolumeIndicatorViewController", 0);
+        Class _isa = objc_allocateClassPair(objc_lookUpClass("SPViewController"), "_VolumeIndicatorViewController", 0);
         
         IMP respondsToSelector = class_getMethodImplementation(self, @selector(respondsToSelector:));
-        assert(class_addMethod(_dynamicIsa, @selector(respondsToSelector:), respondsToSelector, NULL));
+        assert(class_addMethod(_isa, @selector(respondsToSelector:), respondsToSelector, NULL));
         
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
-        assert(class_addMethod(_dynamicIsa, @selector(viewDidLoad), viewDidLoad, NULL));
+        assert(class_addMethod(_isa, @selector(viewDidLoad), viewDidLoad, NULL));
         
         IMP volumeIndicatorDidAdjustVolume = class_getMethodImplementation(self, @selector(volumeIndicatorDidAdjustVolume:));
-        assert(class_addMethod(_dynamicIsa, @selector(volumeIndicatorDidAdjustVolume:), volumeIndicatorDidAdjustVolume, NULL));
+        assert(class_addMethod(_isa, @selector(volumeIndicatorDidAdjustVolume:), volumeIndicatorDidAdjustVolume, NULL));
         
         IMP volumeIndicatorDidBeginAdjustingVolume = class_getMethodImplementation(self, @selector(volumeIndicatorDidBeginAdjustingVolume:));
-        assert(class_addMethod(_dynamicIsa, @selector(volumeIndicatorDidBeginAdjustingVolume:), volumeIndicatorDidBeginAdjustingVolume, NULL));
+        assert(class_addMethod(_isa, @selector(volumeIndicatorDidBeginAdjustingVolume:), volumeIndicatorDidBeginAdjustingVolume, NULL));
         
         IMP volumeIndicatorDidEndAdjustingVolume = class_getMethodImplementation(self, @selector(volumeIndicatorDidEndAdjustingVolume:));
-        assert(class_addMethod(_dynamicIsa, @selector(volumeIndicatorDidEndAdjustingVolume:), volumeIndicatorDidEndAdjustingVolume, NULL));
+        assert(class_addMethod(_isa, @selector(volumeIndicatorDidEndAdjustingVolume:), volumeIndicatorDidEndAdjustingVolume, NULL));
         
         IMP volumeIndicatorWasTapped = class_getMethodImplementation(self, @selector(volumeIndicatorWasTapped:));
-        assert(class_addMethod(_dynamicIsa, @selector(volumeIndicatorWasTapped:), volumeIndicatorWasTapped, NULL));
+        assert(class_addMethod(_isa, @selector(volumeIndicatorWasTapped:), volumeIndicatorWasTapped, NULL));
         
-        assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"NMUVolumeIndicatorControlDelegate")));
-        assert(class_addProtocol(_dynamicIsa, NSProtocolFromString(@"NACVolumeControllerDelegate")));
+        assert(class_addProtocol(_isa, NSProtocolFromString(@"NMUVolumeIndicatorControlDelegate")));
+        assert(class_addProtocol(_isa, NSProtocolFromString(@"NACVolumeControllerDelegate")));
         
         //
         
-        objc_registerClassPair(_dynamicIsa);
+        objc_registerClassPair(_isa);
         
-        dynamicIsa = _dynamicIsa;
+        isa = _isa;
     });
     
-    return dynamicIsa;
+    return isa;
 }
 
 - (BOOL)respondsToSelector:(SEL)aSelector {
