@@ -43,6 +43,68 @@
 		4F5056532C5938F400B49BB9 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F5056522C5938F400B49BB9 /* SafariServices.framework */; };
 		4F5068AE2C3D98F800293E81 /* LegacyTabBarController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5068AD2C3D98F800293E81 /* LegacyTabBarController.mm */; };
 		4F5068B22C3D9D8800293E81 /* LegacyTabBar2Controller.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5068B12C3D9D8800293E81 /* LegacyTabBar2Controller.mm */; };
+		4F59DEA62CFFF56100E88830 /* SystemBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E982C1A6194002263ED /* SystemBackgroundViewController.m */; };
+		4F59DEA72CFFF56100E88830 /* LargeContentViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F246BC62C3E85CA00244583 /* LargeContentViewController.mm */; };
+		4F59DEA82CFFF56100E88830 /* LegacyTabBarController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5068AD2C3D98F800293E81 /* LegacyTabBarController.mm */; };
+		4F59DEA92CFFF56100E88830 /* NSObject+Foundation_IvarDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEF92C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm */; };
+		4F59DEAA2CFFF56100E88830 /* OldLinkTextViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FB9FC452C58C4E5006B3245 /* OldLinkTextViewController.mm */; };
+		4F59DEAB2CFFF56100E88830 /* LegacyTabBar2Controller.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5068B12C3D9D8800293E81 /* LegacyTabBar2Controller.mm */; };
+		4F59DEAC2CFFF56100E88830 /* ProminenceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46CFCB2C282AF5005AC6AF /* ProminenceViewController.mm */; };
+		4F59DEAD2CFFF56100E88830 /* CustomViewControllerTransition.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEF62C1CE0E200B1358A /* CustomViewControllerTransition.mm */; };
+		4F59DEAE2CFFF56100E88830 /* WritingToolsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5D11C42C58AD5A000C12C3 /* WritingToolsViewController.mm */; };
+		4F59DEAF2CFFF56100E88830 /* ContentHuggingElementsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082EA72C1B53C8002263ED /* ContentHuggingElementsViewController.mm */; };
+		4F59DEB02CFFF56100E88830 /* CustomDismissPercentageInteraction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAD987A2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm */; };
+		4F59DEB12CFFF56100E88830 /* ListEnvironmentContentConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E6F2C18A045002263ED /* ListEnvironmentContentConfiguration.mm */; };
+		4F59DEB22CFFF56100E88830 /* OrangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F02302C23CE4F004F7EFF /* OrangeViewController.m */; };
+		4F59DEB32CFFF56100E88830 /* CustomDismissCustomInteraction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38F2C22E1520031535F /* CustomDismissCustomInteraction.mm */; };
+		4F59DEB42CFFF56100E88830 /* OrangeSceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E762C18E349002263ED /* OrangeSceneDelegate.m */; };
+		4F59DEB52CFFF56100E88830 /* InputAssistantItemViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F0CBAA82C44048D00743DE2 /* InputAssistantItemViewController.mm */; };
+		4F59DEB62CFFF56100E88830 /* CustomDismissInteractiveTransitioning.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38C2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm */; };
+		4F59DEB72CFFF56100E88830 /* TabBarAppearanceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F9C08B22C3E2B5F009897D6 /* TabBarAppearanceViewController.mm */; };
+		4F59DEB82CFFF56100E88830 /* CircleProgressViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F1871932C4029CB002E7DFC /* CircleProgressViewController.mm */; };
+		4F59DEB92CFFF56100E88830 /* CustomBaselineViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3DD6A22C9BE537006F6F49 /* CustomBaselineViewController.mm */; };
+		4F59DEBA2CFFF56100E88830 /* SymbolEffectsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBEC51D2C3C568C008A2F17 /* SymbolEffectsViewController.mm */; };
+		4F59DEBB2CFFF56100E88830 /* ToTransitionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEF32C1CDBD700B1358A /* ToTransitionViewController.mm */; };
+		4F59DEBC2CFFF56100E88830 /* ToolbarAppearanceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F9C08D32C3E5574009897D6 /* ToolbarAppearanceViewController.mm */; };
+		4F59DEBD2CFFF56100E88830 /* CyanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F022D2C23CE3A004F7EFF /* CyanViewController.m */; };
+		4F59DEBE2CFFF56100E88830 /* BaselineViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3DD69B2C9BDCF6006F6F49 /* BaselineViewController.mm */; };
+		4F59DEBF2CFFF56100E88830 /* FromTransitionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEF02C1CDBCA00B1358A /* FromTransitionViewController.mm */; };
+		4F59DEC02CFFF56100E88830 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E482C188D6C002263ED /* AppDelegate.m */; };
+		4F59DEC12CFFF56100E88830 /* SceneActivationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E732C18E269002263ED /* SceneActivationViewController.mm */; };
+		4F59DEC22CFFF56100E88830 /* CalendarViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082EAB2C1B59C1002263ED /* CalendarViewController.mm */; };
+		4F59DEC32CFFF56100E88830 /* CustomDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E9E2C1B4831002263ED /* CustomDocument.mm */; };
+		4F59DEC42CFFF56100E88830 /* MainCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E612C188E34002263ED /* MainCollectionViewController.mm */; };
+		4F59DEC52CFFF56100E88830 /* PinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F022A2C23CE25004F7EFF /* PinkViewController.m */; };
+		4F59DEC62CFFF56100E88830 /* FontPickerPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46CFCF2C282D9A005AC6AF /* FontPickerPresenterViewController.mm */; };
+		4F59DEC72CFFF56100E88830 /* TextViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEE82C1C012A00B1358A /* TextViewController.mm */; };
+		4F59DEC82CFFF56100E88830 /* ProKeyboardViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7941CF2C7896760031F456 /* ProKeyboardViewController.mm */; };
+		4F59DEC92CFFF56100E88830 /* TabBar2Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F1D2C280C4A00CDE688 /* TabBar2Controller.m */; };
+		4F59DECA2CFFF56100E88830 /* TabBarController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F02272C23CD6C004F7EFF /* TabBarController.mm */; };
+		4F59DECB2CFFF56100E88830 /* CustomDocumentViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E7A2C18FD18002263ED /* CustomDocumentViewController.mm */; };
+		4F59DECC2CFFF56100E88830 /* UpdateLinkViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F212C281AAC00CDE688 /* UpdateLinkViewController.mm */; };
+		4F59DECD2CFFF56100E88830 /* JitterAnimationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F192C27EBE400CDE688 /* JitterAnimationViewController.mm */; };
+		4F59DECE2CFFF56100E88830 /* ListEnvironmentCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E6B2C189EF0002263ED /* ListEnvironmentCollectionViewController.mm */; };
+		4F59DECF2CFFF56100E88830 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E592C188D6D002263ED /* main.m */; };
+		4F59DED02CFFF56100E88830 /* NewLinkTextViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FB9FC412C58C2D6006B3245 /* NewLinkTextViewController.mm */; };
+		4F59DED12CFFF56100E88830 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E4B2C188D6C002263ED /* SceneDelegate.m */; };
+		4F59DED22CFFF56100E88830 /* MySearchViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F0CBAA32C43D3FA00743DE2 /* MySearchViewController.mm */; };
+		4F59DED32CFFF56100E88830 /* PointerInteractionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3AFCA02C57F64E00F810CF /* PointerInteractionViewController.mm */; };
+		4F59DED42CFFF56100E88830 /* SymbolTransitionsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FDABC682C3D35DE00F928DB /* SymbolTransitionsViewController.mm */; };
+		4F59DED52CFFF56100E88830 /* CustomViewMenuElementDynamicHeightViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F83911B2CCCFEAE0005B8AC /* CustomViewMenuElementDynamicHeightViewController.mm */; };
+		4F59DED62CFFF56100E88830 /* MyNavigationItemViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7BC13B2C3C43B900419197 /* MyNavigationItemViewController.mm */; };
+		4F59DED72CFFF56100E88830 /* FloatingKeyboardViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7941D32C7897D50031F456 /* FloatingKeyboardViewController.mm */; };
+		4F59DED82CFFF56100E88830 /* SplitKeyboardViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7941D72C7898470031F456 /* SplitKeyboardViewController.mm */; };
+		4F59DED92CFFF56100E88830 /* CustomTransitionController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F022C2038D200CDE688 /* CustomTransitionController.mm */; };
+		4F59DEDB2CFFF56100E88830 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F5056522C5938F400B49BB9 /* SafariServices.framework */; };
+		4F59DEDC2CFFF56100E88830 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F082E9B2C1B4505002263ED /* UniformTypeIdentifiers.framework */; };
+		4F59DEDE2CFFF56100E88830 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F082E532C188D6D002263ED /* Assets.xcassets */; };
+		4F59DEDF2CFFF56100E88830 /* article.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4F5FE5F52C5A0AE70044345D /* article.txt */; };
+		4F59DEE02CFFF56100E88830 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 4F082E562C188D6D002263ED /* Base */; platformFilter = ios; };
+		4F59DEE12CFFF56100E88830 /* image.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4FA8EEEC2C1CD3B000B1358A /* image.heic */; };
+		4F59DEEA2CFFF6A900E88830 /* ApplicationCategoryViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F59DEE92CFFF6A900E88830 /* ApplicationCategoryViewController.mm */; };
+		4F59DEEB2CFFF6A900E88830 /* ApplicationCategoryViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F59DEE92CFFF6A900E88830 /* ApplicationCategoryViewController.mm */; };
+		4F59DEEF2CFFFA7B00E88830 /* NewWritingToolsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F59DEEE2CFFFA7B00E88830 /* NewWritingToolsViewController.mm */; };
+		4F59DEF02CFFFA7B00E88830 /* NewWritingToolsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F59DEEE2CFFFA7B00E88830 /* NewWritingToolsViewController.mm */; };
 		4F5D11C52C58AD5A000C12C3 /* WritingToolsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5D11C42C58AD5A000C12C3 /* WritingToolsViewController.mm */; };
 		4F5FE5F62C5A0B950044345D /* article.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4F5FE5F52C5A0AE70044345D /* article.txt */; };
 		4F7941D02C7896760031F456 /* ProKeyboardViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7941CF2C7896760031F456 /* ProKeyboardViewController.mm */; };
@@ -137,6 +199,13 @@
 		4F5068AD2C3D98F800293E81 /* LegacyTabBarController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LegacyTabBarController.mm; sourceTree = "<group>"; };
 		4F5068B02C3D9D8800293E81 /* LegacyTabBar2Controller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LegacyTabBar2Controller.h; sourceTree = "<group>"; };
 		4F5068B12C3D9D8800293E81 /* LegacyTabBar2Controller.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LegacyTabBar2Controller.mm; sourceTree = "<group>"; };
+		4F59DEA32CFFF53500E88830 /* MiscellaneousUIKit-Private.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MiscellaneousUIKit-Private.entitlements"; sourceTree = "<group>"; };
+		4F59DEE52CFFF56100E88830 /* MiscellaneousUIKit Private Entitlements.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MiscellaneousUIKit Private Entitlements.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F59DEE62CFFF56200E88830 /* MiscellaneousUIKit copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MiscellaneousUIKit copy-Info.plist"; path = "/Users/pookjw/git/MiscellaneousWWDC24/MiscellaneousUIKit/MiscellaneousUIKit copy-Info.plist"; sourceTree = "<absolute>"; };
+		4F59DEE82CFFF6A900E88830 /* ApplicationCategoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplicationCategoryViewController.h; sourceTree = "<group>"; };
+		4F59DEE92CFFF6A900E88830 /* ApplicationCategoryViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ApplicationCategoryViewController.mm; sourceTree = "<group>"; };
+		4F59DEED2CFFFA7B00E88830 /* NewWritingToolsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewWritingToolsViewController.h; sourceTree = "<group>"; };
+		4F59DEEE2CFFFA7B00E88830 /* NewWritingToolsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NewWritingToolsViewController.mm; sourceTree = "<group>"; };
 		4F5D11C32C58AD5A000C12C3 /* WritingToolsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WritingToolsViewController.h; sourceTree = "<group>"; };
 		4F5D11C42C58AD5A000C12C3 /* WritingToolsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WritingToolsViewController.mm; sourceTree = "<group>"; };
 		4F5FE5F52C5A0AE70044345D /* article.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = article.txt; sourceTree = "<group>"; };
@@ -193,6 +262,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4F59DEDA2CFFF56100E88830 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F59DEDB2CFFF56100E88830 /* SafariServices.framework in Frameworks */,
+				4F59DEDC2CFFF56100E88830 /* UniformTypeIdentifiers.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -202,6 +280,7 @@
 				4F082E462C188D6C002263ED /* MiscellaneousUIKit */,
 				4F082E452C188D6C002263ED /* Products */,
 				4F082E9A2C1B4504002263ED /* Frameworks */,
+				4F59DEE62CFFF56200E88830 /* MiscellaneousUIKit copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -209,6 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				4F082E442C188D6C002263ED /* MiscellaneousUIKit.app */,
+				4F59DEE52CFFF56100E88830 /* MiscellaneousUIKit Private Entitlements.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -217,6 +297,7 @@
 			isa = PBXGroup;
 			children = (
 				4FDABC6A2C3D3C5600F928DB /* MiscellaneousUIKit.entitlements */,
+				4F59DEA32CFFF53500E88830 /* MiscellaneousUIKit-Private.entitlements */,
 				4FA8EEEC2C1CD3B000B1358A /* image.heic */,
 				4FA8EEF82C1CE98100B1358A /* NSObject+Foundation_IvarDescription.h */,
 				4FA8EEF92C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm */,
@@ -273,6 +354,8 @@
 				4F3DD6992C9BDCBF006F6F49 /* Baseline */,
 				4F3DD6A02C9BE523006F6F49 /* CustomBaseline */,
 				4F8391192CCCFE8F0005B8AC /* CustomViewMenuElementDynamicHeight */,
+				4F59DEE72CFFF5DE00E88830 /* ApplicationCategory */,
+				4F59DEEC2CFFFA6800E88830 /* NewWritingTools */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -487,6 +570,24 @@
 			path = LegacyTabBar2;
 			sourceTree = "<group>";
 		};
+		4F59DEE72CFFF5DE00E88830 /* ApplicationCategory */ = {
+			isa = PBXGroup;
+			children = (
+				4F59DEE82CFFF6A900E88830 /* ApplicationCategoryViewController.h */,
+				4F59DEE92CFFF6A900E88830 /* ApplicationCategoryViewController.mm */,
+			);
+			path = ApplicationCategory;
+			sourceTree = "<group>";
+		};
+		4F59DEEC2CFFFA6800E88830 /* NewWritingTools */ = {
+			isa = PBXGroup;
+			children = (
+				4F59DEED2CFFFA7B00E88830 /* NewWritingToolsViewController.h */,
+				4F59DEEE2CFFFA7B00E88830 /* NewWritingToolsViewController.mm */,
+			);
+			path = NewWritingTools;
+			sourceTree = "<group>";
+		};
 		4F5D11C62C58AD5E000C12C3 /* WritingTools */ = {
 			isa = PBXGroup;
 			children = (
@@ -663,6 +764,23 @@
 			productReference = 4F082E442C188D6C002263ED /* MiscellaneousUIKit.app */;
 			productType = "com.apple.product-type.application";
 		};
+		4F59DEA42CFFF56100E88830 /* MiscellaneousUIKit Private Entitlements */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4F59DEE22CFFF56100E88830 /* Build configuration list for PBXNativeTarget "MiscellaneousUIKit Private Entitlements" */;
+			buildPhases = (
+				4F59DEA52CFFF56100E88830 /* Sources */,
+				4F59DEDA2CFFF56100E88830 /* Frameworks */,
+				4F59DEDD2CFFF56100E88830 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MiscellaneousUIKit Private Entitlements";
+			productName = MiscellaneousUIKit;
+			productReference = 4F59DEE52CFFF56100E88830 /* MiscellaneousUIKit Private Entitlements.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -692,6 +810,7 @@
 			projectRoot = "";
 			targets = (
 				4F082E432C188D6C002263ED /* MiscellaneousUIKit */,
+				4F59DEA42CFFF56100E88830 /* MiscellaneousUIKit Private Entitlements */,
 			);
 		};
 /* End PBXProject section */
@@ -705,6 +824,17 @@
 				4F5FE5F62C5A0B950044345D /* article.txt in Resources */,
 				4F082E572C188D6D002263ED /* Base in Resources */,
 				4FA8EEED2C1CD3B000B1358A /* image.heic in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F59DEDD2CFFF56100E88830 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F59DEDE2CFFF56100E88830 /* Assets.xcassets in Resources */,
+				4F59DEDF2CFFF56100E88830 /* article.txt in Resources */,
+				4F59DEE02CFFF56100E88830 /* Base in Resources */,
+				4F59DEE12CFFF56100E88830 /* image.heic in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -733,6 +863,7 @@
 				4F0CBAA92C44048D00743DE2 /* InputAssistantItemViewController.mm in Sources */,
 				4F8BD38D2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm in Sources */,
 				4F9C08B32C3E2B5F009897D6 /* TabBarAppearanceViewController.mm in Sources */,
+				4F59DEEA2CFFF6A900E88830 /* ApplicationCategoryViewController.mm in Sources */,
 				4F1871942C4029CB002E7DFC /* CircleProgressViewController.mm in Sources */,
 				4F3DD6A32C9BE537006F6F49 /* CustomBaselineViewController.mm in Sources */,
 				4FBEC51E2C3C568C008A2F17 /* SymbolEffectsViewController.mm in Sources */,
@@ -746,6 +877,7 @@
 				4F082EAC2C1B59C1002263ED /* CalendarViewController.mm in Sources */,
 				4F082E9F2C1B4831002263ED /* CustomDocument.mm in Sources */,
 				4F082E622C188E34002263ED /* MainCollectionViewController.mm in Sources */,
+				4F59DEEF2CFFFA7B00E88830 /* NewWritingToolsViewController.mm in Sources */,
 				4F1F022B2C23CE25004F7EFF /* PinkViewController.m in Sources */,
 				4F46CFD02C282D9A005AC6AF /* FontPickerPresenterViewController.mm in Sources */,
 				4FA8EEE92C1C012A00B1358A /* TextViewController.mm in Sources */,
@@ -767,6 +899,67 @@
 				4F7941D42C7897D50031F456 /* FloatingKeyboardViewController.mm in Sources */,
 				4F7941D82C7898470031F456 /* SplitKeyboardViewController.mm in Sources */,
 				4F455F032C2038D200CDE688 /* CustomTransitionController.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F59DEA52CFFF56100E88830 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F59DEA62CFFF56100E88830 /* SystemBackgroundViewController.m in Sources */,
+				4F59DEA72CFFF56100E88830 /* LargeContentViewController.mm in Sources */,
+				4F59DEA82CFFF56100E88830 /* LegacyTabBarController.mm in Sources */,
+				4F59DEA92CFFF56100E88830 /* NSObject+Foundation_IvarDescription.mm in Sources */,
+				4F59DEAA2CFFF56100E88830 /* OldLinkTextViewController.mm in Sources */,
+				4F59DEAB2CFFF56100E88830 /* LegacyTabBar2Controller.mm in Sources */,
+				4F59DEAC2CFFF56100E88830 /* ProminenceViewController.mm in Sources */,
+				4F59DEAD2CFFF56100E88830 /* CustomViewControllerTransition.mm in Sources */,
+				4F59DEAE2CFFF56100E88830 /* WritingToolsViewController.mm in Sources */,
+				4F59DEAF2CFFF56100E88830 /* ContentHuggingElementsViewController.mm in Sources */,
+				4F59DEB02CFFF56100E88830 /* CustomDismissPercentageInteraction.mm in Sources */,
+				4F59DEB12CFFF56100E88830 /* ListEnvironmentContentConfiguration.mm in Sources */,
+				4F59DEB22CFFF56100E88830 /* OrangeViewController.m in Sources */,
+				4F59DEB32CFFF56100E88830 /* CustomDismissCustomInteraction.mm in Sources */,
+				4F59DEB42CFFF56100E88830 /* OrangeSceneDelegate.m in Sources */,
+				4F59DEB52CFFF56100E88830 /* InputAssistantItemViewController.mm in Sources */,
+				4F59DEB62CFFF56100E88830 /* CustomDismissInteractiveTransitioning.mm in Sources */,
+				4F59DEB72CFFF56100E88830 /* TabBarAppearanceViewController.mm in Sources */,
+				4F59DEEB2CFFF6A900E88830 /* ApplicationCategoryViewController.mm in Sources */,
+				4F59DEB82CFFF56100E88830 /* CircleProgressViewController.mm in Sources */,
+				4F59DEB92CFFF56100E88830 /* CustomBaselineViewController.mm in Sources */,
+				4F59DEBA2CFFF56100E88830 /* SymbolEffectsViewController.mm in Sources */,
+				4F59DEBB2CFFF56100E88830 /* ToTransitionViewController.mm in Sources */,
+				4F59DEBC2CFFF56100E88830 /* ToolbarAppearanceViewController.mm in Sources */,
+				4F59DEBD2CFFF56100E88830 /* CyanViewController.m in Sources */,
+				4F59DEBE2CFFF56100E88830 /* BaselineViewController.mm in Sources */,
+				4F59DEBF2CFFF56100E88830 /* FromTransitionViewController.mm in Sources */,
+				4F59DEC02CFFF56100E88830 /* AppDelegate.m in Sources */,
+				4F59DEC12CFFF56100E88830 /* SceneActivationViewController.mm in Sources */,
+				4F59DEC22CFFF56100E88830 /* CalendarViewController.mm in Sources */,
+				4F59DEC32CFFF56100E88830 /* CustomDocument.mm in Sources */,
+				4F59DEC42CFFF56100E88830 /* MainCollectionViewController.mm in Sources */,
+				4F59DEF02CFFFA7B00E88830 /* NewWritingToolsViewController.mm in Sources */,
+				4F59DEC52CFFF56100E88830 /* PinkViewController.m in Sources */,
+				4F59DEC62CFFF56100E88830 /* FontPickerPresenterViewController.mm in Sources */,
+				4F59DEC72CFFF56100E88830 /* TextViewController.mm in Sources */,
+				4F59DEC82CFFF56100E88830 /* ProKeyboardViewController.mm in Sources */,
+				4F59DEC92CFFF56100E88830 /* TabBar2Controller.m in Sources */,
+				4F59DECA2CFFF56100E88830 /* TabBarController.mm in Sources */,
+				4F59DECB2CFFF56100E88830 /* CustomDocumentViewController.mm in Sources */,
+				4F59DECC2CFFF56100E88830 /* UpdateLinkViewController.mm in Sources */,
+				4F59DECD2CFFF56100E88830 /* JitterAnimationViewController.mm in Sources */,
+				4F59DECE2CFFF56100E88830 /* ListEnvironmentCollectionViewController.mm in Sources */,
+				4F59DECF2CFFF56100E88830 /* main.m in Sources */,
+				4F59DED02CFFF56100E88830 /* NewLinkTextViewController.mm in Sources */,
+				4F59DED12CFFF56100E88830 /* SceneDelegate.m in Sources */,
+				4F59DED22CFFF56100E88830 /* MySearchViewController.mm in Sources */,
+				4F59DED32CFFF56100E88830 /* PointerInteractionViewController.mm in Sources */,
+				4F59DED42CFFF56100E88830 /* SymbolTransitionsViewController.mm in Sources */,
+				4F59DED52CFFF56100E88830 /* CustomViewMenuElementDynamicHeightViewController.mm in Sources */,
+				4F59DED62CFFF56100E88830 /* MyNavigationItemViewController.mm in Sources */,
+				4F59DED72CFFF56100E88830 /* FloatingKeyboardViewController.mm in Sources */,
+				4F59DED82CFFF56100E88830 /* SplitKeyboardViewController.mm in Sources */,
+				4F59DED92CFFF56100E88830 /* CustomTransitionController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -916,7 +1109,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -931,7 +1124,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				XROS_DEPLOYMENT_TARGET = 1.0;
+				XROS_DEPLOYMENT_TARGET = 2.2;
 			};
 			name = Debug;
 		};
@@ -951,7 +1144,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -965,7 +1158,76 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				XROS_DEPLOYMENT_TARGET = 1.0;
+				XROS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
+		4F59DEE32CFFF56100E88830 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "MiscellaneousUIKit/MiscellaneousUIKit-Private.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MiscellaneousUIKit copy-Info.plist";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.MiscellaneousUIKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		4F59DEE42CFFF56100E88830 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "MiscellaneousUIKit/MiscellaneousUIKit-Private.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MiscellaneousUIKit copy-Info.plist";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.MiscellaneousUIKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 2.2;
 			};
 			name = Release;
 		};
@@ -986,6 +1248,15 @@
 			buildConfigurations = (
 				4F082E5E2C188D6D002263ED /* Debug */,
 				4F082E5F2C188D6D002263ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4F59DEE22CFFF56100E88830 /* Build configuration list for PBXNativeTarget "MiscellaneousUIKit Private Entitlements" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4F59DEE32CFFF56100E88830 /* Debug */,
+				4F59DEE42CFFF56100E88830 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

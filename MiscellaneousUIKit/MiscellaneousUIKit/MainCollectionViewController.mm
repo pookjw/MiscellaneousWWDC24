@@ -41,6 +41,8 @@
 #import "BaselineViewController.h"
 #import "CustomBaselineViewController.h"
 #import "CustomViewMenuElementDynamicHeightViewController.h"
+#import "ApplicationCategoryViewController.h"
+#import "NewWritingToolsViewController.h"
 #import <objc/message.h>
 
 __attribute__((objc_direct_members))
@@ -123,6 +125,8 @@ __attribute__((objc_direct_members))
 
 - (NSArray<Class> *)classes {
     return @[
+        NewWritingToolsViewController.class,
+        ApplicationCategoryViewController.class,
         CustomViewMenuElementDynamicHeightViewController.class,
         CustomBaselineViewController.class,
         BaselineViewController.class,
