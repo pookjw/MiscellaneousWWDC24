@@ -43,6 +43,7 @@
 #import "CustomViewMenuElementDynamicHeightViewController.h"
 #import "ApplicationCategoryViewController.h"
 #import "NewWritingToolsViewController.h"
+#import "TextFieldWritingToolsViewController.h"
 #import <objc/message.h>
 
 __attribute__((objc_direct_members))
@@ -125,6 +126,7 @@ __attribute__((objc_direct_members))
 
 - (NSArray<Class> *)classes {
     return @[
+        TextFieldWritingToolsViewController.class,
         NewWritingToolsViewController.class,
         ApplicationCategoryViewController.class,
         CustomViewMenuElementDynamicHeightViewController.class,
@@ -193,6 +195,8 @@ __attribute__((objc_direct_members))
             navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
         }
     }
+    
+    navigationController.sheetPresentationController.prefersGrabberVisible = YES;
     
     [self presentViewController:navigationController animated:YES completion:nil];
     [navigationController release];

@@ -135,9 +135,8 @@
             const char *encodedType = ivar_getTypeEncoding(ivar);
             uintptr_t base = reinterpret_cast<uintptr_t>(self);
             ptrdiff_t offset = ivar_getOffset(ivar);
-            void *location = reinterpret_cast<void *>(base + offset);
             
-            NSString *propertyString = [self _fd_propertyStringFromLocation:location name:name encodedType:encodedType];
+            NSString *propertyString = [self _fd_propertyStringFromBase:base offset:offset name:name encodedType:encodedType];
             [results appendFormat:@"\n%@", propertyString];
         }
     }
@@ -522,6 +521,8 @@
 }
 
 - (NSString *)_fd_decodedTypeFromEncodedType:(const char *)encodedType {
+    if (sizeof(encodedType) == 0) return @"(unknown)";
+    
     // https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html
     if (strcmp(encodedType, @encode(char)) == 0) {
         return @"char";
@@ -634,11 +635,13 @@
 #endif
 }
 
-- (NSString *)_fd_propertyStringFromLocation:(void *)location name:(const char *)name encodedType:(const char *)encodedType {
+- (NSString *)_fd_propertyStringFromBase:(uintptr_t)base offset:(ptrdiff_t)offset name:(const char *)name encodedType:(const char *)encodedType {
+    void *location = reinterpret_cast<void *>(base + offset);
+    
     NSString *typeName = [self _fd_decodedTypeFromEncodedType:encodedType];
     NSString *valueString = [self _fd_valueStringFromLocation:location encodedType:encodedType];
     
-    return [NSString stringWithFormat:@"\t%s <%p> (%@): %@", name, location, typeName, valueString];
+    return [NSString stringWithFormat:@"\t%s <%p (0x%lx + 0x%tx)> (%@): %@", name, location, base, offset, typeName, valueString];
 }
 
 - (NSString *)_fd_valueStringFromLocation:(void *)location encodedType:(const char *)encodedType {

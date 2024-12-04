@@ -131,6 +131,12 @@ void swizzle() {
     self.view = self.scrollView;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    assert(reinterpret_cast<BOOL (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("WTWritingToolsViewController"), sel_registerName("isAvailable")));
+}
+
 - (NSToolbar *)toolbar {
     if (auto toolbar = _toolbar) return toolbar;
     

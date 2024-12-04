@@ -9,6 +9,7 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import <TargetConditionals.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 @interface TextViewController () <UITextViewDelegate>
 @property (readonly, nonatomic) UITextView *textView;
@@ -217,7 +218,7 @@
      -[__NSAdaptiveImageGlyphStorage initWithImageContent:]에서 nil 나옴.
      -[__NSAdaptiveImageGlyphStorage initWithImageContent:]에서 마지막 -objectForKeyedSubscript: 두 개가 0x0이 나올텐데 여기에 아무 NSString 넣어주면 init 성공함
      */
-    NSData *imageContent = [[NSData alloc] initWithContentsOfURL:[NSBundle.mainBundle URLForResource:@"image" withExtension:@"heic"]];
+    NSData *imageContent = [[NSData alloc] initWithContentsOfURL:[NSBundle.mainBundle URLForResource:@"image" withExtension:UTTypeHEIC.preferredFilenameExtension]];
     NSAdaptiveImageGlyph *adaptiveImageGlyph = [[NSAdaptiveImageGlyph alloc] initWithImageContent:imageContent];
     [imageContent release];
     assert(adaptiveImageGlyph != nil);

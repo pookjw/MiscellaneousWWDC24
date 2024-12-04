@@ -38,6 +38,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = UIColor.systemBackgroundColor;
+    
+    assert(reinterpret_cast<BOOL (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("WTWritingToolsController"), sel_registerName("isAvailable")));
 
     // 또는 +[UIAssistantBarButtonItemProvider systemDefaultAssistantItem]
     id systemDefaultAssistantItem = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self.textView, sel_registerName("inputAssistantItem"));
