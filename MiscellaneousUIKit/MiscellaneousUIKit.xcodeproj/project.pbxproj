@@ -128,8 +128,8 @@
 		4FBEC51E2C3C568C008A2F17 /* SymbolEffectsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBEC51D2C3C568C008A2F17 /* SymbolEffectsViewController.mm */; };
 		4FD54C892D00854E002CE52C /* beer.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4FD54C882D00854E002CE52C /* beer.jpg */; };
 		4FD54C8A2D00854E002CE52C /* beer.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4FD54C882D00854E002CE52C /* beer.jpg */; };
-		4FD54E902D00BB78002CE52C /* TextFieldWritingToolsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD54E8F2D00BB78002CE52C /* TextFieldWritingToolsViewController.mm */; };
-		4FD54E912D00BB78002CE52C /* TextFieldWritingToolsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD54E8F2D00BB78002CE52C /* TextFieldWritingToolsViewController.mm */; };
+		4FD54E902D00BB78002CE52C /* LabelWritingToolsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD54E8F2D00BB78002CE52C /* LabelWritingToolsViewController.mm */; };
+		4FD54E912D00BB78002CE52C /* LabelWritingToolsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD54E8F2D00BB78002CE52C /* LabelWritingToolsViewController.mm */; };
 		4FDABC692C3D35DE00F928DB /* SymbolTransitionsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FDABC682C3D35DE00F928DB /* SymbolTransitionsViewController.mm */; };
 /* End PBXBuildFile section */
 
@@ -252,8 +252,8 @@
 		4FBEC51C2C3C568C008A2F17 /* SymbolEffectsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SymbolEffectsViewController.h; sourceTree = "<group>"; };
 		4FBEC51D2C3C568C008A2F17 /* SymbolEffectsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SymbolEffectsViewController.mm; sourceTree = "<group>"; };
 		4FD54C882D00854E002CE52C /* beer.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = beer.jpg; sourceTree = "<group>"; };
-		4FD54E8E2D00BB78002CE52C /* TextFieldWritingToolsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextFieldWritingToolsViewController.h; sourceTree = "<group>"; };
-		4FD54E8F2D00BB78002CE52C /* TextFieldWritingToolsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TextFieldWritingToolsViewController.mm; sourceTree = "<group>"; };
+		4FD54E8E2D00BB78002CE52C /* LabelWritingToolsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelWritingToolsViewController.h; sourceTree = "<group>"; };
+		4FD54E8F2D00BB78002CE52C /* LabelWritingToolsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LabelWritingToolsViewController.mm; sourceTree = "<group>"; };
 		4FDABC672C3D35DE00F928DB /* SymbolTransitionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SymbolTransitionsViewController.h; sourceTree = "<group>"; };
 		4FDABC682C3D35DE00F928DB /* SymbolTransitionsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SymbolTransitionsViewController.mm; sourceTree = "<group>"; };
 		4FDABC6A2C3D3C5600F928DB /* MiscellaneousUIKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MiscellaneousUIKit.entitlements; sourceTree = "<group>"; };
@@ -365,7 +365,7 @@
 				4F8391192CCCFE8F0005B8AC /* CustomViewMenuElementDynamicHeight */,
 				4F59DEE72CFFF5DE00E88830 /* ApplicationCategory */,
 				4F59DEEC2CFFFA6800E88830 /* NewWritingTools */,
-				4FD54E8D2D00BB63002CE52C /* TextFieldWritingTools */,
+				4FD54E8D2D00BB63002CE52C /* LabelWritingTools */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -744,13 +744,13 @@
 			path = SymbolEffects;
 			sourceTree = "<group>";
 		};
-		4FD54E8D2D00BB63002CE52C /* TextFieldWritingTools */ = {
+		4FD54E8D2D00BB63002CE52C /* LabelWritingTools */ = {
 			isa = PBXGroup;
 			children = (
-				4FD54E8E2D00BB78002CE52C /* TextFieldWritingToolsViewController.h */,
-				4FD54E8F2D00BB78002CE52C /* TextFieldWritingToolsViewController.mm */,
+				4FD54E8E2D00BB78002CE52C /* LabelWritingToolsViewController.h */,
+				4FD54E8F2D00BB78002CE52C /* LabelWritingToolsViewController.mm */,
 			);
-			path = TextFieldWritingTools;
+			path = LabelWritingTools;
 			sourceTree = "<group>";
 		};
 		4FDABC662C3D35C000F928DB /* SymbolTransitions */ = {
@@ -889,7 +889,7 @@
 				4FBEC51E2C3C568C008A2F17 /* SymbolEffectsViewController.mm in Sources */,
 				4FA8EEF42C1CDBD700B1358A /* ToTransitionViewController.mm in Sources */,
 				4F9C08D42C3E5574009897D6 /* ToolbarAppearanceViewController.mm in Sources */,
-				4FD54E902D00BB78002CE52C /* TextFieldWritingToolsViewController.mm in Sources */,
+				4FD54E902D00BB78002CE52C /* LabelWritingToolsViewController.mm in Sources */,
 				4F1F022E2C23CE3A004F7EFF /* CyanViewController.m in Sources */,
 				4F3DD69C2C9BDCF6006F6F49 /* BaselineViewController.mm in Sources */,
 				4FA8EEF12C1CDBCA00B1358A /* FromTransitionViewController.mm in Sources */,
@@ -951,7 +951,7 @@
 				4F59DEBA2CFFF56100E88830 /* SymbolEffectsViewController.mm in Sources */,
 				4F59DEBB2CFFF56100E88830 /* ToTransitionViewController.mm in Sources */,
 				4F59DEBC2CFFF56100E88830 /* ToolbarAppearanceViewController.mm in Sources */,
-				4FD54E912D00BB78002CE52C /* TextFieldWritingToolsViewController.mm in Sources */,
+				4FD54E912D00BB78002CE52C /* LabelWritingToolsViewController.mm in Sources */,
 				4F59DEBD2CFFF56100E88830 /* CyanViewController.m in Sources */,
 				4F59DEBE2CFFF56100E88830 /* BaselineViewController.mm in Sources */,
 				4F59DEBF2CFFF56100E88830 /* FromTransitionViewController.mm in Sources */,

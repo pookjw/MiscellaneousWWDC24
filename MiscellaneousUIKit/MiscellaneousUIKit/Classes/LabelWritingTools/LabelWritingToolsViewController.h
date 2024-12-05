@@ -1,5 +1,5 @@
 //
-//  TextFieldWritingToolsViewController.h
+//  LabelWritingToolsViewController.h
 //  MiscellaneousUIKit
 //
 //  Created by Jinwoo Kim on 12/5/24.
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TextFieldWritingToolsViewController : UIViewController
+@interface LabelWritingToolsViewController : UIViewController
 
 @end
 
