@@ -150,8 +150,7 @@
     UITextView *textView = self.textView;
     
     UIAction *action = [UIAction actionWithTitle:@"Select All" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-//        [textView selectAll:action.sender];
-        NSLog(@"%@", [textView textRangeFromPosition:textView.beginningOfDocument toPosition:textView.endOfDocument]);
+        [textView selectAll:action.sender];
     }];
     
     action.attributes = UIMenuElementAttributesKeepsMenuPresented;
