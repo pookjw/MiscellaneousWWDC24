@@ -60,8 +60,8 @@
     auto location = reinterpret_cast<uint8_t *>(base + offset);
     location[1] |= (1 << 2); // marqueeRunable을 설정한다. offset이 10bit이므로 8 + 2에 0x1로 설정
     
-    ((void (*)(id, SEL, BOOL))objc_msgSend)(label, sel_registerName("setMarqueeEnabled:"), YES);
-    ((void (*)(id, SEL, NSUInteger))objc_msgSend)(label, sel_registerName("setMarqueeRepeatCount:"), 0);
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(label, sel_registerName("setMarqueeEnabled:"), YES);
+    reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(label, sel_registerName("setMarqueeRepeatCount:"), 0);
     // END
     
     _label = [label retain];
