@@ -9,16 +9,473 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
+#include <random>
+
+@interface IndexedTextPosition : UITextPosition <NSCopying>
+@property (assign, nonatomic, readonly) NSInteger index;
+@end
+@implementation IndexedTextPosition
+- (instancetype)initWithIndex:(NSInteger)index {
+    if (self = [super init]) {
+        _index = index;
+    }
+    return self;
+}
+- (id)copyWithZone:(struct _NSZone *)zone {
+    id copy = [[self class] new];
+    
+    if (copy) {
+        auto casted = static_cast<IndexedTextPosition *>(copy);
+        casted->_index = _index;
+    }
+    
+    return copy;
+}
+- (BOOL)isEqual:(id)other {
+    if (other == self) {
+        return YES;
+    } else if (![other isKindOfClass:IndexedTextPosition.class]) {
+        return NO;
+    } else {
+        auto casted = static_cast<IndexedTextPosition *>(other);
+        return _index == casted->_index;
+    }
+}
+
+- (NSUInteger)hash {
+    return _index;
+}
+@end
+
+@interface IndexedTextRange : UITextRange <NSCopying>
+@property (retain, nonatomic, readonly) IndexedTextPosition *start;
+@property (retain, nonatomic, readonly) IndexedTextPosition *end;
+@property (nonatomic, readonly) NSRange nsRange;
+@end
+@implementation IndexedTextRange
+@synthesize start = _start;
+@synthesize end = _end;
+
+- (instancetype)initWithNSRange:(NSRange)range {
+    IndexedTextPosition *start = [[IndexedTextPosition alloc] initWithIndex:range.location];
+    IndexedTextPosition *end = [[IndexedTextPosition alloc] initWithIndex:range.location + range.length];
+    
+    self = [self initWithStart:start end:end];
+    [start release];
+    [end release];
+    
+    return self;
+}
+
+- (instancetype)initWithStart:(IndexedTextPosition *)start end:(IndexedTextPosition *)end {
+    if (self = [super init]) {
+        assert(start.index <= end.index);
+        _start = [start retain];
+        _end = [end retain];
+    }
+    return self;
+}
+
+- (void)dealloc {
+    [_start release];
+    [_end release];
+    [super dealloc];
+}
+
+- (id)copyWithZone:(struct _NSZone *)zone {
+    id copy = [[self class] new];
+    
+    if (copy) {
+        auto casted = static_cast<IndexedTextRange *>(copy);
+        casted->_start = [_start copyWithZone:zone];
+        casted->_end = [_end copyWithZone:zone];
+    }
+    
+    return copy;
+}
+
+- (BOOL)isEmpty {
+    return NO;
+}
+
+- (NSRange)nsRange {
+    return NSMakeRange(self.start.index, self.end.index - self.start.index);
+}
+
+@end
 
 @interface TextInputLabel : UILabel <UITextInput>
+@property (assign, nonatomic) NSRange selectedRange;
 @end
 @implementation TextInputLabel
+@synthesize inputDelegate = _inputDelegate;
+
 - (BOOL)canBecomeFirstResponder {
     return YES;
 }
-//- (UITextRange *)selectedTextRange {
-//    
+
+- (CGRect)_muk_boundingRectForCharacterRange:(NSRange)range {
+    // -[UILabel(PXAnimatedCounter) boundingRectForCharacterRange:] (PhotosUICore)
+    
+    NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:self.attributedText];
+    
+    NSLayoutManager *layoutManager = [NSLayoutManager new];
+    
+    [textStorage addLayoutManager:layoutManager];
+    [textStorage release];
+    
+    NSTextContainer *textContainer = [[NSTextContainer alloc] initWithSize:self.bounds.size];
+    textContainer.lineFragmentPadding = 0.;
+    [layoutManager addTextContainer:textContainer];
+    
+    NSRange glyphRange;
+    [layoutManager characterRangeForGlyphRange:range actualGlyphRange:&glyphRange];
+    
+    CGRect rect = [layoutManager boundingRectForGlyphRange:glyphRange inTextContainer:textContainer];
+    [layoutManager release];
+    [textContainer release];
+    
+    return rect;
+}
+
+- (void)reloadSelectedTextRange {
+    NSUInteger length = self.text.length;
+    if (length == 0) {
+        self.selectedRange = NSMakeRange(0, 0);
+        return;
+    }
+    
+    std::random_device rd;
+    std::mt19937 generator(rd());
+    
+    std::uniform_int_distribution<NSUInteger> distribution_1(0, length - 1);
+    NSUInteger loc = distribution_1(generator);
+    
+    std::uniform_int_distribution<NSUInteger> distribution_2(0, length - loc);
+    NSUInteger sublength = distribution_2(generator);
+    
+    self.selectedRange = NSMakeRange(loc, sublength);
+}
+
+- (BOOL)hasText {
+    return self.text.length > 0;
+}
+
+- (UITextPosition *)beginningOfDocument {
+    return [[[IndexedTextPosition alloc] initWithIndex:0] autorelease];
+}
+
+- (UITextPosition *)endOfDocument {
+    return [[[IndexedTextPosition alloc] initWithIndex:self.text.length - 1] autorelease];
+}
+
+- (NSString *)textInRange:(UITextRange *)range {
+    auto casted = static_cast<IndexedTextRange *>(range);
+    assert([casted isKindOfClass:IndexedTextRange.class]);
+    
+    return [self.text substringWithRange:casted.nsRange];
+}
+
+- (NSWritingDirection)baseWritingDirectionForPosition:(nonnull UITextPosition *)position inDirection:(UITextStorageDirection)direction { 
+    return NSWritingDirectionNatural;
+}
+
+- (CGRect)caretRectForPosition:(nonnull UITextPosition *)position { 
+    assert([position isKindOfClass:IndexedTextPosition.class]);
+    auto casted = static_cast<IndexedTextPosition *>(position);
+    NSRange range = NSMakeRange(casted.index, 1);
+    CGRect rect = [self _muk_boundingRectForCharacterRange:range];
+    return rect;
+}
+
+- (nullable UITextRange *)characterRangeAtPoint:(CGPoint)point { 
+    NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:self.attributedText];
+    
+    NSLayoutManager *layoutManager = [NSLayoutManager new];
+    
+    [textStorage addLayoutManager:layoutManager];
+    [textStorage release];
+    
+    NSTextContainer *textContainer = [[NSTextContainer alloc] initWithSize:self.bounds.size];
+    textContainer.lineFragmentPadding = 0.;
+    [layoutManager addTextContainer:textContainer];
+    
+    NSUInteger glyphIndex = [layoutManager glyphIndexForPoint:point inTextContainer:textContainer];
+    [textContainer release];
+    
+    NSUInteger characterIndex = [layoutManager characterIndexForGlyphAtIndex:glyphIndex];
+    [layoutManager release];
+    
+    IndexedTextPosition *start = [[IndexedTextPosition alloc] initWithIndex:characterIndex];
+    IndexedTextPosition *end = [[IndexedTextPosition alloc] initWithIndex:characterIndex + 1];
+    IndexedTextRange *range = [[IndexedTextRange alloc] initWithStart:start end:end];
+    [start release];
+    [end release];
+    
+    return [range autorelease];
+}
+
+- (nullable UITextRange *)characterRangeByExtendingPosition:(nonnull UITextPosition *)position inDirection:(UITextLayoutDirection)direction { 
+    assert([position isKindOfClass:IndexedTextPosition.class]);
+    auto casted = static_cast<IndexedTextPosition *>(position);
+    NSInteger startIndex = casted.index;
+    
+    NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:self.attributedText];
+    
+    NSLayoutManager *layoutManager = [NSLayoutManager new];
+    
+    [textStorage addLayoutManager:layoutManager];
+    [textStorage release];
+    
+    NSTextContainer *textContainer = [[NSTextContainer alloc] initWithSize:self.bounds.size];
+    textContainer.lineFragmentPadding = 0.;
+    [layoutManager addTextContainer:textContainer];
+    
+    NSRange glyphRange;
+    [layoutManager characterRangeForGlyphRange:NSMakeRange(startIndex, 1) actualGlyphRange:&glyphRange];
+    
+    CGRect indexRect = [layoutManager boundingRectForGlyphRange:glyphRange inTextContainer:textContainer];
+    
+    CGPoint point;
+    switch (direction) {
+        case UITextLayoutDirectionUp:
+            point = CGPointMake(CGRectGetMinX(indexRect), CGRectGetMinY(self.bounds));
+            break;
+        case UITextLayoutDirectionLeft:
+            point = CGPointMake(CGRectGetMinX(self.bounds), CGRectGetMinY(indexRect));
+            break;
+        case UITextLayoutDirectionRight:
+            point = CGPointMake(CGRectGetMaxX(self.bounds), CGRectGetMinY(indexRect));
+            break;
+        case UITextLayoutDirectionDown:
+            point = CGPointMake(CGRectGetMinX(indexRect), CGRectGetMaxY(self.bounds));
+            break;
+        default:
+            abort();
+    }
+    
+    NSUInteger glyphIndex = [layoutManager glyphIndexForPoint:point inTextContainer:textContainer];
+    [textContainer release];
+    
+    NSUInteger finalIndex = [layoutManager characterIndexForGlyphAtIndex:glyphIndex];
+    [layoutManager release];
+    
+    IndexedTextPosition *start;
+    IndexedTextPosition *end;
+    if (startIndex < finalIndex) {
+        start = [[IndexedTextPosition alloc] initWithIndex:startIndex];
+        end = [[IndexedTextPosition alloc] initWithIndex:finalIndex];
+    } else {
+        start = [[IndexedTextPosition alloc] initWithIndex:startIndex];
+        end = [[IndexedTextPosition alloc] initWithIndex:finalIndex];
+    }
+    
+    IndexedTextRange *range = [[IndexedTextRange alloc] initWithStart:start end:end];
+    [start release];
+    [end release];
+    
+    return [range autorelease];
+}
+
+- (nullable UITextPosition *)closestPositionToPoint:(CGPoint)point { 
+    NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:self.attributedText];
+    
+    NSLayoutManager *layoutManager = [NSLayoutManager new];
+    
+    [textStorage addLayoutManager:layoutManager];
+    [textStorage release];
+    
+    NSTextContainer *textContainer = [[NSTextContainer alloc] initWithSize:self.bounds.size];
+    textContainer.lineFragmentPadding = 0.;
+    [layoutManager addTextContainer:textContainer];
+    
+    NSUInteger glyphIndex = [layoutManager glyphIndexForPoint:point inTextContainer:textContainer];
+    [textContainer release];
+    
+    NSUInteger characterIndex = [layoutManager characterIndexForGlyphAtIndex:glyphIndex];
+    [layoutManager release];
+    
+    return [[[IndexedTextPosition alloc] initWithIndex:characterIndex] autorelease];
+}
+
+- (nullable UITextPosition *)closestPositionToPoint:(CGPoint)point withinRange:(nonnull UITextRange *)range {
+    assert([range isKindOfClass:IndexedTextRange.class]);
+    
+    auto casted = static_cast<IndexedTextRange *>(range);
+    
+    NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:self.attributedText];
+    
+    NSLayoutManager *layoutManager = [NSLayoutManager new];
+    
+    [textStorage addLayoutManager:layoutManager];
+    [textStorage release];
+    
+    NSTextContainer *textContainer = [[NSTextContainer alloc] initWithSize:self.bounds.size];
+    textContainer.lineFragmentPadding = 0.;
+    [layoutManager addTextContainer:textContainer];
+    
+    NSRange glyphRange;
+    [layoutManager characterRangeForGlyphRange:casted.nsRange actualGlyphRange:&glyphRange];
+    
+    CGRect rect = [layoutManager boundingRectForGlyphRange:glyphRange inTextContainer:textContainer];
+    
+    if (CGRectContainsPoint(rect, point)) {
+        NSUInteger glyphIndex = [layoutManager glyphIndexForPoint:point inTextContainer:textContainer];
+        [textContainer release];
+        
+        NSUInteger finalIndex = [layoutManager characterIndexForGlyphAtIndex:glyphIndex];
+        [layoutManager release];
+        
+        return [[[IndexedTextPosition alloc] initWithIndex:finalIndex] autorelease];
+    } else {
+        /*
+                |       |
+            1   |   2   |   3
+                |       |
+         -----------------------
+                |       |
+            4   |   X   |   5
+                |       |
+         -----------------------
+                |       |
+            6   |   7   |   8
+                |       |
+         */
+        CGPoint nearestPoint;
+        if ((CGRectGetMinY(rect) <= point.y) and (point.y <= CGRectGetMaxY(rect))) {
+            if (point.x < CGRectGetMinX(rect)) {
+                nearestPoint = CGPointMake(CGRectGetMinX(rect), point.y); // 4
+            } else if (CGRectGetMaxX(rect) < point.x) {
+                nearestPoint = CGPointMake(CGRectGetMaxX(rect), point.y); // 5
+            } else {
+                abort();
+            }
+        } else if ((CGRectGetMinX(rect) <= point.x) and (point.x <= CGRectGetMaxX(rect))) {
+            if (point.y < CGRectGetMinY(rect)) {
+                nearestPoint = CGPointMake(point.x, CGRectGetMinY(rect)); // 2
+            } else if (CGRectGetMaxY(rect) < point.y) {
+                nearestPoint = CGPointMake(point.x, CGRectGetMaxY(rect)); // 7
+            } else {
+                abort();
+            }
+        } else if ((point.x < CGRectGetMinX(rect)) and (point.y < CGRectGetMinY(rect))) {
+            nearestPoint = CGPointMake(CGRectGetMinX(rect), CGRectGetMinY(rect)); // 1
+        } else if ((CGRectGetMaxX(rect) < point.x) and (point.y < CGRectGetMinY(rect))) {
+            nearestPoint = CGPointMake(CGRectGetMaxX(rect), CGRectGetMinY(rect)); // 3
+        } else if ((point.x < CGRectGetMinX(rect)) and (CGRectGetMaxY(rect) < point.y)) {
+            nearestPoint = CGPointMake(CGRectGetMinX(rect), CGRectGetMaxY(rect)); // 6
+        } else if ((CGRectGetMaxX(rect) < point.x) and (point.y < CGRectGetMaxY(rect))) {
+            nearestPoint = CGPointMake(CGRectGetMaxX(rect), CGRectGetMaxY(rect)); // 8
+        } else {
+            abort();
+        }
+        
+        NSUInteger glyphIndex = [layoutManager glyphIndexForPoint:nearestPoint inTextContainer:textContainer];
+        [textContainer release];
+        
+        NSUInteger characterIndex = [layoutManager characterIndexForGlyphAtIndex:glyphIndex];
+        [layoutManager release];
+        
+        return [[[IndexedTextPosition alloc] initWithIndex:characterIndex] autorelease];
+    }
+}
+
+- (NSComparisonResult)comparePosition:(nonnull UITextPosition *)position toPosition:(nonnull UITextPosition *)other { 
+    assert([position isKindOfClass:IndexedTextPosition.class]);
+    assert([other isKindOfClass:IndexedTextPosition.class]);
+    
+    return [@(static_cast<IndexedTextPosition *>(position).index) compare:@(static_cast<IndexedTextPosition *>(other).index)];
+}
+
+- (CGRect)firstRectForRange:(nonnull UITextRange *)range {
+    assert([range isKindOfClass:IndexedTextRange.class]);
+    auto casted = static_cast<IndexedTextRange *>(range);
+    return [self _muk_boundingRectForCharacterRange:casted.nsRange];
+}
+
+- (NSInteger)offsetFromPosition:(nonnull UITextPosition *)from toPosition:(nonnull UITextPosition *)toPosition { 
+    assert([from isKindOfClass:IndexedTextPosition.class]);
+    assert([toPosition isKindOfClass:IndexedTextPosition.class]);
+    
+    return static_cast<IndexedTextPosition *>(toPosition).index - static_cast<IndexedTextPosition *>(from).index;
+}
+
+- (nullable UITextPosition *)positionFromPosition:(nonnull UITextPosition *)position inDirection:(UITextLayoutDirection)direction offset:(NSInteger)offset { 
+    <#code#>
+}
+//
+//
+//- (nullable UITextPosition *)positionFromPosition:(nonnull UITextPosition *)position offset:(NSInteger)offset { 
+//    <#code#>
 //}
+//
+//
+//- (nullable UITextPosition *)positionWithinRange:(nonnull UITextRange *)range farthestInDirection:(UITextLayoutDirection)direction { 
+//    <#code#>
+//}
+//
+//
+//- (void)replaceRange:(nonnull UITextRange *)range withText:(nonnull NSString *)text { 
+//    <#code#>
+//}
+//
+//
+//- (nonnull NSArray<UITextSelectionRect *> *)selectionRectsForRange:(nonnull UITextRange *)range { 
+//    <#code#>
+//}
+//
+//
+//- (void)setBaseWritingDirection:(NSWritingDirection)writingDirection forRange:(nonnull UITextRange *)range { 
+//    <#code#>
+//}
+//
+//
+//- (void)setMarkedText:(nullable NSString *)markedText selectedRange:(NSRange)selectedRange { 
+//    <#code#>
+//}
+//
+//
+//- (nullable UITextRange *)textRangeFromPosition:(nonnull UITextPosition *)fromPosition toPosition:(nonnull UITextPosition *)toPosition { 
+//    <#code#>
+//}
+//
+//
+//- (void)unmarkText { 
+//    <#code#>
+//}
+
+
+- (UITextRange *)selectedTextRange {
+    NSRange selectedRange = self.selectedRange;
+    if (selectedRange.location == 0 and selectedRange.length == 0) return nil;
+    
+    return [[[IndexedTextRange alloc] initWithNSRange:selectedRange] autorelease];
+}
+
+- (void)setSelectedTextRange:(UITextRange *)selectedTextRange {
+    assert([selectedTextRange isKindOfClass:IndexedTextRange.class]);
+    auto casted = static_cast<IndexedTextRange *>(selectedTextRange);
+    
+    self.selectedRange = casted.nsRange;
+}
+
+- (UITextRange *)markedTextRange {
+    return nil;
+}
+
+- (NSDictionary<NSAttributedStringKey,id> *)markedTextStyle {
+    return nil;
+}
+
+- (void)setMarkedTextStyle:(NSDictionary<NSAttributedStringKey,id> *)markedTextStyle {
+    abort();
+}
+
+- (id<UITextInputTokenizer>)tokenizer {
+    abort();
+}
+
+
 @end
 
 @interface LabelWritingToolsViewController () <UIWritingToolsCoordinatorDelegate>
