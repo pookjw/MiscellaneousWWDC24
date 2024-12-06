@@ -44,6 +44,7 @@
 #import "ApplicationCategoryViewController.h"
 #import "NewWritingToolsViewController.h"
 #import "LabelWritingToolsViewController.h"
+#import "MarqueeLabelViewController.h"
 #import <objc/message.h>
 
 __attribute__((objc_direct_members))
@@ -126,6 +127,7 @@ __attribute__((objc_direct_members))
 
 - (NSArray<Class> *)classes {
     return @[
+        MarqueeLabelViewController.class,
         LabelWritingToolsViewController.class,
         NewWritingToolsViewController.class,
         ApplicationCategoryViewController.class,

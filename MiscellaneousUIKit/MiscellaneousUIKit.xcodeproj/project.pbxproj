@@ -40,6 +40,8 @@
 		4F455F222C281AAC00CDE688 /* UpdateLinkViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F212C281AAC00CDE688 /* UpdateLinkViewController.mm */; };
 		4F46CFCC2C282AF5005AC6AF /* ProminenceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46CFCB2C282AF5005AC6AF /* ProminenceViewController.mm */; };
 		4F46CFD02C282D9A005AC6AF /* FontPickerPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46CFCF2C282D9A005AC6AF /* FontPickerPresenterViewController.mm */; };
+		4F4903772D03554E0017A47D /* MarqueeLabelViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4903762D03554E0017A47D /* MarqueeLabelViewController.mm */; };
+		4F4903782D03554E0017A47D /* MarqueeLabelViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4903762D03554E0017A47D /* MarqueeLabelViewController.mm */; };
 		4F5056532C5938F400B49BB9 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F5056522C5938F400B49BB9 /* SafariServices.framework */; };
 		4F5068AE2C3D98F800293E81 /* LegacyTabBarController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5068AD2C3D98F800293E81 /* LegacyTabBarController.mm */; };
 		4F5068B22C3D9D8800293E81 /* LegacyTabBar2Controller.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5068B12C3D9D8800293E81 /* LegacyTabBar2Controller.mm */; };
@@ -198,6 +200,8 @@
 		4F46CFCB2C282AF5005AC6AF /* ProminenceViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ProminenceViewController.mm; sourceTree = "<group>"; };
 		4F46CFCE2C282D9A005AC6AF /* FontPickerPresenterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FontPickerPresenterViewController.h; sourceTree = "<group>"; };
 		4F46CFCF2C282D9A005AC6AF /* FontPickerPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FontPickerPresenterViewController.mm; sourceTree = "<group>"; };
+		4F4903752D03554E0017A47D /* MarqueeLabelViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarqueeLabelViewController.h; sourceTree = "<group>"; };
+		4F4903762D03554E0017A47D /* MarqueeLabelViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MarqueeLabelViewController.mm; sourceTree = "<group>"; };
 		4F5056522C5938F400B49BB9 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/iOSSupport/System/Library/Frameworks/SafariServices.framework; sourceTree = DEVELOPER_DIR; };
 		4F5068AC2C3D98F800293E81 /* LegacyTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LegacyTabBarController.h; sourceTree = "<group>"; };
 		4F5068AD2C3D98F800293E81 /* LegacyTabBarController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LegacyTabBarController.mm; sourceTree = "<group>"; };
@@ -366,6 +370,7 @@
 				4F59DEE72CFFF5DE00E88830 /* ApplicationCategory */,
 				4F59DEEC2CFFFA6800E88830 /* NewWritingTools */,
 				4FD54E8D2D00BB63002CE52C /* LabelWritingTools */,
+				4F4903742D03553B0017A47D /* MarqueeLabel */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -560,6 +565,15 @@
 				4F46CFCF2C282D9A005AC6AF /* FontPickerPresenterViewController.mm */,
 			);
 			path = FontPickerPresenter;
+			sourceTree = "<group>";
+		};
+		4F4903742D03553B0017A47D /* MarqueeLabel */ = {
+			isa = PBXGroup;
+			children = (
+				4F4903752D03554E0017A47D /* MarqueeLabelViewController.h */,
+				4F4903762D03554E0017A47D /* MarqueeLabelViewController.mm */,
+			);
+			path = MarqueeLabel;
 			sourceTree = "<group>";
 		};
 		4F5068AB2C3D98DA00293E81 /* LegacyTabBar */ = {
@@ -919,6 +933,7 @@
 				4F7BC13C2C3C43B900419197 /* MyNavigationItemViewController.mm in Sources */,
 				4F7941D42C7897D50031F456 /* FloatingKeyboardViewController.mm in Sources */,
 				4F7941D82C7898470031F456 /* SplitKeyboardViewController.mm in Sources */,
+				4F4903772D03554E0017A47D /* MarqueeLabelViewController.mm in Sources */,
 				4F455F032C2038D200CDE688 /* CustomTransitionController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -981,6 +996,7 @@
 				4F59DED62CFFF56100E88830 /* MyNavigationItemViewController.mm in Sources */,
 				4F59DED72CFFF56100E88830 /* FloatingKeyboardViewController.mm in Sources */,
 				4F59DED82CFFF56100E88830 /* SplitKeyboardViewController.mm in Sources */,
+				4F4903782D03554E0017A47D /* MarqueeLabelViewController.mm in Sources */,
 				4F59DED92CFFF56100E88830 /* CustomTransitionController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

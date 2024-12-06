@@ -400,9 +400,9 @@
     return static_cast<IndexedTextPosition *>(toPosition).index - static_cast<IndexedTextPosition *>(from).index;
 }
 
-- (nullable UITextPosition *)positionFromPosition:(nonnull UITextPosition *)position inDirection:(UITextLayoutDirection)direction offset:(NSInteger)offset { 
-    <#code#>
-}
+//- (nullable UITextPosition *)positionFromPosition:(nonnull UITextPosition *)position inDirection:(UITextLayoutDirection)direction offset:(NSInteger)offset { 
+//    <#code#>
+//}
 //
 //
 //- (nullable UITextPosition *)positionFromPosition:(nonnull UITextPosition *)position offset:(NSInteger)offset { 
