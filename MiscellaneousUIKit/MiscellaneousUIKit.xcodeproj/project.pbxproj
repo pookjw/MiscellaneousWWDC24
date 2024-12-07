@@ -48,6 +48,10 @@
 		4F4903C82D040AB90017A47D /* IndexedTextRange.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4903C62D040AB90017A47D /* IndexedTextRange.mm */; };
 		4F4903CB2D040B460017A47D /* TextInputLabel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4903CA2D040B460017A47D /* TextInputLabel.mm */; };
 		4F4903CC2D040B460017A47D /* TextInputLabel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4903CA2D040B460017A47D /* TextInputLabel.mm */; };
+		4F49040E2D049CD80017A47D /* IntelligenceLightLabelViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F49040D2D049CD80017A47D /* IntelligenceLightLabelViewController.mm */; };
+		4F49040F2D049CD80017A47D /* IntelligenceLightLabelViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F49040D2D049CD80017A47D /* IntelligenceLightLabelViewController.mm */; };
+		4F4904162D049E870017A47D /* IntelligenceLightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4904152D049E870017A47D /* IntelligenceLightViewController.swift */; };
+		4F4904172D049E870017A47D /* IntelligenceLightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4904152D049E870017A47D /* IntelligenceLightViewController.swift */; };
 		4F5056532C5938F400B49BB9 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F5056522C5938F400B49BB9 /* SafariServices.framework */; };
 		4F5068AE2C3D98F800293E81 /* LegacyTabBarController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5068AD2C3D98F800293E81 /* LegacyTabBarController.mm */; };
 		4F5068B22C3D9D8800293E81 /* LegacyTabBar2Controller.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5068B12C3D9D8800293E81 /* LegacyTabBar2Controller.mm */; };
@@ -214,6 +218,10 @@
 		4F4903C62D040AB90017A47D /* IndexedTextRange.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = IndexedTextRange.mm; sourceTree = "<group>"; };
 		4F4903C92D040B460017A47D /* TextInputLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextInputLabel.h; sourceTree = "<group>"; };
 		4F4903CA2D040B460017A47D /* TextInputLabel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TextInputLabel.mm; sourceTree = "<group>"; };
+		4F49040C2D049CD80017A47D /* IntelligenceLightLabelViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntelligenceLightLabelViewController.h; sourceTree = "<group>"; };
+		4F49040D2D049CD80017A47D /* IntelligenceLightLabelViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = IntelligenceLightLabelViewController.mm; sourceTree = "<group>"; };
+		4F4904102D049E3B0017A47D /* MiscellaneousUIKit-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MiscellaneousUIKit-Bridging-Header.h"; sourceTree = "<group>"; };
+		4F4904152D049E870017A47D /* IntelligenceLightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceLightViewController.swift; sourceTree = "<group>"; };
 		4F5056522C5938F400B49BB9 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/iOSSupport/System/Library/Frameworks/SafariServices.framework; sourceTree = DEVELOPER_DIR; };
 		4F5068AC2C3D98F800293E81 /* LegacyTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LegacyTabBarController.h; sourceTree = "<group>"; };
 		4F5068AD2C3D98F800293E81 /* LegacyTabBarController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LegacyTabBarController.mm; sourceTree = "<group>"; };
@@ -335,6 +343,7 @@
 				4F5FE5F52C5A0AE70044345D /* article.txt */,
 				4F082E582C188D6D002263ED /* Info.plist */,
 				4F082E592C188D6D002263ED /* main.m */,
+				4F4904102D049E3B0017A47D /* MiscellaneousUIKit-Bridging-Header.h */,
 			);
 			path = MiscellaneousUIKit;
 			sourceTree = "<group>";
@@ -381,6 +390,8 @@
 				4F59DEEC2CFFFA6800E88830 /* NewWritingTools */,
 				4FD54E8D2D00BB63002CE52C /* LabelWritingTools */,
 				4F4903742D03553B0017A47D /* MarqueeLabel */,
+				4F49040B2D049CC90017A47D /* IntelligenceLightLabel */,
+				4F4904142D049E730017A47D /* IntelligenceLight */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -584,6 +595,23 @@
 				4F4903762D03554E0017A47D /* MarqueeLabelViewController.mm */,
 			);
 			path = MarqueeLabel;
+			sourceTree = "<group>";
+		};
+		4F49040B2D049CC90017A47D /* IntelligenceLightLabel */ = {
+			isa = PBXGroup;
+			children = (
+				4F49040C2D049CD80017A47D /* IntelligenceLightLabelViewController.h */,
+				4F49040D2D049CD80017A47D /* IntelligenceLightLabelViewController.mm */,
+			);
+			path = IntelligenceLightLabel;
+			sourceTree = "<group>";
+		};
+		4F4904142D049E730017A47D /* IntelligenceLight */ = {
+			isa = PBXGroup;
+			children = (
+				4F4904152D049E870017A47D /* IntelligenceLightViewController.swift */,
+			);
+			path = IntelligenceLight;
 			sourceTree = "<group>";
 		};
 		4F5068AB2C3D98DA00293E81 /* LegacyTabBar */ = {
@@ -840,7 +868,7 @@
 				TargetAttributes = {
 					4F082E432C188D6C002263ED = {
 						CreatedOnToolsVersion = 16.0;
-						LastSwiftMigration = 1600;
+						LastSwiftMigration = 1620;
 					};
 				};
 			};
@@ -937,6 +965,7 @@
 				4F7941D02C7896760031F456 /* ProKeyboardViewController.mm in Sources */,
 				4F455F1E2C280C4A00CDE688 /* TabBar2Controller.m in Sources */,
 				4F1F02282C23CD6C004F7EFF /* TabBarController.mm in Sources */,
+				4F4904172D049E870017A47D /* IntelligenceLightViewController.swift in Sources */,
 				4F082E7B2C18FD18002263ED /* CustomDocumentViewController.mm in Sources */,
 				4F455F222C281AAC00CDE688 /* UpdateLinkViewController.mm in Sources */,
 				4F455F1A2C27EBE400CDE688 /* JitterAnimationViewController.mm in Sources */,
@@ -950,6 +979,7 @@
 				4FDABC692C3D35DE00F928DB /* SymbolTransitionsViewController.mm in Sources */,
 				4F83911C2CCCFEAE0005B8AC /* CustomViewMenuElementDynamicHeightViewController.mm in Sources */,
 				4F7BC13C2C3C43B900419197 /* MyNavigationItemViewController.mm in Sources */,
+				4F49040E2D049CD80017A47D /* IntelligenceLightLabelViewController.mm in Sources */,
 				4F7941D42C7897D50031F456 /* FloatingKeyboardViewController.mm in Sources */,
 				4F7941D82C7898470031F456 /* SplitKeyboardViewController.mm in Sources */,
 				4F4903772D03554E0017A47D /* MarqueeLabelViewController.mm in Sources */,
@@ -1003,6 +1033,7 @@
 				4F59DEC82CFFF56100E88830 /* ProKeyboardViewController.mm in Sources */,
 				4F59DEC92CFFF56100E88830 /* TabBar2Controller.m in Sources */,
 				4F59DECA2CFFF56100E88830 /* TabBarController.mm in Sources */,
+				4F4904162D049E870017A47D /* IntelligenceLightViewController.swift in Sources */,
 				4F59DECB2CFFF56100E88830 /* CustomDocumentViewController.mm in Sources */,
 				4F59DECC2CFFF56100E88830 /* UpdateLinkViewController.mm in Sources */,
 				4F59DECD2CFFF56100E88830 /* JitterAnimationViewController.mm in Sources */,
@@ -1016,6 +1047,7 @@
 				4F59DED42CFFF56100E88830 /* SymbolTransitionsViewController.mm in Sources */,
 				4F59DED52CFFF56100E88830 /* CustomViewMenuElementDynamicHeightViewController.mm in Sources */,
 				4F59DED62CFFF56100E88830 /* MyNavigationItemViewController.mm in Sources */,
+				4F49040F2D049CD80017A47D /* IntelligenceLightLabelViewController.mm in Sources */,
 				4F59DED72CFFF56100E88830 /* FloatingKeyboardViewController.mm in Sources */,
 				4F59DED82CFFF56100E88830 /* SplitKeyboardViewController.mm in Sources */,
 				4F4903782D03554E0017A47D /* MarqueeLabelViewController.mm in Sources */,
@@ -1095,6 +1127,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
 			};
 			name = Debug;
 		};
@@ -1149,6 +1182,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1181,6 +1215,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "MiscellaneousUIKit/MiscellaneousUIKit-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
@@ -1216,6 +1251,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "MiscellaneousUIKit/MiscellaneousUIKit-Bridging-Header.h";
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
 				XROS_DEPLOYMENT_TARGET = 2.2;

@@ -45,6 +45,8 @@
 #import "NewWritingToolsViewController.h"
 #import "LabelWritingToolsViewController.h"
 #import "MarqueeLabelViewController.h"
+#import "IntelligenceLightLabelViewController.h"
+#import "MiscellaneousUIKit-Swift.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 
@@ -95,7 +97,7 @@ __attribute__((objc_direct_members))
     [super viewDidLoad];
     [self cellRegistration];
     
-    reinterpret_cast<void (*)(id, SEL, id, BOOL, UICollectionViewScrollPosition, BOOL, BOOL, BOOL, BOOL)>(objc_msgSend)(self.collectionView, sel_registerName("_selectItemAtIndexPath:animated:scrollPosition:notifyDelegate:deselectPrevious:performPrimaryAction:performCustomSelectionAction:"), [NSIndexPath indexPathForItem:1 inSection:0], NO, 0, YES, YES, NO, NO);
+//    reinterpret_cast<void (*)(id, SEL, id, BOOL, UICollectionViewScrollPosition, BOOL, BOOL, BOOL, BOOL)>(objc_msgSend)(self.collectionView, sel_registerName("_selectItemAtIndexPath:animated:scrollPosition:notifyDelegate:deselectPrevious:performPrimaryAction:performCustomSelectionAction:"), [NSIndexPath indexPathForItem:1 inSection:0], NO, 0, YES, YES, NO, NO);
 }
 
 - (void)commonInit_MainCollectionViewController __attribute__((objc_direct)) {
@@ -130,6 +132,8 @@ __attribute__((objc_direct_members))
 
 - (NSArray<Class> *)classes {
     return @[
+        IntelligenceLightViewController.class,
+        IntelligenceLightLabelViewController.class,
         MarqueeLabelViewController.class,
         LabelWritingToolsViewController.class,
         NewWritingToolsViewController.class,
