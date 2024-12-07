@@ -18,6 +18,13 @@
 @synthesize statusLabel = _statusLabel;
 @synthesize openDefaultApplicationsSettingsButton = _openDefaultApplicationsSettingsButton;
 
+- (void)dealloc {
+    [_stackView release];
+    [_statusLabel release];
+    [_openDefaultApplicationsSettingsButton release];
+    [super dealloc];
+}
+
 - (void)loadView {
     self.view = self.stackView;
 }

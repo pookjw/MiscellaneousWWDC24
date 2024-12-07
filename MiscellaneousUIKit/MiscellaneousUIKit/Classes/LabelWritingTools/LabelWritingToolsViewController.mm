@@ -37,10 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.backgroundColor = UIColor.systemBackgroundColor;
-    
-    
     
     UILabel *label = self.label;
     [self.view addSubview:label];
@@ -49,16 +46,12 @@
     self.navigationItem.rightBarButtonItems = @[
         self.menuBarButtonItem
     ];
-    
-    UIView *decorationContainerView = self.decorationContainerView;
-    [self.view addSubview:decorationContainerView];
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self.view, sel_registerName("_addBoundsMatchingConstraintsForView:"), decorationContainerView);
 }
 
-- (void)viewIsAppearing:(BOOL)animated {
-    [super viewIsAppearing:animated];
-    reinterpret_cast<void (*)(id, SEL, id, id)>(objc_msgSend)([self debugAction], sel_registerName("performWithSender:target:"), nil, nil);
-}
+//- (void)viewIsAppearing:(BOOL)animated {
+//    [super viewIsAppearing:animated];
+//    reinterpret_cast<void (*)(id, SEL, id, id)>(objc_msgSend)([self debugAction], sel_registerName("performWithSender:target:"), nil, nil);
+//}
 
 - (TextInputLabel *)label {
     if (auto label = _label) return label;
@@ -82,9 +75,6 @@
     
     UIWritingToolsCoordinator *writingToolsCoordinator = [[UIWritingToolsCoordinator alloc] initWithDelegate:self];
     
-    writingToolsCoordinator.decorationContainerView = self.decorationContainerView;
-    writingToolsCoordinator.effectContainerView = self.effectContainerView;
-    
     [self.label addInteraction:writingToolsCoordinator];
     
     _writingToolsCoordinator = [writingToolsCoordinator retain];
@@ -103,8 +93,10 @@
             [unretainedSelf showWritingToolsAction],
             [unretainedSelf stopWritingToolsAction],
             [unretainedSelf setBehaviorMenu],
-//            [unretainedSelf decorationContainerViewAction],
-//            [unretainedSelf effectContainerViewAction],
+            [unretainedSelf decorationContainerViewAction],
+            [unretainedSelf decorationContainerViewAction2],
+            [unretainedSelf effectContainerViewAction],
+            [unretainedSelf effectContainerViewAction2],
             [unretainedSelf setResultOptionsMenu],
             [unretainedSelf requestedToolsMenu]
         ]);
@@ -117,6 +109,11 @@
 }
 
 - (UIView *)decorationContainerView {
+    /*
+     UITextView는 _selectionContainerView를 사용함
+     Proofreading에서 Original을 누르면 Highlight가 되며, 내부적으로 자동으로 View를 추가 후 랜더링을 해줌
+     근데 지금 글자 좌표 잘못 줘서 뭔가 잘 안 되는 것 같음
+     */
     if (auto decorationContainerView = _decorationContainerView) return decorationContainerView;
     
     UIView *decorationContainerView = [UIView new];
@@ -130,7 +127,7 @@
     if (auto effectContainerView = _effectContainerView) return effectContainerView;
     
     UIView *effectContainerView = [UIView new];
-    effectContainerView.backgroundColor = UIColor.systemGreenColor;
+    effectContainerView.backgroundColor = [UIColor.systemGreenColor colorWithAlphaComponent:0.2];
     
     _effectContainerView = [effectContainerView retain];
     return [effectContainerView autorelease];
@@ -227,16 +224,28 @@
     UIView *decorationContainerView = self.decorationContainerView;
     UIWritingToolsCoordinator *writingToolsCoordinator = self.writingToolsCoordinator;
     UIView *view = self.view;
+    TextInputLabel *label = self.label;
     
     UIAction *action = [UIAction actionWithTitle:@"decorationContainerView" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
         if (decorationContainerView.superview == nil) {
             [view addSubview:decorationContainerView];
+            [view bringSubviewToFront:label];
+            
+//            decorationContainerView.translatesAutoresizingMaskIntoConstraints = NO;
+//            [NSLayoutConstraint activateConstraints:@[
+//                [decorationContainerView.leadingAnchor constraintEqualToAnchor:view.leadingAnchor],
+//                [decorationContainerView.centerYAnchor constraintEqualToAnchor:view.centerYAnchor],
+//                [decorationContainerView.widthAnchor constraintEqualToAnchor:view.widthAnchor multiplier:0.3],
+//                [decorationContainerView.heightAnchor constraintEqualToAnchor:view.heightAnchor multiplier:0.3]
+//            ]];
+            
             reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(view, sel_registerName("_addBoundsMatchingConstraintsForView:"), decorationContainerView);
+            
+            writingToolsCoordinator.decorationContainerView = decorationContainerView;
         } else {
             [decorationContainerView removeFromSuperview];
+            writingToolsCoordinator.decorationContainerView = nil;
         }
-        
-        writingToolsCoordinator.decorationContainerView = decorationContainerView;
     }];
     
     action.state = (decorationContainerView.superview == nil) ? UIMenuElementStateOff : UIMenuElementStateOn;
@@ -244,22 +253,72 @@
     return action;
 }
 
-- (UIAction *)effectContainerViewAction {
+- (UIAction *)decorationContainerViewAction2 {
+    UIView *decorationContainerView = self.decorationContainerView;
+    UIWritingToolsCoordinator *writingToolsCoordinator = self.writingToolsCoordinator;
     TextInputLabel *label = self.label;
+    
+    UIAction *action = [UIAction actionWithTitle:@"decorationContainerView 2" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+        if ([writingToolsCoordinator.decorationContainerView isEqual:label]) {
+            writingToolsCoordinator.decorationContainerView = decorationContainerView;
+        } else {
+            writingToolsCoordinator.decorationContainerView = nil;
+        }
+    }];
+    
+    action.state = ([writingToolsCoordinator.decorationContainerView isEqual:label]) ? UIMenuElementStateOff : UIMenuElementStateOn;
+    
+    return action;
+}
+
+- (UIAction *)effectContainerViewAction {
     UIView *effectContainerView = self.effectContainerView;
-//    UIWritingToolsCoordinator *writingToolsCoordinator = self.writingToolsCoordinator;
+    UIWritingToolsCoordinator *writingToolsCoordinator = self.writingToolsCoordinator;
     UIView *view = self.view;
+    TextInputLabel *label = self.label;
     
     UIAction *action = [UIAction actionWithTitle:@"effectContainerView" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
         if (effectContainerView.superview == nil) {
             [view addSubview:effectContainerView];
-            reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(view, sel_registerName("_addBoundsMatchingConstraintsForView:"), effectContainerView);
+            [view bringSubviewToFront:label];
+            
+            effectContainerView.translatesAutoresizingMaskIntoConstraints = NO;
+            effectContainerView.translatesAutoresizingMaskIntoConstraints = NO;
+            [NSLayoutConstraint activateConstraints:@[
+                [effectContainerView.trailingAnchor constraintEqualToAnchor:view.trailingAnchor],
+                [effectContainerView.centerYAnchor constraintEqualToAnchor:view.centerYAnchor],
+                [effectContainerView.widthAnchor constraintEqualToAnchor:view.widthAnchor multiplier:0.3],
+                [effectContainerView.heightAnchor constraintEqualToAnchor:view.heightAnchor multiplier:0.3]
+            ]];
+            
+//            reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(view, sel_registerName("_addBoundsMatchingConstraintsForView:"), effectContainerView);
         } else {
             [effectContainerView removeFromSuperview];
         }
+        
+        writingToolsCoordinator.effectContainerView = effectContainerView;
     }];
     
     action.state = (effectContainerView.superview == nil) ? UIMenuElementStateOff : UIMenuElementStateOn;
+    
+    return action;
+}
+
+- (UIAction *)effectContainerViewAction2 {
+    UIView *effectContainerView = self.effectContainerView;
+    UIWritingToolsCoordinator *writingToolsCoordinator = self.writingToolsCoordinator;
+    TextInputLabel *label = self.label;
+    
+    UIAction *action = [UIAction actionWithTitle:@"effectContainerView 2" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+        if ([writingToolsCoordinator.effectContainerView isEqual:label]) {
+            writingToolsCoordinator.effectContainerView = effectContainerView;
+        } else {
+            writingToolsCoordinator.effectContainerView = nil;
+        }
+    }];
+    
+    action.state = ([writingToolsCoordinator.effectContainerView isEqual:label]) ? UIMenuElementStateOff : UIMenuElementStateOn;
+    action.subtitle = @"superview가 없는 상태에서 effectContainerView이 할당되어 있으면 Effect를 끌 수 있는 꼼수";
     
     return action;
 }
@@ -403,18 +462,26 @@
 }
 
 - (void)writingToolsCoordinator:(nonnull UIWritingToolsCoordinator *)writingToolsCoordinator replaceRange:(NSRange)range inContext:(nonnull UIWritingToolsCoordinatorContext *)context proposedText:(nonnull NSAttributedString *)replacementText reason:(UIWritingToolsCoordinatorTextReplacementReason)reason animationParameters:(UIWritingToolsCoordinatorAnimationParameters * _Nullable)animationParameters completion:(nonnull void (^)(NSAttributedString * _Nullable))completion { 
-    self.label.attributedText = replacementText;
+//    self.label.attributedText = replacementText;
     completion(replacementText);
 }
 
 - (void)writingToolsCoordinator:(nonnull UIWritingToolsCoordinator *)writingToolsCoordinator requestsBoundingBezierPathsForRange:(NSRange)range inContext:(nonnull UIWritingToolsCoordinatorContext *)context completion:(nonnull void (^)(NSArray<UIBezierPath *> * _Nonnull))completion { 
-    completion(@[]);
+    CGRect rect = [self.label _muk_boundingRectForCharacterRange:range];
+    
+    completion(@[
+        [UIBezierPath bezierPathWithRect:rect]
+    ]);
 }
 
 - (void)writingToolsCoordinator:(nonnull UIWritingToolsCoordinator *)writingToolsCoordinator requestsContextsForScope:(UIWritingToolsCoordinatorContextScope)scope completion:(nonnull void (^)(NSArray<UIWritingToolsCoordinatorContext *> * _Nonnull))completion { 
     UIWritingToolsCoordinatorContext *context = [[UIWritingToolsCoordinatorContext alloc] initWithAttributedString:self.label.attributedText range:NSMakeRange(0, self.label.text.length)];
     completion(@[context]);
     [context release];
+}
+
+- (void)writingToolsCoordinator:(UIWritingToolsCoordinator *)writingToolsCoordinator requestsDecorationContainerViewForRange:(NSRange)range inContext:(UIWritingToolsCoordinatorContext *)context completion:(void (^)(UIView * _Nonnull))completion {
+    return completion(self.decorationContainerView);
 }
 
 - (void)writingToolsCoordinator:(nonnull UIWritingToolsCoordinator *)writingToolsCoordinator requestsPreviewForTextAnimation:(UIWritingToolsCoordinatorTextAnimation)textAnimation ofRange:(NSRange)range inContext:(nonnull UIWritingToolsCoordinatorContext *)context completion:(nonnull void (^)(UITargetedPreview * _Nullable))completion {
@@ -441,21 +508,20 @@
     [preview autorelease];
 }
 
-- (void)writingToolsCoordinator:(nonnull UIWritingToolsCoordinator *)writingToolsCoordinator requestsRangeInContextWithIdentifierForPoint:(CGPoint)point completion:(nonnull void (^)(NSRange, NSUUID * _Nonnull))completion { 
+- (void)writingToolsCoordinator:(nonnull UIWritingToolsCoordinator *)writingToolsCoordinator requestsRangeInContextWithIdentifierForPoint:(CGPoint)point completion:(nonnull void (^)(NSRange, NSUUID * _Nonnull))completion {
     abort();
 }
 
 - (void)writingToolsCoordinator:(nonnull UIWritingToolsCoordinator *)writingToolsCoordinator requestsUnderlinePathsForRange:(NSRange)range inContext:(nonnull UIWritingToolsCoordinatorContext *)context completion:(nonnull void (^)(NSArray<UIBezierPath *> * _Nonnull))completion {
-//    CGRect rect = [self.label _muk_boundingRectForCharacterRange:range];
-//    self.decorationContainerView.frame = rect;
+    CGRect rect = [self.label _muk_boundingRectForCharacterRange:range];
     
     completion(@[
-//        [UIBezierPath bezierPathWithRect:rect]
+        [UIBezierPath bezierPathWithRect:rect]
     ]);
 }
 
 - (void)writingToolsCoordinator:(nonnull UIWritingToolsCoordinator *)writingToolsCoordinator selectRanges:(nonnull NSArray<NSValue *> *)ranges inContext:(nonnull UIWritingToolsCoordinatorContext *)context completion:(nonnull void (^)())completion {
-    
+    NSLog(@"TODO %@", ranges);
     completion();
 }
 
