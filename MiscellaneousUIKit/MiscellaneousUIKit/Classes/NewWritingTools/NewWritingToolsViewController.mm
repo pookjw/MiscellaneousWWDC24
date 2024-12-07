@@ -10,6 +10,8 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 
+OBJC_EXPORT id objc_msgSendSuper2(void);
+
 /*
  _UIWTCProofreadingDecorationView
  _UIWTCProofreadingInteraction

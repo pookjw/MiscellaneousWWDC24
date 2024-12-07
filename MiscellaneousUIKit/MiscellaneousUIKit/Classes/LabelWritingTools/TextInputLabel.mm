@@ -78,7 +78,12 @@
     auto casted = static_cast<IndexedTextRange *>(range);
     assert([casted isKindOfClass:IndexedTextRange.class]);
     
-    NSLog(@"%@", casted);
+    // TODO: 원래는 IndexedTextPosition은 content가 바뀌어도 표시하는 위치에 변동이 없어야 한다. 하지만 Index 기반이므로 이를 보장하지 않는 문제가 있다.
+    if (self.text.length < (casted.nsRange.location + casted.nsRange.length)) {
+        NSLog(@"TODO");
+        return [self.text substringWithRange:NSMakeRange(casted.nsRange.location, self.text.length - casted.nsRange.location)];
+    }
+    
     return [self.text substringWithRange:casted.nsRange];
 }
 
