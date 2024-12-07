@@ -71,6 +71,7 @@
 - (void)dealloc {
     [_stackView release];
     [_customBaselineView_1 release];
+    [_label_1 release];
     [super dealloc];
 }
 

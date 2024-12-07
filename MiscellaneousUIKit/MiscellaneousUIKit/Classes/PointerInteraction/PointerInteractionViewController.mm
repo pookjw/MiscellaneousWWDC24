@@ -65,7 +65,7 @@
     // 실제 Pointer의 Snap 및 Cursor (UIPointerStyle)의 Snap은 별개 
     region.latchingAxes = UIAxisVertical;
     
-    return region;
+    return [region autorelease];
 }
 
 - (UIPointerStyle *)pointerInteraction:(UIPointerInteraction *)interaction styleForRegion:(UIPointerRegion *)region {

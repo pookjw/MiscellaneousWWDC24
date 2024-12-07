@@ -42,6 +42,12 @@
 		4F46CFD02C282D9A005AC6AF /* FontPickerPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46CFCF2C282D9A005AC6AF /* FontPickerPresenterViewController.mm */; };
 		4F4903772D03554E0017A47D /* MarqueeLabelViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4903762D03554E0017A47D /* MarqueeLabelViewController.mm */; };
 		4F4903782D03554E0017A47D /* MarqueeLabelViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4903762D03554E0017A47D /* MarqueeLabelViewController.mm */; };
+		4F4903C32D040A220017A47D /* IndexedTextPosition.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4903C22D040A220017A47D /* IndexedTextPosition.mm */; };
+		4F4903C42D040A220017A47D /* IndexedTextPosition.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4903C22D040A220017A47D /* IndexedTextPosition.mm */; };
+		4F4903C72D040AB90017A47D /* IndexedTextRange.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4903C62D040AB90017A47D /* IndexedTextRange.mm */; };
+		4F4903C82D040AB90017A47D /* IndexedTextRange.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4903C62D040AB90017A47D /* IndexedTextRange.mm */; };
+		4F4903CB2D040B460017A47D /* TextInputLabel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4903CA2D040B460017A47D /* TextInputLabel.mm */; };
+		4F4903CC2D040B460017A47D /* TextInputLabel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F4903CA2D040B460017A47D /* TextInputLabel.mm */; };
 		4F5056532C5938F400B49BB9 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F5056522C5938F400B49BB9 /* SafariServices.framework */; };
 		4F5068AE2C3D98F800293E81 /* LegacyTabBarController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5068AD2C3D98F800293E81 /* LegacyTabBarController.mm */; };
 		4F5068B22C3D9D8800293E81 /* LegacyTabBar2Controller.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5068B12C3D9D8800293E81 /* LegacyTabBar2Controller.mm */; };
@@ -202,6 +208,12 @@
 		4F46CFCF2C282D9A005AC6AF /* FontPickerPresenterViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FontPickerPresenterViewController.mm; sourceTree = "<group>"; };
 		4F4903752D03554E0017A47D /* MarqueeLabelViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarqueeLabelViewController.h; sourceTree = "<group>"; };
 		4F4903762D03554E0017A47D /* MarqueeLabelViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MarqueeLabelViewController.mm; sourceTree = "<group>"; };
+		4F4903C12D040A220017A47D /* IndexedTextPosition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndexedTextPosition.h; sourceTree = "<group>"; };
+		4F4903C22D040A220017A47D /* IndexedTextPosition.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = IndexedTextPosition.mm; sourceTree = "<group>"; };
+		4F4903C52D040AB90017A47D /* IndexedTextRange.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndexedTextRange.h; sourceTree = "<group>"; };
+		4F4903C62D040AB90017A47D /* IndexedTextRange.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = IndexedTextRange.mm; sourceTree = "<group>"; };
+		4F4903C92D040B460017A47D /* TextInputLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextInputLabel.h; sourceTree = "<group>"; };
+		4F4903CA2D040B460017A47D /* TextInputLabel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TextInputLabel.mm; sourceTree = "<group>"; };
 		4F5056522C5938F400B49BB9 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/iOSSupport/System/Library/Frameworks/SafariServices.framework; sourceTree = DEVELOPER_DIR; };
 		4F5068AC2C3D98F800293E81 /* LegacyTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LegacyTabBarController.h; sourceTree = "<group>"; };
 		4F5068AD2C3D98F800293E81 /* LegacyTabBarController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LegacyTabBarController.mm; sourceTree = "<group>"; };
@@ -209,7 +221,6 @@
 		4F5068B12C3D9D8800293E81 /* LegacyTabBar2Controller.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LegacyTabBar2Controller.mm; sourceTree = "<group>"; };
 		4F59DEA32CFFF53500E88830 /* MiscellaneousUIKit-Private.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MiscellaneousUIKit-Private.entitlements"; sourceTree = "<group>"; };
 		4F59DEE52CFFF56100E88830 /* MiscellaneousUIKit Private Entitlements.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MiscellaneousUIKit Private Entitlements.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4F59DEE62CFFF56200E88830 /* MiscellaneousUIKit copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MiscellaneousUIKit copy-Info.plist"; path = "/Users/pookjw/git/MiscellaneousWWDC24/MiscellaneousUIKit/MiscellaneousUIKit copy-Info.plist"; sourceTree = "<absolute>"; };
 		4F59DEE82CFFF6A900E88830 /* ApplicationCategoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplicationCategoryViewController.h; sourceTree = "<group>"; };
 		4F59DEE92CFFF6A900E88830 /* ApplicationCategoryViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ApplicationCategoryViewController.mm; sourceTree = "<group>"; };
 		4F59DEED2CFFFA7B00E88830 /* NewWritingToolsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewWritingToolsViewController.h; sourceTree = "<group>"; };
@@ -291,7 +302,6 @@
 				4F082E462C188D6C002263ED /* MiscellaneousUIKit */,
 				4F082E452C188D6C002263ED /* Products */,
 				4F082E9A2C1B4504002263ED /* Frameworks */,
-				4F59DEE62CFFF56200E88830 /* MiscellaneousUIKit copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -763,6 +773,12 @@
 			children = (
 				4FD54E8E2D00BB78002CE52C /* LabelWritingToolsViewController.h */,
 				4FD54E8F2D00BB78002CE52C /* LabelWritingToolsViewController.mm */,
+				4F4903C12D040A220017A47D /* IndexedTextPosition.h */,
+				4F4903C22D040A220017A47D /* IndexedTextPosition.mm */,
+				4F4903C52D040AB90017A47D /* IndexedTextRange.h */,
+				4F4903C62D040AB90017A47D /* IndexedTextRange.mm */,
+				4F4903C92D040B460017A47D /* TextInputLabel.h */,
+				4F4903CA2D040B460017A47D /* TextInputLabel.mm */,
 			);
 			path = LabelWritingTools;
 			sourceTree = "<group>";
@@ -891,6 +907,7 @@
 				4F082EA82C1B53C8002263ED /* ContentHuggingElementsViewController.mm in Sources */,
 				4FAD987B2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm in Sources */,
 				4F082E702C18A045002263ED /* ListEnvironmentContentConfiguration.mm in Sources */,
+				4F4903CB2D040B460017A47D /* TextInputLabel.mm in Sources */,
 				4F1F02312C23CE4F004F7EFF /* OrangeViewController.m in Sources */,
 				4F8BD3902C22E1520031535F /* CustomDismissCustomInteraction.mm in Sources */,
 				4F082E772C18E349002263ED /* OrangeSceneDelegate.m in Sources */,
@@ -903,6 +920,7 @@
 				4FBEC51E2C3C568C008A2F17 /* SymbolEffectsViewController.mm in Sources */,
 				4FA8EEF42C1CDBD700B1358A /* ToTransitionViewController.mm in Sources */,
 				4F9C08D42C3E5574009897D6 /* ToolbarAppearanceViewController.mm in Sources */,
+				4F4903C32D040A220017A47D /* IndexedTextPosition.mm in Sources */,
 				4FD54E902D00BB78002CE52C /* LabelWritingToolsViewController.mm in Sources */,
 				4F1F022E2C23CE3A004F7EFF /* CyanViewController.m in Sources */,
 				4F3DD69C2C9BDCF6006F6F49 /* BaselineViewController.mm in Sources */,
@@ -924,6 +942,7 @@
 				4F455F1A2C27EBE400CDE688 /* JitterAnimationViewController.mm in Sources */,
 				4F082E6C2C189EF0002263ED /* ListEnvironmentCollectionViewController.mm in Sources */,
 				4F082E5A2C188D6D002263ED /* main.m in Sources */,
+				4F4903C72D040AB90017A47D /* IndexedTextRange.mm in Sources */,
 				4FB9FC422C58C2D6006B3245 /* NewLinkTextViewController.mm in Sources */,
 				4F082E4C2C188D6C002263ED /* SceneDelegate.m in Sources */,
 				4F0CBAA52C43D3FA00743DE2 /* MySearchViewController.mm in Sources */,
@@ -954,6 +973,7 @@
 				4F59DEAF2CFFF56100E88830 /* ContentHuggingElementsViewController.mm in Sources */,
 				4F59DEB02CFFF56100E88830 /* CustomDismissPercentageInteraction.mm in Sources */,
 				4F59DEB12CFFF56100E88830 /* ListEnvironmentContentConfiguration.mm in Sources */,
+				4F4903CC2D040B460017A47D /* TextInputLabel.mm in Sources */,
 				4F59DEB22CFFF56100E88830 /* OrangeViewController.m in Sources */,
 				4F59DEB32CFFF56100E88830 /* CustomDismissCustomInteraction.mm in Sources */,
 				4F59DEB42CFFF56100E88830 /* OrangeSceneDelegate.m in Sources */,
@@ -966,6 +986,7 @@
 				4F59DEBA2CFFF56100E88830 /* SymbolEffectsViewController.mm in Sources */,
 				4F59DEBB2CFFF56100E88830 /* ToTransitionViewController.mm in Sources */,
 				4F59DEBC2CFFF56100E88830 /* ToolbarAppearanceViewController.mm in Sources */,
+				4F4903C42D040A220017A47D /* IndexedTextPosition.mm in Sources */,
 				4FD54E912D00BB78002CE52C /* LabelWritingToolsViewController.mm in Sources */,
 				4F59DEBD2CFFF56100E88830 /* CyanViewController.m in Sources */,
 				4F59DEBE2CFFF56100E88830 /* BaselineViewController.mm in Sources */,
@@ -987,6 +1008,7 @@
 				4F59DECD2CFFF56100E88830 /* JitterAnimationViewController.mm in Sources */,
 				4F59DECE2CFFF56100E88830 /* ListEnvironmentCollectionViewController.mm in Sources */,
 				4F59DECF2CFFF56100E88830 /* main.m in Sources */,
+				4F4903C82D040AB90017A47D /* IndexedTextRange.mm in Sources */,
 				4F59DED02CFFF56100E88830 /* NewLinkTextViewController.mm in Sources */,
 				4F59DED12CFFF56100E88830 /* SceneDelegate.m in Sources */,
 				4F59DED22CFFF56100E88830 /* MySearchViewController.mm in Sources */,
