@@ -5,6 +5,10 @@
 //  Created by Jinwoo Kim on 7/30/24.
 //
 
+#import <TargetConditionals.h>
+
+#if !TARGET_OS_VISION
+
 #import "WritingToolsViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
@@ -198,3 +202,5 @@
 }
 
 @end
+
+#endif

@@ -5,6 +5,10 @@
 //  Created by Jinwoo Kim on 12/4/24.
 //
 
+#import <TargetConditionals.h>
+
+#if !TARGET_OS_VISION
+
 #import "ApplicationCategoryViewController.h"
 
 @interface ApplicationCategoryViewController ()
@@ -102,3 +106,5 @@
 }
 
 @end
+
+#endif

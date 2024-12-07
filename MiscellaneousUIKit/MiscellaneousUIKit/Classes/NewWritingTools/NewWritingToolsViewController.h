@@ -9,6 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+API_UNAVAILABLE(visionos)
 @interface NewWritingToolsViewController : UIViewController
 
 @end

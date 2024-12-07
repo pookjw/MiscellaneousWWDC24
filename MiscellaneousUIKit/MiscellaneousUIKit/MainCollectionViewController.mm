@@ -47,8 +47,10 @@
 #import "MarqueeLabelViewController.h"
 #import "IntelligenceLightLabelViewController.h"
 #import "MiscellaneousUIKit-Swift.h"
+#import "VariableBlurViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
+#import <TargetConditionals.h>
 
 __attribute__((objc_direct_members))
 @interface MainCollectionViewController ()
@@ -132,19 +134,26 @@ __attribute__((objc_direct_members))
 
 - (NSArray<Class> *)classes {
     return @[
+#if TARGET_OS_VISION
+        VariableBlurViewController.class,
+#endif
         IntelligenceLightViewController.class,
         IntelligenceLightLabelViewController.class,
         MarqueeLabelViewController.class,
+#if !TARGET_OS_VISION
         LabelWritingToolsViewController.class,
         NewWritingToolsViewController.class,
         ApplicationCategoryViewController.class,
+#endif
         CustomViewMenuElementDynamicHeightViewController.class,
         CustomBaselineViewController.class,
         BaselineViewController.class,
         SplitKeyboardViewController.class,
         FloatingKeyboardViewController.class,
         ProKeyboardViewController.class,
+#if !TARGET_OS_VISION
         WritingToolsViewController.class,
+#endif
         OldLinkTextViewController.class,
         NewLinkTextViewController.class,
         PointerInteractionViewController.class,
@@ -205,7 +214,9 @@ __attribute__((objc_direct_members))
         }
     }
     
+#if !TARGET_OS_VISION
     navigationController.sheetPresentationController.prefersGrabberVisible = YES;
+#endif
     
     [self presentViewController:navigationController animated:YES completion:nil];
     [navigationController release];

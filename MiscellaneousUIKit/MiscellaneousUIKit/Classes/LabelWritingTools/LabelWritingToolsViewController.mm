@@ -5,6 +5,10 @@
 //  Created by Jinwoo Kim on 12/5/24.
 //
 
+#import <TargetConditionals.h>
+
+#if !TARGET_OS_VISION
+
 #import "LabelWritingToolsViewController.h"
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 #import "TextInputLabel.h"
@@ -530,3 +534,5 @@
 }
 
 @end
+
+#endif

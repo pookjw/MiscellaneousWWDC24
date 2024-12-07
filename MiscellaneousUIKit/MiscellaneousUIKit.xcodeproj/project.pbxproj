@@ -52,6 +52,8 @@
 		4F49040F2D049CD80017A47D /* IntelligenceLightLabelViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F49040D2D049CD80017A47D /* IntelligenceLightLabelViewController.mm */; };
 		4F4904162D049E870017A47D /* IntelligenceLightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4904152D049E870017A47D /* IntelligenceLightViewController.swift */; };
 		4F4904172D049E870017A47D /* IntelligenceLightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4904152D049E870017A47D /* IntelligenceLightViewController.swift */; };
+		4F49067F2D04AF1F0017A47D /* VariableBlurViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F49067E2D04AF1F0017A47D /* VariableBlurViewController.mm */; };
+		4F4906802D04AF1F0017A47D /* VariableBlurViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F49067E2D04AF1F0017A47D /* VariableBlurViewController.mm */; };
 		4F5056532C5938F400B49BB9 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F5056522C5938F400B49BB9 /* SafariServices.framework */; };
 		4F5068AE2C3D98F800293E81 /* LegacyTabBarController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5068AD2C3D98F800293E81 /* LegacyTabBarController.mm */; };
 		4F5068B22C3D9D8800293E81 /* LegacyTabBar2Controller.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5068B12C3D9D8800293E81 /* LegacyTabBar2Controller.mm */; };
@@ -222,6 +224,8 @@
 		4F49040D2D049CD80017A47D /* IntelligenceLightLabelViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = IntelligenceLightLabelViewController.mm; sourceTree = "<group>"; };
 		4F4904102D049E3B0017A47D /* MiscellaneousUIKit-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MiscellaneousUIKit-Bridging-Header.h"; sourceTree = "<group>"; };
 		4F4904152D049E870017A47D /* IntelligenceLightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceLightViewController.swift; sourceTree = "<group>"; };
+		4F49067D2D04AF1F0017A47D /* VariableBlurViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VariableBlurViewController.h; sourceTree = "<group>"; };
+		4F49067E2D04AF1F0017A47D /* VariableBlurViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VariableBlurViewController.mm; sourceTree = "<group>"; };
 		4F5056522C5938F400B49BB9 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/iOSSupport/System/Library/Frameworks/SafariServices.framework; sourceTree = DEVELOPER_DIR; };
 		4F5068AC2C3D98F800293E81 /* LegacyTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LegacyTabBarController.h; sourceTree = "<group>"; };
 		4F5068AD2C3D98F800293E81 /* LegacyTabBarController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LegacyTabBarController.mm; sourceTree = "<group>"; };
@@ -392,6 +396,7 @@
 				4F4903742D03553B0017A47D /* MarqueeLabel */,
 				4F49040B2D049CC90017A47D /* IntelligenceLightLabel */,
 				4F4904142D049E730017A47D /* IntelligenceLight */,
+				4F49067C2D04AF0D0017A47D /* VariableBlur */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -612,6 +617,15 @@
 				4F4904152D049E870017A47D /* IntelligenceLightViewController.swift */,
 			);
 			path = IntelligenceLight;
+			sourceTree = "<group>";
+		};
+		4F49067C2D04AF0D0017A47D /* VariableBlur */ = {
+			isa = PBXGroup;
+			children = (
+				4F49067D2D04AF1F0017A47D /* VariableBlurViewController.h */,
+				4F49067E2D04AF1F0017A47D /* VariableBlurViewController.mm */,
+			);
+			path = VariableBlur;
 			sourceTree = "<group>";
 		};
 		4F5068AB2C3D98DA00293E81 /* LegacyTabBar */ = {
@@ -944,6 +958,7 @@
 				4F9C08B32C3E2B5F009897D6 /* TabBarAppearanceViewController.mm in Sources */,
 				4F59DEEA2CFFF6A900E88830 /* ApplicationCategoryViewController.mm in Sources */,
 				4F1871942C4029CB002E7DFC /* CircleProgressViewController.mm in Sources */,
+				4F49067F2D04AF1F0017A47D /* VariableBlurViewController.mm in Sources */,
 				4F3DD6A32C9BE537006F6F49 /* CustomBaselineViewController.mm in Sources */,
 				4FBEC51E2C3C568C008A2F17 /* SymbolEffectsViewController.mm in Sources */,
 				4FA8EEF42C1CDBD700B1358A /* ToTransitionViewController.mm in Sources */,
@@ -1012,6 +1027,7 @@
 				4F59DEB72CFFF56100E88830 /* TabBarAppearanceViewController.mm in Sources */,
 				4F59DEEB2CFFF6A900E88830 /* ApplicationCategoryViewController.mm in Sources */,
 				4F59DEB82CFFF56100E88830 /* CircleProgressViewController.mm in Sources */,
+				4F4906802D04AF1F0017A47D /* VariableBlurViewController.mm in Sources */,
 				4F59DEB92CFFF56100E88830 /* CustomBaselineViewController.mm in Sources */,
 				4F59DEBA2CFFF56100E88830 /* SymbolEffectsViewController.mm in Sources */,
 				4F59DEBB2CFFF56100E88830 /* ToTransitionViewController.mm in Sources */,
