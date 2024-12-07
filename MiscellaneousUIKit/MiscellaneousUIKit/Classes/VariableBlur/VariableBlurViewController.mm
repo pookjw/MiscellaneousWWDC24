@@ -14,12 +14,6 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 
-// _UIVariableBlurView
-
-@interface VariableBlurViewController ()
-
-@end
-
 @implementation VariableBlurViewController
 
 - (void)viewDidLoad {
