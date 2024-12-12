@@ -193,7 +193,7 @@
     assert(error == nil);
     
     if (activationState == WCSessionActivationStateActivated) {
-        assert(WCSession.defaultSession.watchAppInstalled);
+//        assert(WCSession.defaultSession.watchAppInstalled);
         assert(WCSession.defaultSession.isPaired);
         
         NSError *error = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(session, sel_registerName("errorIfNotReachable"));

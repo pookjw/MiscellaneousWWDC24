@@ -51,9 +51,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
         assert(class_addMethod(_isa, @selector(viewDidLoad), viewDidLoad, NULL));
         
-        IMP viewIsAppearing = class_getMethodImplementation(self, @selector(viewIsAppearing:));
-        assert(class_addMethod(_isa, @selector(viewIsAppearing:), viewIsAppearing, NULL));
-        
         IMP didTriggerActionMenuBarButtonItem = class_getMethodImplementation(self, @selector(didTriggerActionMenuBarButtonItem:));
         assert(class_addMethod(_isa, @selector(didTriggerActionMenuBarButtonItem:), didTriggerActionMenuBarButtonItem, NULL));
         
@@ -142,57 +139,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     //
     
     [self updateStatusLabel];
-}
-
-- (void)viewIsAppearing:(BOOL)animated {
-    objc_super superInfo = { self, [self class] };
-    reinterpret_cast<void (*)(objc_super *, SEL, BOOL)>(objc_msgSendSuper2)(&superInfo, _cmd, animated);
-    
-    NSURL *url = [NSBundle.mainBundle URLForResource:@"demo" withExtension:UTTypeHEIC.preferredFilenameExtension];
-    assert(url != nil);
-    UIImage *image = [UIImage imageWithContentsOfFile:url.path];
-    assert(image != nil);
-    
-    id sheetController = [objc_lookUpClass("PUICAlertSheetController") new];
-    
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(sheetController, sel_registerName("setTitle:"), @"Title");
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(sheetController, sel_registerName("setMessage:"), @"Message");
-    
-    //
-    
-    id doneAction = reinterpret_cast<id (*)(Class, SEL, id, NSInteger, id)>(objc_msgSend)(objc_lookUpClass("PUICActionSheetItem"), sel_registerName("actionWithTitle:style:actionHandler:"), @"Done", 0, ^(id item) {
-        
-    });
-    
-    id group_1 = reinterpret_cast<id (*)(Class, SEL, id, id)>(objc_msgSend)(objc_lookUpClass("PUICActionSheetGroup"), sel_registerName("groupWithActions:title:"), @[doneAction], @"Group");
-    
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(sheetController, sel_registerName("setGroups:"), @[group_1]);
-    
-    //
-    
-    id contentView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(sheetController, sel_registerName("view"));
-    CGRect contentViewBounds = reinterpret_cast<CGRect (*)(id, SEL)>(objc_msgSend)(contentView, sel_registerName("bounds"));
-    
-    CGRect supplementViewFrame = CGRectMake(0., 0., CGRectGetWidth(contentViewBounds), 100.);
-    id supplementView = reinterpret_cast<id (*)(id, SEL, CGRect)>(objc_msgSend)([objc_lookUpClass("UIView") alloc], sel_registerName("initWithFrame:"), supplementViewFrame);
-    reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(supplementView, sel_registerName("setAutoresizingMask:"), (1 << 1));
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(sheetController, sel_registerName("setSupplementView:"), supplementView);
-    
-    CGRect supplementViewBounds = reinterpret_cast<CGRect (*)(id, SEL)>(objc_msgSend)(supplementView, sel_registerName("bounds"));
-    
-    id imageView = reinterpret_cast<id (*)(id, SEL, CGRect)>(objc_msgSend)([objc_lookUpClass("UIImageView") alloc], sel_registerName("initWithFrame:"), supplementViewBounds);
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(imageView, sel_registerName("setImage:"), image);
-    reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(imageView, sel_registerName("setAutoresizingMask:"), (1 << 1) | (1 << 4));
-    reinterpret_cast<void (*)(id, SEL, NSInteger)>(objc_msgSend)(imageView, sel_registerName("setContentMode:"), 1);
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(supplementView, sel_registerName("addSubview:"), imageView);
-    
-    [supplementView release];
-    [imageView release];
-    
-    //
-    
-    reinterpret_cast<void (*)(id, SEL, id, BOOL, id)>(objc_msgSend)(self, sel_registerName("presentViewController:animated:completion:"), sheetController, YES, nil);
-    [sheetController release];
 }
 
 - (WCSession *)session __attribute__((objc_direct)) {
@@ -453,25 +399,48 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     dispatch_async(dispatch_get_main_queue(), ^{
         NSURL *fileURL = file.fileURL;
         UIImage *image = [UIImage imageWithContentsOfFile:fileURL.path];
+        assert(image != nil);
         
-        id imageView = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("UIImageView") alloc], sel_registerName("initWithImage:"), image);
+        id sheetController = [objc_lookUpClass("PUICAlertSheetController") new];
+        
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(sheetController, sel_registerName("setTitle:"), @"Title");
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(sheetController, sel_registerName("setMessage:"), @"Message");
+        
+        //
+        
+        id doneAction = reinterpret_cast<id (*)(Class, SEL, id, NSInteger, id)>(objc_msgSend)(objc_lookUpClass("PUICActionSheetItem"), sel_registerName("actionWithTitle:style:actionHandler:"), @"Done", 0, ^(id item) {
+            
+        });
+        
+        id group_1 = reinterpret_cast<id (*)(Class, SEL, id, id)>(objc_msgSend)(objc_lookUpClass("PUICActionSheetGroup"), sel_registerName("groupWithActions:title:"), @[doneAction], @"Group");
+        
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(sheetController, sel_registerName("setGroups:"), @[group_1]);
+        
+        //
+        
+        id contentView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(sheetController, sel_registerName("view"));
+        CGRect contentViewBounds = reinterpret_cast<CGRect (*)(id, SEL)>(objc_msgSend)(contentView, sel_registerName("bounds"));
+        
+        CGRect supplementViewFrame = CGRectMake(0., 0., CGRectGetWidth(contentViewBounds), 100.);
+        id supplementView = reinterpret_cast<id (*)(id, SEL, CGRect)>(objc_msgSend)([objc_lookUpClass("UIView") alloc], sel_registerName("initWithFrame:"), supplementViewFrame);
+        reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(supplementView, sel_registerName("setAutoresizingMask:"), (1 << 1));
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(sheetController, sel_registerName("setSupplementView:"), supplementView);
+        
+        CGRect supplementViewBounds = reinterpret_cast<CGRect (*)(id, SEL)>(objc_msgSend)(supplementView, sel_registerName("bounds"));
+        
+        id imageView = reinterpret_cast<id (*)(id, SEL, CGRect)>(objc_msgSend)([objc_lookUpClass("UIImageView") alloc], sel_registerName("initWithFrame:"), supplementViewBounds);
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(imageView, sel_registerName("setImage:"), image);
+        reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(imageView, sel_registerName("setAutoresizingMask:"), (1 << 1) | (1 << 4));
         reinterpret_cast<void (*)(id, SEL, NSInteger)>(objc_msgSend)(imageView, sel_registerName("setContentMode:"), 1);
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(supplementView, sel_registerName("addSubview:"), imageView);
         
-        id contentViewController = [objc_lookUpClass("UIViewController") new];
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(contentViewController, sel_registerName("setView:"), imageView);
-        
+        [supplementView release];
         [imageView release];
         
-        id alertController = reinterpret_cast<id (*)(Class, SEL, id, id, NSInteger)>(objc_msgSend)(objc_lookUpClass("UIAlertController"), sel_registerName("alertControllerWithTitle:message:preferredStyle:"), @"Title", @"Message", 1);
+        //
         
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(alertController, sel_registerName("setContentViewController:"), contentViewController);
-        [contentViewController release];
-        
-        id alertAction = reinterpret_cast<id (*)(Class, SEL, id, NSInteger, id)>(objc_msgSend)(objc_lookUpClass("UIAlertAction"), sel_registerName("actionWithTitle:style:handler:"), @"Done", 0, ^(id alertAction) {});
-        
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(alertController, sel_registerName("addAction:"), alertAction);
-        
-        reinterpret_cast<void (*)(id, SEL, id, BOOL, id)>(objc_msgSend)(self, sel_registerName("presentViewController:animated:completion:"), alertController, YES, nil);
+        reinterpret_cast<void (*)(id, SEL, id, BOOL, id)>(objc_msgSend)(self, sel_registerName("presentViewController:animated:completion:"), sheetController, YES, nil);
+        [sheetController release];
     });
 }
 
