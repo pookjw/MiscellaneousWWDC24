@@ -151,6 +151,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     NSURL *url = [NSBundle.mainBundle URLForResource:@"demo" withExtension:UTTypeHEIC.preferredFilenameExtension];
     assert(url != nil);
     UIImage *image = [UIImage imageWithContentsOfFile:url.path];
+    assert(image != nil);
     
     id sheetController = [objc_lookUpClass("PUICAlertSheetController") new];
     
@@ -170,24 +171,22 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     //
     
     id contentView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(sheetController, sel_registerName("view"));
-    id imageView = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("UIImageView") alloc], sel_registerName("initWithImage:"), image);
+    CGRect contentViewBounds = reinterpret_cast<CGRect (*)(id, SEL)>(objc_msgSend)(contentView, sel_registerName("bounds"));
     
-    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(imageView, sel_registerName("setTranslatesAutoresizingMaskIntoConstraints:"), NO);
+    CGRect supplementViewFrame = CGRectMake(0., 0., CGRectGetWidth(contentViewBounds), 100.);
+    id supplementView = reinterpret_cast<id (*)(id, SEL, CGRect)>(objc_msgSend)([objc_lookUpClass("UIView") alloc], sel_registerName("initWithFrame:"), supplementViewFrame);
+    reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(supplementView, sel_registerName("setAutoresizingMask:"), (1 << 1));
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(sheetController, sel_registerName("setSupplementView:"), supplementView);
+    
+    CGRect supplementViewBounds = reinterpret_cast<CGRect (*)(id, SEL)>(objc_msgSend)(supplementView, sel_registerName("bounds"));
+    
+    id imageView = reinterpret_cast<id (*)(id, SEL, CGRect)>(objc_msgSend)([objc_lookUpClass("UIImageView") alloc], sel_registerName("initWithFrame:"), supplementViewBounds);
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(imageView, sel_registerName("setImage:"), image);
+    reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(imageView, sel_registerName("setAutoresizingMask:"), (1 << 1) | (1 << 4));
     reinterpret_cast<void (*)(id, SEL, NSInteger)>(objc_msgSend)(imageView, sel_registerName("setContentMode:"), 1);
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(supplementView, sel_registerName("addSubview:"), imageView);
     
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(sheetController, sel_registerName("setSupplementView:"), imageView);
-    
-    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(contentView, sel_registerName("layoutIfNeeded"));
-    
-    id superview = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(imageView, sel_registerName("superview"));
-    
-    CGRect superviewBounds = reinterpret_cast<CGRect (*)(id, SEL)>(objc_msgSend)(superview, sel_registerName("bounds"));
-    
-    CGRect imageViewFrame = reinterpret_cast<CGRect (*)(id, SEL)>(objc_msgSend)(imageView, sel_registerName("frame"));
-    imageViewFrame.size = CGSizeMake(CGRectGetWidth(superviewBounds), CGRectGetWidth(superviewBounds));
-    reinterpret_cast<void (*)(id, SEL, CGRect)>(objc_msgSend)(imageView, sel_registerName("setFrame:"), imageViewFrame);
-//    reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(imageView, sel_registerName("setAutoresizingMask:"), 1 << 1);
-    
+    [supplementView release];
     [imageView release];
     
     //

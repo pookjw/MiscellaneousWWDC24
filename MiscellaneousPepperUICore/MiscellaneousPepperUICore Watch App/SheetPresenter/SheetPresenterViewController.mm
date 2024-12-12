@@ -174,19 +174,19 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     id contentViewController_navigationItem = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(contentViewController, sel_registerName("navigationItem"));
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(contentViewController_navigationItem, sel_registerName("setTitle:"), @"Title");
     
-    id mapView = reinterpret_cast<id (*)(id, SEL, CGRect)>(objc_msgSend)([objc_lookUpClass("MKMapView") alloc], sel_registerName("initWithFrame:"), CGRectNull);
+    //
+    
     id contentView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(contentViewController, sel_registerName("view"));
     
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(alertController, sel_registerName("setSupplementView:"), mapView);
-    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(contentView, sel_registerName("layoutIfNeeded"));
+    CGRect contentViewBounds = reinterpret_cast<CGRect (*)(id, SEL)>(objc_msgSend)(contentView, sel_registerName("bounds"));
     
-    id superview = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(mapView, sel_registerName("superview"));
-    CGRect superviewBounds = reinterpret_cast<CGRect (*)(id, SEL)>(objc_msgSend)(superview, sel_registerName("bounds"));
+    CGRect mapViewFrame = CGRectMake(0., 0., CGRectGetWidth(contentViewBounds), 100.);
     
-    CGRect mapViewFrame = reinterpret_cast<CGRect (*)(id, SEL)>(objc_msgSend)(mapView, sel_registerName("frame"));
-    mapViewFrame.size = CGSizeMake(CGRectGetWidth(superviewBounds), 100.);
-    reinterpret_cast<void (*)(id, SEL, CGRect)>(objc_msgSend)(mapView, sel_registerName("setFrame:"), mapViewFrame);
+    id mapView = reinterpret_cast<id (*)(id, SEL, CGRect)>(objc_msgSend)([objc_lookUpClass("MKMapView") alloc], sel_registerName("initWithFrame:"), mapViewFrame);
+    
     reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(mapView, sel_registerName("setAutoresizingMask:"), 1 << 1);
+    
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(alertController, sel_registerName("setSupplementView:"), mapView);
     
     [mapView release];
     
