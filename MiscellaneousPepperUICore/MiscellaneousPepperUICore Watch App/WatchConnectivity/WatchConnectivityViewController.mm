@@ -10,6 +10,7 @@
 #import <WatchConnectivity/WatchConnectivity.h>
 #import <objc/message.h>
 #import <objc/runtime.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 #warning -[WCSession delegateSupportsActiveDeviceSwitch]
 
@@ -50,6 +51,9 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
         assert(class_addMethod(_isa, @selector(viewDidLoad), viewDidLoad, NULL));
         
+        IMP viewIsAppearing = class_getMethodImplementation(self, @selector(viewIsAppearing:));
+        assert(class_addMethod(_isa, @selector(viewIsAppearing:), viewIsAppearing, NULL));
+        
         IMP didTriggerActionMenuBarButtonItem = class_getMethodImplementation(self, @selector(didTriggerActionMenuBarButtonItem:));
         assert(class_addMethod(_isa, @selector(didTriggerActionMenuBarButtonItem:), didTriggerActionMenuBarButtonItem, NULL));
         
@@ -64,6 +68,18 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         
         IMP session_didReceiveMessage_replyHandler = class_getMethodImplementation(self, @selector(session:didReceiveMessage:replyHandler:));
         assert(class_addMethod(_isa, @selector(session:didReceiveMessage:replyHandler:), session_didReceiveMessage_replyHandler, NULL));
+        
+        IMP session_didReceiveUserInfo = class_getMethodImplementation(self, @selector(session:didReceiveUserInfo:));
+        assert(class_addMethod(_isa, @selector(session:didReceiveUserInfo:), session_didReceiveUserInfo, NULL));
+        
+        IMP session_didFinishUserInfoTransfer_error = class_getMethodImplementation(self, @selector(session:didFinishUserInfoTransfer:error:));
+        assert(class_addMethod(_isa, @selector(session:didFinishUserInfoTransfer:error:), session_didFinishUserInfoTransfer_error, NULL));
+        
+        IMP session_didReceiveApplicationContext = class_getMethodImplementation(self, @selector(session:didReceiveApplicationContext:));
+        assert(class_addMethod(_isa, @selector(session:didReceiveApplicationContext:), session_didReceiveApplicationContext, NULL));
+        
+        IMP session_didReceiveFile = class_getMethodImplementation(self, @selector(session:didReceiveFile:));
+        assert(class_addMethod(_isa, @selector(session:didReceiveFile:), session_didReceiveFile, NULL));
         
         assert(class_addIvar(_isa, "_session", sizeof(id), sizeof(id), @encode(id)));
         assert(class_addIvar(_isa, "_statusLabel", sizeof(id), sizeof(id), @encode(id)));
@@ -128,6 +144,58 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     [self updateStatusLabel];
 }
 
+- (void)viewIsAppearing:(BOOL)animated {
+    objc_super superInfo = { self, [self class] };
+    reinterpret_cast<void (*)(objc_super *, SEL, BOOL)>(objc_msgSendSuper2)(&superInfo, _cmd, animated);
+    
+    NSURL *url = [NSBundle.mainBundle URLForResource:@"demo" withExtension:UTTypeHEIC.preferredFilenameExtension];
+    assert(url != nil);
+    UIImage *image = [UIImage imageWithContentsOfFile:url.path];
+    
+    id sheetController = [objc_lookUpClass("PUICAlertSheetController") new];
+    
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(sheetController, sel_registerName("setTitle:"), @"Title");
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(sheetController, sel_registerName("setMessage:"), @"Message");
+    
+    //
+    
+    id doneAction = reinterpret_cast<id (*)(Class, SEL, id, NSInteger, id)>(objc_msgSend)(objc_lookUpClass("PUICActionSheetItem"), sel_registerName("actionWithTitle:style:actionHandler:"), @"Done", 0, ^(id item) {
+        
+    });
+    
+    id group_1 = reinterpret_cast<id (*)(Class, SEL, id, id)>(objc_msgSend)(objc_lookUpClass("PUICActionSheetGroup"), sel_registerName("groupWithActions:title:"), @[doneAction], @"Group");
+    
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(sheetController, sel_registerName("setGroups:"), @[group_1]);
+    
+    //
+    
+    id contentView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(sheetController, sel_registerName("view"));
+    id imageView = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("UIImageView") alloc], sel_registerName("initWithImage:"), image);
+    
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(imageView, sel_registerName("setTranslatesAutoresizingMaskIntoConstraints:"), NO);
+    reinterpret_cast<void (*)(id, SEL, NSInteger)>(objc_msgSend)(imageView, sel_registerName("setContentMode:"), 1);
+    
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(sheetController, sel_registerName("setSupplementView:"), imageView);
+    
+    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(contentView, sel_registerName("layoutIfNeeded"));
+    
+    id superview = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(imageView, sel_registerName("superview"));
+    
+    CGRect superviewBounds = reinterpret_cast<CGRect (*)(id, SEL)>(objc_msgSend)(superview, sel_registerName("bounds"));
+    
+    CGRect imageViewFrame = reinterpret_cast<CGRect (*)(id, SEL)>(objc_msgSend)(imageView, sel_registerName("frame"));
+    imageViewFrame.size = CGSizeMake(CGRectGetWidth(superviewBounds), CGRectGetWidth(superviewBounds));
+    reinterpret_cast<void (*)(id, SEL, CGRect)>(objc_msgSend)(imageView, sel_registerName("setFrame:"), imageViewFrame);
+//    reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(imageView, sel_registerName("setAutoresizingMask:"), 1 << 1);
+    
+    [imageView release];
+    
+    //
+    
+    reinterpret_cast<void (*)(id, SEL, id, BOOL, id)>(objc_msgSend)(self, sel_registerName("presentViewController:animated:completion:"), sheetController, YES, nil);
+    [sheetController release];
+}
+
 - (WCSession *)session __attribute__((objc_direct)) {
     WCSession *session = nil;
     assert(object_getInstanceVariable(self, "_session", reinterpret_cast<void **>(&session)) != nullptr);
@@ -152,6 +220,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     statusLabel = [objc_lookUpClass("UILabel") new];
     reinterpret_cast<void (*)(id, SEL, NSTextAlignment)>(objc_msgSend)(statusLabel, sel_registerName("setTextAlignment:"), NSTextAlignmentCenter);
     reinterpret_cast<void (*)(id, SEL, NSInteger)>(objc_msgSend)(statusLabel, sel_registerName("setNumberOfLines:"), 0);
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(statusLabel, sel_registerName("setAdjustsFontSizeToFitWidth:"), YES);
+    reinterpret_cast<void (*)(id, SEL, CGFloat)>(objc_msgSend)(statusLabel, sel_registerName("setMinimumScaleFactor:"), 0.001);
     
     assert(object_setInstanceVariable(self, "_statusLabel", reinterpret_cast<void *>([statusLabel retain])) != nullptr);
     return [statusLabel autorelease];
@@ -165,18 +235,78 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         [[weakSelf session] activateSession];
     });
     
-    id sendMessageAction = reinterpret_cast<id (*)(id, SEL, id, id, id, id, NSInteger, NSInteger, NSUInteger, id)>(objc_msgSend)([objc_lookUpClass("PUICMenuAction") alloc], sel_registerName("initWithTitle:detail:image:identifier:style:state:attributes:handler:"), @"Send Message", nil, nil, @"sendMessageAction", 0, 0, 0, ^(id action) {
+    id sendDateAction = reinterpret_cast<id (*)(id, SEL, id, id, id, id, NSInteger, NSInteger, NSUInteger, id)>(objc_msgSend)([objc_lookUpClass("PUICMenuAction") alloc], sel_registerName("initWithTitle:detail:image:identifier:style:state:attributes:handler:"), @"Send Date", nil, nil, @"sendDateAction", 0, 0, 0, ^(id action) {
         [weakSelf dismissPresentedViewController];
         
-        [[weakSelf session] sendMessage:@{@"timestamp": [NSDate now]} replyHandler:nil errorHandler:^(NSError * _Nonnull error) {
+        [[weakSelf session] sendMessage:@{@"action": @"showDate", @"date": NSDate.now} replyHandler:nil errorHandler:^(NSError * _Nonnull error) {
             abort();
         }];
     });
     
+    id getOXAction = reinterpret_cast<id (*)(id, SEL, id, id, id, id, NSInteger, NSInteger, NSUInteger, id)>(objc_msgSend)([objc_lookUpClass("PUICMenuAction") alloc], sel_registerName("initWithTitle:detail:image:identifier:style:state:attributes:handler:"), @"Get O/X", nil, nil, @"getOXAction", 0, 0, 0, ^(id action) {
+        [weakSelf dismissPresentedViewController];
+        
+        [[weakSelf session] sendMessage:@{@"action": @"getOX"}
+                           replyHandler:^(NSDictionary<NSString *,id> * _Nonnull replyMessage) {
+            NSString *result = replyMessage[@"result"];
+            assert(result != nil);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                id alertController = reinterpret_cast<id (*)(Class, SEL, id, id, NSInteger)>(objc_msgSend)(objc_lookUpClass("UIAlertController"), sel_registerName("alertControllerWithTitle:message:preferredStyle:"), @"Result", result, 1);
+                
+                id alertAction = reinterpret_cast<id (*)(Class, SEL, id, NSInteger, id)>(objc_msgSend)(objc_lookUpClass("UIAlertAction"), sel_registerName("actionWithTitle:style:handler:"), @"Done", 0, ^(id alertAction) {});
+                
+                reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(alertController, sel_registerName("addAction:"), alertAction);
+                
+                reinterpret_cast<void (*)(id, SEL, id, BOOL, id)>(objc_msgSend)(weakSelf, sel_registerName("presentViewController:animated:completion:"), alertController, YES, nil);
+            });
+        }
+                           errorHandler:^(NSError * _Nonnull error) {
+            abort();
+        }];
+    });
+    
+    id sendFileAction = reinterpret_cast<id (*)(id, SEL, id, id, id, id, NSInteger, NSInteger, NSUInteger, id)>(objc_msgSend)([objc_lookUpClass("PUICMenuAction") alloc], sel_registerName("initWithTitle:detail:image:identifier:style:state:attributes:handler:"), @"Send File", nil, nil, @"sendFileAction", 0, 0, 0, ^(id action) {
+        [weakSelf dismissPresentedViewController];
+        
+        NSURL *url = [NSBundle.mainBundle URLForResource:@"demo" withExtension:UTTypeHEIC.preferredFilenameExtension];
+        assert(url != nil);
+        [[weakSelf session] transferFile:url metadata:nil];
+//        [[weakSelf session] ];
+    });
+    
+    id transferUserInfoAction = reinterpret_cast<id (*)(id, SEL, id, id, id, id, NSInteger, NSInteger, NSUInteger, id)>(objc_msgSend)([objc_lookUpClass("PUICMenuAction") alloc], sel_registerName("initWithTitle:detail:image:identifier:style:state:attributes:handler:"), @"Transfer UserInfo", nil, nil, @"transferUserInfoAction", 0, 0, 0, ^(id action) {
+        [weakSelf dismissPresentedViewController];
+        
+        [[weakSelf session] transferUserInfo:@{@"timestamp": NSDate.now}];
+    });
+    
+    id updateApplicationContextAction = reinterpret_cast<id (*)(id, SEL, id, id, id, id, NSInteger, NSInteger, NSUInteger, id)>(objc_msgSend)([objc_lookUpClass("PUICMenuAction") alloc], sel_registerName("initWithTitle:detail:image:identifier:style:state:attributes:handler:"), @"Update Application Context", nil, nil, @"updateApplicationContextAction", 0, 0, 0, ^(id action) {
+        [weakSelf dismissPresentedViewController];
+        
+        NSError * _Nullable error = nil;
+        [[weakSelf session] updateApplicationContext:@{@"timestamp": NSDate.now} error:&error];
+        assert(error == nil);
+        
+        [weakSelf updateStatusLabel];
+    });
+    
     id menuViewController = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("PUICMenuViewController") alloc], sel_registerName("initWithMenuElements:"), @[
         activateAction,
-        sendMessageAction
+        sendDateAction,
+        getOXAction,
+        sendFileAction,
+        transferUserInfoAction,
+        updateApplicationContextAction
     ]);
+    
+    [activateAction release];
+    [sendDateAction release];
+    [getOXAction release];
+    [sendFileAction release];
+    [transferUserInfoAction release];
+    [updateApplicationContextAction release];
+    
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(menuViewController, sel_registerName("setDelegate:"), self);
     
     reinterpret_cast<void (*)(id, SEL, id, BOOL, id)>(objc_msgSend)(self, sel_registerName("presentViewController:animated:completion:"), menuViewController, YES, nil);
@@ -189,8 +319,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 }
 
 - (void)updateStatusLabel __attribute__((objc_direct)) {
-    WCSession *sessoin = [self session];
-    WCSessionActivationState activationState = sessoin.activationState;
+    WCSession *session = [self session];
+    WCSessionActivationState activationState = session.activationState;
     
     NSString *activationStateString;
     switch (activationState) {
@@ -208,10 +338,13 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
             break;
     }
     
-    NSString *isReachableString = sessoin.isReachable ? @"Reachable" : @"Not Reachable";
+    NSString *isReachableString = session.isReachable ? @"Reachable" : @"Not Reachable";
+    
+    NSDictionary<NSString *, id> *applicationContext = session.applicationContext;
+    NSDictionary<NSString *, id> *receivedApplicationContext = session.receivedApplicationContext;
     
     id statusLabel = [self statusLabel];
-    NSString *text = [NSString stringWithFormat:@"%@\n%@", activationStateString, isReachableString];
+    NSString *text = [NSString stringWithFormat:@"%@\n%@\napplicationContext : %@\nreceivedApplicationContext : %@", activationStateString, isReachableString, applicationContext, receivedApplicationContext];
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(statusLabel, sel_registerName("setText:"), text);
 }
 
@@ -236,11 +369,111 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 }
 
 - (void)session:(WCSession *)session didReceiveMessage:(NSDictionary<NSString *,id> *)message {
+    NSString *action = message[@"action"];
+    assert(action != nil);
     
+    if ([action isEqualToString:@"showDate"]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSDate *date = message[@"date"];
+            assert(date != nil);
+            
+            id alertController = reinterpret_cast<id (*)(Class, SEL, id, id, NSInteger)>(objc_msgSend)(objc_lookUpClass("UIAlertController"), sel_registerName("alertControllerWithTitle:message:preferredStyle:"), @"Date", date.description, 1);
+            
+            id alertAction = reinterpret_cast<id (*)(Class, SEL, id, NSInteger, id)>(objc_msgSend)(objc_lookUpClass("UIAlertAction"), sel_registerName("actionWithTitle:style:handler:"), @"Done", 0, ^(id alertAction) {});
+            
+            reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(alertController, sel_registerName("addAction:"), alertAction);
+            
+            reinterpret_cast<void (*)(id, SEL, id, BOOL, id)>(objc_msgSend)(self, sel_registerName("presentViewController:animated:completion:"), alertController, YES, nil);
+        });
+    } else {
+        abort();
+    }
 }
 
 - (void)session:(WCSession *)session didReceiveMessage:(NSDictionary<NSString *,id> *)message replyHandler:(void (^)(NSDictionary<NSString *,id> * _Nonnull))replyHandler {
+    NSString *action = message[@"action"];
+    assert(action != nil);
     
+    if ([action isEqualToString:@"getOX"]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            id alertController = reinterpret_cast<id (*)(Class, SEL, id, id, NSInteger)>(objc_msgSend)(objc_lookUpClass("UIAlertController"), sel_registerName("alertControllerWithTitle:message:preferredStyle:"), @"O/X", nil, 1);
+            
+            id oAlertAction = reinterpret_cast<id (*)(Class, SEL, id, NSInteger, id)>(objc_msgSend)(objc_lookUpClass("UIAlertAction"), sel_registerName("actionWithTitle:style:handler:"), @"O", 0, ^(id alertAction) {
+                replyHandler(@{@"result": @"O"});
+            });
+            
+            reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(alertController, sel_registerName("addAction:"), oAlertAction);
+            
+            id xAlertAction = reinterpret_cast<id (*)(Class, SEL, id, NSInteger, id)>(objc_msgSend)(objc_lookUpClass("UIAlertAction"), sel_registerName("actionWithTitle:style:handler:"), @"X", 0, ^(id alertAction) {
+                replyHandler(@{@"result": @"X"});
+            });
+            
+            reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(alertController, sel_registerName("addAction:"), xAlertAction);
+            
+            reinterpret_cast<void (*)(id, SEL, id, BOOL, id)>(objc_msgSend)(self, sel_registerName("presentViewController:animated:completion:"), alertController, YES, nil);
+        });
+    } else {
+        abort();
+    }
+}
+
+- (void)session:(WCSession *)session didReceiveUserInfo:(NSDictionary<NSString *,id> *)userInfo {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updateStatusLabel];
+    });
+}
+
+- (void)session:(WCSession *)session didFinishUserInfoTransfer:(WCSessionUserInfoTransfer *)userInfoTransfer error:(NSError *)error {
+    assert(error == nil);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        id alertController = reinterpret_cast<id (*)(Class, SEL, id, id, NSInteger)>(objc_msgSend)(objc_lookUpClass("UIAlertController"), sel_registerName("alertControllerWithTitle:message:preferredStyle:"), @"Sent", userInfoTransfer.userInfo.description, 1);
+        
+        id alertAction = reinterpret_cast<id (*)(Class, SEL, id, NSInteger, id)>(objc_msgSend)(objc_lookUpClass("UIAlertAction"), sel_registerName("actionWithTitle:style:handler:"), @"Done", 0, ^(id alertAction) {});
+        
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(alertController, sel_registerName("addAction:"), alertAction);
+        
+        reinterpret_cast<void (*)(id, SEL, id, BOOL, id)>(objc_msgSend)(self, sel_registerName("presentViewController:animated:completion:"), alertController, YES, nil);
+    });
+}
+
+- (void)session:(WCSession *)session didReceiveApplicationContext:(NSDictionary<NSString *,id> *)applicationContext {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        id alertController = reinterpret_cast<id (*)(Class, SEL, id, id, NSInteger)>(objc_msgSend)(objc_lookUpClass("UIAlertController"), sel_registerName("alertControllerWithTitle:message:preferredStyle:"), @"Application Context", session.receivedApplicationContext.description, 1);
+        
+        id alertAction = reinterpret_cast<id (*)(Class, SEL, id, NSInteger, id)>(objc_msgSend)(objc_lookUpClass("UIAlertAction"), sel_registerName("actionWithTitle:style:handler:"), @"Done", 0, ^(id alertAction) {});
+        
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(alertController, sel_registerName("addAction:"), alertAction);
+        
+        reinterpret_cast<void (*)(id, SEL, id, BOOL, id)>(objc_msgSend)(self, sel_registerName("presentViewController:animated:completion:"), alertController, YES, nil);
+        
+        [self updateStatusLabel];
+    });
+}
+
+- (void)session:(WCSession *)session didReceiveFile:(WCSessionFile *)file {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSURL *fileURL = file.fileURL;
+        UIImage *image = [UIImage imageWithContentsOfFile:fileURL.path];
+        
+        id imageView = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("UIImageView") alloc], sel_registerName("initWithImage:"), image);
+        reinterpret_cast<void (*)(id, SEL, NSInteger)>(objc_msgSend)(imageView, sel_registerName("setContentMode:"), 1);
+        
+        id contentViewController = [objc_lookUpClass("UIViewController") new];
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(contentViewController, sel_registerName("setView:"), imageView);
+        
+        [imageView release];
+        
+        id alertController = reinterpret_cast<id (*)(Class, SEL, id, id, NSInteger)>(objc_msgSend)(objc_lookUpClass("UIAlertController"), sel_registerName("alertControllerWithTitle:message:preferredStyle:"), @"Title", @"Message", 1);
+        
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(alertController, sel_registerName("setContentViewController:"), contentViewController);
+        [contentViewController release];
+        
+        id alertAction = reinterpret_cast<id (*)(Class, SEL, id, NSInteger, id)>(objc_msgSend)(objc_lookUpClass("UIAlertAction"), sel_registerName("actionWithTitle:style:handler:"), @"Done", 0, ^(id alertAction) {});
+        
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(alertController, sel_registerName("addAction:"), alertAction);
+        
+        reinterpret_cast<void (*)(id, SEL, id, BOOL, id)>(objc_msgSend)(self, sel_registerName("presentViewController:animated:completion:"), alertController, YES, nil);
+    });
 }
 
 @end

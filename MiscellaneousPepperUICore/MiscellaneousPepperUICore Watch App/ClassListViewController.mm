@@ -156,8 +156,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     
     //
     
-    id viewController = [[ClassListViewController classes][0] new];
-    
+//    id viewController = [[ClassListViewController classes][0] new];
+    id viewController = [WatchConnectivityViewController new];
     id navigationController = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("navigationController"));
     reinterpret_cast<void (*)(id, SEL, id, BOOL)>(objc_msgSend)(navigationController, sel_registerName("pushViewController:animated:"), viewController, YES);
     [viewController release];

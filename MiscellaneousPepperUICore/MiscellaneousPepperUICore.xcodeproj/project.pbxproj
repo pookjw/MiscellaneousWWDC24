@@ -65,6 +65,9 @@
 		4F94F8F32CB111A8002F31E2 /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F94F8F22CB111A8002F31E2 /* WatchConnectivity.framework */; };
 		4F94F8F52CB111AE002F31E2 /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F94F8F42CB111AE002F31E2 /* WatchConnectivity.framework */; };
 		4F94F8F82CB114CF002F31E2 /* MiscellaneousPepperUICore Watch App.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4F8A34CA2C5A861400E3CFC4 /* MiscellaneousPepperUICore Watch App.app */; };
+		4F96073E2D0AC3E100202002 /* demo.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4F96073D2D0AC3E100202002 /* demo.heic */; };
+		4F96073F2D0ACD9A00202002 /* demo.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4F96073D2D0AC3E100202002 /* demo.heic */; };
+		4F9607412D0ACE2500202002 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9607402D0ACE2500202002 /* UniformTypeIdentifiers.framework */; };
 		4F9879BA2C5A8A2700E4D2F3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9879B92C5A8A2700E4D2F3 /* UIKit.framework */; };
 		4F9879BC2C5A8A2A00E4D2F3 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9879BB2C5A8A2A00E4D2F3 /* WatchKit.framework */; };
 		4F9879BE2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9879BD2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework */; };
@@ -202,6 +205,8 @@
 		4F94F8B22CB10D2D002F31E2 /* MiscellaneousPepperUICore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiscellaneousPepperUICore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F94F8F22CB111A8002F31E2 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.1.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
 		4F94F8F42CB111AE002F31E2 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.1.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
+		4F96073D2D0AC3E100202002 /* demo.heic */ = {isa = PBXFileReference; lastKnownFileType = file; path = demo.heic; sourceTree = "<group>"; };
+		4F9607402D0ACE2500202002 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = DEVELOPER_DIR; };
 		4F9879B92C5A8A2700E4D2F3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F9879BB2C5A8A2A00E4D2F3 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/WatchKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F9879BD2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = DEVELOPER_DIR; };
@@ -247,6 +252,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F9607412D0ACE2500202002 /* UniformTypeIdentifiers.framework in Frameworks */,
 				4F94F8F32CB111A8002F31E2 /* WatchConnectivity.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -644,6 +650,7 @@
 				4F94F87D2CB10CC3002F31E2 /* NSObject+Foundation_IvarDescription.mm */,
 				4F94F87E2CB10CC3002F31E2 /* SceneDelegate.h */,
 				4F94F87F2CB10CC3002F31E2 /* SceneDelegate.mm */,
+				4F96073D2D0AC3E100202002 /* demo.heic */,
 			);
 			path = "MiscellaneousPepperUICore Watch App";
 			sourceTree = "<group>";
@@ -651,6 +658,7 @@
 		4F9879B82C5A8A2600E4D2F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4F9607402D0ACE2500202002 /* UniformTypeIdentifiers.framework */,
 				4F94F8F22CB111A8002F31E2 /* WatchConnectivity.framework */,
 				4F94F8F42CB111AE002F31E2 /* WatchConnectivity.framework */,
 				4F90E7432C62713F00F3E691 /* PhotosUI.framework */,
@@ -756,6 +764,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F94F8812CB10CC3002F31E2 /* 0.mp4 in Resources */,
+				4F96073E2D0AC3E100202002 /* demo.heic in Resources */,
 				4F94F8822CB10CC3002F31E2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -764,6 +773,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F96073F2D0ACD9A00202002 /* demo.heic in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
