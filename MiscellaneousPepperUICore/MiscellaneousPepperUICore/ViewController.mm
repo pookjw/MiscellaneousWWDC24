@@ -370,8 +370,7 @@
         UIImage *image = [UIImage imageWithContentsOfFile:fileURL.path];
         UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
         imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [imageView.heightAnchor constraintEqualToAnchor:imageView
-         .widthAnchor].active = YES;
+        [imageView.heightAnchor constraintEqualToAnchor:imageView.widthAnchor].active = YES;
         UIViewController *contentViewController = [UIViewController new];
         contentViewController.view = imageView;
         [imageView release];
