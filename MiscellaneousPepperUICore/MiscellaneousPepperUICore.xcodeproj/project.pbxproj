@@ -75,6 +75,72 @@
 		4F9879BC2C5A8A2A00E4D2F3 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9879BB2C5A8A2A00E4D2F3 /* WatchKit.framework */; };
 		4F9879BE2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9879BD2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework */; };
 		4FA997BD2C5E3369000E5AFB /* Symbols.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FA997BC2C5E3369000E5AFB /* Symbols.framework */; };
+		4FAB0CDC2D0C9FB10011A815 /* PickerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8462CB10CC3002F31E2 /* PickerViewController.mm */; };
+		4FAB0CDD2D0C9FB10011A815 /* StatusBarPlacementViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F85D2CB10CC3002F31E2 /* StatusBarPlacementViewController.mm */; };
+		4FAB0CDE2D0C9FB10011A815 /* MessagePresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8372CB10CC3002F31E2 /* MessagePresenterViewController.mm */; };
+		4FAB0CDF2D0C9FB10011A815 /* shader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8282CB10CC3002F31E2 /* shader.metal */; };
+		4FAB0CE02D0C9FB10011A815 /* StatusBarItemViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F85A2CB10CC3002F31E2 /* StatusBarItemViewController.mm */; };
+		4FAB0CE12D0C9FB10011A815 /* CompositionPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8152CB10CC3002F31E2 /* CompositionPresenterViewController.mm */; };
+		4FAB0CE22D0C9FB10011A815 /* WatchConnectivityFileTransferView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F45C9FD2D0C532A0019D5C3 /* WatchConnectivityFileTransferView.mm */; };
+		4FAB0CE32D0C9FB10011A815 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F92B42CBC9D91002C1B90 /* SwiftUIView.swift */; };
+		4FAB0CE42D0C9FB10011A815 /* StatusBarAlphaViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8572CB10CC3002F31E2 /* StatusBarAlphaViewController.mm */; };
+		4FAB0CE52D0C9FB10011A815 /* KeyValueObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F82B2CB10CC3002F31E2 /* KeyValueObservation.m */; };
+		4FAB0CE62D0C9FB10011A815 /* ClassListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F87A2CB10CC3002F31E2 /* ClassListViewController.mm */; };
+		4FAB0CE72D0C9FB10011A815 /* TimeOffsetInputViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8662CB10CC3002F31E2 /* TimeOffsetInputViewController.mm */; };
+		4FAB0CE82D0C9FB10011A815 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8772CB10CC3002F31E2 /* AppDelegate.mm */; };
+		4FAB0CE92D0C9FB10011A815 /* NSObject+KeyValueObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F82E2CB10CC3002F31E2 /* NSObject+KeyValueObservation.m */; };
+		4FAB0CEA2D0C9FB10011A815 /* DigitalCrownViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F81D2CB10CC3002F31E2 /* DigitalCrownViewController.mm */; };
+		4FAB0CEB2D0C9FB10011A815 /* Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8272CB10CC3002F31E2 /* Renderer.mm */; };
+		4FAB0CEC2D0C9FB10011A815 /* MenuViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8312CB10CC3002F31E2 /* MenuViewController.mm */; };
+		4FAB0CED2D0C9FB10011A815 /* SafariViewPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F84E2CB10CC3002F31E2 /* SafariViewPresenterViewController.mm */; };
+		4FAB0CEE2D0C9FB10011A815 /* GradientMetalViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8232CB10CC3002F31E2 /* GradientMetalViewController.mm */; };
+		4FAB0CEF2D0C9FB10011A815 /* Grid.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8252CB10CC3002F31E2 /* Grid.mm */; };
+		4FAB0CF02D0C9FB10011A815 /* SwiftUIViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F92B72CBC9F39002C1B90 /* SwiftUIViewController.mm */; };
+		4FAB0CF12D0C9FB10011A815 /* WatchGesturesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8742CB10CC3002F31E2 /* WatchGesturesViewController.mm */; };
+		4FAB0CF22D0C9FB10011A815 /* WantsAutorotationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8712CB10CC3002F31E2 /* WantsAutorotationViewController.mm */; };
+		4FAB0CF32D0C9FB10011A815 /* ContentUnavailableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8182CB10CC3002F31E2 /* ContentUnavailableViewController.mm */; };
+		4FAB0CF42D0C9FB10011A815 /* MyAVSlider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8692CB10CC3002F31E2 /* MyAVSlider.mm */; };
+		4FAB0CF52D0C9FB10011A815 /* StatusBarTimeStyleViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8602CB10CC3002F31E2 /* StatusBarTimeStyleViewController.mm */; };
+		4FAB0CF62D0C9FB10011A815 /* WatchConnectivityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F27FA862CB11A2F00058509 /* WatchConnectivityViewController.mm */; };
+		4FAB0CF72D0C9FB10011A815 /* SheetPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8512CB10CC3002F31E2 /* SheetPresenterViewController.mm */; };
+		4FAB0CF82D0C9FB10011A815 /* PhotoPickerPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8432CB10CC3002F31E2 /* PhotoPickerPresenterViewController.mm */; };
+		4FAB0CF92D0C9FB10011A815 /* DigitalCrownView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F81B2CB10CC3002F31E2 /* DigitalCrownView.mm */; };
+		4FAB0CFA2D0C9FB10011A815 /* VolumeIndicatorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F86E2CB10CC3002F31E2 /* VolumeIndicatorViewController.mm */; };
+		4FAB0CFB2D0C9FB10011A815 /* VideoPlayerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F86B2CB10CC3002F31E2 /* VideoPlayerViewController.mm */; };
+		4FAB0CFC2D0C9FB10011A815 /* AlertPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F80D2CB10CC3002F31E2 /* AlertPresenterViewController.mm */; };
+		4FAB0CFD2D0C9FB10011A815 /* NotificationPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F83D2CB10CC3002F31E2 /* NotificationPresenterViewController.mm */; };
+		4FAB0CFE2D0C9FB10011A815 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F87B2CB10CC3002F31E2 /* main.mm */; };
+		4FAB0CFF2D0C9FB10011A815 /* SceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F87F2CB10CC3002F31E2 /* SceneDelegate.mm */; };
+		4FAB0D002D0C9FB10011A815 /* ActivityIndicatorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F80A2CB10CC3002F31E2 /* ActivityIndicatorViewController.mm */; };
+		4FAB0D012D0C9FB10011A815 /* WCSession+Category.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F45C7CC2D0C4B220019D5C3 /* WCSession+Category.mm */; };
+		4FAB0D022D0C9FB10011A815 /* MenuPresenterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8342CB10CC3002F31E2 /* MenuPresenterViewController.mm */; };
+		4FAB0D032D0C9FB10011A815 /* QuickboardNumberPadViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8492CB10CC3002F31E2 /* QuickboardNumberPadViewController.mm */; };
+		4FAB0D042D0C9FB10011A815 /* ExtensionDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F2E2D4D2CB2E09500316C9E /* ExtensionDelegate.mm */; };
+		4FAB0D052D0C9FB10011A815 /* SlidersViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8542CB10CC3002F31E2 /* SlidersViewController.mm */; };
+		4FAB0D062D0C9FB10011A815 /* EffectiveVisibilityView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8122CB10CC3002F31E2 /* EffectiveVisibilityView.mm */; };
+		4FAB0D072D0C9FB10011A815 /* AlwaysOnViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8102CB10CC3002F31E2 /* AlwaysOnViewController.mm */; };
+		4FAB0D082D0C9FB10011A815 /* NetworkActivityIndicatorVisibleViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F83A2CB10CC3002F31E2 /* NetworkActivityIndicatorVisibleViewController.mm */; };
+		4FAB0D092D0C9FB10011A815 /* PageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8402CB10CC3002F31E2 /* PageViewController.mm */; };
+		4FAB0D0A2D0C9FB10011A815 /* NSObject+Foundation_IvarDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F87D2CB10CC3002F31E2 /* NSObject+Foundation_IvarDescription.mm */; };
+		4FAB0D0B2D0C9FB10011A815 /* SwitchViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8632CB10CC3002F31E2 /* SwitchViewController.mm */; };
+		4FAB0D0C2D0C9FB10011A815 /* DisablesSleepGestureViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F94F8202CB10CC3002F31E2 /* DisablesSleepGestureViewController.mm */; };
+		4FAB0D0E2D0C9FB10011A815 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B1F2C5A90C4009A1DBC /* QuartzCore.framework */; };
+		4FAB0D0F2D0C9FB10011A815 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F90E7432C62713F00F3E691 /* PhotosUI.framework */; };
+		4FAB0D102D0C9FB10011A815 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9879BD2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework */; };
+		4FAB0D112D0C9FB10011A815 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47EA4F2C5E267700B6D032 /* MapKit.framework */; };
+		4FAB0D122D0C9FB10011A815 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B232C5A90D0009A1DBC /* AVKit.framework */; };
+		4FAB0D132D0C9FB10011A815 /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F94F8F42CB111AE002F31E2 /* WatchConnectivity.framework */; };
+		4FAB0D142D0C9FB10011A815 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE056912C60C1BD00330E3A /* CoreMedia.framework */; };
+		4FAB0D152D0C9FB10011A815 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9879B92C5A8A2700E4D2F3 /* UIKit.framework */; };
+		4FAB0D162D0C9FB10011A815 /* Symbols.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FA997BC2C5E3369000E5AFB /* Symbols.framework */; };
+		4FAB0D172D0C9FB10011A815 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B212C5A90CA009A1DBC /* CoreGraphics.framework */; };
+		4FAB0D182D0C9FB10011A815 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B252C5A90D5009A1DBC /* AVFoundation.framework */; };
+		4FAB0D192D0C9FB10011A815 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9879BB2C5A8A2A00E4D2F3 /* WatchKit.framework */; };
+		4FAB0D1B2D0C9FB10011A815 /* 0.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 4F94F84B2CB10CC3002F31E2 /* 0.mp4 */; };
+		4FAB0D1C2D0C9FB10011A815 /* demo.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4F96073D2D0AC3E100202002 /* demo.heic */; };
+		4FAB0D1D2D0C9FB10011A815 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F94F8782CB10CC3002F31E2 /* Assets.xcassets */; };
+		4FAB0D272D0CA2B50011A815 /* CarouselServicesListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0D262D0CA2B50011A815 /* CarouselServicesListViewController.mm */; };
+		4FAB0D282D0CA2B50011A815 /* CarouselServicesListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0D262D0CA2B50011A815 /* CarouselServicesListViewController.mm */; };
 		4FE056922C60C1BD00330E3A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE056912C60C1BD00330E3A /* CoreMedia.framework */; };
 /* End PBXBuildFile section */
 
@@ -218,6 +284,11 @@
 		4F9879BB2C5A8A2A00E4D2F3 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/WatchKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F9879BD2C5A8A2E00E4D2F3 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = DEVELOPER_DIR; };
 		4FA997BC2C5E3369000E5AFB /* Symbols.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Symbols.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/Symbols.framework; sourceTree = DEVELOPER_DIR; };
+		4FAB0D212D0C9FB10011A815 /* MiscellaneousPepperUICore Watch App Private.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MiscellaneousPepperUICore Watch App Private.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FAB0D222D0C9FB10011A815 /* MiscellaneousPepperUICore Watch App copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MiscellaneousPepperUICore Watch App copy-Info.plist"; path = "/Users/pookjw/git/MiscellaneousWWDC24/MiscellaneousPepperUICore/MiscellaneousPepperUICore Watch App copy-Info.plist"; sourceTree = "<absolute>"; };
+		4FAB0D232D0C9FD10011A815 /* MiscellaneousPepperUICore Watch App Private.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MiscellaneousPepperUICore Watch App Private.entitlements"; sourceTree = "<group>"; };
+		4FAB0D252D0CA2B50011A815 /* CarouselServicesListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarouselServicesListViewController.h; sourceTree = "<group>"; };
+		4FAB0D262D0CA2B50011A815 /* CarouselServicesListViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CarouselServicesListViewController.mm; sourceTree = "<group>"; };
 		4FE056912C60C1BD00330E3A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
@@ -264,6 +335,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4FAB0D0D2D0C9FB10011A815 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FAB0D0E2D0C9FB10011A815 /* QuartzCore.framework in Frameworks */,
+				4FAB0D0F2D0C9FB10011A815 /* PhotosUI.framework in Frameworks */,
+				4FAB0D102D0C9FB10011A815 /* UniformTypeIdentifiers.framework in Frameworks */,
+				4FAB0D112D0C9FB10011A815 /* MapKit.framework in Frameworks */,
+				4FAB0D122D0C9FB10011A815 /* AVKit.framework in Frameworks */,
+				4FAB0D132D0C9FB10011A815 /* WatchConnectivity.framework in Frameworks */,
+				4FAB0D142D0C9FB10011A815 /* CoreMedia.framework in Frameworks */,
+				4FAB0D152D0C9FB10011A815 /* UIKit.framework in Frameworks */,
+				4FAB0D162D0C9FB10011A815 /* Symbols.framework in Frameworks */,
+				4FAB0D172D0C9FB10011A815 /* CoreGraphics.framework in Frameworks */,
+				4FAB0D182D0C9FB10011A815 /* AVFoundation.framework in Frameworks */,
+				4FAB0D192D0C9FB10011A815 /* WatchKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -305,6 +395,7 @@
 				4F94F8802CB10CC3002F31E2 /* MiscellaneousPepperUICore Watch App */,
 				4F8A34CB2C5A861400E3CFC4 /* Products */,
 				4F9879B82C5A8A2600E4D2F3 /* Frameworks */,
+				4FAB0D222D0C9FB10011A815 /* MiscellaneousPepperUICore Watch App copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -313,6 +404,7 @@
 			children = (
 				4F8A34CA2C5A861400E3CFC4 /* MiscellaneousPepperUICore Watch App.app */,
 				4F94F8B22CB10D2D002F31E2 /* MiscellaneousPepperUICore.app */,
+				4FAB0D212D0C9FB10011A815 /* MiscellaneousPepperUICore Watch App Private.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -656,6 +748,7 @@
 				4F1F92B22CBC9D6A002C1B90 /* SwiftUIView */,
 				4F27FA842CB11A1100058509 /* WatchConnectivity */,
 				4F94F8762CB10CC3002F31E2 /* AppDelegate.h */,
+				4FAB0D242D0CA25C0011A815 /* CarouselServices */,
 				4F1F92B32CBC9D91002C1B90 /* MiscellaneousPepperUICore Watch App-Bridging-Header.h */,
 				4F94F8772CB10CC3002F31E2 /* AppDelegate.mm */,
 				4F2E2D4C2CB2E09500316C9E /* ExtensionDelegate.h */,
@@ -670,6 +763,7 @@
 				4F94F87E2CB10CC3002F31E2 /* SceneDelegate.h */,
 				4F94F87F2CB10CC3002F31E2 /* SceneDelegate.mm */,
 				4F96073D2D0AC3E100202002 /* demo.heic */,
+				4FAB0D232D0C9FD10011A815 /* MiscellaneousPepperUICore Watch App Private.entitlements */,
 			);
 			path = "MiscellaneousPepperUICore Watch App";
 			sourceTree = "<group>";
@@ -693,6 +787,15 @@
 				4F9879B92C5A8A2700E4D2F3 /* UIKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4FAB0D242D0CA25C0011A815 /* CarouselServices */ = {
+			isa = PBXGroup;
+			children = (
+				4FAB0D252D0CA2B50011A815 /* CarouselServicesListViewController.h */,
+				4FAB0D262D0CA2B50011A815 /* CarouselServicesListViewController.mm */,
+			);
+			path = CarouselServices;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -739,6 +842,23 @@
 			productReference = 4F94F8B22CB10D2D002F31E2 /* MiscellaneousPepperUICore.app */;
 			productType = "com.apple.product-type.application";
 		};
+		4FAB0CDA2D0C9FB10011A815 /* MiscellaneousPepperUICore Watch App Private */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4FAB0D1E2D0C9FB10011A815 /* Build configuration list for PBXNativeTarget "MiscellaneousPepperUICore Watch App Private" */;
+			buildPhases = (
+				4FAB0CDB2D0C9FB10011A815 /* Sources */,
+				4FAB0D0D2D0C9FB10011A815 /* Frameworks */,
+				4FAB0D1A2D0C9FB10011A815 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MiscellaneousPepperUICore Watch App Private";
+			productName = "MiscellaneousPepperUICore Watch App";
+			productReference = 4FAB0D212D0C9FB10011A815 /* MiscellaneousPepperUICore Watch App Private.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -773,6 +893,7 @@
 			targets = (
 				4F94F8B12CB10D2D002F31E2 /* MiscellaneousPepperUICore */,
 				4F8A34C92C5A861400E3CFC4 /* MiscellaneousPepperUICore Watch App */,
+				4FAB0CDA2D0C9FB10011A815 /* MiscellaneousPepperUICore Watch App Private */,
 			);
 		};
 /* End PBXProject section */
@@ -793,6 +914,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F96073F2D0ACD9A00202002 /* demo.heic in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FAB0D1A2D0C9FB10011A815 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FAB0D1B2D0C9FB10011A815 /* 0.mp4 in Resources */,
+				4FAB0D1C2D0C9FB10011A815 /* demo.heic in Resources */,
+				4FAB0D1D2D0C9FB10011A815 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -831,6 +962,7 @@
 				4F94F8992CB10CC3002F31E2 /* StatusBarTimeStyleViewController.mm in Sources */,
 				4F27FA872CB11A2F00058509 /* WatchConnectivityViewController.mm in Sources */,
 				4F94F89A2CB10CC3002F31E2 /* SheetPresenterViewController.mm in Sources */,
+				4FAB0D282D0CA2B50011A815 /* CarouselServicesListViewController.mm in Sources */,
 				4F94F89B2CB10CC3002F31E2 /* PhotoPickerPresenterViewController.mm in Sources */,
 				4F94F89C2CB10CC3002F31E2 /* DigitalCrownView.mm in Sources */,
 				4F94F89D2CB10CC3002F31E2 /* VolumeIndicatorViewController.mm in Sources */,
@@ -860,6 +992,63 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F45C7CD2D0C4B220019D5C3 /* WCSession+Category.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FAB0CDB2D0C9FB10011A815 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FAB0CDC2D0C9FB10011A815 /* PickerViewController.mm in Sources */,
+				4FAB0CDD2D0C9FB10011A815 /* StatusBarPlacementViewController.mm in Sources */,
+				4FAB0CDE2D0C9FB10011A815 /* MessagePresenterViewController.mm in Sources */,
+				4FAB0CDF2D0C9FB10011A815 /* shader.metal in Sources */,
+				4FAB0CE02D0C9FB10011A815 /* StatusBarItemViewController.mm in Sources */,
+				4FAB0CE12D0C9FB10011A815 /* CompositionPresenterViewController.mm in Sources */,
+				4FAB0CE22D0C9FB10011A815 /* WatchConnectivityFileTransferView.mm in Sources */,
+				4FAB0CE32D0C9FB10011A815 /* SwiftUIView.swift in Sources */,
+				4FAB0CE42D0C9FB10011A815 /* StatusBarAlphaViewController.mm in Sources */,
+				4FAB0CE52D0C9FB10011A815 /* KeyValueObservation.m in Sources */,
+				4FAB0CE62D0C9FB10011A815 /* ClassListViewController.mm in Sources */,
+				4FAB0CE72D0C9FB10011A815 /* TimeOffsetInputViewController.mm in Sources */,
+				4FAB0CE82D0C9FB10011A815 /* AppDelegate.mm in Sources */,
+				4FAB0CE92D0C9FB10011A815 /* NSObject+KeyValueObservation.m in Sources */,
+				4FAB0CEA2D0C9FB10011A815 /* DigitalCrownViewController.mm in Sources */,
+				4FAB0CEB2D0C9FB10011A815 /* Renderer.mm in Sources */,
+				4FAB0CEC2D0C9FB10011A815 /* MenuViewController.mm in Sources */,
+				4FAB0CED2D0C9FB10011A815 /* SafariViewPresenterViewController.mm in Sources */,
+				4FAB0CEE2D0C9FB10011A815 /* GradientMetalViewController.mm in Sources */,
+				4FAB0CEF2D0C9FB10011A815 /* Grid.mm in Sources */,
+				4FAB0CF02D0C9FB10011A815 /* SwiftUIViewController.mm in Sources */,
+				4FAB0CF12D0C9FB10011A815 /* WatchGesturesViewController.mm in Sources */,
+				4FAB0CF22D0C9FB10011A815 /* WantsAutorotationViewController.mm in Sources */,
+				4FAB0CF32D0C9FB10011A815 /* ContentUnavailableViewController.mm in Sources */,
+				4FAB0CF42D0C9FB10011A815 /* MyAVSlider.mm in Sources */,
+				4FAB0CF52D0C9FB10011A815 /* StatusBarTimeStyleViewController.mm in Sources */,
+				4FAB0CF62D0C9FB10011A815 /* WatchConnectivityViewController.mm in Sources */,
+				4FAB0CF72D0C9FB10011A815 /* SheetPresenterViewController.mm in Sources */,
+				4FAB0D272D0CA2B50011A815 /* CarouselServicesListViewController.mm in Sources */,
+				4FAB0CF82D0C9FB10011A815 /* PhotoPickerPresenterViewController.mm in Sources */,
+				4FAB0CF92D0C9FB10011A815 /* DigitalCrownView.mm in Sources */,
+				4FAB0CFA2D0C9FB10011A815 /* VolumeIndicatorViewController.mm in Sources */,
+				4FAB0CFB2D0C9FB10011A815 /* VideoPlayerViewController.mm in Sources */,
+				4FAB0CFC2D0C9FB10011A815 /* AlertPresenterViewController.mm in Sources */,
+				4FAB0CFD2D0C9FB10011A815 /* NotificationPresenterViewController.mm in Sources */,
+				4FAB0CFE2D0C9FB10011A815 /* main.mm in Sources */,
+				4FAB0CFF2D0C9FB10011A815 /* SceneDelegate.mm in Sources */,
+				4FAB0D002D0C9FB10011A815 /* ActivityIndicatorViewController.mm in Sources */,
+				4FAB0D012D0C9FB10011A815 /* WCSession+Category.mm in Sources */,
+				4FAB0D022D0C9FB10011A815 /* MenuPresenterViewController.mm in Sources */,
+				4FAB0D032D0C9FB10011A815 /* QuickboardNumberPadViewController.mm in Sources */,
+				4FAB0D042D0C9FB10011A815 /* ExtensionDelegate.mm in Sources */,
+				4FAB0D052D0C9FB10011A815 /* SlidersViewController.mm in Sources */,
+				4FAB0D062D0C9FB10011A815 /* EffectiveVisibilityView.mm in Sources */,
+				4FAB0D072D0C9FB10011A815 /* AlwaysOnViewController.mm in Sources */,
+				4FAB0D082D0C9FB10011A815 /* NetworkActivityIndicatorVisibleViewController.mm in Sources */,
+				4FAB0D092D0C9FB10011A815 /* PageViewController.mm in Sources */,
+				4FAB0D0A2D0C9FB10011A815 /* NSObject+Foundation_IvarDescription.mm in Sources */,
+				4FAB0D0B2D0C9FB10011A815 /* SwitchViewController.mm in Sources */,
+				4FAB0D0C2D0C9FB10011A815 /* DisablesSleepGestureViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1127,6 +1316,85 @@
 			};
 			name = Release;
 		};
+		4FAB0D1F2D0C9FB10011A815 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "MiscellaneousPepperUICore Watch App/MiscellaneousPepperUICore Watch App Private.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				ENABLE_PREVIEWS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"PRIVATE=1",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MiscellaneousPepperUICore Watch App copy-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = MiscellaneousPepperUICore;
+				INFOPLIST_KEY_NSContactsUsageDescription = Hello;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.pookjw.MiscellaneousPepperUICore;
+				INFOPLIST_KEY_WKExtensionDelegateClassName = ExtensionDelegate;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.MiscellaneousPepperUICore.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "MiscellaneousPepperUICore Watch App/MiscellaneousPepperUICore Watch App-Bridging-Header.h";
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Debug;
+		};
+		4FAB0D202D0C9FB10011A815 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "MiscellaneousPepperUICore Watch App/MiscellaneousPepperUICore Watch App Private.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				ENABLE_PREVIEWS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "PRIVATE=1";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MiscellaneousPepperUICore Watch App copy-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = MiscellaneousPepperUICore;
+				INFOPLIST_KEY_NSContactsUsageDescription = Hello;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.pookjw.MiscellaneousPepperUICore;
+				INFOPLIST_KEY_WKExtensionDelegateClassName = ExtensionDelegate;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.MiscellaneousPepperUICore.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "MiscellaneousPepperUICore Watch App/MiscellaneousPepperUICore Watch App-Bridging-Header.h";
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1153,6 +1421,15 @@
 			buildConfigurations = (
 				4F94F8CA2CB10D2E002F31E2 /* Debug */,
 				4F94F8CB2CB10D2E002F31E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4FAB0D1E2D0C9FB10011A815 /* Build configuration list for PBXNativeTarget "MiscellaneousPepperUICore Watch App Private" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4FAB0D1F2D0C9FB10011A815 /* Debug */,
+				4FAB0D202D0C9FB10011A815 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

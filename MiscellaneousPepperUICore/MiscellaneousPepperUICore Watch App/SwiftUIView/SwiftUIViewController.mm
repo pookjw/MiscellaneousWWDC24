@@ -6,7 +6,11 @@
 //
 
 #import "SwiftUIViewController.h"
+#if PRIVATE
+#import "MiscellaneousPepperUICore_Watch_App_Private-Swift.h"
+#else
 #import "MiscellaneousPepperUICore_Watch_App-Swift.h"
+#endif
 #import <UIKit/UIKit.h>
 #import <objc/message.h>
 #import <objc/runtime.h>
@@ -58,7 +62,12 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     objc_super superInfo = { self, [self class] };
     reinterpret_cast<void (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
     
-    NSObject *hostingController = MiscellaneousPepperUICore_Watch_App::makeHostingController();
+    NSObject *hostingController;
+#if PRIVATE
+    hostingController = MiscellaneousPepperUICore_Watch_App_Private::makeHostingController();
+#else
+    hostingController = MiscellaneousPepperUICore_Watch_App::makeHostingController();
+#endif
     
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self, sel_registerName("addChildViewController:"), hostingController);
     
