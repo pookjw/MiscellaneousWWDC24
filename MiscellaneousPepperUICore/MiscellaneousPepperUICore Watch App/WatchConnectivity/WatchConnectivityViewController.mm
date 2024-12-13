@@ -45,6 +45,9 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP respondsToSelector = class_getMethodImplementation(self, @selector(respondsToSelector:));
         assert(class_addMethod(_isa, @selector(respondsToSelector:), respondsToSelector, NULL));
         
+        IMP observeValueForKeyPath_ofObject_change_context = class_getMethodImplementation(self, @selector(observeValueForKeyPath:ofObject:change:context:));
+        assert(class_addMethod(_isa, @selector(observeValueForKeyPath:ofObject:change:context:), observeValueForKeyPath_ofObject_change_context, NULL));
+        
         IMP loadView = class_getMethodImplementation(self, @selector(loadView));
         assert(class_addMethod(_isa, @selector(loadView), loadView, NULL));
         
@@ -118,6 +121,16 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     return responds;
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"outstandingUserInfoTransfers"]) {
+        NSLog(@"Hello!");
+        return;
+    }
+    
+    objc_super superInfo = { self, [self class] };
+    reinterpret_cast<void (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
+}
+
 - (void)loadView {
     id statusLabel = [self statusLabel];
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self, sel_registerName("setView:"), statusLabel);
@@ -150,6 +163,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     
     session = WCSession.defaultSession;
     session.delegate = self;
+    
+    [session addObserver:self forKeyPath:@"outstandingUserInfoTransfers" options:NSKeyValueObservingOptionNew context:NULL];
     
     assert(object_setInstanceVariable(self, "_session", reinterpret_cast<void *>([session retain])) != nullptr);
     return session;
@@ -364,7 +379,13 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 - (void)session:(WCSession *)session didReceiveUserInfo:(NSDictionary<NSString *,id> *)userInfo {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateStatusLabel];
+        id alertController = reinterpret_cast<id (*)(Class, SEL, id, id, NSInteger)>(objc_msgSend)(objc_lookUpClass("UIAlertController"), sel_registerName("alertControllerWithTitle:message:preferredStyle:"), @"UserInfo", userInfo.description, 1);
+        
+        id alertAction = reinterpret_cast<id (*)(Class, SEL, id, NSInteger, id)>(objc_msgSend)(objc_lookUpClass("UIAlertAction"), sel_registerName("actionWithTitle:style:handler:"), @"Done", 0, ^(id alertAction) {});
+        
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(alertController, sel_registerName("addAction:"), alertAction);
+        
+        reinterpret_cast<void (*)(id, SEL, id, BOOL, id)>(objc_msgSend)(self, sel_registerName("presentViewController:animated:completion:"), alertController, YES, nil);
     });
 }
 

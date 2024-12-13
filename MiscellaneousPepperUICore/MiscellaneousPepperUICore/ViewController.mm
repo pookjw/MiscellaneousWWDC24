@@ -11,6 +11,53 @@
 #import <objc/runtime.h>
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
+namespace mpuc_WCSession {
+
+namespace outstandingUserInfoTransfers {
+NSArray<WCSessionUserInfoTransfer *> * (*original)(WCSession *self, SEL _cmd);
+NSArray<WCSessionUserInfoTransfer *> * custom(WCSession *self, SEL _cmd) {
+    NSOperationQueue *_workOperationQueue;
+    assert(object_getInstanceVariable(self, "_workOperationQueue", reinterpret_cast<void **>(&_workOperationQueue)));
+    
+    if (![_workOperationQueue isEqual:NSOperationQueue.currentQueue]) {
+        return original(self, _cmd);
+    }
+    
+    NSDictionary *_internalOutstandingUserInfoTransfers;
+    assert(object_getInstanceVariable(self, "_internalOutstandingUserInfoTransfers", reinterpret_cast<void **>(&_internalOutstandingUserInfoTransfers)));
+    return _internalOutstandingUserInfoTransfers.allValues;
+}
+void swizzle() {
+    Method method = class_getInstanceMethod(WCSession.class, sel_registerName("outstandingUserInfoTransfers"));
+    original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
+    method_setImplementation(method, reinterpret_cast<IMP>(custom));
+}
+}
+
+
+namespace outstandingFileTransfers {
+NSArray<WCSessionUserInfoTransfer *> * (*original)(WCSession *self, SEL _cmd);
+NSArray<WCSessionUserInfoTransfer *> * custom(WCSession *self, SEL _cmd) {
+    NSOperationQueue *_workOperationQueue;
+    assert(object_getInstanceVariable(self, "_workOperationQueue", reinterpret_cast<void **>(&_workOperationQueue)));
+    
+    if (![_workOperationQueue isEqual:NSOperationQueue.currentQueue]) {
+        return original(self, _cmd);
+    }
+    
+    NSDictionary *_internalOutstandingFileTransfers;
+    assert(object_getInstanceVariable(self, "_internalOutstandingFileTransfers", reinterpret_cast<void **>(&_internalOutstandingFileTransfers)));
+    return _internalOutstandingFileTransfers.allValues;
+}
+void swizzle() {
+    Method method = class_getInstanceMethod(WCSession.class, sel_registerName("outstandingFileTransfers"));
+    original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
+    method_setImplementation(method, reinterpret_cast<IMP>(custom));
+}
+}
+
+}
+
 @interface ViewController () <WCSessionDelegate>
 @property (retain, nonatomic, readonly) WCSession *session;
 @property (retain, nonatomic, readonly) UIStackView *stackView;
@@ -22,11 +69,25 @@
 @synthesize stackView = _stackView;
 @synthesize statusLabel = _statusLabel;
 
++ (void)load {
+//    mpuc_WCSession::outstandingUserInfoTransfers::swizzle();
+//    mpuc_WCSession::outstandingFileTransfers::swizzle();
+}
+
 - (void)dealloc {
     [_session release];
     [_stackView release];
     [_statusLabel release];
     [super dealloc];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"outstandingUserInfoTransfers"] or [keyPath isEqualToString:@"outstandingFileTransfers"]) {
+        NSLog(@"Hello!");
+        return;
+    }
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
 - (void)viewDidLoad {
@@ -91,6 +152,10 @@
         [weakSelf.session transferFile:url metadata:nil];
     }];
     
+    UIAction *transferUserInfoAction = [UIAction actionWithTitle:@"Transfer UserInfo" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+        [weakSelf.session transferUserInfo:@{@"timestamp": NSDate.now}];
+    }];
+    
     UIAction *updateApplicationContextAction = [UIAction actionWithTitle:@"Update Application Context" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
         NSError * _Nullable error = nil;
         [weakSelf.session updateApplicationContext:@{@"timestamp": NSDate.now} error:&error];
@@ -104,6 +169,7 @@
         sendDateAction,
         getOXAction,
         sendFileAction,
+        transferUserInfoAction,
         updateApplicationContextAction
     ]];
     
@@ -121,6 +187,9 @@
     
     WCSession *session = WCSession.defaultSession;
     session.delegate = self;
+    
+    [session addObserver:self forKeyPath:@"outstandingUserInfoTransfers" options:NSKeyValueObservingOptionNew context:NULL];
+    [session addObserver:self forKeyPath:@"outstandingFileTransfers" options:NSKeyValueObservingOptionNew context:NULL];
     
     _session = [session retain];
     return session;
