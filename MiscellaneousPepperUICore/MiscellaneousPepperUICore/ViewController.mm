@@ -10,6 +10,7 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
+#import "WatchConnectivityFileTransferView.h"
 
 @interface ViewController () <WCSessionDelegate>
 @property (retain, nonatomic, readonly) WCSession *session;
@@ -30,8 +31,10 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"outstandingUserInfoTransfers"] or [keyPath isEqualToString:@"outstandingFileTransfers"]) {
-        NSLog(@"Hello!");
+    if ([object isKindOfClass:WCSession.class] and ([keyPath isEqualToString:@"outstandingUserInfoTransfers"] or [keyPath isEqualToString:@"outstandingFileTransfers"])) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateFileTransferViews];
+        });
         return;
     }
     
@@ -47,14 +50,15 @@
     stackView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:stackView];
     [NSLayoutConstraint activateConstraints:@[
-        [stackView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
-        [stackView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
-        [stackView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
-        [stackView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor],
+        [stackView.topAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.topAnchor],
+        [stackView.leadingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.leadingAnchor],
+        [stackView.trailingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.trailingAnchor],
+        [stackView.bottomAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.bottomAnchor],
     ]];
     //
     
     [self updateStatusLabel];
+    [self updateFileTransferViews];
     
     self.view.backgroundColor = UIColor.systemBackgroundColor;
     
@@ -112,13 +116,20 @@
         [weakSelf updateStatusLabel];
     }];
     
+    UIAction *resetXPCConnection = [UIAction actionWithTitle:@"Reset XPC Connection" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+        id xpcManager = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(objc_lookUpClass("WCXPCManager"), sel_registerName("sharedManager"));
+        reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(xpcManager, sel_registerName("invalidateConnection"));
+        reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(xpcManager, sel_registerName("setupConnection"));
+    }];
+    
     UIMenu *actionMenu = [UIMenu menuWithChildren:@[
         activateAction,
         sendDateAction,
         getOXAction,
         sendFileAction,
         transferUserInfoAction,
-        updateApplicationContextAction
+        updateApplicationContextAction,
+        resetXPCConnection
     ]];
     
     UIBarButtonItem *actionMenuBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"list.bullet"]  menu:actionMenu];
@@ -136,8 +147,8 @@
     WCSession *session = WCSession.defaultSession;
     session.delegate = self;
     
-    [session addObserver:self forKeyPath:@"outstandingUserInfoTransfers" options:NSKeyValueObservingOptionNew context:NULL];
-    [session addObserver:self forKeyPath:@"outstandingFileTransfers" options:NSKeyValueObservingOptionNew context:NULL];
+    [session addObserver:self forKeyPath:@"outstandingUserInfoTransfers" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:NULL];
+    [session addObserver:self forKeyPath:@"outstandingFileTransfers" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:NULL];
     
     _session = [session retain];
     return session;
@@ -150,6 +161,7 @@
         self.statusLabel
     ]];
     
+    stackView.spacing = UIStackViewSpacingUseSystem;
     stackView.axis = UILayoutConstraintAxisVertical;
     stackView.distribution = UIStackViewDistributionFillEqually;
     stackView.alignment = UIStackViewAlignmentFill;
@@ -198,6 +210,48 @@
     
     NSString *text = [NSString stringWithFormat:@"%@\n%@\napplicationContext : %@\nreceivedApplicationContext : %@", activationStateString, isReachableString, applicationContext, receivedApplicationContext];
     self.statusLabel.text = text;
+}
+
+- (void)updateFileTransferViews {
+    NSMutableArray<WatchConnectivityFileTransferView *> *existingViews = [NSMutableArray new];
+    for (__kindof UIView *arrangedView in self.stackView.arrangedSubviews) {
+        if ([arrangedView isKindOfClass:WatchConnectivityFileTransferView.class]) {
+            [existingViews addObject:arrangedView];
+        }
+    }
+    
+    NSArray<WCSessionFileTransfer *> *fileTransfers = self.session.outstandingFileTransfers;
+    NSMutableArray<WatchConnectivityFileTransferView *> *views = [[NSMutableArray alloc] initWithCapacity:fileTransfers.count];
+    
+    for (WCSessionFileTransfer *fileTransfer in fileTransfers) {
+        BOOL found = NO;
+        for (WatchConnectivityFileTransferView *existingView in existingViews) {
+            if ([existingView.fileTransfer isEqual:fileTransfer]) {
+                [views addObject:existingView];
+                found = YES;
+                break;
+            }
+        }
+        
+        if (found) continue;
+        
+        WatchConnectivityFileTransferView *view = [[WatchConnectivityFileTransferView alloc] initWithFileTransfer:fileTransfer];
+        [views addObject:view];
+        [view release];
+    }
+    
+    //
+    
+    for (WatchConnectivityFileTransferView *existingView in existingViews) {
+        [self.stackView removeArrangedSubview:existingView];
+        [existingView removeFromSuperview];
+    }
+    
+    for (WatchConnectivityFileTransferView *view in views) {
+        [self.stackView addArrangedSubview:view];
+    }
+    
+    [self.stackView updateConstraintsIfNeeded];
 }
 
 - (void)sessionReachabilityDidChange:(WCSession *)session {

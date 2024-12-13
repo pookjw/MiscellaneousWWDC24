@@ -16,6 +16,8 @@
 		4F27FA872CB11A2F00058509 /* WatchConnectivityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F27FA862CB11A2F00058509 /* WatchConnectivityViewController.mm */; };
 		4F2E2D4E2CB2E09500316C9E /* ExtensionDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F2E2D4D2CB2E09500316C9E /* ExtensionDelegate.mm */; };
 		4F45C7CD2D0C4B220019D5C3 /* WCSession+Category.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F45C7CC2D0C4B220019D5C3 /* WCSession+Category.mm */; };
+		4F45C7CE2D0C4BCE0019D5C3 /* WCSession+Category.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F45C7CC2D0C4B220019D5C3 /* WCSession+Category.mm */; };
+		4F45C9FE2D0C532A0019D5C3 /* WatchConnectivityFileTransferView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F45C9FD2D0C532A0019D5C3 /* WatchConnectivityFileTransferView.mm */; };
 		4F47EA502C5E267700B6D032 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47EA4F2C5E267700B6D032 /* MapKit.framework */; };
 		4F90E7442C62713F00F3E691 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F90E7432C62713F00F3E691 /* PhotosUI.framework */; };
 		4F94F8812CB10CC3002F31E2 /* 0.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 4F94F84B2CB10CC3002F31E2 /* 0.mp4 */; };
@@ -114,6 +116,8 @@
 		4F2E2D4D2CB2E09500316C9E /* ExtensionDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ExtensionDelegate.mm; sourceTree = "<group>"; };
 		4F45C7CB2D0C4B220019D5C3 /* WCSession+Category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WCSession+Category.h"; sourceTree = "<group>"; };
 		4F45C7CC2D0C4B220019D5C3 /* WCSession+Category.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "WCSession+Category.mm"; sourceTree = "<group>"; };
+		4F45C9FC2D0C532A0019D5C3 /* WatchConnectivityFileTransferView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WatchConnectivityFileTransferView.h; sourceTree = "<group>"; };
+		4F45C9FD2D0C532A0019D5C3 /* WatchConnectivityFileTransferView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WatchConnectivityFileTransferView.mm; sourceTree = "<group>"; };
 		4F4604522C5F7F9A00C12A68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4F47EA4F2C5E267700B6D032 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F8A34CA2C5A861400E3CFC4 /* MiscellaneousPepperUICore Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MiscellaneousPepperUICore Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -278,6 +282,8 @@
 			children = (
 				4F27FA852CB11A2F00058509 /* WatchConnectivityViewController.h */,
 				4F27FA862CB11A2F00058509 /* WatchConnectivityViewController.mm */,
+				4F45C9FC2D0C532A0019D5C3 /* WatchConnectivityFileTransferView.h */,
+				4F45C9FD2D0C532A0019D5C3 /* WatchConnectivityFileTransferView.mm */,
 			);
 			path = WatchConnectivity;
 			sourceTree = "<group>";
@@ -647,8 +653,8 @@
 				4F94F86F2CB10CC3002F31E2 /* VolumeIndicator */,
 				4F94F8722CB10CC3002F31E2 /* WantsAutorotation */,
 				4F94F8752CB10CC3002F31E2 /* WatchGestures */,
-				4F27FA842CB11A1100058509 /* WatchConnectivity */,
 				4F1F92B22CBC9D6A002C1B90 /* SwiftUIView */,
+				4F27FA842CB11A1100058509 /* WatchConnectivity */,
 				4F94F8762CB10CC3002F31E2 /* AppDelegate.h */,
 				4F1F92B32CBC9D91002C1B90 /* MiscellaneousPepperUICore Watch App-Bridging-Header.h */,
 				4F94F8772CB10CC3002F31E2 /* AppDelegate.mm */,
@@ -803,6 +809,7 @@
 				4F94F8862CB10CC3002F31E2 /* shader.metal in Sources */,
 				4F94F8872CB10CC3002F31E2 /* StatusBarItemViewController.mm in Sources */,
 				4F94F8882CB10CC3002F31E2 /* CompositionPresenterViewController.mm in Sources */,
+				4F45C9FE2D0C532A0019D5C3 /* WatchConnectivityFileTransferView.mm in Sources */,
 				4F1F92B52CBC9D91002C1B90 /* SwiftUIView.swift in Sources */,
 				4F94F8892CB10CC3002F31E2 /* StatusBarAlphaViewController.mm in Sources */,
 				4F94F88A2CB10CC3002F31E2 /* KeyValueObservation.m in Sources */,
@@ -833,6 +840,7 @@
 				4F94F8A12CB10CC3002F31E2 /* main.mm in Sources */,
 				4F94F8A22CB10CC3002F31E2 /* SceneDelegate.mm in Sources */,
 				4F94F8A32CB10CC3002F31E2 /* ActivityIndicatorViewController.mm in Sources */,
+				4F45C7CE2D0C4BCE0019D5C3 /* WCSession+Category.mm in Sources */,
 				4F94F8A42CB10CC3002F31E2 /* MenuPresenterViewController.mm in Sources */,
 				4F94F8A52CB10CC3002F31E2 /* QuickboardNumberPadViewController.mm in Sources */,
 				4F2E2D4E2CB2E09500316C9E /* ExtensionDelegate.mm in Sources */,

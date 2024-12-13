@@ -11,6 +11,7 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
+#import "WatchConnectivityFileTransferView.h"
 
 #warning -[WCSession delegateSupportsActiveDeviceSwitch]
 
@@ -48,9 +49,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP observeValueForKeyPath_ofObject_change_context = class_getMethodImplementation(self, @selector(observeValueForKeyPath:ofObject:change:context:));
         assert(class_addMethod(_isa, @selector(observeValueForKeyPath:ofObject:change:context:), observeValueForKeyPath_ofObject_change_context, NULL));
         
-        IMP loadView = class_getMethodImplementation(self, @selector(loadView));
-        assert(class_addMethod(_isa, @selector(loadView), loadView, NULL));
-        
         IMP viewDidLoad = class_getMethodImplementation(self, @selector(viewDidLoad));
         assert(class_addMethod(_isa, @selector(viewDidLoad), viewDidLoad, NULL));
         
@@ -82,6 +80,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         assert(class_addMethod(_isa, @selector(session:didReceiveFile:), session_didReceiveFile, NULL));
         
         assert(class_addIvar(_isa, "_session", sizeof(id), sizeof(id), @encode(id)));
+        assert(class_addIvar(_isa, "_stackView", sizeof(id), sizeof(id), @encode(id)));
         assert(class_addIvar(_isa, "_statusLabel", sizeof(id), sizeof(id), @encode(id)));
         
         //
@@ -100,6 +99,10 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     WCSession *_session;
     assert(object_getInstanceVariable(self, "_session", reinterpret_cast<void **>(&_session)) != nullptr);
     [_session release];
+    
+    id _stackView;
+    assert(object_getInstanceVariable(self, "_stackView", reinterpret_cast<void **>(&_stackView)) != nullptr);
+    [_stackView release];
     
     id _statusLabel;
     assert(object_getInstanceVariable(self, "_statusLabel", reinterpret_cast<void **>(&_statusLabel)) != nullptr);
@@ -122,18 +125,15 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"outstandingUserInfoTransfers"]) {
-        NSLog(@"Hello!");
+    if ([object isKindOfClass:WCSession.class] and [keyPath isEqualToString:@"outstandingFileTransfers"]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateFileTransferViews];
+        });
         return;
     }
     
     objc_super superInfo = { self, [self class] };
     reinterpret_cast<void (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
-}
-
-- (void)loadView {
-    id statusLabel = [self statusLabel];
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self, sel_registerName("setView:"), statusLabel);
 }
 
 - (void)viewDidLoad {
@@ -151,7 +151,16 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     
     //
     
+    id stackView = [self stackView];
+    id view = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("view"));
+    
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(view, sel_registerName("addSubview:"), stackView);
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(view, sel_registerName("_addBoundsMatchingConstraintsForView:"), stackView);
+    
+    //
+    
     [self updateStatusLabel];
+    [self updateFileTransferViews];
 }
 
 - (WCSession *)session __attribute__((objc_direct)) {
@@ -164,10 +173,30 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     session = WCSession.defaultSession;
     session.delegate = self;
     
-    [session addObserver:self forKeyPath:@"outstandingUserInfoTransfers" options:NSKeyValueObservingOptionNew context:NULL];
+    [session addObserver:self forKeyPath:@"outstandingFileTransfers" options:NSKeyValueObservingOptionNew context:NULL];
     
     assert(object_setInstanceVariable(self, "_session", reinterpret_cast<void *>([session retain])) != nullptr);
     return session;
+}
+
+- (id)stackView __attribute__((objc_direct)) {
+    id stackView = nil;
+    assert(object_getInstanceVariable(self, "_stackView", reinterpret_cast<void **>(&stackView)) != nullptr);
+    if (stackView != nil) {
+        return stackView;
+    }
+    
+    stackView = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("UIStackView") alloc], sel_registerName("initWithArrangedSubviews:"), @[
+        [self statusLabel]
+    ]);
+    
+    reinterpret_cast<void (*)(id, SEL, CGFloat)>(objc_msgSend)(stackView, sel_registerName("setSpacing:"), FLT_MIN); // UIStackViewSpacingUseSystem
+    reinterpret_cast<void (*)(id, SEL, NSInteger)>(objc_msgSend)(stackView, sel_registerName("setAxis:"), 1); // UILayoutConstraintAxisVertical
+    reinterpret_cast<void (*)(id, SEL, NSInteger)>(objc_msgSend)(stackView, sel_registerName("setAlignment:"), 0); // UIStackViewAlignmentFill
+    reinterpret_cast<void (*)(id, SEL, NSInteger)>(objc_msgSend)(stackView, sel_registerName("setDistribution:"), 1); // UIStackViewDistributionFillEqually
+    
+    assert(object_setInstanceVariable(self, "_stackView", reinterpret_cast<void *>([stackView retain])));
+    return [stackView autorelease];
 }
 
 - (id)statusLabel __attribute__((objc_direct)) {
@@ -306,6 +335,51 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     id statusLabel = [self statusLabel];
     NSString *text = [NSString stringWithFormat:@"%@\n%@\napplicationContext : %@\nreceivedApplicationContext : %@", activationStateString, isReachableString, applicationContext, receivedApplicationContext];
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(statusLabel, sel_registerName("setText:"), text);
+}
+
+- (void)updateFileTransferViews __attribute__((objc_direct)) {
+    id stackView = [self stackView];
+    NSArray *arrangedSubviews = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(stackView, sel_registerName("arrangedSubviews"));
+    
+    NSMutableArray<WatchConnectivityFileTransferView *> *existingViews = [NSMutableArray new];
+    for (id arrangedView in arrangedSubviews) {
+        if ([arrangedView isKindOfClass:WatchConnectivityFileTransferView.class]) {
+            [existingViews addObject:arrangedView];
+        }
+    }
+    
+    NSArray<WCSessionFileTransfer *> *fileTransfers = self.session.outstandingFileTransfers;
+    NSMutableArray<WatchConnectivityFileTransferView *> *views = [[NSMutableArray alloc] initWithCapacity:fileTransfers.count];
+    
+    for (WCSessionFileTransfer *fileTransfer in fileTransfers) {
+        BOOL found = NO;
+        for (WatchConnectivityFileTransferView *existingView in existingViews) {
+            if ([existingView.fileTransfer isEqual:fileTransfer]) {
+                [views addObject:existingView];
+                found = YES;
+                break;
+            }
+        }
+        
+        if (found) continue;
+        
+        WatchConnectivityFileTransferView *view = [[WatchConnectivityFileTransferView alloc] initWithFileTransfer:fileTransfer];
+        [views addObject:view];
+        [view release];
+    }
+    
+    //
+    
+    for (WatchConnectivityFileTransferView *existingView in existingViews) {
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(stackView, sel_registerName("removeArrangedSubview:"), existingView);
+        reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(existingView, sel_registerName("removeFromSuperview"));
+    }
+    
+    for (WatchConnectivityFileTransferView *view in views) {
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(stackView, sel_registerName("addArrangedSubview:"), view);
+    }
+    
+    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(stackView, sel_registerName("updateConstraintsIfNeeded"));
 }
 
 - (void)session:(nonnull WCSession *)session activationDidCompleteWithState:(WCSessionActivationState)activationState error:(nullable NSError *)error {

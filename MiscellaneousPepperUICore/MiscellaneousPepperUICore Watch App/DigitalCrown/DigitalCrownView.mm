@@ -51,7 +51,7 @@ void swizzle() {
     dispatch_once(&onceToken, ^{
         Class _isa = objc_allocateClassPair(objc_lookUpClass("UIView"), "_DigitalCrownView", 0);
         
-        IMP initWithFrame= class_getMethodImplementation(self, @selector(initWithFrame:));
+        IMP initWithFrame = class_getMethodImplementation(self, @selector(initWithFrame:));
         assert(class_addMethod(_isa, @selector(initWithFrame:), initWithFrame, NULL));
         
         IMP dealloc = class_getMethodImplementation(self, @selector(dealloc));
