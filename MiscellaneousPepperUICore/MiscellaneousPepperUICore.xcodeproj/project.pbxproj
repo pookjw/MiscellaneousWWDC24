@@ -15,6 +15,7 @@
 		4F1F92B82CBC9F39002C1B90 /* SwiftUIViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F92B72CBC9F39002C1B90 /* SwiftUIViewController.mm */; };
 		4F27FA872CB11A2F00058509 /* WatchConnectivityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F27FA862CB11A2F00058509 /* WatchConnectivityViewController.mm */; };
 		4F2E2D4E2CB2E09500316C9E /* ExtensionDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F2E2D4D2CB2E09500316C9E /* ExtensionDelegate.mm */; };
+		4F45C7CD2D0C4B220019D5C3 /* WCSession+Category.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F45C7CC2D0C4B220019D5C3 /* WCSession+Category.mm */; };
 		4F47EA502C5E267700B6D032 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47EA4F2C5E267700B6D032 /* MapKit.framework */; };
 		4F90E7442C62713F00F3E691 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F90E7432C62713F00F3E691 /* PhotosUI.framework */; };
 		4F94F8812CB10CC3002F31E2 /* 0.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 4F94F84B2CB10CC3002F31E2 /* 0.mp4 */; };
@@ -111,6 +112,8 @@
 		4F27FA862CB11A2F00058509 /* WatchConnectivityViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WatchConnectivityViewController.mm; sourceTree = "<group>"; };
 		4F2E2D4C2CB2E09500316C9E /* ExtensionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtensionDelegate.h; sourceTree = "<group>"; };
 		4F2E2D4D2CB2E09500316C9E /* ExtensionDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ExtensionDelegate.mm; sourceTree = "<group>"; };
+		4F45C7CB2D0C4B220019D5C3 /* WCSession+Category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WCSession+Category.h"; sourceTree = "<group>"; };
+		4F45C7CC2D0C4B220019D5C3 /* WCSession+Category.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "WCSession+Category.mm"; sourceTree = "<group>"; };
 		4F4604522C5F7F9A00C12A68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4F47EA4F2C5E267700B6D032 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F8A34CA2C5A861400E3CFC4 /* MiscellaneousPepperUICore Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MiscellaneousPepperUICore Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -279,9 +282,19 @@
 			path = WatchConnectivity;
 			sourceTree = "<group>";
 		};
+		4F45C7CA2D0C4B150019D5C3 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				4F45C7CB2D0C4B220019D5C3 /* WCSession+Category.h */,
+				4F45C7CC2D0C4B220019D5C3 /* WCSession+Category.mm */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		4F8A34C12C5A861400E3CFC4 = {
 			isa = PBXGroup;
 			children = (
+				4F45C7CA2D0C4B150019D5C3 /* Common */,
 				4F94F8B32CB10D2D002F31E2 /* MiscellaneousPepperUICore */,
 				4F94F8802CB10CC3002F31E2 /* MiscellaneousPepperUICore Watch App */,
 				4F8A34CB2C5A861400E3CFC4 /* Products */,
@@ -838,6 +851,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F45C7CD2D0C4B220019D5C3 /* WCSession+Category.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
