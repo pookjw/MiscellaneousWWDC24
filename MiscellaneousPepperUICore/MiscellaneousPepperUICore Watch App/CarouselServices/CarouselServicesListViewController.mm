@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <objc/message.h>
 #import <objc/runtime.h>
+#import "ButtonListenerViewController.h"
 
 #warning CarouselUIServices
 
@@ -16,10 +17,38 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 @implementation CarouselServicesListViewController
 
-+ (NSArray *)_allActions {
+- (NSArray *)_allActions __attribute__((objc_direct)) {
+    __weak auto weakSelf = self;
+    
     return @[
-        reinterpret_cast<id (*)(Class, SEL, id, id, id, id)>(objc_msgSend)(objc_lookUpClass("UIAction"), sel_registerName("actionWithTitle:image:identifier:handler:"), @"TEST", nil, nil, ^(id action) {
-            NSLog(@"TEST");
+        reinterpret_cast<id (*)(Class, SEL, id, id, id, id)>(objc_msgSend)(objc_lookUpClass("UIAction"), sel_registerName("actionWithTitle:image:identifier:handler:"), @"ButtonListenerViewController", nil, nil, ^(id action) {
+            id viewController = [ButtonListenerViewController new];
+            id navigationController = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(weakSelf, sel_registerName("navigationController"));
+            reinterpret_cast<void (*)(id, SEL, id, BOOL)>(objc_msgSend)(navigationController, sel_registerName("pushViewController:animated:"), viewController, YES);
+            [viewController release];
+        }),
+        
+        reinterpret_cast<id (*)(Class, SEL, id, id, id, id)>(objc_msgSend)(objc_lookUpClass("UIAction"), sel_registerName("actionWithTitle:image:identifier:handler:"), @"-[CSLSWaterLock lock]", nil, nil, ^(id action) {
+            id waterLock = [objc_lookUpClass("CSLSWaterLock") new];
+            reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(waterLock, sel_registerName("setDelegate:"), weakSelf);
+            
+            BOOL isLocked = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(waterLock, sel_registerName("isLocked"));
+            
+            if (isLocked) {
+                // Not Working
+                reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(waterLock, sel_registerName("unlock"));
+            } else {
+                reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(waterLock, sel_registerName("lock"));
+            }
+            
+            [waterLock release];
+        }),
+        
+        reinterpret_cast<id (*)(Class, SEL, id, id, id, id)>(objc_msgSend)(objc_lookUpClass("UIAction"), sel_registerName("actionWithTitle:image:identifier:handler:"), @"-[CSLSScreenshotter takeScreenshotWithOptions:completion:]", nil, nil, ^(id action) {
+            id screenshotter = [objc_lookUpClass("CSLSScreenshotter") new];
+            reinterpret_cast<void (*)(id, SEL, id, id)>(objc_msgSend)(screenshotter, sel_registerName("takeScreenshotWithOptions:completion:"), nil, ^(NSError * _Nullable error) {
+                [screenshotter release];
+            });
         })
     ];
 }
@@ -57,6 +86,9 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         IMP collectionView_didSelectItemAtIndexPath = class_getMethodImplementation(self, @selector(collectionView:didSelectItemAtIndexPath:));
         assert(class_addMethod(_isa, @selector(collectionView:didSelectItemAtIndexPath:), collectionView_didSelectItemAtIndexPath, NULL));
         
+        IMP waterLockDidChange = class_getMethodImplementation(self, @selector(waterLockDidChange:));
+        assert(class_addMethod(_isa, @selector(waterLockDidChange:), waterLockDidChange, NULL));
+        
         assert(class_addIvar(_isa, "_cellRegistration", sizeof(id), sizeof(id), @encode(id)));
         
         objc_registerClassPair(_isa);
@@ -84,7 +116,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     reinterpret_cast<void (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
     
     id cellRegistration = reinterpret_cast<id (*)(Class, SEL, Class, id)>(objc_msgSend)(objc_lookUpClass("UICollectionViewCellRegistration"), sel_registerName("registrationWithCellClass:configurationHandler:"), objc_lookUpClass("PUICListPlatterCell"), ^(id cell, NSIndexPath *indexPath, id itemIdentifier) {
-        id contentConfiguration = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("UIListContentConfiguration"), sel_registerName("_defaultInsetGroupedCellConfiguration"));;
+        id contentConfiguration = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("UIListContentConfiguration"), sel_registerName("_defaultInsetGroupedCellConfiguration"));
         
         NSString *title = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(itemIdentifier, sel_registerName("title"));
         
@@ -93,7 +125,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
         reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(cell, sel_registerName("setContentConfiguration:"), contentConfiguration);
     });
     
-    object_setInstanceVariable(self, "_cellRegistration", [cellRegistration retain]);
+    assert(object_setInstanceVariable(self, "_cellRegistration", [cellRegistration retain]));
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(id)collectionView {
@@ -101,7 +133,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 }
 
 - (NSInteger)collectionView:(id)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [CarouselServicesListViewController _allActions].count;
+    return [self _allActions].count;
 }
 
 - (id)collectionView:(id)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -110,16 +142,20 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     
     NSInteger item = reinterpret_cast<NSInteger (*)(id, SEL)>(objc_msgSend)(indexPath, sel_registerName("item"));
     
-    id cell = reinterpret_cast<id (*)(id, SEL, id, id, id)>(objc_msgSend)(collectionView, sel_registerName("dequeueConfiguredReusableCellWithRegistration:forIndexPath:item:"), _cellRegistration, indexPath, [CarouselServicesListViewController _allActions][item]);
+    id cell = reinterpret_cast<id (*)(id, SEL, id, id, id)>(objc_msgSend)(collectionView, sel_registerName("dequeueConfiguredReusableCellWithRegistration:forIndexPath:item:"), _cellRegistration, indexPath, [self _allActions][item]);
     
     return cell;
 }
 
 - (void)collectionView:(id)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger item = reinterpret_cast<NSInteger (*)(id, SEL)>(objc_msgSend)(indexPath, sel_registerName("item"));
-    id action = [CarouselServicesListViewController _allActions][item];
+    id action = [self _allActions][item];
     
     reinterpret_cast<void (*)(id, SEL, id, id)>(objc_msgSend)(action, sel_registerName("performWithSender:target:"), nil, nil);
+}
+
+- (void)waterLockDidChange:(id)waterLock {
+    
 }
 
 @end
