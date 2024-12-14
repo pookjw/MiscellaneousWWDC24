@@ -143,6 +143,8 @@
 		4FAB0D282D0CA2B50011A815 /* CarouselServicesListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0D262D0CA2B50011A815 /* CarouselServicesListViewController.mm */; };
 		4FAB0D2B2D0D58A20011A815 /* ButtonListenerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0D2A2D0D58A20011A815 /* ButtonListenerViewController.mm */; };
 		4FAB0D2C2D0D58A20011A815 /* ButtonListenerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0D2A2D0D58A20011A815 /* ButtonListenerViewController.mm */; };
+		4FAB0D322D0D76910011A815 /* ProcessCPUStatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0D312D0D76910011A815 /* ProcessCPUStatisticsView.swift */; };
+		4FAB0D332D0D76910011A815 /* ProcessCPUStatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0D312D0D76910011A815 /* ProcessCPUStatisticsView.swift */; };
 		4FE056922C60C1BD00330E3A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE056912C60C1BD00330E3A /* CoreMedia.framework */; };
 /* End PBXBuildFile section */
 
@@ -293,6 +295,7 @@
 		4FAB0D262D0CA2B50011A815 /* CarouselServicesListViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CarouselServicesListViewController.mm; sourceTree = "<group>"; };
 		4FAB0D292D0D58A20011A815 /* ButtonListenerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ButtonListenerViewController.h; sourceTree = "<group>"; };
 		4FAB0D2A2D0D58A20011A815 /* ButtonListenerViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ButtonListenerViewController.mm; sourceTree = "<group>"; };
+		4FAB0D312D0D76910011A815 /* ProcessCPUStatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessCPUStatisticsView.swift; sourceTree = "<group>"; };
 		4FE056912C60C1BD00330E3A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
@@ -800,6 +803,7 @@
 				4FAB0D262D0CA2B50011A815 /* CarouselServicesListViewController.mm */,
 				4FAB0D292D0D58A20011A815 /* ButtonListenerViewController.h */,
 				4FAB0D2A2D0D58A20011A815 /* ButtonListenerViewController.mm */,
+				4FAB0D312D0D76910011A815 /* ProcessCPUStatisticsView.swift */,
 			);
 			path = CarouselServices;
 			sourceTree = "<group>";
@@ -967,6 +971,7 @@
 				4F94F8972CB10CC3002F31E2 /* ContentUnavailableViewController.mm in Sources */,
 				4F94F8982CB10CC3002F31E2 /* MyAVSlider.mm in Sources */,
 				4F94F8992CB10CC3002F31E2 /* StatusBarTimeStyleViewController.mm in Sources */,
+				4FAB0D322D0D76910011A815 /* ProcessCPUStatisticsView.swift in Sources */,
 				4F27FA872CB11A2F00058509 /* WatchConnectivityViewController.mm in Sources */,
 				4F94F89A2CB10CC3002F31E2 /* SheetPresenterViewController.mm in Sources */,
 				4FAB0D282D0CA2B50011A815 /* CarouselServicesListViewController.mm in Sources */,
@@ -1033,6 +1038,7 @@
 				4FAB0CF32D0C9FB10011A815 /* ContentUnavailableViewController.mm in Sources */,
 				4FAB0CF42D0C9FB10011A815 /* MyAVSlider.mm in Sources */,
 				4FAB0CF52D0C9FB10011A815 /* StatusBarTimeStyleViewController.mm in Sources */,
+				4FAB0D332D0D76910011A815 /* ProcessCPUStatisticsView.swift in Sources */,
 				4FAB0CF62D0C9FB10011A815 /* WatchConnectivityViewController.mm in Sources */,
 				4FAB0CF72D0C9FB10011A815 /* SheetPresenterViewController.mm in Sources */,
 				4FAB0D272D0CA2B50011A815 /* CarouselServicesListViewController.mm in Sources */,

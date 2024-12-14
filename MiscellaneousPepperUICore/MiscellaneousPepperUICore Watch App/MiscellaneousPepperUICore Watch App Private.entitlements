@@ -4,6 +4,8 @@
 <dict>
 	<key>com.apple.carousel.button-listener</key>
 	<true/>
+	<key>com.apple.carousel.carouselecomoded</key>
+	<true/>
 	<key>com.apple.carousel.waterlock.noaffordance</key>
 	<true/>
 	<key>om.apple.carousel.waterlock.unlock</key>
@@ -14,6 +16,8 @@
 	<true/>
 	<key>om.apple.security.exception.mach-lookup.global-name</key>
 	<array>
+		<string>com.apple.carousel.carouselecomoded</string>
+		<string>com.apple.carousel.ecomodeshutdownxpc</string>
 		<string>com.apple.carousel.screenshot</string>
 	</array>
 	<key>com.apple.private.ids.messaging</key>
@@ -21,6 +25,8 @@
 		<string>com.apple.private.alloy.screenshotter</string>
 	</array>
 	<key>com.apple.carousel.screenshot</key>
+	<true/>
+	<key>com.apple.systemapp.allowsShutdown</key>
 	<true/>
 </dict>
 </plist>

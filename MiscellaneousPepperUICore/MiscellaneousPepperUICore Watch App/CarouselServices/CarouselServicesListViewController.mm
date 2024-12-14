@@ -11,6 +11,12 @@
 #import <objc/runtime.h>
 #import "ButtonListenerViewController.h"
 
+#if PRIVATE
+#import "MiscellaneousPepperUICore_Watch_App_Private-Swift.h"
+#else
+#import "MiscellaneousPepperUICore_Watch_App-Swift.h"
+#endif
+
 #warning CarouselUIServices
 
 OBJC_EXPORT id objc_msgSendSuper2(void);
@@ -21,6 +27,26 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
     __weak auto weakSelf = self;
     
     return @[
+        reinterpret_cast<id (*)(Class, SEL, id, id, id, id)>(objc_msgSend)(objc_lookUpClass("UIAction"), sel_registerName("actionWithTitle:image:identifier:handler:"), @"ProcessCPUStatisticsView", nil, nil, ^(id action) {
+            id viewController;
+#if PRIVATE
+            viewController =MiscellaneousPepperUICore_Watch_App_Private::makeProcessCPUStatisticsHostingController();
+#else
+            viewController = MiscellaneousPepperUICore_Watch_App::makeProcessCPUStatisticsHostingController();
+#endif
+            id navigationController = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(weakSelf, sel_registerName("navigationController"));
+            reinterpret_cast<void (*)(id, SEL, id, BOOL)>(objc_msgSend)(navigationController, sel_registerName("pushViewController:animated:"), viewController, YES);
+            [viewController release];
+        }),
+        
+        reinterpret_cast<id (*)(Class, SEL, id, id, id, id)>(objc_msgSend)(objc_lookUpClass("UIAction"), sel_registerName("actionWithTitle:image:identifier:handler:"), @"-[CSLSDeviceOrientation setInverted:animated:]", nil, nil, ^(id action) {
+            id orientation = [objc_lookUpClass("CSLSDeviceOrientation") new];
+            reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(orientation, sel_registerName("_updateInvertedValue"));
+            BOOL isInverted = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(orientation, sel_registerName("isInverted"));
+            reinterpret_cast<void (*)(id, SEL, BOOL, BOOL)>(objc_msgSend)(orientation, sel_registerName("setInverted:animated:"), !isInverted, YES);
+            [orientation release];
+        }),
+        
         reinterpret_cast<id (*)(Class, SEL, id, id, id, id)>(objc_msgSend)(objc_lookUpClass("UIAction"), sel_registerName("actionWithTitle:image:identifier:handler:"), @"ButtonListenerViewController", nil, nil, ^(id action) {
             id viewController = [ButtonListenerViewController new];
             id navigationController = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(weakSelf, sel_registerName("navigationController"));
@@ -42,13 +68,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
             }
             
             [waterLock release];
-        }),
-        
-        reinterpret_cast<id (*)(Class, SEL, id, id, id, id)>(objc_msgSend)(objc_lookUpClass("UIAction"), sel_registerName("actionWithTitle:image:identifier:handler:"), @"-[CSLSScreenshotter takeScreenshotWithOptions:completion:]", nil, nil, ^(id action) {
-            id screenshotter = [objc_lookUpClass("CSLSScreenshotter") new];
-            reinterpret_cast<void (*)(id, SEL, id, id)>(objc_msgSend)(screenshotter, sel_registerName("takeScreenshotWithOptions:completion:"), nil, ^(NSError * _Nullable error) {
-                [screenshotter release];
-            });
         })
     ];
 }
