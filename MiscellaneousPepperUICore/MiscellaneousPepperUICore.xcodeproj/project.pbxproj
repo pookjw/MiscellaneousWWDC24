@@ -19,6 +19,24 @@
 		4F45C7CE2D0C4BCE0019D5C3 /* WCSession+Category.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F45C7CC2D0C4B220019D5C3 /* WCSession+Category.mm */; };
 		4F45C9FE2D0C532A0019D5C3 /* WatchConnectivityFileTransferView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F45C9FD2D0C532A0019D5C3 /* WatchConnectivityFileTransferView.mm */; };
 		4F47EA502C5E267700B6D032 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47EA4F2C5E267700B6D032 /* MapKit.framework */; };
+		4F8AC2F82D13F5530088B296 /* Cat or Dog V2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4F8AC2F12D13F5530088B296 /* Cat or Dog V2.mlmodel */; };
+		4F8AC2F92D13F5530088B296 /* cat2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4F8AC2F32D13F5530088B296 /* cat2.jpg */; };
+		4F8AC2FA2D13F5530088B296 /* dog1.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4F8AC2F52D13F5530088B296 /* dog1.heic */; };
+		4F8AC2FB2D13F5530088B296 /* cat3.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4F8AC2F42D13F5530088B296 /* cat3.heic */; };
+		4F8AC2FC2D13F5530088B296 /* cat1.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4F8AC2F22D13F5530088B296 /* cat1.heic */; };
+		4F8AC2FD2D13F5530088B296 /* dog2.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 4F8AC2F62D13F5530088B296 /* dog2.jpeg */; };
+		4F8AC2FE2D13F5530088B296 /* dog3.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4F8AC2F72D13F5530088B296 /* dog3.heic */; };
+		4F8AC2FF2D13F5530088B296 /* Cat or Dog V2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4F8AC2F12D13F5530088B296 /* Cat or Dog V2.mlmodel */; };
+		4F8AC3002D13F5530088B296 /* cat2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4F8AC2F32D13F5530088B296 /* cat2.jpg */; };
+		4F8AC3012D13F5530088B296 /* dog1.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4F8AC2F52D13F5530088B296 /* dog1.heic */; };
+		4F8AC3022D13F5530088B296 /* cat3.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4F8AC2F42D13F5530088B296 /* cat3.heic */; };
+		4F8AC3032D13F5530088B296 /* cat1.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4F8AC2F22D13F5530088B296 /* cat1.heic */; };
+		4F8AC3042D13F5530088B296 /* dog2.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 4F8AC2F62D13F5530088B296 /* dog2.jpeg */; };
+		4F8AC3052D13F5530088B296 /* dog3.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4F8AC2F72D13F5530088B296 /* dog3.heic */; };
+		4F8AC3082D13F56F0088B296 /* CoreMLImageClassificationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8AC3072D13F56F0088B296 /* CoreMLImageClassificationViewController.mm */; };
+		4F8AC3092D13F56F0088B296 /* CoreMLImageClassificationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8AC3072D13F56F0088B296 /* CoreMLImageClassificationViewController.mm */; };
+		4F8AC30B2D13F9640088B296 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F8AC30A2D13F9640088B296 /* CoreML.framework */; };
+		4F8AC30C2D13F9680088B296 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F8AC30A2D13F9640088B296 /* CoreML.framework */; };
 		4F90E7442C62713F00F3E691 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F90E7432C62713F00F3E691 /* PhotosUI.framework */; };
 		4F94F8812CB10CC3002F31E2 /* 0.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 4F94F84B2CB10CC3002F31E2 /* 0.mp4 */; };
 		4F94F8822CB10CC3002F31E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F94F8782CB10CC3002F31E2 /* Assets.xcassets */; };
@@ -191,6 +209,16 @@
 		4F4604522C5F7F9A00C12A68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4F47EA4F2C5E267700B6D032 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F8A34CA2C5A861400E3CFC4 /* MiscellaneousPepperUICore Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MiscellaneousPepperUICore Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F8AC2F12D13F5530088B296 /* Cat or Dog V2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = "Cat or Dog V2.mlmodel"; sourceTree = "<group>"; };
+		4F8AC2F22D13F5530088B296 /* cat1.heic */ = {isa = PBXFileReference; lastKnownFileType = file; path = cat1.heic; sourceTree = "<group>"; };
+		4F8AC2F32D13F5530088B296 /* cat2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cat2.jpg; sourceTree = "<group>"; };
+		4F8AC2F42D13F5530088B296 /* cat3.heic */ = {isa = PBXFileReference; lastKnownFileType = file; path = cat3.heic; sourceTree = "<group>"; };
+		4F8AC2F52D13F5530088B296 /* dog1.heic */ = {isa = PBXFileReference; lastKnownFileType = file; path = dog1.heic; sourceTree = "<group>"; };
+		4F8AC2F62D13F5530088B296 /* dog2.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dog2.jpeg; sourceTree = "<group>"; };
+		4F8AC2F72D13F5530088B296 /* dog3.heic */ = {isa = PBXFileReference; lastKnownFileType = file; path = dog3.heic; sourceTree = "<group>"; };
+		4F8AC3062D13F56F0088B296 /* CoreMLImageClassificationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreMLImageClassificationViewController.h; sourceTree = "<group>"; };
+		4F8AC3072D13F56F0088B296 /* CoreMLImageClassificationViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CoreMLImageClassificationViewController.mm; sourceTree = "<group>"; };
+		4F8AC30A2D13F9640088B296 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.2.sdk/System/Library/Frameworks/CoreML.framework; sourceTree = DEVELOPER_DIR; };
 		4F90E7432C62713F00F3E691 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/PhotosUI.framework; sourceTree = DEVELOPER_DIR; };
 		4F94F8092CB10CC3002F31E2 /* ActivityIndicatorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityIndicatorViewController.h; sourceTree = "<group>"; };
 		4F94F80A2CB10CC3002F31E2 /* ActivityIndicatorViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ActivityIndicatorViewController.mm; sourceTree = "<group>"; };
@@ -329,6 +357,7 @@
 				4FA997BD2C5E3369000E5AFB /* Symbols.framework in Frameworks */,
 				4F172B222C5A90CA009A1DBC /* CoreGraphics.framework in Frameworks */,
 				4F172B262C5A90D5009A1DBC /* AVFoundation.framework in Frameworks */,
+				4F8AC30B2D13F9640088B296 /* CoreML.framework in Frameworks */,
 				4F9879BC2C5A8A2A00E4D2F3 /* WatchKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -357,6 +386,7 @@
 				4FAB0D162D0C9FB10011A815 /* Symbols.framework in Frameworks */,
 				4FAB0D172D0C9FB10011A815 /* CoreGraphics.framework in Frameworks */,
 				4FAB0D182D0C9FB10011A815 /* AVFoundation.framework in Frameworks */,
+				4F8AC30C2D13F9680088B296 /* CoreML.framework in Frameworks */,
 				4FAB0D192D0C9FB10011A815 /* WatchKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -414,6 +444,22 @@
 				4FAB0D212D0C9FB10011A815 /* MiscellaneousPepperUICore Watch App Private.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		4F8AC2F02D13ED370088B296 /* CoreML */ = {
+			isa = PBXGroup;
+			children = (
+				4F8AC2F12D13F5530088B296 /* Cat or Dog V2.mlmodel */,
+				4F8AC2F22D13F5530088B296 /* cat1.heic */,
+				4F8AC2F32D13F5530088B296 /* cat2.jpg */,
+				4F8AC2F42D13F5530088B296 /* cat3.heic */,
+				4F8AC2F52D13F5530088B296 /* dog1.heic */,
+				4F8AC2F62D13F5530088B296 /* dog2.jpeg */,
+				4F8AC2F72D13F5530088B296 /* dog3.heic */,
+				4F8AC3062D13F56F0088B296 /* CoreMLImageClassificationViewController.h */,
+				4F8AC3072D13F56F0088B296 /* CoreMLImageClassificationViewController.mm */,
+			);
+			path = CoreML;
 			sourceTree = "<group>";
 		};
 		4F94F80B2CB10CC3002F31E2 /* ActivityIndicator */ = {
@@ -756,6 +802,7 @@
 				4F27FA842CB11A1100058509 /* WatchConnectivity */,
 				4F94F8762CB10CC3002F31E2 /* AppDelegate.h */,
 				4FAB0D242D0CA25C0011A815 /* CarouselServices */,
+				4F8AC2F02D13ED370088B296 /* CoreML */,
 				4F1F92B32CBC9D91002C1B90 /* MiscellaneousPepperUICore Watch App-Bridging-Header.h */,
 				4F94F8772CB10CC3002F31E2 /* AppDelegate.mm */,
 				4F2E2D4C2CB2E09500316C9E /* ExtensionDelegate.h */,
@@ -778,6 +825,7 @@
 		4F9879B82C5A8A2600E4D2F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4F8AC30A2D13F9640088B296 /* CoreML.framework */,
 				4F9607402D0ACE2500202002 /* UniformTypeIdentifiers.framework */,
 				4F94F8F22CB111A8002F31E2 /* WatchConnectivity.framework */,
 				4F94F8F42CB111AE002F31E2 /* WatchConnectivity.framework */,
@@ -915,6 +963,12 @@
 			files = (
 				4F94F8812CB10CC3002F31E2 /* 0.mp4 in Resources */,
 				4F96073E2D0AC3E100202002 /* demo.heic in Resources */,
+				4F8AC2F92D13F5530088B296 /* cat2.jpg in Resources */,
+				4F8AC2FA2D13F5530088B296 /* dog1.heic in Resources */,
+				4F8AC2FB2D13F5530088B296 /* cat3.heic in Resources */,
+				4F8AC2FC2D13F5530088B296 /* cat1.heic in Resources */,
+				4F8AC2FD2D13F5530088B296 /* dog2.jpeg in Resources */,
+				4F8AC2FE2D13F5530088B296 /* dog3.heic in Resources */,
 				4F94F8822CB10CC3002F31E2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -933,6 +987,12 @@
 			files = (
 				4FAB0D1B2D0C9FB10011A815 /* 0.mp4 in Resources */,
 				4FAB0D1C2D0C9FB10011A815 /* demo.heic in Resources */,
+				4F8AC3002D13F5530088B296 /* cat2.jpg in Resources */,
+				4F8AC3012D13F5530088B296 /* dog1.heic in Resources */,
+				4F8AC3022D13F5530088B296 /* cat3.heic in Resources */,
+				4F8AC3032D13F5530088B296 /* cat1.heic in Resources */,
+				4F8AC3042D13F5530088B296 /* dog2.jpeg in Resources */,
+				4F8AC3052D13F5530088B296 /* dog3.heic in Resources */,
 				4FAB0D1D2D0C9FB10011A815 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -960,6 +1020,7 @@
 				4F94F88D2CB10CC3002F31E2 /* AppDelegate.mm in Sources */,
 				4F94F88E2CB10CC3002F31E2 /* NSObject+KeyValueObservation.m in Sources */,
 				4F94F88F2CB10CC3002F31E2 /* DigitalCrownViewController.mm in Sources */,
+				4F8AC3082D13F56F0088B296 /* CoreMLImageClassificationViewController.mm in Sources */,
 				4F94F8902CB10CC3002F31E2 /* Renderer.mm in Sources */,
 				4F94F8912CB10CC3002F31E2 /* MenuViewController.mm in Sources */,
 				4F94F8922CB10CC3002F31E2 /* SafariViewPresenterViewController.mm in Sources */,
@@ -994,6 +1055,7 @@
 				4F94F8A92CB10CC3002F31E2 /* NetworkActivityIndicatorVisibleViewController.mm in Sources */,
 				4F94F8AA2CB10CC3002F31E2 /* PageViewController.mm in Sources */,
 				4F94F8AB2CB10CC3002F31E2 /* NSObject+Foundation_IvarDescription.mm in Sources */,
+				4F8AC2F82D13F5530088B296 /* Cat or Dog V2.mlmodel in Sources */,
 				4F94F8AC2CB10CC3002F31E2 /* SwitchViewController.mm in Sources */,
 				4F94F8AD2CB10CC3002F31E2 /* DisablesSleepGestureViewController.mm in Sources */,
 			);
@@ -1027,6 +1089,7 @@
 				4FAB0CE82D0C9FB10011A815 /* AppDelegate.mm in Sources */,
 				4FAB0CE92D0C9FB10011A815 /* NSObject+KeyValueObservation.m in Sources */,
 				4FAB0CEA2D0C9FB10011A815 /* DigitalCrownViewController.mm in Sources */,
+				4F8AC3092D13F56F0088B296 /* CoreMLImageClassificationViewController.mm in Sources */,
 				4FAB0CEB2D0C9FB10011A815 /* Renderer.mm in Sources */,
 				4FAB0CEC2D0C9FB10011A815 /* MenuViewController.mm in Sources */,
 				4FAB0CED2D0C9FB10011A815 /* SafariViewPresenterViewController.mm in Sources */,
@@ -1061,6 +1124,7 @@
 				4FAB0D082D0C9FB10011A815 /* NetworkActivityIndicatorVisibleViewController.mm in Sources */,
 				4FAB0D092D0C9FB10011A815 /* PageViewController.mm in Sources */,
 				4FAB0D0A2D0C9FB10011A815 /* NSObject+Foundation_IvarDescription.mm in Sources */,
+				4F8AC2FF2D13F5530088B296 /* Cat or Dog V2.mlmodel in Sources */,
 				4FAB0D0B2D0C9FB10011A815 /* SwitchViewController.mm in Sources */,
 				4FAB0D0C2D0C9FB10011A815 /* DisablesSleepGestureViewController.mm in Sources */,
 			);

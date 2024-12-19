@@ -42,6 +42,7 @@
 #import "WatchConnectivityViewController.h"
 #import "SwiftUIViewController.h"
 #import "CarouselServicesListViewController.h"
+#import "CoreMLImageClassificationViewController.h"
 
 /*
  PUICSideBySideButtonsView
@@ -54,6 +55,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 
 + (NSArray<Class> *)classes {
     return @[
+        CoreMLImageClassificationViewController.class,
         CarouselServicesListViewController.class,
         SwiftUIViewController.class,
         WatchConnectivityViewController.class,
