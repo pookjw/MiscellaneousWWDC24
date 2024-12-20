@@ -93,7 +93,7 @@ NSString * NSStringFromWKXRSessionMode(_WKXRSessionMode mode) {
 NSString * NSStringFromWKXRSessionEndReason(_WKXRSessionEndReason reason) {
     switch (reason) {
         case _WKXRSessionEndReasonNoError:
-            return @"Error";
+            return @"No Error";
         case _WKXRSessionEndReasonNoFrameUpdateScheduled:
             return @"No Frame Update Scheduled";
         case _WKXRSessionEndReasonUnknownError:
