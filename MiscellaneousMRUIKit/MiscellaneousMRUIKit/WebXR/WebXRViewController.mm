@@ -10,6 +10,7 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import <CompositorServices/CompositorServices.h>
+#import <TargetConditionals.h>
 
 CP_EXTERN const UISceneSessionRole CPSceneSessionRoleImmersiveSpaceApplication;
 CP_EXTERN void cp_layer_renderer_configuration_set_enable_post_processing(cp_layer_renderer_configuration_t, bool);
@@ -296,7 +297,11 @@ NSString * NSStringFromWKXRSessionEndReason(_WKXRSessionEndReason reason) {
 - (cp_layer_renderer_configuration_t)layerConfigurationWithDefaultConfiguration:(cp_layer_renderer_configuration_t)defaultConfiguration layerCapabilites:(cp_layer_renderer_capabilities_t)layerCapabilites {
     cp_layer_renderer_configuration_t copy = [defaultConfiguration copy];
     
+#if TARGET_OS_SIMULATOR
     cp_layer_renderer_configuration_set_color_format(copy, MTLPixelFormatBGRA8Unorm_sRGB);
+#else
+    cp_layer_renderer_configuration_set_color_format(copy, MTLPixelFormatDepth32Float_Stencil8);
+#endif
     cp_layer_renderer_configuration_set_enable_post_processing(copy, false);
     cp_layer_renderer_configuration_set_contents_inverted_vertically(copy, true);
     cp_layer_renderer_configuration_set_use_shared_events(copy, true);
