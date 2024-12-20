@@ -127,6 +127,7 @@ NSString * NSStringFromWKXRSessionEndReason(_WKXRSessionEndReason reason) {
 - (void)viewIsAppearing:(BOOL)animated {
     [super viewIsAppearing:animated];
     
+#warning -_webView:requestPermissionForXRSessionOrigin:mode:grantedFeatures:consentRequiredFeatures:consentOptionalFeatures:completionHandler:로 옮겨야 하는지 검토
     ar_session_t session = ar_session_create();
     
     ar_session_request_authorization(session, ar_world_tracking_provider_get_required_authorization_type(), ^(ar_authorization_results_t  _Nonnull authorization_results, ar_error_t  _Nullable error) {
