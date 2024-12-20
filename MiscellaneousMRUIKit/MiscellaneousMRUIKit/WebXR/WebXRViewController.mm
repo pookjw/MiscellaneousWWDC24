@@ -210,7 +210,7 @@ NSString * NSStringFromWKXRSessionEndReason(_WKXRSessionEndReason reason) {
     [alertController addAction:allowAction];
     
     UIAlertAction *dontAllowAction = [UIAlertAction actionWithTitle:@"Don't Allow" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        completionHandler(0);
+        completionHandler(_WKXRSessionFeatureFlagsNone);
     }];
     
     [alertController addAction:dontAllowAction];
