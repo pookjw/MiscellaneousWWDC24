@@ -202,6 +202,7 @@ NSString * NSStringFromWKXRSessionEndReason(_WKXRSessionEndReason reason) {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"XR" message:message preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *allowAction = [UIAlertAction actionWithTitle:@"Allow" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        // 값이 잘못 전달되면 _WKXRSessionEndReasonUnknownError이 나올 것
         completionHandler(requiredFeaturesRequested | optionalFeaturesRequested);
     }];
     
