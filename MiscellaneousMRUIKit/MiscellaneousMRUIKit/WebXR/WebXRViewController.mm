@@ -260,7 +260,7 @@ NSString * NSStringFromWKXRSessionEndReason(_WKXRSessionEndReason reason) {
                                                                   NSSelectorFromString(@"mrui_requestSceneWithUserActivity:requestOptions:completionHandler:"),
                                                                   nil,
                                                                   options,
-                                                                  ^(NSError * _Nullable error ){
+                                                                  ^(NSError * _Nullable error) {
         for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
             if (![scene.session.role isEqualToString:CPSceneSessionRoleImmersiveSpaceApplication]) continue;
             
