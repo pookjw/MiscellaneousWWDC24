@@ -63,8 +63,6 @@
 		4FE624A92D1588B2008D14D8 /* WebXRViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FE624A72D1588B2008D14D8 /* WebXRViewController.mm */; };
 		4FE626F22D15B8CF008D14D8 /* CompositorServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE626F12D15B8CF008D14D8 /* CompositorServices.framework */; platformFilters = (xros, ); };
 		4FE626F32D15B8D6008D14D8 /* CompositorServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE626F12D15B8CF008D14D8 /* CompositorServices.framework */; platformFilters = (xros, ); };
-		4FE626F62D15BA0F008D14D8 /* WebXRSceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FE626F52D15BA0F008D14D8 /* WebXRSceneDelegate.mm */; };
-		4FE626F72D15BA0F008D14D8 /* WebXRSceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FE626F52D15BA0F008D14D8 /* WebXRSceneDelegate.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -124,8 +122,6 @@
 		4FE624A62D1588B2008D14D8 /* WebXRViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebXRViewController.h; sourceTree = "<group>"; };
 		4FE624A72D1588B2008D14D8 /* WebXRViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WebXRViewController.mm; sourceTree = "<group>"; };
 		4FE626F12D15B8CF008D14D8 /* CompositorServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CompositorServices.framework; path = Platforms/XROS.platform/Developer/SDKs/XROS2.2.sdk/System/Library/Frameworks/CompositorServices.framework; sourceTree = DEVELOPER_DIR; };
-		4FE626F42D15BA0F008D14D8 /* WebXRSceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebXRSceneDelegate.h; sourceTree = "<group>"; };
-		4FE626F52D15BA0F008D14D8 /* WebXRSceneDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WebXRSceneDelegate.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -330,8 +326,6 @@
 			children = (
 				4FE624A62D1588B2008D14D8 /* WebXRViewController.h */,
 				4FE624A72D1588B2008D14D8 /* WebXRViewController.mm */,
-				4FE626F42D15BA0F008D14D8 /* WebXRSceneDelegate.h */,
-				4FE626F52D15BA0F008D14D8 /* WebXRSceneDelegate.mm */,
 			);
 			path = WebXR;
 			sourceTree = "<group>";
@@ -433,7 +427,6 @@
 				4F1C71222C2F2442002E096A /* AppDelegate.m in Sources */,
 				4F26D3482C3008170097B837 /* DefaultWorldScalingViewController.mm in Sources */,
 				4F1C713C2C31CB3C002E096A /* ViewpointAzimuthViewController.mm in Sources */,
-				4FE626F72D15BA0F008D14D8 /* WebXRSceneDelegate.mm in Sources */,
 				4FD3D3822C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm in Sources */,
 				4F26D3992C305B9F0097B837 /* HomeIndicatorViewController.mm in Sources */,
 				4F26D33A2C2FF9040097B837 /* LaunchPlacementParametersWindowScene.mm in Sources */,
@@ -465,7 +458,6 @@
 				4FE624822D15877A008D14D8 /* AppDelegate.m in Sources */,
 				4FE624832D15877A008D14D8 /* DefaultWorldScalingViewController.mm in Sources */,
 				4FE624842D15877A008D14D8 /* ViewpointAzimuthViewController.mm in Sources */,
-				4FE626F62D15BA0F008D14D8 /* WebXRSceneDelegate.mm in Sources */,
 				4FE624852D15877A008D14D8 /* ToggleImmersiveStylesViewController.mm in Sources */,
 				4FE624862D15877A008D14D8 /* HomeIndicatorViewController.mm in Sources */,
 				4FE624872D15877A008D14D8 /* LaunchPlacementParametersWindowScene.mm in Sources */,

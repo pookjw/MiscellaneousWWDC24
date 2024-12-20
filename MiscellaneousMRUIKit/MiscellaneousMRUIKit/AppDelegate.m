@@ -17,7 +17,6 @@
 #import "ToggleImmersiveStylesSceneDelegate.h"
 #import <CompositorServices/CompositorServices.h>
 #import <objc/runtime.h>
-#import "WebXRSceneDelegate.h"
 
 CP_EXTERN const UISceneSessionRole CPSceneSessionRoleImmersiveSpaceApplication;
 
@@ -38,7 +37,6 @@ CP_EXTERN const UISceneSessionRole CPSceneSessionRoleImmersiveSpaceApplication;
     
     if ([configuration.role isEqualToString:CPSceneSessionRoleImmersiveSpaceApplication]) {
         configuration.sceneClass = objc_lookUpClass("CPImmersiveScene");
-        configuration.delegateClass = WebXRSceneDelegate.class;
     } else if ([activityType isEqualToString:@"LaunchPlacementParameters"]) {
         configuration.delegateClass = LaunchPlacementParametersWindowScene.class;
     } else if ([activityType isEqualToString:@"VolumetricWorldAlignmentBehavior"]) {
