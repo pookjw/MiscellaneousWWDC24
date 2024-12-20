@@ -15,6 +15,11 @@
 #import "UpperLimbsWindowScene.h"
 #import "VolumeBaseplateVisibilitySceneDelegate.h"
 #import "ToggleImmersiveStylesSceneDelegate.h"
+#import <CompositorServices/CompositorServices.h>
+#import <objc/runtime.h>
+#import "WebXRSceneDelegate.h"
+
+CP_EXTERN const UISceneSessionRole CPSceneSessionRoleImmersiveSpaceApplication;
 
 @interface AppDelegate ()
 @end
@@ -31,7 +36,10 @@
     
     UISceneConfiguration *configuration = [connectingSceneSession.configuration copy];
     
-    if ([activityType isEqualToString:@"LaunchPlacementParameters"]) {
+    if ([configuration.role isEqualToString:CPSceneSessionRoleImmersiveSpaceApplication]) {
+        configuration.sceneClass = objc_lookUpClass("CPImmersiveScene");
+        configuration.delegateClass = WebXRSceneDelegate.class;
+    } else if ([activityType isEqualToString:@"LaunchPlacementParameters"]) {
         configuration.delegateClass = LaunchPlacementParametersWindowScene.class;
     } else if ([activityType isEqualToString:@"VolumetricWorldAlignmentBehavior"]) {
         configuration.delegateClass = VolumetricWorldAlignmentBehaviorWindowScene.class;

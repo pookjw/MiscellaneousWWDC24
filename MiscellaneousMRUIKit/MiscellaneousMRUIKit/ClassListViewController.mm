@@ -18,6 +18,7 @@
 #import "WorldTrackingCapabilitiesViewController.h"
 #import "ToggleImmersiveStylesViewController.h"
 #import "DemoSFBSViewController.h"
+#import "WebXRViewController.h"
 
 @interface ClassListViewController ()
 @property (retain, readonly, nonatomic) UICollectionViewCellRegistration *cellRegistration;
@@ -49,6 +50,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self cellRegistration];
+    
+    __kindof UIViewController *viewController = [[self classes][0] new];
+    [self.navigationController pushViewController:viewController animated:YES];
+    [viewController release];
 }
 
 - (UICollectionViewCellRegistration *)cellRegistration {
@@ -72,6 +77,7 @@
 
 - (NSArray<Class> *)classes {
     return @[
+        WebXRViewController.class,
         DemoSFBSViewController.class,
         ToggleImmersiveStylesViewController.class,
         WorldTrackingCapabilitiesViewController.class,

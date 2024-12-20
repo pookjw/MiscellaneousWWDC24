@@ -32,10 +32,43 @@
 		4FD3D3822C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD3D3812C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm */; };
 		4FD3D3852C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD3D3842C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.mm */; };
 		4FD5EF482C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD5EF472C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm */; };
+		4FE624822D15877A008D14D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C71212C2F2442002E096A /* AppDelegate.m */; };
+		4FE624832D15877A008D14D8 /* DefaultWorldScalingViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3472C3008170097B837 /* DefaultWorldScalingViewController.mm */; };
+		4FE624842D15877A008D14D8 /* ViewpointAzimuthViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C713B2C31CB3C002E096A /* ViewpointAzimuthViewController.mm */; };
+		4FE624852D15877A008D14D8 /* ToggleImmersiveStylesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD3D3812C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm */; };
+		4FE624862D15877A008D14D8 /* HomeIndicatorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3982C305B9F0097B837 /* HomeIndicatorViewController.mm */; };
+		4FE624872D15877A008D14D8 /* LaunchPlacementParametersWindowScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3392C2FF9040097B837 /* LaunchPlacementParametersWindowScene.mm */; };
+		4FE624882D15877A008D14D8 /* VolumeBaseplateVisibilityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7902312C53AFA500A3E913 /* VolumeBaseplateVisibilityViewController.mm */; };
+		4FE624892D15877A008D14D8 /* ToggleImmersiveStylesSceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD3D3842C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.mm */; };
+		4FE6248A2D15877A008D14D8 /* UpperLimbsWindowScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17862C357B3400188F35 /* UpperLimbsWindowScene.mm */; };
+		4FE6248B2D15877A008D14D8 /* DemoSFBSViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F05B7642C835061001ECA93 /* DemoSFBSViewController.mm */; };
+		4FE6248C2D15877A008D14D8 /* ClassListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D2EA2C2FDBFC0097B837 /* ClassListViewController.mm */; };
+		4FE6248D2D15877A008D14D8 /* ViewpointAzimuthWindowScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C713E2C31CB9D002E096A /* ViewpointAzimuthWindowScene.m */; };
+		4FE6248E2D15877A008D14D8 /* VolumeBaseplateVisibilitySceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7902342C53B02000A3E913 /* VolumeBaseplateVisibilitySceneDelegate.mm */; };
+		4FE6248F2D15877A008D14D8 /* DefaultWorldScalingSceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D34A2C30086F0097B837 /* DefaultWorldScalingSceneDelegate.m */; };
+		4FE624902D15877A008D14D8 /* LaunchPlacementParametersViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D2EE2C2FDDED0097B837 /* LaunchPlacementParametersViewController.mm */; };
+		4FE624912D15877A008D14D8 /* ImmersiveSceneClientSettingsWindowScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17772C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.mm */; };
+		4FE624922D15877A008D14D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C71322C2F2443002E096A /* main.m */; };
+		4FE624932D15877A008D14D8 /* ImmersiveSceneClientSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17742C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.mm */; };
+		4FE624942D15877A008D14D8 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C71242C2F2442002E096A /* SceneDelegate.m */; };
+		4FE624952D15877A008D14D8 /* VolumetricWorldAlignmentBehaviorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3362C2FF84A0097B837 /* VolumetricWorldAlignmentBehaviorViewController.mm */; };
+		4FE624962D15877A008D14D8 /* WorldTrackingCapabilitiesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD5EF472C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm */; };
+		4FE624972D15877A008D14D8 /* VolumetricWorldAlignmentBehaviorWindowScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D33C2C2FF9E80097B837 /* VolumetricWorldAlignmentBehaviorWindowScene.mm */; };
+		4FE624982D15877A008D14D8 /* UpperLimbsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17832C357A1700188F35 /* UpperLimbsViewController.mm */; };
+		4FE6249A2D15877A008D14D8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F26D3402C2FFAD20097B837 /* QuartzCore.framework */; };
+		4FE6249C2D15877A008D14D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F1C712C2C2F2443002E096A /* Assets.xcassets */; };
+		4FE624A42D158871008D14D8 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE624A32D158871008D14D8 /* WebKit.framework */; };
+		4FE624A52D15887D008D14D8 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE624A32D158871008D14D8 /* WebKit.framework */; };
+		4FE624A82D1588B2008D14D8 /* WebXRViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FE624A72D1588B2008D14D8 /* WebXRViewController.mm */; };
+		4FE624A92D1588B2008D14D8 /* WebXRViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FE624A72D1588B2008D14D8 /* WebXRViewController.mm */; };
+		4FE626F22D15B8CF008D14D8 /* CompositorServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE626F12D15B8CF008D14D8 /* CompositorServices.framework */; platformFilters = (xros, ); };
+		4FE626F32D15B8D6008D14D8 /* CompositorServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE626F12D15B8CF008D14D8 /* CompositorServices.framework */; platformFilters = (xros, ); };
+		4FE626F62D15BA0F008D14D8 /* WebXRSceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FE626F52D15BA0F008D14D8 /* WebXRSceneDelegate.mm */; };
+		4FE626F72D15BA0F008D14D8 /* WebXRSceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FE626F52D15BA0F008D14D8 /* WebXRSceneDelegate.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4F05B7612C834CA5001ECA93 /* MiscellaneousMRUIKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MiscellaneousMRUIKit.entitlements; sourceTree = "<group>"; };
+		4F05B7612C834CA5001ECA93 /* MiscellaneousMRUIKit Private.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MiscellaneousMRUIKit Private.entitlements"; sourceTree = "<group>"; };
 		4F05B7632C835061001ECA93 /* DemoSFBSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoSFBSViewController.h; sourceTree = "<group>"; };
 		4F05B7642C835061001ECA93 /* DemoSFBSViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DemoSFBSViewController.mm; sourceTree = "<group>"; };
 		4F1C711D2C2F2442002E096A /* MiscellaneousMRUIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiscellaneousMRUIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,6 +119,13 @@
 		4FD3D3842C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ToggleImmersiveStylesSceneDelegate.mm; sourceTree = "<group>"; };
 		4FD5EF462C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorldTrackingCapabilitiesViewController.h; sourceTree = "<group>"; };
 		4FD5EF472C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WorldTrackingCapabilitiesViewController.mm; sourceTree = "<group>"; };
+		4FE624A02D15877A008D14D8 /* MiscellaneousMRUIKit Private.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MiscellaneousMRUIKit Private.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FE624A32D158871008D14D8 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		4FE624A62D1588B2008D14D8 /* WebXRViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebXRViewController.h; sourceTree = "<group>"; };
+		4FE624A72D1588B2008D14D8 /* WebXRViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WebXRViewController.mm; sourceTree = "<group>"; };
+		4FE626F12D15B8CF008D14D8 /* CompositorServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CompositorServices.framework; path = Platforms/XROS.platform/Developer/SDKs/XROS2.2.sdk/System/Library/Frameworks/CompositorServices.framework; sourceTree = DEVELOPER_DIR; };
+		4FE626F42D15BA0F008D14D8 /* WebXRSceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebXRSceneDelegate.h; sourceTree = "<group>"; };
+		4FE626F52D15BA0F008D14D8 /* WebXRSceneDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WebXRSceneDelegate.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +133,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FE624A42D158871008D14D8 /* WebKit.framework in Frameworks */,
+				4FE626F32D15B8D6008D14D8 /* CompositorServices.framework in Frameworks */,
 				4F26D3412C2FFAD20097B837 /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FE624992D15877A008D14D8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FE624A52D15887D008D14D8 /* WebKit.framework in Frameworks */,
+				4FE626F22D15B8CF008D14D8 /* CompositorServices.framework in Frameworks */,
+				4FE6249A2D15877A008D14D8 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				4F1C711D2C2F2442002E096A /* MiscellaneousMRUIKit.app */,
+				4FE624A02D15877A008D14D8 /* MiscellaneousMRUIKit Private.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -129,7 +182,7 @@
 		4F1C711F2C2F2442002E096A /* MiscellaneousMRUIKit */ = {
 			isa = PBXGroup;
 			children = (
-				4F05B7612C834CA5001ECA93 /* MiscellaneousMRUIKit.entitlements */,
+				4F05B7612C834CA5001ECA93 /* MiscellaneousMRUIKit Private.entitlements */,
 				4F1C71202C2F2442002E096A /* AppDelegate.h */,
 				4F1C71212C2F2442002E096A /* AppDelegate.m */,
 				4F1C71232C2F2442002E096A /* SceneDelegate.h */,
@@ -148,6 +201,7 @@
 				4F79022F2C53AEF900A3E913 /* VolumeBaseplateVisibility */,
 				4FD3D37F2C80664A0001C3A4 /* ToggleImmersiveStyles */,
 				4F05B7622C835046001ECA93 /* DemoSFBS */,
+				4FE624A22D158850008D14D8 /* WebXR */,
 				4F1C712C2C2F2443002E096A /* Assets.xcassets */,
 				4F1C71312C2F2443002E096A /* Info.plist */,
 				4F1C71322C2F2443002E096A /* main.m */,
@@ -191,6 +245,8 @@
 		4F26D33F2C2FFAD20097B837 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4FE626F12D15B8CF008D14D8 /* CompositorServices.framework */,
+				4FE624A32D158871008D14D8 /* WebKit.framework */,
 				4F26D3402C2FFAD20097B837 /* QuartzCore.framework */,
 			);
 			name = Frameworks;
@@ -269,6 +325,17 @@
 			path = WorldTrackingCapabilities;
 			sourceTree = "<group>";
 		};
+		4FE624A22D158850008D14D8 /* WebXR */ = {
+			isa = PBXGroup;
+			children = (
+				4FE624A62D1588B2008D14D8 /* WebXRViewController.h */,
+				4FE624A72D1588B2008D14D8 /* WebXRViewController.mm */,
+				4FE626F42D15BA0F008D14D8 /* WebXRSceneDelegate.h */,
+				4FE626F52D15BA0F008D14D8 /* WebXRSceneDelegate.mm */,
+			);
+			path = WebXR;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -287,6 +354,23 @@
 			name = MiscellaneousMRUIKit;
 			productName = MiscellaneousMRUIKit;
 			productReference = 4F1C711D2C2F2442002E096A /* MiscellaneousMRUIKit.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4FE624802D15877A008D14D8 /* MiscellaneousMRUIKit Private */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4FE6249D2D15877A008D14D8 /* Build configuration list for PBXNativeTarget "MiscellaneousMRUIKit Private" */;
+			buildPhases = (
+				4FE624812D15877A008D14D8 /* Sources */,
+				4FE624992D15877A008D14D8 /* Frameworks */,
+				4FE6249B2D15877A008D14D8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MiscellaneousMRUIKit Private";
+			productName = MiscellaneousMRUIKit;
+			productReference = 4FE624A02D15877A008D14D8 /* MiscellaneousMRUIKit Private.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -317,6 +401,7 @@
 			projectRoot = "";
 			targets = (
 				4F1C711C2C2F2442002E096A /* MiscellaneousMRUIKit */,
+				4FE624802D15877A008D14D8 /* MiscellaneousMRUIKit Private */,
 			);
 		};
 /* End PBXProject section */
@@ -330,6 +415,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4FE6249B2D15877A008D14D8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FE6249C2D15877A008D14D8 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -340,6 +433,7 @@
 				4F1C71222C2F2442002E096A /* AppDelegate.m in Sources */,
 				4F26D3482C3008170097B837 /* DefaultWorldScalingViewController.mm in Sources */,
 				4F1C713C2C31CB3C002E096A /* ViewpointAzimuthViewController.mm in Sources */,
+				4FE626F72D15BA0F008D14D8 /* WebXRSceneDelegate.mm in Sources */,
 				4FD3D3822C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm in Sources */,
 				4F26D3992C305B9F0097B837 /* HomeIndicatorViewController.mm in Sources */,
 				4F26D33A2C2FF9040097B837 /* LaunchPlacementParametersWindowScene.mm in Sources */,
@@ -352,6 +446,7 @@
 				4F7902352C53B02000A3E913 /* VolumeBaseplateVisibilitySceneDelegate.mm in Sources */,
 				4F26D34B2C30086F0097B837 /* DefaultWorldScalingSceneDelegate.m in Sources */,
 				4F26D2EF2C2FDDED0097B837 /* LaunchPlacementParametersViewController.mm in Sources */,
+				4FE624A82D1588B2008D14D8 /* WebXRViewController.mm in Sources */,
 				4FAA17782C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.mm in Sources */,
 				4F1C71332C2F2443002E096A /* main.m in Sources */,
 				4FAA17752C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.mm in Sources */,
@@ -360,6 +455,38 @@
 				4FD5EF482C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm in Sources */,
 				4F26D33D2C2FF9E80097B837 /* VolumetricWorldAlignmentBehaviorWindowScene.mm in Sources */,
 				4FAA17842C357A1700188F35 /* UpperLimbsViewController.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FE624812D15877A008D14D8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FE624822D15877A008D14D8 /* AppDelegate.m in Sources */,
+				4FE624832D15877A008D14D8 /* DefaultWorldScalingViewController.mm in Sources */,
+				4FE624842D15877A008D14D8 /* ViewpointAzimuthViewController.mm in Sources */,
+				4FE626F62D15BA0F008D14D8 /* WebXRSceneDelegate.mm in Sources */,
+				4FE624852D15877A008D14D8 /* ToggleImmersiveStylesViewController.mm in Sources */,
+				4FE624862D15877A008D14D8 /* HomeIndicatorViewController.mm in Sources */,
+				4FE624872D15877A008D14D8 /* LaunchPlacementParametersWindowScene.mm in Sources */,
+				4FE624882D15877A008D14D8 /* VolumeBaseplateVisibilityViewController.mm in Sources */,
+				4FE624892D15877A008D14D8 /* ToggleImmersiveStylesSceneDelegate.mm in Sources */,
+				4FE6248A2D15877A008D14D8 /* UpperLimbsWindowScene.mm in Sources */,
+				4FE6248B2D15877A008D14D8 /* DemoSFBSViewController.mm in Sources */,
+				4FE6248C2D15877A008D14D8 /* ClassListViewController.mm in Sources */,
+				4FE6248D2D15877A008D14D8 /* ViewpointAzimuthWindowScene.m in Sources */,
+				4FE6248E2D15877A008D14D8 /* VolumeBaseplateVisibilitySceneDelegate.mm in Sources */,
+				4FE6248F2D15877A008D14D8 /* DefaultWorldScalingSceneDelegate.m in Sources */,
+				4FE624902D15877A008D14D8 /* LaunchPlacementParametersViewController.mm in Sources */,
+				4FE624A92D1588B2008D14D8 /* WebXRViewController.mm in Sources */,
+				4FE624912D15877A008D14D8 /* ImmersiveSceneClientSettingsWindowScene.mm in Sources */,
+				4FE624922D15877A008D14D8 /* main.m in Sources */,
+				4FE624932D15877A008D14D8 /* ImmersiveSceneClientSettingsViewController.mm in Sources */,
+				4FE624942D15877A008D14D8 /* SceneDelegate.m in Sources */,
+				4FE624952D15877A008D14D8 /* VolumetricWorldAlignmentBehaviorViewController.mm in Sources */,
+				4FE624962D15877A008D14D8 /* WorldTrackingCapabilitiesViewController.mm in Sources */,
+				4FE624972D15877A008D14D8 /* VolumetricWorldAlignmentBehaviorWindowScene.mm in Sources */,
+				4FE624982D15877A008D14D8 /* UpperLimbsViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,7 +614,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = MiscellaneousMRUIKit/MiscellaneousMRUIKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
@@ -519,12 +645,75 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = MiscellaneousMRUIKit/MiscellaneousMRUIKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MiscellaneousMRUIKit/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.MiscellaneousMRUIKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 7;
+				XROS_DEPLOYMENT_TARGET = 1.0;
+			};
+			name = Release;
+		};
+		4FE6249E2D15877A008D14D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "MiscellaneousMRUIKit/MiscellaneousMRUIKit Private.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MiscellaneousMRUIKit copy-Info.plist";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.MiscellaneousMRUIKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 7;
+				XROS_DEPLOYMENT_TARGET = 1.0;
+			};
+			name = Debug;
+		};
+		4FE6249F2D15877A008D14D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "MiscellaneousMRUIKit/MiscellaneousMRUIKit Private.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MiscellaneousMRUIKit copy-Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -563,6 +752,15 @@
 			buildConfigurations = (
 				4F1C71372C2F2443002E096A /* Debug */,
 				4F1C71382C2F2443002E096A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4FE6249D2D15877A008D14D8 /* Build configuration list for PBXNativeTarget "MiscellaneousMRUIKit Private" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4FE6249E2D15877A008D14D8 /* Debug */,
+				4FE6249F2D15877A008D14D8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
