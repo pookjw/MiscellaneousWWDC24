@@ -221,13 +221,13 @@ NSString * NSStringFromWKXRSessionEndReason(_WKXRSessionEndReason reason) {
 - (void)_webView:(WKWebView *)webView supportedXRSessionFeatures:(_WKXRSessionFeatureFlags *)vrFeatures arFeatures:(_WKXRSessionFeatureFlags *)arFeatures {
 #if TARGET_OS_SIMULATOR
     _WKXRSessionFeatureFlags flags = *vrFeatures;
-    if (((flags ^ 0xFFFFFFFF) & 0x27) != 0x0) {
-        *vrFeatures = flags | 0x27;
+    if (((flags ^ 0xFFFFFFFF) & 0x7) != 0x0) {
+        *vrFeatures = flags | 0x7;
     }
 #else
     _WKXRSessionFeatureFlags flags = *vrFeatures;
-    if (((flags ^ 0xFFFFFFFF) & 0x7) != 0x0) {
-        *vrFeatures = flags | 0x7;
+    if (((flags ^ 0xFFFFFFFF) & 0x27) != 0x0) {
+        *vrFeatures = flags | 0x27;
     }
 #endif
 }
