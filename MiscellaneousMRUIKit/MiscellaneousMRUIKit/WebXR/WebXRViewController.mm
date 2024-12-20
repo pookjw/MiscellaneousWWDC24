@@ -267,8 +267,8 @@ NSString * NSStringFromWKXRSessionEndReason(_WKXRSessionEndReason reason) {
             reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(content, sel_registerName("show"));
             
             cp_layer_renderer_t layerRenderer = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(content, sel_registerName("layer"));
-            UIViewController *rootVC = static_cast<UIWindowScene *>(scene).keyWindow.rootViewController;
-            completionHandler(layerRenderer, rootVC);
+            UIViewController *rootViewController = static_cast<UIWindowScene *>(scene).keyWindow.rootViewController;
+            completionHandler(layerRenderer, rootViewController);
             
             break;
         }
