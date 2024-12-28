@@ -1427,6 +1427,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "MiscellaneousPepperUICore Watch App/MiscellaneousPepperUICore Watch App-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "MiscellaneousPepperUICore_Watch_App-Swift.h";
 				SWIFT_OBJC_INTEROP_MODE = objcxx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 6.0;
@@ -1465,6 +1466,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "MiscellaneousPepperUICore Watch App/MiscellaneousPepperUICore Watch App-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "MiscellaneousPepperUICore_Watch_App-Swift.h";
 				SWIFT_OBJC_INTEROP_MODE = objcxx;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 4;

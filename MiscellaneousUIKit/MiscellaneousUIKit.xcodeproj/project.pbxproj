@@ -128,6 +128,10 @@
 		4F83911C2CCCFEAE0005B8AC /* CustomViewMenuElementDynamicHeightViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F83911B2CCCFEAE0005B8AC /* CustomViewMenuElementDynamicHeightViewController.mm */; };
 		4F8BD38D2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38C2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm */; };
 		4F8BD3902C22E1520031535F /* CustomDismissCustomInteraction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38F2C22E1520031535F /* CustomDismissCustomInteraction.mm */; };
+		4F8C51452D203A9A001046CB /* CarPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F8C51442D203A9A001046CB /* CarPlay.framework */; platformFilters = (ios, maccatalyst, ); };
+		4F8C51462D203AA0001046CB /* CarPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F8C51442D203A9A001046CB /* CarPlay.framework */; platformFilters = (ios, maccatalyst, ); };
+		4F8C51492D203B4F001046CB /* CarPlaySceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8C51482D203B4F001046CB /* CarPlaySceneDelegate.mm */; };
+		4F8C514A2D203B4F001046CB /* CarPlaySceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8C51482D203B4F001046CB /* CarPlaySceneDelegate.mm */; };
 		4F9C08B32C3E2B5F009897D6 /* TabBarAppearanceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F9C08B22C3E2B5F009897D6 /* TabBarAppearanceViewController.mm */; };
 		4F9C08D42C3E5574009897D6 /* ToolbarAppearanceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F9C08D32C3E5574009897D6 /* ToolbarAppearanceViewController.mm */; };
 		4FA8EEE92C1C012A00B1358A /* TextViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEE82C1C012A00B1358A /* TextViewController.mm */; };
@@ -232,7 +236,7 @@
 		4F5068B02C3D9D8800293E81 /* LegacyTabBar2Controller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LegacyTabBar2Controller.h; sourceTree = "<group>"; };
 		4F5068B12C3D9D8800293E81 /* LegacyTabBar2Controller.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LegacyTabBar2Controller.mm; sourceTree = "<group>"; };
 		4F59DEA32CFFF53500E88830 /* MiscellaneousUIKit-Private.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MiscellaneousUIKit-Private.entitlements"; sourceTree = "<group>"; };
-		4F59DEE52CFFF56100E88830 /* MiscellaneousUIKit Private Entitlements.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MiscellaneousUIKit Private Entitlements.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F59DEE52CFFF56100E88830 /* MiscellaneousUIKit Private.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MiscellaneousUIKit Private.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F59DEE82CFFF6A900E88830 /* ApplicationCategoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplicationCategoryViewController.h; sourceTree = "<group>"; };
 		4F59DEE92CFFF6A900E88830 /* ApplicationCategoryViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ApplicationCategoryViewController.mm; sourceTree = "<group>"; };
 		4F59DEED2CFFFA7B00E88830 /* NewWritingToolsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewWritingToolsViewController.h; sourceTree = "<group>"; };
@@ -255,6 +259,9 @@
 		4F8BD38E2C22E1520031535F /* CustomDismissCustomInteraction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDismissCustomInteraction.h; sourceTree = "<group>"; };
 		4F8BD38F2C22E1520031535F /* CustomDismissCustomInteraction.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomDismissCustomInteraction.mm; sourceTree = "<group>"; };
 		4F8BD3932C22E2B70031535F /* CustomDimissInteractable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDimissInteractable.h; sourceTree = "<group>"; };
+		4F8C51442D203A9A001046CB /* CarPlay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CarPlay.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/iOSSupport/System/Library/Frameworks/CarPlay.framework; sourceTree = DEVELOPER_DIR; };
+		4F8C51472D203B4F001046CB /* CarPlaySceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarPlaySceneDelegate.h; sourceTree = "<group>"; };
+		4F8C51482D203B4F001046CB /* CarPlaySceneDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CarPlaySceneDelegate.mm; sourceTree = "<group>"; };
 		4F9C08B12C3E2B5F009897D6 /* TabBarAppearanceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarAppearanceViewController.h; sourceTree = "<group>"; };
 		4F9C08B22C3E2B5F009897D6 /* TabBarAppearanceViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TabBarAppearanceViewController.mm; sourceTree = "<group>"; };
 		4F9C08D22C3E5574009897D6 /* ToolbarAppearanceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolbarAppearanceViewController.h; sourceTree = "<group>"; };
@@ -293,6 +300,7 @@
 			files = (
 				4F5056532C5938F400B49BB9 /* SafariServices.framework in Frameworks */,
 				4F082E9C2C1B4505002263ED /* UniformTypeIdentifiers.framework in Frameworks */,
+				4F8C51452D203A9A001046CB /* CarPlay.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +310,7 @@
 			files = (
 				4F59DEDB2CFFF56100E88830 /* SafariServices.framework in Frameworks */,
 				4F59DEDC2CFFF56100E88830 /* UniformTypeIdentifiers.framework in Frameworks */,
+				4F8C51462D203AA0001046CB /* CarPlay.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,7 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				4F082E442C188D6C002263ED /* MiscellaneousUIKit.app */,
-				4F59DEE52CFFF56100E88830 /* MiscellaneousUIKit Private Entitlements.app */,
+				4F59DEE52CFFF56100E88830 /* MiscellaneousUIKit Private.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -331,14 +340,16 @@
 			children = (
 				4FDABC6A2C3D3C5600F928DB /* MiscellaneousUIKit.entitlements */,
 				4F59DEA32CFFF53500E88830 /* MiscellaneousUIKit-Private.entitlements */,
-				4FD54C882D00854E002CE52C /* beer.jpg */,
 				4FA8EEEC2C1CD3B000B1358A /* image.heic */,
+				4FD54C882D00854E002CE52C /* beer.jpg */,
 				4FA8EEF82C1CE98100B1358A /* NSObject+Foundation_IvarDescription.h */,
 				4FA8EEF92C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm */,
 				4F082E472C188D6C002263ED /* AppDelegate.h */,
 				4F082E482C188D6C002263ED /* AppDelegate.m */,
 				4F082E4A2C188D6C002263ED /* SceneDelegate.h */,
 				4F082E4B2C188D6C002263ED /* SceneDelegate.m */,
+				4F8C51472D203B4F001046CB /* CarPlaySceneDelegate.h */,
+				4F8C51482D203B4F001046CB /* CarPlaySceneDelegate.mm */,
 				4F082E602C188E34002263ED /* MainCollectionViewController.h */,
 				4F082E612C188E34002263ED /* MainCollectionViewController.mm */,
 				4F082E632C18906E002263ED /* Classes */,
@@ -446,6 +457,7 @@
 		4F082E9A2C1B4504002263ED /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4F8C51442D203A9A001046CB /* CarPlay.framework */,
 				4F5056522C5938F400B49BB9 /* SafariServices.framework */,
 				4F082E9B2C1B4505002263ED /* UniformTypeIdentifiers.framework */,
 			);
@@ -854,9 +866,9 @@
 			productReference = 4F082E442C188D6C002263ED /* MiscellaneousUIKit.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4F59DEA42CFFF56100E88830 /* MiscellaneousUIKit Private Entitlements */ = {
+		4F59DEA42CFFF56100E88830 /* MiscellaneousUIKit Private */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4F59DEE22CFFF56100E88830 /* Build configuration list for PBXNativeTarget "MiscellaneousUIKit Private Entitlements" */;
+			buildConfigurationList = 4F59DEE22CFFF56100E88830 /* Build configuration list for PBXNativeTarget "MiscellaneousUIKit Private" */;
 			buildPhases = (
 				4F59DEA52CFFF56100E88830 /* Sources */,
 				4F59DEDA2CFFF56100E88830 /* Frameworks */,
@@ -866,9 +878,9 @@
 			);
 			dependencies = (
 			);
-			name = "MiscellaneousUIKit Private Entitlements";
+			name = "MiscellaneousUIKit Private";
 			productName = MiscellaneousUIKit;
-			productReference = 4F59DEE52CFFF56100E88830 /* MiscellaneousUIKit Private Entitlements.app */;
+			productReference = 4F59DEE52CFFF56100E88830 /* MiscellaneousUIKit Private.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -900,7 +912,7 @@
 			projectRoot = "";
 			targets = (
 				4F082E432C188D6C002263ED /* MiscellaneousUIKit */,
-				4F59DEA42CFFF56100E88830 /* MiscellaneousUIKit Private Entitlements */,
+				4F59DEA42CFFF56100E88830 /* MiscellaneousUIKit Private */,
 			);
 		};
 /* End PBXProject section */
@@ -994,6 +1006,7 @@
 				4FDABC692C3D35DE00F928DB /* SymbolTransitionsViewController.mm in Sources */,
 				4F83911C2CCCFEAE0005B8AC /* CustomViewMenuElementDynamicHeightViewController.mm in Sources */,
 				4F7BC13C2C3C43B900419197 /* MyNavigationItemViewController.mm in Sources */,
+				4F8C51492D203B4F001046CB /* CarPlaySceneDelegate.mm in Sources */,
 				4F49040E2D049CD80017A47D /* IntelligenceLightLabelViewController.mm in Sources */,
 				4F7941D42C7897D50031F456 /* FloatingKeyboardViewController.mm in Sources */,
 				4F7941D82C7898470031F456 /* SplitKeyboardViewController.mm in Sources */,
@@ -1063,6 +1076,7 @@
 				4F59DED42CFFF56100E88830 /* SymbolTransitionsViewController.mm in Sources */,
 				4F59DED52CFFF56100E88830 /* CustomViewMenuElementDynamicHeightViewController.mm in Sources */,
 				4F59DED62CFFF56100E88830 /* MyNavigationItemViewController.mm in Sources */,
+				4F8C514A2D203B4F001046CB /* CarPlaySceneDelegate.mm in Sources */,
 				4F49040F2D049CD80017A47D /* IntelligenceLightLabelViewController.mm in Sources */,
 				4F59DED72CFFF56100E88830 /* FloatingKeyboardViewController.mm in Sources */,
 				4F59DED82CFFF56100E88830 /* SplitKeyboardViewController.mm in Sources */,
@@ -1285,7 +1299,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "MiscellaneousUIKit copy-Info.plist";
+				INFOPLIST_FILE = MiscellaneousUIKit/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1302,6 +1316,8 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "MiscellaneousUIKit/MiscellaneousUIKit-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "MiscellaneousUIKit-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
@@ -1320,7 +1336,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "MiscellaneousUIKit copy-Info.plist";
+				INFOPLIST_FILE = MiscellaneousUIKit/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1337,6 +1353,8 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "MiscellaneousUIKit/MiscellaneousUIKit-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "MiscellaneousUIKit-Swift.h";
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
 				XROS_DEPLOYMENT_TARGET = 2.2;
@@ -1364,7 +1382,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4F59DEE22CFFF56100E88830 /* Build configuration list for PBXNativeTarget "MiscellaneousUIKit Private Entitlements" */ = {
+		4F59DEE22CFFF56100E88830 /* Build configuration list for PBXNativeTarget "MiscellaneousUIKit Private" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4F59DEE32CFFF56100E88830 /* Debug */,

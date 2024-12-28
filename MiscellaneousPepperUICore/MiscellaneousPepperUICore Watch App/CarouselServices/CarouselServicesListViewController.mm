@@ -10,12 +10,7 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import "ButtonListenerViewController.h"
-
-#if PRIVATE
-#import "MiscellaneousPepperUICore_Watch_App_Private-Swift.h"
-#else
 #import "MiscellaneousPepperUICore_Watch_App-Swift.h"
-#endif
 
 #warning CarouselUIServices
 

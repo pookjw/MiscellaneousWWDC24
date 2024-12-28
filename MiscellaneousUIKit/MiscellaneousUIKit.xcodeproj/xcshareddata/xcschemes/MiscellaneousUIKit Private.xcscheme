@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4F59DEA42CFFF56100E88830"
-               BuildableName = "MiscellaneousUIKit Private Entitlements.app"
-               BlueprintName = "MiscellaneousUIKit Private Entitlements"
+               BuildableName = "MiscellaneousUIKit Private.app"
+               BlueprintName = "MiscellaneousUIKit Private"
                ReferencedContainer = "container:MiscellaneousUIKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,8 +45,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4F59DEA42CFFF56100E88830"
-            BuildableName = "MiscellaneousUIKit Private Entitlements.app"
-            BlueprintName = "MiscellaneousUIKit Private Entitlements"
+            BuildableName = "MiscellaneousUIKit Private.app"
+            BlueprintName = "MiscellaneousUIKit Private"
             ReferencedContainer = "container:MiscellaneousUIKit.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -62,8 +62,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4F59DEA42CFFF56100E88830"
-            BuildableName = "MiscellaneousUIKit Private Entitlements.app"
-            BlueprintName = "MiscellaneousUIKit Private Entitlements"
+            BuildableName = "MiscellaneousUIKit Private.app"
+            BlueprintName = "MiscellaneousUIKit Private"
             ReferencedContainer = "container:MiscellaneousUIKit.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
