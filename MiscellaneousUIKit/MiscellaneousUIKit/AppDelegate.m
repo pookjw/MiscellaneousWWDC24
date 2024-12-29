@@ -27,6 +27,8 @@
     if ([configuration.role isEqualToString:CPTemplateApplicationSceneSessionRoleApplication]) {
         configuration.delegateClass = CarPlaySceneDelegate.class;
         return [configuration autorelease];
+    } else if ([configuration.role isEqualToString:CPTemplateApplicationDashboardSceneSessionRoleApplication]) {
+        abort();
     }
     
     NSUserActivity * _Nullable userActivity = options.userActivities.allObjects.firstObject;
