@@ -35,7 +35,7 @@
     if ([activityType isEqualToString:@"Orange"]) {
         configuration.delegateClass = OrangeSceneDelegate.class;
     } else {
-//        configuration.delegateClass = SceneDelegate.class;
+        configuration.delegateClass = SceneDelegate.class;
     }
     
     return [configuration autorelease];
