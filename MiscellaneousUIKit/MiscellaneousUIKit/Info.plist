@@ -6,6 +6,20 @@
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
 		<true/>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>CPTemplateApplicationDashboardSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneClassName</key>
+					<string>CPTemplateApplicationDashboardScene</string>
+					<key>UISceneConfigurationName</key>
+					<string>MyCarPlayDashboardSceneConfiguration</string>
+					<key>UISceneDelegateClassName</key>
+					<string>MyCarPlayDashboardSceneDelegate</string>
+				</dict>
+			</array>
+		</dict>
 	</dict>
 </dict>
 </plist>
