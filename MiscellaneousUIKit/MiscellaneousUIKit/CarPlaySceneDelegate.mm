@@ -9,15 +9,19 @@
 
 #import "CarPlaySceneDelegate.h"
 #include <ranges>
+#include <random>
 #import <objc/message.h>
 #import <objc/runtime.h>
+#import <MapKit/MapKit.h>
+#import <WebKit/WebKit.h>
 
 extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
 
-@interface CarPlaySceneDelegate () <CPSessionConfigurationDelegate, CPTabBarTemplateDelegate, CPNowPlayingTemplateObserver>
+@interface CarPlaySceneDelegate () <CPSessionConfigurationDelegate, CPTabBarTemplateDelegate, CPNowPlayingTemplateObserver, CPMapTemplateDelegate>
 @property (retain, nonatomic, nullable) CPInterfaceController *_interfaceController;
 @property (retain, nonatomic, nullable) CPSessionConfiguration *_configuration;
 @property (retain, nonatomic, nullable) id _frameRateLimitInspector;
+@property (retain, nonatomic, nullable) CPNavigationSession *_navigationSession;
 @end
 
 @implementation CarPlaySceneDelegate
@@ -26,10 +30,11 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
     [__interfaceController release];
     [__configuration release];
     [__frameRateLimitInspector release];
+    [__navigationSession release];
     [super dealloc];
 }
 
-- (void)templateApplicationScene:(CPTemplateApplicationScene *)templateApplicationScene didConnectInterfaceController:(CPInterfaceController *)interfaceController {
+- (void)templateApplicationScene:(CPTemplateApplicationScene *)templateApplicationScene didConnectInterfaceController:(CPInterfaceController *)interfaceController toWindow:(nonnull CPWindow *)window {
     self._interfaceController = interfaceController;
     
     [interfaceController setRootTemplate:[self _makeTabBarTemplate] animated:YES completion:^(BOOL success, NSError * _Nullable error) {
@@ -40,6 +45,24 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
     CPSessionConfiguration *configuration = [[CPSessionConfiguration alloc] initWithDelegate:self];
     self._configuration = configuration;
     [configuration release];
+    
+    //
+    
+    UIViewController *viewController = [UIViewController new];
+    
+    MKMapView *mapView = [MKMapView new];
+    viewController.view = mapView;
+    [mapView release];
+    
+//    WKWebView *webView = [WKWebView new];
+//    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://www.google.com"]];
+//    [webView loadRequest:request];
+//    [request release];
+//    viewController.view = webView;
+//    [webView release];
+    
+    window.rootViewController = viewController;
+    [viewController release];
     
     // 다 안 됨
 //    id frameRateLimitInspector = [objc_lookUpClass("CPUIFrameRateLimitDiffInspector") new];
@@ -54,6 +77,9 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
 //    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(templateApplicationScene, sel_registerName("setFrameRateLimit:"), @(10));
 }
 
+
+#pragma mark - CPSessionConfigurationDelegate
+
 - (void)sessionConfiguration:(CPSessionConfiguration *)sessionConfiguration contentStyleChanged:(CPContentStyle)contentStyle {
     NSLog(@"%s", sel_getName(_cmd));
 }
@@ -62,9 +88,15 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
     NSLog(@"%s", sel_getName(_cmd));
 }
 
+
+#pragma mark - CPTabBarTemplateDelegate
+
 - (void)tabBarTemplate:(CPTabBarTemplate *)tabBarTemplate didSelectTemplate:(__kindof CPTemplate *)selectedTemplate {
     NSLog(@"%s: %@", sel_getName(_cmd), selectedTemplate);
 }
+
+
+#pragma mark - CPNowPlayingTemplateObserver
 
 - (void)nowPlayingTemplateUpNextButtonTapped:(CPNowPlayingTemplate *)nowPlayingTemplate {
     NSLog(@"%s", sel_getName(_cmd));
@@ -73,6 +105,48 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
 - (void)nowPlayingTemplateAlbumArtistButtonTapped:(CPNowPlayingTemplate *)nowPlayingTemplate {
     NSLog(@"%s", sel_getName(_cmd));
 }
+
+
+#pragma mark - CPMapTemplateDelegate
+
+- (void)mapTemplate:(CPMapTemplate *)mapTemplate selectedPreviewForTrip:(CPTrip *)trip usingRouteChoice:(CPRouteChoice *)routeChoice {
+    NSLog(@"%s", sel_getName(_cmd));
+}
+
+- (void)mapTemplate:(CPMapTemplate *)mapTemplate startedTrip:(CPTrip *)trip usingRouteChoice:(CPRouteChoice *)routeChoice {
+    NSLog(@"%s", sel_getName(_cmd));
+    CPNavigationSession *navigationSession = [mapTemplate startNavigationSessionForTrip:trip];
+    
+    // CarPlayServices에서 사용 안하는 값
+    navigationSession.currentRoadNameVariants = @[@"A"];
+    
+    self._navigationSession = navigationSession;
+    
+    for (CPBarButton *button in mapTemplate.trailingNavigationBarButtons) {
+        if ([button.title isEqualToString:@"Cancel"]) {
+            button.enabled = YES;
+            break;
+        }
+    }
+}
+
+- (void)mapTemplateDidCancelNavigation:(CPMapTemplate *)mapTemplate {
+    self._navigationSession = nil;
+    
+    for (CPBarButton *button in mapTemplate.trailingNavigationBarButtons) {
+        if ([button.title isEqualToString:@"Cancel"]) {
+            button.enabled = NO;
+            break;
+        }
+    }
+}
+
+- (BOOL)mapTemplateShouldProvideNavigationMetadata:(CPMapTemplate *)mapTemplate {
+    return YES;
+}
+
+
+#pragma mark - Make Methods
 
 - (CPTabBarTemplate *)_makeTabBarTemplate {
     // https://x.com/_silgen_name/status/1873313556839661873
@@ -125,12 +199,14 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
 
 - (CPListTemplate *)_makeTemplatesTemplate {
     NSArray<NSString *> *titles = @[
+        NSStringFromClass([CPMapTemplate class]),
         NSStringFromClass([CPNowPlayingTemplate class]),
         NSStringFromClass([CPMessageComposeBarButton class]),
         NSStringFromClass([CPGridTemplate class]),
         NSStringFromClass([CPListTemplate class])
     ];
     NSArray<__kindof CPTemplate *> *templates = @[
+        [self _makeMapTemplate],
         [self _makeNowPlayingTemplate],
         [self _makeDemoMessageComposeBarButtonTemplate],
         [self _makeDemoGridTemplate],
@@ -466,6 +542,334 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
     [nowPlayingTemplate addObserver:self];
     
     return nowPlayingTemplate;
+}
+
+- (CPMapTemplate *)_makeMapTemplate {
+    CPMapTemplate *mapTemplate = [CPMapTemplate new];
+    
+    mapTemplate.automaticallyHidesNavigationBar = YES;
+    mapTemplate.hidesButtonsWithNavigationBar = YES;
+    mapTemplate.mapDelegate = self;
+//    mapTemplate.guidanceBackgroundColor = [UIColor systemPinkColor];
+    
+    //
+    
+    CPMapButton *mapButton_1 = [[CPMapButton alloc] initWithHandler:^(CPMapButton * _Nonnull mapButton) {
+        CPMapTemplate *mapTemplate = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(mapButton, sel_registerName("controlDelegate"));
+        NSArray<CPTrip *> *tripPreviews = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(mapTemplate, sel_registerName("tripPreviews"));
+        
+        if (tripPreviews.count > 0) {
+            [mapTemplate hideTripPreviews];
+            return;
+        }
+        
+        //
+        
+        NSMutableArray<CPTrip *> *trips = [NSMutableArray new];
+        
+        {
+            MKPlacemark *originPlacemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.571648599, 126.976372775)];
+            assert(CLLocationCoordinate2DIsValid(originPlacemark.coordinate));
+            MKMapItem *origin = [[MKMapItem alloc] initWithPlacemark:originPlacemark];
+            [originPlacemark release];
+            origin.name = @"Origin name";
+            
+            MKPlacemark *destinationPlacemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.572583105, 126.990414851)];
+            assert(CLLocationCoordinate2DIsValid(destinationPlacemark.coordinate));
+            MKMapItem *destination = [[MKMapItem alloc] initWithPlacemark:destinationPlacemark];
+            [destinationPlacemark release];
+            destination.name = @"Destination name";
+            
+            CPRouteChoice *routeChoice_1 = [[CPRouteChoice alloc] initWithSummaryVariants:@[@"1-0", @"1-1", @"1-2"]
+                                                            additionalInformationVariants:@[@"2-0", @"2-1", @"2-2"]
+                                                                 selectionSummaryVariants:@[@"3-0", @"3-1", @"3-2"]];
+            
+            CPRouteChoice *routeChoice_2 = [[CPRouteChoice alloc] initWithSummaryVariants:@[@"4-0", @"4-1", @"4-2"]
+                                                            additionalInformationVariants:@[@"5-0", @"5-1", @"5-2"]
+                                                                 selectionSummaryVariants:@[@"6-0", @"6-1", @"6-2"]];
+            
+            CPTrip *trip = [[CPTrip alloc] initWithOrigin:origin destination:destination routeChoices:@[routeChoice_1, routeChoice_2]];
+            [origin release];
+            [destination release];
+            [routeChoice_1 release];
+            [routeChoice_2 release];
+            
+            trip.destinationNameVariants = @[@"Short", @"LongLongLongLong"];
+            
+            [trips addObject:trip];
+            [trip release];
+        }
+        
+        {
+            MKPlacemark *originPlacemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.549681, 126.991911)];
+            assert(CLLocationCoordinate2DIsValid(originPlacemark.coordinate));
+            MKMapItem *origin = [[MKMapItem alloc] initWithPlacemark:originPlacemark];
+            [originPlacemark release];
+            origin.name = @"Origin name";
+            
+            MKPlacemark *destinationPlacemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.6608, 126.9933)];
+            assert(CLLocationCoordinate2DIsValid(destinationPlacemark.coordinate));
+            MKMapItem *destination = [[MKMapItem alloc] initWithPlacemark:destinationPlacemark];
+            [destinationPlacemark release];
+            destination.name = @"Destination name";
+            
+            CPRouteChoice *routeChoice_1 = [[CPRouteChoice alloc] initWithSummaryVariants:@[@"1-0", @"1-1", @"1-2"]
+                                                            additionalInformationVariants:@[@"2-0", @"2-1", @"2-2"]
+                                                                 selectionSummaryVariants:@[@"3-0", @"3-1", @"3-2"]];
+            
+            CPRouteChoice *routeChoice_2 = [[CPRouteChoice alloc] initWithSummaryVariants:@[@"4-0", @"4-1", @"4-2"]
+                                                            additionalInformationVariants:@[@"5-0", @"5-1", @"5-2"]
+                                                                 selectionSummaryVariants:@[@"6-0", @"6-1", @"6-2"]];
+            
+            CPTrip *trip = [[CPTrip alloc] initWithOrigin:origin destination:destination routeChoices:@[routeChoice_1, routeChoice_2]];
+            [origin release];
+            [destination release];
+            [routeChoice_1 release];
+            [routeChoice_2 release];
+            
+            trip.destinationNameVariants = @[@"Short", @"LongLongLongLong"];
+            
+            [trips addObject:trip];
+            [trip release];
+        }
+        
+        CPTripPreviewTextConfiguration *tripPreviewTextConfiguration = [[CPTripPreviewTextConfiguration alloc] initWithStartButtonTitle:@"Start Button Title" additionalRoutesButtonTitle:@"Additional Routes Button Title" overviewButtonTitle:@"Overview Button Title"];
+        
+        [mapTemplate showTripPreviews:trips selectedTrip:trips.lastObject textConfiguration:tripPreviewTextConfiguration];
+        [trips release];
+        [tripPreviewTextConfiguration release];
+    }];
+    mapButton_1.image = [UIImage systemImageNamed:@"1.circle"];
+    mapButton_1.focusedImage = [UIImage systemImageNamed:@"1.square"];
+    
+    
+    CPMapButton *mapButton_2 = [[CPMapButton alloc] initWithHandler:^(CPMapButton * _Nonnull mapButton) {
+        CPMapTemplate *mapTemplate = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(mapButton, sel_registerName("controlDelegate"));
+        NSArray<CPTrip *> *tripPreviews = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(mapTemplate, sel_registerName("tripPreviews"));
+        
+        if (tripPreviews.count > 0) {
+            [mapTemplate hideTripPreviews];
+            return;
+        }
+        
+        //
+        
+        MKPlacemark *originPlacemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.571648599, 126.976372775)];
+        assert(CLLocationCoordinate2DIsValid(originPlacemark.coordinate));
+        MKMapItem *origin = [[MKMapItem alloc] initWithPlacemark:originPlacemark];
+        [originPlacemark release];
+        origin.name = @"Origin name";
+        
+        MKPlacemark *destinationPlacemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.572583105, 126.990414851)];
+        assert(CLLocationCoordinate2DIsValid(destinationPlacemark.coordinate));
+        MKMapItem *destination = [[MKMapItem alloc] initWithPlacemark:destinationPlacemark];
+        [destinationPlacemark release];
+        destination.name = @"Destination name";
+        
+        CPRouteChoice *routeChoice_1 = [[CPRouteChoice alloc] initWithSummaryVariants:@[@"1-0", @"1-1", @"1-2"]
+                                                        additionalInformationVariants:@[@"2-0", @"2-1", @"2-2"]
+                                                             selectionSummaryVariants:@[@"3-0", @"3-1", @"3-2"]];
+        
+        CPRouteChoice *routeChoice_2 = [[CPRouteChoice alloc] initWithSummaryVariants:@[@"4-0", @"4-1", @"4-2"]
+                                                        additionalInformationVariants:@[@"5-0", @"5-1", @"5-2"]
+                                                             selectionSummaryVariants:@[@"6-0", @"6-1", @"6-2"]];
+        
+        CPTrip *trip = [[CPTrip alloc] initWithOrigin:origin destination:destination routeChoices:@[routeChoice_1, routeChoice_2]];
+        [origin release];
+        [destination release];
+        [routeChoice_1 release];
+        [routeChoice_2 release];
+        
+        trip.destinationNameVariants = @[@"Short", @"LongLongLongLong"];
+        
+        CPTripPreviewTextConfiguration *tripPreviewTextConfiguration = [[CPTripPreviewTextConfiguration alloc] initWithStartButtonTitle:@"Start Button Title" additionalRoutesButtonTitle:@"Additional Routes Button Title" overviewButtonTitle:@"Overview Button Title"];
+        
+        [mapTemplate showRouteChoicesPreviewForTrip:trip textConfiguration:tripPreviewTextConfiguration];
+        [trip release];
+        [tripPreviewTextConfiguration release];
+    }];
+    mapButton_2.image = [UIImage systemImageNamed:@"2.circle"];
+    mapButton_2.focusedImage = [UIImage systemImageNamed:@"2.square"];
+    
+    
+    __block auto unretained = self;
+    CPMapButton *mapButton_3 = [[CPMapButton alloc] initWithHandler:^(CPMapButton * _Nonnull mapButton) {
+        CPNavigationSession *navigationSession = unretained._navigationSession;
+        if (navigationSession == nil) return;
+        
+        CPLaneGuidance *laneGuidance = [CPLaneGuidance new];
+        laneGuidance.instructionVariants = @[@"instructionVariant 1"];
+        
+        NSMeasurement *angle_1 = [[NSMeasurement alloc] initWithDoubleValue:30. unit:[NSUnitAngle degrees]];
+        NSMeasurement *angle_2 = [[NSMeasurement alloc] initWithDoubleValue:40. unit:[NSUnitAngle degrees]];
+        NSMeasurement *angle_3 = [[NSMeasurement alloc] initWithDoubleValue:90. unit:[NSUnitAngle degrees]];
+        NSMeasurement *angle_4 = [[NSMeasurement alloc] initWithDoubleValue:120. unit:[NSUnitAngle degrees]];
+        CPLane *lane_1 = [[CPLane alloc] initWithAngles:@[angle_1, angle_2, angle_3, angle_4]
+                                       highlightedAngle:angle_3
+                                            isPreferred:YES];
+        [angle_1 release];
+        [angle_2 release];
+        [angle_3 release];
+        [angle_4 release];
+        
+        laneGuidance.lanes = @[lane_1];
+        [lane_1 release];
+        
+        [navigationSession addLaneGuidances:@[laneGuidance]];
+        navigationSession.currentLaneGuidance = laneGuidance;
+        [laneGuidance release];
+    }];
+    mapButton_3.image = [UIImage systemImageNamed:@"3.circle"];
+    mapButton_3.focusedImage = [UIImage systemImageNamed:@"3.square"];
+    
+    
+    CPMapButton *mapButton_4 = [[CPMapButton alloc] initWithHandler:^(CPMapButton * _Nonnull mapButton) {
+        CPNavigationSession *navigationSession = unretained._navigationSession;
+        if (navigationSession == nil) return;
+        
+        CPManeuver *maneuver = [CPManeuver new];
+        maneuver.instructionVariants = @[@"Turn Left...?"];
+        maneuver.symbolImage = [UIImage systemImageNamed:@"arrowshape.turn.up.right"];
+        maneuver.junctionImage = [UIImage systemImageNamed:@"iphone.radiowaves.left.and.right"];
+        maneuver.cardBackgroundColor = UIColor.orangeColor;
+        NSMeasurement *distanceRemaining = [[NSMeasurement alloc] initWithDoubleValue:100. unit:[NSUnitLength kilometers]];
+        
+        CPTravelEstimates *initialTravelEstimates = [[CPTravelEstimates alloc] initWithDistanceRemaining:distanceRemaining
+                                                                       distanceRemainingToDisplay:distanceRemaining
+                                                                                    timeRemaining:200.];
+        [distanceRemaining release];
+        maneuver.initialTravelEstimates = initialTravelEstimates;
+        navigationSession.upcomingManeuvers = @[maneuver];
+        [maneuver release];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            CPManeuver *maneuver = [CPManeuver new];
+            maneuver.instructionVariants = @[@"Turn Right...?"];
+            maneuver.symbolImage = [UIImage systemImageNamed:@"arrowshape.turn.up.left"];
+            maneuver.junctionImage = [UIImage systemImageNamed:@"iphone.radiowaves.left.and.right"];
+            maneuver.initialTravelEstimates = initialTravelEstimates;
+            [navigationSession addManeuvers:@[maneuver]];
+            [maneuver release];
+        });
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            CPManeuver *maneuver_1 = [CPManeuver new];
+            maneuver_1.instructionVariants = @[@"Turn Right...?"];
+            maneuver_1.symbolImage = [UIImage systemImageNamed:@"arrowshape.turn.up.left"];
+            maneuver_1.junctionImage = [UIImage systemImageNamed:@"iphone.radiowaves.left.and.right"];
+            maneuver_1.initialTravelEstimates = initialTravelEstimates;
+            
+            CPManeuver *maneuver_2 = [CPManeuver new];
+            maneuver_2.instructionVariants = @[@"Turn Left...?"];
+            maneuver_2.symbolImage = [UIImage systemImageNamed:@"arrowshape.turn.up.right"];
+            maneuver_2.junctionImage = [UIImage systemImageNamed:@"iphone.radiowaves.left.and.right"];
+            maneuver_2.initialTravelEstimates = initialTravelEstimates;
+            
+            navigationSession.upcomingManeuvers = @[maneuver_1, maneuver_2];
+            [maneuver_1 release];
+            [maneuver_2 release];
+        });
+        
+        [initialTravelEstimates release];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            navigationSession.upcomingManeuvers = @[];
+        });
+    }];
+    mapButton_4.image = [UIImage systemImageNamed:@"4.circle"];
+    mapButton_4.focusedImage = [UIImage systemImageNamed:@"4.square"];
+    
+    
+    mapTemplate.mapButtons = @[mapButton_1, mapButton_2, mapButton_3, mapButton_4];
+    [mapButton_1 release];
+    [mapButton_2 release];
+    [mapButton_3 release];
+    [mapButton_4 release];
+    
+    //
+    
+    CPBarButton *cancelNavigationButton = [[CPBarButton alloc] initWithImage:[UIImage systemImageNamed:@"xmark"] handler:^(CPBarButton * _Nonnull button) {
+        [unretained._navigationSession cancelTrip];
+    }];
+    cancelNavigationButton.enabled = NO;
+    
+    CPBarButton *updateEstimatesButton = [[CPBarButton alloc] initWithTitle:@"Esti." handler:^(CPBarButton * _Nonnull button) {
+        CPNavigationSession *navigationSession = unretained._navigationSession;
+        if (navigationSession == nil) return;
+        
+        CPTrip *trip = navigationSession.trip;
+        
+        CPMapTemplate *mapTemplate = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(button, sel_registerName("delegate"));
+        
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_real_distribution<double> double_dist(5.0, 300.0);
+        std::uniform_int_distribution<int> int_dist(0, 3);
+        
+        NSMeasurement *distanceRemaining = [[NSMeasurement alloc] initWithDoubleValue:double_dist(gen) unit:[NSUnitLength kilometers]];
+        
+        CPTravelEstimates *travelEstimates = [[CPTravelEstimates alloc] initWithDistanceRemaining:distanceRemaining
+                                                                       distanceRemainingToDisplay:distanceRemaining
+                                                                                    timeRemaining:double_dist(gen)];
+        [distanceRemaining release];
+        
+        [mapTemplate updateTravelEstimates:travelEstimates forTrip:trip withTimeRemainingColor:static_cast<CPTimeRemainingColor>(int_dist(gen))];
+        [travelEstimates release];
+    }];
+    
+    CPBarButton *pauseOrResumeBarButton = [[CPBarButton alloc] initWithImage:[UIImage systemImageNamed:@"playpause.fill"] handler:^(CPBarButton * _Nonnull) {
+        CPNavigationSession *navigationSession = unretained._navigationSession;
+        if (navigationSession == nil) return;
+        
+        CPTripPauseReason pauseReason = reinterpret_cast<CPTripPauseReason (*)(id, SEL)>(objc_msgSend)(navigationSession, sel_registerName("pauseReason"));
+        
+        if (pauseReason == 0) {
+            std::random_device rd;
+            std::mt19937 gen(rd());
+            std::uniform_int_distribution<int> dist(1, 5);
+            
+            [navigationSession pauseTripForReason:CPTripPauseReasonArrived
+                                      description:@"Pause Description"
+                                    turnCardColor:UIColor.systemPinkColor];
+        } else {
+            CPLaneGuidance *laneGuidance = [CPLaneGuidance new];
+            NSMeasurement *distanceRemaining = [[NSMeasurement alloc] initWithDoubleValue:100. unit:[NSUnitLength kilometers]];
+            CPTravelEstimates *tripTravelEstimates = [[CPTravelEstimates alloc] initWithDistanceRemaining:distanceRemaining
+                                                                           distanceRemainingToDisplay:distanceRemaining
+                                                                                        timeRemaining:200.];
+            [distanceRemaining release];
+            
+            CPRouteInformation *routeInformation = [[CPRouteInformation alloc] initWithManeuvers:@[]
+                                                                                   laneGuidances:@[]
+                                                                                currentManeuvers:@[]
+                                                                             currentLaneGuidance:laneGuidance
+                                                                             tripTravelEstimates:tripTravelEstimates
+                                                                         maneuverTravelEstimates:tripTravelEstimates];
+            [laneGuidance release];
+            [tripTravelEstimates release];
+            
+            [navigationSession resumeTripWithUpdatedRouteInformation:routeInformation];
+            [routeInformation release];
+        }
+    }];
+    
+    CPBarButton *finishBarButton = [[CPBarButton alloc] initWithTitle:@"Finish" handler:^(CPBarButton * _Nonnull) {
+        CPNavigationSession *navigationSession = unretained._navigationSession;
+        if (navigationSession == nil) return;
+        
+        [navigationSession finishTrip];
+    }];
+    
+    mapTemplate.leadingNavigationBarButtons = @[pauseOrResumeBarButton, finishBarButton];
+    [pauseOrResumeBarButton release];
+    [finishBarButton release];
+    mapTemplate.trailingNavigationBarButtons = @[cancelNavigationButton, updateEstimatesButton];
+    [cancelNavigationButton release];
+    [updateEstimatesButton release];
+    
+    //
+    
+    return [mapTemplate autorelease];
 }
 
 @end

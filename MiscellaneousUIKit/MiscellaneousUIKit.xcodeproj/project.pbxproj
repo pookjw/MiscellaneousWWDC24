@@ -155,6 +155,10 @@
 		4FD54E902D00BB78002CE52C /* LabelWritingToolsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD54E8F2D00BB78002CE52C /* LabelWritingToolsViewController.mm */; };
 		4FD54E912D00BB78002CE52C /* LabelWritingToolsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD54E8F2D00BB78002CE52C /* LabelWritingToolsViewController.mm */; };
 		4FDABC692C3D35DE00F928DB /* SymbolTransitionsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FDABC682C3D35DE00F928DB /* SymbolTransitionsViewController.mm */; };
+		4FEC175B2D226CC300F9945E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FEC175A2D226CC300F9945E /* MapKit.framework */; };
+		4FEC175C2D226CC900F9945E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FEC175A2D226CC300F9945E /* MapKit.framework */; };
+		4FEC175E2D2274D900F9945E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FEC175D2D2274D900F9945E /* WebKit.framework */; };
+		4FEC175F2D2274DE00F9945E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FEC175D2D2274D900F9945E /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -359,6 +363,8 @@
 		4FDABC672C3D35DE00F928DB /* SymbolTransitionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SymbolTransitionsViewController.h; sourceTree = "<group>"; };
 		4FDABC682C3D35DE00F928DB /* SymbolTransitionsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SymbolTransitionsViewController.mm; sourceTree = "<group>"; };
 		4FDABC6A2C3D3C5600F928DB /* MiscellaneousUIKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MiscellaneousUIKit.entitlements; sourceTree = "<group>"; };
+		4FEC175A2D226CC300F9945E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/iOSSupport/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
+		4FEC175D2D2274D900F9945E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/iOSSupport/System/Library/PrivateFrameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -388,8 +394,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FEC175F2D2274DE00F9945E /* WebKit.framework in Frameworks */,
 				4F5056532C5938F400B49BB9 /* SafariServices.framework in Frameworks */,
 				4F082E9C2C1B4505002263ED /* UniformTypeIdentifiers.framework in Frameworks */,
+				4FEC175B2D226CC300F9945E /* MapKit.framework in Frameworks */,
 				4F8C51452D203A9A001046CB /* CarPlay.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -398,8 +406,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FEC175E2D2274D900F9945E /* WebKit.framework in Frameworks */,
 				4F59DEDB2CFFF56100E88830 /* SafariServices.framework in Frameworks */,
 				4F59DEDC2CFFF56100E88830 /* UniformTypeIdentifiers.framework in Frameworks */,
+				4FEC175C2D226CC900F9945E /* MapKit.framework in Frameworks */,
 				4F8C51462D203AA0001046CB /* CarPlay.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -567,6 +577,8 @@
 		4F082E9A2C1B4504002263ED /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4FEC175D2D2274D900F9945E /* WebKit.framework */,
+				4FEC175A2D226CC300F9945E /* MapKit.framework */,
 				4F8C51442D203A9A001046CB /* CarPlay.framework */,
 				4F5056522C5938F400B49BB9 /* SafariServices.framework */,
 				4F082E9B2C1B4505002263ED /* UniformTypeIdentifiers.framework */,
