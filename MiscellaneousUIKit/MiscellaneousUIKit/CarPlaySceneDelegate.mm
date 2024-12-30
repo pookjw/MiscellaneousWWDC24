@@ -121,24 +121,10 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
     navigationSession.currentRoadNameVariants = @[@"A"];
     
     self._navigationSession = navigationSession;
-    
-    for (CPBarButton *button in mapTemplate.trailingNavigationBarButtons) {
-        if ([button.title isEqualToString:@"Cancel"]) {
-            button.enabled = YES;
-            break;
-        }
-    }
 }
 
 - (void)mapTemplateDidCancelNavigation:(CPMapTemplate *)mapTemplate {
     self._navigationSession = nil;
-    
-    for (CPBarButton *button in mapTemplate.trailingNavigationBarButtons) {
-        if ([button.title isEqualToString:@"Cancel"]) {
-            button.enabled = NO;
-            break;
-        }
-    }
 }
 
 - (BOOL)mapTemplateShouldProvideNavigationMetadata:(CPMapTemplate *)mapTemplate {
@@ -789,9 +775,9 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
     //
     
     CPBarButton *cancelNavigationButton = [[CPBarButton alloc] initWithImage:[UIImage systemImageNamed:@"xmark"] handler:^(CPBarButton * _Nonnull button) {
+        // -finishTrip랑 똑같음
         [unretained._navigationSession cancelTrip];
     }];
-    cancelNavigationButton.enabled = NO;
     
     CPBarButton *updateEstimatesButton = [[CPBarButton alloc] initWithTitle:@"Esti." handler:^(CPBarButton * _Nonnull button) {
         CPNavigationSession *navigationSession = unretained._navigationSession;
@@ -853,16 +839,38 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
         }
     }];
     
-    CPBarButton *finishBarButton = [[CPBarButton alloc] initWithTitle:@"Finish" handler:^(CPBarButton * _Nonnull) {
-        CPNavigationSession *navigationSession = unretained._navigationSession;
-        if (navigationSession == nil) return;
+    CPBarButton *alertBarButton = [[CPBarButton alloc] initWithTitle:@"Alert" handler:^(CPBarButton * _Nonnull button) {
+        CPMapTemplate *mapTemplate = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(button, sel_registerName("delegate"));
         
-        [navigationSession finishTrip];
+        CPAlertAction *panAction = [[CPAlertAction alloc] initWithTitle:@"Pan" style:CPAlertActionStyleDefault handler:^(CPAlertAction * _Nonnull) {
+            BOOL isPanningInterfaceVisible = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(mapTemplate, sel_registerName("isPanningInterfaceVisible"));
+            
+            if (isPanningInterfaceVisible) {
+                [mapTemplate dismissPanningInterfaceAnimated:YES];
+            } else {
+                [mapTemplate showPanningInterfaceAnimated:YES];
+            }
+        }];
+        CPAlertAction *greenAction = [[CPAlertAction alloc] initWithTitle:@"Green" color:UIColor.greenColor handler:^(CPAlertAction * _Nonnull) {
+            
+        }];
+        
+        CPNavigationAlert *alert = [[CPNavigationAlert alloc] initWithTitleVariants:@[@"Title"]
+                                                                   subtitleVariants:@[@"Subtitle"]
+                                                                              image:[UIImage systemImageNamed:@"macwindow"]
+                                                                      primaryAction:panAction
+                                                                    secondaryAction:greenAction
+                                                                           duration:300.];
+        [panAction release];
+        [greenAction release];
+        
+        [mapTemplate presentNavigationAlert:alert animated:YES];
+        [alert release];
     }];
     
-    mapTemplate.leadingNavigationBarButtons = @[pauseOrResumeBarButton, finishBarButton];
+    mapTemplate.leadingNavigationBarButtons = @[pauseOrResumeBarButton, alertBarButton];
     [pauseOrResumeBarButton release];
-    [finishBarButton release];
+    [alertBarButton release];
     mapTemplate.trailingNavigationBarButtons = @[cancelNavigationButton, updateEstimatesButton];
     [cancelNavigationButton release];
     [updateEstimatesButton release];
