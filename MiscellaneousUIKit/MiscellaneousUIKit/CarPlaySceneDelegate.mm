@@ -17,7 +17,7 @@
 
 extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
 
-@interface CarPlaySceneDelegate () <CPSessionConfigurationDelegate, CPTabBarTemplateDelegate, CPNowPlayingTemplateObserver, CPMapTemplateDelegate>
+@interface CarPlaySceneDelegate () <CPSessionConfigurationDelegate, CPTabBarTemplateDelegate, CPNowPlayingTemplateObserver, CPMapTemplateDelegate, CPSearchTemplateDelegate>
 @property (retain, nonatomic, nullable) CPInterfaceController *_interfaceController;
 @property (retain, nonatomic, nullable) CPSessionConfiguration *_configuration;
 @property (retain, nonatomic, nullable) id _frameRateLimitInspector;
@@ -32,6 +32,10 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
     [__frameRateLimitInspector release];
     [__navigationSession release];
     [super dealloc];
+}
+
+- (void)templateApplicationScene:(CPTemplateApplicationScene *)templateApplicationScene didConnectInterfaceController:(CPInterfaceController *)interfaceController {
+    [self templateApplicationScene:templateApplicationScene didConnectInterfaceController:interfaceController toWindow:nil];
 }
 
 - (void)templateApplicationScene:(CPTemplateApplicationScene *)templateApplicationScene didConnectInterfaceController:(CPInterfaceController *)interfaceController toWindow:(nonnull CPWindow *)window {
@@ -131,6 +135,101 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
     return YES;
 }
 
+- (BOOL)mapTemplate:(CPMapTemplate *)mapTemplate shouldShowNotificationForManeuver:(CPManeuver *)maneuver {
+    NSLog(@"%s", sel_getName(_cmd));
+    return YES;
+}
+
+- (BOOL)mapTemplate:(CPMapTemplate *)mapTemplate shouldUpdateNotificationForManeuver:(CPManeuver *)maneuver withTravelEstimates:(CPTravelEstimates *)travelEstimates {
+    NSLog(@"%s", sel_getName(_cmd));
+    return YES;
+}
+
+- (BOOL)mapTemplate:(CPMapTemplate *)mapTemplate shouldShowNotificationForNavigationAlert:(CPNavigationAlert *)navigationAlert {
+    NSLog(@"%s", sel_getName(_cmd));
+    return YES;
+}
+
+- (void)mapTemplate:(CPMapTemplate *)mapTemplate willShowNavigationAlert:(CPNavigationAlert *)navigationAlert {
+    NSLog(@"%s", sel_getName(_cmd));
+}
+
+- (void)mapTemplate:(CPMapTemplate *)mapTemplate didShowNavigationAlert:(CPNavigationAlert *)navigationAlert {
+    NSLog(@"%s", sel_getName(_cmd));
+}
+
+- (void)mapTemplate:(CPMapTemplate *)mapTemplate willDismissNavigationAlert:(CPNavigationAlert *)navigationAlert dismissalContext:(CPNavigationAlertDismissalContext)dismissalContext {
+    NSLog(@"%s", sel_getName(_cmd));
+}
+
+- (void)mapTemplate:(CPMapTemplate *)mapTemplate didDismissNavigationAlert:(CPNavigationAlert *)navigationAlert dismissalContext:(CPNavigationAlertDismissalContext)dismissalContext {
+    NSLog(@"%s", sel_getName(_cmd));
+}
+
+- (void)mapTemplateDidShowPanningInterface:(CPMapTemplate *)mapTemplate {
+    NSLog(@"%s", sel_getName(_cmd));
+}
+
+- (void)mapTemplateWillDismissPanningInterface:(CPMapTemplate *)mapTemplate {
+    NSLog(@"%s", sel_getName(_cmd));
+}
+
+- (void)mapTemplateDidDismissPanningInterface:(CPMapTemplate *)mapTemplate {
+    NSLog(@"%s", sel_getName(_cmd));
+}
+
+- (void)mapTemplateDidBeginPanGesture:(CPMapTemplate *)mapTemplate {
+    NSLog(@"%s", sel_getName(_cmd));
+}
+
+- (void)mapTemplate:(CPMapTemplate *)mapTemplate panBeganWithDirection:(CPPanDirection)direction {
+    NSLog(@"%s", sel_getName(_cmd));
+}
+
+- (void)mapTemplate:(CPMapTemplate *)mapTemplate panWithDirection:(CPPanDirection)direction {
+    NSLog(@"%s", sel_getName(_cmd));
+}
+
+- (void)mapTemplate:(CPMapTemplate *)mapTemplate panEndedWithDirection:(CPPanDirection)direction {
+    NSLog(@"%s", sel_getName(_cmd));
+}
+
+- (void)mapTemplate:(CPMapTemplate *)mapTemplate didEndPanGestureWithVelocity:(CGPoint)velocity {
+    NSLog(@"%s", sel_getName(_cmd));
+}
+
+- (void)mapTemplate:(CPMapTemplate *)mapTemplate didUpdatePanGestureWithTranslation:(CGPoint)translation velocity:(CGPoint)velocity {
+    NSLog(@"%s", sel_getName(_cmd));
+}
+
+
+#pragma mark - CPSearchTemplateDelegate
+
+- (void)searchTemplate:(CPSearchTemplate *)searchTemplate updatedSearchText:(NSString *)searchText completionHandler:(void (^)(NSArray<CPListItem *> * _Nonnull))completionHandler {
+    NSArray<NSString *> *words = @[@"Apple", @"Bridge", @"Ocean", @"Whisper", @"Mountain", @"Lantern", @"Journey", @"Harmony", @"Eclipse", @"Meadow", @"Quantum", @"Velvet", @"Puzzle", @"Galaxy", @"Serenity", @"Mirage", @"Cascade", @"Twilight", @"Echo", @"Radiant", @"Falcon", @"Breeze", @"Infinity", @"Mosaic", @"Nectar", @"Prism", @"Ripple", @"Solstice", @"Tranquil", @"Umbrella", @"Vortex", @"Wander", @"Zephyr", @"Blossom", @"Cipher", @"Dusk", @"Ember", @"Frost", @"Glimmer", @"Haven", @"Illusion", @"Jigsaw", @"Kaleidoscope", @"Luminous", @"Mystic", @"Nexus", @"Oasis", @"Paradox", @"Quiver"];
+    
+    NSArray<NSString *> *filtered = [words filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF CONTAINS[c] %@" argumentArray:@[searchText]]];
+    
+    NSMutableArray<CPListItem *> *items = [[NSMutableArray alloc] initWithCapacity:filtered.count];
+    for (NSString *word in filtered) {
+        CPListItem *item = [[CPListItem alloc] initWithText:word detailText:@"Detail" image:[UIImage systemImageNamed:@"folder.circle.fill"] accessoryImage:[UIImage systemImageNamed:@"graduationcap"] accessoryType:CPListItemAccessoryTypeCloud];
+        [items addObject:item];
+        [item release];
+    }
+    
+    completionHandler(items);
+    [items release];
+}
+
+- (void)searchTemplate:(CPSearchTemplate *)searchTemplate selectedResult:(CPListItem *)item completionHandler:(void (^)())completionHandler {
+    NSLog(@"%@", item.text);
+    completionHandler();
+}
+
+- (void)searchTemplateSearchButtonPressed:(CPSearchTemplate *)searchTemplate {
+    NSLog(@"%s", sel_getName(_cmd));
+}
+
 
 #pragma mark - Make Methods
 
@@ -185,6 +284,9 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
 
 - (CPListTemplate *)_makeTemplatesTemplate {
     NSArray<NSString *> *titles = @[
+        NSStringFromClass([CPPointOfInterestTemplate class]),
+        NSStringFromClass([CPVoiceControlTemplate class]),
+        NSStringFromClass([CPSearchTemplate class]),
         NSStringFromClass([CPMapTemplate class]),
         NSStringFromClass([CPNowPlayingTemplate class]),
         NSStringFromClass([CPMessageComposeBarButton class]),
@@ -192,6 +294,9 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
         NSStringFromClass([CPListTemplate class])
     ];
     NSArray<__kindof CPTemplate *> *templates = @[
+        [self _makePointOfInterestTemplate],
+        [self _makeVoiceControlPresenterTemplate],
+        [self _makeSearchTemplate],
         [self _makeMapTemplate],
         [self _makeNowPlayingTemplate],
         [self _makeDemoMessageComposeBarButtonTemplate],
@@ -843,9 +948,7 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
         CPMapTemplate *mapTemplate = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(button, sel_registerName("delegate"));
         
         CPAlertAction *panAction = [[CPAlertAction alloc] initWithTitle:@"Pan" style:CPAlertActionStyleDefault handler:^(CPAlertAction * _Nonnull) {
-            BOOL isPanningInterfaceVisible = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(mapTemplate, sel_registerName("isPanningInterfaceVisible"));
-            
-            if (isPanningInterfaceVisible) {
+            if (mapTemplate.isPanningInterfaceVisible) {
                 [mapTemplate dismissPanningInterfaceAnimated:YES];
             } else {
                 [mapTemplate showPanningInterfaceAnimated:YES];
@@ -878,6 +981,102 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
     //
     
     return [mapTemplate autorelease];
+}
+
+- (CPSearchTemplate *)_makeSearchTemplate {
+    CPSearchTemplate *searchTemplate = [CPSearchTemplate new];
+    searchTemplate.delegate = self;
+    
+    return [searchTemplate autorelease];
+}
+
+- (CPInformationTemplate *)_makeVoiceControlPresenterTemplate {
+    __block CPInterfaceController *interfaceController = self._interfaceController;
+    
+    CPTextButton *button = [[CPTextButton alloc] initWithTitle:@"Present" textStyle:CPTextButtonStyleNormal handler:^(__kindof CPTextButton * _Nonnull contactButton) {
+        CPVoiceControlState *state_1 = [[CPVoiceControlState alloc] initWithIdentifier:[NSUUID UUID].UUIDString
+                                                                         titleVariants:@[@"Title 1"]
+                                                                                 image:[UIImage systemImageNamed:@"studentdesk"]
+                                                                               repeats:YES];
+        CPVoiceControlState *state_2 = [[CPVoiceControlState alloc] initWithIdentifier:[NSUUID UUID].UUIDString
+                                                                         titleVariants:@[@"Title 2"]
+                                                                                 image:[UIImage systemImageNamed:@"microbe"]
+                                                                               repeats:YES];
+        
+        CPVoiceControlTemplate *voiceControlTemplate = [[CPVoiceControlTemplate alloc] initWithVoiceControlStates:@[state_1, state_2]];
+        
+        [interfaceController presentTemplate:voiceControlTemplate animated:YES completion:^(BOOL success, NSError * _Nullable error) {
+            assert(error == nil);
+            assert(success);
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [voiceControlTemplate activateVoiceControlStateWithIdentifier:state_2.identifier];
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [voiceControlTemplate activateVoiceControlStateWithIdentifier:state_1.identifier];
+                });
+            });
+        }];
+        
+        [state_1 release];
+        [state_2 release];
+        
+        [voiceControlTemplate release];
+    }];
+    
+    CPInformationTemplate *informationTemplate = [[CPInformationTemplate alloc] initWithTitle:NSStringFromClass([CPVoiceControlTemplate class])
+                                                                                       layout:CPInformationTemplateLayoutTwoColumn
+                                                                                        items:@[]
+                                                                                      actions:@[button]];
+    [button release];
+    
+    return [informationTemplate autorelease];
+}
+
+- (CPPointOfInterestTemplate *)_makePointOfInterestTemplate {
+    MKPlacemark *placemark_1 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.571648599, 126.976372775)];
+    assert(CLLocationCoordinate2DIsValid(placemark_1.coordinate));
+    MKMapItem *mapItem_1 = [[MKMapItem alloc] initWithPlacemark:placemark_1];
+    [placemark_1 release];
+    mapItem_1.name = @"Origin name 1";
+    
+    CPPointOfInterest *pointOfInterest_1 = [[CPPointOfInterest alloc] initWithLocation:mapItem_1
+                                                                               title:@"Title 1"
+                                                                            subtitle:@"Subtitle 1"
+                                                                             summary:@"Summary 1"
+                                                                         detailTitle:@"Detail Title 1"
+                                                                      detailSubtitle:@"Detail Subtitle 1"
+                                                                       detailSummary:@"Detail Summary 1"
+                                                                            pinImage:[UIImage systemImageNamed:@"captions.bubble"]
+                                                                    selectedPinImage:[UIImage systemImageNamed:@"mail.stack.fill"]];
+    [mapItem_1 release];
+    
+    //
+    
+    MKPlacemark *placemark_2 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.571648599, 126.976372775)];
+    assert(CLLocationCoordinate2DIsValid(placemark_2.coordinate));
+    MKMapItem *mapItem_2 = [[MKMapItem alloc] initWithPlacemark:placemark_2];
+    [placemark_2 release];
+    mapItem_2.name = @"Origin name 2";
+    
+    CPPointOfInterest *pointOfInterest_2 = [[CPPointOfInterest alloc] initWithLocation:mapItem_2
+                                                                               title:@"Title 2"
+                                                                            subtitle:@"Subtitle 2"
+                                                                             summary:@"Summary 2"
+                                                                         detailTitle:@"Detail Title 2"
+                                                                      detailSubtitle:@"Detail Subtitle 2"
+                                                                       detailSummary:@"Detail Summary 2"
+                                                                            pinImage:[UIImage systemImageNamed:@"captions.bubble"]
+                                                                    selectedPinImage:[UIImage systemImageNamed:@"mail.stack.fill"]];
+    [mapItem_2 release];
+    
+    //
+    
+    CPPointOfInterestTemplate *pointOfInterestTemplate = [[CPPointOfInterestTemplate alloc] initWithTitle:@"Title" pointsOfInterest:@[pointOfInterest_1, pointOfInterest_2] selectedIndex:1];
+    [pointOfInterest_1 release];
+    [pointOfInterest_2 release];
+    
+    return [pointOfInterestTemplate autorelease];
 }
 
 @end

@@ -5,16 +5,18 @@
 	<key>SBStarkCapable</key>
 	<false/>
 	<key>com.apple.developer.carplay-audio</key>
-	<true/>
+	<false/>
 	<key>com.apple.developer.carplay-charging</key>
 	<true/>
 	<key>com.apple.developer.carplay-communication</key>
-	<true/>
+	<false/>
 	<key>com.apple.developer.carplay-maps</key>
-	<true/>
+	<false/>
 	<key>com.apple.developer.carplay-parking</key>
 	<true/>
 	<key>com.apple.developer.carplay-quick-ordering</key>
+	<true/>
+	<key>com.apple.developer.carplay-public-safety</key>
 	<true/>
 	<key>com.apple.developer.siri</key>
 	<true/>
