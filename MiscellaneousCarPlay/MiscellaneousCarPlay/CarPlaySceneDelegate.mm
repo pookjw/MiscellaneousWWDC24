@@ -69,16 +69,16 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
     
     UIViewController *viewController = [UIViewController new];
     
-//    MKMapView *mapView = [MKMapView new];
-//    viewController.view = mapView;
-//    [mapView release];
+    MKMapView *mapView = [MKMapView new];
+    viewController.view = mapView;
+    [mapView release];
     
-    WKWebView *webView = [WKWebView new];
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://www.google.com"]];
-    [webView loadRequest:request];
-    [request release];
-    viewController.view = webView;
-    [webView release];
+//    WKWebView *webView = [WKWebView new];
+//    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://www.google.com"]];
+//    [webView loadRequest:request];
+//    [request release];
+//    viewController.view = webView;
+//    [webView release];
     
     window.rootViewController = viewController;
     [viewController release];
@@ -225,7 +225,12 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
 - (void)searchTemplate:(CPSearchTemplate *)searchTemplate updatedSearchText:(NSString *)searchText completionHandler:(void (^)(NSArray<CPListItem *> * _Nonnull))completionHandler {
     NSArray<NSString *> *words = @[@"Apple", @"Bridge", @"Ocean", @"Whisper", @"Mountain", @"Lantern", @"Journey", @"Harmony", @"Eclipse", @"Meadow", @"Quantum", @"Velvet", @"Puzzle", @"Galaxy", @"Serenity", @"Mirage", @"Cascade", @"Twilight", @"Echo", @"Radiant", @"Falcon", @"Breeze", @"Infinity", @"Mosaic", @"Nectar", @"Prism", @"Ripple", @"Solstice", @"Tranquil", @"Umbrella", @"Vortex", @"Wander", @"Zephyr", @"Blossom", @"Cipher", @"Dusk", @"Ember", @"Frost", @"Glimmer", @"Haven", @"Illusion", @"Jigsaw", @"Kaleidoscope", @"Luminous", @"Mystic", @"Nexus", @"Oasis", @"Paradox", @"Quiver"];
     
-    NSArray<NSString *> *filtered = [words filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF CONTAINS[c] %@" argumentArray:@[searchText]]];
+    NSArray<NSString *> *filtered;
+    if (searchText.length == 0) {
+        filtered = words;
+    } else {
+        filtered = [words filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF CONTAINS[c] %@" argumentArray:@[searchText]]];
+    }
     
     NSMutableArray<CPListItem *> *items = [[NSMutableArray alloc] initWithCapacity:filtered.count];
     for (NSString *word in filtered) {
@@ -884,9 +889,16 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
         maneuver.cardBackgroundColor = UIColor.orangeColor;
         NSMeasurement *distanceRemaining = [[NSMeasurement alloc] initWithDoubleValue:100. unit:[NSUnitLength kilometers]];
         
-        CPTravelEstimates *initialTravelEstimates = [[CPTravelEstimates alloc] initWithDistanceRemaining:distanceRemaining
-                                                                       distanceRemainingToDisplay:distanceRemaining
-                                                                                    timeRemaining:200.];
+        CPTravelEstimates *initialTravelEstimates;
+        if (@available(iOS 17.4, *)) {
+            initialTravelEstimates = [[CPTravelEstimates alloc] initWithDistanceRemaining:distanceRemaining
+                                                                           distanceRemainingToDisplay:distanceRemaining
+                                                                                        timeRemaining:200.];
+        } else {
+            initialTravelEstimates = [[CPTravelEstimates alloc] initWithDistanceRemaining:distanceRemaining
+                                                                                        timeRemaining:200.];
+        }
+        
         [distanceRemaining release];
         maneuver.initialTravelEstimates = initialTravelEstimates;
         navigationSession.upcomingManeuvers = @[maneuver];
@@ -898,7 +910,13 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
             maneuver.symbolImage = [UIImage systemImageNamed:@"arrowshape.turn.up.left"];
             maneuver.junctionImage = [UIImage systemImageNamed:@"iphone.radiowaves.left.and.right"];
             maneuver.initialTravelEstimates = initialTravelEstimates;
-            [navigationSession addManeuvers:@[maneuver]];
+            
+            if (@available(iOS 17.4, *)) {
+                [navigationSession addManeuvers:@[maneuver]];
+            } else {
+                navigationSession.upcomingManeuvers = @[maneuver];
+            }
+            
             [maneuver release];
         });
         
@@ -915,7 +933,13 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
             maneuver_2.junctionImage = [UIImage systemImageNamed:@"iphone.radiowaves.left.and.right"];
             maneuver_2.initialTravelEstimates = initialTravelEstimates;
             
-            navigationSession.upcomingManeuvers = @[maneuver_1, maneuver_2];
+            
+            if (@available(iOS 17.4, *)) {
+                [navigationSession addManeuvers:@[maneuver_1, maneuver_2]];
+            } else {
+                navigationSession.upcomingManeuvers = @[maneuver_1, maneuver_2];
+            }
+            
             [maneuver_1 release];
             [maneuver_2 release];
         });
