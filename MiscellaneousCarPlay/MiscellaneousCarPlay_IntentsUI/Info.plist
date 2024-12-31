@@ -6,18 +6,15 @@
 	<dict>
 		<key>NSExtensionAttributes</key>
 		<dict>
-			<key>IntentsRestrictedWhileLocked</key>
-			<array/>
 			<key>IntentsSupported</key>
 			<array>
-				<string>INSearchForMessagesIntent</string>
-				<string>INPlayMediaIntent</string>
+				<string>INSendMessageIntent</string>
 			</array>
 		</dict>
+		<key>NSExtensionMainStoryboard</key>
+		<string>MainInterface</string>
 		<key>NSExtensionPointIdentifier</key>
-		<string>com.apple.intents-service</string>
-		<key>NSExtensionPrincipalClass</key>
-		<string>IntentHandler</string>
+		<string>com.apple.intents-ui-service</string>
 	</dict>
 </dict>
 </plist>

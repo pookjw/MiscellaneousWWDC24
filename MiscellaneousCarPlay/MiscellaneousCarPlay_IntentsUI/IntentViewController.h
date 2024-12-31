@@ -1,8 +1,8 @@
 //
 //  IntentViewController.h
-//  MiscellaneousWWDC24_IntentsUIExtension
+//  MiscellaneousCarPlay_IntentsUI
 //
-//  Created by Jinwoo Kim on 12/29/24.
+//  Created by Jinwoo Kim on 12/31/24.
 //
 
 #import <IntentsUI/IntentsUI.h>

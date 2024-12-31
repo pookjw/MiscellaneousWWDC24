@@ -16,7 +16,7 @@
 // "<myApp> John saying hello"
 // "Search for messages in <myApp>"
 
-@interface IntentHandler () <INPlayMediaIntentHandling, INSearchForMessagesIntentHandling>
+@interface IntentHandler () <INPlayMediaIntentHandling, INSearchForMessagesIntentHandling, INStartCallIntentHandling>
 
 @end
 
@@ -38,6 +38,12 @@
     INSearchForMessagesIntentResponse *response = [[INSearchForMessagesIntentResponse alloc] initWithCode:INSearchForMessagesIntentResponseCodeSuccess userActivity:userActivity];
     [userActivity release];
     
+    completion(response);
+    [response release];
+}
+
+- (void)handleStartCall:(nonnull INStartCallIntent *)intent completion:(nonnull void (^)(INStartCallIntentResponse * _Nonnull))completion {
+    INStartCallIntentResponse *response = [[INStartCallIntentResponse alloc] initWithCode:INStartCallIntentResponseCodeReady userActivity:nil];
     completion(response);
     [response release];
 }

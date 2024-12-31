@@ -41,11 +41,10 @@ if [ -e "$TARGET_APP/embedded.mobileprovision" ]; then
 fi
 
 # Add entitlements
-echo "$TARGET_APP/$APPLICATION_NAME"
 echo "Adding entitlements"
 ldid -S"$WORKING_LOCATION/$XCODEPROJ_NAME/$APPLICATION_NAME.entitlements" "$TARGET_APP/$APPLICATION_NAME"
 
-# Package .ipa
+# Package .tipa
 rm -rf Payload
 mkdir Payload
 cp -r "$APPLICATION_NAME.app" "Payload/$APPLICATION_NAME.app"

@@ -12,7 +12,43 @@
 		4F7B84332D23FEF9000CE080 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F7B84322D23FEF9000CE080 /* WebKit.framework */; };
 		4F7B84352D23FEFF000CE080 /* CarPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F7B84342D23FEFF000CE080 /* CarPlay.framework */; };
 		4F7B84372D23FF06000CE080 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F7B84362D23FF06000CE080 /* UniformTypeIdentifiers.framework */; };
+		4F7B86F32D242FD4000CE080 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F7B86F22D242FD4000CE080 /* Intents.framework */; };
+		4F7B86FF2D242FD4000CE080 /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F7B86FE2D242FD4000CE080 /* IntentsUI.framework */; };
+		4F7B870A2D242FD4000CE080 /* MiscellaneousCarPlay_IntentsUI.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4F7B86FD2D242FD4000CE080 /* MiscellaneousCarPlay_IntentsUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4F7B870D2D242FD4000CE080 /* MiscellaneousCarPlay_Intents.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4F7B86F12D242FD4000CE080 /* MiscellaneousCarPlay_Intents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4F7B87082D242FD4000CE080 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4F7B84042D23F9A5000CE080 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4F7B86FC2D242FD4000CE080;
+			remoteInfo = MiscellaneousCarPlay_IntentsUI;
+		};
+		4F7B870B2D242FD4000CE080 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4F7B84042D23F9A5000CE080 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4F7B86F02D242FD4000CE080;
+			remoteInfo = MiscellaneousCarPlay_Intents;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4F7B87162D242FD4000CE080 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				4F7B870D2D242FD4000CE080 /* MiscellaneousCarPlay_Intents.appex in Embed Foundation Extensions */,
+				4F7B870A2D242FD4000CE080 /* MiscellaneousCarPlay_IntentsUI.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4F7B840C2D23F9A5000CE080 /* MiscellaneousCarPlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiscellaneousCarPlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -21,6 +57,10 @@
 		4F7B84322D23FEF9000CE080 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		4F7B84342D23FEFF000CE080 /* CarPlay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CarPlay.framework; path = System/Library/Frameworks/CarPlay.framework; sourceTree = SDKROOT; };
 		4F7B84362D23FF06000CE080 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
+		4F7B86F12D242FD4000CE080 /* MiscellaneousCarPlay_Intents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MiscellaneousCarPlay_Intents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F7B86F22D242FD4000CE080 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
+		4F7B86FD2D242FD4000CE080 /* MiscellaneousCarPlay_IntentsUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MiscellaneousCarPlay_IntentsUI.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F7B86FE2D242FD4000CE080 /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -31,6 +71,20 @@
 			);
 			target = 4F7B840B2D23F9A5000CE080 /* MiscellaneousCarPlay */;
 		};
+		4F7B87112D242FD4000CE080 /* Exceptions for "MiscellaneousCarPlay_IntentsUI" folder in "MiscellaneousCarPlay_IntentsUI" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 4F7B86FC2D242FD4000CE080 /* MiscellaneousCarPlay_IntentsUI */;
+		};
+		4F7B87152D242FD4000CE080 /* Exceptions for "MiscellaneousCarPlay_Intents" folder in "MiscellaneousCarPlay_Intents" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 4F7B86F02D242FD4000CE080 /* MiscellaneousCarPlay_Intents */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -40,6 +94,22 @@
 				4F7B84232D23F9A6000CE080 /* Exceptions for "MiscellaneousCarPlay" folder in "MiscellaneousCarPlay" target */,
 			);
 			path = MiscellaneousCarPlay;
+			sourceTree = "<group>";
+		};
+		4F7B86F42D242FD4000CE080 /* MiscellaneousCarPlay_Intents */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				4F7B87152D242FD4000CE080 /* Exceptions for "MiscellaneousCarPlay_Intents" folder in "MiscellaneousCarPlay_Intents" target */,
+			);
+			path = MiscellaneousCarPlay_Intents;
+			sourceTree = "<group>";
+		};
+		4F7B87002D242FD4000CE080 /* MiscellaneousCarPlay_IntentsUI */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				4F7B87112D242FD4000CE080 /* Exceptions for "MiscellaneousCarPlay_IntentsUI" folder in "MiscellaneousCarPlay_IntentsUI" target */,
+			);
+			path = MiscellaneousCarPlay_IntentsUI;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -57,6 +127,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4F7B86EE2D242FD4000CE080 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F7B86F32D242FD4000CE080 /* Intents.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F7B86FA2D242FD4000CE080 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F7B86FF2D242FD4000CE080 /* IntentsUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -64,6 +150,8 @@
 			isa = PBXGroup;
 			children = (
 				4F7B840E2D23F9A5000CE080 /* MiscellaneousCarPlay */,
+				4F7B86F42D242FD4000CE080 /* MiscellaneousCarPlay_Intents */,
+				4F7B87002D242FD4000CE080 /* MiscellaneousCarPlay_IntentsUI */,
 				4F7B842D2D23FEEE000CE080 /* Frameworks */,
 				4F7B840D2D23F9A5000CE080 /* Products */,
 			);
@@ -73,6 +161,8 @@
 			isa = PBXGroup;
 			children = (
 				4F7B840C2D23F9A5000CE080 /* MiscellaneousCarPlay.app */,
+				4F7B86F12D242FD4000CE080 /* MiscellaneousCarPlay_Intents.appex */,
+				4F7B86FD2D242FD4000CE080 /* MiscellaneousCarPlay_IntentsUI.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -85,6 +175,8 @@
 				4F7B84322D23FEF9000CE080 /* WebKit.framework */,
 				4F7B84302D23FEF5000CE080 /* MapKit.framework */,
 				4F7B842E2D23FEEF000CE080 /* CoreLocation.framework */,
+				4F7B86F22D242FD4000CE080 /* Intents.framework */,
+				4F7B86FE2D242FD4000CE080 /* IntentsUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -99,10 +191,13 @@
 				4F7B84082D23F9A5000CE080 /* Sources */,
 				4F7B84092D23F9A5000CE080 /* Frameworks */,
 				4F7B840A2D23F9A5000CE080 /* Resources */,
+				4F7B87162D242FD4000CE080 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4F7B87092D242FD4000CE080 /* PBXTargetDependency */,
+				4F7B870C2D242FD4000CE080 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				4F7B840E2D23F9A5000CE080 /* MiscellaneousCarPlay */,
@@ -114,6 +209,50 @@
 			productReference = 4F7B840C2D23F9A5000CE080 /* MiscellaneousCarPlay.app */;
 			productType = "com.apple.product-type.application";
 		};
+		4F7B86F02D242FD4000CE080 /* MiscellaneousCarPlay_Intents */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4F7B87122D242FD4000CE080 /* Build configuration list for PBXNativeTarget "MiscellaneousCarPlay_Intents" */;
+			buildPhases = (
+				4F7B86ED2D242FD4000CE080 /* Sources */,
+				4F7B86EE2D242FD4000CE080 /* Frameworks */,
+				4F7B86EF2D242FD4000CE080 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				4F7B86F42D242FD4000CE080 /* MiscellaneousCarPlay_Intents */,
+			);
+			name = MiscellaneousCarPlay_Intents;
+			packageProductDependencies = (
+			);
+			productName = MiscellaneousCarPlay_Intents;
+			productReference = 4F7B86F12D242FD4000CE080 /* MiscellaneousCarPlay_Intents.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		4F7B86FC2D242FD4000CE080 /* MiscellaneousCarPlay_IntentsUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4F7B870E2D242FD4000CE080 /* Build configuration list for PBXNativeTarget "MiscellaneousCarPlay_IntentsUI" */;
+			buildPhases = (
+				4F7B86F92D242FD4000CE080 /* Sources */,
+				4F7B86FA2D242FD4000CE080 /* Frameworks */,
+				4F7B86FB2D242FD4000CE080 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				4F7B87002D242FD4000CE080 /* MiscellaneousCarPlay_IntentsUI */,
+			);
+			name = MiscellaneousCarPlay_IntentsUI;
+			packageProductDependencies = (
+			);
+			productName = MiscellaneousCarPlay_IntentsUI;
+			productReference = 4F7B86FD2D242FD4000CE080 /* MiscellaneousCarPlay_IntentsUI.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -124,6 +263,12 @@
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					4F7B840B2D23F9A5000CE080 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					4F7B86F02D242FD4000CE080 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					4F7B86FC2D242FD4000CE080 = {
 						CreatedOnToolsVersion = 16.2;
 					};
 				};
@@ -143,12 +288,28 @@
 			projectRoot = "";
 			targets = (
 				4F7B840B2D23F9A5000CE080 /* MiscellaneousCarPlay */,
+				4F7B86F02D242FD4000CE080 /* MiscellaneousCarPlay_Intents */,
+				4F7B86FC2D242FD4000CE080 /* MiscellaneousCarPlay_IntentsUI */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4F7B840A2D23F9A5000CE080 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F7B86EF2D242FD4000CE080 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F7B86FB2D242FD4000CE080 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -165,7 +326,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4F7B86ED2D242FD4000CE080 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F7B86F92D242FD4000CE080 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4F7B87092D242FD4000CE080 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4F7B86FC2D242FD4000CE080 /* MiscellaneousCarPlay_IntentsUI */;
+			targetProxy = 4F7B87082D242FD4000CE080 /* PBXContainerItemProxy */;
+		};
+		4F7B870C2D242FD4000CE080 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4F7B86F02D242FD4000CE080 /* MiscellaneousCarPlay_Intents */;
+			targetProxy = 4F7B870B2D242FD4000CE080 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		4F7B84252D23F9A6000CE080 /* Debug */ = {
@@ -181,9 +369,10 @@
 				INFOPLIST_FILE = MiscellaneousCarPlay/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -209,9 +398,10 @@
 				INFOPLIST_FILE = MiscellaneousCarPlay/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -340,6 +530,102 @@
 			};
 			name = Release;
 		};
+		4F7B870F2D242FD4000CE080 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MiscellaneousCarPlay_IntentsUI/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MiscellaneousCarPlay_IntentsUI;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pookjw.MiscellaneousCarPlay.MiscellaneousCarPlay-IntentsUI";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4F7B87102D242FD4000CE080 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MiscellaneousCarPlay_IntentsUI/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MiscellaneousCarPlay_IntentsUI;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pookjw.MiscellaneousCarPlay.MiscellaneousCarPlay-IntentsUI";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4F7B87132D242FD4000CE080 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MiscellaneousCarPlay_Intents/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MiscellaneousCarPlay_Intents;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pookjw.MiscellaneousCarPlay.MiscellaneousCarPlay-Intents";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4F7B87142D242FD4000CE080 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MiscellaneousCarPlay_Intents/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MiscellaneousCarPlay_Intents;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pookjw.MiscellaneousCarPlay.MiscellaneousCarPlay-Intents";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -357,6 +643,24 @@
 			buildConfigurations = (
 				4F7B84252D23F9A6000CE080 /* Debug */,
 				4F7B84262D23F9A6000CE080 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4F7B870E2D242FD4000CE080 /* Build configuration list for PBXNativeTarget "MiscellaneousCarPlay_IntentsUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4F7B870F2D242FD4000CE080 /* Debug */,
+				4F7B87102D242FD4000CE080 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4F7B87122D242FD4000CE080 /* Build configuration list for PBXNativeTarget "MiscellaneousCarPlay_Intents" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4F7B87132D242FD4000CE080 /* Debug */,
+				4F7B87142D242FD4000CE080 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

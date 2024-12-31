@@ -35,14 +35,28 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
     [super dealloc];
 }
 
-- (void)templateApplicationScene:(CPTemplateApplicationScene *)templateApplicationScene didConnectInterfaceController:(CPInterfaceController *)interfaceController {
-    [self templateApplicationScene:templateApplicationScene didConnectInterfaceController:interfaceController toWindow:nil];
-}
+//- (void)templateApplicationScene:(CPTemplateApplicationScene *)templateApplicationScene didConnectInterfaceController:(CPInterfaceController *)interfaceController {
+//    [self templateApplicationScene:templateApplicationScene didConnectInterfaceController:interfaceController toWindow:nil];
+//}
 
 - (void)templateApplicationScene:(CPTemplateApplicationScene *)templateApplicationScene didConnectInterfaceController:(CPInterfaceController *)interfaceController toWindow:(nonnull CPWindow *)window {
     self._interfaceController = interfaceController;
     
-    [interfaceController setRootTemplate:[self _makeTabBarTemplate] animated:YES completion:^(BOOL success, NSError * _Nullable error) {
+    [interfaceController setRootTemplate:[self _makeTabBarTemplate] animated:NO completion:^(BOOL success, NSError * _Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIWindow *window = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)(UIApplication.sharedApplication, sel_registerName("_keyWindowForScreen:"), UIScreen.mainScreen);
+            
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Alert" message:error.description preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            
+            [alertController addAction:doneAction];
+            
+            [window.rootViewController presentViewController:alertController animated:YES completion:nil];
+        });
+        
         assert(error == nil);
         assert(success);
     }];
@@ -55,16 +69,16 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
     
     UIViewController *viewController = [UIViewController new];
     
-    MKMapView *mapView = [MKMapView new];
-    viewController.view = mapView;
-    [mapView release];
+//    MKMapView *mapView = [MKMapView new];
+//    viewController.view = mapView;
+//    [mapView release];
     
-//    WKWebView *webView = [WKWebView new];
-//    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://www.google.com"]];
-//    [webView loadRequest:request];
-//    [request release];
-//    viewController.view = webView;
-//    [webView release];
+    WKWebView *webView = [WKWebView new];
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://www.google.com"]];
+    [webView loadRequest:request];
+    [request release];
+    viewController.view = webView;
+    [webView release];
     
     window.rootViewController = viewController;
     [viewController release];
@@ -421,15 +435,24 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
     for (NSUInteger sectionIndex : std::views::iota(0, 10)) {
         NSMutableArray<CPListImageRowItem *> *items = [[NSMutableArray alloc] initWithCapacity:3];
         for (NSUInteger itemIndex : std::views::iota(0, 3)) {
-            CPListImageRowItem *item = [[CPListImageRowItem alloc] initWithText:@(itemIndex).stringValue
-                                                                         images:@[
-                [UIImage systemImageNamed:@"pencil.circle"],
-                [UIImage systemImageNamed:@"folder.fill.badge.plus"]
-            ]
-                                                                    imageTitles:@[
-                @"pencil.circle",
-                @"folder.fill.badge.plus"
-            ]];
+            CPListImageRowItem *item;
+            if (@available(iOS 17.4, *)) {
+                item = [[CPListImageRowItem alloc] initWithText:@(itemIndex).stringValue
+                                                         images:@[
+                    [UIImage systemImageNamed:@"pencil.circle"],
+                    [UIImage systemImageNamed:@"folder.fill.badge.plus"]
+                ]
+                                                    imageTitles:@[
+                    @"pencil.circle",
+                    @"folder.fill.badge.plus"
+                ]];
+            } else {
+                item = [[CPListImageRowItem alloc] initWithText:@(itemIndex).stringValue
+                                                         images:@[
+                    [UIImage systemImageNamed:@"pencil.circle"],
+                    [UIImage systemImageNamed:@"folder.fill.badge.plus"]
+                ]];
+            }
             
             item.handler = ^ (id<CPSelectableListItem> item, dispatch_block_t completionBlock) {
                 NSLog(@"Triggered Item!");
@@ -808,27 +831,37 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
         CPNavigationSession *navigationSession = unretained._navigationSession;
         if (navigationSession == nil) return;
         
-        CPLaneGuidance *laneGuidance = [CPLaneGuidance new];
-        laneGuidance.instructionVariants = @[@"instructionVariant 1"];
-        
-        NSMeasurement *angle_1 = [[NSMeasurement alloc] initWithDoubleValue:30. unit:[NSUnitAngle degrees]];
-        NSMeasurement *angle_2 = [[NSMeasurement alloc] initWithDoubleValue:40. unit:[NSUnitAngle degrees]];
-        NSMeasurement *angle_3 = [[NSMeasurement alloc] initWithDoubleValue:90. unit:[NSUnitAngle degrees]];
-        NSMeasurement *angle_4 = [[NSMeasurement alloc] initWithDoubleValue:120. unit:[NSUnitAngle degrees]];
-        CPLane *lane_1 = [[CPLane alloc] initWithAngles:@[angle_1, angle_2, angle_3, angle_4]
-                                       highlightedAngle:angle_3
-                                            isPreferred:YES];
-        [angle_1 release];
-        [angle_2 release];
-        [angle_3 release];
-        [angle_4 release];
-        
-        laneGuidance.lanes = @[lane_1];
-        [lane_1 release];
-        
-        [navigationSession addLaneGuidances:@[laneGuidance]];
-        navigationSession.currentLaneGuidance = laneGuidance;
-        [laneGuidance release];
+        if (@available(iOS 17.4, *)) {
+            CPLaneGuidance *laneGuidance = [CPLaneGuidance new];
+            laneGuidance.instructionVariants = @[@"instructionVariant 1"];
+            
+            NSMeasurement *angle_1 = [[NSMeasurement alloc] initWithDoubleValue:30. unit:[NSUnitAngle degrees]];
+            NSMeasurement *angle_2 = [[NSMeasurement alloc] initWithDoubleValue:40. unit:[NSUnitAngle degrees]];
+            NSMeasurement *angle_3 = [[NSMeasurement alloc] initWithDoubleValue:90. unit:[NSUnitAngle degrees]];
+            NSMeasurement *angle_4 = [[NSMeasurement alloc] initWithDoubleValue:120. unit:[NSUnitAngle degrees]];
+            
+            CPLane *lane_1;
+            
+            if (@available(iOS 18.0, *)) {
+                lane_1 = [[CPLane alloc] initWithAngles:@[angle_1, angle_2, angle_3, angle_4]
+                                               highlightedAngle:angle_3
+                                                    isPreferred:YES];
+            } else {
+                abort();
+            }
+            
+            [angle_1 release];
+            [angle_2 release];
+            [angle_3 release];
+            [angle_4 release];
+            
+            laneGuidance.lanes = @[lane_1];
+            [lane_1 release];
+            
+            [navigationSession addLaneGuidances:@[laneGuidance]];
+            navigationSession.currentLaneGuidance = laneGuidance;
+            [laneGuidance release];
+        }
     }];
     mapButton_3.image = [UIImage systemImageNamed:@"3.circle"];
     mapButton_3.focusedImage = [UIImage systemImageNamed:@"3.square"];
@@ -943,24 +976,26 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
                                       description:@"Pause Description"
                                     turnCardColor:UIColor.systemPinkColor];
         } else {
-            CPLaneGuidance *laneGuidance = [CPLaneGuidance new];
-            NSMeasurement *distanceRemaining = [[NSMeasurement alloc] initWithDoubleValue:100. unit:[NSUnitLength kilometers]];
-            CPTravelEstimates *tripTravelEstimates = [[CPTravelEstimates alloc] initWithDistanceRemaining:distanceRemaining
-                                                                           distanceRemainingToDisplay:distanceRemaining
-                                                                                        timeRemaining:200.];
-            [distanceRemaining release];
-            
-            CPRouteInformation *routeInformation = [[CPRouteInformation alloc] initWithManeuvers:@[]
-                                                                                   laneGuidances:@[]
-                                                                                currentManeuvers:@[]
-                                                                             currentLaneGuidance:laneGuidance
-                                                                             tripTravelEstimates:tripTravelEstimates
-                                                                         maneuverTravelEstimates:tripTravelEstimates];
-            [laneGuidance release];
-            [tripTravelEstimates release];
-            
-            [navigationSession resumeTripWithUpdatedRouteInformation:routeInformation];
-            [routeInformation release];
+            if (@available(iOS 17.4, *)) {
+                CPLaneGuidance *laneGuidance = [CPLaneGuidance new];
+                NSMeasurement *distanceRemaining = [[NSMeasurement alloc] initWithDoubleValue:100. unit:[NSUnitLength kilometers]];
+                CPTravelEstimates *tripTravelEstimates = [[CPTravelEstimates alloc] initWithDistanceRemaining:distanceRemaining
+                                                                                   distanceRemainingToDisplay:distanceRemaining
+                                                                                                timeRemaining:200.];
+                [distanceRemaining release];
+                
+                CPRouteInformation *routeInformation = [[CPRouteInformation alloc] initWithManeuvers:@[]
+                                                                                       laneGuidances:@[]
+                                                                                    currentManeuvers:@[]
+                                                                                 currentLaneGuidance:laneGuidance
+                                                                                 tripTravelEstimates:tripTravelEstimates
+                                                                             maneuverTravelEstimates:tripTravelEstimates];
+                [laneGuidance release];
+                [tripTravelEstimates release];
+                
+                [navigationSession resumeTripWithUpdatedRouteInformation:routeInformation];
+                [routeInformation release];
+            }
         }
     }];
     

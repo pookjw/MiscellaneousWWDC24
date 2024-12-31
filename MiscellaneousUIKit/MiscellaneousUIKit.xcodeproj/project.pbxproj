@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -130,12 +130,6 @@
 		4F8BD3902C22E1520031535F /* CustomDismissCustomInteraction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38F2C22E1520031535F /* CustomDismissCustomInteraction.mm */; };
 		4F8C51452D203A9A001046CB /* CarPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F8C51442D203A9A001046CB /* CarPlay.framework */; platformFilters = (ios, maccatalyst, ); };
 		4F8C51462D203AA0001046CB /* CarPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F8C51442D203A9A001046CB /* CarPlay.framework */; platformFilters = (ios, maccatalyst, ); };
-		4F8C51552D21258C001046CB /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F8C51542D21258C001046CB /* Intents.framework */; };
-		4F8C516F2D21258C001046CB /* MiscellaneousWWDC24_IntentsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4F8C51532D21258C001046CB /* MiscellaneousWWDC24_IntentsExtension.appex */; platformFilters = (ios, maccatalyst, ); settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		4F8C51822D2125C6001046CB /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F8C51602D21258C001046CB /* IntentsUI.framework */; };
-		4F8C518D2D2125C6001046CB /* MiscellaneousWWDC24_IntentsUIExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4F8C51812D2125C6001046CB /* MiscellaneousWWDC24_IntentsUIExtension.appex */; platformFilters = (ios, maccatalyst, ); settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		4F8C51962D212733001046CB /* MiscellaneousWWDC24_IntentsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4F8C51532D21258C001046CB /* MiscellaneousWWDC24_IntentsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		4F8C51972D212733001046CB /* MiscellaneousWWDC24_IntentsUIExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4F8C51812D2125C6001046CB /* MiscellaneousWWDC24_IntentsUIExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4F9C08B32C3E2B5F009897D6 /* TabBarAppearanceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F9C08B22C3E2B5F009897D6 /* TabBarAppearanceViewController.mm */; };
 		4F9C08D42C3E5574009897D6 /* ToolbarAppearanceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F9C08D32C3E5574009897D6 /* ToolbarAppearanceViewController.mm */; };
 		4FA8EEE92C1C012A00B1358A /* TextViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8EEE82C1C012A00B1358A /* TextViewController.mm */; };
@@ -159,37 +153,6 @@
 		4FEC175F2D2274DE00F9945E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FEC175D2D2274D900F9945E /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		4F8C516D2D21258C001046CB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4F082E3C2C188D6C002263ED /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4F8C51522D21258C001046CB;
-			remoteInfo = MiscellaneousWWDC24_IntentsExtension;
-		};
-		4F8C517B2D2125B2001046CB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4F082E3C2C188D6C002263ED /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4F8C51522D21258C001046CB;
-			remoteInfo = MiscellaneousWWDC24_IntentsExtension;
-		};
-		4F8C518B2D2125C6001046CB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4F082E3C2C188D6C002263ED /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4F8C51802D2125C6001046CB;
-			remoteInfo = MiscellaneousWWDC24_IntentsUIExtension;
-		};
-		4F8C51932D2125D0001046CB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4F082E3C2C188D6C002263ED /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4F8C51802D2125C6001046CB;
-			remoteInfo = MiscellaneousWWDC24_IntentsUIExtension;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		4F8C51702D21258C001046CB /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -197,8 +160,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				4F8C518D2D2125C6001046CB /* MiscellaneousWWDC24_IntentsUIExtension.appex in Embed Foundation Extensions */,
-				4F8C516F2D21258C001046CB /* MiscellaneousWWDC24_IntentsExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -209,8 +170,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				4F8C51962D212733001046CB /* MiscellaneousWWDC24_IntentsExtension.appex in Embed Foundation Extensions */,
-				4F8C51972D212733001046CB /* MiscellaneousWWDC24_IntentsUIExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -326,10 +285,8 @@
 		4F8BD38F2C22E1520031535F /* CustomDismissCustomInteraction.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomDismissCustomInteraction.mm; sourceTree = "<group>"; };
 		4F8BD3932C22E2B70031535F /* CustomDimissInteractable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDimissInteractable.h; sourceTree = "<group>"; };
 		4F8C51442D203A9A001046CB /* CarPlay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CarPlay.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/iOSSupport/System/Library/Frameworks/CarPlay.framework; sourceTree = DEVELOPER_DIR; };
-		4F8C51532D21258C001046CB /* MiscellaneousWWDC24_IntentsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MiscellaneousWWDC24_IntentsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F8C51542D21258C001046CB /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		4F8C51602D21258C001046CB /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
-		4F8C51812D2125C6001046CB /* MiscellaneousWWDC24_IntentsUIExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MiscellaneousWWDC24_IntentsUIExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F9C08B12C3E2B5F009897D6 /* TabBarAppearanceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarAppearanceViewController.h; sourceTree = "<group>"; };
 		4F9C08B22C3E2B5F009897D6 /* TabBarAppearanceViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TabBarAppearanceViewController.mm; sourceTree = "<group>"; };
 		4F9C08D22C3E5574009897D6 /* ToolbarAppearanceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolbarAppearanceViewController.h; sourceTree = "<group>"; };
@@ -363,28 +320,6 @@
 		4FEC175D2D2274D900F9945E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/iOSSupport/System/Library/PrivateFrameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		4F8C51752D21258C001046CB /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 4F8C51522D21258C001046CB /* MiscellaneousWWDC24_IntentsExtension */;
-		};
-		4F8C518E2D2125C6001046CB /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 4F8C51802D2125C6001046CB /* MiscellaneousWWDC24_IntentsUIExtension */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		4F8C51562D21258C001046CB /* MiscellaneousWWDC24_IntentsExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (4F8C51752D21258C001046CB /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = MiscellaneousWWDC24_IntentsExtension; sourceTree = "<group>"; };
-		4F8C51832D2125C6001046CB /* MiscellaneousWWDC24_IntentsUIExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (4F8C518E2D2125C6001046CB /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = MiscellaneousWWDC24_IntentsUIExtension; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
-
 /* Begin PBXFrameworksBuildPhase section */
 		4F082E412C188D6C002263ED /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -410,22 +345,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4F8C51502D21258C001046CB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4F8C51552D21258C001046CB /* Intents.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4F8C517E2D2125C6001046CB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4F8C51822D2125C6001046CB /* IntentsUI.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -433,8 +352,6 @@
 			isa = PBXGroup;
 			children = (
 				4F082E462C188D6C002263ED /* MiscellaneousUIKit */,
-				4F8C51562D21258C001046CB /* MiscellaneousWWDC24_IntentsExtension */,
-				4F8C51832D2125C6001046CB /* MiscellaneousWWDC24_IntentsUIExtension */,
 				4F082E452C188D6C002263ED /* Products */,
 				4F082E9A2C1B4504002263ED /* Frameworks */,
 			);
@@ -445,8 +362,6 @@
 			children = (
 				4F082E442C188D6C002263ED /* MiscellaneousUIKit.app */,
 				4F59DEE52CFFF56100E88830 /* MiscellaneousUIKit Private.app */,
-				4F8C51532D21258C001046CB /* MiscellaneousWWDC24_IntentsExtension.appex */,
-				4F8C51812D2125C6001046CB /* MiscellaneousWWDC24_IntentsUIExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -979,8 +894,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				4F8C516E2D21258C001046CB /* PBXTargetDependency */,
-				4F8C518C2D2125C6001046CB /* PBXTargetDependency */,
 			);
 			name = MiscellaneousUIKit;
 			productName = MiscellaneousUIKit;
@@ -999,57 +912,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				4F8C51942D2125D0001046CB /* PBXTargetDependency */,
-				4F8C517C2D2125B2001046CB /* PBXTargetDependency */,
 			);
 			name = "MiscellaneousUIKit Private";
 			productName = MiscellaneousUIKit;
 			productReference = 4F59DEE52CFFF56100E88830 /* MiscellaneousUIKit Private.app */;
 			productType = "com.apple.product-type.application";
-		};
-		4F8C51522D21258C001046CB /* MiscellaneousWWDC24_IntentsExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4F8C51762D21258C001046CB /* Build configuration list for PBXNativeTarget "MiscellaneousWWDC24_IntentsExtension" */;
-			buildPhases = (
-				4F8C514F2D21258C001046CB /* Sources */,
-				4F8C51502D21258C001046CB /* Frameworks */,
-				4F8C51512D21258C001046CB /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				4F8C51562D21258C001046CB /* MiscellaneousWWDC24_IntentsExtension */,
-			);
-			name = MiscellaneousWWDC24_IntentsExtension;
-			packageProductDependencies = (
-			);
-			productName = MiscellaneousWWDC24_IntentsExtension;
-			productReference = 4F8C51532D21258C001046CB /* MiscellaneousWWDC24_IntentsExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
-		4F8C51802D2125C6001046CB /* MiscellaneousWWDC24_IntentsUIExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4F8C518F2D2125C6001046CB /* Build configuration list for PBXNativeTarget "MiscellaneousWWDC24_IntentsUIExtension" */;
-			buildPhases = (
-				4F8C517D2D2125C6001046CB /* Sources */,
-				4F8C517E2D2125C6001046CB /* Frameworks */,
-				4F8C517F2D2125C6001046CB /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				4F8C51832D2125C6001046CB /* MiscellaneousWWDC24_IntentsUIExtension */,
-			);
-			name = MiscellaneousWWDC24_IntentsUIExtension;
-			packageProductDependencies = (
-			);
-			productName = MiscellaneousWWDC24_IntentsUIExtension;
-			productReference = 4F8C51812D2125C6001046CB /* MiscellaneousWWDC24_IntentsUIExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -1063,12 +930,6 @@
 					4F082E432C188D6C002263ED = {
 						CreatedOnToolsVersion = 16.0;
 						LastSwiftMigration = 1620;
-					};
-					4F8C51522D21258C001046CB = {
-						CreatedOnToolsVersion = 16.2;
-					};
-					4F8C51802D2125C6001046CB = {
-						CreatedOnToolsVersion = 16.2;
 					};
 				};
 			};
@@ -1087,8 +948,6 @@
 			targets = (
 				4F082E432C188D6C002263ED /* MiscellaneousUIKit */,
 				4F59DEA42CFFF56100E88830 /* MiscellaneousUIKit Private */,
-				4F8C51522D21258C001046CB /* MiscellaneousWWDC24_IntentsExtension */,
-				4F8C51802D2125C6001046CB /* MiscellaneousWWDC24_IntentsUIExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -1115,20 +974,6 @@
 				4F59DEDF2CFFF56100E88830 /* article.txt in Resources */,
 				4F59DEE02CFFF56100E88830 /* Base in Resources */,
 				4F59DEE12CFFF56100E88830 /* image.heic in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4F8C51512D21258C001046CB /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4F8C517F2D2125C6001046CB /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1273,44 +1118,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4F8C514F2D21258C001046CB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4F8C517D2D2125C6001046CB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		4F8C516E2D21258C001046CB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4F8C51522D21258C001046CB /* MiscellaneousWWDC24_IntentsExtension */;
-			targetProxy = 4F8C516D2D21258C001046CB /* PBXContainerItemProxy */;
-		};
-		4F8C517C2D2125B2001046CB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4F8C51522D21258C001046CB /* MiscellaneousWWDC24_IntentsExtension */;
-			targetProxy = 4F8C517B2D2125B2001046CB /* PBXContainerItemProxy */;
-		};
-		4F8C518C2D2125C6001046CB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4F8C51802D2125C6001046CB /* MiscellaneousWWDC24_IntentsUIExtension */;
-			targetProxy = 4F8C518B2D2125C6001046CB /* PBXContainerItemProxy */;
-		};
-		4F8C51942D2125D0001046CB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4F8C51802D2125C6001046CB /* MiscellaneousWWDC24_IntentsUIExtension */;
-			targetProxy = 4F8C51932D2125D0001046CB /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4F082E552C188D6D002263ED /* LaunchScreen.storyboard */ = {
@@ -1586,114 +1394,6 @@
 			};
 			name = Release;
 		};
-		4F8C51712D21258C001046CB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = MiscellaneousWWDC24_IntentsExtension/MiscellaneousWWDC24_IntentsExtension.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P53D29U9LJ;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MiscellaneousWWDC24_IntentsExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = MiscellaneousWWDC24_IntentsExtension;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pookjw.MiscellaneousUIKit.MiscellaneousWWDC24-IntentsExtension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		4F8C51722D21258C001046CB /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = MiscellaneousWWDC24_IntentsExtension/MiscellaneousWWDC24_IntentsExtension.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P53D29U9LJ;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MiscellaneousWWDC24_IntentsExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = MiscellaneousWWDC24_IntentsExtension;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pookjw.MiscellaneousUIKit.MiscellaneousWWDC24-IntentsExtension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		4F8C51902D2125C6001046CB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = MiscellaneousWWDC24_IntentsUIExtension/MiscellaneousWWDC24_IntentsUIExtension.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P53D29U9LJ;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MiscellaneousWWDC24_IntentsUIExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = MiscellaneousWWDC24_IntentsUIExtension;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pookjw.MiscellaneousUIKit.MiscellaneousWWDC24-IntentsUIExtension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		4F8C51912D2125C6001046CB /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = MiscellaneousWWDC24_IntentsUIExtension/MiscellaneousWWDC24_IntentsUIExtension.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P53D29U9LJ;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MiscellaneousWWDC24_IntentsUIExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = MiscellaneousWWDC24_IntentsUIExtension;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pookjw.MiscellaneousUIKit.MiscellaneousWWDC24-IntentsUIExtension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1720,24 +1420,6 @@
 			buildConfigurations = (
 				4F59DEE32CFFF56100E88830 /* Debug */,
 				4F59DEE42CFFF56100E88830 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4F8C51762D21258C001046CB /* Build configuration list for PBXNativeTarget "MiscellaneousWWDC24_IntentsExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4F8C51712D21258C001046CB /* Debug */,
-				4F8C51722D21258C001046CB /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4F8C518F2D2125C6001046CB /* Build configuration list for PBXNativeTarget "MiscellaneousWWDC24_IntentsUIExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4F8C51902D2125C6001046CB /* Debug */,
-				4F8C51912D2125C6001046CB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
