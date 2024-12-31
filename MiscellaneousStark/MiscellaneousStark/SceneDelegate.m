@@ -6,7 +6,7 @@
 //
 
 #import "SceneDelegate.h"
-#import "ViewController.h"
+#import "CollectionViewController.h"
 
 @interface SceneDelegate ()
 
@@ -21,9 +21,13 @@
 
 - (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session options:(UISceneConnectionOptions *)connectionOptions {
     UIWindow *window = [[UIWindow alloc] initWithWindowScene:(UIWindowScene *)scene];
-    ViewController *viewController = [ViewController new];
-    window.rootViewController = viewController;
-    [viewController release];
+    
+    CollectionViewController *collectionViewController = [CollectionViewController new];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:collectionViewController];
+    navigationController.navigationBar.prefersLargeTitles = YES;
+    [collectionViewController release];
+    window.rootViewController = navigationController;
+    [navigationController release];
     
     self.window = window;
     [window makeKeyAndVisible];

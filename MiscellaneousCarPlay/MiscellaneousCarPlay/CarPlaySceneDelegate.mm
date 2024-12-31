@@ -35,27 +35,27 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
     [super dealloc];
 }
 
-//- (void)templateApplicationScene:(CPTemplateApplicationScene *)templateApplicationScene didConnectInterfaceController:(CPInterfaceController *)interfaceController {
-//    [self templateApplicationScene:templateApplicationScene didConnectInterfaceController:interfaceController toWindow:nil];
-//}
+- (void)templateApplicationScene:(CPTemplateApplicationScene *)templateApplicationScene didConnectInterfaceController:(CPInterfaceController *)interfaceController {
+    [self templateApplicationScene:templateApplicationScene didConnectInterfaceController:interfaceController toWindow:nil];
+}
 
 - (void)templateApplicationScene:(CPTemplateApplicationScene *)templateApplicationScene didConnectInterfaceController:(CPInterfaceController *)interfaceController toWindow:(nonnull CPWindow *)window {
     self._interfaceController = interfaceController;
     
     [interfaceController setRootTemplate:[self _makeTabBarTemplate] animated:NO completion:^(BOOL success, NSError * _Nullable error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UIWindow *window = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)(UIApplication.sharedApplication, sel_registerName("_keyWindowForScreen:"), UIScreen.mainScreen);
-            
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Alert" message:error.description preferredStyle:UIAlertControllerStyleAlert];
-            
-            UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                
-            }];
-            
-            [alertController addAction:doneAction];
-            
-            [window.rootViewController presentViewController:alertController animated:YES completion:nil];
-        });
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            UIWindow *window = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)(UIApplication.sharedApplication, sel_registerName("_keyWindowForScreen:"), UIScreen.mainScreen);
+//            
+//            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Alert" message:error.description preferredStyle:UIAlertControllerStyleAlert];
+//            
+//            UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                
+//            }];
+//            
+//            [alertController addAction:doneAction];
+//            
+//            [window.rootViewController presentViewController:alertController animated:YES completion:nil];
+//        });
         
         assert(error == nil);
         assert(success);
@@ -312,13 +312,13 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
 
 - (CPListTemplate *)_makeTemplatesTemplate {
     NSArray<NSString *> *titles = @[
+        NSStringFromClass([CPSearchTemplate class]),
         NSStringFromClass([CPAlertTemplate class]),
         NSStringFromClass([CPContactTemplate class]),
         @"CPInformationTemplateLayoutTwoColumn",
         @"CPInformationTemplateLayoutLeading",
         NSStringFromClass([CPPointOfInterestTemplate class]),
         NSStringFromClass([CPVoiceControlTemplate class]),
-        NSStringFromClass([CPSearchTemplate class]),
         NSStringFromClass([CPMapTemplate class]),
         NSStringFromClass([CPNowPlayingTemplate class]),
         NSStringFromClass([CPMessageComposeBarButton class]),
@@ -326,13 +326,13 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
         NSStringFromClass([CPListTemplate class])
     ];
     NSArray<__kindof CPTemplate *> *templates = @[
+        [self _makeSearchTemplate],
         [self _makeActionSheetPresenterTemplate],
         [self _makeContactTemplate],
         [self _makeInformationTemplateWithLayout:CPInformationTemplateLayoutTwoColumn],
         [self _makeInformationTemplateWithLayout:CPInformationTemplateLayoutLeading],
         [self _makePointOfInterestTemplate],
         [self _makeVoiceControlPresenterTemplate],
-        [self _makeSearchTemplate],
         [self _makeMapTemplate],
         [self _makeNowPlayingTemplate],
         [self _makeDemoMessageComposeBarButtonTemplate],
