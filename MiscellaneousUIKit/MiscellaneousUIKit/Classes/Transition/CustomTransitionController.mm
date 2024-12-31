@@ -20,9 +20,11 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 @implementation CustomTransitionController
 
 + (void)load {
-    class_addProtocol(self, NSProtocolFromString(@"UIViewControllerPreemptableAnimatedTransitioning"));
-    class_addProtocol(self, NSProtocolFromString(@"UIViewControllerAnimatedTransitioning_Internal"));
-    class_addProtocol(self, NSProtocolFromString(@"UIViewControllerAnimatedTransitioning_Keyboard"));
+    if (@available(iOS 18.0, *)) {
+        class_addProtocol(self, NSProtocolFromString(@"UIViewControllerPreemptableAnimatedTransitioning"));
+        class_addProtocol(self, NSProtocolFromString(@"UIViewControllerAnimatedTransitioning_Internal"));
+        class_addProtocol(self, NSProtocolFromString(@"UIViewControllerAnimatedTransitioning_Keyboard"));
+    }
 }
 
 - (BOOL)respondsToSelector:(SEL)aSelector {

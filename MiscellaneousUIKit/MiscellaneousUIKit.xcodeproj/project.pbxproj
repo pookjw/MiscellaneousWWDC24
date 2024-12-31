@@ -130,8 +130,6 @@
 		4F8BD3902C22E1520031535F /* CustomDismissCustomInteraction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38F2C22E1520031535F /* CustomDismissCustomInteraction.mm */; };
 		4F8C51452D203A9A001046CB /* CarPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F8C51442D203A9A001046CB /* CarPlay.framework */; platformFilters = (ios, maccatalyst, ); };
 		4F8C51462D203AA0001046CB /* CarPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F8C51442D203A9A001046CB /* CarPlay.framework */; platformFilters = (ios, maccatalyst, ); };
-		4F8C51492D203B4F001046CB /* CarPlaySceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8C51482D203B4F001046CB /* CarPlaySceneDelegate.mm */; };
-		4F8C514A2D203B4F001046CB /* CarPlaySceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8C51482D203B4F001046CB /* CarPlaySceneDelegate.mm */; };
 		4F8C51552D21258C001046CB /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F8C51542D21258C001046CB /* Intents.framework */; };
 		4F8C516F2D21258C001046CB /* MiscellaneousWWDC24_IntentsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4F8C51532D21258C001046CB /* MiscellaneousWWDC24_IntentsExtension.appex */; platformFilters = (ios, maccatalyst, ); settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4F8C51822D2125C6001046CB /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F8C51602D21258C001046CB /* IntentsUI.framework */; };
@@ -328,8 +326,6 @@
 		4F8BD38F2C22E1520031535F /* CustomDismissCustomInteraction.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomDismissCustomInteraction.mm; sourceTree = "<group>"; };
 		4F8BD3932C22E2B70031535F /* CustomDimissInteractable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDimissInteractable.h; sourceTree = "<group>"; };
 		4F8C51442D203A9A001046CB /* CarPlay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CarPlay.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/iOSSupport/System/Library/Frameworks/CarPlay.framework; sourceTree = DEVELOPER_DIR; };
-		4F8C51472D203B4F001046CB /* CarPlaySceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarPlaySceneDelegate.h; sourceTree = "<group>"; };
-		4F8C51482D203B4F001046CB /* CarPlaySceneDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CarPlaySceneDelegate.mm; sourceTree = "<group>"; };
 		4F8C51532D21258C001046CB /* MiscellaneousWWDC24_IntentsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MiscellaneousWWDC24_IntentsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F8C51542D21258C001046CB /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		4F8C51602D21258C001046CB /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
@@ -468,8 +464,6 @@
 				4F082E482C188D6C002263ED /* AppDelegate.m */,
 				4F082E4A2C188D6C002263ED /* SceneDelegate.h */,
 				4F082E4B2C188D6C002263ED /* SceneDelegate.m */,
-				4F8C51472D203B4F001046CB /* CarPlaySceneDelegate.h */,
-				4F8C51482D203B4F001046CB /* CarPlaySceneDelegate.mm */,
 				4F082E602C188E34002263ED /* MainCollectionViewController.h */,
 				4F082E612C188E34002263ED /* MainCollectionViewController.mm */,
 				4F082E632C18906E002263ED /* Classes */,
@@ -1202,7 +1196,6 @@
 				4FDABC692C3D35DE00F928DB /* SymbolTransitionsViewController.mm in Sources */,
 				4F83911C2CCCFEAE0005B8AC /* CustomViewMenuElementDynamicHeightViewController.mm in Sources */,
 				4F7BC13C2C3C43B900419197 /* MyNavigationItemViewController.mm in Sources */,
-				4F8C51492D203B4F001046CB /* CarPlaySceneDelegate.mm in Sources */,
 				4F49040E2D049CD80017A47D /* IntelligenceLightLabelViewController.mm in Sources */,
 				4F7941D42C7897D50031F456 /* FloatingKeyboardViewController.mm in Sources */,
 				4F7941D82C7898470031F456 /* SplitKeyboardViewController.mm in Sources */,
@@ -1272,7 +1265,6 @@
 				4F59DED42CFFF56100E88830 /* SymbolTransitionsViewController.mm in Sources */,
 				4F59DED52CFFF56100E88830 /* CustomViewMenuElementDynamicHeightViewController.mm in Sources */,
 				4F59DED62CFFF56100E88830 /* MyNavigationItemViewController.mm in Sources */,
-				4F8C514A2D203B4F001046CB /* CarPlaySceneDelegate.mm in Sources */,
 				4F49040F2D049CD80017A47D /* IntelligenceLightLabelViewController.mm in Sources */,
 				4F59DED72CFFF56100E88830 /* FloatingKeyboardViewController.mm in Sources */,
 				4F59DED82CFFF56100E88830 /* SplitKeyboardViewController.mm in Sources */,
@@ -1537,7 +1529,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.7;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1574,7 +1566,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.7;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

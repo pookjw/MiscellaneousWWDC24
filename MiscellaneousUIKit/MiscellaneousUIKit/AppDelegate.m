@@ -9,8 +9,6 @@
 #import "SceneDelegate.h"
 #import "OrangeSceneDelegate.h"
 #import <TargetConditionals.h>
-#import <CarPlay/CarPlay.h>
-#import "CarPlaySceneDelegate.h"
 
 @implementation AppDelegate
 
@@ -23,13 +21,6 @@
 
 - (UISceneConfiguration *)application:(UIApplication *)application configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession options:(UISceneConnectionOptions *)options {
     UISceneConfiguration *configuration = [connectingSceneSession.configuration copy];
-    
-    if ([configuration.role isEqualToString:CPTemplateApplicationSceneSessionRoleApplication]) {
-        configuration.delegateClass = CarPlaySceneDelegate.class;
-        return [configuration autorelease];
-    } else if ([configuration.role isEqualToString:CPTemplateApplicationDashboardSceneSessionRoleApplication]) {
-        abort();
-    }
     
     NSUserActivity * _Nullable userActivity = options.userActivities.allObjects.firstObject;
     NSString * _Nullable activityType = userActivity.activityType;
