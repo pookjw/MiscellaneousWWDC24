@@ -14,10 +14,11 @@
 #import <objc/runtime.h>
 #import <MapKit/MapKit.h>
 #import <WebKit/WebKit.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
 
-@interface CarPlaySceneDelegate () <CPSessionConfigurationDelegate, CPTabBarTemplateDelegate, CPNowPlayingTemplateObserver, CPMapTemplateDelegate, CPSearchTemplateDelegate>
+@interface CarPlaySceneDelegate () <CPSessionConfigurationDelegate, CPTabBarTemplateDelegate, CPNowPlayingTemplateObserver, CPMapTemplateDelegate, CPSearchTemplateDelegate, CPPointOfInterestTemplateDelegate>
 @property (retain, nonatomic, nullable) CPInterfaceController *_interfaceController;
 @property (retain, nonatomic, nullable) CPSessionConfiguration *_configuration;
 @property (retain, nonatomic, nullable) id _frameRateLimitInspector;
@@ -231,6 +232,17 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
 }
 
 
+#pragma mark - CPPointOfInterestTemplateDelegate
+
+- (void)pointOfInterestTemplate:(CPPointOfInterestTemplate *)pointOfInterestTemplate didChangeMapRegion:(MKCoordinateRegion)region {
+    
+}
+
+- (void)pointOfInterestTemplate:(CPPointOfInterestTemplate *)pointOfInterestTemplate didSelectPointOfInterest:(CPPointOfInterest *)pointOfInterest {
+    NSLog(@"%s %@", sel_getName(_cmd), pointOfInterest);
+}
+
+
 #pragma mark - Make Methods
 
 - (CPTabBarTemplate *)_makeTabBarTemplate {
@@ -284,6 +296,10 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
 
 - (CPListTemplate *)_makeTemplatesTemplate {
     NSArray<NSString *> *titles = @[
+        NSStringFromClass([CPAlertTemplate class]),
+        NSStringFromClass([CPContactTemplate class]),
+        @"CPInformationTemplateLayoutTwoColumn",
+        @"CPInformationTemplateLayoutLeading",
         NSStringFromClass([CPPointOfInterestTemplate class]),
         NSStringFromClass([CPVoiceControlTemplate class]),
         NSStringFromClass([CPSearchTemplate class]),
@@ -294,6 +310,10 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
         NSStringFromClass([CPListTemplate class])
     ];
     NSArray<__kindof CPTemplate *> *templates = @[
+        [self _makeActionSheetPresenterTemplate],
+        [self _makeContactTemplate],
+        [self _makeInformationTemplateWithLayout:CPInformationTemplateLayoutTwoColumn],
+        [self _makeInformationTemplateWithLayout:CPInformationTemplateLayoutLeading],
         [self _makePointOfInterestTemplate],
         [self _makeVoiceControlPresenterTemplate],
         [self _makeSearchTemplate],
@@ -1034,7 +1054,7 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
 }
 
 - (CPPointOfInterestTemplate *)_makePointOfInterestTemplate {
-    MKPlacemark *placemark_1 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.571648599, 126.976372775)];
+    MKPlacemark *placemark_1 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.549681, 126.991911)];
     assert(CLLocationCoordinate2DIsValid(placemark_1.coordinate));
     MKMapItem *mapItem_1 = [[MKMapItem alloc] initWithPlacemark:placemark_1];
     [placemark_1 release];
@@ -1051,9 +1071,21 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
                                                                     selectedPinImage:[UIImage systemImageNamed:@"mail.stack.fill"]];
     [mapItem_1 release];
     
+    CPTextButton *primaryButton_1 = [[CPTextButton alloc] initWithTitle:@"Primary" textStyle:CPTextButtonStyleNormal handler:^(__kindof CPTextButton * _Nonnull contactButton) {
+        
+    }];
+    pointOfInterest_1.primaryButton = primaryButton_1;
+    [primaryButton_1 release];
+    
+    CPTextButton *secondaryButton_1 = [[CPTextButton alloc] initWithTitle:@"Secondary" textStyle:CPTextButtonStyleNormal handler:^(__kindof CPTextButton * _Nonnull contactButton) {
+        
+    }];
+    pointOfInterest_1.secondaryButton = secondaryButton_1;
+    [secondaryButton_1 release];
+    
     //
     
-    MKPlacemark *placemark_2 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.571648599, 126.976372775)];
+    MKPlacemark *placemark_2 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.572583105, 126.990414851)];
     assert(CLLocationCoordinate2DIsValid(placemark_2.coordinate));
     MKMapItem *mapItem_2 = [[MKMapItem alloc] initWithPlacemark:placemark_2];
     [placemark_2 release];
@@ -1070,13 +1102,199 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
                                                                     selectedPinImage:[UIImage systemImageNamed:@"mail.stack.fill"]];
     [mapItem_2 release];
     
+    CPTextButton *primaryButton_2 = [[CPTextButton alloc] initWithTitle:@"Primary" textStyle:CPTextButtonStyleNormal handler:^(__kindof CPTextButton * _Nonnull contactButton) {
+        
+    }];
+    pointOfInterest_2.primaryButton = primaryButton_2;
+    [primaryButton_2 release];
+    
+    CPTextButton *secondaryButton_2 = [[CPTextButton alloc] initWithTitle:@"Secondary" textStyle:CPTextButtonStyleNormal handler:^(__kindof CPTextButton * _Nonnull contactButton) {
+        
+    }];
+    pointOfInterest_2.secondaryButton = secondaryButton_2;
+    [secondaryButton_2 release];
+    
     //
     
     CPPointOfInterestTemplate *pointOfInterestTemplate = [[CPPointOfInterestTemplate alloc] initWithTitle:@"Title" pointsOfInterest:@[pointOfInterest_1, pointOfInterest_2] selectedIndex:1];
     [pointOfInterest_1 release];
     [pointOfInterest_2 release];
     
+    pointOfInterestTemplate.pointOfInterestDelegate = self;
+    
+    //
+    
+    CPBarButton *updateBarButton = [[CPBarButton alloc] initWithTitle:@"Update" handler:^(CPBarButton * _Nonnull button) {
+        CPPointOfInterestTemplate *_template = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(button, sel_registerName("delegate"));
+        
+        //
+        
+        MKPlacemark *placemark_1 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.571648599, 126.976372775)];
+        assert(CLLocationCoordinate2DIsValid(placemark_1.coordinate));
+        MKMapItem *mapItem_1 = [[MKMapItem alloc] initWithPlacemark:placemark_1];
+        [placemark_1 release];
+        mapItem_1.name = @"Origin name 1";
+        
+        CPPointOfInterest *pointOfInterest_1 = [[CPPointOfInterest alloc] initWithLocation:mapItem_1
+                                                                                   title:@"Title 1"
+                                                                                subtitle:@"Subtitle 1"
+                                                                                 summary:@"Summary 1"
+                                                                             detailTitle:@"Detail Title 1"
+                                                                          detailSubtitle:@"Detail Subtitle 1"
+                                                                           detailSummary:@"Detail Summary 1"
+                                                                                pinImage:[UIImage systemImageNamed:@"captions.bubble"]
+                                                                        selectedPinImage:[UIImage systemImageNamed:@"mail.stack.fill"]];
+        [mapItem_1 release];
+        
+        CPTextButton *primaryButton_1 = [[CPTextButton alloc] initWithTitle:@"Primary" textStyle:CPTextButtonStyleNormal handler:^(__kindof CPTextButton * _Nonnull contactButton) {
+            
+        }];
+        pointOfInterest_1.primaryButton = primaryButton_1;
+        [primaryButton_1 release];
+        
+        CPTextButton *secondaryButton_1 = [[CPTextButton alloc] initWithTitle:@"Secondary" textStyle:CPTextButtonStyleNormal handler:^(__kindof CPTextButton * _Nonnull contactButton) {
+            
+        }];
+        pointOfInterest_1.secondaryButton = secondaryButton_1;
+        [secondaryButton_1 release];
+        
+        //
+        
+        MKPlacemark *placemark_2 = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(37.6608, 126.9933)];
+        assert(CLLocationCoordinate2DIsValid(placemark_2.coordinate));
+        MKMapItem *mapItem_2 = [[MKMapItem alloc] initWithPlacemark:placemark_2];
+        [placemark_2 release];
+        mapItem_2.name = @"Origin name 2";
+        
+        CPPointOfInterest *pointOfInterest_2 = [[CPPointOfInterest alloc] initWithLocation:mapItem_2
+                                                                                   title:@"Title 2"
+                                                                                subtitle:@"Subtitle 2"
+                                                                                 summary:@"Summary 2"
+                                                                             detailTitle:@"Detail Title 2"
+                                                                          detailSubtitle:@"Detail Subtitle 2"
+                                                                           detailSummary:@"Detail Summary 2"
+                                                                                pinImage:[UIImage systemImageNamed:@"captions.bubble"]
+                                                                        selectedPinImage:[UIImage systemImageNamed:@"mail.stack.fill"]];
+        [mapItem_2 release];
+        
+        CPTextButton *primaryButton_2 = [[CPTextButton alloc] initWithTitle:@"Primary" textStyle:CPTextButtonStyleNormal handler:^(__kindof CPTextButton * _Nonnull contactButton) {
+            
+        }];
+        pointOfInterest_2.primaryButton = primaryButton_2;
+        [primaryButton_2 release];
+        
+        CPTextButton *secondaryButton_2 = [[CPTextButton alloc] initWithTitle:@"Secondary" textStyle:CPTextButtonStyleNormal handler:^(__kindof CPTextButton * _Nonnull contactButton) {
+            
+        }];
+        pointOfInterest_2.secondaryButton = secondaryButton_2;
+        [secondaryButton_2 release];
+        
+        //
+        
+        [_template setPointsOfInterest:@[pointOfInterest_1, pointOfInterest_2] selectedIndex:1];
+        [pointOfInterest_1 release];
+        [pointOfInterest_2 release];
+    }];
+    
+    pointOfInterestTemplate.trailingNavigationBarButtons = @[updateBarButton];
+    [updateBarButton release];
+    
+    //
+    
     return [pointOfInterestTemplate autorelease];
+}
+
+- (CPInformationTemplate *)_makeInformationTemplateWithLayout:(CPInformationTemplateLayout)layout {
+    CPInformationItem *item_1 = [[CPInformationItem alloc] initWithTitle:@"Title 1" detail:@"Detail 1"];
+    CPInformationItem *item_2 = [[CPInformationItem alloc] initWithTitle:@"Title 2" detail:@"Detail 2"];
+    CPInformationRatingItem *ratingItem = [[CPInformationRatingItem alloc] initWithRating:@(3.4) maximumRating:@(6) title:@"Rating Title" detail:@"Rating Detail"];
+    
+    CPTextButton *action_1 = [[CPTextButton alloc] initWithTitle:@"CPTextButtonStyleCancel" textStyle:CPTextButtonStyleCancel handler:^(__kindof CPTextButton * _Nonnull contactButton) {
+        
+    }];
+    
+    CPTextButton *action_2 = [[CPTextButton alloc] initWithTitle:@"CPTextButtonStyleNormal" textStyle:CPTextButtonStyleNormal handler:^(__kindof CPTextButton * _Nonnull contactButton) {
+        
+    }];
+    
+    CPTextButton *action_3 = [[CPTextButton alloc] initWithTitle:@"CPTextButtonStyleConfirm" textStyle:CPTextButtonStyleConfirm handler:^(__kindof CPTextButton * _Nonnull contactButton) {
+        
+    }];
+    
+    CPInformationTemplate *informationTemplate = [[CPInformationTemplate alloc] initWithTitle:@"Title"
+                                                                                       layout:layout
+                                                                                        items:@[item_1, item_2, ratingItem]
+                                                                                      actions:@[action_1, action_2, action_3]];
+    
+    [item_1 release];
+    [item_2 release];
+    [ratingItem release];
+    [action_1 release];
+    [action_2 release];
+    [action_3 release];
+    
+    return [informationTemplate autorelease];
+}
+
+- (CPContactTemplate *)_makeContactTemplate {
+    NSURL *url = [NSBundle.mainBundle URLForResource:@"image" withExtension:UTTypeHEIC.preferredFilenameExtension];
+    CPContact *contact = [[CPContact alloc] initWithName:@"Name" image:[UIImage imageWithContentsOfFile:url.path]];
+    contact.subtitle = @"Subtitle";
+    contact.informativeText = @"informativeText";
+    
+    CPContactCallButton *callButton = [[CPContactCallButton alloc] initWithHandler:^(__kindof CPButton * _Nonnull contactButton) {
+        NSLog(@"%@", NSStringFromClass([contactButton class]));
+    }];
+    CPContactDirectionsButton *directionsButton = [[CPContactDirectionsButton alloc] initWithHandler:^(__kindof CPButton * _Nonnull contactButton) {
+        NSLog(@"%@", NSStringFromClass([contactButton class]));
+    }];
+    CPContactMessageButton *messageButton = [[CPContactMessageButton alloc] initWithPhoneOrEmail:@"potato@apple.com"];
+    
+    contact.actions = @[callButton, directionsButton, messageButton];
+    [callButton release];
+    [directionsButton release];
+    [messageButton release];
+    
+    CPContactTemplate *contactTemplate = [[CPContactTemplate alloc] initWithContact:contact];
+    [contact release];
+    
+    return [contactTemplate autorelease];
+}
+
+- (CPInformationTemplate *)_makeActionSheetPresenterTemplate {
+    __block CPInterfaceController *interfaceController = self._interfaceController;
+    
+    CPTextButton *action = [[CPTextButton alloc] initWithTitle:@"Present" textStyle:CPTextButtonStyleCancel handler:^(__kindof CPTextButton * _Nonnull contactButton) {
+        CPAlertAction *action_1 = [[CPAlertAction alloc] initWithTitle:@"CPAlertActionStyleDefault" style:CPAlertActionStyleDefault handler:^(CPAlertAction * _Nonnull) {
+            NSLog(@"CPAlertActionStyleDefault");
+        }];
+        CPAlertAction *action_2 = [[CPAlertAction alloc] initWithTitle:@"CPAlertActionStyleCancel" style:CPAlertActionStyleCancel handler:^(CPAlertAction * _Nonnull) {
+            NSLog(@"CPAlertActionStyleCancel");
+        }];
+        CPAlertAction *action_3 = [[CPAlertAction alloc] initWithTitle:@"CPAlertActionStyleDestructive" style:CPAlertActionStyleDestructive handler:^(CPAlertAction * _Nonnull) {
+            NSLog(@"CPAlertActionStyleDestructive");
+        }];
+        
+        CPActionSheetTemplate *actionSheetTemplate = [[CPActionSheetTemplate alloc] initWithTitle:@"Title" message:@"Message" actions:@[action_1, action_2, action_3]];
+        [action_1 release];
+        [action_2 release];
+        [action_3 release];
+        
+        [interfaceController presentTemplate:actionSheetTemplate animated:YES completion:^(BOOL success, NSError * _Nullable error) {
+            assert(error == nil);
+            assert(success);
+        }];
+        [actionSheetTemplate release];
+    }];
+    
+    CPInformationTemplate *informationTemplate = [[CPInformationTemplate alloc] initWithTitle:@"Title"
+                                                                                       layout:CPInformationTemplateLayoutTwoColumn
+                                                                                        items:@[]
+                                                                                      actions:@[action]];
+    
+    [action release];
+    
+    return [informationTemplate autorelease];
 }
 
 @end
