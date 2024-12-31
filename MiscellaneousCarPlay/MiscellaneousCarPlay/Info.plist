@@ -4,30 +4,23 @@
 <dict>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
+		<key>CPSupportsInstrumentClusterNavigationScene</key>
+		<true/>
+		<key>CPSupportsDashboardNavigationScene</key>
+		<true/>
 		<key>UIApplicationSupportsMultipleScenes</key>
 		<true/>
 		<key>UISceneConfigurations</key>
 		<dict>
-			<key>UIWindowSceneSessionRoleApplication</key>
+			<key>CPTemplateApplicationDashboardSceneSessionRoleApplication</key>
 			<array>
 				<dict>
-					<key>UISceneConfigurationName</key>
-					<string>Default Configuration</string>
-					<key>UISceneDelegateClassName</key>
-					<string>SceneDelegate</string>
-					<key>UISceneStoryboardFile</key>
-					<string>Main</string>
-				</dict>
-			</array>
-			<key>CPTemplateApplicationSceneSessionRoleApplication</key>
-			<array>
-				<dict>
-					<key>UISceneConfigurationName</key>
-					<string>CarPlay</string>
 					<key>UISceneClassName</key>
-					<string>CPTemplateApplicationScene</string>
+					<string>CPTemplateApplicationDashboardScene</string>
 					<key>UISceneDelegateClassName</key>
-					<string>CarPlaySceneDelegate</string>
+					<string>SecondaryCarPlaySceneDelegate</string>
+					<key>UISceneConfigurationName</key>
+					<string>Foo</string>
 				</dict>
 			</array>
 		</dict>

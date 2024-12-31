@@ -136,8 +136,10 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
     NSLog(@"%s", sel_getName(_cmd));
     CPNavigationSession *navigationSession = [mapTemplate startNavigationSessionForTrip:trip];
     
-    // CarPlayServices에서 사용 안하는 값
-    navigationSession.currentRoadNameVariants = @[@"A"];
+    if (@available(iOS 17.4, *)) {
+        // CarPlayServices에서 사용 안하는 값
+        navigationSession.currentRoadNameVariants = @[@"A"];
+    }
     
     self._navigationSession = navigationSession;
 }
@@ -728,7 +730,9 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
             [routeChoice_1 release];
             [routeChoice_2 release];
             
-            trip.destinationNameVariants = @[@"Short", @"LongLongLongLong"];
+            if (@available(iOS 17.4, *)) {
+                trip.destinationNameVariants = @[@"Short", @"LongLongLongLong"];
+            }
             
             [trips addObject:trip];
             [trip release];
@@ -761,7 +765,9 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
             [routeChoice_1 release];
             [routeChoice_2 release];
             
-            trip.destinationNameVariants = @[@"Short", @"LongLongLongLong"];
+            if (@available(iOS 17.4, *)) {
+                trip.destinationNameVariants = @[@"Short", @"LongLongLongLong"];
+            }
             
             [trips addObject:trip];
             [trip release];
@@ -952,9 +958,16 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
         
         NSMeasurement *distanceRemaining = [[NSMeasurement alloc] initWithDoubleValue:double_dist(gen) unit:[NSUnitLength kilometers]];
         
-        CPTravelEstimates *travelEstimates = [[CPTravelEstimates alloc] initWithDistanceRemaining:distanceRemaining
-                                                                       distanceRemainingToDisplay:distanceRemaining
-                                                                                    timeRemaining:double_dist(gen)];
+        CPTravelEstimates *travelEstimates;
+        if (@available(iOS 17.4, *)) {
+            travelEstimates = [[CPTravelEstimates alloc] initWithDistanceRemaining:distanceRemaining
+                                                        distanceRemainingToDisplay:distanceRemaining
+                                                                     timeRemaining:double_dist(gen)];
+        } else {
+            travelEstimates = [[CPTravelEstimates alloc] initWithDistanceRemaining:distanceRemaining
+                                                                     timeRemaining:double_dist(gen)];
+        }
+        
         [distanceRemaining release];
         
         [mapTemplate updateTravelEstimates:travelEstimates forTrip:trip withTimeRemainingColor:static_cast<CPTimeRemainingColor>(int_dist(gen))];
