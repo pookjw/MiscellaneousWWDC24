@@ -11,6 +11,8 @@
 #import "MenuPresenterViewController.h"
 #import "TextViewController.h"
 #import "SearchControllerViewController.h"
+#import "AlertPresenterViewController.h"
+#import "ActionSheetPresenterViewController.h"
 
 #warning TODO /System/Library/PrivateFrameworks/CarPlaySupport.framework/CarPlaySupport
 
@@ -24,6 +26,8 @@
 
 + (NSArray<Class> *)_classes {
     return @[
+        [ActionSheetPresenterViewController class],
+        [AlertPresenterViewController class],
         [SearchControllerViewController class],
         [TextViewController class],
         [MenuPresenterViewController class],
@@ -53,9 +57,8 @@
     
     self.navigationItem.title = NSProcessInfo.processInfo.processName;
     
-//    Class _class = [CollectionViewController _classes][0];
-//    __kindof UIViewController *viewController = [_class new];
-    TextViewController *viewController = [TextViewController new];
+    Class _class = [CollectionViewController _classes][0];
+    __kindof UIViewController *viewController = [_class new];
     [self.navigationController pushViewController:viewController animated:YES];
     [viewController release];
 }
