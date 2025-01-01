@@ -14,8 +14,8 @@ if [ ! -d "build" ]; then
 mkdir build
 fi
 cd build
-if [ -e "$APPLICATION_NAME.ipa" ]; then
-rm $APPLICATION_NAME.ipa
+if [ -e "$APPLICATION_NAME.tipa" ]; then
+rm "$APPLICATION_NAME.tipa"
 fi
 
 # Build .app
