@@ -49,6 +49,7 @@
 #import "MiscellaneousUIKit-Swift.h"
 #import "VariableBlurViewController.h"
 #import "TestFlightCoreDemoViewController.h"
+#import "BiometricKitDemoViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import <TargetConditionals.h>
@@ -135,6 +136,7 @@ __attribute__((objc_direct_members))
 
 - (NSArray<Class> *)classes {
     return @[
+        BiometricKitDemoViewController.class,
         TestFlightCoreDemoViewController.class,
 #if TARGET_OS_VISION
         VariableBlurViewController.class,
@@ -210,7 +212,7 @@ __attribute__((objc_direct_members))
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
     [rootViewController release];
     
-    if ([rootViewController isKindOfClass:UITabBarController.class] || [rootViewController isKindOfClass:MyNavigationItemViewController.class] || [rootViewController isKindOfClass:MySearchViewController.class]) {
+    if ([rootViewController isKindOfClass:UITabBarController.class] || [rootViewController isKindOfClass:MyNavigationItemViewController.class] || [rootViewController isKindOfClass:MySearchViewController.class] || [rootViewController isKindOfClass:BiometricKitDemoViewController.class]) {
         if (![rootViewController isKindOfClass:TabBarAppearanceViewController.class]) {
             navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
         }
