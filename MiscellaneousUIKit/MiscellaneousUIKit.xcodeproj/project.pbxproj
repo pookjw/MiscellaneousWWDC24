@@ -34,6 +34,8 @@
 		4F3AFCA12C57F64E00F810CF /* PointerInteractionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3AFCA02C57F64E00F810CF /* PointerInteractionViewController.mm */; };
 		4F3DD69C2C9BDCF6006F6F49 /* BaselineViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3DD69B2C9BDCF6006F6F49 /* BaselineViewController.mm */; };
 		4F3DD6A32C9BE537006F6F49 /* CustomBaselineViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3DD6A22C9BE537006F6F49 /* CustomBaselineViewController.mm */; };
+		4F3DE9B82D2AA01700C19424 /* TestFlightCoreDemoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3DE9B72D2AA01700C19424 /* TestFlightCoreDemoViewController.mm */; };
+		4F3DE9B92D2AA01700C19424 /* TestFlightCoreDemoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3DE9B72D2AA01700C19424 /* TestFlightCoreDemoViewController.mm */; };
 		4F455F032C2038D200CDE688 /* CustomTransitionController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F022C2038D200CDE688 /* CustomTransitionController.mm */; };
 		4F455F1A2C27EBE400CDE688 /* JitterAnimationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F192C27EBE400CDE688 /* JitterAnimationViewController.mm */; };
 		4F455F1E2C280C4A00CDE688 /* TabBar2Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F1D2C280C4A00CDE688 /* TabBar2Controller.m */; };
@@ -229,6 +231,8 @@
 		4F3DD69B2C9BDCF6006F6F49 /* BaselineViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BaselineViewController.mm; sourceTree = "<group>"; };
 		4F3DD6A12C9BE537006F6F49 /* CustomBaselineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomBaselineViewController.h; sourceTree = "<group>"; };
 		4F3DD6A22C9BE537006F6F49 /* CustomBaselineViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomBaselineViewController.mm; sourceTree = "<group>"; };
+		4F3DE9B62D2AA01700C19424 /* TestFlightCoreDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestFlightCoreDemoViewController.h; sourceTree = "<group>"; };
+		4F3DE9B72D2AA01700C19424 /* TestFlightCoreDemoViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestFlightCoreDemoViewController.mm; sourceTree = "<group>"; };
 		4F455F012C2038D200CDE688 /* CustomTransitionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTransitionController.h; sourceTree = "<group>"; };
 		4F455F022C2038D200CDE688 /* CustomTransitionController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomTransitionController.mm; sourceTree = "<group>"; };
 		4F455F182C27EBE400CDE688 /* JitterAnimationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JitterAnimationViewController.h; sourceTree = "<group>"; };
@@ -395,6 +399,7 @@
 		4F082E632C18906E002263ED /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4F3DE9B52D2AA00800C19424 /* TestFlightCoreDemo */,
 				4F082E6D2C189EF6002263ED /* ListEnvironment */,
 				4F082E712C18E23B002263ED /* SceneActivation */,
 				4F082E782C18FD03002263ED /* CustomDocument */,
@@ -591,6 +596,15 @@
 				4F3DD6A22C9BE537006F6F49 /* CustomBaselineViewController.mm */,
 			);
 			path = CustomBaseline;
+			sourceTree = "<group>";
+		};
+		4F3DE9B52D2AA00800C19424 /* TestFlightCoreDemo */ = {
+			isa = PBXGroup;
+			children = (
+				4F3DE9B62D2AA01700C19424 /* TestFlightCoreDemoViewController.h */,
+				4F3DE9B72D2AA01700C19424 /* TestFlightCoreDemoViewController.mm */,
+			);
+			path = TestFlightCoreDemo;
 			sourceTree = "<group>";
 		};
 		4F455F172C27EBCA00CDE688 /* JitterAnimation */ = {
@@ -990,6 +1004,7 @@
 				4FA8EEFA2C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4FB9FC462C58C4E5006B3245 /* OldLinkTextViewController.mm in Sources */,
 				4F5068B22C3D9D8800293E81 /* LegacyTabBar2Controller.mm in Sources */,
+				4F3DE9B82D2AA01700C19424 /* TestFlightCoreDemoViewController.mm in Sources */,
 				4F46CFCC2C282AF5005AC6AF /* ProminenceViewController.mm in Sources */,
 				4FA8EEF72C1CE0E200B1358A /* CustomViewControllerTransition.mm in Sources */,
 				4F5D11C52C58AD5A000C12C3 /* WritingToolsViewController.mm in Sources */,
@@ -1059,6 +1074,7 @@
 				4F59DEA92CFFF56100E88830 /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4F59DEAA2CFFF56100E88830 /* OldLinkTextViewController.mm in Sources */,
 				4F59DEAB2CFFF56100E88830 /* LegacyTabBar2Controller.mm in Sources */,
+				4F3DE9B92D2AA01700C19424 /* TestFlightCoreDemoViewController.mm in Sources */,
 				4F59DEAC2CFFF56100E88830 /* ProminenceViewController.mm in Sources */,
 				4F59DEAD2CFFF56100E88830 /* CustomViewControllerTransition.mm in Sources */,
 				4F59DEAE2CFFF56100E88830 /* WritingToolsViewController.mm in Sources */,

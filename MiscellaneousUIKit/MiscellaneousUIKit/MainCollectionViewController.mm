@@ -48,6 +48,7 @@
 #import "IntelligenceLightLabelViewController.h"
 #import "MiscellaneousUIKit-Swift.h"
 #import "VariableBlurViewController.h"
+#import "TestFlightCoreDemoViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import <TargetConditionals.h>
@@ -99,7 +100,7 @@ __attribute__((objc_direct_members))
     [super viewDidLoad];
     [self cellRegistration];
     
-//    reinterpret_cast<void (*)(id, SEL, id, BOOL, UICollectionViewScrollPosition, BOOL, BOOL, BOOL, BOOL)>(objc_msgSend)(self.collectionView, sel_registerName("_selectItemAtIndexPath:animated:scrollPosition:notifyDelegate:deselectPrevious:performPrimaryAction:performCustomSelectionAction:"), [NSIndexPath indexPathForItem:1 inSection:0], NO, 0, YES, YES, NO, NO);
+    reinterpret_cast<void (*)(id, SEL, id, BOOL, UICollectionViewScrollPosition, BOOL, BOOL, BOOL, BOOL)>(objc_msgSend)(self.collectionView, sel_registerName("_selectItemAtIndexPath:animated:scrollPosition:notifyDelegate:deselectPrevious:performPrimaryAction:performCustomSelectionAction:"), [NSIndexPath indexPathForItem:0 inSection:0], NO, 0, YES, YES, NO, NO);
 }
 
 - (void)commonInit_MainCollectionViewController __attribute__((objc_direct)) {
@@ -118,7 +119,7 @@ __attribute__((objc_direct_members))
         Class _class = classes[indexPath.item];
         
         UIListContentConfiguration *contentConfiguration = [cell defaultContentConfiguration];
-        NSLog(@"%@", contentConfiguration);
+//        NSLog(@"%@", contentConfiguration);
         contentConfiguration.text = NSStringFromClass(_class);
         
         cell.contentConfiguration = contentConfiguration;
@@ -134,6 +135,7 @@ __attribute__((objc_direct_members))
 
 - (NSArray<Class> *)classes {
     return @[
+        TestFlightCoreDemoViewController.class,
 #if TARGET_OS_VISION
         VariableBlurViewController.class,
 #endif

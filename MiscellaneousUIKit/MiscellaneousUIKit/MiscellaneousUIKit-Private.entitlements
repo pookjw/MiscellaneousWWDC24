@@ -3,10 +3,24 @@
 <plist version="1.0">
 <dict>
 	<key>SBStarkCapable</key>
-	<false/>
+	<true/>
+	<key>com.apple.frontboard.launchapplications</key>
+	<true/>
+	<key>com.apple.runningboard.process-state</key>
+	<true/>
+	<key>com.apple.private.appstored</key>
+	<array>
+		<string>TestFlightFeedback</string>
+	</array>
 	<key>com.apple.developer.web-browser</key>
 	<true/>
+	<key>com.apple.security.exception.mach-lookup.global-name</key>
+	<array>
+		<string>com.apple.frontboard.systemappservices</string>
+	</array>
 	<key>com.apple.security.app-sandbox</key>
+	<true/>
+	<key>com.apple.springboard.remote-alert</key>
 	<true/>
 	<key>com.apple.security.network.client</key>
 	<true/>
