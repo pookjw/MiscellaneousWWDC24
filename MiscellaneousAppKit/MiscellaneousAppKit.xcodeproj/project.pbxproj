@@ -15,6 +15,14 @@
 		4F26D3A62C3134050097B837 /* WindowMovableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3A52C3134050097B837 /* WindowMovableViewController.mm */; };
 		4F26D3DB2C31BA560097B837 /* AlertStyleViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3DA2C31BA560097B837 /* AlertStyleViewController.mm */; };
 		4F26EFCA2C2DC799007D63F3 /* NSMenuItem+MAPopUpButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F26EFC92C2DC799007D63F3 /* NSMenuItem+MAPopUpButton.m */; };
+		4F36610C2D2BFAC50015FE4B /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F36610B2D2BFAC50015FE4B /* Vision.framework */; };
+		4F3661102D2BFBBA0015FE4B /* GenerateImageSegmentationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F36610F2D2BFBBA0015FE4B /* GenerateImageSegmentationViewController.mm */; };
+		4F3661132D2C0BDA0015FE4B /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F3661112D2C0BDA0015FE4B /* PhotosUI.framework */; };
+		4F3661142D2C0BDA0015FE4B /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F3661122D2C0BDA0015FE4B /* Photos.framework */; };
+		4F36611A2D2C1FDE0015FE4B /* GenerateImageSegmentationView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3661192D2C1FDE0015FE4B /* GenerateImageSegmentationView.mm */; };
+		4F36611C2D2C24DE0015FE4B /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F36611B2D2C24DE0015FE4B /* AVKit.framework */; };
+		4F36611E2D2C24E10015FE4B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F36611D2D2C24E10015FE4B /* AVFoundation.framework */; };
+		4F3661202D2C258C0015FE4B /* cakes.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 4F36611F2D2C258C0015FE4B /* cakes.jpeg */; };
 		4F46CFDF2C28308E005AC6AF /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F46CFDE2C28308E005AC6AF /* AppDelegate.mm */; };
 		4F46CFE42C28308F005AC6AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F46CFE32C28308F005AC6AF /* Assets.xcassets */; };
 		4F46CFE92C28308F005AC6AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F46CFE82C28308F005AC6AF /* main.m */; };
@@ -66,6 +74,16 @@
 		4F26D3DA2C31BA560097B837 /* AlertStyleViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AlertStyleViewController.mm; sourceTree = "<group>"; };
 		4F26EFC82C2DC799007D63F3 /* NSMenuItem+MAPopUpButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMenuItem+MAPopUpButton.h"; sourceTree = "<group>"; };
 		4F26EFC92C2DC799007D63F3 /* NSMenuItem+MAPopUpButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMenuItem+MAPopUpButton.m"; sourceTree = "<group>"; };
+		4F36610B2D2BFAC50015FE4B /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = System/Library/Frameworks/Vision.framework; sourceTree = SDKROOT; };
+		4F36610E2D2BFBBA0015FE4B /* GenerateImageSegmentationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GenerateImageSegmentationViewController.h; sourceTree = "<group>"; };
+		4F36610F2D2BFBBA0015FE4B /* GenerateImageSegmentationViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GenerateImageSegmentationViewController.mm; sourceTree = "<group>"; };
+		4F3661112D2C0BDA0015FE4B /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
+		4F3661122D2C0BDA0015FE4B /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		4F3661182D2C1FDE0015FE4B /* GenerateImageSegmentationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GenerateImageSegmentationView.h; sourceTree = "<group>"; };
+		4F3661192D2C1FDE0015FE4B /* GenerateImageSegmentationView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GenerateImageSegmentationView.mm; sourceTree = "<group>"; };
+		4F36611B2D2C24DE0015FE4B /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		4F36611D2D2C24E10015FE4B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		4F36611F2D2C258C0015FE4B /* cakes.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cakes.jpeg; sourceTree = "<group>"; };
 		4F46CFDA2C28308E005AC6AF /* MiscellaneousAppKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiscellaneousAppKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F46CFDD2C28308E005AC6AF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4F46CFDE2C28308E005AC6AF /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
@@ -133,9 +151,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F36611E2D2C24E10015FE4B /* AVFoundation.framework in Frameworks */,
+				4F36610C2D2BFAC50015FE4B /* Vision.framework in Frameworks */,
+				4F3661132D2C0BDA0015FE4B /* PhotosUI.framework in Frameworks */,
 				4F95E34F2C5A17D900C89D06 /* UniformTypeIdentifiers.framework in Frameworks */,
 				4F46D0172C286267005AC6AF /* QuartzCore.framework in Frameworks */,
+				4F36611C2D2C24DE0015FE4B /* AVKit.framework in Frameworks */,
 				4F46D0152C286262005AC6AF /* Cocoa.framework in Frameworks */,
+				4F3661142D2C0BDA0015FE4B /* Photos.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,6 +212,17 @@
 			path = AlertStyle;
 			sourceTree = "<group>";
 		};
+		4F36610D2D2BFB1A0015FE4B /* GenerateImageSegmentation */ = {
+			isa = PBXGroup;
+			children = (
+				4F36610E2D2BFBBA0015FE4B /* GenerateImageSegmentationViewController.h */,
+				4F36610F2D2BFBBA0015FE4B /* GenerateImageSegmentationViewController.mm */,
+				4F3661182D2C1FDE0015FE4B /* GenerateImageSegmentationView.h */,
+				4F3661192D2C1FDE0015FE4B /* GenerateImageSegmentationView.mm */,
+			);
+			path = GenerateImageSegmentation;
+			sourceTree = "<group>";
+		};
 		4F46CFD12C28308E005AC6AF = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +245,7 @@
 			children = (
 				4F1C70D32C2EBAC2002E096A /* Cursors */,
 				4F5EEEEE2C29B866001E345D /* adaptiveImageGlyph.plist */,
+				4F36611F2D2C258C0015FE4B /* cakes.jpeg */,
 				4F46CFDD2C28308E005AC6AF /* AppDelegate.h */,
 				4F46CFDE2C28308E005AC6AF /* AppDelegate.mm */,
 				4F46CFFF2C28549A005AC6AF /* NSObject+Foundation_IvarDescription.h */,
@@ -220,6 +255,7 @@
 				4F5EEF3E2C29C530001E345D /* Menu */,
 				4F46CFF72C2835E2005AC6AF /* Root */,
 				4F46CFFE2C283610005AC6AF /* ClassesList */,
+				4F36610D2D2BFB1A0015FE4B /* GenerateImageSegmentation */,
 				4F46D0182C287099005AC6AF /* Toolbar */,
 				4F46D0052C285C0C005AC6AF /* TextView */,
 				4F5EB6902C29D42C0019E2D5 /* Ruler */,
@@ -282,6 +318,11 @@
 		4F46D0132C286262005AC6AF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4F36611D2D2C24E10015FE4B /* AVFoundation.framework */,
+				4F36611B2D2C24DE0015FE4B /* AVKit.framework */,
+				4F3661122D2C0BDA0015FE4B /* Photos.framework */,
+				4F3661112D2C0BDA0015FE4B /* PhotosUI.framework */,
+				4F36610B2D2BFAC50015FE4B /* Vision.framework */,
 				4F95E34E2C5A17D900C89D06 /* UniformTypeIdentifiers.framework */,
 				4F46D0162C286267005AC6AF /* QuartzCore.framework */,
 				4F46D0142C286262005AC6AF /* Cocoa.framework */,
@@ -451,6 +492,7 @@
 			files = (
 				4F5EB68F2C297E120019E2D5 /* image.heic in Resources */,
 				4F46D00D2C286011005AC6AF /* ClassTableCellView.xib in Resources */,
+				4F3661202D2C258C0015FE4B /* cakes.jpeg in Resources */,
 				4F5FE6352C5A176D0044345D /* article.txt in Resources */,
 				4F46D0122C286168005AC6AF /* ClassTableRowView.xib in Resources */,
 				4F5EEEEF2C29B866001E345D /* adaptiveImageGlyph.plist in Resources */,
@@ -486,6 +528,7 @@
 				4F099D892C2C664E00797D6B /* RulerView.mm in Sources */,
 				4F26D3A62C3134050097B837 /* WindowMovableViewController.mm in Sources */,
 				4F46D0102C286152005AC6AF /* ClassTableRowView.mm in Sources */,
+				4F36611A2D2C1FDE0015FE4B /* GenerateImageSegmentationView.mm in Sources */,
 				4F46CFF62C28349B005AC6AF /* RootSplitViewController.mm in Sources */,
 				4F06D01E2C2D67650003A0E5 /* CursorViewController.mm in Sources */,
 				4F099D8D2C2C73E500797D6B /* PopUpButtonsViewController.mm in Sources */,
@@ -496,6 +539,7 @@
 				4F26EFCA2C2DC799007D63F3 /* NSMenuItem+MAPopUpButton.m in Sources */,
 				4F5EEF402C29C531001E345D /* EditMenuItem.mm in Sources */,
 				4F5EEF412C29C531001E345D /* AppMenuItem.mm in Sources */,
+				4F3661102D2BFBBA0015FE4B /* GenerateImageSegmentationViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -626,7 +670,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P53D29U9LJ;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -653,7 +697,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P53D29U9LJ;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";

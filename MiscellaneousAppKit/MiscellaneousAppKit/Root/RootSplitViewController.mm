@@ -33,7 +33,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.splitViewItems = @[self.classesListSplitViewItem, self.emptySplitViewItem];
+//    self.splitViewItems = @[self.classesListSplitViewItem, self.emptySplitViewItem];
+    [self.classListViewController loadViewIfNeeded];
 }
 
 - (ClassListViewController *)classListViewController {

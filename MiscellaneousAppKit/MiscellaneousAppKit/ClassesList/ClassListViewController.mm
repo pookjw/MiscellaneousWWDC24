@@ -23,6 +23,7 @@
 #import "ValidateToolbarViewController.h"
 #import "WritingToolsViewController.h"
 #import "IntelligenceUILightViewController.h"
+#import "GenerateImageSegmentationViewController.h"
 
 APPKIT_EXTERN NSString * const NSTableViewCurrentRowSelectionUserInfoKey;
 APPKIT_EXTERN NSString * const NSTableViewPreviousRowSelectionUserInfoKey;
@@ -49,6 +50,7 @@ APPKIT_EXTERN NSString * const NSTableViewPreviousRowSelectionUserInfoKey;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
 }
 
 - (NSScrollView *)scrollView {
@@ -91,6 +93,7 @@ APPKIT_EXTERN NSString * const NSTableViewPreviousRowSelectionUserInfoKey;
 
 - (NSArray<Class> *)classes {
     return @[
+        GenerateImageSegmentationViewController.class,
         IntelligenceUILightViewController.class,
         WritingToolsViewController.class,
         ValidateToolbarViewController.class,
@@ -106,6 +109,13 @@ APPKIT_EXTERN NSString * const NSTableViewPreviousRowSelectionUserInfoKey;
         TextViewController.class,
         ToolbarViewController.class
     ];
+}
+
+- (Class)selectedClass {
+    NSIndexSet *selectedRowIndexes = self.tableView.selectedRowIndexes;
+    if (selectedRowIndexes.count == 0) return nil;
+    NSUInteger index = selectedRowIndexes.firstIndex;
+    return self.classes[index];
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {

@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface ClassListViewController : NSViewController
+@property (assign, nonatomic, readonly, nullable) Class selectedClass;
 @property (weak, nonatomic) id<ClassListViewControllerDelegate> delegate;
 @end
 

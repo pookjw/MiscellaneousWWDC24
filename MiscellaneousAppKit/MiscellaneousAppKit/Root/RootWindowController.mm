@@ -47,7 +47,7 @@
         RootSplitViewController *rootSplitViewController = self.rootSplitViewController;
         window.contentViewController = rootSplitViewController;
         
-        window.toolbar = self.toolbar;
+//        window.toolbar = self.toolbar;
         window.delegate = self;
     }
     
