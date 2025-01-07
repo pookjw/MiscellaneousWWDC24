@@ -47,6 +47,8 @@ OBJC_EXPORT id objc_msgSendSuper2(void);
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    assert(reinterpret_cast<BOOL (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("VNImageSegmenter"), sel_registerName("supportsExecution")));
+    
 //    id interface = [objc_lookUpClass("VNModelCatalogBridgingInterface") new];
 //    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(interface, sel_registerName("downloadForegroundBackgroundSegmentationModelBundleWithCompletionHandler:"), ^(NSError * _Nullable error, id foo) {
 //        NSLog(@"");
