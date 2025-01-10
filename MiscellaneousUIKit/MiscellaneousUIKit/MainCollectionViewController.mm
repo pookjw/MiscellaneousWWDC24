@@ -50,6 +50,7 @@
 #import "VariableBlurViewController.h"
 #import "TestFlightCoreDemoViewController.h"
 #import "BiometricKitDemoViewController.h"
+#import "ExpandableCollectionViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import <TargetConditionals.h>
@@ -136,6 +137,7 @@ __attribute__((objc_direct_members))
 
 - (NSArray<Class> *)classes {
     return @[
+        ExpandableCollectionViewController.class,
         BiometricKitDemoViewController.class,
         TestFlightCoreDemoViewController.class,
 #if TARGET_OS_VISION
