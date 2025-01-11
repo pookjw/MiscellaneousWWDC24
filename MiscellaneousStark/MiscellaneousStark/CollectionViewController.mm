@@ -25,15 +25,26 @@
 @synthesize _cellRegistration = __cellRegistration;
 
 + (NSArray<Class> *)_classes {
-    return @[
-        [ActionSheetPresenterViewController class],
-        [AlertPresenterViewController class],
-        [SearchControllerViewController class],
-        [TextViewController class],
-        [MenuPresenterViewController class],
-        [NavigationItemViewController class],
-        [TabBarPresenterViewController class]
-    ];
+    if (@available(iOS 18.0, *)) {
+        return @[
+            [ActionSheetPresenterViewController class],
+            [AlertPresenterViewController class],
+            [SearchControllerViewController class],
+            [TextViewController class],
+            [MenuPresenterViewController class],
+            [NavigationItemViewController class],
+            [TabBarPresenterViewController class]
+        ];
+    } else {
+        return @[
+            [ActionSheetPresenterViewController class],
+            [AlertPresenterViewController class],
+            [SearchControllerViewController class],
+            [TextViewController class],
+            [MenuPresenterViewController class],
+            [NavigationItemViewController class]
+        ];
+    }
 }
 
 - (instancetype)init {
