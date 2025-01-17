@@ -101,7 +101,12 @@ __attribute__((objc_direct_members))
     [super viewDidLoad];
     [self cellRegistration];
     
-    reinterpret_cast<void (*)(id, SEL, id, BOOL, UICollectionViewScrollPosition, BOOL, BOOL, BOOL, BOOL)>(objc_msgSend)(self.collectionView, sel_registerName("_selectItemAtIndexPath:animated:scrollPosition:notifyDelegate:deselectPrevious:performPrimaryAction:performCustomSelectionAction:"), [NSIndexPath indexPathForItem:0 inSection:0], NO, 0, YES, YES, NO, NO);
+    TextViewController *textViewController = [TextViewController new];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:textViewController];
+    [textViewController release];
+    [self presentViewController:navigationController animated:YES completion:nil];
+    [navigationController release];
+//    reinterpret_cast<void (*)(id, SEL, id, BOOL, UICollectionViewScrollPosition, BOOL, BOOL, BOOL, BOOL)>(objc_msgSend)(self.collectionView, sel_registerName("_selectItemAtIndexPath:animated:scrollPosition:notifyDelegate:deselectPrevious:performPrimaryAction:performCustomSelectionAction:"), [NSIndexPath indexPathForItem:0 inSection:0], NO, 0, YES, YES, NO, NO);
 }
 
 - (void)commonInit_MainCollectionViewController __attribute__((objc_direct)) {
@@ -136,7 +141,9 @@ __attribute__((objc_direct_members))
 
 - (NSArray<Class> *)classes {
     return @[
+#if TARGET_OS_IOS && !TARGET_OS_SIMULATOR
         BiometricKitDemoViewController.class,
+#endif
         TestFlightCoreDemoViewController.class,
 #if TARGET_OS_VISION
         VariableBlurViewController.class,
@@ -212,7 +219,13 @@ __attribute__((objc_direct_members))
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
     [rootViewController release];
     
-    if ([rootViewController isKindOfClass:UITabBarController.class] || [rootViewController isKindOfClass:MyNavigationItemViewController.class] || [rootViewController isKindOfClass:MySearchViewController.class] || [rootViewController isKindOfClass:BiometricKitDemoViewController.class]) {
+    if ([rootViewController isKindOfClass:UITabBarController.class]
+        || [rootViewController isKindOfClass:MyNavigationItemViewController.class]
+        || [rootViewController isKindOfClass:MySearchViewController.class]
+#if TARGET_OS_IOS && !TARGET_OS_SIMULATOR
+        || [rootViewController isKindOfClass:BiometricKitDemoViewController.class]
+#endif
+        ) {
         if (![rootViewController isKindOfClass:TabBarAppearanceViewController.class]) {
             navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
         }

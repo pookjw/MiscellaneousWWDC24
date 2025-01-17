@@ -5,6 +5,10 @@
 //  Created by Jinwoo Kim on 1/5/25.
 //
 
+#import <TargetConditionals.h>
+
+#if TARGET_OS_IOS && !TARGET_OS_SIMULATOR
+
 #import "BiometricKitDemoViewController.h"
 #import <dlfcn.h>
 #import <objc/message.h>
@@ -243,3 +247,5 @@
 }
 
 @end
+
+#endif
