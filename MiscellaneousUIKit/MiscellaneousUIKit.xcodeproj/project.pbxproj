@@ -144,6 +144,10 @@
 		4FB9FC422C58C2D6006B3245 /* NewLinkTextViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FB9FC412C58C2D6006B3245 /* NewLinkTextViewController.mm */; };
 		4FB9FC462C58C4E5006B3245 /* OldLinkTextViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FB9FC452C58C4E5006B3245 /* OldLinkTextViewController.mm */; };
 		4FBEC51E2C3C568C008A2F17 /* SymbolEffectsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FBEC51D2C3C568C008A2F17 /* SymbolEffectsViewController.mm */; };
+		4FC234BB2D31761D00202A24 /* ExpandableCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FC234BA2D31761D00202A24 /* ExpandableCollectionViewController.mm */; };
+		4FC234BC2D31761D00202A24 /* ExpandableCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FC234BA2D31761D00202A24 /* ExpandableCollectionViewController.mm */; };
+		4FC234BF2D317A7700202A24 /* ExpandableCollectionViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FC234BE2D317A7700202A24 /* ExpandableCollectionViewCell.mm */; };
+		4FC234C02D317A7700202A24 /* ExpandableCollectionViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FC234BE2D317A7700202A24 /* ExpandableCollectionViewCell.mm */; };
 		4FC507812D2AC5DD009BFC65 /* BiometricKitDemoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FC507802D2AC5DD009BFC65 /* BiometricKitDemoViewController.mm */; };
 		4FC507822D2AC5DD009BFC65 /* BiometricKitDemoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FC507802D2AC5DD009BFC65 /* BiometricKitDemoViewController.mm */; };
 		4FD54C892D00854E002CE52C /* beer.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4FD54C882D00854E002CE52C /* beer.jpg */; };
@@ -316,6 +320,10 @@
 		4FB9FC452C58C4E5006B3245 /* OldLinkTextViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OldLinkTextViewController.mm; sourceTree = "<group>"; };
 		4FBEC51C2C3C568C008A2F17 /* SymbolEffectsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SymbolEffectsViewController.h; sourceTree = "<group>"; };
 		4FBEC51D2C3C568C008A2F17 /* SymbolEffectsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SymbolEffectsViewController.mm; sourceTree = "<group>"; };
+		4FC234B92D31761D00202A24 /* ExpandableCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExpandableCollectionViewController.h; sourceTree = "<group>"; };
+		4FC234BA2D31761D00202A24 /* ExpandableCollectionViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ExpandableCollectionViewController.mm; sourceTree = "<group>"; };
+		4FC234BD2D317A7700202A24 /* ExpandableCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExpandableCollectionViewCell.h; sourceTree = "<group>"; };
+		4FC234BE2D317A7700202A24 /* ExpandableCollectionViewCell.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ExpandableCollectionViewCell.mm; sourceTree = "<group>"; };
 		4FC5077F2D2AC5DD009BFC65 /* BiometricKitDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BiometricKitDemoViewController.h; sourceTree = "<group>"; };
 		4FC507802D2AC5DD009BFC65 /* BiometricKitDemoViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BiometricKitDemoViewController.mm; sourceTree = "<group>"; };
 		4FD54C882D00854E002CE52C /* beer.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = beer.jpg; sourceTree = "<group>"; };
@@ -403,6 +411,7 @@
 		4F082E632C18906E002263ED /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4FC234B82D3175ED00202A24 /* ExpandableCollectionView */,
 				4FC5077E2D2AC5D4009BFC65 /* BiometricKitDemo */,
 				4F3DE9B52D2AA00800C19424 /* TestFlightCoreDemo */,
 				4F082E6D2C189EF6002263ED /* ListEnvironment */,
@@ -874,6 +883,17 @@
 			path = SymbolEffects;
 			sourceTree = "<group>";
 		};
+		4FC234B82D3175ED00202A24 /* ExpandableCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				4FC234B92D31761D00202A24 /* ExpandableCollectionViewController.h */,
+				4FC234BA2D31761D00202A24 /* ExpandableCollectionViewController.mm */,
+				4FC234BD2D317A7700202A24 /* ExpandableCollectionViewCell.h */,
+				4FC234BE2D317A7700202A24 /* ExpandableCollectionViewCell.mm */,
+			);
+			path = ExpandableCollectionView;
+			sourceTree = "<group>";
+		};
 		4FC5077E2D2AC5D4009BFC65 /* BiometricKitDemo */ = {
 			isa = PBXGroup;
 			children = (
@@ -1025,6 +1045,7 @@
 				4FC507822D2AC5DD009BFC65 /* BiometricKitDemoViewController.mm in Sources */,
 				4F082EA82C1B53C8002263ED /* ContentHuggingElementsViewController.mm in Sources */,
 				4FAD987B2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm in Sources */,
+				4FC234BB2D31761D00202A24 /* ExpandableCollectionViewController.mm in Sources */,
 				4F082E702C18A045002263ED /* ListEnvironmentContentConfiguration.mm in Sources */,
 				4F4903CB2D040B460017A47D /* TextInputLabel.mm in Sources */,
 				4F1F02312C23CE4F004F7EFF /* OrangeViewController.m in Sources */,
@@ -1045,6 +1066,7 @@
 				4F1F022E2C23CE3A004F7EFF /* CyanViewController.m in Sources */,
 				4F3DD69C2C9BDCF6006F6F49 /* BaselineViewController.mm in Sources */,
 				4FA8EEF12C1CDBCA00B1358A /* FromTransitionViewController.mm in Sources */,
+				4FC234C02D317A7700202A24 /* ExpandableCollectionViewCell.mm in Sources */,
 				4F082E492C188D6C002263ED /* AppDelegate.m in Sources */,
 				4F082E742C18E269002263ED /* SceneActivationViewController.mm in Sources */,
 				4F082EAC2C1B59C1002263ED /* CalendarViewController.mm in Sources */,
@@ -1096,6 +1118,7 @@
 				4FC507812D2AC5DD009BFC65 /* BiometricKitDemoViewController.mm in Sources */,
 				4F59DEAF2CFFF56100E88830 /* ContentHuggingElementsViewController.mm in Sources */,
 				4F59DEB02CFFF56100E88830 /* CustomDismissPercentageInteraction.mm in Sources */,
+				4FC234BC2D31761D00202A24 /* ExpandableCollectionViewController.mm in Sources */,
 				4F59DEB12CFFF56100E88830 /* ListEnvironmentContentConfiguration.mm in Sources */,
 				4F4903CC2D040B460017A47D /* TextInputLabel.mm in Sources */,
 				4F59DEB22CFFF56100E88830 /* OrangeViewController.m in Sources */,
@@ -1116,6 +1139,7 @@
 				4F59DEBD2CFFF56100E88830 /* CyanViewController.m in Sources */,
 				4F59DEBE2CFFF56100E88830 /* BaselineViewController.mm in Sources */,
 				4F59DEBF2CFFF56100E88830 /* FromTransitionViewController.mm in Sources */,
+				4FC234BF2D317A7700202A24 /* ExpandableCollectionViewCell.mm in Sources */,
 				4F59DEC02CFFF56100E88830 /* AppDelegate.m in Sources */,
 				4F59DEC12CFFF56100E88830 /* SceneActivationViewController.mm in Sources */,
 				4F59DEC22CFFF56100E88830 /* CalendarViewController.mm in Sources */,

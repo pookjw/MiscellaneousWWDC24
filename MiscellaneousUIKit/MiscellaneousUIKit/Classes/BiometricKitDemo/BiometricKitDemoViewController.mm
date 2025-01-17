@@ -10,6 +10,7 @@
 #if TARGET_OS_IOS && !TARGET_OS_SIMULATOR
 
 #import "BiometricKitDemoViewController.h"
+#import <TargetConditionals.h>
 #import <dlfcn.h>
 #import <objc/message.h>
 #import <objc/runtime.h>
@@ -28,7 +29,9 @@
 + (void)load {
     assert(dlopen("/System/Library/PrivateFrameworks/LocalAuthenticationPrivateUI.framework/LocalAuthenticationPrivateUI", RTLD_NOW) != NULL);
     assert(dlopen("/System/Library/PrivateFrameworks/OnBoardingKit.framework/OnBoardingKit", RTLD_NOW) != NULL);
+#if !TARGET_OS_SIMULATOR
     assert(dlopen("/System/Library/PrivateFrameworks/BiometricKitUI.framework/BiometricKitUI", RTLD_NOW) != NULL);
+#endif
     assert(dlopen("/System/Library/PrivateFrameworks/BiometricKit.framework/BiometricKit", RTLD_NOW) != NULL);
     assert(dlopen("/System/Library/PrivateFrameworks/SoftLinking.framework/SoftLinking", RTLD_NOW) != NULL);
     

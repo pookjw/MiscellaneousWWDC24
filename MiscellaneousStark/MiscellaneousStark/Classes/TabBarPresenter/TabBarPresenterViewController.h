@@ -9,6 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+API_AVAILABLE(ios(18.0))
 @interface TabBarPresenterViewController : UIViewController
 
 @end
