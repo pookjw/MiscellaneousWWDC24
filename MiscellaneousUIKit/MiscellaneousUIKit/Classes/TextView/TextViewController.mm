@@ -50,7 +50,6 @@ void custom(__kindof UIViewController *self, SEL _cmd, CGRect rect, UIColor *sel
     if (reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("_isInPopoverPresentation"))) {
         reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("_stopSuppressingKeyboardForTextFormatting"));
         reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("_textFormattingRequestsFirstResponderResignation"));
-        reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("_textFormattingRequestsFirstResponderResignation"));
         reinterpret_cast<void (*)(id, SEL, NSUInteger, BOOL)>(objc_msgSend)(self, sel_registerName("_modifyKeyboardTrackingIfNeededForType:start:"), 2, YES);
     }
     
