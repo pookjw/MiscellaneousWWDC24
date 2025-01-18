@@ -12,8 +12,35 @@
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 #import "XRTextFormattingViewController.h"
 
+OBJC_EXPORT id objc_msgSendSuper2(void);
+
+UIKIT_EXTERN NSAttributedStringKey const NSTextAnimationAttributeName;
+
+@interface TextView : UITextView
+@end
+@implementation TextView
+- (BOOL)_shouldHandleTextFormattingChangeValue:(UITextFormattingViewControllerChangeValue *)value {
+    id textAnimation = reinterpret_cast<id (*)(Class, SEL, id)>(objc_msgSend)(objc_lookUpClass("_UITextAnimation"), sel_registerName("animationWithName:"), @"big");
+//    NSMutableAttributedString *attributedString = [self.attributedText mutableCopy];
+//    [attributedString addAttribute:textAnimation value:NSTextAnimationAttributeName range:self.selectedRange];
+//    self.attributedText = attributedString;
+//    [attributedString release];
+    
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:self.text attributes:@{
+        NSTextAnimationAttributeName: textAnimation,
+        NSForegroundColorAttributeName: UIColor.whiteColor
+    }];
+    self.attributedText = attributedString;
+    [attributedString release];
+    
+    // TODO: ChatKit.CKTextEffectCoordinator
+    
+    return NO;
+}
+@end
+
 @interface TextViewController () <UITextViewDelegate>
-@property (readonly, nonatomic) UITextView *textView;
+@property (readonly, nonatomic) TextView *textView;
 @property (retain, readonly, nonatomic) UIPasteControl *pasteControl;
 @property (retain, readonly, nonatomic) UIBarButtonItem *pasteControlBarButtonItem;
 @property (retain, readonly, nonatomic) UIBarButtonItem *textFormattingBarButtonItem;
@@ -22,6 +49,7 @@
 @property (retain, readonly, nonatomic) UIBarButtonItem *applyTextHighlightColorSchemeBarButtomItem;
 @property (retain, readonly, nonatomic) UIBarButtonItem *addAdaptiveImageGlyphBarButtonItem;
 @property (retain, readonly, nonatomic) UIBarButtonItem *addLocalizedNumberFormatBarButtonItem;
+@property (retain, readonly, nonatomic) UIBarButtonItem *textAnimationBarButtonItem;
 @end
 
 @implementation TextViewController
@@ -33,6 +61,7 @@
 @synthesize applyTextHighlightColorSchemeBarButtomItem = _applyTextHighlightColorSchemeBarButtomItem;
 @synthesize addAdaptiveImageGlyphBarButtonItem = _addAdaptiveImageGlyphBarButtonItem;
 @synthesize addLocalizedNumberFormatBarButtonItem = _addLocalizedNumberFormatBarButtonItem;
+@synthesize textAnimationBarButtonItem = _textAnimationBarButtonItem;
 
 - (void)dealloc {
     [_pasteControl release];
@@ -43,14 +72,16 @@
     [_applyTextHighlightColorSchemeBarButtomItem release];
     [_addAdaptiveImageGlyphBarButtonItem release];
     [_addLocalizedNumberFormatBarButtonItem release];
+    [_textAnimationBarButtonItem release];
     [super dealloc];
 }
 
 - (void)loadView {
-    UITextView *textView = [UITextView new];
+    TextView *textView = [TextView new];
     textView.allowsEditingTextAttributes = YES;
     textView.supportsAdaptiveImageGlyph = YES;
     textView.delegate = self;
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(textView, sel_registerName("setAllowsTextAnimations:"), YES);
     
     self.view = textView;
     [textView release];
@@ -68,12 +99,13 @@
         self.applyTextHighlightStyleBarButtomItem,
         self.applyTextHighlightColorSchemeBarButtomItem,
         self.addAdaptiveImageGlyphBarButtonItem,
-        self.addLocalizedNumberFormatBarButtonItem
+        self.addLocalizedNumberFormatBarButtonItem,
+        self.textAnimationBarButtonItem
     ];
 }
 
-- (UITextView *)textView {
-    return (UITextView *)self.view;
+- (TextView *)textView {
+    return (TextView *)self.view;
 }
 
 - (UIPasteControl *)pasteControl {
@@ -153,6 +185,15 @@
     
     _addLocalizedNumberFormatBarButtonItem = [addLocalizedNumberFormatBarButtonItem retain];
     return [addLocalizedNumberFormatBarButtonItem autorelease];
+}
+
+- (UIBarButtonItem *)textAnimationBarButtonItem {
+    if (auto textAnimationBarButtonItem = _textAnimationBarButtonItem) return textAnimationBarButtonItem;
+    
+    UIBarButtonItem *textAnimationBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"6" style:UIBarButtonItemStylePlain target:self action:@selector(textAnimationBarButtonItemDidTrigger:)];
+    
+    _textAnimationBarButtonItem = [textAnimationBarButtonItem retain];
+    return [textAnimationBarButtonItem autorelease];
 }
 
 - (void)textFormattingBarButtonItemDidTrigger:(UIBarButtonItem *)sender {
@@ -250,6 +291,10 @@
     
     self.textView.attributedText = attributedText;
     [attributedText release];
+}
+
+- (void)textAnimationBarButtonItemDidTrigger:(UIBarButtonItem *)sender {
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self.textView, sel_registerName("_showTextFormattingAnimationOptions:"), nil);
 }
 
 - (void)textViewWritingToolsWillBegin:(UITextView *)textView {
