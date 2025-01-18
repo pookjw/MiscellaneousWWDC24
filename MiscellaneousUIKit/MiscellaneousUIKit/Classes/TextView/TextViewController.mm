@@ -19,7 +19,12 @@ UIKIT_EXTERN NSAttributedStringKey const NSTextAnimationAttributeName;
 @interface TextView : UITextView
 @end
 @implementation TextView
-- (BOOL)_shouldHandleTextFormattingChangeValue:(UITextFormattingViewControllerChangeValue *)value {
+#if TARGET_OS_VISION
+- (BOOL)_shouldHandleTextFormattingChangeValue:(id)value
+#else
+- (BOOL)_shouldHandleTextFormattingChangeValue:(UITextFormattingViewControllerChangeValue *)value
+#endif
+{
     id textAnimation = reinterpret_cast<id (*)(Class, SEL, id)>(objc_msgSend)(objc_lookUpClass("_UITextAnimation"), sel_registerName("animationWithName:"), @"big");
 //    NSMutableAttributedString *attributedString = [self.attributedText mutableCopy];
 //    [attributedString addAttribute:textAnimation value:NSTextAnimationAttributeName range:self.selectedRange];
