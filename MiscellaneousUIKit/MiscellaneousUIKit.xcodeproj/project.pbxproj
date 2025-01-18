@@ -36,6 +36,8 @@
 		4F3DD6A32C9BE537006F6F49 /* CustomBaselineViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3DD6A22C9BE537006F6F49 /* CustomBaselineViewController.mm */; };
 		4F3DE9B82D2AA01700C19424 /* TestFlightCoreDemoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3DE9B72D2AA01700C19424 /* TestFlightCoreDemoViewController.mm */; };
 		4F3DE9B92D2AA01700C19424 /* TestFlightCoreDemoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3DE9B72D2AA01700C19424 /* TestFlightCoreDemoViewController.mm */; };
+		4F413E652D3B60B00037366B /* XRTextFormattingViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F413E642D3B60B00037366B /* XRTextFormattingViewController.mm */; };
+		4F413E662D3B60B00037366B /* XRTextFormattingViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F413E642D3B60B00037366B /* XRTextFormattingViewController.mm */; };
 		4F455F032C2038D200CDE688 /* CustomTransitionController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F022C2038D200CDE688 /* CustomTransitionController.mm */; };
 		4F455F1A2C27EBE400CDE688 /* JitterAnimationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F192C27EBE400CDE688 /* JitterAnimationViewController.mm */; };
 		4F455F1E2C280C4A00CDE688 /* TabBar2Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F455F1D2C280C4A00CDE688 /* TabBar2Controller.m */; };
@@ -239,6 +241,8 @@
 		4F3DD6A22C9BE537006F6F49 /* CustomBaselineViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomBaselineViewController.mm; sourceTree = "<group>"; };
 		4F3DE9B62D2AA01700C19424 /* TestFlightCoreDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestFlightCoreDemoViewController.h; sourceTree = "<group>"; };
 		4F3DE9B72D2AA01700C19424 /* TestFlightCoreDemoViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TestFlightCoreDemoViewController.mm; sourceTree = "<group>"; };
+		4F413E632D3B60B00037366B /* XRTextFormattingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XRTextFormattingViewController.h; sourceTree = "<group>"; };
+		4F413E642D3B60B00037366B /* XRTextFormattingViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = XRTextFormattingViewController.mm; sourceTree = "<group>"; };
 		4F455F012C2038D200CDE688 /* CustomTransitionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTransitionController.h; sourceTree = "<group>"; };
 		4F455F022C2038D200CDE688 /* CustomTransitionController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomTransitionController.mm; sourceTree = "<group>"; };
 		4F455F182C27EBE400CDE688 /* JitterAnimationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JitterAnimationViewController.h; sourceTree = "<group>"; };
@@ -834,6 +838,8 @@
 			children = (
 				4FA8EEE72C1C012A00B1358A /* TextViewController.h */,
 				4FA8EEE82C1C012A00B1358A /* TextViewController.mm */,
+				4F413E632D3B60B00037366B /* XRTextFormattingViewController.h */,
+				4F413E642D3B60B00037366B /* XRTextFormattingViewController.mm */,
 			);
 			path = TextView;
 			sourceTree = "<group>";
@@ -1067,6 +1073,7 @@
 				4F3DD69C2C9BDCF6006F6F49 /* BaselineViewController.mm in Sources */,
 				4FA8EEF12C1CDBCA00B1358A /* FromTransitionViewController.mm in Sources */,
 				4FC234C02D317A7700202A24 /* ExpandableCollectionViewCell.mm in Sources */,
+				4F413E652D3B60B00037366B /* XRTextFormattingViewController.mm in Sources */,
 				4F082E492C188D6C002263ED /* AppDelegate.m in Sources */,
 				4F082E742C18E269002263ED /* SceneActivationViewController.mm in Sources */,
 				4F082EAC2C1B59C1002263ED /* CalendarViewController.mm in Sources */,
@@ -1140,6 +1147,7 @@
 				4F59DEBE2CFFF56100E88830 /* BaselineViewController.mm in Sources */,
 				4F59DEBF2CFFF56100E88830 /* FromTransitionViewController.mm in Sources */,
 				4FC234BF2D317A7700202A24 /* ExpandableCollectionViewCell.mm in Sources */,
+				4F413E662D3B60B00037366B /* XRTextFormattingViewController.mm in Sources */,
 				4F59DEC02CFFF56100E88830 /* AppDelegate.m in Sources */,
 				4F59DEC12CFFF56100E88830 /* SceneActivationViewController.mm in Sources */,
 				4F59DEC22CFFF56100E88830 /* CalendarViewController.mm in Sources */,

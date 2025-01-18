@@ -10,64 +10,7 @@
 #import <objc/runtime.h>
 #import <TargetConditionals.h>
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
-
-#if TARGET_OS_VISION
-namespace mu_UITextFormattingViewController {
-
-namespace _computeContentSize {
-CGSize (*original)(__kindof UIViewController *self, SEL _cmd);
-CGSize custom(__kindof UIViewController *self, SEL _cmd) {
-    return CGSizeMake(self.preferredContentSize.width, 375.);
-}
-void swizzle() {
-    Method method = class_getInstanceMethod(objc_lookUpClass("UITextFormattingViewController"), sel_registerName("_computeContentSize"));
-    original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
-    method_setImplementation(method, reinterpret_cast<IMP>(custom));
-}
-}
-
-namespace _presentColorPicker_selectedColor_ {
-void (*original)(__kindof UIViewController *self, SEL _cmd, CGRect rect, UIColor *selectedColor);
-void custom(__kindof UIViewController *self, SEL _cmd, CGRect rect, UIColor *selectedColor) {
-    UIColorPickerViewController *viewController = [UIColorPickerViewController new];
-    
-    viewController.selectedColor = selectedColor;
-    viewController.supportsAlpha = NO;
-    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(viewController, sel_registerName("_setSupportsEyedropper:"), NO);
-    
-    id delegate = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("delegate"));
-    if ([delegate respondsToSelector:sel_registerName("textFormattingViewController:shouldPresentColorPicker:")]) {
-        reinterpret_cast<void (*)(id, SEL, id, id)>(objc_msgSend)(delegate, sel_registerName("textFormattingViewController:shouldPresentColorPicker:"), self, viewController);
-    }
-    
-    viewController.selectedColor = selectedColor;
-    viewController.supportsAlpha = NO;
-    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(viewController, sel_registerName("_setSupportsEyedropper:"), NO);
-    viewController.delegate = self;
-    
-    //
-    
-    if (reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("_isInPopoverPresentation"))) {
-        reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("_stopSuppressingKeyboardForTextFormatting"));
-        reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("_textFormattingRequestsFirstResponderResignation"));
-        reinterpret_cast<void (*)(id, SEL, NSUInteger, BOOL)>(objc_msgSend)(self, sel_registerName("_modifyKeyboardTrackingIfNeededForType:start:"), 2, YES);
-    }
-    
-    [self presentViewController:viewController animated:YES completion:^{
-        reinterpret_cast<void (*)(id, SEL, NSUInteger, BOOL)>(objc_msgSend)(self, sel_registerName("_modifyKeyboardTrackingIfNeededForType:start:"), 2, NO);
-    }];
-    
-    [viewController release];
-}
-void swizzle() {
-    Method method = class_getInstanceMethod(objc_lookUpClass("UITextFormattingViewController"), sel_registerName("_presentColorPicker:selectedColor:"));
-    original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
-    method_setImplementation(method, reinterpret_cast<IMP>(custom));
-}
-}
-
-}
-#endif
+#import "XRTextFormattingViewController.h"
 
 @interface TextViewController () <UITextViewDelegate>
 @property (readonly, nonatomic) UITextView *textView;
@@ -90,11 +33,6 @@ void swizzle() {
 @synthesize applyTextHighlightColorSchemeBarButtomItem = _applyTextHighlightColorSchemeBarButtomItem;
 @synthesize addAdaptiveImageGlyphBarButtonItem = _addAdaptiveImageGlyphBarButtonItem;
 @synthesize addLocalizedNumberFormatBarButtonItem = _addLocalizedNumberFormatBarButtonItem;
-
-+ (void)load {
-    mu_UITextFormattingViewController::_computeContentSize::swizzle();
-    mu_UITextFormattingViewController::_presentColorPicker_selectedColor_::swizzle();
-}
 
 - (void)dealloc {
     [_pasteControl release];
@@ -226,18 +164,21 @@ void swizzle() {
     ((void (*)(id, SEL, BOOL))objc_msgSend)(configuration, sel_registerName("set_textAnimationsConfiguration:"), YES);
     
     /* UITextFormattingViewController */
-    __kindof UIViewController *textFormattingViewController = ((id (*)(id, SEL, id))objc_msgSend)([objc_lookUpClass("UITextFormattingViewController") alloc], sel_registerName("initWithConfiguration:"), configuration);
+    __kindof UIViewController *textFormattingViewController;
+    
+#if TARGET_OS_VISION
+    textFormattingViewController = ((id (*)(id, SEL, id))objc_msgSend)([XRTextFormattingViewController alloc], sel_registerName("initWithConfiguration:"), configuration);
+    textFormattingViewController.preferredContentSize = CGSizeMake(375., 260.);
+#else
+    textFormattingViewController = ((id (*)(id, SEL, id))objc_msgSend)([objc_lookUpClass("UITextFormattingViewController") alloc], sel_registerName("initWithConfiguration:"), configuration);
+    textFormattingViewController.modalPresentationStyle = UIModalPresentationPopover;
+    textFormattingViewController.popoverPresentationController.sourceItem = sender;
+#endif
+    
     [configuration release];
     
     ((void (*)(id, SEL, id))objc_msgSend)(textFormattingViewController, sel_registerName("_setInternalDelegate:"), self.textView);
     ((void (*)(id, SEL, id))objc_msgSend)(textFormattingViewController, sel_registerName("_setEditResponder:"), self.textView);
-    
-#if TARGET_OS_VISION
-    textFormattingViewController.preferredContentSize = CGSizeMake(375., 260.);
-#else
-    textFormattingViewController.modalPresentationStyle = UIModalPresentationPopover;
-    textFormattingViewController.popoverPresentationController.sourceItem = sender;
-#endif
     
     [self presentViewController:textFormattingViewController animated:YES completion:nil];
     [textFormattingViewController release];
