@@ -31,6 +31,9 @@
 		4F1F022E2C23CE3A004F7EFF /* CyanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F022D2C23CE3A004F7EFF /* CyanViewController.m */; };
 		4F1F02312C23CE4F004F7EFF /* OrangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F02302C23CE4F004F7EFF /* OrangeViewController.m */; };
 		4F246BC72C3E85CA00244583 /* LargeContentViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F246BC62C3E85CA00244583 /* LargeContentViewController.mm */; };
+		4F379CA02D44B108006EBDF3 /* AXOpenSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F379C9F2D44B108006EBDF3 /* AXOpenSettingsViewController.mm */; };
+		4F379CA12D44B108006EBDF3 /* AXOpenSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F379C9F2D44B108006EBDF3 /* AXOpenSettingsViewController.mm */; };
+		4F379CA32D44B113006EBDF3 /* Accessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F379CA22D44B113006EBDF3 /* Accessibility.framework */; };
 		4F3AFCA12C57F64E00F810CF /* PointerInteractionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3AFCA02C57F64E00F810CF /* PointerInteractionViewController.mm */; };
 		4F3DD69C2C9BDCF6006F6F49 /* BaselineViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3DD69B2C9BDCF6006F6F49 /* BaselineViewController.mm */; };
 		4F3DD6A32C9BE537006F6F49 /* CustomBaselineViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3DD6A22C9BE537006F6F49 /* CustomBaselineViewController.mm */; };
@@ -132,7 +135,6 @@
 		4F83911C2CCCFEAE0005B8AC /* CustomViewMenuElementDynamicHeightViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F83911B2CCCFEAE0005B8AC /* CustomViewMenuElementDynamicHeightViewController.mm */; };
 		4F8BD38D2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38C2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm */; };
 		4F8BD3902C22E1520031535F /* CustomDismissCustomInteraction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F8BD38F2C22E1520031535F /* CustomDismissCustomInteraction.mm */; };
-		4F8C51452D203A9A001046CB /* CarPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F8C51442D203A9A001046CB /* CarPlay.framework */; platformFilters = (ios, maccatalyst, ); };
 		4F8C51462D203AA0001046CB /* CarPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F8C51442D203A9A001046CB /* CarPlay.framework */; platformFilters = (ios, maccatalyst, ); };
 		4F9C08B32C3E2B5F009897D6 /* TabBarAppearanceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F9C08B22C3E2B5F009897D6 /* TabBarAppearanceViewController.mm */; };
 		4F9C08D42C3E5574009897D6 /* ToolbarAppearanceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F9C08D32C3E5574009897D6 /* ToolbarAppearanceViewController.mm */; };
@@ -157,7 +159,6 @@
 		4FD54E902D00BB78002CE52C /* LabelWritingToolsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD54E8F2D00BB78002CE52C /* LabelWritingToolsViewController.mm */; };
 		4FD54E912D00BB78002CE52C /* LabelWritingToolsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD54E8F2D00BB78002CE52C /* LabelWritingToolsViewController.mm */; };
 		4FDABC692C3D35DE00F928DB /* SymbolTransitionsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FDABC682C3D35DE00F928DB /* SymbolTransitionsViewController.mm */; };
-		4FEC175B2D226CC300F9945E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FEC175A2D226CC300F9945E /* MapKit.framework */; };
 		4FEC175C2D226CC900F9945E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FEC175A2D226CC300F9945E /* MapKit.framework */; };
 		4FEC175E2D2274D900F9945E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FEC175D2D2274D900F9945E /* WebKit.framework */; };
 		4FEC175F2D2274DE00F9945E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FEC175D2D2274D900F9945E /* WebKit.framework */; };
@@ -233,6 +234,9 @@
 		4F1F02302C23CE4F004F7EFF /* OrangeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrangeViewController.m; sourceTree = "<group>"; };
 		4F246BC52C3E85CA00244583 /* LargeContentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LargeContentViewController.h; sourceTree = "<group>"; };
 		4F246BC62C3E85CA00244583 /* LargeContentViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LargeContentViewController.mm; sourceTree = "<group>"; };
+		4F379C9E2D44B108006EBDF3 /* AXOpenSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AXOpenSettingsViewController.h; sourceTree = "<group>"; };
+		4F379C9F2D44B108006EBDF3 /* AXOpenSettingsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AXOpenSettingsViewController.mm; sourceTree = "<group>"; };
+		4F379CA22D44B113006EBDF3 /* Accessibility.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accessibility.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/Library/Frameworks/Accessibility.framework; sourceTree = DEVELOPER_DIR; };
 		4F3AFC9F2C57F64E00F810CF /* PointerInteractionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PointerInteractionViewController.h; sourceTree = "<group>"; };
 		4F3AFCA02C57F64E00F810CF /* PointerInteractionViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PointerInteractionViewController.mm; sourceTree = "<group>"; };
 		4F3DD69A2C9BDCF6006F6F49 /* BaselineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaselineViewController.h; sourceTree = "<group>"; };
@@ -348,8 +352,7 @@
 				4FEC175F2D2274DE00F9945E /* WebKit.framework in Frameworks */,
 				4F5056532C5938F400B49BB9 /* SafariServices.framework in Frameworks */,
 				4F082E9C2C1B4505002263ED /* UniformTypeIdentifiers.framework in Frameworks */,
-				4FEC175B2D226CC300F9945E /* MapKit.framework in Frameworks */,
-				4F8C51452D203A9A001046CB /* CarPlay.framework in Frameworks */,
+				4F379CA32D44B113006EBDF3 /* Accessibility.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,6 +418,7 @@
 		4F082E632C18906E002263ED /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4F379C9D2D44B0F4006EBDF3 /* AXOpenSettings */,
 				4FC234B82D3175ED00202A24 /* ExpandableCollectionView */,
 				4FC5077E2D2AC5D4009BFC65 /* BiometricKitDemo */,
 				4F3DE9B52D2AA00800C19424 /* TestFlightCoreDemo */,
@@ -509,6 +513,7 @@
 		4F082E9A2C1B4504002263ED /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4F379CA22D44B113006EBDF3 /* Accessibility.framework */,
 				4FEC175D2D2274D900F9945E /* WebKit.framework */,
 				4FEC175A2D226CC300F9945E /* MapKit.framework */,
 				4F8C51442D203A9A001046CB /* CarPlay.framework */,
@@ -587,6 +592,15 @@
 				4F246BC62C3E85CA00244583 /* LargeContentViewController.mm */,
 			);
 			path = LargeContent;
+			sourceTree = "<group>";
+		};
+		4F379C9D2D44B0F4006EBDF3 /* AXOpenSettings */ = {
+			isa = PBXGroup;
+			children = (
+				4F379C9E2D44B108006EBDF3 /* AXOpenSettingsViewController.h */,
+				4F379C9F2D44B108006EBDF3 /* AXOpenSettingsViewController.mm */,
+			);
+			path = AXOpenSettings;
 			sourceTree = "<group>";
 		};
 		4F3AFC9E2C57F63400F810CF /* PointerInteraction */ = {
@@ -1102,6 +1116,7 @@
 				4F7BC13C2C3C43B900419197 /* MyNavigationItemViewController.mm in Sources */,
 				4F49040E2D049CD80017A47D /* IntelligenceLightLabelViewController.mm in Sources */,
 				4F7941D42C7897D50031F456 /* FloatingKeyboardViewController.mm in Sources */,
+				4F379CA12D44B108006EBDF3 /* AXOpenSettingsViewController.mm in Sources */,
 				4F7941D82C7898470031F456 /* SplitKeyboardViewController.mm in Sources */,
 				4F4903772D03554E0017A47D /* MarqueeLabelViewController.mm in Sources */,
 				4F455F032C2038D200CDE688 /* CustomTransitionController.mm in Sources */,
@@ -1176,6 +1191,7 @@
 				4F59DED62CFFF56100E88830 /* MyNavigationItemViewController.mm in Sources */,
 				4F49040F2D049CD80017A47D /* IntelligenceLightLabelViewController.mm in Sources */,
 				4F59DED72CFFF56100E88830 /* FloatingKeyboardViewController.mm in Sources */,
+				4F379CA02D44B108006EBDF3 /* AXOpenSettingsViewController.mm in Sources */,
 				4F59DED82CFFF56100E88830 /* SplitKeyboardViewController.mm in Sources */,
 				4F4903782D03554E0017A47D /* MarqueeLabelViewController.mm in Sources */,
 				4F59DED92CFFF56100E88830 /* CustomTransitionController.mm in Sources */,

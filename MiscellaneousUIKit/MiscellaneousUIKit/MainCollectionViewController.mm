@@ -51,6 +51,7 @@
 #import "TestFlightCoreDemoViewController.h"
 #import "BiometricKitDemoViewController.h"
 #import "ExpandableCollectionViewController.h"
+#import "AXOpenSettingsViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import <TargetConditionals.h>
@@ -102,7 +103,7 @@ __attribute__((objc_direct_members))
     [super viewDidLoad];
     [self cellRegistration];
     
-    TextViewController *textViewController = [TextViewController new];
+    AXOpenSettingsViewController *textViewController = [AXOpenSettingsViewController new];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:textViewController];
     [textViewController release];
     [self presentViewController:navigationController animated:YES completion:nil];
@@ -196,7 +197,8 @@ __attribute__((objc_direct_members))
         SystemBackgroundViewController.class,
         CustomDocumentViewController.class,
         SceneActivationViewController.class,
-        ListEnvironmentCollectionViewController.class
+        ListEnvironmentCollectionViewController.class,
+        AXOpenSettingsViewController.class
     ];
 }
 
