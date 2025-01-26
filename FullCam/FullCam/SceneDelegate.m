@@ -41,6 +41,7 @@ id CAMCaptureCapabilities_custom_initWithHostProcess(id self, SEL _cmd, NSIntege
     if (status != PHAuthorizationStatusAuthorized) {
         [PHPhotoLibrary requestAuthorizationForAccessLevel:PHAccessLevelReadWrite handler:^(PHAuthorizationStatus status) {
             assert(status == PHAuthorizationStatusAuthorized);
+            abort(); // Please restart the app
         }];
         return;
     }
