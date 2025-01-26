@@ -7,6 +7,8 @@
 
 #import "NSString+Category.h"
 
+// Enable Smart Style (Camera Filter)
+
 #if TARGET_OS_IOS
 
 #import <objc/message.h>
