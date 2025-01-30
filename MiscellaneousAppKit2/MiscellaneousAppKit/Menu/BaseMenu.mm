@@ -7,17 +7,14 @@
 
 #import "BaseMenu.hpp"
 #import "AppMenuItem.hpp"
-#import "FileMenuItem.h"
 #import "EditMenuItem.hpp"
 
 __attribute__((objc_direct_members))
 @interface BaseMenu () {
     AppMenuItem *_appMenuItem;
-    FileMenuItem *_fileMenuItem;
     EditMenuItem *_editMenuItem;
 }
 @property (retain, readonly, nonatomic) AppMenuItem *appMenuItem;
-@property (retain, readonly, nonatomic) FileMenuItem *fileMenuItem;
 @property (retain, readonly, nonatomic) EditMenuItem *editMenuItem;
 @end
 
@@ -41,14 +38,12 @@ __attribute__((objc_direct_members))
 
 - (void)dealloc {
     [_appMenuItem release];
-    [_fileMenuItem release];
     [_editMenuItem release];
     [super dealloc];
 }
 
 - (void)commonInit_BaseMenu __attribute__((objc_direct)) {
     [self addItem:self.appMenuItem];
-    [self addItem:self.fileMenuItem];
     [self addItem:self.editMenuItem];
 }
 
@@ -61,19 +56,10 @@ __attribute__((objc_direct_members))
     return [appMenuItem autorelease];
 }
 
-- (FileMenuItem *)fileMenuItem {
-    if (auto fileMenuItem = _fileMenuItem) return fileMenuItem;
-    
-    FileMenuItem *fileMenuItem = [[FileMenuItem alloc] initWithTitle:@"File" action:nil keyEquivalent:[NSString string]];
-    
-    _fileMenuItem = [fileMenuItem retain];
-    return [fileMenuItem autorelease];
-}
-
 - (EditMenuItem *)editMenuItem {
     if (auto editMenuItem = _editMenuItem) return editMenuItem;
     
-    EditMenuItem *editMenuItem = [[EditMenuItem alloc] initWithTitle:@"Edit" action:nil keyEquivalent:[NSString string]];
+    EditMenuItem *editMenuItem = [[EditMenuItem alloc] initWithTitle:@"File" action:nil keyEquivalent:[NSString string]];
     
     _editMenuItem = [editMenuItem retain];
     return [editMenuItem autorelease];

@@ -2,29 +2,19 @@
 //  main.m
 //  MiscellaneousAppKit
 //
-//  Created by Jinwoo Kim on 6/23/24.
+//  Created by Jinwoo Kim on 1/31/25.
 //
 
 #import <Cocoa/Cocoa.h>
 #import "AppDelegate.h"
-#import "BaseMenu.hpp"
-#import "NSObject+Foundation_IvarDescription.h"
 
 int main(int argc, const char * argv[]) {
-    @autoreleasepool {
-        NSApplication *application = NSApplication.sharedApplication;
-        
-        AppDelegate *delegate = [AppDelegate new];
-        
-        application.delegate = delegate;
-        
-        BaseMenu *menu = [BaseMenu new];
-        application.menu = menu;
-        [menu release];
-        
-        [application run];
-        [delegate release];
-    }
+    AppDelegate *delegate = [AppDelegate new];
+    NSApplication *application = NSApplication.sharedApplication;
+    application.delegate = delegate;
     
-    return EXIT_SUCCESS;
+    [application run];
+    [delegate release];
+    
+    return 0;
 }
