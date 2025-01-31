@@ -6,6 +6,7 @@
 //
 
 #import "FileMenuItem.h"
+#import "NSBundle+MA_Category.h"
 
 @interface FileMenuItem ()
 @property (retain, readonly, nonatomic, getter=_closeMenuItem) NSMenuItem *closeMenuItem;
@@ -47,7 +48,7 @@
 - (NSMenuItem *)_closeMenuItem {
     if (auto closeMenuItem = _closeMenuItem) return closeMenuItem;
     
-    NSMenuItem *closeMenuItem = [[NSMenuItem alloc] initWithTitle:@"Close" action:@selector(selectAll:) keyEquivalent:@"w"];
+    NSMenuItem *closeMenuItem = [[NSMenuItem alloc] initWithTitle:_NXKitString(@"WindowTabs", @"Close") action:@selector(selectAll:) keyEquivalent:@"w"];
     closeMenuItem.action = @selector(performClose:);
     
     _closeMenuItem = closeMenuItem;

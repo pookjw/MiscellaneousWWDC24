@@ -8,14 +8,9 @@
 #import "EditMenuItem.hpp"
 #import <objc/runtime.h>
 #import <objc/message.h>
+#import "NSBundle+MA_Category.h"
 
-__attribute__((objc_direct_members))
-@interface EditMenuItem () {
-    NSMenuItem *_emi_copyMenuItem;
-    NSMenuItem *_deleteMenuItem;
-    NSMenuItem *_pasteMenuItem;
-    NSMenuItem *_selectAllMenuItem;
-}
+@interface EditMenuItem ()
 @property (retain, readonly, nonatomic) NSMenuItem *emi_copyMenuItem;
 @property (retain, readonly, nonatomic) NSMenuItem *deleteMenuItem;
 @property (retain, readonly, nonatomic) NSMenuItem *pasteMenuItem;
@@ -23,6 +18,10 @@ __attribute__((objc_direct_members))
 @end
 
 @implementation EditMenuItem
+@synthesize emi_copyMenuItem = _emi_copyMenuItem;
+@synthesize deleteMenuItem = _deleteMenuItem;
+@synthesize pasteMenuItem = _pasteMenuItem;
+@synthesize selectAllMenuItem = _selectAllMenuItem;
 
 - (instancetype)initWithTitle:(NSString *)string action:(SEL)selector keyEquivalent:(NSString *)charCode {
     if (self = [super initWithTitle:string action:selector keyEquivalent:charCode]) {
@@ -95,7 +94,9 @@ __attribute__((objc_direct_members))
 - (NSMenuItem *)selectAllMenuItem {
     if (auto selectAllMenuItem = _selectAllMenuItem) return selectAllMenuItem;
     
-    NSMenuItem *selectAllMenuItem = [[NSMenuItem alloc] initWithTitle:@"Select All" action:@selector(selectAll:) keyEquivalent:@"a"];
+    NSString *title = _NXKitString(@"FindPanel", @"Select All");
+    
+    NSMenuItem *selectAllMenuItem = [[NSMenuItem alloc] initWithTitle:title action:@selector(selectAll:) keyEquivalent:@"a"];
     
     _selectAllMenuItem = [selectAllMenuItem retain];
     return [selectAllMenuItem autorelease];
