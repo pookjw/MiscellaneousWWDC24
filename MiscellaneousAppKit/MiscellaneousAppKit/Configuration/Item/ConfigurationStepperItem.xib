@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="ConfigurationStepperItem"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <collectionViewItem id="JpF-83-JzH" customClass="ConfigurationStepperItem">
+            <connections>
+                <outlet property="stepper" destination="Tri-ca-POg" id="TbD-Li-pHu"/>
+                <outlet property="textField" destination="ieT-hY-DdH" id="mK0-GZ-hHR"/>
+                <outlet property="view" destination="jFZ-O8-fNv" id="eip-E3-gBl"/>
+            </connections>
+        </collectionViewItem>
+        <customView id="jFZ-O8-fNv">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="ieT-hY-DdH">
+                    <rect key="frame" x="8" y="22" width="441" height="16"/>
+                    <textFieldCell key="cell" selectable="YES" title="Multiline Label" id="F9f-pe-PTw">
+                        <font key="font" usesAppearanceFont="YES"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tri-ca-POg">
+                    <rect key="frame" x="454" y="16" width="19" height="28"/>
+                    <stepperCell key="cell" continuous="YES" alignment="left" maxValue="100" id="sjv-vy-0z3"/>
+                    <connections>
+                        <action selector="_didChangeValue:" target="JpF-83-JzH" id="TGG-CR-EUC"/>
+                    </connections>
+                </stepper>
+            </subviews>
+            <constraints>
+                <constraint firstItem="ieT-hY-DdH" firstAttribute="centerY" secondItem="jFZ-O8-fNv" secondAttribute="centerY" id="8Cu-Ve-dX7"/>
+                <constraint firstItem="Tri-ca-POg" firstAttribute="centerY" secondItem="jFZ-O8-fNv" secondAttribute="centerY" id="AMj-uM-s8J"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Tri-ca-POg" secondAttribute="bottom" constant="10" id="FwF-Pz-Cnq"/>
+                <constraint firstItem="ieT-hY-DdH" firstAttribute="top" relation="greaterThanOrEqual" secondItem="jFZ-O8-fNv" secondAttribute="top" constant="10" id="Gxl-0d-MGo"/>
+                <constraint firstItem="Tri-ca-POg" firstAttribute="top" relation="greaterThanOrEqual" secondItem="jFZ-O8-fNv" secondAttribute="top" constant="10" id="H0H-3H-K3q"/>
+                <constraint firstAttribute="trailing" secondItem="Tri-ca-POg" secondAttribute="trailing" constant="10" id="MrI-8v-0nL"/>
+                <constraint firstItem="Tri-ca-POg" firstAttribute="leading" secondItem="ieT-hY-DdH" secondAttribute="trailing" constant="10" id="TWx-ct-iUH"/>
+                <constraint firstItem="ieT-hY-DdH" firstAttribute="leading" secondItem="jFZ-O8-fNv" secondAttribute="leading" constant="10" id="Vsh-ln-wk8"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ieT-hY-DdH" secondAttribute="bottom" constant="10" id="vxs-JM-2hr"/>
+            </constraints>
+            <point key="canvasLocation" x="-190" y="-50"/>
+        </customView>
+    </objects>
+</document>

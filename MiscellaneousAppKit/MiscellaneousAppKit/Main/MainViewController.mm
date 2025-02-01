@@ -10,6 +10,7 @@
 #import "MainTableRowView.h"
 #import "WindowDemoWindow.h"
 #import "ViewDemoViewController.h"
+#import "ConfigurationDemoViewController.h"
 
 @interface MainViewController () <NSTableViewDataSource, NSTableViewDelegate>
 @property (class, nonatomic, readonly, getter=_rowIdentifier) NSUserInterfaceItemIdentifier rowIdentifier;
@@ -33,6 +34,7 @@
 
 + (NSArray<Class> *)_classes {
     return @[
+        [ConfigurationDemoViewController self],
         [WindowDemoWindow self],
         [ViewDemoViewController self]
     ];
@@ -50,6 +52,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    self.preferredContentSize = NSMakeSize(400., 400.);
     [self _performActionWithIndex:0];
 }
 
@@ -134,12 +137,13 @@
     } else if ([clickedClass isSubclassOfClass:[NSViewController class]]) {
         NSWindow *window = [[NSWindow alloc] initWithContentRect:NSMakeRect(0., 0., 600., 400.) styleMask:NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskFullSizeContentView | NSWindowStyleMaskResizable | NSWindowStyleMaskTitled backing:NSBackingStoreBuffered defer:NO];
         
+        window.releasedWhenClosed = NO;
+        window.title = NSStringFromClass(clickedClass);
+        window.contentMinSize = NSMakeSize(400., 400.);
+        
         __kindof NSViewController *contentViewController = [clickedClass new];
         window.contentViewController = contentViewController;
         [contentViewController release];
-        
-        window.releasedWhenClosed = NO;
-        window.title = NSStringFromClass(clickedClass);
         
         [window makeKeyAndOrderFront:nil];
         [window release];

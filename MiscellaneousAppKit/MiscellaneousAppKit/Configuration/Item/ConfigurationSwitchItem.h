@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class ConfigurationSwitchItem;
 @protocol ConfigurationSwitchItemDelegate <NSObject>
-- (void)configurationSwitchItem:(ConfigurationSwitchItem *)configurationSwitchItem didToggleWithValue:(BOOL)value;
+- (void)configurationSwitchItem:(ConfigurationSwitchItem *)configurationSwitchItem didToggleValue:(BOOL)value;
 @end
 
 @interface ConfigurationSwitchItem : NSCollectionViewItem

@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class ConfigurationView;
 @protocol ConfigurationViewDelegate <NSObject>
 @optional - (void)didTriggerReloadButtonWithConfigurationView:(ConfigurationView *)configurationView;
-- (BOOL)configurationView:(ConfigurationView *)configurationView didTriggerActionWithItemModel:(ConfigurationItemModel *)itemModel;
+@required - (BOOL)configurationView:(ConfigurationView *)configurationView didTriggerActionWithItemModel:(ConfigurationItemModel *)itemModel newValue:(id<NSCopying>)newValue;
 @end
 
 @interface ConfigurationView : NSView

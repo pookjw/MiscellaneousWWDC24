@@ -18,7 +18,7 @@
 }
 
 - (IBAction)_didChangeSwitchValue:(NSSwitch *)sender {
-    [self.delegate configurationSwitchItem:self didToggleWithValue:sender.state == NSControlStateValueOn];
+    [self.delegate configurationSwitchItem:self didToggleValue:sender.state == NSControlStateValueOn];
 }
 
 @end

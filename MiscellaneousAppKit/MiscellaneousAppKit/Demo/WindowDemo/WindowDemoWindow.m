@@ -16,6 +16,8 @@
     if (self) {
         self.title = @"Window Demo";
         self.releasedWhenClosed = NO;
+        self.frameAutosaveName = @"WindowDemo";
+        self.contentMinSize = NSMakeSize(400., 400.);
         
         WindowDemoViewController *contentViewController = [WindowDemoViewController new];
         self.contentViewController = contentViewController;

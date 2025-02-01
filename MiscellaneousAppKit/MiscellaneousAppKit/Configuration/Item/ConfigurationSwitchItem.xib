@@ -21,10 +21,7 @@
                     </textFieldCell>
                 </textField>
                 <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" baseWritingDirection="leftToRight" alignment="left" translatesAutoresizingMaskIntoConstraints="NO" id="Xo8-6M-whc">
-                    <rect key="frame" x="430" y="8" width="42" height="33"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="30" id="Teb-3s-1Xj"/>
-                    </constraints>
+                    <rect key="frame" x="430" y="12" width="42" height="25"/>
                     <connections>
                         <action selector="_didChangeSwitchValue:" target="Yg0-Bj-Jbd" id="Cbd-CR-bmv"/>
                     </connections>

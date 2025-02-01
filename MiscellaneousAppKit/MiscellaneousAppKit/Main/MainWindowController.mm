@@ -21,6 +21,7 @@
     window.title = NSProcessInfo.processInfo.processName;
     window.releasedWhenClosed = NO;
     window.movableByWindowBackground = YES;
+    window.contentMinSize = NSMakeSize(400., 400.);
     
     MainViewController *mainViewController = [MainViewController new];
     window.contentViewController = mainViewController;
