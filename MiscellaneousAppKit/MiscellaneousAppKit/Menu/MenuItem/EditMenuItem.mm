@@ -95,7 +95,6 @@
     if (auto selectAllMenuItem = _selectAllMenuItem) return selectAllMenuItem;
     
     NSString *title = _NXKitString(@"FindPanel", @"Select All");
-    
     NSMenuItem *selectAllMenuItem = [[NSMenuItem alloc] initWithTitle:title action:@selector(selectAll:) keyEquivalent:@"a"];
     
     _selectAllMenuItem = [selectAllMenuItem retain];

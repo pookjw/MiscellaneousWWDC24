@@ -48,6 +48,11 @@
     self.view = self.scrollView;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self _performActionWithIndex:0];
+}
+
 - (NSScrollView *)_scrollView {
     if (auto scrollView = _scrollView) return scrollView;
     
@@ -114,9 +119,13 @@
 
 - (void)_didTriggerDoubleAction:(NSTableView *)sender {
     NSInteger clickedRow = sender.clickedRow;
-    if (clickedRow == NSNotFound or clickedRow == -1) return;
+    [self _performActionWithIndex:clickedRow];
+}
+
+- (void)_performActionWithIndex:(NSInteger)index {
+    if (index == NSNotFound or index == -1) return;
     
-    Class clickedClass = MainViewController.classes[clickedRow];
+    Class clickedClass = MainViewController.classes[index];
     
     if ([clickedClass isSubclassOfClass:[NSWindow class]]) {
         __kindof NSWindow *window = [clickedClass new];

@@ -8,6 +8,11 @@
 #import <Cocoa/Cocoa.h>
 #import "AppDelegate.h"
 
+/*
+ NSWidgetView
+ _NSBoxMaterialCapableCustomView
+ */
+
 int main(int argc, const char * argv[]) {
     AppDelegate *delegate = [AppDelegate new];
     NSApplication *application = NSApplication.sharedApplication;
