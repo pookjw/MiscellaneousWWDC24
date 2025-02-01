@@ -17,7 +17,8 @@ typedef NS_ENUM(NSUInteger, ConfigurationItemModelType) {
     ConfigurationItemModelTypeSlider,
     ConfigurationItemModelTypeStepper,
     ConfigurationItemModelTypeButton,
-    ConfigurationItemModelTypePopUpButton
+    ConfigurationItemModelTypePopUpButton,
+    ConfigurationItemModelTypeColorWell
 };
 
 @interface ConfigurationItemModel <ValueType> : NSObject <NSCopying>
@@ -25,15 +26,16 @@ typedef NS_ENUM(NSUInteger, ConfigurationItemModelType) {
 @property (copy, nonatomic, readonly) NSString *identifier;
 @property (copy, nonatomic, readonly) NSString * (^labelResolver)(ConfigurationItemModel *, ValueType<NSCopying>);
 @property (copy, nonatomic, readonly) ValueType<NSCopying> (^valueResolver)(ConfigurationItemModel *);
+@property (copy, nonatomic, readonly, nullable) NSDictionary *userInfo;
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 
-+ (ConfigurationItemModel *)itemModelWithType:(ConfigurationItemModelType)type identifier:(NSString *)identifier labelResolver:(NSString * (^)(ConfigurationItemModel * itemModel, ValueType<NSCopying> value))labelResolver valueResolver:(ValueType<NSCopying> (^)(ConfigurationItemModel * itemModel))valueResolver;
-+ (ConfigurationItemModel *)itemModelWithType:(ConfigurationItemModelType)type identifier:(NSString *)identifier label:(NSString *)label valueResolver:(ValueType<NSCopying> (^)(ConfigurationItemModel * itemModel))valueResolver;
++ (ConfigurationItemModel *)itemModelWithType:(ConfigurationItemModelType)type identifier:(NSString *)identifier userInfo:(NSDictionary * _Nullable)userInfo labelResolver:(NSString * (^)(ConfigurationItemModel * itemModel, ValueType<NSCopying> value))labelResolver valueResolver:(ValueType<NSCopying> (^)(ConfigurationItemModel * itemModel))valueResolver;
++ (ConfigurationItemModel *)itemModelWithType:(ConfigurationItemModelType)type identifier:(NSString *)identifier userInfo:(NSDictionary * _Nullable)userInfo label:(NSString *)label valueResolver:(ValueType<NSCopying> (^)(ConfigurationItemModel * itemModel))valueResolver;
 
-- (instancetype)initWithType:(ConfigurationItemModelType)type identifier:(NSString *)identifier labelResolver:(NSString * (^)(ConfigurationItemModel * itemModel, ValueType<NSCopying> value))labelResolver valueResolver:(ValueType<NSCopying> (^)(ConfigurationItemModel * itemModel))valueResolver;
-- (instancetype)initWithType:(ConfigurationItemModelType)type identifier:(NSString *)identifier label:(NSString *)label valueResolver:(ValueType<NSCopying> (^)(ConfigurationItemModel * itemModel))valueResolver;
+- (instancetype)initWithType:(ConfigurationItemModelType)type identifier:(NSString *)identifier userInfo:(NSDictionary * _Nullable)userInfo labelResolver:(NSString * (^)(ConfigurationItemModel * itemModel, ValueType<NSCopying> value))labelResolver valueResolver:(ValueType<NSCopying> (^)(ConfigurationItemModel * itemModel))valueResolver;
+- (instancetype)initWithType:(ConfigurationItemModelType)type identifier:(NSString *)identifier userInfo:(NSDictionary * _Nullable)userInfo label:(NSString *)label valueResolver:(ValueType<NSCopying> (^)(ConfigurationItemModel * itemModel))valueResolver;
 @end
 
 NS_ASSUME_NONNULL_END

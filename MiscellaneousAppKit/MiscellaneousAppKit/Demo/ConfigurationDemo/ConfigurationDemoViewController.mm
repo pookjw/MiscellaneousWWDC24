@@ -12,6 +12,7 @@
 
 @interface ConfigurationDemoViewController () <ConfigurationViewDelegate>
 @property (retain, nonatomic, readonly, getter=_configurationView) ConfigurationView *configurationView;
+@property (retain, nonatomic, readonly, getter=_circleView) NSView *circleView;
 @property (assign, nonatomic, getter=_isOn, setter=_setOn:) BOOL on;
 @property (assign, nonatomic, getter=_sliderValue, setter=_setSliderValue:) double sliderValue;
 @property (assign, nonatomic, getter=_stepperValue, setter=_setSteperValue:) double stepperValue;
@@ -21,20 +22,35 @@
 
 @implementation ConfigurationDemoViewController
 @synthesize configurationView = _configurationView;
+@synthesize circleView = _circleView;
 
 - (void)dealloc {
     [_configurationView release];
+    [_circleView release];
     [_selectedPopUpTitles release];
     [super dealloc];
-}
-
-- (void)loadView {
-    self.view = self.configurationView;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.selectedPopUpTitles = @[@"👍"];
+    
+    ConfigurationView *configurationView = self.configurationView;
+    configurationView.frame = self.view.bounds;
+    configurationView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    [self.view addSubview:configurationView];
+    
+    NSView *circleView = self.circleView;
+    circleView.translatesAutoresizingMaskIntoConstraints = NO;
+    circleView.layer.cornerRadius = 20.;
+    [self.view addSubview:circleView];
+    [NSLayoutConstraint activateConstraints:@[
+        [circleView.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
+        [circleView.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor],
+        [circleView.widthAnchor constraintEqualToConstant:40.],
+        [circleView.heightAnchor constraintEqualToConstant:40.]
+    ]];
+    
     [self _reload];
 }
 
@@ -48,6 +64,16 @@
     return configurationView;
 }
 
+- (NSView *)_circleView {
+    if (auto circleView = _circleView) return circleView;
+    
+    NSView *circleView = [NSView new];
+    circleView.wantsLayer = YES;
+    
+    _circleView = circleView;
+    return circleView;
+}
+
 - (void)_reload {
     NSDiffableDataSourceSnapshot *snapshot = [NSDiffableDataSourceSnapshot new];
     [snapshot appendSectionsWithIdentifiers:@[[NSNull null]]];
@@ -55,32 +81,36 @@
     __block auto unretainedSelf = self;
     
     ConfigurationItemModel<NSNumber *> *switchItemModel = [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
-                                                                                                      identifier:@"Dynamic Label Switch"
-                                                                                                   labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+                                                                                         identifier:@"Dynamic Label Switch"
+                                                                                           userInfo:nil
+                                                                                      labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
         return static_cast<NSNumber *>(value).stringValue;
     }
-                                                                                                   valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+                                                                                      valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         return @(unretainedSelf.on);
     }];
     
     ConfigurationItemModel<NSNumber *> *shouldReconfigureItemModel = [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
-                                                                                                     identifier:@"Should Reconfigure"
-                                                                                                          label:@"Should Reconfigure"
-                                                                                                  valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+                                                                                                    identifier:@"Should Reconfigure"
+                                                                                                      userInfo:nil
+                                                                                                         label:@"Should Reconfigure"
+                                                                                                 valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         return @(unretainedSelf.shouldReconfigure);
     }];
     
     ConfigurationItemModel<ConfigurationSliderDescription *> *sliderItemModel = [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSlider
-                                                                                                                 identifier:@"Slider"
-                                                                                                              labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+                                                                                                               identifier:@"Slider"
+                                                                                                                 userInfo:nil
+                                                                                                            labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
         return @(static_cast<ConfigurationSliderDescription *>(value).sliderValue).stringValue;
     }
-                                                                                                              valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+                                                                                                            valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         return [ConfigurationSliderDescription descriptionWithSliderValue:unretainedSelf.sliderValue minimumValue:0. maximumValue:1. continuous:NO];
     }];
     
     ConfigurationItemModel<ConfigurationStepperDescription *> *stepperItemModel = [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeStepper
                                                                                                                  identifier:@"Stepper"
+                                                                                                                   userInfo:nil
                                                                                                               labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
         return @(static_cast<ConfigurationStepperDescription *>(value).stepperValue).stringValue;
     }
@@ -89,14 +119,16 @@
     }];
     
     ConfigurationItemModel<NSNull *> *buttonItemModel = [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
-                                                                                                                 identifier:@"Button"
-                                                                                                              label:@"Button"
-                                                                                                              valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+                                                                                       identifier:@"Button"
+                                                                                         userInfo:nil
+                                                                                            label:@"Button"
+                                                                                    valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         return [NSNull null];
     }];
     
     ConfigurationItemModel<NSArray<NSString *> *> *popUpButtonItemModel = [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
                                                                                                          identifier:@"Pop Up Button"
+                                                                                                           userInfo:nil
                                                                                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
         if (NSString *first = unretainedSelf.selectedPopUpTitles.firstObject) {
             return first;
@@ -108,7 +140,19 @@
         return [ConfigurationPopUpButtonDescription descriptionWithTitles:@[@"👍", @"😀", @"🥲"] selectedTitles:unretainedSelf.selectedPopUpTitles selectedDisplayTitle:unretainedSelf.selectedPopUpTitles.firstObject];
     }];
     
-    [snapshot appendItemsWithIdentifiers:@[switchItemModel, shouldReconfigureItemModel, sliderItemModel, stepperItemModel, buttonItemModel, popUpButtonItemModel] intoSectionWithIdentifier:[NSNull null]];
+    NSView *circleView = self.circleView;
+    
+    ConfigurationItemModel<NSColor *> *colorWellItemModel = [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeColorWell
+                                                                                           identifier:@"Color Well"
+                                                                                             userInfo:nil
+                                                                                                label:@"Color Well"
+                                                                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSColor *backgroundColor = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(circleView, sel_registerName("backgroundColor"));
+        if (backgroundColor == nil) return NSColor.clearColor;
+        return backgroundColor;
+    }];
+    
+    [snapshot appendItemsWithIdentifiers:@[switchItemModel, shouldReconfigureItemModel, sliderItemModel, stepperItemModel, buttonItemModel, popUpButtonItemModel, colorWellItemModel] intoSectionWithIdentifier:[NSNull null]];
     [snapshot reloadItemsWithIdentifiers:snapshot.itemIdentifiers];
     
     [self.configurationView.dataSource applySnapshot:snapshot animatingDifferences:YES];
@@ -144,6 +188,8 @@
         } else {
             self.selectedPopUpTitles = [self.selectedPopUpTitles arrayByAddingObject:title];
         }
+    } else if ([itemModel.identifier isEqualToString:@"Color Well"]) {
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self.circleView, sel_registerName("setBackgroundColor:"), newValue);
     } else {
         abort();
     }

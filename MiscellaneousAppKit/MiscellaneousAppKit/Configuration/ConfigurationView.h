@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface ConfigurationView : NSView
+@property (assign, nonatomic) BOOL showBlendedBackground;
 @property (retain, nonatomic, readonly) NSCollectionViewDiffableDataSource<NSNull *, ConfigurationItemModel *> *dataSource;
 @property (assign, nonatomic) id<ConfigurationViewDelegate> delegate;
 @end

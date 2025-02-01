@@ -14,12 +14,14 @@
 #import "ConfigurationStepperItem.h"
 #import "ConfigurationButtonItem.h"
 #import "ConfigurationPopUpButtonItem.h"
+#import "ConfigurationColorWellItem.h"
 
-@interface ConfigurationView () <ConfigurationSwitchItemDelegate, ConfigurationSliderItemDelegate, ConfigurationStepperItemDelegate, ConfigurationButtonItemDelegate, ConfigurationPopUpButtonItemDelegate>
+@interface ConfigurationView () <ConfigurationSwitchItemDelegate, ConfigurationSliderItemDelegate, ConfigurationStepperItemDelegate, ConfigurationButtonItemDelegate, ConfigurationPopUpButtonItemDelegate, ConfigurationColorWellItemDelegate>
 @property (class, nonatomic, readonly, getter=_switchItemIdentifier) NSUserInterfaceItemIdentifier switchItemIdentifier;
 @property (class, nonatomic, readonly, getter=_sliderItemIdentifier) NSUserInterfaceItemIdentifier sliderItemIdentifier;
 @property (class, nonatomic, readonly, getter=_stepperItemIdentifier) NSUserInterfaceItemIdentifier stepperItemIdentifier;
 @property (class, nonatomic, readonly, getter=_buttonItemIdentifier) NSUserInterfaceItemIdentifier buttonItemIdentifier;
+@property (class, nonatomic, readonly, getter=_colorWellItemIdentifier) NSUserInterfaceItemIdentifier colorWellItemIdentifier;
 @property (class, nonatomic, readonly, getter=_popUpButtonItemIdentifier) NSUserInterfaceItemIdentifier popUpButtonItemIdentifier;
 @property (class, nonatomic, readonly, getter=_separatorItemIdentifier) NSUserInterfaceItemIdentifier separatorItemIdentifier;
 @property (class, nonatomic, readonly, getter=_separatorElementKind) NSCollectionViewSupplementaryElementKind separatorElementKind;
@@ -54,6 +56,10 @@
 
 + (NSUserInterfaceItemIdentifier)_popUpButtonItemIdentifier {
     return NSStringFromClass([ConfigurationPopUpButtonItem class]);
+}
+
++ (NSUserInterfaceItemIdentifier)_colorWellItemIdentifier {
+    return NSStringFromClass([ConfigurationColorWellItem class]);
 }
 
 + (NSUserInterfaceItemIdentifier)_separatorItemIdentifier {
@@ -208,6 +214,14 @@
                 
                 return item;
             }
+            case ConfigurationItemModelTypeColorWell: {
+                ConfigurationColorWellItem *item = [collectionView makeItemWithIdentifier:ConfigurationView.colorWellItemIdentifier forIndexPath:indexPath];
+                item.delegate = unretainedSelf;
+                item.textField.stringValue = label;
+                item.colorWell.color = static_cast<NSColor *>(value);
+                
+                return item;
+            }
             default:
                 abort();
         }
@@ -288,6 +302,10 @@
     [collectionView registerNib:popUpButtonItemNib forItemWithIdentifier:ConfigurationView.popUpButtonItemIdentifier];
     [popUpButtonItemNib release];
     
+    NSNib *colorWellItemNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([ConfigurationColorWellItem class]) bundle:NSBundle.mainBundle];
+    [collectionView registerNib:colorWellItemNib forItemWithIdentifier:ConfigurationView.colorWellItemIdentifier];
+    [colorWellItemNib release];
+    
     [collectionView registerClass:[ConfigurationSeparatorView class] forSupplementaryViewOfKind:ConfigurationView.separatorElementKind withIdentifier:ConfigurationView.separatorItemIdentifier];
     
     collectionView.backgroundColors = @[NSColor.clearColor];
@@ -301,8 +319,8 @@
     
     NSScrollView *scrollView = [NSScrollView new];
     scrollView.documentView = self.collectionView;
-//    scrollView.contentView.drawsBackground = NO;
-//    scrollView.drawsBackground = NO;
+    scrollView.contentView.drawsBackground = NO;
+    scrollView.drawsBackground = NO;
     scrollView.scrollerStyle = NSScrollerStyleOverlay;
     scrollView.autohidesScrollers = YES;
     
@@ -352,6 +370,18 @@
     self.reloadButton.hidden = !showReloadButton;
 }
 
+- (BOOL)showBlendedBackground {
+    return self.visualEffectView.superview != nil;
+}
+
+- (void)setShowBlendedBackground:(BOOL)showBlendedBackground {
+    if (self.visualEffectView.superview == nil) {
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self.scrollView, sel_registerName("_addBackgroundView:"), self.visualEffectView);
+    } else {
+        [self.visualEffectView removeFromSuperview];
+    }
+}
+
 - (void)configurationSwitchItem:(ConfigurationSwitchItem *)configurationSwitchItem didToggleValue:(BOOL)value {
     [self _didChangeItemValueWithItem:configurationSwitchItem newValue:@(value)];
 }
@@ -370,6 +400,10 @@
 
 - (void)configurationPopUpButtonItem:(ConfigurationPopUpButtonItem *)configurationPopUpButtonItem didSelectItem:(NSMenuItem *)selectedItem {
     [self _didChangeItemValueWithItem:configurationPopUpButtonItem newValue:selectedItem.title];
+}
+
+- (void)configurationColorWellItem:(ConfigurationColorWellItem *)configurationColorWellItem didSelectColor:(NSColor *)color {
+    [self _didChangeItemValueWithItem:configurationColorWellItem newValue:color];
 }
 
 - (void)_didChangeItemValueWithItem:(NSCollectionViewItem *)item newValue:(id<NSCopying>)newValue {

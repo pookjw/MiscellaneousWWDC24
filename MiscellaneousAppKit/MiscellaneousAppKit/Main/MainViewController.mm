@@ -53,7 +53,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    self.preferredContentSize = NSMakeSize(400., 400.);
-    [self _performActionWithIndex:0];
+    [self _performActionWithIndex:1];
 }
 
 - (NSScrollView *)_scrollView {
