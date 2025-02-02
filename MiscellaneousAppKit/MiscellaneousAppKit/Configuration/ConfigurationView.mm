@@ -421,9 +421,9 @@
         shouldReconfigure = YES;
     }
     
-    if (!shouldReconfigure) {
-        assert(itemModel.type != ConfigurationItemModelTypePopUpButton);
-    }
+//    if (!shouldReconfigure) {
+//        assert(itemModel.type != ConfigurationItemModelTypePopUpButton);
+//    }
     
     if (shouldReconfigure) {
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];

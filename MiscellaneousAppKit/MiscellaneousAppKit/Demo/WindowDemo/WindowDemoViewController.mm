@@ -13,6 +13,11 @@
 #import "NSColorSpace+MA_Category.h"
 #include <ranges>
 #include <numeric>
+#import "NSStringFromNSWindowDepth.h"
+#import "NSStringFromNSWindowCollectionBehavior.h"
+#import "NSWindow+MA_Category.h"
+
+OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
 @interface WindowDemoViewController () <ConfigurationViewDelegate>
 @property (retain, nonatomic, readonly, getter=_configurationView) ConfigurationView *configurationView;
@@ -32,9 +37,29 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didChangeWindowActiveSpace:) name:MA_NSWindowActiveSpaceDidChangeNotification object:nil];
+}
+
+- (void)_viewDidMoveToWindow:(NSWindow * _Nullable)newWindow fromWindow:(NSWindow * _Nullable)oldWindow {
+    objc_super superInfo = { self, [self class] };
+    reinterpret_cast<void (*)(objc_super *, SEL, id, id)>(objc_msgSendSuper2)(&superInfo, _cmd, newWindow, oldWindow);
     [self _reload];
     
-    NSLog(@"%@", [NSColorSpace ma_allColorSpaces]);
+    if (newWindow) {
+        
+    }
+}
+
+- (void)_didChangeWindowActiveSpace:(NSNotification *)notification {
+    if ([notification.object isEqual:self.view.window]) {
+        NSAlert *alert = [NSAlert new];
+        alert.messageText = @"Moved!";
+        [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        [alert release];
+    }
 }
 
 - (ConfigurationView *)_configurationView {
@@ -53,12 +78,23 @@
     [snapshot appendSectionsWithIdentifiers:@[[NSNull null]]];
     
     [snapshot appendItemsWithIdentifiers:@[
-        [self _makeStyleMaskItemModel],
-        [self _makeToggleFullScreenItemModel],
+        [self _makeCollectionBehaviorItemModel],
+        [self _makeHidesOnDeactivateItemModel],
+        [self _makeOnActiveSpaceItemModel],
+        [self _makeCanHideItemModel],
+        [self _makeDepthLimitItemModel],
+        [self _makeWindowDepthAlertItemModel],
+        [self _makeDefaultDepthLimitItemModel],
+        [self _makeDynamicDepthLimitItemModel],
+        [self _makeColorSpaceItemModel],
+        [self _makeBackgroundColorItemModel],
         [self _makeAlphaValueItemModel],
-        [self _makeBackgroundColorItemModel]
+        [self _makeToggleFullScreenItemModel],
+        [self _makeStyleMaskItemModel]
     ]
                intoSectionWithIdentifier:[NSNull null]];
+    
+    [snapshot reloadItemsWithIdentifiers:snapshot.itemIdentifiers];
     
     [self.configurationView.dataSource applySnapshot:snapshot animatingDifferences:YES];
     [snapshot release];
@@ -145,20 +181,195 @@
     }];
 }
 
-//- (ConfigurationItemModel *)_makeColorSpaceItemModel {
-//    __block auto unretainedSelf = self;
-//    
-//    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
-//                                          identifier:@"Color Space"
-//                                            userInfo:nil
-//                                               label:@"Color Space"
-//                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
-//        return [ConfigurationPopUpButtonDescription descriptionWithTitles:@[
-//            @"deviceGrayColorSpace"
-//        ]
-//                                                           selectedTitles:<#(nonnull NSArray<NSString *> *)#> selectedDisplayTitle:<#(NSString * _Nullable)#>]
-//    }];
-//}
+- (ConfigurationItemModel *)_makeColorSpaceItemModel {
+    __block auto unretainedSelf = self;
+    
+    ConfigurationItemModel *itemModel = [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                                                       identifier:@"Color Spaces"
+                                                                         userInfo:nil
+                                                                    label:@"ColorSpace"
+                                                                    valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSArray<NSColorSpace *> *colorSpaces = NSColorSpace.ma_allColorSpaces;
+        NSMutableArray<NSString *> *titles = [[NSMutableArray alloc] initWithCapacity:colorSpaces.count];
+        for (NSColorSpace *colorSpace in colorSpaces) {
+            NSString *name = colorSpace.localizedName;
+            if (name == nil) {
+                name = colorSpace.description;
+            }
+            
+            [titles addObject:name];
+        }
+        [titles addObject:@"Default Color Space For Screen (-_defaultColorSpaceForScreen)"];
+        
+        //
+        
+        NSColorSpace *colorSpace = unretainedSelf.view.window.colorSpace;
+        if (colorSpace == nil) {
+            return @"nil";
+        }
+        NSString *name = colorSpace.localizedName;
+        if (name == nil) {
+            return colorSpace.description;
+        }
+        
+        //
+        
+        ConfigurationPopUpButtonDescription *description = [ConfigurationPopUpButtonDescription descriptionWithTitles:titles selectedTitles:@[name] selectedDisplayTitle:name];
+        [titles release];
+        
+        return description;
+    }];
+    
+    return itemModel;
+}
+
+- (ConfigurationItemModel *)_makeDynamicDepthLimitItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Dynamic Depth Limit"
+                                            userInfo:nil
+                                               label:@"Dynamic Depth Limit"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.hasDynamicDepthLimit);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeDepthLimitItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Depth Limit"
+                                            userInfo:nil
+                                               label:@"Depth Limit"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSUInteger count;
+        NSWindowDepth *depths = allNSWindowDepths(&count);
+        
+        NSMutableArray<NSString *> *titles = [[NSMutableArray alloc] initWithCapacity:count];
+        for (NSWindowDepth *depthPtr : std::views::iota(depths, depths + count)) {
+            NSWindowDepth depth = *depthPtr;
+            [titles addObject:NSStringFromNSWindowDepth(depth)];
+        }
+        
+        ConfigurationPopUpButtonDescription *description = [ConfigurationPopUpButtonDescription descriptionWithTitles:titles
+                                                                                                       selectedTitles:@[NSStringFromNSWindowDepth(unretainedSelf.view.window.depthLimit)]
+                                                                                                 selectedDisplayTitle:NSStringFromNSWindowDepth(unretainedSelf.view.window.depthLimit)];
+        [titles release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeDefaultDepthLimitItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Default Depth Limit"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Default Depth Limit (%@)", NSStringFromNSWindowDepth(NSWindow.defaultDepthLimit)];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeWindowDepthAlertItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Window Depth Alert"
+                                            userInfo:nil
+                                               label:@"Window Depth Alert"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSUInteger count;
+        NSWindowDepth *depths = allNSWindowDepths(&count);
+        
+        NSMutableArray<NSString *> *titles = [[NSMutableArray alloc] initWithCapacity:count];
+        for (NSWindowDepth *depthPtr : std::views::iota(depths, depths + count)) {
+            NSWindowDepth depth = *depthPtr;
+            [titles addObject:NSStringFromNSWindowDepth(depth)];
+        }
+        
+        ConfigurationPopUpButtonDescription *description = [ConfigurationPopUpButtonDescription descriptionWithTitles:titles
+                                                                                                       selectedTitles:@[]
+                                                                                                 selectedDisplayTitle:nil];
+        [titles release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeCanHideItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Can Hide"
+                                            userInfo:nil
+                                               label:@"Can Hide"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.canHide);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeOnActiveSpaceItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"On Active Space"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"On Active Space: %@", unretainedSelf.view.window.onActiveSpace ? @"YES" : @"NO"];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeHidesOnDeactivateItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Hides On Deactivate"
+                                            userInfo:nil
+                                               label:@"Hides On Deactivate"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.hidesOnDeactivate);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeCollectionBehaviorItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Collection Behavior"
+                                            userInfo:nil
+                                               label:@"Collection Behavior"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSUInteger count;
+        NSWindowCollectionBehavior *allBehaviors = allNSWindowCollectionBehaviors(&count);
+        
+        NSMutableArray<NSString *> *titles = [[NSMutableArray alloc] initWithCapacity:count];
+        NSMutableArray<NSString *> *selectedTitles = [NSMutableArray new];
+        
+        for (NSWindowCollectionBehavior *behaviorPtr : std::views::iota(allBehaviors, allBehaviors + count)) {
+            NSWindowCollectionBehavior behavior = *behaviorPtr;
+            NSString *string = NSStringFromNSWindowCollectionBehavior(behavior);
+            [titles addObject:string];
+            
+            if (unretainedSelf.view.window.collectionBehavior & behavior) {
+                [selectedTitles addObject:string];
+            }
+        }
+        
+        if (unretainedSelf.view.window.collectionBehavior == NSWindowCollectionBehaviorDefault) {
+            [selectedTitles addObject:NSStringFromNSWindowCollectionBehavior(NSWindowCollectionBehaviorDefault)];
+        }
+        
+        ConfigurationPopUpButtonDescription *description = [ConfigurationPopUpButtonDescription descriptionWithTitles:titles selectedTitles:selectedTitles selectedDisplayTitle:selectedTitles.firstObject];
+        [titles release];
+        [selectedTitles release];
+        
+        return description;
+    }];
+}
 
 - (void)didTriggerReloadButtonWithConfigurationView:(ConfigurationView *)configurationView {
     [self _reload];
@@ -179,22 +390,90 @@
         }
         
         window.styleMask = styleMask;
+        return YES;
     } else if ([identifier isEqualToString:@"Toggle Full Screen"]) {
         [window toggleFullScreen:nil];
+        return YES;
     } else if ([identifier isEqualToString:@"Alpha Value"]) {
 #if CGFLOAT_IS_DOUBLE
         window.alphaValue = static_cast<NSNumber *>(newValue).doubleValue;
 #else
         window.alphaValue = static_cast<NSNumber *>(newValue).floatValue;
 #endif
+        return NO;
     } else if ([identifier isEqualToString:@"Background Color"]) {
         window.backgroundColor = static_cast<NSColor *>(newValue);
-        window.colorSpace = NSColorSpace.deviceGrayColorSpace;
+        return NO;
+    } else if ([identifier isEqualToString:@"Color Spaces"]) {
+        auto title = static_cast<NSString *>(newValue);
+        
+        BOOL found = NO;
+        for (NSColorSpace *colorSpace in NSColorSpace.ma_allColorSpaces) {
+            if ([colorSpace.localizedName isEqualToString:title] or [colorSpace.description isEqualToString:title]) {
+                window.colorSpace = colorSpace;
+                found = YES;
+                break;
+            }
+        }
+        
+        if (!found) {
+            // or colorSpace = nil
+            window.colorSpace = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(window, sel_registerName("_defaultColorSpaceForScreen"));
+        }
+        return YES;
+    } else if ([identifier isEqualToString:@"Dynamic Depth Limit"]) {
+        [window setDynamicDepthLimit:static_cast<NSNumber *>(newValue).boolValue];
+        [self _reload];
+        return NO;
+    } else if ([identifier isEqualToString:@"Depth Limit"]) {
+        window.depthLimit = NSWindowDepthFromString(static_cast<NSString *>(newValue));
+        [self _reload];
+        return NO;
+    } else if ([identifier isEqualToString:@"Default Depth Limit"]) {
+        window.depthLimit = NSWindow.defaultDepthLimit;
+        [self _reload];
+        return NO;
+    } else if ([identifier isEqualToString:@"Window Depth Alert"]) {
+        NSWindowDepth windowDepth = NSWindowDepthFromString(static_cast<NSString *>(newValue));
+        NSInteger bitsPerPixel = NSBitsPerPixelFromDepth(windowDepth);
+        NSInteger bitsPerSample = NSBitsPerSampleFromDepth(windowDepth);
+        NSColorSpaceName colorSpaceName = NSColorSpaceFromDepth(windowDepth);
+        BOOL planar = NSPlanarFromDepth(windowDepth);
+        
+        NSAlert *alert = [NSAlert new];
+        alert.alertStyle = NSAlertStyleInformational;
+        alert.messageText = static_cast<NSString *>(newValue);
+        alert.informativeText = [NSString stringWithFormat:@"bitsPerPixel: %ld\nbitsPerSample: %ld\ncolorSpaceName: %@\nplanar: %@", bitsPerPixel, bitsPerSample, colorSpaceName, (planar ? @"YES" : @"NO")];
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        [alert release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Can Hide"]) {
+        window.canHide = static_cast<NSNumber *>(newValue).boolValue;
+        return NO;
+    } else if ([identifier isEqualToString:@"On Active Space"]) {
+        [NSWorkspace.sharedWorkspace openURL:[NSURL URLWithString:@"https://x.com/_silgen_name/status/1886001265156784253"]];
+        return NO;
+    } else if ([identifier isEqualToString:@"Hides On Deactivate"]) {
+        window.hidesOnDeactivate = static_cast<NSNumber *>(newValue).boolValue;
+        return NO;
+    } else if ([identifier isEqualToString:@"Collection Behavior"]) {
+        auto title = static_cast<NSString *>(newValue);
+        auto behavior = NSWindowCollectionBehaviorFromString(title);
+        
+        if (window.collectionBehavior & behavior) {
+            window.collectionBehavior = (window.collectionBehavior & ~behavior);
+        } else {
+            window.collectionBehavior = (window.collectionBehavior | behavior);
+        }
+        
+        return YES;
     } else {
         abort();
     }
-    
-    return YES;
 }
 
 @end

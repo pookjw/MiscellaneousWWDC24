@@ -10,6 +10,7 @@
 
 /*
  NSWidgetView
+ NSOcclusionDetectionView
  _NSBoxMaterialCapableCustomView
  */
 

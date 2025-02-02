@@ -11,13 +11,34 @@
 #include <ranges>
 #include <numeric>
 
+NSColorSpaceModel * allNSColorSpaceModels(NSUInteger * _Nullable count) {
+    static NSColorSpaceModel allModels[] = {
+        NSColorSpaceModelUnknown,
+        NSColorSpaceModelGray,
+        NSColorSpaceModelRGB,
+        NSColorSpaceModelCMYK,
+        NSColorSpaceModelLAB,
+        NSColorSpaceModelDeviceN,
+        NSColorSpaceModelIndexed,
+        NSColorSpaceModelPatterned
+    };
+    
+    if (count != NULL) {
+        *count = sizeof(allModels) / sizeof(NSColorSpaceModel);
+    }
+    
+    return allModels;
+}
+
 @implementation NSColorSpace (MA_Category)
 
 + (NSArray<NSColorSpace *> *)ma_allColorSpaces {
+    NSMutableArray<NSColorSpace *> *results = [NSMutableArray new];
+    
+    //
+    
     unsigned int methodsCount;
     Method *methods = class_copyMethodList(object_getClass(self), &methodsCount);
-    
-    NSMutableArray<NSColorSpace *> *results = [NSMutableArray new];
     
     for (Method *methodPtr : std::views::iota(methods, methods + methodsCount)) {
         Method method = *methodPtr;
@@ -41,6 +62,23 @@
     }
     
     free(methods);
+    
+    //
+    
+    NSUInteger modelsCount;
+    NSColorSpaceModel *allModels = allNSColorSpaceModels(&modelsCount);
+    
+    for (NSColorSpaceModel *modelPtr : std::views::iota(allModels, allModels + modelsCount)) {
+        NSArray<NSColorSpace *> *availableColorSpaces = [NSColorSpace availableColorSpacesWithModel:*modelPtr];
+        
+        for (NSColorSpace *_colorSpace in availableColorSpaces) {
+            if (![results containsObject:_colorSpace]) {
+                [results addObject:_colorSpace];
+            }
+        }
+    }
+    
+    //
     
     return [results autorelease];
 }

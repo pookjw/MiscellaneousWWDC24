@@ -17,7 +17,7 @@
 
 - (instancetype)initWithTitle:(NSString *)string action:(SEL)selector keyEquivalent:(NSString *)charCode {
     if (self = [super initWithTitle:string action:selector keyEquivalent:charCode]) {
-        [self commonInit_FileMenuItem];
+        [self _commonInit_FileMenuItem];
     }
     
     return self;
@@ -25,7 +25,7 @@
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
     if (self = [super initWithCoder:coder]) {
-        [self commonInit_FileMenuItem];
+        [self _commonInit_FileMenuItem];
     }
     
     return self;
@@ -36,7 +36,7 @@
     [super dealloc];
 }
 
-- (void)commonInit_FileMenuItem {
+- (void)_commonInit_FileMenuItem {
     NSMenu *submenu = [NSMenu new];
     
     [submenu addItem:self.closeMenuItem];

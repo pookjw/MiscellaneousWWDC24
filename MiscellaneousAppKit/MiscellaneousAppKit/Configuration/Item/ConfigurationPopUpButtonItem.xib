@@ -19,11 +19,11 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="40"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3zm-zk-AHX">
+                <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="3zm-zk-AHX">
                     <rect key="frame" x="396" y="6" width="78" height="25"/>
                     <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="xlO-FS-33O" id="9Zp-V1-jet">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
+                        <font key="font" metaFont="message"/>
                         <menu key="menu" autoenablesItems="NO" id="iQ1-EB-rPB">
                             <items>
                                 <menuItem title="Item 1" state="on" id="xlO-FS-33O"/>
@@ -32,11 +32,14 @@
                             </items>
                         </menu>
                     </popUpButtonCell>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="SyB-Va-mxc"/>
+                    </constraints>
                     <connections>
                         <action selector="_didTriggerAction:" target="1Cp-VD-oSq" id="usE-YC-ZkW"/>
                     </connections>
                 </popUpButton>
-                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="usO-fk-IKc">
+                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="usO-fk-IKc">
                     <rect key="frame" x="8" y="12" width="383" height="16"/>
                     <textFieldCell key="cell" selectable="YES" title="Multiline Label" id="PrZ-D1-zu9">
                         <font key="font" metaFont="system"/>

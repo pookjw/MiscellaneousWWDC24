@@ -8,6 +8,7 @@
 #import "AppDelegate.h"
 #import "MainWindowController.h"
 #import "BaseMenu.hpp"
+#import "NSWindow+MA_Category.h"
 
 @interface AppDelegate ()
 @end
@@ -19,6 +20,8 @@
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    startWindowActiveSpaceObservation();
+    
     BaseMenu *menu = [BaseMenu new];
     NSApplication.sharedApplication.menu = menu;
     [menu release];

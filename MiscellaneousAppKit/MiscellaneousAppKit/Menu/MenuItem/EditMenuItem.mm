@@ -25,7 +25,7 @@
 
 - (instancetype)initWithTitle:(NSString *)string action:(SEL)selector keyEquivalent:(NSString *)charCode {
     if (self = [super initWithTitle:string action:selector keyEquivalent:charCode]) {
-        [self commonInit_EditMenuItem];
+        [self _commonInit_EditMenuItem];
     }
     
     return self;
@@ -33,7 +33,7 @@
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
     if (self = [super initWithCoder:coder]) {
-        [self commonInit_EditMenuItem];
+        [self _commonInit_EditMenuItem];
     }
     
     return self;
@@ -47,7 +47,7 @@
     [super dealloc];
 }
 
-- (void)commonInit_EditMenuItem __attribute__((objc_direct)) {
+- (void)_commonInit_EditMenuItem __attribute__((objc_direct)) {
     NSMenu *submenu = [NSMenu new];
     
     [submenu addItem:self.emi_copyMenuItem];
