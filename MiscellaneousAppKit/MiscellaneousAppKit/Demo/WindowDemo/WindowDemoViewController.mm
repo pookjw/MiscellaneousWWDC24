@@ -21,6 +21,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
 
 @interface WindowDemoViewController () <ConfigurationViewDelegate>
 @property (retain, nonatomic, readonly, getter=_configurationView) ConfigurationView *configurationView;
+@property (copy, nonatomic, nullable, getter=_stageChangedDate, setter=_setStageChangedDate:) NSDate *stageChangedDate;
 @end
 
 @implementation WindowDemoViewController
@@ -28,6 +29,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
 
 - (void)dealloc {
     [_configurationView release];
+    [_stageChangedDate release];
     [super dealloc];
 }
 
@@ -39,6 +41,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
     [super viewDidLoad];
     
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didChangeWindowActiveSpace:) name:MA_NSWindowActiveSpaceDidChangeNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didChangeActiveSpace:) name:NSWorkspaceActiveSpaceDidChangeNotification object:NSWorkspace.sharedWorkspace];
 }
 
 - (void)_viewDidMoveToWindow:(NSWindow * _Nullable)newWindow fromWindow:(NSWindow * _Nullable)oldWindow {
@@ -53,13 +56,13 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
 
 - (void)_didChangeWindowActiveSpace:(NSNotification *)notification {
     if ([notification.object isEqual:self.view.window]) {
-        NSAlert *alert = [NSAlert new];
-        alert.messageText = @"Moved!";
-        [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
-            
-        }];
-        [alert release];
+        self.stageChangedDate = [NSDate now];
+        [self _reload];
     }
+}
+
+- (void)_didChangeActiveSpace:(NSNotification *)notification {
+    [self _reload];
 }
 
 - (ConfigurationView *)_configurationView {
@@ -78,6 +81,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
     [snapshot appendSectionsWithIdentifiers:@[[NSNull null]]];
     
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeStageChangedDateItemModel],
         [self _makeCollectionBehaviorItemModel],
         [self _makeHidesOnDeactivateItemModel],
         [self _makeOnActiveSpaceItemModel],
@@ -371,6 +375,24 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
     }];
 }
 
+- (ConfigurationItemModel *)_makeStageChangedDateItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Stage Changed Date"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        if (NSDate *date = unretainedSelf.stageChangedDate) {
+            return date.description;
+        } else {
+            return @"(null)";
+        }
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
 - (void)didTriggerReloadButtonWithConfigurationView:(ConfigurationView *)configurationView {
     [self _reload];
 }
@@ -471,6 +493,9 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
         }
         
         return YES;
+    } else if ([identifier isEqualToString:@"Stage Changed Date"]) {
+        NSLog(@"NOP");
+        return NO;
     } else {
         abort();
     }
