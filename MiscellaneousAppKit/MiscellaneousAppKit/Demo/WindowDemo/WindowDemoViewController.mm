@@ -17,6 +17,20 @@
 #import "NSStringFromNSWindowCollectionBehavior.h"
 #import "NSWindow+MA_Category.h"
 
+@interface MyView : NSView
+- (void)drawRect:(NSRect)rect;
+@end
+
+@implementation MyView
+- (void)drawRect:(NSRect)rect
+{
+    [[[NSColor windowBackgroundColor] colorWithAlphaComponent:0.5] set];
+    NSRectFill(self.bounds);
+    NSRectFillUsingOperation(NSMakeRect(50, 50, 100, 100), NSCompositingOperationClear);
+}
+- (BOOL)isOpaque { return YES; }
+@end
+
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
 @interface WindowDemoViewController () <ConfigurationViewDelegate>
@@ -34,11 +48,19 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
 }
 
 - (void)loadView {
-    self.view = self.configurationView;
+    NSView *view = [NSView new];
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(view, sel_registerName("setBackgroundColor:"), [NSColor.cyanColor colorWithAlphaComponent:0.3]);
+    self.view = view;
+    [view release];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    ConfigurationView *configurationView = self.configurationView;
+    configurationView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    configurationView.frame = self.view.bounds;
+    [self.view addSubview:configurationView];
     
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didChangeWindowActiveSpace:) name:MA_NSWindowActiveSpaceDidChangeNotification object:nil];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didChangeActiveSpace:) name:NSWorkspaceActiveSpaceDidChangeNotification object:NSWorkspace.sharedWorkspace];
@@ -80,7 +102,10 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
     NSDiffableDataSourceSnapshot *snapshot = [NSDiffableDataSourceSnapshot new];
     [snapshot appendSectionsWithIdentifiers:@[[NSNull null]]];
     
+#pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeOpaqueItemModel],
+        [self _makeWorksWhenModalItemModel],
         [self _makeStageChangedDateItemModel],
         [self _makeCollectionBehaviorItemModel],
         [self _makeHidesOnDeactivateItemModel],
@@ -316,7 +341,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
 - (ConfigurationItemModel *)_makeOnActiveSpaceItemModel {
     __block auto unretainedSelf = self;
     
-    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
                                           identifier:@"On Active Space"
                                             userInfo:nil
                                        labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
@@ -378,12 +403,12 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
 - (ConfigurationItemModel *)_makeStageChangedDateItemModel {
     __block auto unretainedSelf = self;
     
-    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
                                           identifier:@"Stage Changed Date"
                                             userInfo:nil
                                        labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
         if (NSDate *date = unretainedSelf.stageChangedDate) {
-            return date.description;
+            return [NSString stringWithFormat:@"Stage Changed: %@", date];
         } else {
             return @"(null)";
         }
@@ -392,6 +417,34 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
         return [NSNull null];
     }];
 }
+
+- (ConfigurationItemModel *)_makeWorksWhenModalItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Works When Model"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Works When Model : %@", unretainedSelf.view.window.worksWhenModal ? @"YES" : @"NO"];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeOpaqueItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Opaque"
+                                            userInfo:nil
+                                               label:@"Opaque"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.opaque);
+    }];
+}
+
+#pragma mark - Items 2
 
 - (void)didTriggerReloadButtonWithConfigurationView:(ConfigurationView *)configurationView {
     [self _reload];
@@ -476,9 +529,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
     } else if ([identifier isEqualToString:@"Can Hide"]) {
         window.canHide = static_cast<NSNumber *>(newValue).boolValue;
         return NO;
-    } else if ([identifier isEqualToString:@"On Active Space"]) {
-        [NSWorkspace.sharedWorkspace openURL:[NSURL URLWithString:@"https://x.com/_silgen_name/status/1886001265156784253"]];
-        return NO;
     } else if ([identifier isEqualToString:@"Hides On Deactivate"]) {
         window.hidesOnDeactivate = static_cast<NSNumber *>(newValue).boolValue;
         return NO;
@@ -493,12 +543,14 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
         }
         
         return YES;
-    } else if ([identifier isEqualToString:@"Stage Changed Date"]) {
-        NSLog(@"NOP");
+    } else if ([identifier isEqualToString:@"Opaque"]) {
+        window.opaque = static_cast<NSNumber *>(newValue).boolValue;
+        [self _reload];
         return NO;
     } else {
         abort();
     }
+#pragma mark - Actions
 }
 
 @end

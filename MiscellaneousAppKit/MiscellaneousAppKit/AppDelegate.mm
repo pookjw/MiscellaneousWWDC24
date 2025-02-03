@@ -7,8 +7,10 @@
 
 #import "AppDelegate.h"
 #import "MainWindowController.h"
-#import "BaseMenu.hpp"
+#import "MyMenu.h"
 #import "NSWindow+MA_Category.h"
+#import <objc/message.h>
+#import <objc/runtime.h>
 
 @interface AppDelegate ()
 @end
@@ -22,8 +24,12 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     startWindowActiveSpaceObservation();
     
-    BaseMenu *menu = [BaseMenu new];
-    NSApplication.sharedApplication.menu = menu;
+    MyMenu *menu = [MyMenu new];
+    [NSApp setServicesMenu:menu.servicesMenu];
+    [NSApp setWindowsMenu:menu.windowMenu];
+    [NSApp setHelpMenu:menu.helpMenu];
+    
+    NSApp.mainMenu = menu;
     [menu release];
     
     MainWindowController *mainWindowController = [MainWindowController new];

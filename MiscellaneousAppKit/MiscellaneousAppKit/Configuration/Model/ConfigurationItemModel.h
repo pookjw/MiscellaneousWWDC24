@@ -18,7 +18,8 @@ typedef NS_ENUM(NSUInteger, ConfigurationItemModelType) {
     ConfigurationItemModelTypeStepper,
     ConfigurationItemModelTypeButton,
     ConfigurationItemModelTypePopUpButton,
-    ConfigurationItemModelTypeColorWell
+    ConfigurationItemModelTypeColorWell,
+    ConfigurationItemModelTypeLabel
 };
 
 @interface ConfigurationItemModel <ValueType> : NSObject <NSCopying>

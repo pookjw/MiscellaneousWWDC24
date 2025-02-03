@@ -15,6 +15,7 @@
 #import "ConfigurationButtonItem.h"
 #import "ConfigurationPopUpButtonItem.h"
 #import "ConfigurationColorWellItem.h"
+#import "ConfigurationLabelItem.h"
 
 @interface ConfigurationView () <ConfigurationSwitchItemDelegate, ConfigurationSliderItemDelegate, ConfigurationStepperItemDelegate, ConfigurationButtonItemDelegate, ConfigurationPopUpButtonItemDelegate, ConfigurationColorWellItemDelegate>
 @property (class, nonatomic, readonly, getter=_switchItemIdentifier) NSUserInterfaceItemIdentifier switchItemIdentifier;
@@ -24,6 +25,7 @@
 @property (class, nonatomic, readonly, getter=_colorWellItemIdentifier) NSUserInterfaceItemIdentifier colorWellItemIdentifier;
 @property (class, nonatomic, readonly, getter=_popUpButtonItemIdentifier) NSUserInterfaceItemIdentifier popUpButtonItemIdentifier;
 @property (class, nonatomic, readonly, getter=_separatorItemIdentifier) NSUserInterfaceItemIdentifier separatorItemIdentifier;
+@property (class, nonatomic, readonly, getter=_labelItemIdentifier) NSUserInterfaceItemIdentifier labelItemIdentifier;
 @property (class, nonatomic, readonly, getter=_separatorElementKind) NSCollectionViewSupplementaryElementKind separatorElementKind;
 @property (retain, nonatomic, readonly, getter=_visualEffectView) NSVisualEffectView *visualEffectView;
 @property (retain, nonatomic, readonly, getter=_collectionView) NSCollectionView *collectionView;
@@ -60,6 +62,10 @@
 
 + (NSUserInterfaceItemIdentifier)_colorWellItemIdentifier {
     return NSStringFromClass([ConfigurationColorWellItem class]);
+}
+
++ (NSUserInterfaceItemIdentifier)_labelItemIdentifier {
+    return NSStringFromClass([ConfigurationLabelItem class]);
 }
 
 + (NSUserInterfaceItemIdentifier)_separatorItemIdentifier {
@@ -222,6 +228,12 @@
                 
                 return item;
             }
+            case ConfigurationItemModelTypeLabel: {
+                ConfigurationLabelItem *item = [collectionView makeItemWithIdentifier:ConfigurationView.labelItemIdentifier forIndexPath:indexPath];
+                item.textField.stringValue = label;
+                
+                return item;
+            }
             default:
                 abort();
         }
@@ -305,6 +317,10 @@
     NSNib *colorWellItemNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([ConfigurationColorWellItem class]) bundle:NSBundle.mainBundle];
     [collectionView registerNib:colorWellItemNib forItemWithIdentifier:ConfigurationView.colorWellItemIdentifier];
     [colorWellItemNib release];
+    
+    NSNib *labelItemNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([ConfigurationLabelItem class]) bundle:NSBundle.mainBundle];
+    [collectionView registerNib:labelItemNib forItemWithIdentifier:ConfigurationView.labelItemIdentifier];
+    [labelItemNib release];
     
     [collectionView registerClass:[ConfigurationSeparatorView class] forSupplementaryViewOfKind:ConfigurationView.separatorElementKind withIdentifier:ConfigurationView.separatorItemIdentifier];
     

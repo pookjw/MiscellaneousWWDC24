@@ -11,6 +11,8 @@
 #import "WindowDemoWindow.h"
 #import "ViewDemoViewController.h"
 #import "ConfigurationDemoViewController.h"
+#import <objc/message.h>
+#import <objc/runtime.h>
 
 @interface MainViewController () <NSTableViewDataSource, NSTableViewDelegate>
 @property (class, nonatomic, readonly, getter=_rowIdentifier) NSUserInterfaceItemIdentifier rowIdentifier;
@@ -133,6 +135,17 @@
     if ([clickedClass isSubclassOfClass:[NSWindow class]]) {
         __kindof NSWindow *window = [clickedClass new];
         [window makeKeyAndOrderFront:nil];
+        
+//        NSMenu *menu = [NSMenu new];
+//        NSMenuItem *menuItem = [NSMenuItem new];
+//        menuItem.title = @"Hide";
+//        menuItem.action = @selector(hide:);
+//        [menu addItem:menuItem];
+//        [menuItem release];
+//        
+//        [NSApp setWindowsMenu:menu];
+//        [menu release];
+        
         [window release];
     } else if ([clickedClass isSubclassOfClass:[NSViewController class]]) {
         NSWindow *window = [[NSWindow alloc] initWithContentRect:NSMakeRect(0., 0., 600., 400.) styleMask:NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskFullSizeContentView | NSWindowStyleMaskResizable | NSWindowStyleMaskTitled backing:NSBackingStoreBuffered defer:NO];
