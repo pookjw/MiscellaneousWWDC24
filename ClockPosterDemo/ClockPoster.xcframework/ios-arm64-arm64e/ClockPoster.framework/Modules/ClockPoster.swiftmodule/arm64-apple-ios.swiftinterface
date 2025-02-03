@@ -1,0 +1,86 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.0.3 effective-5.10 (swiftlang-6.0.3.1.6 clang-1600.0.30.1)
+// swift-module-flags: -target arm64-apple-ios18.2 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -library-level api -enable-experimental-feature ModuleInterfaceExportAs -enable-bare-slash-regex -user-module-version 366.60.13.0.1 -module-name ClockPoster
+import Swift
+import Foundation
+import UIKit
+import CoreGraphics
+import _Concurrency
+
+@available(iOS 17.0, *)
+public final class Clock {
+    public static var shared: ClockPoster.Clock { get }
+    public var overrideTime: ClockPoster.OverrideTime? { get set }
+}
+
+@available(iOS 17.0, *)
+public enum ClockTimeInterval {
+    case second
+}
+
+@available(iOS 17.0, *)
+public enum ClockFaceKind/*: String*/ {
+    case play
+    case solar
+    case world
+    case analog
+    case digital
+
+    public var rawValue: Swift.String { get }
+}
+
+@available(iOS 17.0, *)
+@_Concurrency.MainActor
+open class ClockFaceController {
+    open var debugSupportingClockFace: ClockPoster.ClockFaceDebugUISupporting? { get }
+    open var presentationViewController: UIKit.UIViewController { get }
+    open func didReceive(tapAt: CoreGraphics.CGPoint)
+    open func saveViewState()
+    open var suggestedLooks: [ClockPoster.ClockFaceLook] { get }
+    open var updatedConfiguration: ClockPoster.ClockPosterConfiguration { get }
+    open var isDisplayStyleRedMode: Swift.Bool { get set }
+    open var look: ClockPoster.ClockFaceLook { get set }
+    public init(with: ClockPoster.ClockPosterConfiguration)
+}
+
+@available(iOS 17.0, *)
+open class ClockFaceDebugUISupporting {
+    open var isDebuggingHUDVisible: Swift.Bool { get set }
+}
+
+@available(iOS 17.0, *)
+public enum ClockFaceLook: Swift.Equatable {
+    public var thumbnailView: UIKit.UIView { get }
+
+    case uncustomizable
+}
+
+@available(iOS 17.0, *)
+final public class ClockLogger {
+    public static var sharedInstance: ClockPoster.ClockLogger { get }
+    // public func add(role: ClockPoster.ClockLogger.Role?, host: ClockPoster.ClockLogger.Host, lifeCycleOfProcessDedicatedTo: ClockPoster.ClockFaceKind?)
+
+    public enum Host {
+        case app
+    }
+}
+
+@available(iOS 17.0, *)
+public struct ClockPosterConfiguration {
+    public static func configuration(from: Foundation.Data?, kind: ClockPoster.ClockFaceKind) -> ClockPoster.ClockPosterConfiguration
+    public var data: Foundation.Data? { get }
+    public var kind: ClockPoster.ClockFaceKind { get }
+}
+
+@available(iOS 17.0, *)
+public struct OverrideTime: Swift.Codable {
+    public struct AdvancingRate {
+        public func pause()
+        public init(offset: Swift.Duration, interval: Swift.Duration)
+        public var offset: Swift.Duration { get }
+        public var internval: Swift.Duration { get }
+    }
+
+    public var advancingRate: ClockPoster.OverrideTime.AdvancingRate { get set }
+    public var date: Foundation.Date { get set }
+}
