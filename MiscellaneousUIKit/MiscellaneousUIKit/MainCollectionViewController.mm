@@ -54,6 +54,7 @@
 #import "AXOpenSettingsViewController.h"
 #import "CoverSheetButtonViewController.h"
 #import "SystemBannerRequestViewController.h"
+#import "VariableGestureContextMenuInteractionViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import <TargetConditionals.h>
@@ -105,7 +106,7 @@ __attribute__((objc_direct_members))
     [super viewDidLoad];
     [self cellRegistration];
     
-    SystemBannerRequestViewController *viewController = [SystemBannerRequestViewController new];
+    VariableGestureContextMenuInteractionViewController *viewController = [VariableGestureContextMenuInteractionViewController new];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     [viewController release];
     [self presentViewController:navigationController animated:YES completion:nil];
@@ -145,6 +146,7 @@ __attribute__((objc_direct_members))
 
 - (NSArray<Class> *)classes {
     return @[
+        VariableGestureContextMenuInteractionViewController.class,
         SystemBannerRequestViewController.class,
         CoverSheetButtonViewController.class,
         ExpandableCollectionViewController.class,
