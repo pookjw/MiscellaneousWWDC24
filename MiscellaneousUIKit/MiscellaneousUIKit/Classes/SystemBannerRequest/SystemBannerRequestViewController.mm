@@ -46,7 +46,10 @@
     
     UIDeferredMenuElement *element = [UIDeferredMenuElement elementWithUncachedProvider:^(void (^ _Nonnull completion)(NSArray<UIMenuElement *> * _Nonnull)) {
         id request = weakSelf.request;
-        if (request == nil) completion(@[]);
+        if (request == nil) {
+            completion(@[]);
+            return;
+        }
         
         NSString *primaryTitleText = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(request, sel_registerName("primaryTitleText"));
         NSString *secondaryTitleText = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(request, sel_registerName("secondaryTitleText"));

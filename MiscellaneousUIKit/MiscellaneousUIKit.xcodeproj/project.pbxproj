@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4F05018C2D526313002D380C /* VariableGestureContextMenuInteractionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F05018B2D526313002D380C /* VariableGestureContextMenuInteractionViewController.mm */; };
 		4F05018D2D526313002D380C /* VariableGestureContextMenuInteractionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F05018B2D526313002D380C /* VariableGestureContextMenuInteractionViewController.mm */; };
+		4F0501912D52657F002D380C /* BannerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F0501902D52657F002D380C /* BannerViewController.mm */; };
+		4F0501922D52657F002D380C /* BannerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F0501902D52657F002D380C /* BannerViewController.mm */; };
 		4F05FEB12D522A1D002D380C /* CoverSheetButtonViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F05FEB02D522A1D002D380C /* CoverSheetButtonViewController.mm */; };
 		4F05FEB22D522A1D002D380C /* CoverSheetButtonViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F05FEB02D522A1D002D380C /* CoverSheetButtonViewController.mm */; };
 		4F05FEB62D52416C002D380C /* SystemBannerRequestViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F05FEB52D52416C002D380C /* SystemBannerRequestViewController.mm */; };
@@ -196,6 +198,8 @@
 /* Begin PBXFileReference section */
 		4F05018A2D526313002D380C /* VariableGestureContextMenuInteractionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VariableGestureContextMenuInteractionViewController.h; sourceTree = "<group>"; };
 		4F05018B2D526313002D380C /* VariableGestureContextMenuInteractionViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VariableGestureContextMenuInteractionViewController.mm; sourceTree = "<group>"; };
+		4F05018F2D52657F002D380C /* BannerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BannerViewController.h; sourceTree = "<group>"; };
+		4F0501902D52657F002D380C /* BannerViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BannerViewController.mm; sourceTree = "<group>"; };
 		4F05FEAF2D522A1D002D380C /* CoverSheetButtonViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoverSheetButtonViewController.h; sourceTree = "<group>"; };
 		4F05FEB02D522A1D002D380C /* CoverSheetButtonViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CoverSheetButtonViewController.mm; sourceTree = "<group>"; };
 		4F05FEB42D52416C002D380C /* SystemBannerRequestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SystemBannerRequestViewController.h; sourceTree = "<group>"; };
@@ -392,6 +396,15 @@
 			path = VariableGestureContextMenuInteraction;
 			sourceTree = "<group>";
 		};
+		4F05018E2D526562002D380C /* Banner */ = {
+			isa = PBXGroup;
+			children = (
+				4F05018F2D52657F002D380C /* BannerViewController.h */,
+				4F0501902D52657F002D380C /* BannerViewController.mm */,
+			);
+			path = Banner;
+			sourceTree = "<group>";
+		};
 		4F05FEAE2D5229F8002D380C /* CoverSheetButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -457,6 +470,7 @@
 		4F082E632C18906E002263ED /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4F05018E2D526562002D380C /* Banner */,
 				4F0501892D526304002D380C /* VariableGestureContextMenuInteraction */,
 				4F05FEB32D52415E002D380C /* SystemBannerRequest */,
 				4F05FEAE2D5229F8002D380C /* CoverSheetButton */,
@@ -1108,6 +1122,7 @@
 				4FC507822D2AC5DD009BFC65 /* BiometricKitDemoViewController.mm in Sources */,
 				4F082EA82C1B53C8002263ED /* ContentHuggingElementsViewController.mm in Sources */,
 				4FAD987B2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm in Sources */,
+				4F0501922D52657F002D380C /* BannerViewController.mm in Sources */,
 				4FC234BB2D31761D00202A24 /* ExpandableCollectionViewController.mm in Sources */,
 				4F082E702C18A045002263ED /* ListEnvironmentContentConfiguration.mm in Sources */,
 				4F4903CB2D040B460017A47D /* TextInputLabel.mm in Sources */,
@@ -1186,6 +1201,7 @@
 				4FC507812D2AC5DD009BFC65 /* BiometricKitDemoViewController.mm in Sources */,
 				4F59DEAF2CFFF56100E88830 /* ContentHuggingElementsViewController.mm in Sources */,
 				4F59DEB02CFFF56100E88830 /* CustomDismissPercentageInteraction.mm in Sources */,
+				4F0501912D52657F002D380C /* BannerViewController.mm in Sources */,
 				4FC234BC2D31761D00202A24 /* ExpandableCollectionViewController.mm in Sources */,
 				4F59DEB12CFFF56100E88830 /* ListEnvironmentContentConfiguration.mm in Sources */,
 				4F4903CC2D040B460017A47D /* TextInputLabel.mm in Sources */,
