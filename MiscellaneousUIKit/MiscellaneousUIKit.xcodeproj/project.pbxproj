@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F05FEB12D522A1D002D380C /* CoverSheetButtonViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F05FEB02D522A1D002D380C /* CoverSheetButtonViewController.mm */; };
+		4F05FEB22D522A1D002D380C /* CoverSheetButtonViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F05FEB02D522A1D002D380C /* CoverSheetButtonViewController.mm */; };
+		4F05FEB62D52416C002D380C /* SystemBannerRequestViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F05FEB52D52416C002D380C /* SystemBannerRequestViewController.mm */; };
+		4F05FEB72D52416C002D380C /* SystemBannerRequestViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F05FEB52D52416C002D380C /* SystemBannerRequestViewController.mm */; };
 		4F082E492C188D6C002263ED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E482C188D6C002263ED /* AppDelegate.m */; };
 		4F082E4C2C188D6C002263ED /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E4B2C188D6C002263ED /* SceneDelegate.m */; };
 		4F082E542C188D6D002263ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F082E532C188D6D002263ED /* Assets.xcassets */; };
@@ -188,6 +192,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4F05FEAF2D522A1D002D380C /* CoverSheetButtonViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoverSheetButtonViewController.h; sourceTree = "<group>"; };
+		4F05FEB02D522A1D002D380C /* CoverSheetButtonViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CoverSheetButtonViewController.mm; sourceTree = "<group>"; };
+		4F05FEB42D52416C002D380C /* SystemBannerRequestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SystemBannerRequestViewController.h; sourceTree = "<group>"; };
+		4F05FEB52D52416C002D380C /* SystemBannerRequestViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SystemBannerRequestViewController.mm; sourceTree = "<group>"; };
 		4F082E442C188D6C002263ED /* MiscellaneousUIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiscellaneousUIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F082E472C188D6C002263ED /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4F082E482C188D6C002263ED /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -371,6 +379,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F05FEAE2D5229F8002D380C /* CoverSheetButton */ = {
+			isa = PBXGroup;
+			children = (
+				4F05FEAF2D522A1D002D380C /* CoverSheetButtonViewController.h */,
+				4F05FEB02D522A1D002D380C /* CoverSheetButtonViewController.mm */,
+			);
+			path = CoverSheetButton;
+			sourceTree = "<group>";
+		};
+		4F05FEB32D52415E002D380C /* SystemBannerRequest */ = {
+			isa = PBXGroup;
+			children = (
+				4F05FEB42D52416C002D380C /* SystemBannerRequestViewController.h */,
+				4F05FEB52D52416C002D380C /* SystemBannerRequestViewController.mm */,
+			);
+			path = SystemBannerRequest;
+			sourceTree = "<group>";
+		};
 		4F082E3B2C188D6C002263ED = {
 			isa = PBXGroup;
 			children = (
@@ -418,6 +444,8 @@
 		4F082E632C18906E002263ED /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4F05FEB32D52415E002D380C /* SystemBannerRequest */,
+				4F05FEAE2D5229F8002D380C /* CoverSheetButton */,
 				4F379C9D2D44B0F4006EBDF3 /* AXOpenSettings */,
 				4FC234B82D3175ED00202A24 /* ExpandableCollectionView */,
 				4FC5077E2D2AC5D4009BFC65 /* BiometricKitDemo */,
@@ -1060,6 +1088,7 @@
 				4F5068B22C3D9D8800293E81 /* LegacyTabBar2Controller.mm in Sources */,
 				4F3DE9B82D2AA01700C19424 /* TestFlightCoreDemoViewController.mm in Sources */,
 				4F46CFCC2C282AF5005AC6AF /* ProminenceViewController.mm in Sources */,
+				4F05FEB22D522A1D002D380C /* CoverSheetButtonViewController.mm in Sources */,
 				4FA8EEF72C1CE0E200B1358A /* CustomViewControllerTransition.mm in Sources */,
 				4F5D11C52C58AD5A000C12C3 /* WritingToolsViewController.mm in Sources */,
 				4FC507822D2AC5DD009BFC65 /* BiometricKitDemoViewController.mm in Sources */,
@@ -1070,6 +1099,7 @@
 				4F4903CB2D040B460017A47D /* TextInputLabel.mm in Sources */,
 				4F1F02312C23CE4F004F7EFF /* OrangeViewController.m in Sources */,
 				4F8BD3902C22E1520031535F /* CustomDismissCustomInteraction.mm in Sources */,
+				4F05FEB62D52416C002D380C /* SystemBannerRequestViewController.mm in Sources */,
 				4F082E772C18E349002263ED /* OrangeSceneDelegate.m in Sources */,
 				4F0CBAA92C44048D00743DE2 /* InputAssistantItemViewController.mm in Sources */,
 				4F8BD38D2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm in Sources */,
@@ -1135,6 +1165,7 @@
 				4F59DEAB2CFFF56100E88830 /* LegacyTabBar2Controller.mm in Sources */,
 				4F3DE9B92D2AA01700C19424 /* TestFlightCoreDemoViewController.mm in Sources */,
 				4F59DEAC2CFFF56100E88830 /* ProminenceViewController.mm in Sources */,
+				4F05FEB12D522A1D002D380C /* CoverSheetButtonViewController.mm in Sources */,
 				4F59DEAD2CFFF56100E88830 /* CustomViewControllerTransition.mm in Sources */,
 				4F59DEAE2CFFF56100E88830 /* WritingToolsViewController.mm in Sources */,
 				4FC507812D2AC5DD009BFC65 /* BiometricKitDemoViewController.mm in Sources */,
@@ -1145,6 +1176,7 @@
 				4F4903CC2D040B460017A47D /* TextInputLabel.mm in Sources */,
 				4F59DEB22CFFF56100E88830 /* OrangeViewController.m in Sources */,
 				4F59DEB32CFFF56100E88830 /* CustomDismissCustomInteraction.mm in Sources */,
+				4F05FEB72D52416C002D380C /* SystemBannerRequestViewController.mm in Sources */,
 				4F59DEB42CFFF56100E88830 /* OrangeSceneDelegate.m in Sources */,
 				4F59DEB52CFFF56100E88830 /* InputAssistantItemViewController.mm in Sources */,
 				4F59DEB62CFFF56100E88830 /* CustomDismissInteractiveTransitioning.mm in Sources */,

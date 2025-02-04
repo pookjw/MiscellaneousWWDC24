@@ -52,6 +52,8 @@
 #import "BiometricKitDemoViewController.h"
 #import "ExpandableCollectionViewController.h"
 #import "AXOpenSettingsViewController.h"
+#import "CoverSheetButtonViewController.h"
+#import "SystemBannerRequestViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import <TargetConditionals.h>
@@ -103,9 +105,9 @@ __attribute__((objc_direct_members))
     [super viewDidLoad];
     [self cellRegistration];
     
-    AXOpenSettingsViewController *textViewController = [AXOpenSettingsViewController new];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:textViewController];
-    [textViewController release];
+    SystemBannerRequestViewController *viewController = [SystemBannerRequestViewController new];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    [viewController release];
     [self presentViewController:navigationController animated:YES completion:nil];
     [navigationController release];
 //    reinterpret_cast<void (*)(id, SEL, id, BOOL, UICollectionViewScrollPosition, BOOL, BOOL, BOOL, BOOL)>(objc_msgSend)(self.collectionView, sel_registerName("_selectItemAtIndexPath:animated:scrollPosition:notifyDelegate:deselectPrevious:performPrimaryAction:performCustomSelectionAction:"), [NSIndexPath indexPathForItem:0 inSection:0], NO, 0, YES, YES, NO, NO);
@@ -143,6 +145,8 @@ __attribute__((objc_direct_members))
 
 - (NSArray<Class> *)classes {
     return @[
+        SystemBannerRequestViewController.class,
+        CoverSheetButtonViewController.class,
         ExpandableCollectionViewController.class,
 #if TARGET_OS_IOS && !TARGET_OS_SIMULATOR
         BiometricKitDemoViewController.class,
@@ -201,7 +205,6 @@ __attribute__((objc_direct_members))
         AXOpenSettingsViewController.class
     ];
 }
-
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;

@@ -24,7 +24,7 @@
 	<true/>
 	<key>com.apple.security.network.client</key>
 	<true/>
-	<key>&gt;com.apple.avfoundation.allow-capture-filter-rendering</key>
+	<key>com.apple.avfoundation.allow-capture-filter-rendering</key>
 	<true/>
 	<key>com.apple.coreduetd.allow</key>
 	<true/>
@@ -33,6 +33,8 @@
 	<key>com.apple.private.CoreAuthentication.SPI</key>
 	<true/>
 	<key>com.apple.private.bmk.allow</key>
+	<true/>
+	<key>com.apple.private.uikit.requestsystembanner</key>
 	<true/>
 	<key>com.apple.private.tcc.allow</key>
 	<array>
