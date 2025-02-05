@@ -16,6 +16,14 @@
 @implementation SystemBannerRequestViewController
 @synthesize request = _request;
 
++ (BOOL)_containsEntitlement {
+    id proxy = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("LSApplicationProxy"), sel_registerName("bundleProxyForCurrentProcess"));
+    NSDictionary<NSString *, id> *entitlements = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(proxy, sel_registerName("entitlements"));
+    NSNumber *number = entitlements[@"com.apple.private.uikit.requestsystembanner"];
+    if (number == nil) return NO;
+    return number.boolValue;
+}
+
 - (void)dealloc {
     [_request release];
     [super dealloc];
@@ -249,7 +257,6 @@
             secondaryTitleTextAction,
             preferredMaximumBannerWidthSliderElement,
             preferredMinimumBannerWidthSliderElement,
-            bannerTimeoutDurationSliderElement,
             bannerTimeoutDurationSliderElement,
             postMenu
         ]);
