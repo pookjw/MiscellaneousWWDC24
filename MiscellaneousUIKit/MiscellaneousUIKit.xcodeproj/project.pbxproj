@@ -11,6 +11,10 @@
 		4F05018D2D526313002D380C /* VariableGestureContextMenuInteractionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F05018B2D526313002D380C /* VariableGestureContextMenuInteractionViewController.mm */; };
 		4F0501912D52657F002D380C /* BannerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F0501902D52657F002D380C /* BannerViewController.mm */; };
 		4F0501922D52657F002D380C /* BannerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F0501902D52657F002D380C /* BannerViewController.mm */; };
+		4F0504672D534985002D380C /* ContinuousSliderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F0504662D534985002D380C /* ContinuousSliderViewController.mm */; };
+		4F0504682D534985002D380C /* ContinuousSliderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F0504662D534985002D380C /* ContinuousSliderViewController.mm */; };
+		4F0504772D5351DC002D380C /* Brightness.ca in Resources */ = {isa = PBXBuildFile; fileRef = 4F0504762D5351D1002D380C /* Brightness.ca */; };
+		4F0504782D5351DC002D380C /* Brightness.ca in Resources */ = {isa = PBXBuildFile; fileRef = 4F0504762D5351D1002D380C /* Brightness.ca */; };
 		4F05FEB12D522A1D002D380C /* CoverSheetButtonViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F05FEB02D522A1D002D380C /* CoverSheetButtonViewController.mm */; };
 		4F05FEB22D522A1D002D380C /* CoverSheetButtonViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F05FEB02D522A1D002D380C /* CoverSheetButtonViewController.mm */; };
 		4F05FEB62D52416C002D380C /* SystemBannerRequestViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F05FEB52D52416C002D380C /* SystemBannerRequestViewController.mm */; };
@@ -200,6 +204,9 @@
 		4F05018B2D526313002D380C /* VariableGestureContextMenuInteractionViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VariableGestureContextMenuInteractionViewController.mm; sourceTree = "<group>"; };
 		4F05018F2D52657F002D380C /* BannerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BannerViewController.h; sourceTree = "<group>"; };
 		4F0501902D52657F002D380C /* BannerViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BannerViewController.mm; sourceTree = "<group>"; };
+		4F0504652D534985002D380C /* ContinuousSliderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContinuousSliderViewController.h; sourceTree = "<group>"; };
+		4F0504662D534985002D380C /* ContinuousSliderViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ContinuousSliderViewController.mm; sourceTree = "<group>"; };
+		4F0504762D5351D1002D380C /* Brightness.ca */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Brightness.ca; sourceTree = "<group>"; };
 		4F05FEAF2D522A1D002D380C /* CoverSheetButtonViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoverSheetButtonViewController.h; sourceTree = "<group>"; };
 		4F05FEB02D522A1D002D380C /* CoverSheetButtonViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CoverSheetButtonViewController.mm; sourceTree = "<group>"; };
 		4F05FEB42D52416C002D380C /* SystemBannerRequestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SystemBannerRequestViewController.h; sourceTree = "<group>"; };
@@ -405,6 +412,15 @@
 			path = Banner;
 			sourceTree = "<group>";
 		};
+		4F0504642D53496D002D380C /* ContinuousSlider */ = {
+			isa = PBXGroup;
+			children = (
+				4F0504652D534985002D380C /* ContinuousSliderViewController.h */,
+				4F0504662D534985002D380C /* ContinuousSliderViewController.mm */,
+			);
+			path = ContinuousSlider;
+			sourceTree = "<group>";
+		};
 		4F05FEAE2D5229F8002D380C /* CoverSheetButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -463,6 +479,7 @@
 				4F082E582C188D6D002263ED /* Info.plist */,
 				4F082E592C188D6D002263ED /* main.m */,
 				4F4904102D049E3B0017A47D /* MiscellaneousUIKit-Bridging-Header.h */,
+				4F0504762D5351D1002D380C /* Brightness.ca */,
 			);
 			path = MiscellaneousUIKit;
 			sourceTree = "<group>";
@@ -470,6 +487,7 @@
 		4F082E632C18906E002263ED /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4F0504642D53496D002D380C /* ContinuousSlider */,
 				4F05018E2D526562002D380C /* Banner */,
 				4F0501892D526304002D380C /* VariableGestureContextMenuInteraction */,
 				4F05FEB32D52415E002D380C /* SystemBannerRequest */,
@@ -1085,6 +1103,7 @@
 				4FD54C892D00854E002CE52C /* beer.jpg in Resources */,
 				4F5FE5F62C5A0B950044345D /* article.txt in Resources */,
 				4F082E572C188D6D002263ED /* Base in Resources */,
+				4F0504772D5351DC002D380C /* Brightness.ca in Resources */,
 				4FA8EEED2C1CD3B000B1358A /* image.heic in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1097,6 +1116,7 @@
 				4FD54C8A2D00854E002CE52C /* beer.jpg in Resources */,
 				4F59DEDF2CFFF56100E88830 /* article.txt in Resources */,
 				4F59DEE02CFFF56100E88830 /* Base in Resources */,
+				4F0504782D5351DC002D380C /* Brightness.ca in Resources */,
 				4F59DEE12CFFF56100E88830 /* image.heic in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1148,6 +1168,7 @@
 				4FC234C02D317A7700202A24 /* ExpandableCollectionViewCell.mm in Sources */,
 				4F413E652D3B60B00037366B /* XRTextFormattingViewController.mm in Sources */,
 				4F082E492C188D6C002263ED /* AppDelegate.m in Sources */,
+				4F0504682D534985002D380C /* ContinuousSliderViewController.mm in Sources */,
 				4F082E742C18E269002263ED /* SceneActivationViewController.mm in Sources */,
 				4F082EAC2C1B59C1002263ED /* CalendarViewController.mm in Sources */,
 				4F082E9F2C1B4831002263ED /* CustomDocument.mm in Sources */,
@@ -1227,6 +1248,7 @@
 				4FC234BF2D317A7700202A24 /* ExpandableCollectionViewCell.mm in Sources */,
 				4F413E662D3B60B00037366B /* XRTextFormattingViewController.mm in Sources */,
 				4F59DEC02CFFF56100E88830 /* AppDelegate.m in Sources */,
+				4F0504672D534985002D380C /* ContinuousSliderViewController.mm in Sources */,
 				4F59DEC12CFFF56100E88830 /* SceneActivationViewController.mm in Sources */,
 				4F59DEC22CFFF56100E88830 /* CalendarViewController.mm in Sources */,
 				4F59DEC32CFFF56100E88830 /* CustomDocument.mm in Sources */,
