@@ -15,6 +15,8 @@
 		4F0504682D534985002D380C /* ContinuousSliderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F0504662D534985002D380C /* ContinuousSliderViewController.mm */; };
 		4F0504772D5351DC002D380C /* Brightness.ca in Resources */ = {isa = PBXBuildFile; fileRef = 4F0504762D5351D1002D380C /* Brightness.ca */; };
 		4F0504782D5351DC002D380C /* Brightness.ca in Resources */ = {isa = PBXBuildFile; fileRef = 4F0504762D5351D1002D380C /* Brightness.ca */; };
+		4F05047C2D53570F002D380C /* FluidSliderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F05047B2D53570F002D380C /* FluidSliderViewController.mm */; };
+		4F05047D2D53570F002D380C /* FluidSliderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F05047B2D53570F002D380C /* FluidSliderViewController.mm */; };
 		4F05FEB12D522A1D002D380C /* CoverSheetButtonViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F05FEB02D522A1D002D380C /* CoverSheetButtonViewController.mm */; };
 		4F05FEB22D522A1D002D380C /* CoverSheetButtonViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F05FEB02D522A1D002D380C /* CoverSheetButtonViewController.mm */; };
 		4F05FEB62D52416C002D380C /* SystemBannerRequestViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F05FEB52D52416C002D380C /* SystemBannerRequestViewController.mm */; };
@@ -207,6 +209,8 @@
 		4F0504652D534985002D380C /* ContinuousSliderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContinuousSliderViewController.h; sourceTree = "<group>"; };
 		4F0504662D534985002D380C /* ContinuousSliderViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ContinuousSliderViewController.mm; sourceTree = "<group>"; };
 		4F0504762D5351D1002D380C /* Brightness.ca */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Brightness.ca; sourceTree = "<group>"; };
+		4F05047A2D53570F002D380C /* FluidSliderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FluidSliderViewController.h; sourceTree = "<group>"; };
+		4F05047B2D53570F002D380C /* FluidSliderViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FluidSliderViewController.mm; sourceTree = "<group>"; };
 		4F05FEAF2D522A1D002D380C /* CoverSheetButtonViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoverSheetButtonViewController.h; sourceTree = "<group>"; };
 		4F05FEB02D522A1D002D380C /* CoverSheetButtonViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CoverSheetButtonViewController.mm; sourceTree = "<group>"; };
 		4F05FEB42D52416C002D380C /* SystemBannerRequestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SystemBannerRequestViewController.h; sourceTree = "<group>"; };
@@ -421,6 +425,15 @@
 			path = ContinuousSlider;
 			sourceTree = "<group>";
 		};
+		4F0504792D535701002D380C /* FluidSlider */ = {
+			isa = PBXGroup;
+			children = (
+				4F05047A2D53570F002D380C /* FluidSliderViewController.h */,
+				4F05047B2D53570F002D380C /* FluidSliderViewController.mm */,
+			);
+			path = FluidSlider;
+			sourceTree = "<group>";
+		};
 		4F05FEAE2D5229F8002D380C /* CoverSheetButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -487,6 +500,7 @@
 		4F082E632C18906E002263ED /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4F0504792D535701002D380C /* FluidSlider */,
 				4F0504642D53496D002D380C /* ContinuousSlider */,
 				4F05018E2D526562002D380C /* Banner */,
 				4F0501892D526304002D380C /* VariableGestureContextMenuInteraction */,
@@ -1172,6 +1186,7 @@
 				4F082E742C18E269002263ED /* SceneActivationViewController.mm in Sources */,
 				4F082EAC2C1B59C1002263ED /* CalendarViewController.mm in Sources */,
 				4F082E9F2C1B4831002263ED /* CustomDocument.mm in Sources */,
+				4F05047C2D53570F002D380C /* FluidSliderViewController.mm in Sources */,
 				4F082E622C188E34002263ED /* MainCollectionViewController.mm in Sources */,
 				4F59DEEF2CFFFA7B00E88830 /* NewWritingToolsViewController.mm in Sources */,
 				4F1F022B2C23CE25004F7EFF /* PinkViewController.m in Sources */,
@@ -1252,6 +1267,7 @@
 				4F59DEC12CFFF56100E88830 /* SceneActivationViewController.mm in Sources */,
 				4F59DEC22CFFF56100E88830 /* CalendarViewController.mm in Sources */,
 				4F59DEC32CFFF56100E88830 /* CustomDocument.mm in Sources */,
+				4F05047D2D53570F002D380C /* FluidSliderViewController.mm in Sources */,
 				4F59DEC42CFFF56100E88830 /* MainCollectionViewController.mm in Sources */,
 				4F59DEF02CFFFA7B00E88830 /* NewWritingToolsViewController.mm in Sources */,
 				4F59DEC52CFFF56100E88830 /* PinkViewController.m in Sources */,
