@@ -25,6 +25,10 @@
 		4F26D3992C305B9F0097B837 /* HomeIndicatorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3982C305B9F0097B837 /* HomeIndicatorViewController.mm */; };
 		4F7902322C53AFA500A3E913 /* VolumeBaseplateVisibilityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7902312C53AFA500A3E913 /* VolumeBaseplateVisibilityViewController.mm */; };
 		4F7902352C53B02000A3E913 /* VolumeBaseplateVisibilitySceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7902342C53B02000A3E913 /* VolumeBaseplateVisibilitySceneDelegate.mm */; };
+		4F98BCF72D5672F2006D958B /* image.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4F98BCF62D5672F2006D958B /* image.heic */; };
+		4F98BCF82D5672F2006D958B /* image.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4F98BCF62D5672F2006D958B /* image.heic */; };
+		4F98BCFA2D56730B006D958B /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F98BCF92D56730B006D958B /* UniformTypeIdentifiers.framework */; };
+		4F98BCFB2D56730F006D958B /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F98BCF92D56730B006D958B /* UniformTypeIdentifiers.framework */; };
 		4FAA17752C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17742C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.mm */; };
 		4FAA17782C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17772C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.mm */; };
 		4FAA17842C357A1700188F35 /* UpperLimbsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17832C357A1700188F35 /* UpperLimbsViewController.mm */; };
@@ -105,6 +109,8 @@
 		4F7902312C53AFA500A3E913 /* VolumeBaseplateVisibilityViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VolumeBaseplateVisibilityViewController.mm; sourceTree = "<group>"; };
 		4F7902332C53B02000A3E913 /* VolumeBaseplateVisibilitySceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VolumeBaseplateVisibilitySceneDelegate.h; sourceTree = "<group>"; };
 		4F7902342C53B02000A3E913 /* VolumeBaseplateVisibilitySceneDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VolumeBaseplateVisibilitySceneDelegate.mm; sourceTree = "<group>"; };
+		4F98BCF62D5672F2006D958B /* image.heic */ = {isa = PBXFileReference; lastKnownFileType = file; path = image.heic; sourceTree = "<group>"; };
+		4F98BCF92D56730B006D958B /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
 		4FAA17732C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImmersiveSceneClientSettingsViewController.h; sourceTree = "<group>"; };
 		4FAA17742C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ImmersiveSceneClientSettingsViewController.mm; sourceTree = "<group>"; };
 		4FAA17762C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImmersiveSceneClientSettingsWindowScene.h; sourceTree = "<group>"; };
@@ -133,6 +139,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F98BCFA2D56730B006D958B /* UniformTypeIdentifiers.framework in Frameworks */,
 				4FE624A42D158871008D14D8 /* WebKit.framework in Frameworks */,
 				4FE626F32D15B8D6008D14D8 /* CompositorServices.framework in Frameworks */,
 				4F26D3412C2FFAD20097B837 /* QuartzCore.framework in Frameworks */,
@@ -143,6 +150,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F98BCFB2D56730F006D958B /* UniformTypeIdentifiers.framework in Frameworks */,
 				4FE624A52D15887D008D14D8 /* WebKit.framework in Frameworks */,
 				4FE626F22D15B8CF008D14D8 /* CompositorServices.framework in Frameworks */,
 				4FE6249A2D15877A008D14D8 /* QuartzCore.framework in Frameworks */,
@@ -182,6 +190,7 @@
 		4F1C711F2C2F2442002E096A /* MiscellaneousMRUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				4F98BCF62D5672F2006D958B /* image.heic */,
 				4F05B7612C834CA5001ECA93 /* MiscellaneousMRUIKit Private.entitlements */,
 				4F1C71202C2F2442002E096A /* AppDelegate.h */,
 				4F1C71212C2F2442002E096A /* AppDelegate.m */,
@@ -246,6 +255,7 @@
 		4F26D33F2C2FFAD20097B837 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4F98BCF92D56730B006D958B /* UniformTypeIdentifiers.framework */,
 				4FE626F12D15B8CF008D14D8 /* CompositorServices.framework */,
 				4FE624A32D158871008D14D8 /* WebKit.framework */,
 				4F26D3402C2FFAD20097B837 /* QuartzCore.framework */,
@@ -419,6 +429,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F98BCF72D5672F2006D958B /* image.heic in Resources */,
 				4F1C712D2C2F2443002E096A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -427,6 +438,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F98BCF82D5672F2006D958B /* image.heic in Resources */,
 				4FE6249C2D15877A008D14D8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -508,7 +520,7 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++23";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -569,7 +581,7 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++23";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
