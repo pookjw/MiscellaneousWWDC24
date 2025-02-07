@@ -58,6 +58,7 @@
 #import "BannerViewController.h"
 #import "ContinuousSliderViewController.h"
 #import "FluidSliderViewController.h"
+#import "BlurEffectStylesViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import <TargetConditionals.h>
@@ -109,7 +110,7 @@ __attribute__((objc_direct_members))
     [super viewDidLoad];
     [self cellRegistration];
     
-    FluidSliderViewController *viewController = [FluidSliderViewController new];
+    BlurEffectStylesViewController *viewController = [BlurEffectStylesViewController new];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     [viewController release];
     [self presentViewController:navigationController animated:YES completion:nil];
@@ -149,6 +150,7 @@ __attribute__((objc_direct_members))
 
 - (NSArray<Class> *)classes {
     return @[
+        BlurEffectStylesViewController.class,
         FluidSliderViewController.class,
         ContinuousSliderViewController.class,
         BannerViewController.class,
