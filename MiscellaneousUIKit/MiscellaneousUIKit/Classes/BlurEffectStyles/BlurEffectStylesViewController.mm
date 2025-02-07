@@ -8,13 +8,16 @@
 #import "BlurEffectStylesViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
+#include <ranges>
+#import <TargetConditionals.h>
 
 UIKIT_EXTERN NSString * _UIStyledEffectConvertToString(UIBlurEffectStyle);
+
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
-@interface VisualEffectView : UIVisualEffectView
+@interface WindowBlendingVisualEffectView : UIVisualEffectView
 @end
-@implementation VisualEffectView
+@implementation WindowBlendingVisualEffectView
 - (void)_configureEffects {
     objc_super superInfo = { self, [self class] };
     reinterpret_cast<void (*)(objc_super *, SEL)>(objc_msgSendSuper2)(&superInfo, _cmd);
@@ -162,22 +165,20 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
     [self.view addSubview:imageView];
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self.view, sel_registerName("_addBoundsMatchingConstraintsForView:"), imageView);
     
-//    UICollectionView *collectionView = self.collectionView;
-//    [self.view addSubview:collectionView];
-//    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self.view, sel_registerName("_addBoundsMatchingConstraintsForView:"), collectionView);
+    UICollectionView *collectionView = self.collectionView;
+    [self.view addSubview:collectionView];
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self.view, sel_registerName("_addBoundsMatchingConstraintsForView:"), collectionView);
     
-    UIVisualEffectView *visualEffectView = [[VisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:static_cast<UIBlurEffectStyle>(1100)]];
-    [visualEffectView contentView].backgroundColor = UIColor.clearColor;
-    [self.view addSubview:visualEffectView];
-    visualEffectView.translatesAutoresizingMaskIntoConstraints = NO;
-    [NSLayoutConstraint activateConstraints:@[
-        [visualEffectView.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor],
-        [visualEffectView.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
-        [visualEffectView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor multiplier:0.5],
-        [visualEffectView.heightAnchor constraintEqualToAnchor:self.view.heightAnchor multiplier:0.5],
-    ]];
-    visualEffectView.effect = [UIBlurEffect effectWithStyle:static_cast<UIBlurEffectStyle>(1100)];
-    [visualEffectView release];
+//    WindowBlendingVisualEffectView *visualEffectView = [[WindowBlendingVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:static_cast<UIBlurEffectStyle>(1100)]];
+//    [self.view addSubview:visualEffectView];
+//    visualEffectView.translatesAutoresizingMaskIntoConstraints = NO;
+//    [NSLayoutConstraint activateConstraints:@[
+//        [visualEffectView.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor],
+//        [visualEffectView.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
+//        [visualEffectView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor multiplier:0.3],
+//        [visualEffectView.heightAnchor constraintEqualToAnchor:self.view.heightAnchor multiplier:0.3],
+//    ]];
+//    [visualEffectView release];
 }
 
 - (UIImageView *)_imageView {
@@ -224,8 +225,34 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
         UIBackgroundConfiguration *backgroundConfiguration = [cell defaultBackgroundConfiguration];
         backgroundConfiguration.backgroundColor = UIColor.clearColor;
         backgroundConfiguration.visualEffect = [UIBlurEffect effectWithStyle:style];
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(backgroundConfiguration, sel_registerName("__setVisualEffectGroupName:"), [NSUUID UUID].UUIDString);
+        
         cell.backgroundConfiguration = backgroundConfiguration;
+        
+#if TARGET_OS_VISION
+        __kindof UIView *_systemBackgroundView;
+        assert(object_getInstanceVariable(cell, "_systemBackgroundView", reinterpret_cast<void **>(&_systemBackgroundView)) != NULL);
+        UIVisualEffectView *_visualEffectView;
+        assert(object_getInstanceVariable(_systemBackgroundView, "_visualEffectView", reinterpret_cast<void **>(&_visualEffectView)) != NULL);
+        
+        unsigned int ivarsCount;
+        
+        Ivar *ivars = class_copyIvarList([_visualEffectView class], &ivarsCount);
+        
+        auto ivar = std::ranges::find_if(ivars, ivars + ivarsCount, [](Ivar ivar) {
+            auto name = ivar_getName(ivar);
+            return !std::strcmp(name, "_effectViewFlags");
+        });
+        
+        uintptr_t base = reinterpret_cast<uintptr_t>(_visualEffectView);
+        ptrdiff_t offset = ivar_getOffset(*ivar);
+        delete ivars;
+        
+        auto location = reinterpret_cast<uint8_t *>(base + offset);
+        // backgroundHostNeedsUpdate = YES, contentHostNeedsUpdate = YES
+        *location |= 0b11;
+        
+        reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(_visualEffectView, sel_registerName("_configureEffects"));
+#endif
     }];
     
     _cellRegistration = [cellRegistration retain];
