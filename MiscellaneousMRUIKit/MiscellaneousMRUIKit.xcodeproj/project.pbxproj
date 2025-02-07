@@ -32,6 +32,8 @@
 		4FD3D3822C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD3D3812C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm */; };
 		4FD3D3852C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD3D3842C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.mm */; };
 		4FD5EF482C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD5EF472C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm */; };
+		4FD9F9DB2D55C38000E38CF2 /* SWSViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD9F9DA2D55C38000E38CF2 /* SWSViewController.mm */; };
+		4FD9F9DC2D55C38000E38CF2 /* SWSViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD9F9DA2D55C38000E38CF2 /* SWSViewController.mm */; };
 		4FE624822D15877A008D14D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C71212C2F2442002E096A /* AppDelegate.m */; };
 		4FE624832D15877A008D14D8 /* DefaultWorldScalingViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3472C3008170097B837 /* DefaultWorldScalingViewController.mm */; };
 		4FE624842D15877A008D14D8 /* ViewpointAzimuthViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C713B2C31CB3C002E096A /* ViewpointAzimuthViewController.mm */; };
@@ -117,6 +119,8 @@
 		4FD3D3842C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ToggleImmersiveStylesSceneDelegate.mm; sourceTree = "<group>"; };
 		4FD5EF462C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WorldTrackingCapabilitiesViewController.h; sourceTree = "<group>"; };
 		4FD5EF472C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WorldTrackingCapabilitiesViewController.mm; sourceTree = "<group>"; };
+		4FD9F9D92D55C38000E38CF2 /* SWSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SWSViewController.h; sourceTree = "<group>"; };
+		4FD9F9DA2D55C38000E38CF2 /* SWSViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SWSViewController.mm; sourceTree = "<group>"; };
 		4FE624A02D15877A008D14D8 /* MiscellaneousMRUIKit Private.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MiscellaneousMRUIKit Private.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FE624A32D158871008D14D8 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		4FE624A62D1588B2008D14D8 /* WebXRViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebXRViewController.h; sourceTree = "<group>"; };
@@ -186,6 +190,7 @@
 				4F26D2E92C2FDBFC0097B837 /* ClassListViewController.h */,
 				4F26D2EA2C2FDBFC0097B837 /* ClassListViewController.mm */,
 				4F26D33E2C2FFAC00097B837 /* MRUISize3D.h */,
+				4FD9F9D82D55C36B00E38CF2 /* SWS */,
 				4F26D2EC2C2FDDD10097B837 /* LaunchPlacementParameters */,
 				4F26D3342C2FF8360097B837 /* VolumetricWorldAlignmentBehavior */,
 				4F26D3452C3007DE0097B837 /* DefaultWorldScaling */,
@@ -321,6 +326,15 @@
 			path = WorldTrackingCapabilities;
 			sourceTree = "<group>";
 		};
+		4FD9F9D82D55C36B00E38CF2 /* SWS */ = {
+			isa = PBXGroup;
+			children = (
+				4FD9F9D92D55C38000E38CF2 /* SWSViewController.h */,
+				4FD9F9DA2D55C38000E38CF2 /* SWSViewController.mm */,
+			);
+			path = SWS;
+			sourceTree = "<group>";
+		};
 		4FE624A22D158850008D14D8 /* WebXR */ = {
 			isa = PBXGroup;
 			children = (
@@ -448,6 +462,7 @@
 				4FD5EF482C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm in Sources */,
 				4F26D33D2C2FF9E80097B837 /* VolumetricWorldAlignmentBehaviorWindowScene.mm in Sources */,
 				4FAA17842C357A1700188F35 /* UpperLimbsViewController.mm in Sources */,
+				4FD9F9DB2D55C38000E38CF2 /* SWSViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,6 +494,7 @@
 				4FE624962D15877A008D14D8 /* WorldTrackingCapabilitiesViewController.mm in Sources */,
 				4FE624972D15877A008D14D8 /* VolumetricWorldAlignmentBehaviorWindowScene.mm in Sources */,
 				4FE624982D15877A008D14D8 /* UpperLimbsViewController.mm in Sources */,
+				4FD9F9DC2D55C38000E38CF2 /* SWSViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

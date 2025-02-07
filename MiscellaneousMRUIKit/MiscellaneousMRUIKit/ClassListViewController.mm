@@ -19,6 +19,7 @@
 #import "ToggleImmersiveStylesViewController.h"
 #import "DemoSFBSViewController.h"
 #import "WebXRViewController.h"
+#import "SWSViewController.h"
 
 @interface ClassListViewController ()
 @property (retain, readonly, nonatomic) UICollectionViewCellRegistration *cellRegistration;
@@ -77,6 +78,7 @@
 
 - (NSArray<Class> *)classes {
     return @[
+        SWSViewController.class,
         WebXRViewController.class,
         DemoSFBSViewController.class,
         ToggleImmersiveStylesViewController.class,
