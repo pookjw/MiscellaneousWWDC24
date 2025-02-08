@@ -20,6 +20,7 @@
 #import "DemoSFBSViewController.h"
 #import "WebXRViewController.h"
 #import "SWSViewController.h"
+#import "OrnamentViewController.h"
 
 @interface ClassListViewController ()
 @property (retain, readonly, nonatomic) UICollectionViewCellRegistration *cellRegistration;
@@ -78,6 +79,7 @@
 
 - (NSArray<Class> *)classes {
     return @[
+        OrnamentViewController.class,
         SWSViewController.class,
         WebXRViewController.class,
         DemoSFBSViewController.class,

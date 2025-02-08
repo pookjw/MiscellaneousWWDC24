@@ -47,7 +47,7 @@
 }
 
 - (id)copyWithZone:(struct _NSZone *)zone {
-    return self;
+    return [self retain];
 }
 
 @end

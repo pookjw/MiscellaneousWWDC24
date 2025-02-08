@@ -29,6 +29,12 @@
 		4F98BCF82D5672F2006D958B /* image.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4F98BCF62D5672F2006D958B /* image.heic */; };
 		4F98BCFA2D56730B006D958B /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F98BCF92D56730B006D958B /* UniformTypeIdentifiers.framework */; };
 		4F98BCFB2D56730F006D958B /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F98BCF92D56730B006D958B /* UniformTypeIdentifiers.framework */; };
+		4F98BCFF2D5783CD006D958B /* OrnamentViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F98BCFE2D5783CD006D958B /* OrnamentViewController.mm */; };
+		4F98BD002D5783CD006D958B /* OrnamentViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F98BCFE2D5783CD006D958B /* OrnamentViewController.mm */; };
+		4F98BD032D57860E006D958B /* OrnamentChildViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F98BD022D57860E006D958B /* OrnamentChildViewController.mm */; };
+		4F98BD042D57860E006D958B /* OrnamentChildViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F98BD022D57860E006D958B /* OrnamentChildViewController.mm */; };
+		4F98BD062D57AE11006D958B /* MRUISize3D.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F98BD052D57AE11006D958B /* MRUISize3D.mm */; };
+		4F98BD072D57AE11006D958B /* MRUISize3D.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F98BD052D57AE11006D958B /* MRUISize3D.mm */; };
 		4FAA17752C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17742C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.mm */; };
 		4FAA17782C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17772C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.mm */; };
 		4FAA17842C357A1700188F35 /* UpperLimbsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17832C357A1700188F35 /* UpperLimbsViewController.mm */; };
@@ -111,6 +117,12 @@
 		4F7902342C53B02000A3E913 /* VolumeBaseplateVisibilitySceneDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VolumeBaseplateVisibilitySceneDelegate.mm; sourceTree = "<group>"; };
 		4F98BCF62D5672F2006D958B /* image.heic */ = {isa = PBXFileReference; lastKnownFileType = file; path = image.heic; sourceTree = "<group>"; };
 		4F98BCF92D56730B006D958B /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
+		4F98BCFD2D5783CD006D958B /* OrnamentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrnamentViewController.h; sourceTree = "<group>"; };
+		4F98BCFE2D5783CD006D958B /* OrnamentViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OrnamentViewController.mm; sourceTree = "<group>"; };
+		4F98BD012D57860E006D958B /* OrnamentChildViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrnamentChildViewController.h; sourceTree = "<group>"; };
+		4F98BD022D57860E006D958B /* OrnamentChildViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OrnamentChildViewController.mm; sourceTree = "<group>"; };
+		4F98BD052D57AE11006D958B /* MRUISize3D.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MRUISize3D.mm; sourceTree = "<group>"; };
+		4F98BD8B2D57B38F006D958B /* SPPoint3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPPoint3D.h; sourceTree = "<group>"; };
 		4FAA17732C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImmersiveSceneClientSettingsViewController.h; sourceTree = "<group>"; };
 		4FAA17742C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ImmersiveSceneClientSettingsViewController.mm; sourceTree = "<group>"; };
 		4FAA17762C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImmersiveSceneClientSettingsWindowScene.h; sourceTree = "<group>"; };
@@ -199,6 +211,9 @@
 				4F26D2E92C2FDBFC0097B837 /* ClassListViewController.h */,
 				4F26D2EA2C2FDBFC0097B837 /* ClassListViewController.mm */,
 				4F26D33E2C2FFAC00097B837 /* MRUISize3D.h */,
+				4F98BD052D57AE11006D958B /* MRUISize3D.mm */,
+				4F98BD8B2D57B38F006D958B /* SPPoint3D.h */,
+				4F98BCFC2D5783C1006D958B /* Ornament */,
 				4FD9F9D82D55C36B00E38CF2 /* SWS */,
 				4F26D2EC2C2FDDD10097B837 /* LaunchPlacementParameters */,
 				4F26D3342C2FF8360097B837 /* VolumetricWorldAlignmentBehavior */,
@@ -292,6 +307,17 @@
 				4F7902342C53B02000A3E913 /* VolumeBaseplateVisibilitySceneDelegate.mm */,
 			);
 			path = VolumeBaseplateVisibility;
+			sourceTree = "<group>";
+		};
+		4F98BCFC2D5783C1006D958B /* Ornament */ = {
+			isa = PBXGroup;
+			children = (
+				4F98BCFD2D5783CD006D958B /* OrnamentViewController.h */,
+				4F98BCFE2D5783CD006D958B /* OrnamentViewController.mm */,
+				4F98BD012D57860E006D958B /* OrnamentChildViewController.h */,
+				4F98BD022D57860E006D958B /* OrnamentChildViewController.mm */,
+			);
+			path = Ornament;
 			sourceTree = "<group>";
 		};
 		4FAA17722C353B4500188F35 /* ImmersiveSceneClientSettings */ = {
@@ -450,6 +476,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F98BD062D57AE11006D958B /* MRUISize3D.mm in Sources */,
 				4F1C71222C2F2442002E096A /* AppDelegate.m in Sources */,
 				4F26D3482C3008170097B837 /* DefaultWorldScalingViewController.mm in Sources */,
 				4F1C713C2C31CB3C002E096A /* ViewpointAzimuthViewController.mm in Sources */,
@@ -467,11 +494,13 @@
 				4F26D2EF2C2FDDED0097B837 /* LaunchPlacementParametersViewController.mm in Sources */,
 				4FE624A82D1588B2008D14D8 /* WebXRViewController.mm in Sources */,
 				4FAA17782C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.mm in Sources */,
+				4F98BD032D57860E006D958B /* OrnamentChildViewController.mm in Sources */,
 				4F1C71332C2F2443002E096A /* main.m in Sources */,
 				4FAA17752C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.mm in Sources */,
 				4F1C71252C2F2442002E096A /* SceneDelegate.m in Sources */,
 				4F26D3372C2FF84A0097B837 /* VolumetricWorldAlignmentBehaviorViewController.mm in Sources */,
 				4FD5EF482C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm in Sources */,
+				4F98BCFF2D5783CD006D958B /* OrnamentViewController.mm in Sources */,
 				4F26D33D2C2FF9E80097B837 /* VolumetricWorldAlignmentBehaviorWindowScene.mm in Sources */,
 				4FAA17842C357A1700188F35 /* UpperLimbsViewController.mm in Sources */,
 				4FD9F9DB2D55C38000E38CF2 /* SWSViewController.mm in Sources */,
@@ -482,6 +511,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F98BD072D57AE11006D958B /* MRUISize3D.mm in Sources */,
 				4FE624822D15877A008D14D8 /* AppDelegate.m in Sources */,
 				4FE624832D15877A008D14D8 /* DefaultWorldScalingViewController.mm in Sources */,
 				4FE624842D15877A008D14D8 /* ViewpointAzimuthViewController.mm in Sources */,
@@ -499,11 +529,13 @@
 				4FE624902D15877A008D14D8 /* LaunchPlacementParametersViewController.mm in Sources */,
 				4FE624A92D1588B2008D14D8 /* WebXRViewController.mm in Sources */,
 				4FE624912D15877A008D14D8 /* ImmersiveSceneClientSettingsWindowScene.mm in Sources */,
+				4F98BD042D57860E006D958B /* OrnamentChildViewController.mm in Sources */,
 				4FE624922D15877A008D14D8 /* main.m in Sources */,
 				4FE624932D15877A008D14D8 /* ImmersiveSceneClientSettingsViewController.mm in Sources */,
 				4FE624942D15877A008D14D8 /* SceneDelegate.m in Sources */,
 				4FE624952D15877A008D14D8 /* VolumetricWorldAlignmentBehaviorViewController.mm in Sources */,
 				4FE624962D15877A008D14D8 /* WorldTrackingCapabilitiesViewController.mm in Sources */,
+				4F98BD002D5783CD006D958B /* OrnamentViewController.mm in Sources */,
 				4FE624972D15877A008D14D8 /* VolumetricWorldAlignmentBehaviorWindowScene.mm in Sources */,
 				4FE624982D15877A008D14D8 /* UpperLimbsViewController.mm in Sources */,
 				4FD9F9DC2D55C38000E38CF2 /* SWSViewController.mm in Sources */,

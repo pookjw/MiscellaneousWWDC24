@@ -15,19 +15,6 @@
 
 UIKIT_EXTERN NSString * _UIStyledEffectConvertToString(UIBlurEffectStyle);
 
-/*
- - (void) sws_disablePlatter; (0x23f7154d8)
- - (void) sws_enableDefaultUIShadow; (0x23f713f20)
- - (void) sws_enablePlatter; (0x23f7139b4)
- - (void) sws_disableDepthwiseClipping; (0x23f702f50)
- - (void) sws_enableDepthwiseClippingWithDepth:(double)arg1; (0x23f702e40)
- - (void) sws_enablePlatter:(long)arg1; (0x23f714ca8)
- - (BOOL) sws_platterEnabled; (0x23f714e00)
- - (void) sws_updateCornerRadius; (0x23f714ce8)
- 
- _UIStyledEffectConvertToString
- */
-
 @interface SWSViewController ()
 @property (class, nonatomic, readonly, getter=_effectStylesByString) NSDictionary<NSString *, NSNumber *> *effectStylesByString;
 @property (class, nonatomic, readonly, getter=_sortedEffectStyles) NSArray<NSNumber *> *sortedEffectStyles;
@@ -325,6 +312,46 @@ UIKIT_EXTERN NSString * _UIStyledEffectConvertToString(UIBlurEffectStyle);
             
             [children addObject:action];
         }
+        
+        //
+        
+        {
+            __kindof UIMenuElement *enableAction = reinterpret_cast<id (*)(Class, SEL, id)>(objc_msgSend)(objc_lookUpClass("UICustomViewMenuElement"), sel_registerName("elementWithViewProvider:"), ^ UIView * (__kindof UIMenuElement *menuElement) {
+                __kindof UISlider *slider = [objc_lookUpClass("_UIPrototypingMenuSlider") new];
+                slider.minimumValue = 0.f;
+                slider.maximumValue = 1000.f;
+                
+                UIAction *action = [UIAction actionWithHandler:^(__kindof UIAction * _Nonnull action) {
+                    auto slider = static_cast<__kindof UISlider *>(action.sender);
+                    reinterpret_cast<void (*)(id, SEL, CGFloat)>(objc_msgSend)(labelContainerView, sel_registerName("sws_enableDepthwiseClippingWithDepth:"), slider.value);
+                }];
+                
+                [slider addAction:action forControlEvents:UIControlEventValueChanged];
+                
+                return [slider autorelease];
+            });
+            
+            UIMenu *enableMenu = [UIMenu menuWithTitle:@"Enable Depthwise Clipping" children:@[enableAction]];
+            
+            UIAction *disableAction = [UIAction actionWithTitle:@"Disable Depthwise Clipping" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(labelContainerView, sel_registerName("sws_disableDepthwiseClipping"));
+            }];
+            
+            UIMenu *menu = [UIMenu menuWithTitle:@"Depthwise Clipping" children:@[enableMenu, disableAction]];
+            [children addObject:menu];
+        }
+        
+        //
+        
+        {
+            UIAction *updateCornerRadius = [UIAction actionWithTitle:@"Update Corner Radius" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(labelContainerView, sel_registerName("sws_updateCornerRadius"));
+            }];
+            
+            [children addObject:updateCornerRadius];
+        }
+        
+        //
         
         completion(children);
         [children release];

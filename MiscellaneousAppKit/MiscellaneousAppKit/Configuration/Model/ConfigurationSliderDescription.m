@@ -33,7 +33,7 @@
 }
 
 - (id)copyWithZone:(struct _NSZone *)zone {
-    return self;
+    return [self retain];
 }
 
 - (ConfigurationSliderDescription *)configurationWithSliderValue:(double)sliderValue {

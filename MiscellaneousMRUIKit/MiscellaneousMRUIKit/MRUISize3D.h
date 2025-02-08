@@ -20,3 +20,5 @@ static inline MRUISize3D MRUISize3DMake(CGFloat width, CGFloat height, CGFloat d
     size3D.depth = depth;
     return size3D;
 }
+
+CG_EXTERN NSString *mui_NSStringFromMRUISize3D(MRUISize3D);
