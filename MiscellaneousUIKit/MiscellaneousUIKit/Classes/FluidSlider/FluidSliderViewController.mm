@@ -48,6 +48,13 @@
     [slider release];
 }
 
+- (void)_sliderValueChanged:(__kindof UISlider *)sender {
+    NSLog(@"%@", sender);
+}
+
+
+#pragma mark - Delegate
+
 - (void)_sliderFluidInteractionWillEnd:(id)arg1 {
     NSLog(@"%s", sel_getName(_cmd));
 }

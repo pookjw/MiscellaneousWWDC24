@@ -59,6 +59,7 @@
 #import "ContinuousSliderViewController.h"
 #import "FluidSliderViewController.h"
 #import "BlurEffectStylesViewController.h"
+#import "PrototypingMenuSliderViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import <TargetConditionals.h>
@@ -110,7 +111,7 @@ __attribute__((objc_direct_members))
     [super viewDidLoad];
     [self cellRegistration];
     
-    BlurEffectStylesViewController *viewController = [BlurEffectStylesViewController new];
+    PrototypingMenuSliderViewController *viewController = [PrototypingMenuSliderViewController new];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     [viewController release];
     [self presentViewController:navigationController animated:YES completion:nil];
@@ -150,6 +151,7 @@ __attribute__((objc_direct_members))
 
 - (NSArray<Class> *)classes {
     return @[
+        PrototypingMenuSliderViewController.class,
         BlurEffectStylesViewController.class,
         FluidSliderViewController.class,
         ContinuousSliderViewController.class,

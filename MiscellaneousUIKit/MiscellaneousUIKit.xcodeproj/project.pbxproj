@@ -174,6 +174,8 @@
 		4FD54C8A2D00854E002CE52C /* beer.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4FD54C882D00854E002CE52C /* beer.jpg */; };
 		4FD54E902D00BB78002CE52C /* LabelWritingToolsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD54E8F2D00BB78002CE52C /* LabelWritingToolsViewController.mm */; };
 		4FD54E912D00BB78002CE52C /* LabelWritingToolsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD54E8F2D00BB78002CE52C /* LabelWritingToolsViewController.mm */; };
+		4FD9F9FA2D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD9F9F92D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm */; };
+		4FD9F9FB2D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD9F9F92D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm */; };
 		4FDABC692C3D35DE00F928DB /* SymbolTransitionsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FDABC682C3D35DE00F928DB /* SymbolTransitionsViewController.mm */; };
 		4FEC175C2D226CC900F9945E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FEC175A2D226CC300F9945E /* MapKit.framework */; };
 		4FEC175E2D2274D900F9945E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FEC175D2D2274D900F9945E /* WebKit.framework */; };
@@ -368,6 +370,8 @@
 		4FD54C882D00854E002CE52C /* beer.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = beer.jpg; sourceTree = "<group>"; };
 		4FD54E8E2D00BB78002CE52C /* LabelWritingToolsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelWritingToolsViewController.h; sourceTree = "<group>"; };
 		4FD54E8F2D00BB78002CE52C /* LabelWritingToolsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LabelWritingToolsViewController.mm; sourceTree = "<group>"; };
+		4FD9F9F82D5710CB00E38CF2 /* PrototypingMenuSliderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrototypingMenuSliderViewController.h; sourceTree = "<group>"; };
+		4FD9F9F92D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PrototypingMenuSliderViewController.mm; sourceTree = "<group>"; };
 		4FDABC672C3D35DE00F928DB /* SymbolTransitionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SymbolTransitionsViewController.h; sourceTree = "<group>"; };
 		4FDABC682C3D35DE00F928DB /* SymbolTransitionsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SymbolTransitionsViewController.mm; sourceTree = "<group>"; };
 		4FDABC6A2C3D3C5600F928DB /* MiscellaneousUIKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MiscellaneousUIKit.entitlements; sourceTree = "<group>"; };
@@ -504,6 +508,7 @@
 		4F082E632C18906E002263ED /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4FD9F9F72D5710BA00E38CF2 /* PrototypingMenuSlider */,
 				4F98BA242D55FAA7006D958B /* BlurEffectStyles */,
 				4F0504792D535701002D380C /* FluidSlider */,
 				4F0504642D53496D002D380C /* ContinuousSlider */,
@@ -1040,6 +1045,15 @@
 			path = LabelWritingTools;
 			sourceTree = "<group>";
 		};
+		4FD9F9F72D5710BA00E38CF2 /* PrototypingMenuSlider */ = {
+			isa = PBXGroup;
+			children = (
+				4FD9F9F82D5710CB00E38CF2 /* PrototypingMenuSliderViewController.h */,
+				4FD9F9F92D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm */,
+			);
+			path = PrototypingMenuSlider;
+			sourceTree = "<group>";
+		};
 		4FDABC662C3D35C000F928DB /* SymbolTransitions */ = {
 			isa = PBXGroup;
 			children = (
@@ -1218,6 +1232,7 @@
 				4F082E6C2C189EF0002263ED /* ListEnvironmentCollectionViewController.mm in Sources */,
 				4F082E5A2C188D6D002263ED /* main.m in Sources */,
 				4F4903C72D040AB90017A47D /* IndexedTextRange.mm in Sources */,
+				4FD9F9FA2D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm in Sources */,
 				4FB9FC422C58C2D6006B3245 /* NewLinkTextViewController.mm in Sources */,
 				4F082E4C2C188D6C002263ED /* SceneDelegate.m in Sources */,
 				4F0CBAA52C43D3FA00743DE2 /* MySearchViewController.mm in Sources */,
@@ -1300,6 +1315,7 @@
 				4F59DECE2CFFF56100E88830 /* ListEnvironmentCollectionViewController.mm in Sources */,
 				4F59DECF2CFFF56100E88830 /* main.m in Sources */,
 				4F4903C82D040AB90017A47D /* IndexedTextRange.mm in Sources */,
+				4FD9F9FB2D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm in Sources */,
 				4F59DED02CFFF56100E88830 /* NewLinkTextViewController.mm in Sources */,
 				4F59DED12CFFF56100E88830 /* SceneDelegate.m in Sources */,
 				4F59DED22CFFF56100E88830 /* MySearchViewController.mm in Sources */,
