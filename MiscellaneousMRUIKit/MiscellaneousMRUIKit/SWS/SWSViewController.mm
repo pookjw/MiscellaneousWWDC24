@@ -149,6 +149,7 @@ UIKIT_EXTERN NSString * _UIStyledEffectConvertToString(UIBlurEffectStyle);
     [self.view addSubview:imageView];
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self.view, sel_registerName("_addBoundsMatchingConstraintsForView:"), imageView);
     [imageView release];
+//    self.view.backgroundColor = UIColor.whiteColor;
     
     //
     
@@ -182,9 +183,6 @@ UIKIT_EXTERN NSString * _UIStyledEffectConvertToString(UIBlurEffectStyle);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self _presentMenu];
     });
-    
-    
-    NSLog(@"%@", self.view);
 }
 
 - (void)_presentMenu {
@@ -211,6 +209,18 @@ UIKIT_EXTERN NSString * _UIStyledEffectConvertToString(UIBlurEffectStyle);
         //
         
         {
+            UIAction *action = [UIAction actionWithTitle:@"Setup" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                reinterpret_cast<void (*)(id, SEL, NSInteger, id)>(objc_msgSend)(labelContainerView, sel_registerName("_requestSeparatedState:withReason:"), 1, @"_UIViewSeparatedStateRequestReasonUnspecified");
+                labelContainerView.layer.zPosition = 600.;
+                reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(labelContainerView, sel_registerName("sws_enablePlatter"));
+            }];
+            
+            [children addObject:action];
+        }
+        
+        //
+        
+        {
             NSArray<NSString *> *reasons = @[
                 @"SwiftUI.AudioFeedback",
                 @"_UIViewSeparatedStateRequestReasonUnspecified",
@@ -224,7 +234,6 @@ UIKIT_EXTERN NSString * _UIStyledEffectConvertToString(UIBlurEffectStyle);
                 auto actionsVec = std::views::iota(0, 3)
                 | std::views::transform([labelContainerView, _currentSeparatedState, reason](NSInteger state) -> UIAction * {
                     UIAction *action = [UIAction actionWithTitle:@(state).stringValue image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                        labelContainerView.layer.zPosition = 200.;
                         reinterpret_cast<void (*)(id, SEL, NSInteger, id)>(objc_msgSend)(labelContainerView, sel_registerName("_requestSeparatedState:withReason:"), state, reason);
                     }];
                     
@@ -242,6 +251,30 @@ UIKIT_EXTERN NSString * _UIStyledEffectConvertToString(UIBlurEffectStyle);
             
             UIMenu *menu = [UIMenu menuWithTitle:@"Request Separate State" children:reasonMenuChildren];
             menu.subtitle = @(_currentSeparatedState).stringValue;
+            [children addObject:menu];
+        }
+        
+        //
+        
+        {
+            __kindof UIMenuElement *element = reinterpret_cast<id (*)(Class, SEL, id)>(objc_msgSend)(objc_lookUpClass("UICustomViewMenuElement"), sel_registerName("elementWithViewProvider:"), ^ UIView * (__kindof UIMenuElement *menuElement) {
+                __kindof UISlider *slider = [objc_lookUpClass("_UIPrototypingMenuSlider") new];
+                slider.minimumValue = 0.f;
+                slider.maximumValue = 600.f;
+                slider.value = labelContainerView.layer.zPosition;
+                
+                UIAction *action = [UIAction actionWithHandler:^(__kindof UIAction * _Nonnull action) {
+                    auto slider = static_cast<__kindof UISlider *>(action.sender);
+                    labelContainerView.layer.zPosition = slider.value;
+                }];
+                
+                [slider addAction:action forControlEvents:UIControlEventValueChanged];
+                
+                return [slider autorelease];
+            });
+            
+            UIMenu *menu = [UIMenu menuWithTitle:@"Z Position" children:@[element]];
+            
             [children addObject:menu];
         }
         
@@ -286,7 +319,11 @@ UIKIT_EXTERN NSString * _UIStyledEffectConvertToString(UIBlurEffectStyle);
         //
         
         {
+            UIAction *action = [UIAction actionWithTitle:@"Enable Default UI Shadow" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(labelContainerView, sel_registerName("sws_enableDefaultUIShadow"));
+            }];
             
+            [children addObject:action];
         }
         
         completion(children);
