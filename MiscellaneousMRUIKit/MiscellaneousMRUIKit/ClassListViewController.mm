@@ -82,8 +82,8 @@
 
 - (NSArray<Class> *)classes {
     return @[
-        HoverViewController.class,
         FeedbackGeneratorViewController.class,
+        HoverViewController.class,
         MetersPerPointViewController.class,
         OrnamentViewController.class,
         SWSViewController.class,

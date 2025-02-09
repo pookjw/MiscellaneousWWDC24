@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FeedbackGeneratorViewController : UIViewController
+@interface FeedbackGeneratorViewController : UICollectionViewController
 
 @end
 
