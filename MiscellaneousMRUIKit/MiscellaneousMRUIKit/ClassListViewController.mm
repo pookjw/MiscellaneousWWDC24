@@ -21,6 +21,7 @@
 #import "WebXRViewController.h"
 #import "SWSViewController.h"
 #import "OrnamentViewController.h"
+#import "MetersPerPointViewController.h"
 
 @interface ClassListViewController ()
 @property (retain, readonly, nonatomic) UICollectionViewCellRegistration *cellRegistration;
@@ -79,6 +80,7 @@
 
 - (NSArray<Class> *)classes {
     return @[
+        MetersPerPointViewController.class,
         OrnamentViewController.class,
         SWSViewController.class,
         WebXRViewController.class,

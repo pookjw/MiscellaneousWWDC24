@@ -12,6 +12,7 @@ struct MRUISize3D {
     CGFloat height;
     CGFloat depth;
 };
+typedef struct MRUISize3D MRUISize3D;
 
 static inline MRUISize3D MRUISize3DMake(CGFloat width, CGFloat height, CGFloat depth) {
     MRUISize3D size3D;

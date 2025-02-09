@@ -23,6 +23,12 @@
 		4F26D3482C3008170097B837 /* DefaultWorldScalingViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3472C3008170097B837 /* DefaultWorldScalingViewController.mm */; };
 		4F26D34B2C30086F0097B837 /* DefaultWorldScalingSceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D34A2C30086F0097B837 /* DefaultWorldScalingSceneDelegate.m */; };
 		4F26D3992C305B9F0097B837 /* HomeIndicatorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3982C305B9F0097B837 /* HomeIndicatorViewController.mm */; };
+		4F41237B2D586FA8009966F4 /* NSObject+Foundation_IvarDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F41237A2D586FA8009966F4 /* NSObject+Foundation_IvarDescription.mm */; };
+		4F41237C2D586FA8009966F4 /* NSObject+Foundation_IvarDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F41237A2D586FA8009966F4 /* NSObject+Foundation_IvarDescription.mm */; };
+		4F41239C2D589466009966F4 /* MetersPerPointViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F41239B2D589466009966F4 /* MetersPerPointViewController.mm */; };
+		4F41239D2D589466009966F4 /* MetersPerPointViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F41239B2D589466009966F4 /* MetersPerPointViewController.mm */; };
+		4F4123A02D589638009966F4 /* RulerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F41239F2D589638009966F4 /* RulerView.mm */; };
+		4F4123A12D589638009966F4 /* RulerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F41239F2D589638009966F4 /* RulerView.mm */; };
 		4F7902322C53AFA500A3E913 /* VolumeBaseplateVisibilityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7902312C53AFA500A3E913 /* VolumeBaseplateVisibilityViewController.mm */; };
 		4F7902352C53B02000A3E913 /* VolumeBaseplateVisibilitySceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7902342C53B02000A3E913 /* VolumeBaseplateVisibilitySceneDelegate.mm */; };
 		4F98BCF72D5672F2006D958B /* image.heic in Resources */ = {isa = PBXBuildFile; fileRef = 4F98BCF62D5672F2006D958B /* image.heic */; };
@@ -111,6 +117,14 @@
 		4F26D34A2C30086F0097B837 /* DefaultWorldScalingSceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DefaultWorldScalingSceneDelegate.m; sourceTree = "<group>"; };
 		4F26D3972C305B9F0097B837 /* HomeIndicatorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeIndicatorViewController.h; sourceTree = "<group>"; };
 		4F26D3982C305B9F0097B837 /* HomeIndicatorViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = HomeIndicatorViewController.mm; sourceTree = "<group>"; };
+		4F4123792D586FA8009966F4 /* NSObject+Foundation_IvarDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Foundation_IvarDescription.h"; sourceTree = "<group>"; };
+		4F41237A2D586FA8009966F4 /* NSObject+Foundation_IvarDescription.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSObject+Foundation_IvarDescription.mm"; sourceTree = "<group>"; };
+		4F4123932D5871EA009966F4 /* CAPoint3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAPoint3D.h; sourceTree = "<group>"; };
+		4F4123982D587600009966F4 /* SPGeometry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPGeometry.h; sourceTree = "<group>"; };
+		4F41239A2D589466009966F4 /* MetersPerPointViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MetersPerPointViewController.h; sourceTree = "<group>"; };
+		4F41239B2D589466009966F4 /* MetersPerPointViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetersPerPointViewController.mm; sourceTree = "<group>"; };
+		4F41239E2D589638009966F4 /* RulerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RulerView.h; sourceTree = "<group>"; };
+		4F41239F2D589638009966F4 /* RulerView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RulerView.mm; sourceTree = "<group>"; };
 		4F7902302C53AFA500A3E913 /* VolumeBaseplateVisibilityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VolumeBaseplateVisibilityViewController.h; sourceTree = "<group>"; };
 		4F7902312C53AFA500A3E913 /* VolumeBaseplateVisibilityViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VolumeBaseplateVisibilityViewController.mm; sourceTree = "<group>"; };
 		4F7902332C53B02000A3E913 /* VolumeBaseplateVisibilitySceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VolumeBaseplateVisibilitySceneDelegate.h; sourceTree = "<group>"; };
@@ -122,7 +136,6 @@
 		4F98BD012D57860E006D958B /* OrnamentChildViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrnamentChildViewController.h; sourceTree = "<group>"; };
 		4F98BD022D57860E006D958B /* OrnamentChildViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OrnamentChildViewController.mm; sourceTree = "<group>"; };
 		4F98BD052D57AE11006D958B /* MRUISize3D.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MRUISize3D.mm; sourceTree = "<group>"; };
-		4F98BD8B2D57B38F006D958B /* SPPoint3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPPoint3D.h; sourceTree = "<group>"; };
 		4FAA17732C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImmersiveSceneClientSettingsViewController.h; sourceTree = "<group>"; };
 		4FAA17742C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ImmersiveSceneClientSettingsViewController.mm; sourceTree = "<group>"; };
 		4FAA17762C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImmersiveSceneClientSettingsWindowScene.h; sourceTree = "<group>"; };
@@ -210,9 +223,13 @@
 				4F1C71242C2F2442002E096A /* SceneDelegate.m */,
 				4F26D2E92C2FDBFC0097B837 /* ClassListViewController.h */,
 				4F26D2EA2C2FDBFC0097B837 /* ClassListViewController.mm */,
+				4F4123792D586FA8009966F4 /* NSObject+Foundation_IvarDescription.h */,
+				4F41237A2D586FA8009966F4 /* NSObject+Foundation_IvarDescription.mm */,
 				4F26D33E2C2FFAC00097B837 /* MRUISize3D.h */,
 				4F98BD052D57AE11006D958B /* MRUISize3D.mm */,
-				4F98BD8B2D57B38F006D958B /* SPPoint3D.h */,
+				4F4123982D587600009966F4 /* SPGeometry.h */,
+				4F4123932D5871EA009966F4 /* CAPoint3D.h */,
+				4F4123992D58941F009966F4 /* MetersPerPoint */,
 				4F98BCFC2D5783C1006D958B /* Ornament */,
 				4FD9F9D82D55C36B00E38CF2 /* SWS */,
 				4F26D2EC2C2FDDD10097B837 /* LaunchPlacementParameters */,
@@ -296,6 +313,17 @@
 				4F26D3982C305B9F0097B837 /* HomeIndicatorViewController.mm */,
 			);
 			path = HomeIndicator;
+			sourceTree = "<group>";
+		};
+		4F4123992D58941F009966F4 /* MetersPerPoint */ = {
+			isa = PBXGroup;
+			children = (
+				4F41239A2D589466009966F4 /* MetersPerPointViewController.h */,
+				4F41239B2D589466009966F4 /* MetersPerPointViewController.mm */,
+				4F41239E2D589638009966F4 /* RulerView.h */,
+				4F41239F2D589638009966F4 /* RulerView.mm */,
+			);
+			path = MetersPerPoint;
 			sourceTree = "<group>";
 		};
 		4F79022F2C53AEF900A3E913 /* VolumeBaseplateVisibility */ = {
@@ -481,6 +509,7 @@
 				4F26D3482C3008170097B837 /* DefaultWorldScalingViewController.mm in Sources */,
 				4F1C713C2C31CB3C002E096A /* ViewpointAzimuthViewController.mm in Sources */,
 				4FD3D3822C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm in Sources */,
+				4F41239D2D589466009966F4 /* MetersPerPointViewController.mm in Sources */,
 				4F26D3992C305B9F0097B837 /* HomeIndicatorViewController.mm in Sources */,
 				4F26D33A2C2FF9040097B837 /* LaunchPlacementParametersWindowScene.mm in Sources */,
 				4F7902322C53AFA500A3E913 /* VolumeBaseplateVisibilityViewController.mm in Sources */,
@@ -495,8 +524,10 @@
 				4FE624A82D1588B2008D14D8 /* WebXRViewController.mm in Sources */,
 				4FAA17782C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.mm in Sources */,
 				4F98BD032D57860E006D958B /* OrnamentChildViewController.mm in Sources */,
+				4F4123A02D589638009966F4 /* RulerView.mm in Sources */,
 				4F1C71332C2F2443002E096A /* main.m in Sources */,
 				4FAA17752C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.mm in Sources */,
+				4F41237C2D586FA8009966F4 /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4F1C71252C2F2442002E096A /* SceneDelegate.m in Sources */,
 				4F26D3372C2FF84A0097B837 /* VolumetricWorldAlignmentBehaviorViewController.mm in Sources */,
 				4FD5EF482C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm in Sources */,
@@ -516,6 +547,7 @@
 				4FE624832D15877A008D14D8 /* DefaultWorldScalingViewController.mm in Sources */,
 				4FE624842D15877A008D14D8 /* ViewpointAzimuthViewController.mm in Sources */,
 				4FE624852D15877A008D14D8 /* ToggleImmersiveStylesViewController.mm in Sources */,
+				4F41239C2D589466009966F4 /* MetersPerPointViewController.mm in Sources */,
 				4FE624862D15877A008D14D8 /* HomeIndicatorViewController.mm in Sources */,
 				4FE624872D15877A008D14D8 /* LaunchPlacementParametersWindowScene.mm in Sources */,
 				4FE624882D15877A008D14D8 /* VolumeBaseplateVisibilityViewController.mm in Sources */,
@@ -530,8 +562,10 @@
 				4FE624A92D1588B2008D14D8 /* WebXRViewController.mm in Sources */,
 				4FE624912D15877A008D14D8 /* ImmersiveSceneClientSettingsWindowScene.mm in Sources */,
 				4F98BD042D57860E006D958B /* OrnamentChildViewController.mm in Sources */,
+				4F4123A12D589638009966F4 /* RulerView.mm in Sources */,
 				4FE624922D15877A008D14D8 /* main.m in Sources */,
 				4FE624932D15877A008D14D8 /* ImmersiveSceneClientSettingsViewController.mm in Sources */,
+				4F41237B2D586FA8009966F4 /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4FE624942D15877A008D14D8 /* SceneDelegate.m in Sources */,
 				4FE624952D15877A008D14D8 /* VolumetricWorldAlignmentBehaviorViewController.mm in Sources */,
 				4FE624962D15877A008D14D8 /* WorldTrackingCapabilitiesViewController.mm in Sources */,

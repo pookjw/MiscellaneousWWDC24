@@ -10,7 +10,9 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import "MRUISize3D.h"
-#import "SPPoint3D.h"
+#import "SPGeometry.h"
+
+OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
 /*
  mrui_nonOrnamentPresentingViewController
@@ -37,44 +39,15 @@
     
     self.view = button;
     [button release];
-    
-    
-    SPPoint3D point = SPPoint3DMake(200., 0., 0.);
-    id position = reinterpret_cast<id (*)(id, SEL, SPPoint3D *)>(objc_msgSend)([objc_lookUpClass("MRUIPlatterOrnamentRelativePosition") alloc], sel_registerName("initWithAnchorPoint:"), &point);
-    NSLog(@"%@", position);
-    
-    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initRequiringSecureCoding:YES];
-    [archiver encodeObject:position forKey:@"position"];
-    [archiver finishEncoding];
-    NSData *data = [archiver encodedData];
-    [archiver release];
-    
-    NSError * _Nullable error = nil;
-    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:data error:&error];
-    assert(error == nil);
-    id position_2 = [unarchiver decodeObjectOfClass:objc_lookUpClass("MRUIPlatterOrnamentRelativePosition") forKey:@"position"];
-    [unarchiver release];
-    NSLog(@"%@", position_2);
-    
-    {
-        SPPoint3D point_1 = SPPoint3DMake(100., 200., 300.);
-        NSString *string_1 = _NSStringFromSPPoint3D(&point_1);
-        NSLog(@"%@", string_1);
-        SPPoint3D point_2 = _SPPoint3DFromString(string_1);
-        NSString *string_2 = _NSStringFromSPPoint3D(&point_2);
-        NSLog(@"%@", string_2);
-    }
-    
-    [position release];
-    
-    //
-    
-    NSLog(@"%@", mui_NSStringFromMRUISize3D(MRUISize3DMake(100., 200., 300.)));
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self _presentMenu];
+- (void)viewDidMoveToWindow:(UIWindow *)window shouldAppearOrDisappear:(BOOL)shouldAppearOrDisappear {
+    objc_super superInfo = { self, [self class] };
+    reinterpret_cast<void (*)(objc_super *, SEL, id, BOOL)>(objc_msgSendSuper2)(&superInfo, _cmd, window, shouldAppearOrDisappear);
+    
+    if (window) {
+        [self _presentMenu];
+    }
 }
 
 - (void)_presentMenu {
@@ -116,10 +89,6 @@
             [viewController release];
             
             reinterpret_cast<void (*)(id, SEL, CGSize)>(objc_msgSend)(ornament, sel_registerName("setPreferredContentSize:"), CGSizeMake(400., 400.));
-//            reinterpret_cast<void (*)(id, SEL, CGFloat)>(objc_msgSend)(ornament, sel_registerName("_setZOffset:"), 500.);
-            id position = reinterpret_cast<id (*)(id, SEL, MRUISize3D)>(objc_msgSend)([objc_lookUpClass("MRUIPlatterOrnamentRelativePosition") alloc], sel_registerName("initWithAnchorPoint:"), MRUISize3DMake(0., 0., 400));
-            reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(ornament, sel_registerName("setPosition:"), position);
-            [position release];
             
             reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(mrui_ornamentsItem, sel_registerName("_setAllOrnaments:"), [_allOrnaments arrayByAddingObject:ornament]);
             [ornament release];
