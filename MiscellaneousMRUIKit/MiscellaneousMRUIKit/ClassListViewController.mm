@@ -74,8 +74,6 @@
         UICellAccessoryDisclosureIndicator *indicator = [UICellAccessoryDisclosureIndicator new];
         cell.accessories = @[indicator];
         [indicator release];
-        
-        cell.hoverStyle = nil;
     }];
     
     _cellRegistration = [cellRegistration retain];
