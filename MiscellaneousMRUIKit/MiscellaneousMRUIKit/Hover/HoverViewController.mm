@@ -172,6 +172,26 @@ CG_EXTERN NSString * const kCARemoteEffectStateIdle;
                     layer.backgroundColor = UIColor.redColor.CGColor;
                 });
                 
+                /*
+                 id entry = reinterpret_cast<id (*)(id, SEL, id, id)>(objc_msgSend)([objc_lookUpClass("_UIRemoteHoverEffectEntry") alloc],
+                                                                                    sel_registerName("initWithViewProvider:layerProvider:"),
+                                                                                    ^ __kindof UIView * {
+                     __kindof UIView *view = [objc_lookUpClass("_UIRemoteHoverInteractionSubview") new];
+                     CALayer *layer = view.layer;
+                     layer.opacity = 0.1;
+                     layer.backgroundColor = UIColor.redColor.CGColor;
+                     return [view autorelease];
+                 },
+                                                                                    ^ CALayer * {
+                     CALayer *layer = [CALayer new];
+                     layer.opacity = 0.;
+                     layer.backgroundColor = UIColor.redColor.CGColor;
+                     return [layer autorelease];
+                 });
+                 
+                 reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(entry, sel_registerName("setEffects:"), @[opacityEffect]);
+                 */
+                
                 reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(descriptor, sel_registerName("setOverlays:"), @[entry]);
                 [entry release];
             }
@@ -180,7 +200,7 @@ CG_EXTERN NSString * const kCARemoteEffectStateIdle;
             
             id<UIHoverEffect> hoverEffect = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("_UIRemoteHoverEffect") alloc], sel_registerName("initWithDescriptor:"), descriptor);
             [descriptor release];
-            UIHoverStyle *hoverStyle = [UIHoverStyle styleWithEffect:hoverEffect shape:nil];
+            UIHoverStyle *hoverStyle = [UIHoverStyle styleWithEffect:hoverEffect shape:[UIShape circleShape]];
             [hoverEffect release];
             _results[@"Test (Overlay)"] = hoverStyle;
         }
