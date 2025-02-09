@@ -26,5 +26,7 @@
 	<true/>
 	<key>com.apple.surfboard.placement-client</key>
 	<true/>
+	<key>com.apple.realitysimulation.can-receive-wolf-hover</key>
+	<true/>
 </dict>
 </plist>

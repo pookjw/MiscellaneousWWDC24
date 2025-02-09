@@ -22,6 +22,10 @@ struct MiscellaneousSwiftUIApp: App {
     
     @State private var toolbarLabelStyle: ToolbarLabelStyle = .automatic
     
+    init() {
+        
+    }
+    
     var body: some Scene {
         WindowGroup {
             DemoListView()

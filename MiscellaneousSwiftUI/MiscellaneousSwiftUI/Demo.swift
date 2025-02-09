@@ -140,6 +140,10 @@ enum Demo: Int, Identifiable, CaseIterable {
     case myViewThatFits
     case customBaseline
     
+#if os(visionOS)
+    case hoverDemo
+#endif
+    
     var id: Int {
         rawValue
     }
@@ -327,6 +331,8 @@ enum Demo: Int, Identifiable, CaseIterable {
             MyViewThatFits()
         case .customBaseline:
             CustomBaselineView()
+        case .hoverDemo:
+            HoverDemoView()
         }
     }
 }

@@ -81,6 +81,14 @@
 		4FE624A92D1588B2008D14D8 /* WebXRViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FE624A72D1588B2008D14D8 /* WebXRViewController.mm */; };
 		4FE626F22D15B8CF008D14D8 /* CompositorServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE626F12D15B8CF008D14D8 /* CompositorServices.framework */; platformFilters = (xros, ); };
 		4FE626F32D15B8D6008D14D8 /* CompositorServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE626F12D15B8CF008D14D8 /* CompositorServices.framework */; platformFilters = (xros, ); };
+		4FFB23B72D58AE610070D95D /* FeedbackGeneratorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB23B62D58AE610070D95D /* FeedbackGeneratorViewController.mm */; };
+		4FFB23B82D58AE610070D95D /* FeedbackGeneratorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB23B62D58AE610070D95D /* FeedbackGeneratorViewController.mm */; };
+		4FFB23C12D58B1240070D95D /* HoverViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB23C02D58B1240070D95D /* HoverViewController.mm */; };
+		4FFB23C22D58B1240070D95D /* HoverViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB23C02D58B1240070D95D /* HoverViewController.mm */; };
+		4FFB240B2D58D5F40070D95D /* HoverContentConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB240A2D58D5F40070D95D /* HoverContentConfiguration.mm */; };
+		4FFB240C2D58D5F40070D95D /* HoverContentConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB240A2D58D5F40070D95D /* HoverContentConfiguration.mm */; };
+		4FFB240F2D58F3EF0070D95D /* CustomHoverContentConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB240E2D58F3EF0070D95D /* CustomHoverContentConfiguration.mm */; };
+		4FFB24102D58F3EF0070D95D /* CustomHoverContentConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB240E2D58F3EF0070D95D /* CustomHoverContentConfiguration.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -157,6 +165,14 @@
 		4FE624A62D1588B2008D14D8 /* WebXRViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebXRViewController.h; sourceTree = "<group>"; };
 		4FE624A72D1588B2008D14D8 /* WebXRViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WebXRViewController.mm; sourceTree = "<group>"; };
 		4FE626F12D15B8CF008D14D8 /* CompositorServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CompositorServices.framework; path = Platforms/XROS.platform/Developer/SDKs/XROS2.2.sdk/System/Library/Frameworks/CompositorServices.framework; sourceTree = DEVELOPER_DIR; };
+		4FFB23B52D58AE610070D95D /* FeedbackGeneratorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackGeneratorViewController.h; sourceTree = "<group>"; };
+		4FFB23B62D58AE610070D95D /* FeedbackGeneratorViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FeedbackGeneratorViewController.mm; sourceTree = "<group>"; };
+		4FFB23BF2D58B1240070D95D /* HoverViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoverViewController.h; sourceTree = "<group>"; };
+		4FFB23C02D58B1240070D95D /* HoverViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = HoverViewController.mm; sourceTree = "<group>"; };
+		4FFB24092D58D5F40070D95D /* HoverContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoverContentConfiguration.h; sourceTree = "<group>"; };
+		4FFB240A2D58D5F40070D95D /* HoverContentConfiguration.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = HoverContentConfiguration.mm; sourceTree = "<group>"; };
+		4FFB240D2D58F3EF0070D95D /* CustomHoverContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomHoverContentConfiguration.h; sourceTree = "<group>"; };
+		4FFB240E2D58F3EF0070D95D /* CustomHoverContentConfiguration.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomHoverContentConfiguration.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +245,8 @@
 				4F98BD052D57AE11006D958B /* MRUISize3D.mm */,
 				4F4123982D587600009966F4 /* SPGeometry.h */,
 				4F4123932D5871EA009966F4 /* CAPoint3D.h */,
+				4FFB23BE2D58B1190070D95D /* Hover */,
+				4FFB23B42D58AE240070D95D /* FeedbackGenerator */,
 				4F4123992D58941F009966F4 /* MetersPerPoint */,
 				4F98BCFC2D5783C1006D958B /* Ornament */,
 				4FD9F9D82D55C36B00E38CF2 /* SWS */,
@@ -408,6 +426,28 @@
 			path = WebXR;
 			sourceTree = "<group>";
 		};
+		4FFB23B42D58AE240070D95D /* FeedbackGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				4FFB23B52D58AE610070D95D /* FeedbackGeneratorViewController.h */,
+				4FFB23B62D58AE610070D95D /* FeedbackGeneratorViewController.mm */,
+			);
+			path = FeedbackGenerator;
+			sourceTree = "<group>";
+		};
+		4FFB23BE2D58B1190070D95D /* Hover */ = {
+			isa = PBXGroup;
+			children = (
+				4FFB23BF2D58B1240070D95D /* HoverViewController.h */,
+				4FFB23C02D58B1240070D95D /* HoverViewController.mm */,
+				4FFB24092D58D5F40070D95D /* HoverContentConfiguration.h */,
+				4FFB240A2D58D5F40070D95D /* HoverContentConfiguration.mm */,
+				4FFB240D2D58F3EF0070D95D /* CustomHoverContentConfiguration.h */,
+				4FFB240E2D58F3EF0070D95D /* CustomHoverContentConfiguration.mm */,
+			);
+			path = Hover;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -509,6 +549,7 @@
 				4F26D3482C3008170097B837 /* DefaultWorldScalingViewController.mm in Sources */,
 				4F1C713C2C31CB3C002E096A /* ViewpointAzimuthViewController.mm in Sources */,
 				4FD3D3822C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm in Sources */,
+				4FFB24102D58F3EF0070D95D /* CustomHoverContentConfiguration.mm in Sources */,
 				4F41239D2D589466009966F4 /* MetersPerPointViewController.mm in Sources */,
 				4F26D3992C305B9F0097B837 /* HomeIndicatorViewController.mm in Sources */,
 				4F26D33A2C2FF9040097B837 /* LaunchPlacementParametersWindowScene.mm in Sources */,
@@ -525,11 +566,14 @@
 				4FAA17782C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.mm in Sources */,
 				4F98BD032D57860E006D958B /* OrnamentChildViewController.mm in Sources */,
 				4F4123A02D589638009966F4 /* RulerView.mm in Sources */,
+				4FFB240C2D58D5F40070D95D /* HoverContentConfiguration.mm in Sources */,
+				4FFB23B72D58AE610070D95D /* FeedbackGeneratorViewController.mm in Sources */,
 				4F1C71332C2F2443002E096A /* main.m in Sources */,
 				4FAA17752C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.mm in Sources */,
 				4F41237C2D586FA8009966F4 /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4F1C71252C2F2442002E096A /* SceneDelegate.m in Sources */,
 				4F26D3372C2FF84A0097B837 /* VolumetricWorldAlignmentBehaviorViewController.mm in Sources */,
+				4FFB23C22D58B1240070D95D /* HoverViewController.mm in Sources */,
 				4FD5EF482C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm in Sources */,
 				4F98BCFF2D5783CD006D958B /* OrnamentViewController.mm in Sources */,
 				4F26D33D2C2FF9E80097B837 /* VolumetricWorldAlignmentBehaviorWindowScene.mm in Sources */,
@@ -547,6 +591,7 @@
 				4FE624832D15877A008D14D8 /* DefaultWorldScalingViewController.mm in Sources */,
 				4FE624842D15877A008D14D8 /* ViewpointAzimuthViewController.mm in Sources */,
 				4FE624852D15877A008D14D8 /* ToggleImmersiveStylesViewController.mm in Sources */,
+				4FFB240F2D58F3EF0070D95D /* CustomHoverContentConfiguration.mm in Sources */,
 				4F41239C2D589466009966F4 /* MetersPerPointViewController.mm in Sources */,
 				4FE624862D15877A008D14D8 /* HomeIndicatorViewController.mm in Sources */,
 				4FE624872D15877A008D14D8 /* LaunchPlacementParametersWindowScene.mm in Sources */,
@@ -563,11 +608,14 @@
 				4FE624912D15877A008D14D8 /* ImmersiveSceneClientSettingsWindowScene.mm in Sources */,
 				4F98BD042D57860E006D958B /* OrnamentChildViewController.mm in Sources */,
 				4F4123A12D589638009966F4 /* RulerView.mm in Sources */,
+				4FFB240B2D58D5F40070D95D /* HoverContentConfiguration.mm in Sources */,
+				4FFB23B82D58AE610070D95D /* FeedbackGeneratorViewController.mm in Sources */,
 				4FE624922D15877A008D14D8 /* main.m in Sources */,
 				4FE624932D15877A008D14D8 /* ImmersiveSceneClientSettingsViewController.mm in Sources */,
 				4F41237B2D586FA8009966F4 /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4FE624942D15877A008D14D8 /* SceneDelegate.m in Sources */,
 				4FE624952D15877A008D14D8 /* VolumetricWorldAlignmentBehaviorViewController.mm in Sources */,
+				4FFB23C12D58B1240070D95D /* HoverViewController.mm in Sources */,
 				4FE624962D15877A008D14D8 /* WorldTrackingCapabilitiesViewController.mm in Sources */,
 				4F98BD002D5783CD006D958B /* OrnamentViewController.mm in Sources */,
 				4FE624972D15877A008D14D8 /* VolumetricWorldAlignmentBehaviorWindowScene.mm in Sources */,
@@ -767,7 +815,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "MiscellaneousMRUIKit copy-Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -799,7 +846,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "MiscellaneousMRUIKit copy-Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

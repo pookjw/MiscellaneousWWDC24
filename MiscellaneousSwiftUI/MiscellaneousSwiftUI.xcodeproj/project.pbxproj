@@ -66,6 +66,7 @@
 		4FEC81632C329F9C00AF4863 /* WindowButtonsBehaviorPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEC81622C329F9C00AF4863 /* WindowButtonsBehaviorPresenterView.swift */; };
 		4FF420032C34062A008BD2FC /* ProgressiveImmersionWindowPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF420022C34062A008BD2FC /* ProgressiveImmersionWindowPresenterView.swift */; };
 		4FF420062C340724008BD2FC /* ProgressiveImmersionSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF420052C340724008BD2FC /* ProgressiveImmersionSpace.swift */; };
+		4FFB23BD2D58B0550070D95D /* HoverDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB23BC2D58B0550070D95D /* HoverDemoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -130,6 +131,7 @@
 		4FEC81622C329F9C00AF4863 /* WindowButtonsBehaviorPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowButtonsBehaviorPresenterView.swift; sourceTree = "<group>"; };
 		4FF420022C34062A008BD2FC /* ProgressiveImmersionWindowPresenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressiveImmersionWindowPresenterView.swift; sourceTree = "<group>"; };
 		4FF420052C340724008BD2FC /* ProgressiveImmersionSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressiveImmersionSpace.swift; sourceTree = "<group>"; };
+		4FFB23BC2D58B0550070D95D /* HoverDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoverDemoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +170,7 @@
 				4F1C70FF2C2F15CD002E096A /* MiscellaneousSwiftUIApp.swift */,
 				4F1C71102C2F1658002E096A /* DemoListView.swift */,
 				4F1C71122C2F1662002E096A /* Demo.swift */,
+				4FFB23B92D58B03A0070D95D /* HoverDemo */,
 				4F1C710D2C2F1634002E096A /* DefaultWindowPlacement */,
 				4F26D2F02C2FEACD0097B837 /* WindowIdealSize */,
 				4F26D32E2C2FF3A00097B837 /* WindowIdealPlacement */,
@@ -634,6 +637,14 @@
 			path = ProgressiveImmersionWindowPresenter;
 			sourceTree = "<group>";
 		};
+		4FFB23B92D58B03A0070D95D /* HoverDemo */ = {
+			isa = PBXGroup;
+			children = (
+				4FFB23BC2D58B0550070D95D /* HoverDemoView.swift */,
+			);
+			path = HoverDemo;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -734,6 +745,7 @@
 				4FEC81452C32987C00AF4863 /* WindowVisibilityTogglePresenterView.swift in Sources */,
 				4F26D32D2C2FEE610097B837 /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4F1C71132C2F1662002E096A /* Demo.swift in Sources */,
+				4FFB23BD2D58B0550070D95D /* HoverDemoView.swift in Sources */,
 				4FD14B4A2C57E95B00F132BF /* LabelsHiddenView.swift in Sources */,
 				4F3DD69F2C9BDFF6006F6F49 /* MyViewThatFits.swift in Sources */,
 				4FD8FBE42C403E68009B0B70 /* SearchableView.swift in Sources */,

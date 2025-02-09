@@ -22,6 +22,8 @@
 #import "SWSViewController.h"
 #import "OrnamentViewController.h"
 #import "MetersPerPointViewController.h"
+#import "FeedbackGeneratorViewController.h"
+#import "HoverViewController.h"
 
 @interface ClassListViewController ()
 @property (retain, readonly, nonatomic) UICollectionViewCellRegistration *cellRegistration;
@@ -72,6 +74,8 @@
         UICellAccessoryDisclosureIndicator *indicator = [UICellAccessoryDisclosureIndicator new];
         cell.accessories = @[indicator];
         [indicator release];
+        
+        cell.hoverStyle = nil;
     }];
     
     _cellRegistration = [cellRegistration retain];
@@ -80,6 +84,8 @@
 
 - (NSArray<Class> *)classes {
     return @[
+        HoverViewController.class,
+        FeedbackGeneratorViewController.class,
         MetersPerPointViewController.class,
         OrnamentViewController.class,
         SWSViewController.class,
