@@ -9,7 +9,6 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 #include <dlfcn.h>
-#include <dlfcn.h>
 
 NSString * mui_MRUICadenzaNameForFeedback(NSUInteger type) {
     static void *symbol;

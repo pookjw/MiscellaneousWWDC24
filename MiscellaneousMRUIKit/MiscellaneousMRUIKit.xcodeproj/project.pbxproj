@@ -45,6 +45,10 @@
 		4FAA17782C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17772C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.mm */; };
 		4FAA17842C357A1700188F35 /* UpperLimbsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17832C357A1700188F35 /* UpperLimbsViewController.mm */; };
 		4FAA17872C357B3400188F35 /* UpperLimbsWindowScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17862C357B3400188F35 /* UpperLimbsWindowScene.mm */; };
+		4FAB0F372D5915990082E639 /* SceneSizeRestrictionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0F362D5915990082E639 /* SceneSizeRestrictionsViewController.m */; };
+		4FAB0F382D5915990082E639 /* SceneSizeRestrictionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0F362D5915990082E639 /* SceneSizeRestrictionsViewController.m */; };
+		4FAB0F3C2D5915FA0082E639 /* StageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0F3B2D5915FA0082E639 /* StageViewController.mm */; };
+		4FAB0F3D2D5915FA0082E639 /* StageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0F3B2D5915FA0082E639 /* StageViewController.mm */; };
 		4FD3D3822C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD3D3812C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm */; };
 		4FD3D3852C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD3D3842C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.mm */; };
 		4FD5EF482C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD5EF472C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm */; };
@@ -152,6 +156,10 @@
 		4FAA17832C357A1700188F35 /* UpperLimbsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = UpperLimbsViewController.mm; sourceTree = "<group>"; };
 		4FAA17852C357B3400188F35 /* UpperLimbsWindowScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpperLimbsWindowScene.h; sourceTree = "<group>"; };
 		4FAA17862C357B3400188F35 /* UpperLimbsWindowScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = UpperLimbsWindowScene.mm; sourceTree = "<group>"; };
+		4FAB0F352D5915990082E639 /* SceneSizeRestrictionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneSizeRestrictionsViewController.h; sourceTree = "<group>"; };
+		4FAB0F362D5915990082E639 /* SceneSizeRestrictionsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneSizeRestrictionsViewController.m; sourceTree = "<group>"; };
+		4FAB0F3A2D5915FA0082E639 /* StageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StageViewController.h; sourceTree = "<group>"; };
+		4FAB0F3B2D5915FA0082E639 /* StageViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = StageViewController.mm; sourceTree = "<group>"; };
 		4FD3D3802C8066610001C3A4 /* ToggleImmersiveStylesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToggleImmersiveStylesViewController.h; sourceTree = "<group>"; };
 		4FD3D3812C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ToggleImmersiveStylesViewController.mm; sourceTree = "<group>"; };
 		4FD3D3832C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToggleImmersiveStylesSceneDelegate.h; sourceTree = "<group>"; };
@@ -245,6 +253,8 @@
 				4F98BD052D57AE11006D958B /* MRUISize3D.mm */,
 				4F4123982D587600009966F4 /* SPGeometry.h */,
 				4F4123932D5871EA009966F4 /* CAPoint3D.h */,
+				4FAB0F392D5915E20082E639 /* Stage */,
+				4FAB0F342D5915820082E639 /* SceneSizeRestrictions */,
 				4FFB23B42D58AE240070D95D /* FeedbackGenerator */,
 				4FFB23BE2D58B1190070D95D /* Hover */,
 				4F4123992D58941F009966F4 /* MetersPerPoint */,
@@ -386,6 +396,24 @@
 				4FAA17862C357B3400188F35 /* UpperLimbsWindowScene.mm */,
 			);
 			path = UpperLimbs;
+			sourceTree = "<group>";
+		};
+		4FAB0F342D5915820082E639 /* SceneSizeRestrictions */ = {
+			isa = PBXGroup;
+			children = (
+				4FAB0F352D5915990082E639 /* SceneSizeRestrictionsViewController.h */,
+				4FAB0F362D5915990082E639 /* SceneSizeRestrictionsViewController.m */,
+			);
+			path = SceneSizeRestrictions;
+			sourceTree = "<group>";
+		};
+		4FAB0F392D5915E20082E639 /* Stage */ = {
+			isa = PBXGroup;
+			children = (
+				4FAB0F3A2D5915FA0082E639 /* StageViewController.h */,
+				4FAB0F3B2D5915FA0082E639 /* StageViewController.mm */,
+			);
+			path = Stage;
 			sourceTree = "<group>";
 		};
 		4FD3D37F2C80664A0001C3A4 /* ToggleImmersiveStyles */ = {
@@ -565,6 +593,7 @@
 				4FE624A82D1588B2008D14D8 /* WebXRViewController.mm in Sources */,
 				4FAA17782C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.mm in Sources */,
 				4F98BD032D57860E006D958B /* OrnamentChildViewController.mm in Sources */,
+				4FAB0F3D2D5915FA0082E639 /* StageViewController.mm in Sources */,
 				4F4123A02D589638009966F4 /* RulerView.mm in Sources */,
 				4FFB240C2D58D5F40070D95D /* HoverContentConfiguration.mm in Sources */,
 				4FFB23B72D58AE610070D95D /* FeedbackGeneratorViewController.mm in Sources */,
@@ -577,6 +606,7 @@
 				4FD5EF482C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm in Sources */,
 				4F98BCFF2D5783CD006D958B /* OrnamentViewController.mm in Sources */,
 				4F26D33D2C2FF9E80097B837 /* VolumetricWorldAlignmentBehaviorWindowScene.mm in Sources */,
+				4FAB0F382D5915990082E639 /* SceneSizeRestrictionsViewController.m in Sources */,
 				4FAA17842C357A1700188F35 /* UpperLimbsViewController.mm in Sources */,
 				4FD9F9DB2D55C38000E38CF2 /* SWSViewController.mm in Sources */,
 			);
@@ -607,6 +637,7 @@
 				4FE624A92D1588B2008D14D8 /* WebXRViewController.mm in Sources */,
 				4FE624912D15877A008D14D8 /* ImmersiveSceneClientSettingsWindowScene.mm in Sources */,
 				4F98BD042D57860E006D958B /* OrnamentChildViewController.mm in Sources */,
+				4FAB0F3C2D5915FA0082E639 /* StageViewController.mm in Sources */,
 				4F4123A12D589638009966F4 /* RulerView.mm in Sources */,
 				4FFB240B2D58D5F40070D95D /* HoverContentConfiguration.mm in Sources */,
 				4FFB23B82D58AE610070D95D /* FeedbackGeneratorViewController.mm in Sources */,
@@ -619,6 +650,7 @@
 				4FE624962D15877A008D14D8 /* WorldTrackingCapabilitiesViewController.mm in Sources */,
 				4F98BD002D5783CD006D958B /* OrnamentViewController.mm in Sources */,
 				4FE624972D15877A008D14D8 /* VolumetricWorldAlignmentBehaviorWindowScene.mm in Sources */,
+				4FAB0F372D5915990082E639 /* SceneSizeRestrictionsViewController.m in Sources */,
 				4FE624982D15877A008D14D8 /* UpperLimbsViewController.mm in Sources */,
 				4FD9F9DC2D55C38000E38CF2 /* SWSViewController.mm in Sources */,
 			);

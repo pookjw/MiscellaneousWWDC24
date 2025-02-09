@@ -24,6 +24,7 @@
 #import "MetersPerPointViewController.h"
 #import "FeedbackGeneratorViewController.h"
 #import "HoverViewController.h"
+#import "StageViewController.h"
 
 @interface ClassListViewController ()
 @property (retain, readonly, nonatomic) UICollectionViewCellRegistration *cellRegistration;
@@ -82,6 +83,7 @@
 
 - (NSArray<Class> *)classes {
     return @[
+        StageViewController.class,
         FeedbackGeneratorViewController.class,
         HoverViewController.class,
         MetersPerPointViewController.class,
