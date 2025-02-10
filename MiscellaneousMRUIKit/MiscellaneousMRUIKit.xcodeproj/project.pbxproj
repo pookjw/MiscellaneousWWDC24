@@ -115,6 +115,8 @@
 		4FFB27722D5A380E0070D95D /* ChromeVisibilityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB27702D5A380E0070D95D /* ChromeVisibilityViewController.mm */; };
 		4FFB2A432D5A50950070D95D /* SceneResizingBehaviorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB2A422D5A50950070D95D /* SceneResizingBehaviorViewController.mm */; };
 		4FFB2A442D5A50950070D95D /* SceneResizingBehaviorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB2A422D5A50950070D95D /* SceneResizingBehaviorViewController.mm */; };
+		4FFB2A482D5A53640070D95D /* VisualFidelityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB2A472D5A53640070D95D /* VisualFidelityViewController.mm */; };
+		4FFB2A492D5A53640070D95D /* VisualFidelityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB2A472D5A53640070D95D /* VisualFidelityViewController.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -223,6 +225,8 @@
 		4FFB27702D5A380E0070D95D /* ChromeVisibilityViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ChromeVisibilityViewController.mm; sourceTree = "<group>"; };
 		4FFB2A412D5A50950070D95D /* SceneResizingBehaviorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneResizingBehaviorViewController.h; sourceTree = "<group>"; };
 		4FFB2A422D5A50950070D95D /* SceneResizingBehaviorViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SceneResizingBehaviorViewController.mm; sourceTree = "<group>"; };
+		4FFB2A462D5A53640070D95D /* VisualFidelityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisualFidelityViewController.h; sourceTree = "<group>"; };
+		4FFB2A472D5A53640070D95D /* VisualFidelityViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VisualFidelityViewController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -297,6 +301,7 @@
 				4F4123932D5871EA009966F4 /* CAPoint3D.h */,
 				4FFB27602D59F53D0070D95D /* enableVolumetricPresntationForWindow.h */,
 				4FFB27612D59F53D0070D95D /* enableVolumetricPresntationForWindow.mm */,
+				4FFB2A452D5A53540070D95D /* VisualFidelity */,
 				4FFB2A402D5A508D0070D95D /* SceneResizingBehavior */,
 				4FFB276E2D5A38050070D95D /* ChromeVisibility */,
 				4FFB27692D5A35450070D95D /* Window */,
@@ -578,6 +583,15 @@
 			path = SceneResizingBehavior;
 			sourceTree = "<group>";
 		};
+		4FFB2A452D5A53540070D95D /* VisualFidelity */ = {
+			isa = PBXGroup;
+			children = (
+				4FFB2A462D5A53640070D95D /* VisualFidelityViewController.h */,
+				4FFB2A472D5A53640070D95D /* VisualFidelityViewController.mm */,
+			);
+			path = VisualFidelity;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -720,6 +734,7 @@
 				4F98BCFF2D5783CD006D958B /* OrnamentViewController.mm in Sources */,
 				4FFB27632D59F53D0070D95D /* enableVolumetricPresntationForWindow.mm in Sources */,
 				4F26D33D2C2FF9E80097B837 /* VolumetricWorldAlignmentBehaviorWindowScene.mm in Sources */,
+				4FFB2A482D5A53640070D95D /* VisualFidelityViewController.mm in Sources */,
 				4FAB0F382D5915990082E639 /* SceneSizeRestrictionsViewController.mm in Sources */,
 				4FAA17842C357A1700188F35 /* UpperLimbsViewController.mm in Sources */,
 				4FD9F9DB2D55C38000E38CF2 /* SWSViewController.mm in Sources */,
@@ -775,6 +790,7 @@
 				4F98BD002D5783CD006D958B /* OrnamentViewController.mm in Sources */,
 				4FFB27622D59F53D0070D95D /* enableVolumetricPresntationForWindow.mm in Sources */,
 				4FE624972D15877A008D14D8 /* VolumetricWorldAlignmentBehaviorWindowScene.mm in Sources */,
+				4FFB2A492D5A53640070D95D /* VisualFidelityViewController.mm in Sources */,
 				4FAB0F372D5915990082E639 /* SceneSizeRestrictionsViewController.mm in Sources */,
 				4FE624982D15877A008D14D8 /* UpperLimbsViewController.mm in Sources */,
 				4FD9F9DC2D55C38000E38CF2 /* SWSViewController.mm in Sources */,

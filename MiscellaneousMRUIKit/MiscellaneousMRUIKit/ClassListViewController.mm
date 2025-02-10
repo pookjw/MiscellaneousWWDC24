@@ -30,6 +30,7 @@
 #import "WindowViewController.h"
 #import "ChromeVisibilityViewController.h"
 #import "SceneResizingBehaviorViewController.h"
+#import "VisualFidelityViewController.h"
 
 @interface ClassListViewController ()
 @property (retain, readonly, nonatomic) UICollectionViewCellRegistration *cellRegistration;
@@ -89,6 +90,7 @@
 
 - (NSArray<Class> *)classes {
     return @[
+        VisualFidelityViewController.class,
         SceneResizingBehaviorViewController.class,
         ChromeVisibilityViewController.class,
         WindowViewController.class,

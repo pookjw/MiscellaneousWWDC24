@@ -5,6 +5,8 @@
 //  Created by Jinwoo Kim on 2/10/25.
 //
 
+// https://x.com/_silgen_name/status/1888905772048023966
+
 #import "SceneSizeRestrictionsViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
