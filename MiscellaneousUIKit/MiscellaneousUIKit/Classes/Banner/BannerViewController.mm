@@ -219,14 +219,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
     return [UIMenu menuWithChildren:@[element]];
 }
 
-- (void)viewDidMoveToWindow:(UIWindow *)window shouldAppearOrDisappear:(BOOL)shouldAppearOrDisappear {
-    objc_super superInfo = { self, [self class] };
-    reinterpret_cast<void (*)(objc_super *, SEL, id, BOOL)>(objc_msgSendSuper2)(&superInfo, _cmd, window, shouldAppearOrDisappear);
-    
-    id _bannerManager = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(window.windowScene, sel_registerName("_bannerManager"));
-    NSLog(@"%@", _bannerManager);
-}
-
 - (id)_content {
     if (id content = _content) return content;
     

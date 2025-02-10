@@ -10,8 +10,6 @@
 #import <objc/runtime.h>
 #include <ranges>
 
-#warning UIWindowScene UIWindow
-
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
 @interface StageViewController ()

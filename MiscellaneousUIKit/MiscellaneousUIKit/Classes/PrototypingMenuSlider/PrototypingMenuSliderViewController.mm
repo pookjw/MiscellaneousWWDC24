@@ -64,7 +64,7 @@
 - (__kindof UISlider *)_slider {
     if (auto slider = _slider) return slider;
     
-    __kindof UISlider *slider = [objc_lookUpClass("e") new];
+    __kindof UISlider *slider = [objc_lookUpClass("_UIPrototypingMenuSlider") new];
     
     // https://x.com/_silgen_name/status/1888092751402778876
 //    slider.continuous = YES;

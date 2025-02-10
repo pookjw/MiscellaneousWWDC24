@@ -26,6 +26,7 @@
 #import "HoverViewController.h"
 #import "SceneSizeRestrictionsViewController.h"
 #import "StageViewController.h"
+#import "SceneIntegrationViewController.h"
 
 @interface ClassListViewController ()
 @property (retain, readonly, nonatomic) UICollectionViewCellRegistration *cellRegistration;
@@ -85,6 +86,7 @@
 
 - (NSArray<Class> *)classes {
     return @[
+        SceneIntegrationViewController.class,
         SceneSizeRestrictionsViewController.class,
         StageViewController.class,
         FeedbackGeneratorViewController.class,

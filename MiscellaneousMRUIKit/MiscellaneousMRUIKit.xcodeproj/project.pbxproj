@@ -107,6 +107,8 @@
 		4FFB275F2D59F2590070D95D /* SceneSizeRestrictionsConfigurationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB275D2D59F2590070D95D /* SceneSizeRestrictionsConfigurationViewController.mm */; };
 		4FFB27622D59F53D0070D95D /* enableVolumetricPresntationForWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB27612D59F53D0070D95D /* enableVolumetricPresntationForWindow.mm */; };
 		4FFB27632D59F53D0070D95D /* enableVolumetricPresntationForWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB27612D59F53D0070D95D /* enableVolumetricPresntationForWindow.mm */; };
+		4FFB27672D5A13F20070D95D /* SceneIntegrationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB27662D5A13F20070D95D /* SceneIntegrationViewController.mm */; };
+		4FFB27682D5A13F20070D95D /* SceneIntegrationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB27662D5A13F20070D95D /* SceneIntegrationViewController.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -207,6 +209,8 @@
 		4FFB275D2D59F2590070D95D /* SceneSizeRestrictionsConfigurationViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SceneSizeRestrictionsConfigurationViewController.mm; sourceTree = "<group>"; };
 		4FFB27602D59F53D0070D95D /* enableVolumetricPresntationForWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = enableVolumetricPresntationForWindow.h; sourceTree = "<group>"; };
 		4FFB27612D59F53D0070D95D /* enableVolumetricPresntationForWindow.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = enableVolumetricPresntationForWindow.mm; sourceTree = "<group>"; };
+		4FFB27652D5A13F20070D95D /* SceneIntegrationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneIntegrationViewController.h; sourceTree = "<group>"; };
+		4FFB27662D5A13F20070D95D /* SceneIntegrationViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SceneIntegrationViewController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -281,6 +285,7 @@
 				4F4123932D5871EA009966F4 /* CAPoint3D.h */,
 				4FFB27602D59F53D0070D95D /* enableVolumetricPresntationForWindow.h */,
 				4FFB27612D59F53D0070D95D /* enableVolumetricPresntationForWindow.mm */,
+				4FFB27642D5A13DD0070D95D /* SceneIntegration */,
 				4FFB247C2D59ED2E0070D95D /* RealityBoxView */,
 				4FAB0F392D5915E20082E639 /* Stage */,
 				4FAB0F342D5915820082E639 /* SceneSizeRestrictions */,
@@ -522,6 +527,15 @@
 			path = RealityBoxView;
 			sourceTree = "<group>";
 		};
+		4FFB27642D5A13DD0070D95D /* SceneIntegration */ = {
+			isa = PBXGroup;
+			children = (
+				4FFB27652D5A13F20070D95D /* SceneIntegrationViewController.h */,
+				4FFB27662D5A13F20070D95D /* SceneIntegrationViewController.mm */,
+			);
+			path = SceneIntegration;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -633,6 +647,7 @@
 				4FD3D3852C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.mm in Sources */,
 				4FAA17872C357B3400188F35 /* UpperLimbsWindowScene.mm in Sources */,
 				4F05B7652C835061001ECA93 /* DemoSFBSViewController.mm in Sources */,
+				4FFB27682D5A13F20070D95D /* SceneIntegrationViewController.mm in Sources */,
 				4FFB24862D59EE500070D95D /* RealityBoxService.swift in Sources */,
 				4F26D2EB2C2FDBFC0097B837 /* ClassListViewController.mm in Sources */,
 				4F1C713F2C31CB9D002E096A /* ViewpointAzimuthWindowScene.mm in Sources */,
@@ -684,6 +699,7 @@
 				4FE624892D15877A008D14D8 /* ToggleImmersiveStylesSceneDelegate.mm in Sources */,
 				4FE6248A2D15877A008D14D8 /* UpperLimbsWindowScene.mm in Sources */,
 				4FE6248B2D15877A008D14D8 /* DemoSFBSViewController.mm in Sources */,
+				4FFB27672D5A13F20070D95D /* SceneIntegrationViewController.mm in Sources */,
 				4FFB24852D59EE500070D95D /* RealityBoxService.swift in Sources */,
 				4FE6248C2D15877A008D14D8 /* ClassListViewController.mm in Sources */,
 				4FE6248D2D15877A008D14D8 /* ViewpointAzimuthWindowScene.mm in Sources */,

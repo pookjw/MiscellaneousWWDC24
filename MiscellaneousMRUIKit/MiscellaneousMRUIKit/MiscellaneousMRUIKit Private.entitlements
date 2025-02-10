@@ -28,5 +28,15 @@
 	<true/>
 	<key>com.apple.realitysimulation.can-receive-wolf-hover</key>
 	<true/>
+	<key>com.apple.surfboard.please-dont-kill-me-via-cmd-q</key>
+	<true/>
+	<key>com.apple.surfboard-prevent-homeui-from-hiding-when-launching</key>
+	<true/>
+	<key>com.apple.surfboard.disable-auto-show-homeui-when-closed</key>
+	<true/>
+	<key>com.apple.surfboard.anchor-transform-sync</key>
+	<true/>
+	<key>com.apple.surfboard.system-elements-assertion-immersive-visible</key>
+	<true/>
 </dict>
 </plist>

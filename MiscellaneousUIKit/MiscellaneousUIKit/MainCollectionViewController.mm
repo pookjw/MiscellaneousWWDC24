@@ -111,7 +111,7 @@ __attribute__((objc_direct_members))
     [super viewDidLoad];
     [self cellRegistration];
     
-    PrototypingMenuSliderViewController *viewController = [PrototypingMenuSliderViewController new];
+    SystemBannerRequestViewController *viewController = [SystemBannerRequestViewController new];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     [viewController release];
     [self presentViewController:navigationController animated:YES completion:nil];
