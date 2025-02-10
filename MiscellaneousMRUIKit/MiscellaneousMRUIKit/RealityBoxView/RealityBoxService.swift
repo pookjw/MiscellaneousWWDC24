@@ -5,6 +5,7 @@
 //  Created by Jinwoo Kim on 2/10/25.
 //
 
+import UIKit
 import Observation
 import RealityFoundation
 import _RealityKit_SwiftUI
@@ -105,7 +106,7 @@ final class RealityBoxService {
                 modelComponent = ModelComponent(
                     mesh: MeshResource.generateBox(size: size),
                     materials: [
-                        SimpleMaterial(color: .init(white: 1.0, alpha: 0.1), isMetallic: true)
+                        SimpleMaterial(color: UIColor.cyan.withAlphaComponent(0.75), isMetallic: true)
                     ]
                 )
                 

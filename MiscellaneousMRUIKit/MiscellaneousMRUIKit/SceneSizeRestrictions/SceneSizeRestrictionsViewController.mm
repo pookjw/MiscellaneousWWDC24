@@ -27,6 +27,11 @@
     [button release];
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self _didButtonTriggered:nil];
+}
+
 - (void)_didButtonTriggered:(UIButton *)sender {
     UISceneSessionActivationRequest *request = [UISceneSessionActivationRequest requestWithRole:UIWindowSceneSessionRoleVolumetricApplication];
     
