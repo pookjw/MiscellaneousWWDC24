@@ -5,6 +5,8 @@
 //  Created by Jinwoo Kim on 2/11/25.
 //
 
+// https://x.com/_silgen_name/status/1888994708443263086
+
 #import "DarknessPreferenceViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
@@ -39,10 +41,6 @@ NSString * mui_NSStringFromMRUIDarknessPreference(NSUInteger fidelity) {
          NSLog(@"%@ %ld", s, i);
      }
  }
- */
-
-/*
- ((void (*)(id, SEL, id, id))objc_msgSend)(rootViewController.view, sel_registerName("setValue:forPreferenceKey:"), @(2), objc_lookUpClass("MRUIVolumeBaseplateVisibilityPreferenceKey"));
  */
 
 @interface DarknessPreferenceViewController ()
