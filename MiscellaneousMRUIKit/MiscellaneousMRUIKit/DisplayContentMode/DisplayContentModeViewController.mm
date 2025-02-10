@@ -1,35 +1,34 @@
 //
-//  VisualFidelityViewController.mm
+//  DisplayContentModeViewController.mm
 //  MiscellaneousMRUIKit
 //
 //  Created by Jinwoo Kim on 2/11/25.
 //
 
-#import "VisualFidelityViewController.h"
+#import "DisplayContentModeViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 #include <dlfcn.h>
 #include <ranges>
 #include <vector>
 
-OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
-
-NSString * mui_NSStringFromMRUIVisualFidelity(NSUInteger fidelity) {
+NSString * mui_NSStringFromMRUIDisplayContentMode(NSUInteger mode) {
     static void *symbol;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         void *handle = dlopen("/System/Library/PrivateFrameworks/MRUIKit.framework/MRUIKit", RTLD_NOW);
         assert(handle != NULL);
-        void *_symbol = dlsym(handle, "NSStringFromMRUIVisualFidelity");
+        void *_symbol = dlsym(handle, "NSStringFromMRUIDisplayContentMode");
         assert(_symbol != NULL);
         symbol = _symbol;
     });
     
-    return reinterpret_cast<id (*)(NSUInteger)>(symbol)(fidelity);
+    return reinterpret_cast<id (*)(NSUInteger)>(symbol)(mode);
 }
+
 /*
  for (NSUInteger i = 0; i < NSUIntegerMax; i++) {
-     if (NSString *s = mui_NSStringFromMRUIVisualFidelity(i)) {
+     if (NSString *s = mui_NSStringFromMRUIDisplayContentMode(i)) {
          NSLog(@"%@ %ld", s, i);
      }
  }
@@ -43,7 +42,7 @@ NSString * mui_NSStringFromMRUIVisualFidelity(NSUInteger fidelity) {
  Camera 4
  */
 
-@implementation VisualFidelityViewController
+@implementation DisplayContentModeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -55,7 +54,7 @@ NSString * mui_NSStringFromMRUIVisualFidelity(NSUInteger fidelity) {
     button.preferredMenuElementOrder = UIContextMenuConfigurationElementOrderFixed;
     
     UIButtonConfiguration *configuration = [UIButtonConfiguration tintedButtonConfiguration];
-    configuration.title = @"Request Volumetric Window";
+    configuration.title = @"Display Content Mode";
     button.configuration = configuration;
     
     [self.view addSubview:button];
@@ -71,11 +70,11 @@ NSString * mui_NSStringFromMRUIVisualFidelity(NSUInteger fidelity) {
     UIDeferredMenuElement *element = [UIDeferredMenuElement elementWithUncachedProvider:^(void (^ _Nonnull completion)(NSArray<UIMenuElement *> * _Nonnull)) {
         auto actionsVec = std::vector<NSUInteger> { 0, 1, 2, 3, 4 }
         | std::views::transform([weakSelf](NSUInteger number) -> UIAction * {
-            UIAction *action = [UIAction actionWithTitle:mui_NSStringFromMRUIVisualFidelity(number)
+            UIAction *action = [UIAction actionWithTitle:mui_NSStringFromMRUIDisplayContentMode(number)
                                                    image:nil
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {
-                [weakSelf _requestSceneWithVisualFidelity:number];
+                [weakSelf _requestSceneWithDisplayContentMode:number];
             }];
             
             return action;
@@ -90,7 +89,7 @@ NSString * mui_NSStringFromMRUIVisualFidelity(NSUInteger fidelity) {
     return [UIMenu menuWithChildren:@[element]];
 }
 
-- (void)_requestSceneWithVisualFidelity:(NSUInteger)visualFidelity {
+- (void)_requestSceneWithDisplayContentMode:(NSUInteger)displayContentMode {
     id sceneRequestOptions = [objc_lookUpClass("MRUISceneRequestOptions") new];
     
     reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(sceneRequestOptions, NSSelectorFromString(@"setInternalFrameworksScene:"), NO);
@@ -107,7 +106,7 @@ NSString * mui_NSStringFromMRUIVisualFidelity(NSUInteger fidelity) {
     reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(initialClientSettings, NSSelectorFromString(@"setPreferredImmersionStyle:"), 0);
     reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(initialClientSettings, NSSelectorFromString(@"setAllowedImmersionStyles:"), 0);
     
-    reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(initialClientSettings, sel_registerName("setPreferredVisualFidelity:"), visualFidelity);
+    reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(initialClientSettings, sel_registerName("setPreferredDisplayContentMode:"), displayContentMode);
     
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(sceneRequestOptions, sel_registerName("setInitialClientSettings:"), initialClientSettings);
     [initialClientSettings release];

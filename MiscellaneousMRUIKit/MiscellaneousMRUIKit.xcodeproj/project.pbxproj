@@ -117,6 +117,8 @@
 		4FFB2A442D5A50950070D95D /* SceneResizingBehaviorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB2A422D5A50950070D95D /* SceneResizingBehaviorViewController.mm */; };
 		4FFB2A482D5A53640070D95D /* VisualFidelityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB2A472D5A53640070D95D /* VisualFidelityViewController.mm */; };
 		4FFB2A492D5A53640070D95D /* VisualFidelityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB2A472D5A53640070D95D /* VisualFidelityViewController.mm */; };
+		4FFB2A512D5A5AB20070D95D /* DisplayContentModeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB2A502D5A5AB20070D95D /* DisplayContentModeViewController.mm */; };
+		4FFB2A522D5A5AB20070D95D /* DisplayContentModeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB2A502D5A5AB20070D95D /* DisplayContentModeViewController.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -227,6 +229,8 @@
 		4FFB2A422D5A50950070D95D /* SceneResizingBehaviorViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SceneResizingBehaviorViewController.mm; sourceTree = "<group>"; };
 		4FFB2A462D5A53640070D95D /* VisualFidelityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisualFidelityViewController.h; sourceTree = "<group>"; };
 		4FFB2A472D5A53640070D95D /* VisualFidelityViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VisualFidelityViewController.mm; sourceTree = "<group>"; };
+		4FFB2A4F2D5A5AB20070D95D /* DisplayContentModeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisplayContentModeViewController.h; sourceTree = "<group>"; };
+		4FFB2A502D5A5AB20070D95D /* DisplayContentModeViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DisplayContentModeViewController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -301,6 +305,7 @@
 				4F4123932D5871EA009966F4 /* CAPoint3D.h */,
 				4FFB27602D59F53D0070D95D /* enableVolumetricPresntationForWindow.h */,
 				4FFB27612D59F53D0070D95D /* enableVolumetricPresntationForWindow.mm */,
+				4FFB2A4E2D5A5A9C0070D95D /* DisplayContentMode */,
 				4FFB2A452D5A53540070D95D /* VisualFidelity */,
 				4FFB2A402D5A508D0070D95D /* SceneResizingBehavior */,
 				4FFB276E2D5A38050070D95D /* ChromeVisibility */,
@@ -592,6 +597,15 @@
 			path = VisualFidelity;
 			sourceTree = "<group>";
 		};
+		4FFB2A4E2D5A5A9C0070D95D /* DisplayContentMode */ = {
+			isa = PBXGroup;
+			children = (
+				4FFB2A4F2D5A5AB20070D95D /* DisplayContentModeViewController.h */,
+				4FFB2A502D5A5AB20070D95D /* DisplayContentModeViewController.mm */,
+			);
+			path = DisplayContentMode;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -727,6 +741,7 @@
 				4F41237C2D586FA8009966F4 /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4FFB24882D59EEA20070D95D /* Face.swift in Sources */,
 				4F1C71252C2F2442002E096A /* SceneDelegate.m in Sources */,
+				4FFB2A512D5A5AB20070D95D /* DisplayContentModeViewController.mm in Sources */,
 				4F26D3372C2FF84A0097B837 /* VolumetricWorldAlignmentBehaviorViewController.mm in Sources */,
 				4FFB23C22D58B1240070D95D /* HoverViewController.mm in Sources */,
 				4FFB2A432D5A50950070D95D /* SceneResizingBehaviorViewController.mm in Sources */,
@@ -783,6 +798,7 @@
 				4F41237B2D586FA8009966F4 /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4FFB24892D59EEA20070D95D /* Face.swift in Sources */,
 				4FE624942D15877A008D14D8 /* SceneDelegate.m in Sources */,
+				4FFB2A522D5A5AB20070D95D /* DisplayContentModeViewController.mm in Sources */,
 				4FE624952D15877A008D14D8 /* VolumetricWorldAlignmentBehaviorViewController.mm in Sources */,
 				4FFB23C12D58B1240070D95D /* HoverViewController.mm in Sources */,
 				4FFB2A442D5A50950070D95D /* SceneResizingBehaviorViewController.mm in Sources */,
