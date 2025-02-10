@@ -32,6 +32,10 @@
 #import "SceneResizingBehaviorViewController.h"
 #import "VisualFidelityViewController.h"
 #import "DisplayContentModeViewController.h"
+#import "DeviceNoiseLevelViewController.h"
+#import "ZoomModeViewController.h"
+#import "DisplayFidelityViewController.h"
+#import "DarknessPreferenceViewController.h"
 
 @interface ClassListViewController ()
 @property (retain, readonly, nonatomic) UICollectionViewCellRegistration *cellRegistration;
@@ -91,6 +95,10 @@
 
 - (NSArray<Class> *)classes {
     return @[
+        DarknessPreferenceViewController.class,
+        DisplayFidelityViewController.class,
+        ZoomModeViewController.class,
+        DeviceNoiseLevelViewController.class,
         DisplayContentModeViewController.class,
         VisualFidelityViewController.class,
         SceneResizingBehaviorViewController.class,

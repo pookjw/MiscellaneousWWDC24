@@ -49,6 +49,14 @@
 		4FAB0F382D5915990082E639 /* SceneSizeRestrictionsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0F362D5915990082E639 /* SceneSizeRestrictionsViewController.mm */; };
 		4FAB0F3C2D5915FA0082E639 /* StageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0F3B2D5915FA0082E639 /* StageViewController.mm */; };
 		4FAB0F3D2D5915FA0082E639 /* StageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0F3B2D5915FA0082E639 /* StageViewController.mm */; };
+		4FAB0F412D5A5F2E0082E639 /* DeviceNoiseLevelViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0F402D5A5F2E0082E639 /* DeviceNoiseLevelViewController.mm */; };
+		4FAB0F422D5A5F2E0082E639 /* DeviceNoiseLevelViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0F402D5A5F2E0082E639 /* DeviceNoiseLevelViewController.mm */; };
+		4FAB0F462D5A60F80082E639 /* ZoomModeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0F452D5A60F80082E639 /* ZoomModeViewController.mm */; };
+		4FAB0F472D5A60F80082E639 /* ZoomModeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0F452D5A60F80082E639 /* ZoomModeViewController.mm */; };
+		4FAB0F4B2D5A62F30082E639 /* DisplayFidelityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0F4A2D5A62F30082E639 /* DisplayFidelityViewController.mm */; };
+		4FAB0F4C2D5A62F30082E639 /* DisplayFidelityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0F4A2D5A62F30082E639 /* DisplayFidelityViewController.mm */; };
+		4FAB0F502D5A63C90082E639 /* DarknessPreferenceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0F4F2D5A63C90082E639 /* DarknessPreferenceViewController.mm */; };
+		4FAB0F512D5A63C90082E639 /* DarknessPreferenceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0F4F2D5A63C90082E639 /* DarknessPreferenceViewController.mm */; };
 		4FD3D3822C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD3D3812C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm */; };
 		4FD3D3852C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD3D3842C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.mm */; };
 		4FD5EF482C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD5EF472C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm */; };
@@ -186,6 +194,14 @@
 		4FAB0F362D5915990082E639 /* SceneSizeRestrictionsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SceneSizeRestrictionsViewController.mm; sourceTree = "<group>"; };
 		4FAB0F3A2D5915FA0082E639 /* StageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StageViewController.h; sourceTree = "<group>"; };
 		4FAB0F3B2D5915FA0082E639 /* StageViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = StageViewController.mm; sourceTree = "<group>"; };
+		4FAB0F3F2D5A5F2E0082E639 /* DeviceNoiseLevelViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceNoiseLevelViewController.h; sourceTree = "<group>"; };
+		4FAB0F402D5A5F2E0082E639 /* DeviceNoiseLevelViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeviceNoiseLevelViewController.mm; sourceTree = "<group>"; };
+		4FAB0F442D5A60F80082E639 /* ZoomModeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomModeViewController.h; sourceTree = "<group>"; };
+		4FAB0F452D5A60F80082E639 /* ZoomModeViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZoomModeViewController.mm; sourceTree = "<group>"; };
+		4FAB0F492D5A62F30082E639 /* DisplayFidelityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisplayFidelityViewController.h; sourceTree = "<group>"; };
+		4FAB0F4A2D5A62F30082E639 /* DisplayFidelityViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DisplayFidelityViewController.mm; sourceTree = "<group>"; };
+		4FAB0F4E2D5A63C90082E639 /* DarknessPreferenceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DarknessPreferenceViewController.h; sourceTree = "<group>"; };
+		4FAB0F4F2D5A63C90082E639 /* DarknessPreferenceViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DarknessPreferenceViewController.mm; sourceTree = "<group>"; };
 		4FD3D3802C8066610001C3A4 /* ToggleImmersiveStylesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToggleImmersiveStylesViewController.h; sourceTree = "<group>"; };
 		4FD3D3812C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ToggleImmersiveStylesViewController.mm; sourceTree = "<group>"; };
 		4FD3D3832C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToggleImmersiveStylesSceneDelegate.h; sourceTree = "<group>"; };
@@ -305,6 +321,10 @@
 				4F4123932D5871EA009966F4 /* CAPoint3D.h */,
 				4FFB27602D59F53D0070D95D /* enableVolumetricPresntationForWindow.h */,
 				4FFB27612D59F53D0070D95D /* enableVolumetricPresntationForWindow.mm */,
+				4FAB0F4D2D5A63BF0082E639 /* DarknessPreference */,
+				4FAB0F482D5A62EC0082E639 /* DisplayFidelity */,
+				4FAB0F432D5A60EC0082E639 /* ZoomMode */,
+				4FAB0F3E2D5A5F240082E639 /* DeviceNoiseLevel */,
 				4FFB2A4E2D5A5A9C0070D95D /* DisplayContentMode */,
 				4FFB2A452D5A53540070D95D /* VisualFidelity */,
 				4FFB2A402D5A508D0070D95D /* SceneResizingBehavior */,
@@ -478,6 +498,42 @@
 				4FAB0F3B2D5915FA0082E639 /* StageViewController.mm */,
 			);
 			path = Stage;
+			sourceTree = "<group>";
+		};
+		4FAB0F3E2D5A5F240082E639 /* DeviceNoiseLevel */ = {
+			isa = PBXGroup;
+			children = (
+				4FAB0F3F2D5A5F2E0082E639 /* DeviceNoiseLevelViewController.h */,
+				4FAB0F402D5A5F2E0082E639 /* DeviceNoiseLevelViewController.mm */,
+			);
+			path = DeviceNoiseLevel;
+			sourceTree = "<group>";
+		};
+		4FAB0F432D5A60EC0082E639 /* ZoomMode */ = {
+			isa = PBXGroup;
+			children = (
+				4FAB0F442D5A60F80082E639 /* ZoomModeViewController.h */,
+				4FAB0F452D5A60F80082E639 /* ZoomModeViewController.mm */,
+			);
+			path = ZoomMode;
+			sourceTree = "<group>";
+		};
+		4FAB0F482D5A62EC0082E639 /* DisplayFidelity */ = {
+			isa = PBXGroup;
+			children = (
+				4FAB0F492D5A62F30082E639 /* DisplayFidelityViewController.h */,
+				4FAB0F4A2D5A62F30082E639 /* DisplayFidelityViewController.mm */,
+			);
+			path = DisplayFidelity;
+			sourceTree = "<group>";
+		};
+		4FAB0F4D2D5A63BF0082E639 /* DarknessPreference */ = {
+			isa = PBXGroup;
+			children = (
+				4FAB0F4E2D5A63C90082E639 /* DarknessPreferenceViewController.h */,
+				4FAB0F4F2D5A63C90082E639 /* DarknessPreferenceViewController.mm */,
+			);
+			path = DarknessPreference;
 			sourceTree = "<group>";
 		};
 		4FD3D37F2C80664A0001C3A4 /* ToggleImmersiveStyles */ = {
@@ -735,13 +791,16 @@
 				4F4123A02D589638009966F4 /* RulerView.mm in Sources */,
 				4FFB240C2D58D5F40070D95D /* HoverContentConfiguration.mm in Sources */,
 				4FFB24132D59E3860070D95D /* HoverEffectLayerContentConfiguration.mm in Sources */,
+				4FAB0F412D5A5F2E0082E639 /* DeviceNoiseLevelViewController.mm in Sources */,
 				4FFB23B72D58AE610070D95D /* FeedbackGeneratorViewController.mm in Sources */,
 				4F1C71332C2F2443002E096A /* main.m in Sources */,
 				4FAA17752C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.mm in Sources */,
+				4FAB0F502D5A63C90082E639 /* DarknessPreferenceViewController.mm in Sources */,
 				4F41237C2D586FA8009966F4 /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4FFB24882D59EEA20070D95D /* Face.swift in Sources */,
 				4F1C71252C2F2442002E096A /* SceneDelegate.m in Sources */,
 				4FFB2A512D5A5AB20070D95D /* DisplayContentModeViewController.mm in Sources */,
+				4FAB0F4C2D5A62F30082E639 /* DisplayFidelityViewController.mm in Sources */,
 				4F26D3372C2FF84A0097B837 /* VolumetricWorldAlignmentBehaviorViewController.mm in Sources */,
 				4FFB23C22D58B1240070D95D /* HoverViewController.mm in Sources */,
 				4FFB2A432D5A50950070D95D /* SceneResizingBehaviorViewController.mm in Sources */,
@@ -750,6 +809,7 @@
 				4FFB27632D59F53D0070D95D /* enableVolumetricPresntationForWindow.mm in Sources */,
 				4F26D33D2C2FF9E80097B837 /* VolumetricWorldAlignmentBehaviorWindowScene.mm in Sources */,
 				4FFB2A482D5A53640070D95D /* VisualFidelityViewController.mm in Sources */,
+				4FAB0F462D5A60F80082E639 /* ZoomModeViewController.mm in Sources */,
 				4FAB0F382D5915990082E639 /* SceneSizeRestrictionsViewController.mm in Sources */,
 				4FAA17842C357A1700188F35 /* UpperLimbsViewController.mm in Sources */,
 				4FD9F9DB2D55C38000E38CF2 /* SWSViewController.mm in Sources */,
@@ -792,13 +852,16 @@
 				4F4123A12D589638009966F4 /* RulerView.mm in Sources */,
 				4FFB240B2D58D5F40070D95D /* HoverContentConfiguration.mm in Sources */,
 				4FFB24142D59E3860070D95D /* HoverEffectLayerContentConfiguration.mm in Sources */,
+				4FAB0F422D5A5F2E0082E639 /* DeviceNoiseLevelViewController.mm in Sources */,
 				4FFB23B82D58AE610070D95D /* FeedbackGeneratorViewController.mm in Sources */,
 				4FE624922D15877A008D14D8 /* main.m in Sources */,
 				4FE624932D15877A008D14D8 /* ImmersiveSceneClientSettingsViewController.mm in Sources */,
+				4FAB0F512D5A63C90082E639 /* DarknessPreferenceViewController.mm in Sources */,
 				4F41237B2D586FA8009966F4 /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4FFB24892D59EEA20070D95D /* Face.swift in Sources */,
 				4FE624942D15877A008D14D8 /* SceneDelegate.m in Sources */,
 				4FFB2A522D5A5AB20070D95D /* DisplayContentModeViewController.mm in Sources */,
+				4FAB0F4B2D5A62F30082E639 /* DisplayFidelityViewController.mm in Sources */,
 				4FE624952D15877A008D14D8 /* VolumetricWorldAlignmentBehaviorViewController.mm in Sources */,
 				4FFB23C12D58B1240070D95D /* HoverViewController.mm in Sources */,
 				4FFB2A442D5A50950070D95D /* SceneResizingBehaviorViewController.mm in Sources */,
@@ -807,6 +870,7 @@
 				4FFB27622D59F53D0070D95D /* enableVolumetricPresntationForWindow.mm in Sources */,
 				4FE624972D15877A008D14D8 /* VolumetricWorldAlignmentBehaviorWindowScene.mm in Sources */,
 				4FFB2A492D5A53640070D95D /* VisualFidelityViewController.mm in Sources */,
+				4FAB0F472D5A60F80082E639 /* ZoomModeViewController.mm in Sources */,
 				4FAB0F372D5915990082E639 /* SceneSizeRestrictionsViewController.mm in Sources */,
 				4FE624982D15877A008D14D8 /* UpperLimbsViewController.mm in Sources */,
 				4FD9F9DC2D55C38000E38CF2 /* SWSViewController.mm in Sources */,
