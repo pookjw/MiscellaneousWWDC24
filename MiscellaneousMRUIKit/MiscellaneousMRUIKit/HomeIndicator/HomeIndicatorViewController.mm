@@ -31,7 +31,7 @@
 - (UIButton *)button {
     if (auto button = _button) return button;
     
-    UIAction *primaryAction = [UIAction actionWithTitle:@"Show Window" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+    UIAction *primaryAction = [UIAction actionWithTitle:@"Toggle" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
         HomeIndicatorViewController *viewController = reinterpret_cast<HomeIndicatorViewController * (*)(id, SEL)>(objc_msgSend)(action.sender, sel_registerName("_viewControllerForAncestor"));
         
         viewController->_mu_prefersHomeIndicatorAutoHidden = !viewController->_mu_prefersHomeIndicatorAutoHidden;

@@ -10,14 +10,14 @@
 #import <objc/runtime.h>
 #import "enableVolumetricPresntationForWindow.h"
 #import "MRUISize3D.h"
-
-/*
- -[UIWindowScene _mrui_integration]
- */
+#import "SPGeometry.h"
+#include <vector>
+#include <ranges>
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
 @interface SceneSizeRestrictionsConfigurationViewController ()
+@property (assign, nonatomic, getter=_capatibilites, setter=_setCapabilities:) NSUInteger capabilities;
 @end
 
 @implementation SceneSizeRestrictionsConfigurationViewController
@@ -170,6 +170,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
     UIDeferredMenuElement *element = [UIDeferredMenuElement elementWithUncachedProvider:^(void (^ _Nonnull completion)(NSArray<UIMenuElement *> * _Nonnull)) {
         NSMutableArray<__kindof UIMenuElement *> *children = [NSMutableArray new];
         UIWindowScene * _Nullable windowScene = self.view.window.windowScene;
+        __weak auto weakSelf = self;
         
         //
         
@@ -192,9 +193,16 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
                     return size;
                 }
                                                                                      didUpdateHandler:^(MRUISize3D size) {
-                    reinterpret_cast<void (*)(id, SEL, MRUISize3D, id, id)>(objc_msgSend)(windowScene, sel_registerName("mrui_requestResizeTo3DSize:options:completion:"), size, nil, ^(NSError * _Nullable error) {
+                    id options = [objc_lookUpClass("MRUIWindowSceneResizeRequestOptions") new];
+                    
+                    // 안 됨
+//                    reinterpret_cast<void (*)(id, SEL, SPPoint3D)>(objc_msgSend)(options, sel_registerName("setAnchorPosition:"), SPPoint3DMake(1., 1., 1.));
+                    reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(options, sel_registerName("setCapabilities:"), weakSelf.capabilities);
+                    
+                    reinterpret_cast<void (*)(id, SEL, MRUISize3D, id, id)>(objc_msgSend)(windowScene, sel_registerName("mrui_requestResizeTo3DSize:options:completion:"), size, options, ^(NSError * _Nullable error) {
                         assert(error == nil);
                     });
+                    [options release];
                 }];
                 
                 completion(@[menu]);
@@ -246,6 +254,31 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
                                                                                      didUpdateHandler:^(MRUISize3D size) {
                     reinterpret_cast<void (*)(id, SEL, MRUISize3D)>(objc_msgSend)(windowScene.sizeRestrictions, sel_registerName("setMinimumSize3D:"), size);
                 }];
+                
+                completion(@[menu]);
+            }];
+            
+            [children addObject:element];
+        }
+        
+        {
+            UIDeferredMenuElement *element = [UIDeferredMenuElement elementWithUncachedProvider:^(void (^ _Nonnull completion)(NSArray<UIMenuElement *> * _Nonnull)) {
+                auto actionsVec = std::vector<NSUInteger> { 0, (1 << 0) }
+                | std::views::transform([windowScene, weakSelf](NSUInteger value) -> UIAction * {
+                    UIAction *action = [UIAction actionWithTitle:@(value).stringValue image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                        weakSelf.capabilities = value;
+                    }];
+                    
+                    action.state = (weakSelf.capabilities == value) ? UIMenuElementStateOn : UIMenuElementStateOff;
+                    
+                    return action;
+                })
+                | std::ranges::to<std::vector<UIAction *>>();
+                
+                NSArray<UIAction *> *actions = [[NSArray alloc] initWithObjects:actionsVec.data() count:actionsVec.size()];
+                
+                UIMenu *menu = [UIMenu menuWithTitle:@"Capabilities" children:actions];
+                [actions release];
                 
                 completion(@[menu]);
             }];
