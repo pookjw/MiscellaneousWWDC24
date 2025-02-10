@@ -10,9 +10,8 @@
 #import <objc/runtime.h>
 #import "HoverContentConfiguration.h"
 #import "CustomHoverContentConfiguration.h"
+#import "HoverEffectLayerContentConfiguration.h"
 #include <numeric>
-
-#warning TODO UIHoverEffectLayer
 
 UIKIT_EXTERN NSString * const _UIRemoteHoverEffectDefaultDescriptorScrollIndicatorHorizontal;
 UIKIT_EXTERN NSString * const _UIRemoteHoverEffectDefaultDescriptorScrollIndicatorVertical;
@@ -28,11 +27,13 @@ CG_EXTERN NSString * const kCARemoteEffectStateIdle;
 @property (class, nonatomic, readonly, getter=_sortedHoverStyleKeys) NSArray<NSString *> *sortedHoverStyleKeys;
 @property (retain, readonly, nonatomic, getter=_hoverEffectCellRegistration) UICollectionViewCellRegistration *hoverEffectCellRegistration;
 @property (retain, readonly, nonatomic, getter=_customEffectCellRegistration) UICollectionViewCellRegistration *customEffectCellRegistration;
+@property (retain, readonly, nonatomic, getter=_hoverLayerCellRegistration) UICollectionViewCellRegistration *hoverLayerCellRegistration;
 @end
 
 @implementation HoverViewController
 @synthesize hoverEffectCellRegistration = _hoverEffectCellRegistration;
 @synthesize customEffectCellRegistration = _customEffectCellRegistration;
+@synthesize hoverLayerCellRegistration = _hoverLayerCellRegistration;
 
 + (NSDictionary<NSString *, UIHoverStyle *> *)_hoverStyles {
     static NSDictionary<NSString *, UIHoverStyle *> *results;
@@ -43,6 +44,7 @@ CG_EXTERN NSString * const kCARemoteEffectStateIdle;
         
         _results[@"Automatic"] = [UIHoverStyle styleWithEffect:[UIHoverAutomaticEffect effect] shape:nil];
         _results[@"Highlight"] = [UIHoverStyle styleWithEffect:[UIHoverHighlightEffect effect] shape:nil];
+        _results[@"Highlight (Blue)"] = [UIHoverStyle styleWithEffect:reinterpret_cast<id (*)(Class, SEL, id)>(objc_msgSend)(objc_lookUpClass("UIHoverHighlightEffect"), sel_registerName("_effectWithTintColor:"), UIColor.blueColor) shape:nil];
         _results[@"Lift"] = [UIHoverStyle styleWithEffect:[UIHoverLiftEffect effect] shape:nil];
         
         NSArray<NSString *> *defaultDescriptors = @[
@@ -57,9 +59,6 @@ CG_EXTERN NSString * const kCARemoteEffectStateIdle;
         
         for (NSString *descriptorName in defaultDescriptors) {
             id descriptor = reinterpret_cast<id (*)(Class, SEL, id)>(objc_msgSend)(objc_lookUpClass("_UIRemoteHoverEffectDescriptor"), sel_registerName("descriptorWithName:"), descriptorName);
-            
-//            NSArray *overlays = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(descriptor, sel_registerName("overlays"));
-//            NSArray *underlays = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(descriptor, sel_registerName("underlays"));
             
             id<UIHoverEffect> hoverEffect = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("_UIRemoteHoverEffect") alloc], sel_registerName("initWithDescriptor:"), descriptor);
             UIHoverStyle *hoverStyle = [UIHoverStyle styleWithEffect:hoverEffect shape:nil];
@@ -205,6 +204,41 @@ CG_EXTERN NSString * const kCARemoteEffectStateIdle;
             _results[@"Test (Overlay)"] = hoverStyle;
         }
         
+        {
+            id descriptor = [objc_lookUpClass("_UIRemoteHoverEffectDescriptor") new];
+            
+            //
+            
+            {
+                 id entry = reinterpret_cast<id (*)(id, SEL, id, id)>(objc_msgSend)([objc_lookUpClass("_UIRemoteHoverEffectEntry") alloc],
+                                                                                    sel_registerName("initWithViewProvider:layerProvider:"),
+                                                                                    ^ __kindof UIView * {
+                     __kindof UIView *view = [objc_lookUpClass("_UIGlowEffectView") new];
+                     
+                     // 안 됨
+//                     __kindof CALayer *layer = view.layer;
+//                     reinterpret_cast<void (*)(id, SEL, CGColorRef)>(objc_msgSend)(layer, sel_registerName("setTintColor:"), UIColor.blueColor.CGColor);
+                     
+                     return [view autorelease];
+                 },
+                                                                                    ^ CALayer * {
+                     // Not called
+                     abort();
+                 });
+                
+                reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(descriptor, sel_registerName("setUnderlays:"), @[entry]);
+                [entry release];
+            }
+            
+            //
+            
+            id<UIHoverEffect> hoverEffect = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("_UIRemoteHoverEffect") alloc], sel_registerName("initWithDescriptor:"), descriptor);
+            [descriptor release];
+            UIHoverStyle *hoverStyle = [UIHoverStyle styleWithEffect:hoverEffect shape:[UIShape circleShape]];
+            [hoverEffect release];
+            _results[@"Test (Glow)"] = hoverStyle;
+        }
+        
         results = [_results copy];
         [_results release];
     });
@@ -262,6 +296,7 @@ CG_EXTERN NSString * const kCARemoteEffectStateIdle;
 - (void)dealloc {
     [_hoverEffectCellRegistration release];
     [_customEffectCellRegistration release];
+    [_hoverLayerCellRegistration release];
     [super dealloc];
 }
 
@@ -269,6 +304,7 @@ CG_EXTERN NSString * const kCARemoteEffectStateIdle;
     [super viewDidLoad];
     [self _hoverEffectCellRegistration];
     [self _customEffectCellRegistration];
+    [self _hoverLayerCellRegistration];
     self.view.backgroundColor = UIColor.systemBackgroundColor;
 }
 
@@ -305,19 +341,38 @@ CG_EXTERN NSString * const kCARemoteEffectStateIdle;
     return customEffectCellRegistration;
 }
 
+- (UICollectionViewCellRegistration *)_hoverLayerCellRegistration {
+    if (auto hoverLayerCellRegistration = _hoverLayerCellRegistration) return hoverLayerCellRegistration;
+    
+    UICollectionViewCellRegistration *hoverLayerCellRegistration = [UICollectionViewCellRegistration registrationWithCellClass:[UICollectionViewCell class] configurationHandler:^(__kindof UICollectionViewCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath, id  _Nonnull item) {
+        HoverEffectLayerContentConfiguration *contentConfiguration = [HoverEffectLayerContentConfiguration new];
+        cell.contentConfiguration = contentConfiguration;
+        [contentConfiguration release];
+        
+        cell.hoverStyle = nil;
+    }];
+    
+    _hoverLayerCellRegistration = [hoverLayerCellRegistration retain];
+    return hoverLayerCellRegistration;
+}
+
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return HoverViewController.hoverStyles.count + 1;
+    return HoverViewController.hoverStyles.count + 2;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.item < HoverViewController.hoverStyles.count) {
         return [collectionView dequeueConfiguredReusableCellWithRegistration:self.hoverEffectCellRegistration forIndexPath:indexPath item:[NSNull null]];
-    } else {
+    } else if (indexPath.item == HoverViewController.hoverStyles.count) {
         return [collectionView dequeueConfiguredReusableCellWithRegistration:self.customEffectCellRegistration forIndexPath:indexPath item:[NSNull null]];
+    } else if (indexPath.item == HoverViewController.hoverStyles.count + 1) {
+        return [collectionView dequeueConfiguredReusableCellWithRegistration:self.hoverLayerCellRegistration forIndexPath:indexPath item:[NSNull null]];
+    } else {
+        abort();
     }
 }
 

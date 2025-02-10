@@ -24,6 +24,7 @@
 #import "MetersPerPointViewController.h"
 #import "FeedbackGeneratorViewController.h"
 #import "HoverViewController.h"
+#import "SceneSizeRestrictionsViewController.h"
 #import "StageViewController.h"
 
 @interface ClassListViewController ()
@@ -58,6 +59,7 @@
     [self cellRegistration];
     
     __kindof UIViewController *viewController = [[self classes][0] new];
+//    __kindof UIViewController *viewController = [SceneSizeRestrictionsViewController new];
     [self.navigationController pushViewController:viewController animated:YES];
     [viewController release];
 }
@@ -83,6 +85,7 @@
 
 - (NSArray<Class> *)classes {
     return @[
+        SceneSizeRestrictionsViewController.class,
         StageViewController.class,
         FeedbackGeneratorViewController.class,
         HoverViewController.class,

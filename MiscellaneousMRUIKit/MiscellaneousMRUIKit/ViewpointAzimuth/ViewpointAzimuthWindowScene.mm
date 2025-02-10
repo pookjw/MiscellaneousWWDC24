@@ -1,11 +1,12 @@
 //
-//  ViewpointAzimuthWindowScene.m
+//  ViewpointAzimuthWindowScene.mm
 //  MiscellaneousMRUIKit
 //
 //  Created by Jinwoo Kim on 7/1/24.
 //
 
 #import "ViewpointAzimuthWindowScene.h"
+#import "MiscellaneousMRUIKit-Swift.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 
@@ -31,8 +32,11 @@
     self.viewpointAzimuthTraitRegistration = [window registerForTraitChanges:@[objc_lookUpClass("UITraitViewpointAzimuth")] withTarget:self action:@selector(viewpointAzimuthTraitDidChange:)];
     self.rawViewpointAzimuthTraitRegistration = [window registerForTraitChanges:@[objc_lookUpClass("UITraitRawViewpointAzimuth")] withTarget:self action:@selector(rawViewpointAzimuthTraitDidChange:)];
     
-    UIViewController *rootViewController = [UIViewController new];
-    rootViewController.view.backgroundColor = UIColor.systemCyanColor;
+#if MUI_PRIVATE
+    UIViewController *rootViewController = MiscellaneousMRUIKit_Private::newRealityBoxViewHostingController();
+#else
+    UIViewController *rootViewController = MiscellaneousMRUIKit::newRealityBoxViewHostingController();
+#endif
     
     window.rootViewController = rootViewController;
     [rootViewController release];

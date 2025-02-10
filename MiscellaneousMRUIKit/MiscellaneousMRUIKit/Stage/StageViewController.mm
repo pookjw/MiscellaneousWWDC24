@@ -8,8 +8,9 @@
 #import "StageViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
+#include <ranges>
 
-#warning TODO Stage SceneSizeRestrictionsViewController UIWindowScene UIWindow
+#warning UIWindowScene UIWindow
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
@@ -93,6 +94,10 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
                 
                 UIMenu *menu = [UIMenu menuWithTitle:@"UIScreen" children:elements];
                 [elements release];
+                
+                NSString *_name = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(screen, sel_registerName("_name"));
+                menu.subtitle = _name;
+                
                 [children addObject:menu];
             }
             
@@ -100,6 +105,82 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
             UIMenu *menu = [UIMenu menuWithTitle:_identifier children:children];
             [children release];
             [menus addObject:menu];
+            
+            {
+                UIDeferredMenuElement *element = [UIDeferredMenuElement elementWithUncachedProvider:^(void (^ _Nonnull completion)(NSArray<UIMenuElement *> * _Nonnull)) {
+                    __kindof UIMenuElement *element = reinterpret_cast<id (*)(Class, SEL, id)>(objc_msgSend)(objc_lookUpClass("UICustomViewMenuElement"), sel_registerName("elementWithViewProvider:"), ^ UIView * (__kindof UIMenuElement *menuElement) {
+                        CGFloat preferredBrightness = reinterpret_cast<CGFloat (*)(id, SEL)>(objc_msgSend)(stage, sel_registerName("preferredBrightness"));
+                        
+                        __kindof UISlider *slider = [objc_lookUpClass("_UIPrototypingMenuSlider") new];
+                        slider.minimumValue = 0.f;
+                        slider.maximumValue = 1.f;
+                        slider.value = preferredBrightness;
+                        
+                        UIAction *action = [UIAction actionWithHandler:^(__kindof UIAction * _Nonnull action) {
+                            auto slider = static_cast<__kindof UISlider *>(action.sender);
+                            reinterpret_cast<void (*)(id, SEL, CGFloat)>(objc_msgSend)(stage, sel_registerName("setPreferredBrightness:"), slider.value);
+                        }];
+                        
+                        [slider addAction:action forControlEvents:UIControlEventValueChanged];
+                        
+                        return [slider autorelease];
+                    });
+                    
+                    completion(@[element]);
+                }];
+                
+                UIMenu *menu = [UIMenu menuWithTitle:@"Preferred Brightness" children:@[element]];
+                menu.subtitle = @"Not working";
+                [menus addObject:menu];
+            }
+            
+            {
+                UIDeferredMenuElement *element = [UIDeferredMenuElement elementWithUncachedProvider:^(void (^ _Nonnull completion)(NSArray<UIMenuElement *> * _Nonnull)) {
+                    __kindof UIMenuElement *element = reinterpret_cast<id (*)(Class, SEL, id)>(objc_msgSend)(objc_lookUpClass("UICustomViewMenuElement"), sel_registerName("elementWithViewProvider:"), ^ UIView * (__kindof UIMenuElement *menuElement) {
+                        CGFloat preferredVideoPassthroughBrightness = reinterpret_cast<CGFloat (*)(id, SEL)>(objc_msgSend)(stage, sel_registerName("preferredVideoPassthroughBrightness"));
+                        
+                        __kindof UISlider *slider = [objc_lookUpClass("_UIPrototypingMenuSlider") new];
+                        slider.minimumValue = 0.f;
+                        slider.maximumValue = 1.f;
+                        slider.value = preferredVideoPassthroughBrightness;
+                        
+                        UIAction *action = [UIAction actionWithHandler:^(__kindof UIAction * _Nonnull action) {
+                            auto slider = static_cast<__kindof UISlider *>(action.sender);
+                            reinterpret_cast<void (*)(id, SEL, CGFloat)>(objc_msgSend)(stage, sel_registerName("setPreferredVideoPassthroughBrightness:"), slider.value);
+                        }];
+                        
+                        [slider addAction:action forControlEvents:UIControlEventValueChanged];
+                        
+                        return [slider autorelease];
+                    });
+                    
+                    completion(@[element]);
+                }];
+                
+                UIMenu *menu = [UIMenu menuWithTitle:@"Preferred Video Passthrough Brightness" children:@[element]];
+                menu.subtitle = @"Not working";
+                [menus addObject:menu];
+            }
+            
+            {
+                NSUInteger preferredVirtualHandsVisibility = reinterpret_cast<NSUInteger (*)(id, SEL)>(objc_msgSend)(stage, sel_registerName("preferredVirtualHandsVisibility"));
+                
+                NSMutableArray<UIAction *> *actions = [NSMutableArray new];
+                for (NSInteger integer : std::views::iota(0, 2)) {
+                    UIAction *action = [UIAction actionWithTitle:@(integer).stringValue image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                        reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(stage, sel_registerName("setPreferredVirtualHandsVisibility:"), integer);
+                    }];
+                    
+                    action.state = (preferredVirtualHandsVisibility == integer) ? UIMenuElementStateOn : UIMenuElementStateOff;
+                    [actions addObject:action];
+                }
+                
+                UIMenu *menu = [UIMenu menuWithTitle:@"Preferred Virtual Hands Visibility" children:actions];
+                [actions release];
+//                menu.subtitle = @(preferredVirtualHandsVisibility).stringValue;
+                menu.subtitle = @"Not working";
+                [menus addObject:menu];
+            }
         }
         
         completion(menus);

@@ -15,6 +15,7 @@
 #import "UpperLimbsWindowScene.h"
 #import "VolumeBaseplateVisibilitySceneDelegate.h"
 #import "ToggleImmersiveStylesSceneDelegate.h"
+#import "SceneSizeRestrictionsSceneDelegate.h"
 #import <CompositorServices/CompositorServices.h>
 #import <objc/runtime.h>
 
@@ -53,6 +54,8 @@ CP_EXTERN const UISceneSessionRole CPSceneSessionRoleImmersiveSpaceApplication;
         configuration.delegateClass = VolumeBaseplateVisibilitySceneDelegate.class;
     } else if ([activityType isEqualToString:@"ToggleImmersiveStyles"]) {
         configuration.delegateClass = ToggleImmersiveStylesSceneDelegate.class;
+    } else if ([activityType isEqualToString:@"SceneSizeRestrictions"]) {
+        configuration.delegateClass = SceneSizeRestrictionsSceneDelegate.class;
     } else {
         configuration.delegateClass = SceneDelegate.class;
     }
