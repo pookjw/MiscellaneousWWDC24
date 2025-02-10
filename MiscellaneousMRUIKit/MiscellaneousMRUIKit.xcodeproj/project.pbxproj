@@ -109,6 +109,12 @@
 		4FFB27632D59F53D0070D95D /* enableVolumetricPresntationForWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB27612D59F53D0070D95D /* enableVolumetricPresntationForWindow.mm */; };
 		4FFB27672D5A13F20070D95D /* SceneIntegrationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB27662D5A13F20070D95D /* SceneIntegrationViewController.mm */; };
 		4FFB27682D5A13F20070D95D /* SceneIntegrationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB27662D5A13F20070D95D /* SceneIntegrationViewController.mm */; };
+		4FFB276C2D5A35560070D95D /* WindowViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB276B2D5A35560070D95D /* WindowViewController.mm */; };
+		4FFB276D2D5A35560070D95D /* WindowViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB276B2D5A35560070D95D /* WindowViewController.mm */; };
+		4FFB27712D5A380E0070D95D /* ChromeVisibilityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB27702D5A380E0070D95D /* ChromeVisibilityViewController.mm */; };
+		4FFB27722D5A380E0070D95D /* ChromeVisibilityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB27702D5A380E0070D95D /* ChromeVisibilityViewController.mm */; };
+		4FFB2A432D5A50950070D95D /* SceneResizingBehaviorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB2A422D5A50950070D95D /* SceneResizingBehaviorViewController.mm */; };
+		4FFB2A442D5A50950070D95D /* SceneResizingBehaviorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB2A422D5A50950070D95D /* SceneResizingBehaviorViewController.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -211,6 +217,12 @@
 		4FFB27612D59F53D0070D95D /* enableVolumetricPresntationForWindow.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = enableVolumetricPresntationForWindow.mm; sourceTree = "<group>"; };
 		4FFB27652D5A13F20070D95D /* SceneIntegrationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneIntegrationViewController.h; sourceTree = "<group>"; };
 		4FFB27662D5A13F20070D95D /* SceneIntegrationViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SceneIntegrationViewController.mm; sourceTree = "<group>"; };
+		4FFB276A2D5A35560070D95D /* WindowViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowViewController.h; sourceTree = "<group>"; };
+		4FFB276B2D5A35560070D95D /* WindowViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WindowViewController.mm; sourceTree = "<group>"; };
+		4FFB276F2D5A380E0070D95D /* ChromeVisibilityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChromeVisibilityViewController.h; sourceTree = "<group>"; };
+		4FFB27702D5A380E0070D95D /* ChromeVisibilityViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ChromeVisibilityViewController.mm; sourceTree = "<group>"; };
+		4FFB2A412D5A50950070D95D /* SceneResizingBehaviorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneResizingBehaviorViewController.h; sourceTree = "<group>"; };
+		4FFB2A422D5A50950070D95D /* SceneResizingBehaviorViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SceneResizingBehaviorViewController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,6 +297,9 @@
 				4F4123932D5871EA009966F4 /* CAPoint3D.h */,
 				4FFB27602D59F53D0070D95D /* enableVolumetricPresntationForWindow.h */,
 				4FFB27612D59F53D0070D95D /* enableVolumetricPresntationForWindow.mm */,
+				4FFB2A402D5A508D0070D95D /* SceneResizingBehavior */,
+				4FFB276E2D5A38050070D95D /* ChromeVisibility */,
+				4FFB27692D5A35450070D95D /* Window */,
 				4FFB27642D5A13DD0070D95D /* SceneIntegration */,
 				4FFB247C2D59ED2E0070D95D /* RealityBoxView */,
 				4FAB0F392D5915E20082E639 /* Stage */,
@@ -536,6 +551,33 @@
 			path = SceneIntegration;
 			sourceTree = "<group>";
 		};
+		4FFB27692D5A35450070D95D /* Window */ = {
+			isa = PBXGroup;
+			children = (
+				4FFB276A2D5A35560070D95D /* WindowViewController.h */,
+				4FFB276B2D5A35560070D95D /* WindowViewController.mm */,
+			);
+			path = Window;
+			sourceTree = "<group>";
+		};
+		4FFB276E2D5A38050070D95D /* ChromeVisibility */ = {
+			isa = PBXGroup;
+			children = (
+				4FFB276F2D5A380E0070D95D /* ChromeVisibilityViewController.h */,
+				4FFB27702D5A380E0070D95D /* ChromeVisibilityViewController.mm */,
+			);
+			path = ChromeVisibility;
+			sourceTree = "<group>";
+		};
+		4FFB2A402D5A508D0070D95D /* SceneResizingBehavior */ = {
+			isa = PBXGroup;
+			children = (
+				4FFB2A412D5A50950070D95D /* SceneResizingBehaviorViewController.h */,
+				4FFB2A422D5A50950070D95D /* SceneResizingBehaviorViewController.mm */,
+			);
+			path = SceneResizingBehavior;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -641,11 +683,13 @@
 				4FFB24102D58F3EF0070D95D /* CustomHoverContentConfiguration.mm in Sources */,
 				4F41239D2D589466009966F4 /* MetersPerPointViewController.mm in Sources */,
 				4F26D3992C305B9F0097B837 /* HomeIndicatorViewController.mm in Sources */,
+				4FFB276D2D5A35560070D95D /* WindowViewController.mm in Sources */,
 				4F26D33A2C2FF9040097B837 /* LaunchPlacementParametersWindowScene.mm in Sources */,
 				4F7902322C53AFA500A3E913 /* VolumeBaseplateVisibilityViewController.mm in Sources */,
 				4FFB24822D59ED680070D95D /* RealityBoxView.swift in Sources */,
 				4FD3D3852C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.mm in Sources */,
 				4FAA17872C357B3400188F35 /* UpperLimbsWindowScene.mm in Sources */,
+				4FFB27722D5A380E0070D95D /* ChromeVisibilityViewController.mm in Sources */,
 				4F05B7652C835061001ECA93 /* DemoSFBSViewController.mm in Sources */,
 				4FFB27682D5A13F20070D95D /* SceneIntegrationViewController.mm in Sources */,
 				4FFB24862D59EE500070D95D /* RealityBoxService.swift in Sources */,
@@ -671,6 +715,7 @@
 				4F1C71252C2F2442002E096A /* SceneDelegate.m in Sources */,
 				4F26D3372C2FF84A0097B837 /* VolumetricWorldAlignmentBehaviorViewController.mm in Sources */,
 				4FFB23C22D58B1240070D95D /* HoverViewController.mm in Sources */,
+				4FFB2A432D5A50950070D95D /* SceneResizingBehaviorViewController.mm in Sources */,
 				4FD5EF482C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm in Sources */,
 				4F98BCFF2D5783CD006D958B /* OrnamentViewController.mm in Sources */,
 				4FFB27632D59F53D0070D95D /* enableVolumetricPresntationForWindow.mm in Sources */,
@@ -693,11 +738,13 @@
 				4FFB240F2D58F3EF0070D95D /* CustomHoverContentConfiguration.mm in Sources */,
 				4F41239C2D589466009966F4 /* MetersPerPointViewController.mm in Sources */,
 				4FE624862D15877A008D14D8 /* HomeIndicatorViewController.mm in Sources */,
+				4FFB276C2D5A35560070D95D /* WindowViewController.mm in Sources */,
 				4FE624872D15877A008D14D8 /* LaunchPlacementParametersWindowScene.mm in Sources */,
 				4FE624882D15877A008D14D8 /* VolumeBaseplateVisibilityViewController.mm in Sources */,
 				4FFB24832D59ED680070D95D /* RealityBoxView.swift in Sources */,
 				4FE624892D15877A008D14D8 /* ToggleImmersiveStylesSceneDelegate.mm in Sources */,
 				4FE6248A2D15877A008D14D8 /* UpperLimbsWindowScene.mm in Sources */,
+				4FFB27712D5A380E0070D95D /* ChromeVisibilityViewController.mm in Sources */,
 				4FE6248B2D15877A008D14D8 /* DemoSFBSViewController.mm in Sources */,
 				4FFB27672D5A13F20070D95D /* SceneIntegrationViewController.mm in Sources */,
 				4FFB24852D59EE500070D95D /* RealityBoxService.swift in Sources */,
@@ -723,6 +770,7 @@
 				4FE624942D15877A008D14D8 /* SceneDelegate.m in Sources */,
 				4FE624952D15877A008D14D8 /* VolumetricWorldAlignmentBehaviorViewController.mm in Sources */,
 				4FFB23C12D58B1240070D95D /* HoverViewController.mm in Sources */,
+				4FFB2A442D5A50950070D95D /* SceneResizingBehaviorViewController.mm in Sources */,
 				4FE624962D15877A008D14D8 /* WorldTrackingCapabilitiesViewController.mm in Sources */,
 				4F98BD002D5783CD006D958B /* OrnamentViewController.mm in Sources */,
 				4FFB27622D59F53D0070D95D /* enableVolumetricPresntationForWindow.mm in Sources */,

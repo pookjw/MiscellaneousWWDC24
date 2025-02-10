@@ -27,6 +27,9 @@
 #import "SceneSizeRestrictionsViewController.h"
 #import "StageViewController.h"
 #import "SceneIntegrationViewController.h"
+#import "WindowViewController.h"
+#import "ChromeVisibilityViewController.h"
+#import "SceneResizingBehaviorViewController.h"
 
 @interface ClassListViewController ()
 @property (retain, readonly, nonatomic) UICollectionViewCellRegistration *cellRegistration;
@@ -86,6 +89,9 @@
 
 - (NSArray<Class> *)classes {
     return @[
+        SceneResizingBehaviorViewController.class,
+        ChromeVisibilityViewController.class,
+        WindowViewController.class,
         SceneIntegrationViewController.class,
         SceneSizeRestrictionsViewController.class,
         StageViewController.class,
