@@ -83,6 +83,8 @@ UIKIT_EXTERN NSString * _NSStringFromUIViewControllerAppearState(int state);
         
         id eventSource = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("MRUIRealityKitSimulationEventSource"), sel_registerName("sharedInstance"));
         void *reEntity = reinterpret_cast<void * (*)(id, SEL)>(objc_msgSend)(label, sel_registerName("reEntity"));
+        assert(reEntity != NULL);
+        
         reinterpret_cast<void (*)(id, SEL, id, void *)>(objc_msgSend)(eventSource, sel_registerName("addObserver:forEntity:"), self, reEntity);
         
         self.label = label;

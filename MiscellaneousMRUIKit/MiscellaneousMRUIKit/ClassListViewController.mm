@@ -74,8 +74,8 @@
     [super viewDidLoad];
     [self cellRegistration];
     
-    __kindof UIViewController *viewController = [[self classes][0] new];
-//    __kindof UIViewController *viewController = [SWSViewController new];
+//    __kindof UIViewController *viewController = [[self classes][0] new];
+    __kindof UIViewController *viewController = [OrnamentViewController new];
     [self.navigationController pushViewController:viewController animated:YES];
     [viewController release];
 }

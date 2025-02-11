@@ -11,7 +11,7 @@
 		4F1C71222C2F2442002E096A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C71212C2F2442002E096A /* AppDelegate.m */; };
 		4F1C71252C2F2442002E096A /* SceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C71242C2F2442002E096A /* SceneDelegate.mm */; };
 		4F1C712D2C2F2443002E096A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F1C712C2C2F2443002E096A /* Assets.xcassets */; };
-		4F1C71332C2F2443002E096A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C71322C2F2443002E096A /* main.m */; };
+		4F1C71332C2F2443002E096A /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C71322C2F2443002E096A /* main.mm */; };
 		4F1C713C2C31CB3C002E096A /* ViewpointAzimuthViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C713B2C31CB3C002E096A /* ViewpointAzimuthViewController.mm */; };
 		4F1C713F2C31CB9D002E096A /* ViewpointAzimuthWindowScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C713E2C31CB9D002E096A /* ViewpointAzimuthWindowScene.mm */; };
 		4F26D2EB2C2FDBFC0097B837 /* ClassListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D2EA2C2FDBFC0097B837 /* ClassListViewController.mm */; };
@@ -69,6 +69,8 @@
 		4FCD46A32D5B16080024EFFE /* WindowSceneZoomInteractionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD46A12D5B16080024EFFE /* WindowSceneZoomInteractionViewController.mm */; };
 		4FCD46A72D5B3AD00024EFFE /* EventSourceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD46A62D5B3AD00024EFFE /* EventSourceViewController.mm */; };
 		4FCD46A82D5B3AD00024EFFE /* EventSourceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD46A62D5B3AD00024EFFE /* EventSourceViewController.mm */; };
+		4FCD46AF2D5B41430024EFFE /* ToolBox.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD46AE2D5B41430024EFFE /* ToolBox.mm */; };
+		4FCD46B02D5B41430024EFFE /* ToolBox.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD46AE2D5B41430024EFFE /* ToolBox.mm */; };
 		4FD3D3822C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD3D3812C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm */; };
 		4FD3D3852C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD3D3842C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.mm */; };
 		4FD5EF482C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD5EF472C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm */; };
@@ -90,7 +92,7 @@
 		4FE6248F2D15877A008D14D8 /* DefaultWorldScalingSceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D34A2C30086F0097B837 /* DefaultWorldScalingSceneDelegate.mm */; };
 		4FE624902D15877A008D14D8 /* LaunchPlacementParametersViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D2EE2C2FDDED0097B837 /* LaunchPlacementParametersViewController.mm */; };
 		4FE624912D15877A008D14D8 /* ImmersiveSceneClientSettingsWindowScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17772C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.mm */; };
-		4FE624922D15877A008D14D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C71322C2F2443002E096A /* main.m */; };
+		4FE624922D15877A008D14D8 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C71322C2F2443002E096A /* main.mm */; };
 		4FE624932D15877A008D14D8 /* ImmersiveSceneClientSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA17742C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.mm */; };
 		4FE624942D15877A008D14D8 /* SceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C71242C2F2442002E096A /* SceneDelegate.mm */; };
 		4FE624952D15877A008D14D8 /* VolumetricWorldAlignmentBehaviorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F26D3362C2FF84A0097B837 /* VolumetricWorldAlignmentBehaviorViewController.mm */; };
@@ -152,7 +154,7 @@
 		4F1C71242C2F2442002E096A /* SceneDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SceneDelegate.mm; sourceTree = "<group>"; };
 		4F1C712C2C2F2443002E096A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4F1C71312C2F2443002E096A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4F1C71322C2F2443002E096A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4F1C71322C2F2443002E096A /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		4F1C713A2C31CB3C002E096A /* ViewpointAzimuthViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewpointAzimuthViewController.h; sourceTree = "<group>"; };
 		4F1C713B2C31CB3C002E096A /* ViewpointAzimuthViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewpointAzimuthViewController.mm; sourceTree = "<group>"; };
 		4F1C713D2C31CB9D002E096A /* ViewpointAzimuthWindowScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewpointAzimuthWindowScene.h; sourceTree = "<group>"; };
@@ -227,6 +229,8 @@
 		4FCD46A12D5B16080024EFFE /* WindowSceneZoomInteractionViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WindowSceneZoomInteractionViewController.mm; sourceTree = "<group>"; };
 		4FCD46A52D5B3AD00024EFFE /* EventSourceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventSourceViewController.h; sourceTree = "<group>"; };
 		4FCD46A62D5B3AD00024EFFE /* EventSourceViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = EventSourceViewController.mm; sourceTree = "<group>"; };
+		4FCD46AD2D5B41430024EFFE /* ToolBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolBox.h; sourceTree = "<group>"; };
+		4FCD46AE2D5B41430024EFFE /* ToolBox.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ToolBox.mm; sourceTree = "<group>"; };
 		4FD3D3802C8066610001C3A4 /* ToggleImmersiveStylesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToggleImmersiveStylesViewController.h; sourceTree = "<group>"; };
 		4FD3D3812C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ToggleImmersiveStylesViewController.mm; sourceTree = "<group>"; };
 		4FD3D3832C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToggleImmersiveStylesSceneDelegate.h; sourceTree = "<group>"; };
@@ -347,6 +351,8 @@
 				4F4123932D5871EA009966F4 /* CAPoint3D.h */,
 				4FFB27602D59F53D0070D95D /* enableVolumetricPresntationForWindow.h */,
 				4FFB27612D59F53D0070D95D /* enableVolumetricPresntationForWindow.mm */,
+				4FCD46AD2D5B41430024EFFE /* ToolBox.h */,
+				4FCD46AE2D5B41430024EFFE /* ToolBox.mm */,
 				4FCD46A42D5B3A9E0024EFFE /* EventSource */,
 				4FCD469F2D5B15D00024EFFE /* Unknown */,
 				4FAB0F4D2D5A63BF0082E639 /* DarknessPreference */,
@@ -374,7 +380,7 @@
 				4FE624A22D158850008D14D8 /* WebXR */,
 				4F1C712C2C2F2443002E096A /* Assets.xcassets */,
 				4F1C71312C2F2443002E096A /* Info.plist */,
-				4F1C71322C2F2443002E096A /* main.m */,
+				4F1C71322C2F2443002E096A /* main.mm */,
 				4FFB247D2D59ED390070D95D /* MiscellaneousMRUIKit-Bridging-Header.h */,
 			);
 			path = MiscellaneousMRUIKit;
@@ -885,13 +891,14 @@
 				4FCD46912D5B05440024EFFE /* EdgeInsetViewController.mm in Sources */,
 				4FAB0F3D2D5915FA0082E639 /* StageViewController.mm in Sources */,
 				4FFB275B2D59F1110070D95D /* SceneSizeRestrictionsSceneDelegate.mm in Sources */,
+				4FCD46B02D5B41430024EFFE /* ToolBox.mm in Sources */,
 				4F4123A02D589638009966F4 /* RulerView.mm in Sources */,
 				4FFB240C2D58D5F40070D95D /* HoverContentConfiguration.mm in Sources */,
 				4FCD46A32D5B16080024EFFE /* WindowSceneZoomInteractionViewController.mm in Sources */,
 				4FFB24132D59E3860070D95D /* HoverEffectLayerContentConfiguration.mm in Sources */,
 				4FAB0F412D5A5F2E0082E639 /* DeviceNoiseLevelViewController.mm in Sources */,
 				4FFB23B72D58AE610070D95D /* FeedbackGeneratorViewController.mm in Sources */,
-				4F1C71332C2F2443002E096A /* main.m in Sources */,
+				4F1C71332C2F2443002E096A /* main.mm in Sources */,
 				4FAA17752C353B6600188F35 /* ImmersiveSceneClientSettingsViewController.mm in Sources */,
 				4FCD46A72D5B3AD00024EFFE /* EventSourceViewController.mm in Sources */,
 				4FAB0F502D5A63C90082E639 /* DarknessPreferenceViewController.mm in Sources */,
@@ -952,13 +959,14 @@
 				4FCD46922D5B05440024EFFE /* EdgeInsetViewController.mm in Sources */,
 				4FAB0F3C2D5915FA0082E639 /* StageViewController.mm in Sources */,
 				4FFB275A2D59F1110070D95D /* SceneSizeRestrictionsSceneDelegate.mm in Sources */,
+				4FCD46AF2D5B41430024EFFE /* ToolBox.mm in Sources */,
 				4F4123A12D589638009966F4 /* RulerView.mm in Sources */,
 				4FFB240B2D58D5F40070D95D /* HoverContentConfiguration.mm in Sources */,
 				4FCD46A22D5B16080024EFFE /* WindowSceneZoomInteractionViewController.mm in Sources */,
 				4FFB24142D59E3860070D95D /* HoverEffectLayerContentConfiguration.mm in Sources */,
 				4FAB0F422D5A5F2E0082E639 /* DeviceNoiseLevelViewController.mm in Sources */,
 				4FFB23B82D58AE610070D95D /* FeedbackGeneratorViewController.mm in Sources */,
-				4FE624922D15877A008D14D8 /* main.m in Sources */,
+				4FE624922D15877A008D14D8 /* main.mm in Sources */,
 				4FE624932D15877A008D14D8 /* ImmersiveSceneClientSettingsViewController.mm in Sources */,
 				4FCD46A82D5B3AD00024EFFE /* EventSourceViewController.mm in Sources */,
 				4FAB0F512D5A63C90082E639 /* DarknessPreferenceViewController.mm in Sources */,

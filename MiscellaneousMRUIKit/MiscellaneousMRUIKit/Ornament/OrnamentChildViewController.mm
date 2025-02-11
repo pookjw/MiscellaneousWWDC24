@@ -13,7 +13,7 @@
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
 @interface OrnamentChildViewController ()
-
+@property (retain, nonatomic, readonly, getter=_ornamentStatusRegistration) id<UITraitChangeRegistration> ornamentStatusRegistration;
 @end
 
 @implementation OrnamentChildViewController
@@ -114,6 +114,38 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
     menu.subtitle = subtitle;
     
     return menu;
+}
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        [self _comonInit_OrnamentChildViewController];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    if (self = [super initWithCoder:coder]) {
+        [self _comonInit_OrnamentChildViewController];
+    }
+    
+    return self;
+}
+
+- (void)dealloc {
+    [(NSObject *)_ornamentStatusRegistration release];
+    [super dealloc];
+}
+
+- (void)_comonInit_OrnamentChildViewController {
+    _ornamentStatusRegistration = [[self registerForTraitChanges:@[objc_lookUpClass("MRUITraitOrnamentStatus")] withHandler:^(__kindof id<UITraitEnvironment>  _Nonnull traitEnvironment, UITraitCollection * _Nonnull previousCollection) {
+        NSInteger mrui_ornamentStatus = reinterpret_cast<NSInteger (*)(id, SEL)>(objc_msgSend)(traitEnvironment.traitCollection, sel_registerName("mrui_ornamentStatus"));
+        
+        NSLog(@"mrui_ornamentStatus: %ld", mrui_ornamentStatus);
+    }] retain];
+    
+    NSInteger mrui_ornamentStatus = reinterpret_cast<NSInteger (*)(id, SEL)>(objc_msgSend)(self.traitCollection, sel_registerName("mrui_ornamentStatus"));
+    NSLog(@"mrui_ornamentStatus: %ld", mrui_ornamentStatus);
 }
 
 - (void)loadView {

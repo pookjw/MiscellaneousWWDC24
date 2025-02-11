@@ -24,7 +24,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
  */
 
 @interface OrnamentViewController ()
-
 @end
 
 @implementation OrnamentViewController
