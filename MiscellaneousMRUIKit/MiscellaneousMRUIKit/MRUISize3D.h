@@ -7,6 +7,11 @@
 
 #import <CoreGraphics/CoreGraphics.h>
 
+/*
+ +[NSValue valueWithMRUISize3D:]
+ -[NSValue MRUISize3DValue]
+ */
+
 struct MRUISize3D {
     CGFloat width;
     CGFloat height;

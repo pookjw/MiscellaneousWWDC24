@@ -37,6 +37,11 @@
 #import "DisplayFidelityViewController.h"
 #import "DarknessPreferenceViewController.h"
 #import "AnchoringTargetViewController.h"
+#import "EdgeInsetViewController.h"
+#import "CornerInsetViewController.h"
+#import "CornerRadiusViewController.h"
+#import "WindowSceneZoomInteractionViewController.h"
+#import "EventSourceViewController.h"
 
 @interface ClassListViewController ()
 @property (retain, readonly, nonatomic) UICollectionViewCellRegistration *cellRegistration;
@@ -96,6 +101,11 @@
 
 - (NSArray<Class> *)classes {
     return @[
+        EventSourceViewController.class,
+        WindowSceneZoomInteractionViewController.class,
+        CornerRadiusViewController.class,
+        CornerInsetViewController.class,
+        EdgeInsetViewController.class,
         AnchoringTargetViewController.class,
         DarknessPreferenceViewController.class,
         DisplayFidelityViewController.class,

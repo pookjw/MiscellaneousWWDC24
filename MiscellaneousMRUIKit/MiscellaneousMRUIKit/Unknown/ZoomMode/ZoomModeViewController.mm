@@ -5,6 +5,8 @@
 //  Created by Jinwoo Kim on 2/11/25.
 //
 
+// MRUIWindowSceneZoomInteraction와 관련 있어 보임
+
 #import "ZoomModeViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>

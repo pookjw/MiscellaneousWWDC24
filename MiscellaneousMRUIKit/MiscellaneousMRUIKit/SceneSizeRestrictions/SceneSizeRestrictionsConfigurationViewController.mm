@@ -154,7 +154,25 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
         reinterpret_cast<void (*)(id, SEL, MRUISize3D)>(objc_msgSend)(window.windowScene.sizeRestrictions, sel_registerName("setMaximumSize3D:"), MRUISize3DMake(2000., 2000., 2000.));
         reinterpret_cast<void (*)(id, SEL, MRUISize3D)>(objc_msgSend)(window.windowScene.sizeRestrictions, sel_registerName("setMinimumSize3D:"), MRUISize3DMake(300., 300., 300.));
         [self _presentMenu];
+        
+        
+        /*
+         MRUIRealityKitSimulationEventSource
+         MRUIEntityObservation
+         */
+        id eventSource = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("MRUIRealityKitSimulationEventSource"), sel_registerName("sharedInstance"));
+        void *reEntity = reinterpret_cast<void * (*)(id, SEL)>(objc_msgSend)(window.windowScene, sel_registerName("reRootEntity"));
+        assert(reEntity != NULL);
+        id observation = reinterpret_cast<id (*)(id, SEL, void *)>(objc_msgSend)([objc_lookUpClass("MRUIEntityObservation") alloc], sel_registerName("initWithEntity:"), reEntity);
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(observation, sel_registerName("addObserver:"), self);
+        
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(eventSource, sel_registerName("addObserver:"), observation);
+        [observation release];
     }
+}
+
+- (void)simulationEventSource:(id)eventSource didReceiveEntityEvent:(id)event {
+    
 }
 
 - (void)_presentMenu {

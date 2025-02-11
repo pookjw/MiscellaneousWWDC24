@@ -91,11 +91,6 @@ NSString * mui_MRUIUserInterfacePlaneStringValue(NSUInteger value) {
         NSMutableArray<UIMenu *> *menus = [NSMutableArray new];
         id preferredAnchoringTarget = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(weakSelf.view.window.windowScene, sel_registerName("preferredAnchoringTarget"));
         
-        /*
-         MRUIHeadAnchoringTarget
-         MRUIPlaneAnchoringTarget
-         */
-        
         {
             __kindof UIMenuElement *element = reinterpret_cast<id (*)(Class, SEL, id)>(objc_msgSend)(objc_lookUpClass("UICustomViewMenuElement"), sel_registerName("elementWithViewProvider:"), ^ UIView * (__kindof UIMenuElement *menuElement) {
                 CGFloat distance;

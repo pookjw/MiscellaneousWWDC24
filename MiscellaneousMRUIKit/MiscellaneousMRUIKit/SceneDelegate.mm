@@ -1,5 +1,5 @@
 //
-//  SceneDelegate.m
+//  SceneDelegate.mm
 //  MiscellaneousMRUIKit
 //
 //  Created by Jinwoo Kim on 6/29/24.
