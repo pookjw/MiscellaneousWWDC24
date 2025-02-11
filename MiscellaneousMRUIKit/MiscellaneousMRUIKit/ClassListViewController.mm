@@ -36,6 +36,7 @@
 #import "ZoomModeViewController.h"
 #import "DisplayFidelityViewController.h"
 #import "DarknessPreferenceViewController.h"
+#import "AnchoringTargetViewController.h"
 
 @interface ClassListViewController ()
 @property (retain, readonly, nonatomic) UICollectionViewCellRegistration *cellRegistration;
@@ -69,7 +70,7 @@
     [self cellRegistration];
     
     __kindof UIViewController *viewController = [[self classes][0] new];
-//    __kindof UIViewController *viewController = [SceneSizeRestrictionsViewController new];
+//    __kindof UIViewController *viewController = [SWSViewController new];
     [self.navigationController pushViewController:viewController animated:YES];
     [viewController release];
 }
@@ -95,6 +96,7 @@
 
 - (NSArray<Class> *)classes {
     return @[
+        AnchoringTargetViewController.class,
         DarknessPreferenceViewController.class,
         DisplayFidelityViewController.class,
         ZoomModeViewController.class,

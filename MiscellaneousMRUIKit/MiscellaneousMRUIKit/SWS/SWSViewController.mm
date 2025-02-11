@@ -127,16 +127,17 @@ UIKIT_EXTERN NSString * _UIStyledEffectConvertToString(UIBlurEffectStyle);
     
     //
     
-    NSURL *url = [NSBundle.mainBundle URLForResource:@"image" withExtension:UTTypeHEIC.preferredFilenameExtension];
-    assert(url != nil);
-    UIImage *image = [UIImage imageWithContentsOfFile:url.path];
+//    NSURL *url = [NSBundle.mainBundle URLForResource:@"image" withExtension:UTTypeHEIC.preferredFilenameExtension];
+//    assert(url != nil);
+//    UIImage *image = [UIImage imageWithContentsOfFile:url.path];
+//    
+//    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+//    imageView.contentMode = UIViewContentModeScaleAspectFill;
+//    [self.view addSubview:imageView];
+//    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self.view, sel_registerName("_addBoundsMatchingConstraintsForView:"), imageView);
+//    [imageView release];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.view addSubview:imageView];
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self.view, sel_registerName("_addBoundsMatchingConstraintsForView:"), imageView);
-    [imageView release];
-//    self.view.backgroundColor = UIColor.whiteColor;
+    self.view.backgroundColor = UIColor.whiteColor;
     
     //
     
@@ -198,7 +199,8 @@ UIKIT_EXTERN NSString * _UIStyledEffectConvertToString(UIBlurEffectStyle);
         {
             UIAction *action = [UIAction actionWithTitle:@"Setup" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                 reinterpret_cast<void (*)(id, SEL, NSInteger, id)>(objc_msgSend)(labelContainerView, sel_registerName("_requestSeparatedState:withReason:"), 1, @"_UIViewSeparatedStateRequestReasonUnspecified");
-                labelContainerView.layer.zPosition = 600.;
+//                labelContainerView.layer.zPosition = 600.;
+                reinterpret_cast<void (*)(id, SEL, CGFloat)>(objc_msgSend)(labelContainerView, sel_registerName("setOriginZ:"), 600.);
                 reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(labelContainerView, sel_registerName("sws_enablePlatter"));
             }];
             
@@ -248,11 +250,11 @@ UIKIT_EXTERN NSString * _UIStyledEffectConvertToString(UIBlurEffectStyle);
                 __kindof UISlider *slider = [objc_lookUpClass("_UIPrototypingMenuSlider") new];
                 slider.minimumValue = 0.f;
                 slider.maximumValue = 600.f;
-                slider.value = labelContainerView.layer.zPosition;
+                slider.value = reinterpret_cast<CGFloat (*)(id, SEL)>(objc_msgSend)(labelContainerView, sel_registerName("originZ"));
                 
                 UIAction *action = [UIAction actionWithHandler:^(__kindof UIAction * _Nonnull action) {
                     auto slider = static_cast<__kindof UISlider *>(action.sender);
-                    labelContainerView.layer.zPosition = slider.value;
+                    reinterpret_cast<void (*)(id, SEL, CGFloat)>(objc_msgSend)(labelContainerView, sel_registerName("setOriginZ:"), slider.value);
                 }];
                 
                 [slider addAction:action forControlEvents:UIControlEventValueChanged];
@@ -349,6 +351,17 @@ UIKIT_EXTERN NSString * _UIStyledEffectConvertToString(UIBlurEffectStyle);
             }];
             
             [children addObject:updateCornerRadius];
+        }
+        
+        {
+            BOOL mrui_drawsProjectiveShadow = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(labelContainerView, sel_registerName("mrui_drawsProjectiveShadow"));
+            UIAction *action = [UIAction actionWithTitle:@"Draws Projective Shadow" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(labelContainerView, sel_registerName("mrui_setDrawsProjectiveShadow:"), !mrui_drawsProjectiveShadow);
+            }];
+            
+            action.state = mrui_drawsProjectiveShadow ? UIMenuElementStateOn : UIMenuElementStateOff;
+            action.subtitle = @"???";
+            [children addObject:action];
         }
         
         //

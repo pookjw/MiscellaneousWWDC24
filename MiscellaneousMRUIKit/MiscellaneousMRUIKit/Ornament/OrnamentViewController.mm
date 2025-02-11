@@ -100,6 +100,23 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
         [children addObject:action];
     }
     
+    {
+        UIAction *action = [UIAction actionWithTitle:@"Add Pill Ornament Item" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+            OrnamentChildViewController *viewController = [OrnamentChildViewController new];
+            
+            id ornament = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("MRUIPillOrnament") alloc], sel_registerName("initWithViewController:"), viewController);
+            [viewController release];
+            
+            reinterpret_cast<void (*)(id, SEL, CGSize)>(objc_msgSend)(ornament, sel_registerName("setPreferredContentSize:"), CGSizeMake(400., 400.));
+            
+            NSArray *_allOrnaments = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(mrui_ornamentsItem, sel_registerName("_allOrnaments"));
+            reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(mrui_ornamentsItem, sel_registerName("_setAllOrnaments:"), [_allOrnaments arrayByAddingObject:ornament]);
+            [ornament release];
+        }];
+        
+        [children addObject:action];
+    }
+    
     //
     
     UIMenu *menu = [UIMenu menuWithChildren:children];

@@ -57,6 +57,8 @@
 		4FAB0F4C2D5A62F30082E639 /* DisplayFidelityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0F4A2D5A62F30082E639 /* DisplayFidelityViewController.mm */; };
 		4FAB0F502D5A63C90082E639 /* DarknessPreferenceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0F4F2D5A63C90082E639 /* DarknessPreferenceViewController.mm */; };
 		4FAB0F512D5A63C90082E639 /* DarknessPreferenceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0F4F2D5A63C90082E639 /* DarknessPreferenceViewController.mm */; };
+		4FAB0F552D5A6B820082E639 /* AnchoringTargetViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0F542D5A6B820082E639 /* AnchoringTargetViewController.mm */; };
+		4FAB0F562D5A6B820082E639 /* AnchoringTargetViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0F542D5A6B820082E639 /* AnchoringTargetViewController.mm */; };
 		4FD3D3822C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD3D3812C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm */; };
 		4FD3D3852C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD3D3842C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.mm */; };
 		4FD5EF482C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD5EF472C3313A500CCCFA6 /* WorldTrackingCapabilitiesViewController.mm */; };
@@ -202,6 +204,8 @@
 		4FAB0F4A2D5A62F30082E639 /* DisplayFidelityViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DisplayFidelityViewController.mm; sourceTree = "<group>"; };
 		4FAB0F4E2D5A63C90082E639 /* DarknessPreferenceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DarknessPreferenceViewController.h; sourceTree = "<group>"; };
 		4FAB0F4F2D5A63C90082E639 /* DarknessPreferenceViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DarknessPreferenceViewController.mm; sourceTree = "<group>"; };
+		4FAB0F532D5A6B820082E639 /* AnchoringTargetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnchoringTargetViewController.h; sourceTree = "<group>"; };
+		4FAB0F542D5A6B820082E639 /* AnchoringTargetViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AnchoringTargetViewController.mm; sourceTree = "<group>"; };
 		4FD3D3802C8066610001C3A4 /* ToggleImmersiveStylesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToggleImmersiveStylesViewController.h; sourceTree = "<group>"; };
 		4FD3D3812C8066610001C3A4 /* ToggleImmersiveStylesViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ToggleImmersiveStylesViewController.mm; sourceTree = "<group>"; };
 		4FD3D3832C8066A00001C3A4 /* ToggleImmersiveStylesSceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToggleImmersiveStylesSceneDelegate.h; sourceTree = "<group>"; };
@@ -321,6 +325,7 @@
 				4F4123932D5871EA009966F4 /* CAPoint3D.h */,
 				4FFB27602D59F53D0070D95D /* enableVolumetricPresntationForWindow.h */,
 				4FFB27612D59F53D0070D95D /* enableVolumetricPresntationForWindow.mm */,
+				4FAB0F522D5A6B7A0082E639 /* AnchoringTarget */,
 				4FAB0F4D2D5A63BF0082E639 /* DarknessPreference */,
 				4FAB0F482D5A62EC0082E639 /* DisplayFidelity */,
 				4FAB0F432D5A60EC0082E639 /* ZoomMode */,
@@ -534,6 +539,15 @@
 				4FAB0F4F2D5A63C90082E639 /* DarknessPreferenceViewController.mm */,
 			);
 			path = DarknessPreference;
+			sourceTree = "<group>";
+		};
+		4FAB0F522D5A6B7A0082E639 /* AnchoringTarget */ = {
+			isa = PBXGroup;
+			children = (
+				4FAB0F532D5A6B820082E639 /* AnchoringTargetViewController.h */,
+				4FAB0F542D5A6B820082E639 /* AnchoringTargetViewController.mm */,
+			);
+			path = AnchoringTarget;
 			sourceTree = "<group>";
 		};
 		4FD3D37F2C80664A0001C3A4 /* ToggleImmersiveStyles */ = {
@@ -813,6 +827,7 @@
 				4FAB0F382D5915990082E639 /* SceneSizeRestrictionsViewController.mm in Sources */,
 				4FAA17842C357A1700188F35 /* UpperLimbsViewController.mm in Sources */,
 				4FD9F9DB2D55C38000E38CF2 /* SWSViewController.mm in Sources */,
+				4FAB0F562D5A6B820082E639 /* AnchoringTargetViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -874,6 +889,7 @@
 				4FAB0F372D5915990082E639 /* SceneSizeRestrictionsViewController.mm in Sources */,
 				4FE624982D15877A008D14D8 /* UpperLimbsViewController.mm in Sources */,
 				4FD9F9DC2D55C38000E38CF2 /* SWSViewController.mm in Sources */,
+				4FAB0F552D5A6B820082E639 /* AnchoringTargetViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
