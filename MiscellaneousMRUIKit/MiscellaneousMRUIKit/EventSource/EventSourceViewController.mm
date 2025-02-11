@@ -9,11 +9,26 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 
+UIKIT_EXTERN NSString * _NSStringFromUIViewControllerAppearState(int state);
+/*
+ disappeared 0
+ appearing 1
+ appeared 2
+ disappearing 3
+ */
+
 @interface EventSourceViewController ()
 @property (retain, nonatomic, nullable, getter=_label, setter=_setLabel:) UILabel *label;
 @end
 
 @implementation EventSourceViewController
+
+- (void)dealloc {
+    id eventSource = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("MRUIRealityKitSimulationEventSource"), sel_registerName("sharedInstance"));
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(eventSource, sel_registerName("removeObserver:"), self);
+    
+    [super dealloc];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,6 +39,9 @@
 }
 
 - (void)simulationEventSource:(id)eventSource didReceiveEntityEvent:(id)event {
+    int _appearState = reinterpret_cast<int (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("_appearState"));
+    if (!((_appearState == 1) or (_appearState == 2))) return;
+    
     NSUInteger type = reinterpret_cast<NSUInteger (*)(id, SEL)>(objc_msgSend)(event, sel_registerName("type"));
     void *entity = reinterpret_cast<void * (*)(id, SEL)>(objc_msgSend)(event, sel_registerName("entity"));
     id _entity = reinterpret_cast<id (*)(id, SEL, void *)>(objc_msgSend)([objc_lookUpClass("MRUIREEntity") alloc], sel_registerName("initWithREEntity:"), entity);
