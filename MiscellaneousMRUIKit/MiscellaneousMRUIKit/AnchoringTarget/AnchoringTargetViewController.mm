@@ -80,6 +80,8 @@ NSString * mui_MRUIUserInterfacePlaneStringValue(NSUInteger value) {
     [self.view addSubview:button];
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self.view, sel_registerName("_addBoundsMatchingConstraintsForView:"), button);
     [button release];
+    
+    self.navigationItem.title = @"???";
 }
 
 - (UIMenu *)_makeMenu {
