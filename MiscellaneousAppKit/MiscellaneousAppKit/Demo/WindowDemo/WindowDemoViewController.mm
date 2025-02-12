@@ -13,23 +13,11 @@
 #import "NSColorSpace+MA_Category.h"
 #include <ranges>
 #include <numeric>
+#include <vector>
 #import "NSStringFromNSWindowDepth.h"
 #import "NSStringFromNSWindowCollectionBehavior.h"
 #import "NSWindow+MA_Category.h"
-
-@interface MyView : NSView
-- (void)drawRect:(NSRect)rect;
-@end
-
-@implementation MyView
-- (void)drawRect:(NSRect)rect
-{
-    [[[NSColor windowBackgroundColor] colorWithAlphaComponent:0.5] set];
-    NSRectFill(self.bounds);
-    NSRectFillUsingOperation(NSMakeRect(50, 50, 100, 100), NSCompositingOperationClear);
-}
-- (BOOL)isOpaque { return YES; }
-@end
+#import "NSStringFromNSRectEdge.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
@@ -45,13 +33,6 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
     [_configurationView release];
     [_stageChangedDate release];
     [super dealloc];
-}
-
-- (void)loadView {
-    NSView *view = [NSView new];
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(view, sel_registerName("setBackgroundColor:"), [NSColor.cyanColor colorWithAlphaComponent:0.3]);
-    self.view = view;
-    [view release];
 }
 
 - (void)viewDidLoad {
@@ -104,6 +85,11 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makePreventsApplicationTerminationWhenModalItemModel],
+        [self _makeContentBorderThicknessForMinYEdge],
+        [self _makeAutorecalculatesContentBorderThicknessItemModel],
+        [self _makeInvalidateShadowItemModel],
+        [self _makeHasShadowItemModel],
         [self _makeOpaqueItemModel],
         [self _makeWorksWhenModalItemModel],
         [self _makeStageChangedDateItemModel],
@@ -444,6 +430,92 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
     }];
 }
 
+- (ConfigurationItemModel *)_makeHasShadowItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Has Shadow"
+                                            userInfo:nil
+                                               label:@"Has Shadow"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.hasShadow);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeInvalidateShadowItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Invalidate Shadow"
+                                            userInfo:nil
+                                               label:@"Invalidate Shadow"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeAutorecalculatesContentBorderThicknessItemModel {
+    // https://x.com/_silgen_name/status/1889699057071010212
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Autorecalculates Content Border Thickness"
+                                            userInfo:nil
+                                               label:@"Autorecalculates Content Border Thickness"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSUInteger count;
+        NSRectEdge *allEdges = allNSRectEdges(&count);
+        
+        auto titlesVector = std::views::iota(allEdges, allEdges + count)
+        | std::views::transform([](NSRectEdge *ptr) { return *ptr; })
+        | std::views::transform([](NSRectEdge edge) -> NSString * {
+            return NSStringFromNSRectEdge(edge);
+        })
+        | std::ranges::to<std::vector<NSString *>>();
+        
+        auto selectedTitlesVector = std::views::iota(allEdges, allEdges + count)
+        | std::views::transform([](NSRectEdge *ptr) { return *ptr; })
+        | std::views::filter([window = unretainedSelf.view.window](NSRectEdge edge) {
+            return [window autorecalculatesContentBorderThicknessForEdge:edge];
+        })
+        | std::views::transform([](NSRectEdge edge) -> NSString * {
+            return NSStringFromNSRectEdge(edge);
+        })
+        | std::ranges::to<std::vector<NSString *>>();
+        
+        return [ConfigurationPopUpButtonDescription descriptionWithTitles:[NSArray arrayWithObjects:titlesVector.data() count:titlesVector.size()]
+                                                           selectedTitles:[NSArray arrayWithObjects:selectedTitlesVector.data() count:selectedTitlesVector.size()]
+                                                     selectedDisplayTitle:[NSArray arrayWithObjects:selectedTitlesVector.data() count:selectedTitlesVector.size()].firstObject];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeContentBorderThicknessForMinYEdge {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSlider
+                                          identifier:@"Content Border Thickness (MinY Edge)"
+                                            userInfo:nil
+                                               label:@"Content Border Thickness (MinY Edge)"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        CGFloat value = [unretainedSelf.view.window contentBorderThicknessForEdge:NSRectEdgeMinY];
+        
+        return [ConfigurationSliderDescription descriptionWithSliderValue:value
+                                                             minimumValue:0. maximumValue:50.
+                                                               continuous:YES];
+    }];
+}
+
+- (ConfigurationItemModel *)_makePreventsApplicationTerminationWhenModalItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Prevents Application Termination When Modal"
+                                            userInfo:nil
+                                               label:@"Prevents Application Termination When Modal"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.preventsApplicationTerminationWhenModal);
+    }];
+}
+
+
 #pragma mark - Items 2
 
 - (void)didTriggerReloadButtonWithConfigurationView:(ConfigurationView *)configurationView {
@@ -545,6 +617,53 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
         return YES;
     } else if ([identifier isEqualToString:@"Opaque"]) {
         window.opaque = static_cast<NSNumber *>(newValue).boolValue;
+        [self _reload];
+        return NO;
+    } else if ([identifier isEqualToString:@"Has Shadow"]) {
+        window.hasShadow = static_cast<NSNumber *>(newValue).boolValue;
+        [self _reload];
+        return NO;
+    } else if ([identifier isEqualToString:@"Invalidate Shadow"]) {
+        [window invalidateShadow];
+        return NO;
+    } else if ([identifier isEqualToString:@"Autorecalculates Content Border Thickness"]) {
+        auto title = static_cast<NSString *>(newValue);
+        NSRectEdge edge = NSRectEdgeFromString(title);
+        
+        if ([window autorecalculatesContentBorderThicknessForEdge:edge]) {
+            [window setAutorecalculatesContentBorderThickness:NO forEdge:edge];
+        } else {
+            [window setAutorecalculatesContentBorderThickness:YES forEdge:edge];
+        }
+        
+        [self _reload];
+        return NO;
+    } else if ([identifier isEqualToString:@"Content Border Thickness (MinY Edge)"]) {
+        auto value = static_cast<NSNumber *>(newValue);
+        
+#if CGFLOAT_IS_DOUBLE
+        [window setContentBorderThickness:value.doubleValue forEdge:NSRectEdgeMinY];
+#else
+        [window setContentBorderThickness:value.floatValue forEdge:NSRectEdgeMinY];
+#endif
+        
+        id _auxiliaryStorage;
+        assert(object_getInstanceVariable(window, "_auxiliaryStorage", reinterpret_cast<void **>(&_auxiliaryStorage)) != NULL);
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Prevents Application Termination When Modal"]) {
+        auto value = static_cast<NSNumber *>(newValue);
+        window.preventsApplicationTerminationWhenModal = value.boolValue;
+        
+        NSAlert *alert = [NSAlert new];
+        alert.alertStyle = NSAlertStyleInformational;
+        alert.messageText = @"Alert";
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        [alert release];
+        
         [self _reload];
         return NO;
     } else {

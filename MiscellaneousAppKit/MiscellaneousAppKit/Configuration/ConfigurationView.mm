@@ -130,11 +130,12 @@
     
     NSCollectionViewDiffableDataSource<NSNull *,ConfigurationItemModel *> *dataSource = [[NSCollectionViewDiffableDataSource alloc] initWithCollectionView:self.collectionView itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, ConfigurationItemModel * _Nonnull itemModel) {
         ConfigurationItemModelType type = itemModel.type;
-        id<NSCopying> value = itemModel.valueResolver(itemModel);
+        auto value = static_cast<NSObject<NSCopying> *>(itemModel.valueResolver(itemModel));
         NSString *label = itemModel.labelResolver(itemModel, value);
         
         switch (type) {
             case ConfigurationItemModelTypeSwitch: {
+                assert([value isKindOfClass:[NSNumber class]]);
                 BOOL isOn = static_cast<NSNumber *>(value).boolValue;
                 
                 ConfigurationSwitchItem *item = [collectionView makeItemWithIdentifier:ConfigurationView.switchItemIdentifier forIndexPath:indexPath];
@@ -148,6 +149,7 @@
                 return item;
             }
             case ConfigurationItemModelTypeSlider: {
+                assert([value isKindOfClass:[ConfigurationSliderDescription class]]);
                 auto sliderDescription = static_cast<ConfigurationSliderDescription *>(value);
                 
                 ConfigurationSliderItem *item = [collectionView makeItemWithIdentifier:ConfigurationView.sliderItemIdentifier forIndexPath:indexPath];
@@ -161,6 +163,7 @@
                 return item;
             }
             case ConfigurationItemModelTypeStepper: {
+                assert([value isKindOfClass:[ConfigurationStepperDescription class]]);
                 auto stepperDescription = static_cast<ConfigurationStepperDescription *>(value);
                 
                 ConfigurationStepperItem *item = [collectionView makeItemWithIdentifier:ConfigurationView.stepperItemIdentifier forIndexPath:indexPath];
@@ -177,6 +180,7 @@
                 return item;
             }
             case ConfigurationItemModelTypeButton: {
+                assert([value isKindOfClass:[NSNull class]]);
                 ConfigurationButtonItem *item = [collectionView makeItemWithIdentifier:ConfigurationView.buttonItemIdentifier forIndexPath:indexPath];
                 item.delegate = unretainedSelf;
                 item.textField.stringValue = label;
@@ -188,6 +192,7 @@
                 item.delegate = unretainedSelf;
                 item.textField.stringValue = label;
                 
+                assert([value isKindOfClass:[ConfigurationPopUpButtonDescription class]]);
                 auto description = static_cast<ConfigurationPopUpButtonDescription *>(value);
                 NSPopUpButton *popUpButton = item.popUpButton;
                 
@@ -224,11 +229,15 @@
                 ConfigurationColorWellItem *item = [collectionView makeItemWithIdentifier:ConfigurationView.colorWellItemIdentifier forIndexPath:indexPath];
                 item.delegate = unretainedSelf;
                 item.textField.stringValue = label;
+                
+                assert([value isKindOfClass:[NSColor class]]);
                 item.colorWell.color = static_cast<NSColor *>(value);
                 
                 return item;
             }
             case ConfigurationItemModelTypeLabel: {
+                assert([value isKindOfClass:[NSNull class]]);
+                
                 ConfigurationLabelItem *item = [collectionView makeItemWithIdentifier:ConfigurationView.labelItemIdentifier forIndexPath:indexPath];
                 item.textField.stringValue = label;
                 

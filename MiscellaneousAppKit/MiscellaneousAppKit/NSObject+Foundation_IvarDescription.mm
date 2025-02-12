@@ -693,8 +693,7 @@
         const id *valuePtr = static_cast<const id *>(location);
         return [NSString stringWithFormat:@"%@", *valuePtr];
     } else if (strcmp(encodedType, @encode(Class)) == 0) {
-        const id value = (__bridge const id)location;
-        return NSStringFromClass([value class]);
+        return @"Class";
     } else if (strcmp(encodedType, @encode(SEL)) == 0) {
         SEL *valuePtr = static_cast<SEL *>(location);
         return NSStringFromSelector(*valuePtr);
