@@ -355,6 +355,7 @@
 				4FCD46AE2D5B41430024EFFE /* ToolBox.mm */,
 				4FCD46A42D5B3A9E0024EFFE /* EventSource */,
 				4FCD469F2D5B15D00024EFFE /* Unknown */,
+				4FFB276E2D5A38050070D95D /* ChromeVisibility */,
 				4FAB0F4D2D5A63BF0082E639 /* DarknessPreference */,
 				4FFB2A402D5A508D0070D95D /* SceneResizingBehavior */,
 				4FFB27692D5A35450070D95D /* Window */,
@@ -621,7 +622,6 @@
 				4FAB0F3E2D5A5F240082E639 /* DeviceNoiseLevel */,
 				4FFB2A4E2D5A5A9C0070D95D /* DisplayContentMode */,
 				4FFB2A452D5A53540070D95D /* VisualFidelity */,
-				4FFB276E2D5A38050070D95D /* ChromeVisibility */,
 				4FAB0F392D5915E20082E639 /* Stage */,
 			);
 			path = Unknown;

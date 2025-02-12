@@ -14,6 +14,8 @@
 	<true/>
 	<key>com.apple.surfboard.entity-interaction-client</key>
 	<true/>
+	<key>com.apple.surfboard.chrome-customization</key>
+	<true/>
 	<key>com.apple.surfboard.scene-understanding-client</key>
 	<true/>
 	<key>com.apple.surfboard.immersion-client</key>
