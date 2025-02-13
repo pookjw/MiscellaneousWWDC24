@@ -19,6 +19,8 @@
 #import "NSWindow+MA_Category.h"
 #import "NSStringFromNSRectEdge.h"
 #import "NSStringFromNSWindowNumberListOptions.h"
+#import "NSStringNSWindowSharingType.h"
+#import <QuartzCore/QuartzCore.h>
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
@@ -46,10 +48,13 @@ NSAppearanceName const NSAppearanceNameVibrantDarkVisibleBezels = @"NSAppearance
 NSAppearanceName const NSAppearanceNameDarkAquaVisibleBezels = @"NSAppearanceNameDarkAquaVisibleBezels";
 NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppearanceNameAccessibilityGraphiteDarkAqua";
 
-@interface WindowDemoViewController () <ConfigurationViewDelegate, NSAppearanceCustomization>
+@interface WindowDemoViewController () <ConfigurationViewDelegate, NSAppearanceCustomization> {
+    double _lastTimestamp;
+}
 @property (retain, nonatomic, readonly, getter=_configurationView) ConfigurationView *configurationView;
 @property (copy, nonatomic, nullable, getter=_stageChangedDate, setter=_setStageChangedDate:) NSDate *stageChangedDate;
 @property (assign, nonatomic, getter=_preventsApplicationTerminationWhenModal, setter=_setPreventsApplicationTerminationWhenModal:) BOOL preventsApplicationTerminationWhenModal;
+@property (retain, nonatomic, nullable, getter=_displayLink, setter=_setDisplayLink:) CADisplayLink *displayLink;
 @end
 
 @implementation WindowDemoViewController
@@ -60,6 +65,8 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     [_configurationView release];
     [_stageChangedDate release];
     [_appearance release];
+    [_displayLink invalidate];
+    [_displayLink release];
     [super dealloc];
 }
 
@@ -120,6 +127,8 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeDisplayLinkItemModel],
+        [self _makeSharingTypeItemModel],
         [self _makeCanBecomeVisibleWithoutLoginItemModel],
         [self _makeDeviceDescriptionItemModel],
         [self _makeWindowNumbersWithOptionsItemModel],
@@ -649,6 +658,67 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     }];
 }
 
+- (ConfigurationItemModel *)_makeSharingTypeItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Sharing Type"
+                                            userInfo:nil
+                                               label:@"Sharing Type"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSUInteger count;
+        NSWindowSharingType *allTypes = allNSWindowSharingTypes(&count);
+        
+        auto titlesVector = std::views::iota(allTypes, allTypes + count)
+        | std::views::transform([](NSWindowSharingType *ptr) { return *ptr; })
+        | std::views::transform([](NSWindowSharingType type) {
+            return NSStringFromNSWindowSharingType(type);
+        })
+        | std::ranges::to<std::vector<NSString *>>();
+        
+        NSWindowSharingType selectedType = unretainedSelf.view.window.sharingType;
+        
+        return [ConfigurationPopUpButtonDescription descriptionWithTitles:[NSArray arrayWithObjects:titlesVector.data() count:titlesVector.size()]
+                                                           selectedTitles:@[NSStringFromNSWindowSharingType(selectedType)]
+                                                     selectedDisplayTitle:NSStringFromNSWindowSharingType(selectedType)];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeDisplayLinkItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Display Link"
+                                            userInfo:nil
+                                               label:@"Display Link"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        CADisplayLink * _Nullable displayLink = unretainedSelf.displayLink;
+        if (displayLink == nil) {
+            return @(NO);
+        }
+        
+        return @(!displayLink.paused);
+    }];
+}
+
+- (void)_didTriggerDisplayLink:(CADisplayLink *)sender {
+    if (_lastTimestamp == 0.0) {
+        _lastTimestamp = sender.timestamp;
+    }
+    
+    double a = fmod((sender.timestamp - _lastTimestamp), 4.0) / 4.0;
+    
+    if (a <= 0.5) {
+        a *= 2.0;
+    } else {
+        a = 2.0 - (a * 2.0);
+    }
+    
+    a = 0.3 + a * (1.0 / 0.7);
+    
+    self.view.window.alphaValue = a;
+}
+
 
 #pragma mark - Items 2
 
@@ -847,6 +917,30 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
         auto value = static_cast<NSNumber *>(newValue);
         window.canBecomeVisibleWithoutLogin = value.boolValue;
         return YES;
+    } else if ([identifier isEqualToString:@"Sharing Type"]) {
+        auto title = static_cast<NSString *>(newValue);
+        NSWindowSharingType type = NSWindowSharingTypeFromString(title);
+        window.sharingType = type;
+        [self _reload];
+        return NO;
+    } else if ([identifier isEqualToString:@"Display Link"]) {
+        auto boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        
+        if (CADisplayLink *displayLink = self.displayLink) {
+            displayLink.paused = !boolValue;
+            
+            if (!boolValue) {
+                window.alphaValue = 1.;
+            }
+        } else {
+            assert(boolValue);
+            CADisplayLink *_displayLink = [window displayLinkWithTarget:self selector:@selector(_didTriggerDisplayLink:)];
+            self.displayLink = _displayLink;
+            [_displayLink addToRunLoop:NSRunLoop.currentRunLoop forMode:NSRunLoopCommonModes];
+        }
+        
+        [self _reload];
+        return NO;
     } else {
         abort();
     }

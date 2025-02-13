@@ -7,6 +7,7 @@
 
 #import "WindowDemoWindow.h"
 #import "WindowDemoViewController.h"
+#include <unistd.h>
 
 @implementation WindowDemoWindow
 
@@ -14,7 +15,8 @@
     self = [super initWithContentRect:NSMakeRect(0., 0., 400, 800.) styleMask:NSWindowStyleMaskBorderless | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskFullSizeContentView | NSWindowStyleMaskResizable | NSWindowStyleMaskTitled backing:NSBackingStoreBuffered defer:NO];
     
     if (self) {
-        self.title = @"Window Demo";
+//        self.title = @"Window Demo";
+        self.title = [NSString stringWithFormat:@"%d %d", getuid(), geteuid()];
         self.releasedWhenClosed = NO;
         self.frameAutosaveName = @"WindowDemo";
         self.contentMinSize = NSMakeSize(400., 800.);
