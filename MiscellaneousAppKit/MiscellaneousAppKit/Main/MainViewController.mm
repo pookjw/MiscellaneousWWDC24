@@ -11,6 +11,7 @@
 #import "WindowDemoWindow.h"
 #import "ViewDemoViewController.h"
 #import "ConfigurationDemoViewController.h"
+#import "ServiceManagementDemoViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 
@@ -36,9 +37,10 @@
 
 + (NSArray<Class> *)_classes {
     return @[
-        [ConfigurationDemoViewController self],
-        [WindowDemoWindow self],
-        [ViewDemoViewController self]
+        [ServiceManagementDemoViewController class],
+        [ConfigurationDemoViewController class],
+        [WindowDemoWindow class],
+        [ViewDemoViewController class]
     ];
 }
 
@@ -55,7 +57,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    self.preferredContentSize = NSMakeSize(400., 400.);
-    [self _performActionWithIndex:1];
+//    [self _performActionWithIndex:1];
 }
 
 - (NSScrollView *)_scrollView {

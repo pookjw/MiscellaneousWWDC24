@@ -85,9 +85,21 @@
     
     //
     
-    NSMenuItem *hideMenuItem = [[NSMenuItem alloc] initWithTitle:_NXKitString(@"Common", @"Hide") action:@selector(hide:) keyEquivalent:@"h"];
-    [submenu addItem:hideMenuItem];
-    [hideMenuItem release];
+    {
+        NSMenuItem *quitMenuItem = [[NSMenuItem alloc] initWithTitle:_NXKitString(@"Document", @"Quit") action:@selector(terminate:) keyEquivalent:@"q"];
+        quitMenuItem.identifier = @"NSAlternateQuitMenuItem";
+        [submenu addItem:quitMenuItem];
+        [quitMenuItem release];
+    }
+    
+    {
+        NSString *title = [NSString stringWithFormat:_NXKitString(@"Common", @"Hide %@"), NSRunningApplication.currentApplication.localizedName];
+        NSMenuItem *hideMenuItem = [[NSMenuItem alloc] initWithTitle:title action:@selector(hide:) keyEquivalent:@"h"];
+        [submenu addItem:hideMenuItem];
+        
+        reinterpret_cast<BOOL (*)(id, SEL, id)>(objc_msgSend)(NSApplication.sharedApplication, sel_registerName("_isAlternateQuitMenuItem:"), hideMenuItem);
+        [hideMenuItem release];
+    }
     
     //
     

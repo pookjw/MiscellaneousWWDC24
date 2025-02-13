@@ -22,6 +22,7 @@
     window.releasedWhenClosed = NO;
     window.movableByWindowBackground = YES;
     window.contentMinSize = NSMakeSize(400., 400.);
+    window.canBecomeVisibleWithoutLogin = YES;
     
     MainViewController *mainViewController = [MainViewController new];
     window.contentViewController = mainViewController;

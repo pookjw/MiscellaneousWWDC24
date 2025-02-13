@@ -32,6 +32,8 @@
     NSApp.mainMenu = menu;
     [menu release];
     
+//    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(NSApp, sel_registerName("_customizeQuitMenuItem"));
+    
     MainWindowController *mainWindowController = [MainWindowController new];
     [mainWindowController showWindow:nil];
     [mainWindowController release];

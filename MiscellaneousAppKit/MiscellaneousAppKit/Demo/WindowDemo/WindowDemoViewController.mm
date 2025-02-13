@@ -18,25 +18,60 @@
 #import "NSStringFromNSWindowCollectionBehavior.h"
 #import "NSWindow+MA_Category.h"
 #import "NSStringFromNSRectEdge.h"
+#import "NSStringFromNSWindowNumberListOptions.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
-@interface WindowDemoViewController () <ConfigurationViewDelegate>
+NSAppearanceName const NSAppearanceNameCandidateBar = @"NSAppearanceNameCandidateBar";
+APPKIT_EXTERN NSAppearanceName const NSAppearanceNameSystem;
+APPKIT_EXTERN NSAppearanceName const NSAppearanceNameAccessibilitySystem;
+APPKIT_EXTERN NSAppearanceName const NSAppearanceNameAqua;
+APPKIT_EXTERN NSAppearanceName const NSAppearanceNameLightContent;
+APPKIT_EXTERN NSAppearanceName const NSAppearanceNameVibrantDark;
+APPKIT_EXTERN NSAppearanceName const NSAppearanceNameVibrantLight;
+APPKIT_EXTERN NSAppearanceName const NSAppearanceNameFunctionRow;
+APPKIT_EXTERN NSAppearanceName const NSAppearanceNameControlStrip;
+NSAppearanceName const NSAppearanceNameTouchBarCustomizationPalette = @"NSAppearanceNameTouchBarCustomizationPalette";
+NSAppearanceName const NSAppearanceNameControlStripCustomizationPalette = @"NSAppearanceNameControlStripCustomizationPalette";
+APPKIT_EXTERN NSAppearanceName const NSAppearanceNameMediumLight;
+APPKIT_EXTERN NSAppearanceName const NSAppearanceNameDarkAqua;
+APPKIT_EXTERN NSAppearanceName const NSAppearanceNameAccessibilityAqua;
+APPKIT_EXTERN NSAppearanceName const NSAppearanceNameAccessibilityDarkAqua;
+APPKIT_EXTERN NSAppearanceName const NSAppearanceNameAccessibilityVibrantLight;
+APPKIT_EXTERN NSAppearanceName const NSAppearanceNameAccessibilityVibrantDark;
+APPKIT_EXTERN NSAppearanceName const NSAppearanceNameAccessibilityMediumLight;
+NSAppearanceName const NSAppearanceNameVibrantLightVisibleBezels = @"NSAppearanceNameVibrantLightVisibleBezels";
+NSAppearanceName const NSAppearanceNameAquaVisibleBezels = @"NSAppearanceNameAquaVisibleBezels";
+NSAppearanceName const NSAppearanceNameVibrantDarkVisibleBezels = @"NSAppearanceNameVibrantDarkVisibleBezels";
+NSAppearanceName const NSAppearanceNameDarkAquaVisibleBezels = @"NSAppearanceNameDarkAquaVisibleBezels";
+NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppearanceNameAccessibilityGraphiteDarkAqua";
+
+@interface WindowDemoViewController () <ConfigurationViewDelegate, NSAppearanceCustomization>
 @property (retain, nonatomic, readonly, getter=_configurationView) ConfigurationView *configurationView;
 @property (copy, nonatomic, nullable, getter=_stageChangedDate, setter=_setStageChangedDate:) NSDate *stageChangedDate;
+@property (assign, nonatomic, getter=_preventsApplicationTerminationWhenModal, setter=_setPreventsApplicationTerminationWhenModal:) BOOL preventsApplicationTerminationWhenModal;
 @end
 
 @implementation WindowDemoViewController
 @synthesize configurationView = _configurationView;
+@synthesize appearance = _appearance;
 
 - (void)dealloc {
     [_configurationView release];
     [_stageChangedDate release];
+    [_appearance release];
     [super dealloc];
+}
+
+- (NSAppearance *)effectiveAppearance {
+    return self.appearance;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.preventsApplicationTerminationWhenModal = YES;
+    self.appearance = [NSAppearance currentDrawingAppearance];
     
     ConfigurationView *configurationView = self.configurationView;
     configurationView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
@@ -53,7 +88,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
     [self _reload];
     
     if (newWindow) {
-        
+        newWindow.appearanceSource = self;
     }
 }
 
@@ -85,6 +120,11 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeCanBecomeVisibleWithoutLoginItemModel],
+        [self _makeDeviceDescriptionItemModel],
+        [self _makeWindowNumbersWithOptionsItemModel],
+        [self _makeWindowNumberItemModel],
+        [self _makeAppearanceItemModel],
         [self _makePreventsApplicationTerminationWhenModalItemModel],
         [self _makeContentBorderThicknessForMinYEdge],
         [self _makeAutorecalculatesContentBorderThicknessItemModel],
@@ -511,7 +551,101 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
                                             userInfo:nil
                                                label:@"Prevents Application Termination When Modal"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
-        return @(unretainedSelf.view.window.preventsApplicationTerminationWhenModal);
+        return @(unretainedSelf.preventsApplicationTerminationWhenModal);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeAppearanceItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Appearance"
+                                            userInfo:nil
+                                               label:@"Appearance"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSArray<NSAppearanceName> *appearanceNames = @[
+            NSAppearanceNameCandidateBar,
+            NSAppearanceNameSystem,
+            NSAppearanceNameAccessibilitySystem,
+            NSAppearanceNameAqua,
+            NSAppearanceNameLightContent,
+            NSAppearanceNameVibrantDark,
+            NSAppearanceNameVibrantLight,
+            NSAppearanceNameFunctionRow,
+            NSAppearanceNameControlStrip,
+            NSAppearanceNameTouchBarCustomizationPalette,
+            NSAppearanceNameControlStripCustomizationPalette,
+            NSAppearanceNameMediumLight,
+            NSAppearanceNameDarkAqua,
+            NSAppearanceNameAccessibilityAqua,
+            NSAppearanceNameAccessibilityDarkAqua,
+            NSAppearanceNameAccessibilityVibrantLight,
+            NSAppearanceNameAccessibilityVibrantDark,
+            NSAppearanceNameAccessibilityMediumLight,
+            NSAppearanceNameVibrantLightVisibleBezels,
+            NSAppearanceNameAquaVisibleBezels,
+            NSAppearanceNameVibrantDarkVisibleBezels,
+            NSAppearanceNameDarkAquaVisibleBezels,
+            NSAppearanceNameAccessibilityGraphiteDarkAqua
+        ];
+        
+        return [ConfigurationPopUpButtonDescription descriptionWithTitles:appearanceNames
+                                                           selectedTitles:@[unretainedSelf.appearance.name]
+                                                     selectedDisplayTitle:unretainedSelf.appearance.name];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeWindowNumberItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Window Number"
+                                            userInfo:nil
+                                               label:[NSString stringWithFormat:@"Window Number (%ld)", self.view.window.windowNumber]
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeWindowNumbersWithOptionsItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Window Numbers With Options"
+                                            userInfo:nil
+                                               label:@"Window Numbers With Options"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSUInteger count;
+        NSWindowNumberListOptions *allOptions = allNSWindowNumberListOptions(&count);
+        
+        auto optionTitlesVector = std::views::iota(allOptions, allOptions + count)
+        | std::views::transform([](NSWindowNumberListOptions *ptr) -> NSWindowNumberListOptions { return *ptr; })
+        | std::views::transform([](NSWindowNumberListOptions option) -> NSString * {
+            return NSStringFromNSWindowNumberListOptions(option);
+        })
+        | std::ranges::to<std::vector<NSString *>>();
+        
+        return [ConfigurationPopUpButtonDescription descriptionWithTitles:[NSArray arrayWithObjects:optionTitlesVector.data() count:optionTitlesVector.size()]
+                                                           selectedTitles:@[]
+                                                     selectedDisplayTitle:nil];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeDeviceDescriptionItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Device Description"
+                                            userInfo:nil
+                                               label:@"Device Description"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeCanBecomeVisibleWithoutLoginItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Can Become Visible Without Login"
+                                            userInfo:nil
+                                               label:@"Can Become Visible Without Login"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.canBecomeVisibleWithoutLogin);
     }];
 }
 
@@ -653,7 +787,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
         return NO;
     } else if ([identifier isEqualToString:@"Prevents Application Termination When Modal"]) {
         auto value = static_cast<NSNumber *>(newValue);
-        window.preventsApplicationTerminationWhenModal = value.boolValue;
+        self.preventsApplicationTerminationWhenModal = value.boolValue;
         
         NSAlert *alert = [NSAlert new];
         alert.alertStyle = NSAlertStyleInformational;
@@ -662,10 +796,57 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
         [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
             
         }];
+        
+        for (NSWindow *sheet in window.sheets) {
+            sheet.preventsApplicationTerminationWhenModal = value.boolValue;
+        }
+        
         [alert release];
         
         [self _reload];
         return NO;
+    } else if ([identifier isEqualToString:@"Appearance"]) {
+        auto value = static_cast<NSString *>(newValue);
+        [self willChangeValueForKey:@"effectiveAppearance"];
+        self.appearance = [NSAppearance appearanceNamed:value];
+        [self didChangeValueForKey:@"effectiveAppearance"];
+        
+        [self _reload];
+        return NO;
+    } else if ([identifier isEqualToString:@"Window Numbers With Options"]) {
+        auto value = static_cast<NSString *>(newValue);
+        NSWindowNumberListOptions options = NSWindowNumberListOptionsFromString(value);
+        NSArray<NSNumber *> *windowNumbersWithOptions = [NSWindow windowNumbersWithOptions:options];
+        
+        NSAlert *alert = [NSAlert new];
+        alert.alertStyle = NSAlertStyleInformational;
+        alert.messageText = [NSString stringWithFormat:@"Window Numbers (%@)", NSStringFromNSWindowNumberListOptions(options)];
+        alert.informativeText = [windowNumbersWithOptions componentsJoinedByString:@", "];
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        
+        [alert release];
+        return NO;
+    } else if ([identifier isEqualToString:@"Device Description"]) {
+        NSDictionary<NSDeviceDescriptionKey, id> *deviceDescription = window.deviceDescription;
+        
+        NSAlert *alert = [NSAlert new];
+        alert.alertStyle = NSAlertStyleInformational;
+        alert.messageText = @"Device Description";
+        alert.informativeText = deviceDescription.description;
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        
+        [alert release];
+        return NO;
+    } else if ([identifier isEqualToString:@"Can Become Visible Without Login"]) {
+        auto value = static_cast<NSNumber *>(newValue);
+        window.canBecomeVisibleWithoutLogin = value.boolValue;
+        return YES;
     } else {
         abort();
     }

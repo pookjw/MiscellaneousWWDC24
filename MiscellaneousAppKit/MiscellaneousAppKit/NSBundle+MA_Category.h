@@ -13,7 +13,7 @@ APPKIT_EXTERN NSBundle * _NSKitBundle(void);
 APPKIT_EXTERN NSString * _Nullable _NXKitString(NSString *table, NSString *key);
 
 @interface NSBundle (MA_Category)
-- (NSString * _Nullable)ma_localizedTableForKey:(NSString *)key;
+- (NSDictionary<NSString *, NSArray<NSString *> *> *)ma_localizedTablesForContatingKey:(NSString *)key;
 @end
 
 NS_ASSUME_NONNULL_END

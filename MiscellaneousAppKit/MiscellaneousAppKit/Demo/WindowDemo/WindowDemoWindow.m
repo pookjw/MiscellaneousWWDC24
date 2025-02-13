@@ -18,6 +18,7 @@
         self.releasedWhenClosed = NO;
         self.frameAutosaveName = @"WindowDemo";
         self.contentMinSize = NSMakeSize(400., 800.);
+        self.canBecomeVisibleWithoutLogin = YES;
         
         WindowDemoViewController *contentViewController = [WindowDemoViewController new];
         self.contentViewController = contentViewController;
