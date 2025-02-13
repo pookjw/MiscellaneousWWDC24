@@ -18,6 +18,16 @@
 		4F903CFA2D5DC66A00D45675 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F903CF92D5DC66A00D45675 /* ServiceManagement.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		4FACFF6C2D5E24B50095D3E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4F94295F2D4BDC7E00802D6F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4F796BBA2D5DFF4C0033B7FF;
+			remoteInfo = MiscellaneousAppKitHelper;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		4F796BB92D5DFF4C0033B7FF /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -203,6 +213,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4FACFF6D2D5E24B50095D3E1 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				4F9429692D4BDC7E00802D6F /* MiscellaneousAppKit */,
@@ -279,6 +290,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4FACFF6D2D5E24B50095D3E1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4F796BBA2D5DFF4C0033B7FF /* MiscellaneousAppKitHelper */;
+			targetProxy = 4FACFF6C2D5E24B50095D3E1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		4F796BBF2D5DFF4C0033B7FF /* Debug */ = {

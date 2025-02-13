@@ -85,6 +85,9 @@ void Helper::registerLoginAgent(xpc_session_t peer, xpc_object_t message) {
     NSURL *privilegedHelperToolsURL = [NSURL fileURLWithPath:privilegedHelperToolsPath];
     [privilegedHelperToolsPath release];
     
+    assert(plistURL.lastPathComponent.length > 0);
+    assert(privilegedHelperToolsURL.lastPathComponent.length > 0);
+    
     copyFile(privilegedHelperToolsURL, [[NSURL fileURLWithPath:@"/Library/PrivilegedHelperTools"] URLByAppendingPathComponent:privilegedHelperToolsURL.lastPathComponent]);
     copyFile(plistURL, [[NSURL fileURLWithPath:@"/Library/LaunchAgents"] URLByAppendingPathComponent:plistURL.lastPathComponent]);
     
@@ -104,11 +107,11 @@ void Helper::registerLoginAgent(xpc_session_t peer, xpc_object_t message) {
 
 void Helper::copyFile(NSURL *sourceURL, NSURL *destinationURL) {
     NSFileManager *fileManager = NSFileManager.defaultManager;
-//    if ([fileManager fileExistsAtPath:destination]) {
-//        NSError * _Nullable error = nil;
-//        [fileManager removeItemAtPath:destination error:&error];
-//        assert(error == nil);
-//    }
+    if ([fileManager fileExistsAtPath:destinationURL.path]) {
+        NSError * _Nullable error = nil;
+        [fileManager removeItemAtURL:destinationURL error:&error];
+        assert(error == nil);
+    }
     
     int result = clonefile([sourceURL.path cStringUsingEncoding:NSUTF8StringEncoding], [destinationURL.path cStringUsingEncoding:NSUTF8StringEncoding], 0);
     if (result == 0) return;
