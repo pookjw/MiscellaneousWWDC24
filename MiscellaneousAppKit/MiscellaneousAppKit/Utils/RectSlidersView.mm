@@ -121,13 +121,13 @@ NSString * RectSlidersKeyPathHeight = @"RectSlidersKeyPathHeight";
 - (instancetype)initWithCoder:(NSCoder *)coder {
     if (self = [super initWithCoder:coder]) {
         _xSlider = [[self viewWithTag:X_SLIDER_TAG] retain];
-        assert(_xSlider.target != nil);
+        assert(_xSlider.target == self);
         _ySlider = [[self viewWithTag:Y_SLIDER_TAG] retain];
-        assert(_ySlider.target != nil);
+        assert(_ySlider.target == self);
         _widthSlider = [[self viewWithTag:WIDTH_SLIDER_TAG] retain];
-        assert(_widthSlider.target != nil);
+        assert(_widthSlider.target == self);
         _heightSlider = [[self viewWithTag:HEIGHT_SLIDER_TAG] retain];
-        assert(_heightSlider.target != nil);
+        assert(_heightSlider.target == self);
         
         self.configuration = [coder decodeObjectForKey:CONFIGURATION_KEY];
     }
