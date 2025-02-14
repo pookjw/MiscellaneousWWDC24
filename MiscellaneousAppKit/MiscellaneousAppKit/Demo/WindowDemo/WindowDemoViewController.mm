@@ -23,7 +23,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "NSStringFromNSModalResponse.h"
 #import "MainWindowController.h"
-#import "ActionResolver.h"
+#import "RectSlidersView.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
@@ -65,6 +65,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
 @synthesize appearance = _appearance;
 
 - (void)dealloc {
+    [NSNotificationCenter.defaultCenter removeObserver:self];
     [_configurationView release];
     [_stageChangedDate release];
     [_appearance release];
@@ -100,6 +101,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didChangeWindowActiveSpace:) name:MA_NSWindowActiveSpaceDidChangeNotification object:nil];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didChangeActiveSpace:) name:NSWorkspaceActiveSpaceDidChangeNotification object:NSWorkspace.sharedWorkspace];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_rectSlidersViewDidChangeValue:) name:RectSlidersViewDidChangeValueNotification object:nil];
 }
 
 - (void)_viewDidMoveToWindow:(NSWindow * _Nullable)newWindow fromWindow:(NSWindow * _Nullable)oldWindow {
@@ -121,6 +123,16 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
 
 - (void)_didChangeActiveSpace:(NSNotification *)notification {
     [self _reload];
+}
+
+- (void)_rectSlidersViewDidChangeValue:(NSNotification *)notification {
+    RectSlidersConfiguration *configuration = notification.userInfo[RectSlidersConfigurationKey];
+    
+    NSValue *selfValue = configuration.userInfo[@"selfValue"];
+    if (selfValue == nil) return;
+    if (self != selfValue.pointerValue) return;
+    
+    [self.view.window setFrame:configuration.rect display:YES];
 }
 
 - (ConfigurationView *)_configurationView {
@@ -778,51 +790,22 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     }
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         NSMenu *menu = [NSMenu new];
-        NSRect frame = unretainedSelf.view.window.frame;
         
-        {
-            NSSlider *slider = [NSSlider new];
-            slider.minValue = 300.;
-            slider.maxValue = 3000.;
-            slider.doubleValue = NSMinX(frame);
-            [slider sizeToFit];
-            
-            ActionResolver *resolver = [ActionResolver resolver:^(NSSlider *slider) {
-                NSPoint origin = unretainedSelf.view.window.frame.origin;
-                origin.x = slider.doubleValue;
-                [unretainedSelf.view.window setFrameOrigin:origin];
-            }];
-            [resolver setupControl:slider];
-            
-            NSMenuItem *menuItem = [NSMenuItem new];
-            
-            menuItem.view = slider;
-            [slider release];
-            
-            [menu addItem:menuItem];
-            [menuItem release];
-        }
+        NSMenuItem *menuItem = [NSMenuItem new];
+        RectSlidersView *slidersView = [[RectSlidersView alloc] initWithFrame:NSMakeRect(0., 0., 300., 100.)];
         
-        {
-            NSButton *button = [NSButton new];
-            button.title = @"Test";
-            [button sizeToFit];
-            
-            ActionResolver *resolver = [ActionResolver resolver:^(NSSlider *slider) {
-                NSPoint origin = unretainedSelf.view.window.frame.origin;
-                origin.x = slider.doubleValue;
-                [unretainedSelf.view.window setFrameOrigin:origin];
-            }];
-            [resolver setupControl:button];
-            
-            NSMenuItem *menuItem = [NSMenuItem new];
-            
-            menuItem.view = button;
-            [button release];
-            
-            [menu addItem:menuItem];
-            [menuItem release];
-        }
+        slidersView.configuration = [RectSlidersConfiguration configurationWithRect:unretainedSelf.view.window.frame
+                                                                            minRect:NSMakeRect(0., 0., 300., 300.)
+                                                                            maxRect:NSMakeRect(1000., 1000., 1000., 1000.)
+                                                                           userInfo:@{
+            @"selfValue": [NSValue value:reinterpret_cast<const void *>(&unretainedSelf) withObjCType:@encode(uintptr_t)],
+            @"attribute": @"frame"
+        }];
+        
+        menuItem.view = slidersView;
+        [slidersView release];
+        [menu addItem:menuItem];
+        [menuItem release];
         
         ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Menu" menu:menu showsMenuAsPrimaryAction:YES];
         [menu release];
