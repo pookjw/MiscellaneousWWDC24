@@ -21,6 +21,9 @@
 #import "NSStringFromNSWindowNumberListOptions.h"
 #import "NSStringNSWindowSharingType.h"
 #import <QuartzCore/QuartzCore.h>
+#import "NSStringFromNSModalResponse.h"
+#import "MainWindowController.h"
+#import "ActionResolver.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
@@ -68,6 +71,16 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     [_displayLink invalidate];
     [_displayLink release];
     [super dealloc];
+}
+
+- (BOOL)respondsToSelector:(SEL)aSelector {
+    BOOL responds = [super respondsToSelector:aSelector];
+    
+    if (!responds) {
+        NSLog(@"%s", sel_getName(aSelector));
+    }
+    
+    return responds;
 }
 
 - (NSAppearance *)effectiveAppearance {
@@ -127,6 +140,11 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeFrameItemModel],
+        [self _makeSheetsItemModel],
+        [self _makeBeginCriticalSheetAndEndSheetItemModel],
+        [self _makeBeginSheetAndEndSheetItemModel],
+        [self _makeAttachedSheetAndIsSheetAndSheetParentItemModel],
         [self _makeDisplayLinkItemModel],
         [self _makeSharingTypeItemModel],
         [self _makeCanBecomeVisibleWithoutLoginItemModel],
@@ -215,7 +233,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
         return [NSString stringWithFormat:@"Toggle Full Screen (%@)", isFullScreen ? @"YES" : @"NO"];
     }
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
-        return [NSNull null];
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Action"];
     }];
 }
 
@@ -333,7 +351,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
         return [NSString stringWithFormat:@"Default Depth Limit (%@)", NSStringFromNSWindowDepth(NSWindow.defaultDepthLimit)];
     }
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
-        return [NSNull null];
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Action"];
     }];
 }
 
@@ -497,7 +515,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
                                             userInfo:nil
                                                label:@"Invalidate Shadow"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
-        return [NSNull null];
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Action"];
     }];
 }
 
@@ -642,7 +660,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
                                             userInfo:nil
                                                label:@"Device Description"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
-        return [NSNull null];
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Action"];
     }];
 }
 
@@ -698,6 +716,118 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
         }
         
         return @(!displayLink.paused);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeAttachedSheetAndIsSheetAndSheetParentItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Attached Sheet & isSheet & sheetParent"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Attached Sheet (%p), isSheet, sheetParent", unretainedSelf.view.window.attachedSheet];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Action"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeBeginSheetAndEndSheetItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Begin Sheet & End Sheet"
+                                            userInfo:nil
+                                               label:@"Begin Sheet & End Sheet"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Action"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeBeginCriticalSheetAndEndSheetItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Begin Critical Sheet & End Sheet"
+                                            userInfo:nil
+                                               label:@"Begin Critical Sheet & End Sheet"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Action"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeSheetsItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Sheets"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"%ld Sheets", unretainedSelf.view.window.sheets.count];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeFrameItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Frame"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Frame : %@", NSStringFromRect(unretainedSelf.view.window.frame)];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSMenu *menu = [NSMenu new];
+        NSRect frame = unretainedSelf.view.window.frame;
+        
+        {
+            NSSlider *slider = [NSSlider new];
+            slider.minValue = 300.;
+            slider.maxValue = 3000.;
+            slider.doubleValue = NSMinX(frame);
+            [slider sizeToFit];
+            
+            ActionResolver *resolver = [ActionResolver resolver:^(NSSlider *slider) {
+                NSPoint origin = unretainedSelf.view.window.frame.origin;
+                origin.x = slider.doubleValue;
+                [unretainedSelf.view.window setFrameOrigin:origin];
+            }];
+            [resolver setupControl:slider];
+            
+            NSMenuItem *menuItem = [NSMenuItem new];
+            
+            menuItem.view = slider;
+            [slider release];
+            
+            [menu addItem:menuItem];
+            [menuItem release];
+        }
+        
+        {
+            NSButton *button = [NSButton new];
+            button.title = @"Test";
+            [button sizeToFit];
+            
+            ActionResolver *resolver = [ActionResolver resolver:^(NSSlider *slider) {
+                NSPoint origin = unretainedSelf.view.window.frame.origin;
+                origin.x = slider.doubleValue;
+                [unretainedSelf.view.window setFrameOrigin:origin];
+            }];
+            [resolver setupControl:button];
+            
+            NSMenuItem *menuItem = [NSMenuItem new];
+            
+            menuItem.view = button;
+            [button release];
+            
+            [menu addItem:menuItem];
+            [menuItem release];
+        }
+        
+        ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Menu" menu:menu showsMenuAsPrimaryAction:YES];
+        [menu release];
+        
+        return description;
     }];
 }
 
@@ -937,6 +1067,96 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
             CADisplayLink *_displayLink = [window displayLinkWithTarget:self selector:@selector(_didTriggerDisplayLink:)];
             self.displayLink = _displayLink;
             [_displayLink addToRunLoop:NSRunLoop.currentRunLoop forMode:NSRunLoopCommonModes];
+        }
+        
+        [self _reload];
+        return NO;
+    } else if ([identifier isEqualToString:@"Attached Sheet & isSheet & sheetParent"]) {
+        NSAlert *alert = [NSAlert new];
+        alert.alertStyle = NSAlertStyleInformational;
+        alert.messageText = @"Alert";
+        
+        __block auto unretainedSelf = self;
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [unretainedSelf _reload];
+            });
+        }];
+        
+        __kindof NSPanel *_panel = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(alert, sel_registerName("_panel"));
+        alert.informativeText = [NSString stringWithFormat:@"isSheet : %@\nsheetParent : %p", _panel.isSheet ? @"YES" : @"NO", _panel.sheetParent];
+        [alert release];
+        
+        [self _reload];
+        return NO;
+    } else if ([identifier isEqualToString:@"Begin Sheet & End Sheet"]) {
+        NSAlert *alert = [NSAlert new];
+        alert.alertStyle = NSAlertStyleInformational;
+        alert.messageText = @"Alert";
+        
+        [alert layout];
+        
+        __kindof NSPanel *_panel = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(alert, sel_registerName("_panel"));
+        
+        __block auto unretainedSelf = self;
+        [window beginSheet:_panel completionHandler:^(NSModalResponse returnCode) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [unretainedSelf _reload];
+            });
+        }];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [window endSheet:_panel];
+        });
+        
+        [alert release];
+        
+        [self _reload];
+        return NO;
+    } else if ([identifier isEqualToString:@"Begin Critical Sheet & End Sheet"]) {
+        {
+            NSAlert *alert = [NSAlert new];
+            alert.alertStyle = NSAlertStyleInformational;
+            alert.messageText = @"Normal Alert";
+            
+            [alert layout];
+            
+            __kindof NSPanel *_panel = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(alert, sel_registerName("_panel"));
+            
+            __block auto unretainedSelf = self;
+            [window beginSheet:_panel completionHandler:^(NSModalResponse returnCode) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [unretainedSelf _reload];
+                });
+            }];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [window endSheet:_panel];
+            });
+            
+            [alert release];
+        }
+        {
+            NSAlert *alert = [NSAlert new];
+            alert.alertStyle = NSAlertStyleInformational;
+            alert.messageText = @"Critical Alert";
+            
+            [alert layout];
+            
+            __kindof NSPanel *_panel = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(alert, sel_registerName("_panel"));
+            
+            __block auto unretainedSelf = self;
+            [window beginCriticalSheet:_panel completionHandler:^(NSModalResponse returnCode) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [unretainedSelf _reload];
+                });
+            }];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [window endSheet:_panel];
+            });
+            
+            [alert release];
         }
         
         [self _reload];

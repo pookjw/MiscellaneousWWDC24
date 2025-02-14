@@ -180,10 +180,15 @@
                 return item;
             }
             case ConfigurationItemModelTypeButton: {
-                assert([value isKindOfClass:[NSNull class]]);
+                assert([value isKindOfClass:[ConfigurationButtonDescription class]]);
+                auto description = static_cast<ConfigurationButtonDescription *>(value);
+                
                 ConfigurationButtonItem *item = [collectionView makeItemWithIdentifier:ConfigurationView.buttonItemIdentifier forIndexPath:indexPath];
                 item.delegate = unretainedSelf;
                 item.textField.stringValue = label;
+                item.showsMenuAsPrimaryAction = description.showsMenuAsPrimaryAction;
+                item.button.menu = description.menu;
+                item.button.title = description.title;
                 
                 return item;
             }

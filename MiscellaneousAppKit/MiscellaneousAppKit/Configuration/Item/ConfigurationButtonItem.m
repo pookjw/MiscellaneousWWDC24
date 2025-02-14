@@ -7,10 +7,6 @@
 
 #import "ConfigurationButtonItem.h"
 
-@interface ConfigurationButtonItem ()
-@property (retain, nonatomic) IBOutlet NSButton *button;
-@end
-
 @implementation ConfigurationButtonItem
 
 - (void)dealloc {
@@ -19,6 +15,13 @@
 }
 
 - (IBAction)_didTriggerButton:(NSButton *)sender {
+    if (self.showsMenuAsPrimaryAction) {
+        NSMenu *menu = sender.menu;
+        assert(menu != nil);
+        [NSMenu popUpContextMenu:menu withEvent:NSApp.currentEvent forView:sender];
+        return;
+    }
+    
     id<ConfigurationButtonItemDelegate> delegate = self.delegate;
     if (delegate == nil) return;
     

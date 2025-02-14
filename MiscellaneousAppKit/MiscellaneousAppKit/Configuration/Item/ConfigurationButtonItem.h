@@ -15,7 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface ConfigurationButtonItem : NSCollectionViewItem
-@property (retain, nonatomic) IBOutlet NSPopUpButton *popUpButton;
+@property (assign, nonatomic) BOOL showsMenuAsPrimaryAction;
+@property (retain, nonatomic) IBOutlet NSButton *button;
 @property (assign, nonatomic) id<ConfigurationButtonItemDelegate> delegate;
 @end
 

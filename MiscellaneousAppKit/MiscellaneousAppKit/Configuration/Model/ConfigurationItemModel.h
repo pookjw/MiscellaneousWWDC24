@@ -9,6 +9,7 @@
 #import "ConfigurationSliderDescription.h"
 #import "ConfigurationStepperDescription.h"
 #import "ConfigurationPopUpButtonDescription.h"
+#import "ConfigurationButtonDescription.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

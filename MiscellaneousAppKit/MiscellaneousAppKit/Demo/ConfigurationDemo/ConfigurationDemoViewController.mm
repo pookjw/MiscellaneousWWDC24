@@ -118,12 +118,54 @@
         return [ConfigurationStepperDescription descriptionWithStepperValue:unretainedSelf.stepperValue minimumValue:0. maximumValue:1. stepValue:0.1 continuous:NO autorepeat:YES valueWraps:YES];
     }];
     
-    ConfigurationItemModel<NSNull *> *buttonItemModel = [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
-                                                                                       identifier:@"Button"
-                                                                                         userInfo:nil
-                                                                                            label:@"Button"
-                                                                                    valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
-        return [NSNull null];
+    ConfigurationItemModel<NSNull *> *buttonNoMenuItemModel = [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                                                                             identifier:@"Button No Menu"
+                                                                                               userInfo:nil
+                                                                                                  label:@"Button No Menu"
+                                                                                          valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Custon Title"];
+    }];
+    
+    ConfigurationItemModel<NSNull *> *buttonWithMenuItemModel_1 = [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                                                                             identifier:@"Button With Menu"
+                                                                                               userInfo:nil
+                                                                                                  label:@"Button With Menu"
+                                                                                          valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSMenu *menu = [NSMenu new];
+        
+        //
+        
+        NSMenuItem *menuItem_1 = [[NSMenuItem alloc] initWithTitle:@"Title 1" action:nil keyEquivalent:@""];
+        [menu addItem:menuItem_1];
+        [menuItem_1 release];
+        
+        //
+        
+        ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Custon Title" menu:menu showsMenuAsPrimaryAction:NO];
+        [menu release];
+        
+        return description;
+    }];
+    
+    ConfigurationItemModel<NSNull *> *buttonWithMenuItemModel_2 = [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                                                                             identifier:@"Button With Menu (showsMenuAsPrimaryAction)"
+                                                                                               userInfo:nil
+                                                                                                  label:@"Button With Menu (showsMenuAsPrimaryAction)"
+                                                                                          valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSMenu *menu = [NSMenu new];
+        
+        //
+        
+        NSMenuItem *menuItem_1 = [[NSMenuItem alloc] initWithTitle:@"Title 1" action:nil keyEquivalent:@""];
+        [menu addItem:menuItem_1];
+        [menuItem_1 release];
+        
+        //
+        
+        ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Custon Title" menu:menu showsMenuAsPrimaryAction:YES];
+        [menu release];
+        
+        return description;
     }];
     
     ConfigurationItemModel<NSArray<NSString *> *> *popUpButtonItemModel = [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
@@ -152,7 +194,7 @@
         return backgroundColor;
     }];
     
-    [snapshot appendItemsWithIdentifiers:@[switchItemModel, shouldReconfigureItemModel, sliderItemModel, stepperItemModel, buttonItemModel, popUpButtonItemModel, colorWellItemModel] intoSectionWithIdentifier:[NSNull null]];
+    [snapshot appendItemsWithIdentifiers:@[switchItemModel, shouldReconfigureItemModel, sliderItemModel, stepperItemModel, buttonNoMenuItemModel, buttonWithMenuItemModel_1, buttonWithMenuItemModel_2, popUpButtonItemModel, colorWellItemModel] intoSectionWithIdentifier:[NSNull null]];
     [snapshot reloadItemsWithIdentifiers:snapshot.itemIdentifiers];
     
     [self.configurationView.dataSource applySnapshot:snapshot animatingDifferences:YES];
@@ -174,7 +216,9 @@
     } else if ([itemModel.identifier isEqualToString:@"Stepper"]) {
         double stepperValue = static_cast<NSNumber *>(newValue).doubleValue;
         self.stepperValue = stepperValue;
-    } else if ([itemModel.identifier isEqualToString:@"Button"]) {
+    } else if ([itemModel.identifier isEqualToString:@"Deprecated Button"]) {
+        NSLog(@"Triggered!");
+    } else if ([itemModel.identifier isEqualToString:@"Button No Menu"]) {
         NSLog(@"Triggered!");
     } else if ([itemModel.identifier isEqualToString:@"Pop Up Button"]) {
         auto title = static_cast<NSString *>(newValue);
@@ -190,6 +234,9 @@
         }
     } else if ([itemModel.identifier isEqualToString:@"Color Well"]) {
         reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self.circleView, sel_registerName("setBackgroundColor:"), newValue);
+    } else if ([itemModel.identifier isEqualToString:@"Button With Menu"]) {
+        NSLog(@"Triggered!");
+        return NO;
     } else {
         abort();
     }
