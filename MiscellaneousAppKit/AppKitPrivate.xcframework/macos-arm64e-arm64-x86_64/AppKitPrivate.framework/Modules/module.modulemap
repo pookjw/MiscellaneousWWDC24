@@ -1,0 +1,5 @@
+framework module AppKitPrivate {
+    umbrella header "AppKitPrivate.h"
+    export *
+    module * { export * }
+}

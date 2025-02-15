@@ -16,6 +16,7 @@
 		4F903CF62D5DC66200D45675 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F903CF52D5DC66200D45675 /* CoreGraphics.framework */; };
 		4F903CF82D5DC66500D45675 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F903CF72D5DC66500D45675 /* QuartzCore.framework */; };
 		4F903CFA2D5DC66A00D45675 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F903CF92D5DC66A00D45675 /* ServiceManagement.framework */; };
+		4FD3D77D2D60AF1600F60284 /* AppKitPrivate.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD3D7792D60AE9400F60284 /* AppKitPrivate.xcframework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		4F903CF72D5DC66500D45675 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4F903CF92D5DC66A00D45675 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		4F9429672D4BDC7E00802D6F /* MiscellaneousAppKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiscellaneousAppKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FD3D7792D60AE9400F60284 /* AppKitPrivate.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AppKitPrivate.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -132,6 +134,7 @@
 			files = (
 				4F796BD42D5E0CB60033B7FF /* UniformTypeIdentifiers.framework in Frameworks */,
 				4F903CF62D5DC66200D45675 /* CoreGraphics.framework in Frameworks */,
+				4FD3D77D2D60AF1600F60284 /* AppKitPrivate.xcframework in Frameworks */,
 				4F796BCE2D5E025C0033B7FF /* libxpc.tbd in Frameworks */,
 				4F903CFA2D5DC66A00D45675 /* ServiceManagement.framework in Frameworks */,
 				4F903CF42D5DC65D00D45675 /* Cocoa.framework in Frameworks */,
@@ -145,6 +148,7 @@
 		4F903CF22D5DC65D00D45675 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4FD3D7792D60AE9400F60284 /* AppKitPrivate.xcframework */,
 				4F796BD32D5E0CB60033B7FF /* UniformTypeIdentifiers.framework */,
 				4F796BC42D5DFF7E0033B7FF /* libxpc.tbd */,
 				4F796BC22D5DFF7A0033B7FF /* Foundation.framework */,
@@ -334,6 +338,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64e;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -396,6 +401,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64e;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
