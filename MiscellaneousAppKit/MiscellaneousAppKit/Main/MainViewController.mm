@@ -14,6 +14,7 @@
 #import "ServiceManagementDemoViewController.h"
 #import "IntelligenceUILightViewController.h"
 #import "IntelligenceUIPlatterViewController.h"
+#import "IntelligenceDemoViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 
@@ -39,6 +40,7 @@
 
 + (NSArray<Class> *)_classes {
     return @[
+        [IntelligenceDemoViewController class],
         [IntelligenceUIPlatterViewController class],
         [IntelligenceUILightViewController class],
         [ServiceManagementDemoViewController class],
@@ -154,7 +156,7 @@
         
         [window release];
     } else if ([clickedClass isSubclassOfClass:[NSViewController class]]) {
-        NSWindow *window = [[NSWindow alloc] initWithContentRect:NSMakeRect(0., 0., 600., 400.) styleMask:NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskFullSizeContentView | NSWindowStyleMaskResizable | NSWindowStyleMaskTitled backing:NSBackingStoreBuffered defer:NO];
+        NSWindow *window = [[NSWindow alloc] initWithContentRect:NSMakeRect(0., 0., 600., 400.) styleMask:NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable | NSWindowStyleMaskTitled backing:NSBackingStoreBuffered defer:NO];
         
         window.releasedWhenClosed = NO;
         window.title = NSStringFromClass(clickedClass);
