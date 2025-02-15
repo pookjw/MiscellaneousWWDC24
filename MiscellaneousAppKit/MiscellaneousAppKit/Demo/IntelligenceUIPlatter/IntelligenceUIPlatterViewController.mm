@@ -15,6 +15,7 @@
 @property (retain, nonatomic, readonly, getter=_configurationView) ConfigurationView *configurationView;
 @property (retain, nonatomic, readonly, getter=_platterContainerView) NSView *platterContainerView;
 @property (retain, nonatomic, readonly, getter=_platterView) __kindof NSView *platterView;
+@property (retain, nonatomic, readonly, getter=_platterContentView) NSView *platterContentView;
 @end
 
 @implementation IntelligenceUIPlatterViewController
@@ -22,12 +23,14 @@
 @synthesize configurationView = _configurationView;
 @synthesize platterContainerView = _platterContainerView;
 @synthesize platterView = _platterView;
+@synthesize platterContentView = _platterContentView;
 
 - (void)dealloc {
     [_splitView release];
     [_configurationView release];
     [_platterContainerView release];
     [_platterView release];
+    [_platterContentView release];
     [super dealloc];
 }
 
@@ -102,8 +105,26 @@
     [platterView addGestureRecognizer:gestureRecognizer];
     [gestureRecognizer release];
     
+//    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(platterView, sel_registerName("setContentView:"), self.platterContentView);
+    
     _platterView = platterView;
     return platterView;
+}
+
+- (NSView *)_platterContentView {
+    if (auto platterContentView = _platterContentView) return platterContentView;
+    
+    NSView *platterContentView = [NSView new];
+    NSSwitch *switchView = [NSSwitch new];
+    switchView.translatesAutoresizingMaskIntoConstraints = NO;
+    [platterContentView addSubview:switchView];
+    [NSLayoutConstraint activateConstraints:@[
+        [switchView.centerXAnchor constraintEqualToAnchor:platterContentView.centerXAnchor],
+        [switchView.centerYAnchor constraintEqualToAnchor:platterContentView.centerYAnchor]
+    ]];
+    
+    _platterContentView = platterContentView;
+    return platterContentView;
 }
 
 - (void)_didClockPlatterView:(NSClickGestureRecognizer *)sender {
@@ -133,7 +154,8 @@
         [self _makeIndeterminateIndicatorFractionItemModel],
         [self _makeBorderedItemModel],
         [self _makeShimmerItemModel],
-        [self _makeShimmerFromEdgeItemModel]
+        [self _makeShimmerFromEdgeItemModel],
+        [self _makeContentViewItemModel]
     ]
                intoSectionWithIdentifier:[NSNull null]];
     
@@ -324,6 +346,19 @@
     }];
 }
 
+- (ConfigurationItemModel *)_makeContentViewItemModel {
+    __kindof NSView *platterView = self.platterView;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Content View"
+                                            userInfo:nil
+                                               label:@"Content View"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSView *contentView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(platterView, sel_registerName("contentView"));
+        return @(contentView != nil);
+    }];
+}
+
 - (BOOL)configurationView:(ConfigurationView *)configurationView didTriggerActionWithItemModel:(ConfigurationItemModel *)itemModel newValue:(id<NSCopying>)newValue {
     NSString *identifier = itemModel.identifier;
     __kindof NSView *platterView = self.platterView;
@@ -400,6 +435,14 @@
         auto title = static_cast<NSString *>(newValue);
         NSUInteger edge = title.integerValue;
         reinterpret_cast<void (*)(id, SEL, NSUInteger)>(objc_msgSend)(platterView, sel_registerName("shimmerFromEdge:"), edge);
+        return NO;
+    } else if ([identifier isEqualToString:@"Content View"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        if (boolValue) {
+            reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(platterView, sel_registerName("setContentView:"), self.platterContentView);
+        } else {
+            reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(platterView, sel_registerName("setContentView:"), nil);
+        }
         return NO;
     } else {
         abort();
