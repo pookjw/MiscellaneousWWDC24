@@ -104,6 +104,18 @@
     self.visualEffectView.frame = self.scrollView.bounds;
 }
 
+- (void)reconfigureItemModelsWithIdentifiers:(NSArray<NSString *> *)identifiers {
+    NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+    for (ConfigurationItemModel *itemModel in snapshot.itemIdentifiers) {
+        if ([identifiers containsObject:itemModel.identifier]) {
+            [snapshot reloadItemsWithIdentifiers:@[itemModel]];
+            break;
+        }
+    }
+    [self.dataSource applySnapshot:snapshot animatingDifferences:NO];
+    [snapshot release];
+}
+
 - (void)_commonInit_ConfigurationView {
     NSRect bounds = self.bounds;
     

@@ -24,6 +24,7 @@
 #import "NSStringFromNSModalResponse.h"
 #import "MainWindowController.h"
 #import "RectSlidersView.h"
+#import "UnsafeDebouncer.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
@@ -58,6 +59,8 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
 @property (copy, nonatomic, nullable, getter=_stageChangedDate, setter=_setStageChangedDate:) NSDate *stageChangedDate;
 @property (assign, nonatomic, getter=_preventsApplicationTerminationWhenModal, setter=_setPreventsApplicationTerminationWhenModal:) BOOL preventsApplicationTerminationWhenModal;
 @property (retain, nonatomic, nullable, getter=_displayLink, setter=_setDisplayLink:) CADisplayLink *displayLink;
+@property (retain, nonatomic, readonly, getter=_reloadWhenFrameChangedDebouncer) UnsafeDebouncer *reloadWhenFrameChangedDebouncer;
+@property (assign, nonatomic, getter=_animationResizeTimeRect, setter=_setAnimationResizeTimeRect:) NSRect animationResizeTimeRect;
 @end
 
 @implementation WindowDemoViewController
@@ -71,6 +74,8 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     [_appearance release];
     [_displayLink invalidate];
     [_displayLink release];
+    [_reloadWhenFrameChangedDebouncer cancelPendingBlock];
+    [_reloadWhenFrameChangedDebouncer release];
     [super dealloc];
 }
 
@@ -91,6 +96,9 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UnsafeDebouncer *reloadWhenFrameChangedDebouncer = [[UnsafeDebouncer alloc] initWithTimeInterval:1. modes:@[NSRunLoopCommonModes, NSEventTrackingRunLoopMode]];
+    _reloadWhenFrameChangedDebouncer = reloadWhenFrameChangedDebouncer;
+    
     self.preventsApplicationTerminationWhenModal = YES;
     self.appearance = [NSAppearance currentDrawingAppearance];
     
@@ -102,6 +110,9 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didChangeWindowActiveSpace:) name:MA_NSWindowActiveSpaceDidChangeNotification object:nil];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didChangeActiveSpace:) name:NSWorkspaceActiveSpaceDidChangeNotification object:NSWorkspace.sharedWorkspace];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_rectSlidersViewDidChangeValue:) name:RectSlidersViewDidChangeValueNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didResizeWindow:) name:NSWindowDidResizeNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didMoveWindow:) name:NSWindowDidMoveNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didEndSheet:) name:NSWindowDidEndSheetNotification object:nil];
 }
 
 - (void)_viewDidMoveToWindow:(NSWindow * _Nullable)newWindow fromWindow:(NSWindow * _Nullable)oldWindow {
@@ -132,7 +143,57 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     if (selfValue == nil) return;
     if (self != selfValue.pointerValue) return;
     
-    [self.view.window setFrame:configuration.rect display:YES];
+    NSString *action = configuration.userInfo[@"action"];
+    
+    if ([action isEqualToString:@"setFrame:display:animate:"]) {
+        [self.view.window setFrame:configuration.rect display:NO animate:NO];
+    } else if ([action isEqualToString:@"setFrameOrigin:"]) {
+        [self.view.window setFrameOrigin:configuration.rect.origin];
+    } else if ([action isEqualToString:@"setFrameTopLeftPoint:"]) {
+        [self.view.window setFrameTopLeftPoint:configuration.rect.origin];
+    } else if ([action isEqualToString:@"constrainFrameRect:toScreen:"]) {
+        NSRect finalRect = [self.view.window constrainFrameRect:configuration.rect toScreen:nil];
+        NSLog(@"Height : %lf", NSHeight(finalRect));
+    } else if ([action isEqualToString:@"cascadeTopLeftFromPoint:"]) {
+        NSPoint point = [self.view.window cascadeTopLeftFromPoint:configuration.rect.origin];
+    } else if ([action isEqualToString:@"animationResizeTimeRect"]) {
+        self.animationResizeTimeRect = configuration.rect;
+        [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Animation Resize Time"]];
+    } else if ([action isEqualToString:@"aspectRatio"]) {
+        self.view.window.aspectRatio = configuration.rect.size;
+        [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Aspect Ratio", @"Resize Increments"]];
+    } else if ([action isEqualToString:@"resizeIncrements"]) {
+        self.view.window.resizeIncrements = configuration.rect.size;
+        [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Aspect Ratio", @"Resize Increments"]];
+    } else {
+        abort();
+    }
+}
+
+- (void)_didResizeWindow:(NSNotification *)notification {
+    NSWindow *window = self.view.window;
+    if (window == nil) return;
+    if (![notification.object isEqual:window]) return;
+    
+    [self.reloadWhenFrameChangedDebouncer scheduleBlock:^(BOOL cancelled) {
+        if (cancelled) return;
+        [self _reload];
+    }];
+}
+
+- (void)_didMoveWindow:(NSNotification *)notification {
+    NSWindow *window = self.view.window;
+    if (window == nil) return;
+    if (![notification.object isEqual:window]) return;
+    
+    [self.reloadWhenFrameChangedDebouncer scheduleBlock:^(BOOL cancelled) {
+        if (cancelled) return;
+        [self _reload];
+    }];
+}
+
+- (void)_didEndSheet:(NSNotification *)notification {
+    [self _reload];
 }
 
 - (ConfigurationView *)_configurationView {
@@ -152,6 +213,15 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeResizeIncrementsItemModel],
+        [self _makeAspectRatioItemModel],
+        [self _makeAnimationResizeTimeItemModel],
+        [self _makeCascadeTopLeftFromPointItemModel],
+        [self _makeConstrainFrameRectToScreenItemModel],
+        [self _makeSetFrameTopLeftPointItemModel],
+        [self _makeSetFrameOriginItemModel],
+        [self _makeSetFrameDisplayAnimateItemModel],
+        [self _makeContentRectForFrameRectItemModel],
         [self _makeFrameItemModel],
         [self _makeSheetsItemModel],
         [self _makeBeginCriticalSheetAndEndSheetItemModel],
@@ -782,12 +852,38 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
 - (ConfigurationItemModel *)_makeFrameItemModel {
     __block auto unretainedSelf = self;
     
-    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
                                           identifier:@"Frame"
                                             userInfo:nil
                                        labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
         return [NSString stringWithFormat:@"Frame : %@", NSStringFromRect(unretainedSelf.view.window.frame)];
     }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeContentRectForFrameRectItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"contentRectForFrameRect:"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"contentRectForFrameRect : %@", NSStringFromRect([unretainedSelf.view.window contentRectForFrameRect:unretainedSelf.view.window.frame])];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeSetFrameDisplayAnimateItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"setFrame:display:animate:"
+                                            userInfo:nil
+                                               label:@"setFrame:display:animate:"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         NSMenu *menu = [NSMenu new];
         
@@ -797,9 +893,10 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
         slidersView.configuration = [RectSlidersConfiguration configurationWithRect:unretainedSelf.view.window.frame
                                                                             minRect:NSMakeRect(0., 0., 300., 300.)
                                                                             maxRect:NSMakeRect(1000., 1000., 1000., 1000.)
+                                                                           keyPaths:nil
                                                                            userInfo:@{
             @"selfValue": [NSValue value:reinterpret_cast<const void *>(&unretainedSelf) withObjCType:@encode(uintptr_t)],
-            @"attribute": @"frame"
+            @"action": @"setFrame:display:animate:"
         }];
         
         menuItem.view = slidersView;
@@ -808,6 +905,253 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
         [menuItem release];
         
         ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Menu" menu:menu showsMenuAsPrimaryAction:YES];
+        [menu release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeSetFrameOriginItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"setFrameOrigin:"
+                                            userInfo:nil
+                                               label:@"setFrameOrigin:"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSMenu *menu = [NSMenu new];
+        
+        NSMenuItem *menuItem = [NSMenuItem new];
+        RectSlidersView *slidersView = [[RectSlidersView alloc] initWithFrame:NSMakeRect(0., 0., 300., 100.)];
+        
+        slidersView.configuration = [RectSlidersConfiguration configurationWithRect:unretainedSelf.view.window.frame
+                                                                            minRect:NSMakeRect(0., 0., 300., 300.)
+                                                                            maxRect:NSMakeRect(1000., 1000., 1000., 1000.)
+                                                                           keyPaths:[NSSet setWithObjects:RectSlidersKeyPathX, RectSlidersKeyPathY, nil]
+                                                                           userInfo:@{
+            @"selfValue": [NSValue value:reinterpret_cast<const void *>(&unretainedSelf) withObjCType:@encode(uintptr_t)],
+            @"action": @"setFrameOrigin:"
+        }];
+        
+        menuItem.view = slidersView;
+        [slidersView release];
+        [menu addItem:menuItem];
+        [menuItem release];
+        
+        ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Menu" menu:menu showsMenuAsPrimaryAction:YES];
+        [menu release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeSetFrameTopLeftPointItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"setFrameTopLeftPoint:"
+                                            userInfo:nil
+                                               label:@"setFrameTopLeftPoint:"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSMenu *menu = [NSMenu new];
+        
+        NSMenuItem *menuItem = [NSMenuItem new];
+        RectSlidersView *slidersView = [[RectSlidersView alloc] initWithFrame:NSMakeRect(0., 0., 300., 100.)];
+        
+        NSRect frame = unretainedSelf.view.window.frame;
+        slidersView.configuration = [RectSlidersConfiguration configurationWithRect:NSOffsetRect(frame, 0., NSHeight(frame))
+                                                                            minRect:NSMakeRect(0., 0., 300., 300.)
+                                                                            maxRect:NSMakeRect(1000., 1000., 1000., 1000.)
+                                                                           keyPaths:[NSSet setWithObjects:RectSlidersKeyPathX, RectSlidersKeyPathY, nil]
+                                                                           userInfo:@{
+            @"selfValue": [NSValue value:reinterpret_cast<const void *>(&unretainedSelf) withObjCType:@encode(uintptr_t)],
+            @"action": @"setFrameTopLeftPoint:"
+        }];
+        
+        menuItem.view = slidersView;
+        [slidersView release];
+        [menu addItem:menuItem];
+        [menuItem release];
+        
+        ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Menu" menu:menu showsMenuAsPrimaryAction:YES];
+        [menu release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeConstrainFrameRectToScreenItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"constrainFrameRect:toScreen:"
+                                            userInfo:nil
+                                               label:@"constrainFrameRect:toScreen:"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSMenu *menu = [NSMenu new];
+        
+        NSMenuItem *menuItem = [NSMenuItem new];
+        RectSlidersView *slidersView = [[RectSlidersView alloc] initWithFrame:NSMakeRect(0., 0., 300., 100.)];
+        
+        slidersView.configuration = [RectSlidersConfiguration configurationWithRect:unretainedSelf.view.window.frame
+                                                                            minRect:NSMakeRect(0., 0., 300., 300.)
+                                                                            maxRect:NSMakeRect(10000., 10000., 10000., 10000.)
+                                                                           keyPaths:[NSSet setWithObjects:RectSlidersKeyPathWidth, RectSlidersKeyPathHeight, nil]
+                                                                           userInfo:@{
+            @"selfValue": [NSValue value:reinterpret_cast<const void *>(&unretainedSelf) withObjCType:@encode(uintptr_t)],
+            @"action": @"constrainFrameRect:toScreen:"
+        }];
+        
+        menuItem.view = slidersView;
+        [slidersView release];
+        [menu addItem:menuItem];
+        [menuItem release];
+        
+        ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Menu" menu:menu showsMenuAsPrimaryAction:YES];
+        [menu release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeCascadeTopLeftFromPointItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Cascade Top Left From Point"
+                                            userInfo:nil
+                                               label:@"Cascade Top Left From Point"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSMenu *menu = [NSMenu new];
+        
+        NSMenuItem *menuItem = [NSMenuItem new];
+        RectSlidersView *slidersView = [[RectSlidersView alloc] initWithFrame:NSMakeRect(0., 0., 300., 100.)];
+        
+        slidersView.configuration = [RectSlidersConfiguration configurationWithRect:NSZeroRect
+                                                                            minRect:NSMakeRect(0., 0., 300., 300.)
+                                                                            maxRect:NSMakeRect(1000., 1000., 1000., 1000.)
+                                                                           keyPaths:nil
+                                                                           userInfo:@{
+            @"selfValue": [NSValue value:reinterpret_cast<const void *>(&unretainedSelf) withObjCType:@encode(uintptr_t)],
+            @"action": @"cascadeTopLeftFromPoint:"
+        }];
+        
+        menuItem.view = slidersView;
+        [slidersView release];
+        [menu addItem:menuItem];
+        [menuItem release];
+        
+        ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Menu" menu:menu showsMenuAsPrimaryAction:YES];
+        [menu release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeAnimationResizeTimeItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Animation Resize Time"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Animation Resize Time for rect (%@) : %lf", NSStringFromRect(unretainedSelf.animationResizeTimeRect), [unretainedSelf.view.window animationResizeTime:unretainedSelf.animationResizeTimeRect]];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSMenu *menu = [NSMenu new];
+        
+        NSMenuItem *menuItem = [NSMenuItem new];
+        RectSlidersView *slidersView = [[RectSlidersView alloc] initWithFrame:NSMakeRect(0., 0., 300., 100.)];
+        
+        slidersView.configuration = [RectSlidersConfiguration configurationWithRect:unretainedSelf.animationResizeTimeRect
+                                                                            minRect:NSMakeRect(0., 0., 300., 300.)
+                                                                            maxRect:NSMakeRect(1000., 1000., 1000., 1000.)
+                                                                           keyPaths:nil
+                                                                           userInfo:@{
+            @"selfValue": [NSValue value:reinterpret_cast<const void *>(&unretainedSelf) withObjCType:@encode(uintptr_t)],
+            @"action": @"animationResizeTimeRect"
+        }];
+        
+        menuItem.view = slidersView;
+        [slidersView release];
+        [menu addItem:menuItem];
+        [menuItem release];
+        
+        ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Menu" menu:menu showsMenuAsPrimaryAction:YES];
+        [menu release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeAspectRatioItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Aspect Ratio"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Aspect Ratio : %@", NSStringFromSize(unretainedSelf.view.window.aspectRatio)];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSMenu *menu = [NSMenu new];
+        
+        NSMenuItem *menuItem = [NSMenuItem new];
+        RectSlidersView *slidersView = [[RectSlidersView alloc] initWithFrame:NSMakeRect(0., 0., 300., 100.)];
+        
+        NSSize aspectRatio = unretainedSelf.view.window.aspectRatio;
+        slidersView.configuration = [RectSlidersConfiguration configurationWithRect:NSMakeRect(0., 0., aspectRatio.width, aspectRatio.height)
+                                                                            minRect:NSMakeRect(0., 0., 0.1, 0.1)
+                                                                            maxRect:NSMakeRect(0., 0., 1., 1.)
+                                                                           keyPaths:[NSSet setWithObjects:RectSlidersKeyPathWidth, RectSlidersKeyPathHeight, nil]
+                                                                           userInfo:@{
+            @"selfValue": [NSValue value:reinterpret_cast<const void *>(&unretainedSelf) withObjCType:@encode(uintptr_t)],
+            @"action": @"aspectRatio"
+        }];
+        
+        menuItem.view = slidersView;
+        [slidersView release];
+        [menu addItem:menuItem];
+        [menuItem release];
+        
+        ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Reset (or menu)" menu:menu showsMenuAsPrimaryAction:NO];
+        [menu release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeResizeIncrementsItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Resize Increments"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Resize Increments : %@", NSStringFromSize(unretainedSelf.view.window.resizeIncrements)];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSMenu *menu = [NSMenu new];
+        
+        NSMenuItem *menuItem = [NSMenuItem new];
+        RectSlidersView *slidersView = [[RectSlidersView alloc] initWithFrame:NSMakeRect(0., 0., 300., 100.)];
+        
+        NSSize resizeIncrements = unretainedSelf.view.window.resizeIncrements;
+        slidersView.configuration = [RectSlidersConfiguration configurationWithRect:NSMakeRect(0., 0., resizeIncrements.width, resizeIncrements.height)
+                                                                            minRect:NSMakeRect(0., 0., 1., 1.)
+                                                                            maxRect:NSMakeRect(0., 0., 1000., 1000.)
+                                                                           keyPaths:[NSSet setWithObjects:RectSlidersKeyPathWidth, RectSlidersKeyPathHeight, nil]
+                                                                           userInfo:@{
+            @"selfValue": [NSValue value:reinterpret_cast<const void *>(&unretainedSelf) withObjCType:@encode(uintptr_t)],
+            @"action": @"resizeIncrements"
+        }];
+        
+        menuItem.view = slidersView;
+        [slidersView release];
+        [menu addItem:menuItem];
+        [menuItem release];
+        
+        ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Reset (or menu)" menu:menu showsMenuAsPrimaryAction:NO];
         [menu release];
         
         return description;
@@ -1059,12 +1403,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
         alert.alertStyle = NSAlertStyleInformational;
         alert.messageText = @"Alert";
         
-        __block auto unretainedSelf = self;
-        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [unretainedSelf _reload];
-            });
-        }];
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {}];
         
         __kindof NSPanel *_panel = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(alert, sel_registerName("_panel"));
         alert.informativeText = [NSString stringWithFormat:@"isSheet : %@\nsheetParent : %p", _panel.isSheet ? @"YES" : @"NO", _panel.sheetParent];
@@ -1080,13 +1419,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
         [alert layout];
         
         __kindof NSPanel *_panel = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(alert, sel_registerName("_panel"));
-        
-        __block auto unretainedSelf = self;
-        [window beginSheet:_panel completionHandler:^(NSModalResponse returnCode) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [unretainedSelf _reload];
-            });
-        }];
+        [window beginSheet:_panel completionHandler:^(NSModalResponse returnCode) {}];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [window endSheet:_panel];
@@ -1105,13 +1438,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
             [alert layout];
             
             __kindof NSPanel *_panel = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(alert, sel_registerName("_panel"));
-            
-            __block auto unretainedSelf = self;
-            [window beginSheet:_panel completionHandler:^(NSModalResponse returnCode) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [unretainedSelf _reload];
-                });
-            }];
+            [window beginSheet:_panel completionHandler:^(NSModalResponse returnCode) {}];
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [window endSheet:_panel];
@@ -1127,13 +1454,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
             [alert layout];
             
             __kindof NSPanel *_panel = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(alert, sel_registerName("_panel"));
-            
-            __block auto unretainedSelf = self;
-            [window beginCriticalSheet:_panel completionHandler:^(NSModalResponse returnCode) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [unretainedSelf _reload];
-                });
-            }];
+            [window beginCriticalSheet:_panel completionHandler:^(NSModalResponse returnCode) {}];
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [window endSheet:_panel];
@@ -1143,6 +1464,11 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
         }
         
         [self _reload];
+        return NO;
+    } else if ([identifier isEqualToString:@"Aspect Ratio"] or [identifier isEqualToString:@"Resize Increments"]) {
+        window.aspectRatio = NSZeroSize;
+        window.resizeIncrements = NSMakeSize(1., 1.);
+        [configurationView reconfigureItemModelsWithIdentifiers:@[@"Aspect Ratio", @"Resize Increments"]];
         return NO;
     } else {
         abort();
