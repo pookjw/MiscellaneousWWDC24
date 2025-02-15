@@ -1,0 +1,21 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.0.3 effective-5.10 (swiftlang-6.0.3.1.6 clang-1600.0.30.1)
+// swift-module-flags: -target arm64-apple-ios18.2-simulator -enable-objc-interop -autolink-force-load -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -library-level api -enable-bare-slash-regex -module-name UIKitPrivate
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface
+import Swift
+import UIKit
+import Foundation
+@_exported import UIKitPrivate
+import _Concurrency
+
+@available(iOS 18.0, *)
+@_originallyDefinedIn(module: "UIKit", iOS 18.0)
+public enum IntelligenceUI {}
+
+@available(iOS 18.0, *)
+@_originallyDefinedIn(module: "UIKit", iOS 18.0)
+extension UIKitPrivate.IntelligenceUI {
+    open class PromptComposeViewController: UIKit.UIViewController {
+        public override init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+    }
+}

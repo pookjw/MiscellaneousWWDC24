@@ -1,5 +1,5 @@
 //
-//  SceneDelegate.m
+//  SceneDelegate.mm
 //  MiscellaneousUIKit
 //
 //  Created by Jinwoo Kim on 6/11/24.

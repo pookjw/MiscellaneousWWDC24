@@ -22,7 +22,7 @@
 		4F05FEB62D52416C002D380C /* SystemBannerRequestViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F05FEB52D52416C002D380C /* SystemBannerRequestViewController.mm */; };
 		4F05FEB72D52416C002D380C /* SystemBannerRequestViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F05FEB52D52416C002D380C /* SystemBannerRequestViewController.mm */; };
 		4F082E492C188D6C002263ED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E482C188D6C002263ED /* AppDelegate.m */; };
-		4F082E4C2C188D6C002263ED /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E4B2C188D6C002263ED /* SceneDelegate.m */; };
+		4F082E4C2C188D6C002263ED /* SceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E4B2C188D6C002263ED /* SceneDelegate.mm */; };
 		4F082E542C188D6D002263ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F082E532C188D6D002263ED /* Assets.xcassets */; };
 		4F082E572C188D6D002263ED /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 4F082E562C188D6D002263ED /* Base */; platformFilter = ios; };
 		4F082E5A2C188D6D002263ED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E592C188D6D002263ED /* main.m */; };
@@ -75,6 +75,11 @@
 		4F4904172D049E870017A47D /* IntelligenceLightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4904152D049E870017A47D /* IntelligenceLightViewController.swift */; };
 		4F49067F2D04AF1F0017A47D /* VariableBlurViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F49067E2D04AF1F0017A47D /* VariableBlurViewController.mm */; };
 		4F4906802D04AF1F0017A47D /* VariableBlurViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F49067E2D04AF1F0017A47D /* VariableBlurViewController.mm */; };
+		4F4D9CC52D610B1500065012 /* UIKitPrivate.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F4D9CC42D610B1500065012 /* UIKitPrivate.xcframework */; };
+		4F4D9CC82D610B2000065012 /* UIKitPrivate.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F4D9CC42D610B1500065012 /* UIKitPrivate.xcframework */; };
+		4F4D9CC92D610B2000065012 /* UIKitPrivate.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F4D9CC42D610B1500065012 /* UIKitPrivate.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4F4D9CCC2D610CB600065012 /* PromptComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4D9CCB2D610CB600065012 /* PromptComposeViewController.swift */; };
+		4F4D9CCD2D610CB600065012 /* PromptComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4D9CCB2D610CB600065012 /* PromptComposeViewController.swift */; };
 		4F5056532C5938F400B49BB9 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F5056522C5938F400B49BB9 /* SafariServices.framework */; };
 		4F5068AE2C3D98F800293E81 /* LegacyTabBarController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5068AD2C3D98F800293E81 /* LegacyTabBarController.mm */; };
 		4F5068B22C3D9D8800293E81 /* LegacyTabBar2Controller.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5068B12C3D9D8800293E81 /* LegacyTabBar2Controller.mm */; };
@@ -121,7 +126,7 @@
 		4F59DECE2CFFF56100E88830 /* ListEnvironmentCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E6B2C189EF0002263ED /* ListEnvironmentCollectionViewController.mm */; };
 		4F59DECF2CFFF56100E88830 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E592C188D6D002263ED /* main.m */; };
 		4F59DED02CFFF56100E88830 /* NewLinkTextViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FB9FC412C58C2D6006B3245 /* NewLinkTextViewController.mm */; };
-		4F59DED12CFFF56100E88830 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E4B2C188D6C002263ED /* SceneDelegate.m */; };
+		4F59DED12CFFF56100E88830 /* SceneDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F082E4B2C188D6C002263ED /* SceneDelegate.mm */; };
 		4F59DED22CFFF56100E88830 /* MySearchViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F0CBAA32C43D3FA00743DE2 /* MySearchViewController.mm */; };
 		4F59DED32CFFF56100E88830 /* PointerInteractionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F3AFCA02C57F64E00F810CF /* PointerInteractionViewController.mm */; };
 		4F59DED42CFFF56100E88830 /* SymbolTransitionsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FDABC682C3D35DE00F928DB /* SymbolTransitionsViewController.mm */; };
@@ -183,6 +188,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		4F4D9CCA2D610B2000065012 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4F4D9CC92D610B2000065012 /* UIKitPrivate.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4F8C51702D21258C001046CB /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -223,7 +239,7 @@
 		4F082E472C188D6C002263ED /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4F082E482C188D6C002263ED /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4F082E4A2C188D6C002263ED /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
-		4F082E4B2C188D6C002263ED /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		4F082E4B2C188D6C002263ED /* SceneDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SceneDelegate.mm; sourceTree = "<group>"; };
 		4F082E532C188D6D002263ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4F082E562C188D6D002263ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4F082E582C188D6D002263ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -304,6 +320,8 @@
 		4F4904152D049E870017A47D /* IntelligenceLightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceLightViewController.swift; sourceTree = "<group>"; };
 		4F49067D2D04AF1F0017A47D /* VariableBlurViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VariableBlurViewController.h; sourceTree = "<group>"; };
 		4F49067E2D04AF1F0017A47D /* VariableBlurViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VariableBlurViewController.mm; sourceTree = "<group>"; };
+		4F4D9CC42D610B1500065012 /* UIKitPrivate.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = UIKitPrivate.xcframework; sourceTree = "<group>"; };
+		4F4D9CCB2D610CB600065012 /* PromptComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptComposeViewController.swift; sourceTree = "<group>"; };
 		4F5056522C5938F400B49BB9 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/iOSSupport/System/Library/Frameworks/SafariServices.framework; sourceTree = DEVELOPER_DIR; };
 		4F5068AC2C3D98F800293E81 /* LegacyTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LegacyTabBarController.h; sourceTree = "<group>"; };
 		4F5068AD2C3D98F800293E81 /* LegacyTabBarController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LegacyTabBarController.mm; sourceTree = "<group>"; };
@@ -388,6 +406,7 @@
 				4F5056532C5938F400B49BB9 /* SafariServices.framework in Frameworks */,
 				4F082E9C2C1B4505002263ED /* UniformTypeIdentifiers.framework in Frameworks */,
 				4F379CA32D44B113006EBDF3 /* Accessibility.framework in Frameworks */,
+				4F4D9CC52D610B1500065012 /* UIKitPrivate.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,6 +416,7 @@
 			files = (
 				4FEC175E2D2274D900F9945E /* WebKit.framework in Frameworks */,
 				4F59DEDB2CFFF56100E88830 /* SafariServices.framework in Frameworks */,
+				4F4D9CC82D610B2000065012 /* UIKitPrivate.xcframework in Frameworks */,
 				4F59DEDC2CFFF56100E88830 /* UniformTypeIdentifiers.framework in Frameworks */,
 				4FEC175C2D226CC900F9945E /* MapKit.framework in Frameworks */,
 				4F8C51462D203AA0001046CB /* CarPlay.framework in Frameworks */,
@@ -490,7 +510,7 @@
 				4F082E472C188D6C002263ED /* AppDelegate.h */,
 				4F082E482C188D6C002263ED /* AppDelegate.m */,
 				4F082E4A2C188D6C002263ED /* SceneDelegate.h */,
-				4F082E4B2C188D6C002263ED /* SceneDelegate.m */,
+				4F082E4B2C188D6C002263ED /* SceneDelegate.mm */,
 				4F082E602C188E34002263ED /* MainCollectionViewController.h */,
 				4F082E612C188E34002263ED /* MainCollectionViewController.mm */,
 				4F082E632C18906E002263ED /* Classes */,
@@ -508,6 +528,7 @@
 		4F082E632C18906E002263ED /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4F4D9CC32D6109C100065012 /* IntelligenceDemo */,
 				4FD9F9F72D5710BA00E38CF2 /* PrototypingMenuSlider */,
 				4F98BA242D55FAA7006D958B /* BlurEffectStyles */,
 				4F0504792D535701002D380C /* FluidSlider */,
@@ -611,6 +632,7 @@
 		4F082E9A2C1B4504002263ED /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4F4D9CC42D610B1500065012 /* UIKitPrivate.xcframework */,
 				4F379CA22D44B113006EBDF3 /* Accessibility.framework */,
 				4FEC175D2D2274D900F9945E /* WebKit.framework */,
 				4FEC175A2D226CC300F9945E /* MapKit.framework */,
@@ -815,6 +837,14 @@
 				4F49067E2D04AF1F0017A47D /* VariableBlurViewController.mm */,
 			);
 			path = VariableBlur;
+			sourceTree = "<group>";
+		};
+		4F4D9CC32D6109C100065012 /* IntelligenceDemo */ = {
+			isa = PBXGroup;
+			children = (
+				4F4D9CCB2D610CB600065012 /* PromptComposeViewController.swift */,
+			);
+			path = IntelligenceDemo;
 			sourceTree = "<group>";
 		};
 		4F5068AB2C3D98DA00293E81 /* LegacyTabBar */ = {
@@ -1092,6 +1122,7 @@
 				4F59DEDA2CFFF56100E88830 /* Frameworks */,
 				4F59DEDD2CFFF56100E88830 /* Resources */,
 				4F8C51952D212724001046CB /* Embed Foundation Extensions */,
+				4F4D9CCA2D610B2000065012 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1184,6 +1215,7 @@
 				4FC507822D2AC5DD009BFC65 /* BiometricKitDemoViewController.mm in Sources */,
 				4F082EA82C1B53C8002263ED /* ContentHuggingElementsViewController.mm in Sources */,
 				4FAD987B2C217CF400A5C513 /* CustomDismissPercentageInteraction.mm in Sources */,
+				4F4D9CCD2D610CB600065012 /* PromptComposeViewController.swift in Sources */,
 				4F0501922D52657F002D380C /* BannerViewController.mm in Sources */,
 				4FC234BB2D31761D00202A24 /* ExpandableCollectionViewController.mm in Sources */,
 				4F082E702C18A045002263ED /* ListEnvironmentContentConfiguration.mm in Sources */,
@@ -1234,7 +1266,7 @@
 				4F4903C72D040AB90017A47D /* IndexedTextRange.mm in Sources */,
 				4FD9F9FA2D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm in Sources */,
 				4FB9FC422C58C2D6006B3245 /* NewLinkTextViewController.mm in Sources */,
-				4F082E4C2C188D6C002263ED /* SceneDelegate.m in Sources */,
+				4F082E4C2C188D6C002263ED /* SceneDelegate.mm in Sources */,
 				4F0CBAA52C43D3FA00743DE2 /* MySearchViewController.mm in Sources */,
 				4F3AFCA12C57F64E00F810CF /* PointerInteractionViewController.mm in Sources */,
 				4FDABC692C3D35DE00F928DB /* SymbolTransitionsViewController.mm in Sources */,
@@ -1267,6 +1299,7 @@
 				4FC507812D2AC5DD009BFC65 /* BiometricKitDemoViewController.mm in Sources */,
 				4F59DEAF2CFFF56100E88830 /* ContentHuggingElementsViewController.mm in Sources */,
 				4F59DEB02CFFF56100E88830 /* CustomDismissPercentageInteraction.mm in Sources */,
+				4F4D9CCC2D610CB600065012 /* PromptComposeViewController.swift in Sources */,
 				4F0501912D52657F002D380C /* BannerViewController.mm in Sources */,
 				4FC234BC2D31761D00202A24 /* ExpandableCollectionViewController.mm in Sources */,
 				4F59DEB12CFFF56100E88830 /* ListEnvironmentContentConfiguration.mm in Sources */,
@@ -1317,7 +1350,7 @@
 				4F4903C82D040AB90017A47D /* IndexedTextRange.mm in Sources */,
 				4FD9F9FB2D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm in Sources */,
 				4F59DED02CFFF56100E88830 /* NewLinkTextViewController.mm in Sources */,
-				4F59DED12CFFF56100E88830 /* SceneDelegate.m in Sources */,
+				4F59DED12CFFF56100E88830 /* SceneDelegate.mm in Sources */,
 				4F59DED22CFFF56100E88830 /* MySearchViewController.mm in Sources */,
 				4F59DED32CFFF56100E88830 /* PointerInteractionViewController.mm in Sources */,
 				4F59DED42CFFF56100E88830 /* SymbolTransitionsViewController.mm in Sources */,

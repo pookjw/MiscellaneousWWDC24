@@ -1,0 +1,5 @@
+framework module UIKitPrivate {
+    // umbrella header "UIKitPrivate.h"
+    export *
+    // module * { export * }
+}

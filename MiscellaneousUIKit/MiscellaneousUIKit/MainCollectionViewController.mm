@@ -63,6 +63,9 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import <TargetConditionals.h>
+#import "MiscellaneousUIKit-Swift.h"
+
+OBJC_EXPORT _Nullable Class objc_loadClassref(_Nullable Class * _Nonnull clsref);
 
 __attribute__((objc_direct_members))
 @interface MainCollectionViewController ()
@@ -73,6 +76,10 @@ __attribute__((objc_direct_members))
 @implementation MainCollectionViewController
 
 @synthesize cellRegistration = _cellRegistration;
+
++ (void)load {
+    MiscellaneousUIKit::initializePromptComposeViewController();
+}
 
 - (instancetype)init {
     UICollectionLayoutListConfiguration *listConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearanceInsetGrouped];
@@ -111,11 +118,11 @@ __attribute__((objc_direct_members))
     [super viewDidLoad];
     [self cellRegistration];
     
-    SystemBannerRequestViewController *viewController = [SystemBannerRequestViewController new];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-    [viewController release];
-    [self presentViewController:navigationController animated:YES completion:nil];
-    [navigationController release];
+//    PromptComposeViewController *viewController = [PromptComposeViewController new];
+//    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+//    [viewController release];
+//    [self presentViewController:navigationController animated:YES completion:nil];
+//    [navigationController release];
 //    reinterpret_cast<void (*)(id, SEL, id, BOOL, UICollectionViewScrollPosition, BOOL, BOOL, BOOL, BOOL)>(objc_msgSend)(self.collectionView, sel_registerName("_selectItemAtIndexPath:animated:scrollPosition:notifyDelegate:deselectPrevious:performPrimaryAction:performCustomSelectionAction:"), [NSIndexPath indexPathForItem:0 inSection:0], NO, 0, YES, YES, NO, NO);
 }
 
@@ -151,6 +158,9 @@ __attribute__((objc_direct_members))
 
 - (NSArray<Class> *)classes {
     return @[
+//        PromptComposeViewController.class,
+//        objc_lookUpClass("FooPromptComposeViewController"),
+        objc_lookUpClass("PromptComposeViewController"),
         PrototypingMenuSliderViewController.class,
         BlurEffectStylesViewController.class,
         FluidSliderViewController.class,
