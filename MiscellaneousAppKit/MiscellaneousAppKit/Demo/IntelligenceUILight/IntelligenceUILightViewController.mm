@@ -99,7 +99,7 @@
                                             userInfo:nil
                                                label:@"Audio Level (???)"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
-        double audioLevel = reinterpret_cast<double (*)(id, SEL)>(objc_msgSend)(lightView, sel_registerName("audioLevel"));
+        CGFloat audioLevel = reinterpret_cast<CGFloat (*)(id, SEL)>(objc_msgSend)(lightView, sel_registerName("audioLevel"));
         return [ConfigurationSliderDescription descriptionWithSliderValue:audioLevel minimumValue:0. maximumValue:100. continuous:YES];
     }];
 }
@@ -205,7 +205,7 @@
         reinterpret_cast<void (*)(id, SEL, float)>(objc_msgSend)(self.lightView, sel_registerName("setMinimumPowerLevel:"), static_cast<NSNumber *>(newValue).floatValue);
         return NO;
     } else if ([identifier isEqualToString:@"Audio Level"]) {
-        reinterpret_cast<void (*)(id, SEL, double)>(objc_msgSend)(self.lightView, sel_registerName("setAudioLevel:"), static_cast<NSNumber *>(newValue).doubleValue);
+        reinterpret_cast<void (*)(id, SEL, CGFloat)>(objc_msgSend)(self.lightView, sel_registerName("setAudioLevel:"), static_cast<NSNumber *>(newValue).doubleValue);
         return NO;
     } else if ([identifier isEqualToString:@"Color Palette"]) {
         auto title = static_cast<NSString *>(newValue);

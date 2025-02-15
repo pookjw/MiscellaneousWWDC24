@@ -13,6 +13,7 @@
 #import "ConfigurationDemoViewController.h"
 #import "ServiceManagementDemoViewController.h"
 #import "IntelligenceUILightViewController.h"
+#import "IntelligenceUIPlatterViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 
@@ -38,6 +39,7 @@
 
 + (NSArray<Class> *)_classes {
     return @[
+        [IntelligenceUIPlatterViewController class],
         [IntelligenceUILightViewController class],
         [ServiceManagementDemoViewController class],
         [ConfigurationDemoViewController class],
