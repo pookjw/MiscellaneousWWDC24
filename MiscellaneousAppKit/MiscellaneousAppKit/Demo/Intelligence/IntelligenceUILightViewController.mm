@@ -124,6 +124,50 @@
                                             userInfo:nil
                                                label:@"Color Palette"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        /*
+         -[SUICIntelligentLightLayer _loadMetalPipelines]
+         
+         101: (
+             IntelligentLightVert,
+             IntelligentLightFrag
+         )
+         
+         102: (
+             IntelligentLightVert,
+             IntelligentLightFrag,
+             IntelligentLightVert,
+             IntelligentLightSaturatedV1Frag
+         )
+         
+         103: (
+             IntelligentLightVert,
+             IntelligentLightFrag,
+             IntelligentLightVert,
+             IntelligentLightMacFrag
+         )
+         
+         104: (
+             IntelligentLightVert,
+             IntelligentLightFrag,
+             IntelligentLightVert,
+             IntelligentLightFrag
+         )
+         
+         500: (
+             IntelligentLightVert,
+             IntelligentLightFrag,
+             IntelligentLightNoiseVert,
+             IntelligentLightNoiseFrag
+         )
+         
+         501: (
+             IntelligentLightVert,
+             IntelligentLightFrag,
+             IntelligentLightNoiseVert,
+             IntelligentLightNoiseFullFrag
+         )
+         */
+        
         return [ConfigurationPopUpButtonDescription descriptionWithTitles:@[
             @"101", @"102", @"103", @"104", @"500", @"501"
         ]
@@ -188,47 +232,3 @@
 }
 
 @end
-
-/*
- -[SUICIntelligentLightLayer _loadMetalPipelines]
- 
- 101: (
-     IntelligentLightVert,
-     IntelligentLightFrag
- )
- 
- 102: (
-     IntelligentLightVert,
-     IntelligentLightFrag,
-     IntelligentLightVert,
-     IntelligentLightSaturatedV1Frag
- )
- 
- 103: (
-     IntelligentLightVert,
-     IntelligentLightFrag,
-     IntelligentLightVert,
-     IntelligentLightMacFrag
- )
- 
- 104: (
-     IntelligentLightVert,
-     IntelligentLightFrag,
-     IntelligentLightVert,
-     IntelligentLightFrag
- )
- 
- 500: (
-     IntelligentLightVert,
-     IntelligentLightFrag,
-     IntelligentLightNoiseVert,
-     IntelligentLightNoiseFrag
- )
- 
- 501: (
-     IntelligentLightVert,
-     IntelligentLightFrag,
-     IntelligentLightNoiseVert,
-     IntelligentLightNoiseFullFrag
- )
- */
