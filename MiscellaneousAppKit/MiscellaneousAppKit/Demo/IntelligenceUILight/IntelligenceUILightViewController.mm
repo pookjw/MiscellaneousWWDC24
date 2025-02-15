@@ -11,7 +11,6 @@
 
 #import "IntelligenceUILightViewController.h"
 #import "ConfigurationView.h"
-#import <AppKitPrivate/AppKitPrivate.h>
 #import <objc/message.h>
 #import <objc/runtime.h>
 
