@@ -6,7 +6,7 @@
 //
 
 /*
- NSIntelligenceUINoiseView
+ NSIntelligenceUINoiseView도 있지만 이건 Color Palette만 다른 것
  */
 
 #import "IntelligenceUILightViewController.h"
