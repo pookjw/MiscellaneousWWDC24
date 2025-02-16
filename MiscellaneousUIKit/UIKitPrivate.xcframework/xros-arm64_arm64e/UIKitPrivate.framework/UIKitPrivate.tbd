@@ -1,10 +1,10 @@
 --- !tapi-tbd
 tbd-version:     4
-targets:         [ x86_64-xros-simulator, arm64-xros-simulator ]
+targets:         [ arm64-xros, arm64e-xros ]
 install-name:    '/System/Library/Frameworks/UIKit.framework/UIKit'
 swift-abi-version: 7
 exports:
-  - targets:         [ x86_64-xros-simulator, arm64-xros-simulator ]
+  - targets:         [ arm64-xros, arm64e-xros ]
     symbols:              [  ]
     objc-classes:         [  ]
     objc-ivars:           [  ]
