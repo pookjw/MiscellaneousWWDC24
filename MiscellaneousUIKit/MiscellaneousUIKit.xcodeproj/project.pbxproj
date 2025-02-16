@@ -195,6 +195,10 @@
 		4FEC175F2D2274DE00F9945E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FEC175D2D2274D900F9945E /* WebKit.framework */; };
 		4FF8BFEC2D621D8000256D17 /* KBAnimatedRenderConfigViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FF8BFEB2D621D8000256D17 /* KBAnimatedRenderConfigViewController.mm */; };
 		4FF8BFED2D621D8000256D17 /* KBAnimatedRenderConfigViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FF8BFEB2D621D8000256D17 /* KBAnimatedRenderConfigViewController.mm */; };
+		4FF8BFF02D62350200256D17 /* KBRenderConfigViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FF8BFEF2D62350200256D17 /* KBRenderConfigViewController.mm */; };
+		4FF8BFF12D62350200256D17 /* KBRenderConfigViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FF8BFEF2D62350200256D17 /* KBRenderConfigViewController.mm */; };
+		4FF8C2C02D62373200256D17 /* balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FF8C2BF2D62373200256D17 /* balloon.png */; };
+		4FF8C2C12D62373200256D17 /* balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FF8C2BF2D62373200256D17 /* balloon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -412,6 +416,9 @@
 		4FEC175D2D2274D900F9945E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/iOSSupport/System/Library/PrivateFrameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		4FF8BFEA2D621D8000256D17 /* KBAnimatedRenderConfigViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KBAnimatedRenderConfigViewController.h; sourceTree = "<group>"; };
 		4FF8BFEB2D621D8000256D17 /* KBAnimatedRenderConfigViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = KBAnimatedRenderConfigViewController.mm; sourceTree = "<group>"; };
+		4FF8BFEE2D62350200256D17 /* KBRenderConfigViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KBRenderConfigViewController.h; sourceTree = "<group>"; };
+		4FF8BFEF2D62350200256D17 /* KBRenderConfigViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = KBRenderConfigViewController.mm; sourceTree = "<group>"; };
+		4FF8C2BF2D62373200256D17 /* balloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = balloon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -521,6 +528,7 @@
 				4FDABC6A2C3D3C5600F928DB /* MiscellaneousUIKit.entitlements */,
 				4F59DEA32CFFF53500E88830 /* MiscellaneousUIKit-Private.entitlements */,
 				4FA8EEEC2C1CD3B000B1358A /* image.heic */,
+				4FF8C2BF2D62373200256D17 /* balloon.png */,
 				4FD54C882D00854E002CE52C /* beer.jpg */,
 				4FA8EEF82C1CE98100B1358A /* NSObject+Foundation_IvarDescription.h */,
 				4FA8EEF92C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm */,
@@ -1113,6 +1121,8 @@
 			children = (
 				4FF8BFEA2D621D8000256D17 /* KBAnimatedRenderConfigViewController.h */,
 				4FF8BFEB2D621D8000256D17 /* KBAnimatedRenderConfigViewController.mm */,
+				4FF8BFEE2D62350200256D17 /* KBRenderConfigViewController.h */,
+				4FF8BFEF2D62350200256D17 /* KBRenderConfigViewController.mm */,
 			);
 			path = KBRenderConfig;
 			sourceTree = "<group>";
@@ -1200,6 +1210,7 @@
 				4FD54C892D00854E002CE52C /* beer.jpg in Resources */,
 				4F5FE5F62C5A0B950044345D /* article.txt in Resources */,
 				4F082E572C188D6D002263ED /* Base in Resources */,
+				4FF8C2C12D62373200256D17 /* balloon.png in Resources */,
 				4F0504772D5351DC002D380C /* Brightness.ca in Resources */,
 				4FA8EEED2C1CD3B000B1358A /* image.heic in Resources */,
 			);
@@ -1213,6 +1224,7 @@
 				4FD54C8A2D00854E002CE52C /* beer.jpg in Resources */,
 				4F59DEDF2CFFF56100E88830 /* article.txt in Resources */,
 				4F59DEE02CFFF56100E88830 /* Base in Resources */,
+				4FF8C2C02D62373200256D17 /* balloon.png in Resources */,
 				4F0504782D5351DC002D380C /* Brightness.ca in Resources */,
 				4F59DEE12CFFF56100E88830 /* image.heic in Resources */,
 			);
@@ -1290,6 +1302,7 @@
 				4F455F222C281AAC00CDE688 /* UpdateLinkViewController.mm in Sources */,
 				4F455F1A2C27EBE400CDE688 /* JitterAnimationViewController.mm in Sources */,
 				4F082E6C2C189EF0002263ED /* ListEnvironmentCollectionViewController.mm in Sources */,
+				4FF8BFF02D62350200256D17 /* KBRenderConfigViewController.mm in Sources */,
 				4F082E5A2C188D6D002263ED /* main.m in Sources */,
 				4F4903C72D040AB90017A47D /* IndexedTextRange.mm in Sources */,
 				4FD9F9FA2D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm in Sources */,
@@ -1379,6 +1392,7 @@
 				4F59DECC2CFFF56100E88830 /* UpdateLinkViewController.mm in Sources */,
 				4F59DECD2CFFF56100E88830 /* JitterAnimationViewController.mm in Sources */,
 				4F59DECE2CFFF56100E88830 /* ListEnvironmentCollectionViewController.mm in Sources */,
+				4FF8BFF12D62350200256D17 /* KBRenderConfigViewController.mm in Sources */,
 				4F59DECF2CFFF56100E88830 /* main.m in Sources */,
 				4F4903C82D040AB90017A47D /* IndexedTextRange.mm in Sources */,
 				4FD9F9FB2D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm in Sources */,
