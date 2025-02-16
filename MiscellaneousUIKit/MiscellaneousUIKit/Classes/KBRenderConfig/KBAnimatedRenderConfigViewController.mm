@@ -1,11 +1,11 @@
 //
-//  KBRenderConfigViewController.mm
+//  KBAnimatedRenderConfigViewController.mm
 //  MiscellaneousUIKit
 //
 //  Created by Jinwoo Kim on 2/16/25.
 //
 
-#import "KBRenderConfigViewController.h"
+#import "KBAnimatedRenderConfigViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 
@@ -20,11 +20,11 @@
 }
 @end
 
-@interface KBRenderConfigViewController ()
+@interface KBAnimatedRenderConfigViewController ()
 
 @end
 
-@implementation KBRenderConfigViewController
+@implementation KBAnimatedRenderConfigViewController
 
 - (void)loadView {
     UITextView *textView = [UITextView new];

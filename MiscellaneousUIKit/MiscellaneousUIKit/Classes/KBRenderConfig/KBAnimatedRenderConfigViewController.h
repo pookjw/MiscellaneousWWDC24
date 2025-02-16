@@ -1,5 +1,5 @@
 //
-//  KBRenderConfigViewController.h
+//  KBAnimatedRenderConfigViewController.h
 //  MiscellaneousUIKit
 //
 //  Created by Jinwoo Kim on 2/16/25.
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface KBRenderConfigViewController : UIViewController
+@interface KBAnimatedRenderConfigViewController : UIViewController
 
 @end
 

@@ -193,8 +193,8 @@
 		4FEC175C2D226CC900F9945E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FEC175A2D226CC300F9945E /* MapKit.framework */; };
 		4FEC175E2D2274D900F9945E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FEC175D2D2274D900F9945E /* WebKit.framework */; };
 		4FEC175F2D2274DE00F9945E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FEC175D2D2274D900F9945E /* WebKit.framework */; };
-		4FF8BFEC2D621D8000256D17 /* KBRenderConfigViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FF8BFEB2D621D8000256D17 /* KBRenderConfigViewController.mm */; };
-		4FF8BFED2D621D8000256D17 /* KBRenderConfigViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FF8BFEB2D621D8000256D17 /* KBRenderConfigViewController.mm */; };
+		4FF8BFEC2D621D8000256D17 /* KBAnimatedRenderConfigViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FF8BFEB2D621D8000256D17 /* KBAnimatedRenderConfigViewController.mm */; };
+		4FF8BFED2D621D8000256D17 /* KBAnimatedRenderConfigViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FF8BFEB2D621D8000256D17 /* KBAnimatedRenderConfigViewController.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -410,8 +410,8 @@
 		4FDABC6A2C3D3C5600F928DB /* MiscellaneousUIKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MiscellaneousUIKit.entitlements; sourceTree = "<group>"; };
 		4FEC175A2D226CC300F9945E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/iOSSupport/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		4FEC175D2D2274D900F9945E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/iOSSupport/System/Library/PrivateFrameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
-		4FF8BFEA2D621D8000256D17 /* KBRenderConfigViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KBRenderConfigViewController.h; sourceTree = "<group>"; };
-		4FF8BFEB2D621D8000256D17 /* KBRenderConfigViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = KBRenderConfigViewController.mm; sourceTree = "<group>"; };
+		4FF8BFEA2D621D8000256D17 /* KBAnimatedRenderConfigViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KBAnimatedRenderConfigViewController.h; sourceTree = "<group>"; };
+		4FF8BFEB2D621D8000256D17 /* KBAnimatedRenderConfigViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = KBAnimatedRenderConfigViewController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1111,8 +1111,8 @@
 		4FF8BFE92D621D7100256D17 /* KBRenderConfig */ = {
 			isa = PBXGroup;
 			children = (
-				4FF8BFEA2D621D8000256D17 /* KBRenderConfigViewController.h */,
-				4FF8BFEB2D621D8000256D17 /* KBRenderConfigViewController.mm */,
+				4FF8BFEA2D621D8000256D17 /* KBAnimatedRenderConfigViewController.h */,
+				4FF8BFEB2D621D8000256D17 /* KBAnimatedRenderConfigViewController.mm */,
 			);
 			path = KBRenderConfig;
 			sourceTree = "<group>";
@@ -1260,7 +1260,7 @@
 				4FA8EEF42C1CDBD700B1358A /* ToTransitionViewController.mm in Sources */,
 				4F9C08D42C3E5574009897D6 /* ToolbarAppearanceViewController.mm in Sources */,
 				4F4903C32D040A220017A47D /* IndexedTextPosition.mm in Sources */,
-				4FF8BFED2D621D8000256D17 /* KBRenderConfigViewController.mm in Sources */,
+				4FF8BFED2D621D8000256D17 /* KBAnimatedRenderConfigViewController.mm in Sources */,
 				4FD54E902D00BB78002CE52C /* LabelWritingToolsViewController.mm in Sources */,
 				4F1F022E2C23CE3A004F7EFF /* CyanViewController.m in Sources */,
 				4F3DD69C2C9BDCF6006F6F49 /* BaselineViewController.mm in Sources */,
@@ -1349,7 +1349,7 @@
 				4F59DEBB2CFFF56100E88830 /* ToTransitionViewController.mm in Sources */,
 				4F59DEBC2CFFF56100E88830 /* ToolbarAppearanceViewController.mm in Sources */,
 				4F4903C42D040A220017A47D /* IndexedTextPosition.mm in Sources */,
-				4FF8BFEC2D621D8000256D17 /* KBRenderConfigViewController.mm in Sources */,
+				4FF8BFEC2D621D8000256D17 /* KBAnimatedRenderConfigViewController.mm in Sources */,
 				4FD54E912D00BB78002CE52C /* LabelWritingToolsViewController.mm in Sources */,
 				4F59DEBD2CFFF56100E88830 /* CyanViewController.m in Sources */,
 				4F59DEBE2CFFF56100E88830 /* BaselineViewController.mm in Sources */,
