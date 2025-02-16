@@ -593,7 +593,6 @@
 				4F59DEEC2CFFFA6800E88830 /* NewWritingTools */,
 				4FD54E8D2D00BB63002CE52C /* LabelWritingTools */,
 				4F4903742D03553B0017A47D /* MarqueeLabel */,
-				4F49040B2D049CC90017A47D /* IntelligenceLightLabel */,
 				4F4904142D049E730017A47D /* IntelligenceLight */,
 				4F49067C2D04AF0D0017A47D /* VariableBlur */,
 			);
@@ -826,15 +825,6 @@
 			path = MarqueeLabel;
 			sourceTree = "<group>";
 		};
-		4F49040B2D049CC90017A47D /* IntelligenceLightLabel */ = {
-			isa = PBXGroup;
-			children = (
-				4F49040C2D049CD80017A47D /* IntelligenceLightLabelViewController.h */,
-				4F49040D2D049CD80017A47D /* IntelligenceLightLabelViewController.mm */,
-			);
-			path = IntelligenceLightLabel;
-			sourceTree = "<group>";
-		};
 		4F4904142D049E730017A47D /* IntelligenceLight */ = {
 			isa = PBXGroup;
 			children = (
@@ -861,6 +851,8 @@
 				4F6230CB2D620BFA000A65A0 /* IntelligenceSystemNoiseViewController.mm */,
 				4F6230D22D620CC6000A65A0 /* CloudChamberViewController.swift */,
 				4FC471212D61E1B700C78FCA /* IntelligenceButtonsViewController.swift */,
+				4F49040C2D049CD80017A47D /* IntelligenceLightLabelViewController.h */,
+				4F49040D2D049CD80017A47D /* IntelligenceLightLabelViewController.mm */,
 			);
 			path = IntelligenceDemo;
 			sourceTree = "<group>";
