@@ -77,10 +77,6 @@ __attribute__((objc_direct_members))
 
 @synthesize cellRegistration = _cellRegistration;
 
-+ (void)load {
-    MiscellaneousUIKit::initializePromptComposeViewController();
-}
-
 - (instancetype)init {
     UICollectionLayoutListConfiguration *listConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearanceInsetGrouped];
     UICollectionViewCompositionalLayout *collectionViewLayout = [UICollectionViewCompositionalLayout layoutWithListConfiguration:listConfiguration];
@@ -118,11 +114,12 @@ __attribute__((objc_direct_members))
     [super viewDidLoad];
     [self cellRegistration];
     
-//    PromptComposeViewController *viewController = [PromptComposeViewController new];
-//    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-//    [viewController release];
-//    [self presentViewController:navigationController animated:YES completion:nil];
-//    [navigationController release];
+//    __kindof UIViewController *viewController = [reinterpret_cast<Class>(MiscellaneousUIKit::promptComposeViewControllerClass()) new];
+    CloudChamberViewController *viewController = [CloudChamberViewController new];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    [viewController release];
+    [self presentViewController:navigationController animated:YES completion:nil];
+    [navigationController release];
 //    reinterpret_cast<void (*)(id, SEL, id, BOOL, UICollectionViewScrollPosition, BOOL, BOOL, BOOL, BOOL)>(objc_msgSend)(self.collectionView, sel_registerName("_selectItemAtIndexPath:animated:scrollPosition:notifyDelegate:deselectPrevious:performPrimaryAction:performCustomSelectionAction:"), [NSIndexPath indexPathForItem:0 inSection:0], NO, 0, YES, YES, NO, NO);
 }
 
@@ -158,9 +155,11 @@ __attribute__((objc_direct_members))
 
 - (NSArray<Class> *)classes {
     return @[
-//        PromptComposeViewController.class,
-//        objc_lookUpClass("FooPromptComposeViewController"),
-        objc_lookUpClass("PromptComposeViewController"),
+        CloudChamberViewController.class,
+        IntelligenceButtonsViewController.class,
+        IntelligenceSystemNoiseViewController.class,
+        IntelligenceLightSourceViewController.class,
+        reinterpret_cast<Class>(MiscellaneousUIKit::promptComposeViewControllerClass()),
         PrototypingMenuSliderViewController.class,
         BlurEffectStylesViewController.class,
         FluidSliderViewController.class,

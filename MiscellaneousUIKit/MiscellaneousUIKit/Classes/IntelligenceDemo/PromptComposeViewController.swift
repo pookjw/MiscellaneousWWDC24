@@ -8,14 +8,27 @@
 import UIKit
 import UIKitPrivate
 
-@_expose(Cxx) public func initializePromptComposeViewController() {
-    // swift_getSingletonMetadata
-    _ = PromptComposeViewController.perform(Selector(("class")))
+@_expose(Cxx) public func promptComposeViewControllerClass() -> UnsafeMutableRawPointer {
+    let result = UnsafeMutableRawPointer(bitPattern: Int(bitPattern: ObjectIdentifier(PromptComposeViewController.self))).unsafelyUnwrapped
+    return result
 }
 
+//@_objc_non_lazy_realization
 @_objcRuntimeName(PromptComposeViewController)
 fileprivate final class PromptComposeViewController: UIKitPrivate.IntelligenceUI.PromptComposeViewController {
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    override func promptEntryViewTextDidChange(_ entryView: IntelligenceUI.PromptEntryView) {
+        super.promptEntryViewTextDidChange(entryView)
+        print(#function + (entryView.textView.text ?? "nil"))
+    }
+    
+    override func promptEntryViewDidSubmit(_ entryView: IntelligenceUI.PromptEntryView) {
+        super.promptEntryViewDidSubmit(entryView)
+        print(#function)
+    }
+    
+    override func promptEntryViewShouldBeginEditing(_ entryView: IntelligenceUI.PromptEntryView) -> Bool {
+        let result = super.promptEntryViewShouldBeginEditing(entryView)
+        print(#function)
+        return result
     }
 }

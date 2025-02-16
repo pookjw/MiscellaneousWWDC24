@@ -147,6 +147,8 @@
 		4F59DEF02CFFFA7B00E88830 /* NewWritingToolsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F59DEEE2CFFFA7B00E88830 /* NewWritingToolsViewController.mm */; };
 		4F5D11C52C58AD5A000C12C3 /* WritingToolsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5D11C42C58AD5A000C12C3 /* WritingToolsViewController.mm */; };
 		4F5FE5F62C5A0B950044345D /* article.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4F5FE5F52C5A0AE70044345D /* article.txt */; };
+		4F6230C82D6205DE000A65A0 /* CloudChamberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6230C72D6205DE000A65A0 /* CloudChamberViewController.swift */; };
+		4F6230C92D6205DE000A65A0 /* CloudChamberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6230C72D6205DE000A65A0 /* CloudChamberViewController.swift */; };
 		4F7941D02C7896760031F456 /* ProKeyboardViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7941CF2C7896760031F456 /* ProKeyboardViewController.mm */; };
 		4F7941D42C7897D50031F456 /* FloatingKeyboardViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7941D32C7897D50031F456 /* FloatingKeyboardViewController.mm */; };
 		4F7941D82C7898470031F456 /* SplitKeyboardViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7941D72C7898470031F456 /* SplitKeyboardViewController.mm */; };
@@ -173,6 +175,12 @@
 		4FC234BC2D31761D00202A24 /* ExpandableCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FC234BA2D31761D00202A24 /* ExpandableCollectionViewController.mm */; };
 		4FC234BF2D317A7700202A24 /* ExpandableCollectionViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FC234BE2D317A7700202A24 /* ExpandableCollectionViewCell.mm */; };
 		4FC234C02D317A7700202A24 /* ExpandableCollectionViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FC234BE2D317A7700202A24 /* ExpandableCollectionViewCell.mm */; };
+		4FC4711C2D61DC1500C78FCA /* IntelligenceLightSourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4711B2D61DC1500C78FCA /* IntelligenceLightSourceViewController.swift */; };
+		4FC4711D2D61DC1500C78FCA /* IntelligenceLightSourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4711B2D61DC1500C78FCA /* IntelligenceLightSourceViewController.swift */; };
+		4FC4711F2D61DF8900C78FCA /* IntelligenceSystemNoiseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4711E2D61DF8900C78FCA /* IntelligenceSystemNoiseViewController.swift */; };
+		4FC471202D61DF8900C78FCA /* IntelligenceSystemNoiseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4711E2D61DF8900C78FCA /* IntelligenceSystemNoiseViewController.swift */; };
+		4FC471222D61E1B700C78FCA /* IntelligenceButtonsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC471212D61E1B700C78FCA /* IntelligenceButtonsViewController.swift */; };
+		4FC471232D61E1B700C78FCA /* IntelligenceButtonsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC471212D61E1B700C78FCA /* IntelligenceButtonsViewController.swift */; };
 		4FC507812D2AC5DD009BFC65 /* BiometricKitDemoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FC507802D2AC5DD009BFC65 /* BiometricKitDemoViewController.mm */; };
 		4FC507822D2AC5DD009BFC65 /* BiometricKitDemoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FC507802D2AC5DD009BFC65 /* BiometricKitDemoViewController.mm */; };
 		4FD54C892D00854E002CE52C /* beer.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4FD54C882D00854E002CE52C /* beer.jpg */; };
@@ -336,6 +344,7 @@
 		4F5D11C32C58AD5A000C12C3 /* WritingToolsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WritingToolsViewController.h; sourceTree = "<group>"; };
 		4F5D11C42C58AD5A000C12C3 /* WritingToolsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WritingToolsViewController.mm; sourceTree = "<group>"; };
 		4F5FE5F52C5A0AE70044345D /* article.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = article.txt; sourceTree = "<group>"; };
+		4F6230C72D6205DE000A65A0 /* CloudChamberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudChamberViewController.swift; sourceTree = "<group>"; };
 		4F7941CE2C7896760031F456 /* ProKeyboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProKeyboardViewController.h; sourceTree = "<group>"; };
 		4F7941CF2C7896760031F456 /* ProKeyboardViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ProKeyboardViewController.mm; sourceTree = "<group>"; };
 		4F7941D22C7897D50031F456 /* FloatingKeyboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FloatingKeyboardViewController.h; sourceTree = "<group>"; };
@@ -383,6 +392,9 @@
 		4FC234BA2D31761D00202A24 /* ExpandableCollectionViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ExpandableCollectionViewController.mm; sourceTree = "<group>"; };
 		4FC234BD2D317A7700202A24 /* ExpandableCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExpandableCollectionViewCell.h; sourceTree = "<group>"; };
 		4FC234BE2D317A7700202A24 /* ExpandableCollectionViewCell.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ExpandableCollectionViewCell.mm; sourceTree = "<group>"; };
+		4FC4711B2D61DC1500C78FCA /* IntelligenceLightSourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceLightSourceViewController.swift; sourceTree = "<group>"; };
+		4FC4711E2D61DF8900C78FCA /* IntelligenceSystemNoiseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceSystemNoiseViewController.swift; sourceTree = "<group>"; };
+		4FC471212D61E1B700C78FCA /* IntelligenceButtonsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceButtonsViewController.swift; sourceTree = "<group>"; };
 		4FC5077F2D2AC5DD009BFC65 /* BiometricKitDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BiometricKitDemoViewController.h; sourceTree = "<group>"; };
 		4FC507802D2AC5DD009BFC65 /* BiometricKitDemoViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BiometricKitDemoViewController.mm; sourceTree = "<group>"; };
 		4FD54C882D00854E002CE52C /* beer.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = beer.jpg; sourceTree = "<group>"; };
@@ -843,6 +855,10 @@
 			isa = PBXGroup;
 			children = (
 				4F4D9CCB2D610CB600065012 /* PromptComposeViewController.swift */,
+				4FC4711B2D61DC1500C78FCA /* IntelligenceLightSourceViewController.swift */,
+				4FC4711E2D61DF8900C78FCA /* IntelligenceSystemNoiseViewController.swift */,
+				4FC471212D61E1B700C78FCA /* IntelligenceButtonsViewController.swift */,
+				4F6230C72D6205DE000A65A0 /* CloudChamberViewController.swift */,
 			);
 			path = IntelligenceDemo;
 			sourceTree = "<group>";
@@ -1204,6 +1220,7 @@
 				4F082E992C1A6194002263ED /* SystemBackgroundViewController.m in Sources */,
 				4F246BC72C3E85CA00244583 /* LargeContentViewController.mm in Sources */,
 				4F5068AE2C3D98F800293E81 /* LegacyTabBarController.mm in Sources */,
+				4FC471232D61E1B700C78FCA /* IntelligenceButtonsViewController.swift in Sources */,
 				4FA8EEFA2C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4FB9FC462C58C4E5006B3245 /* OldLinkTextViewController.mm in Sources */,
 				4F5068B22C3D9D8800293E81 /* LegacyTabBar2Controller.mm in Sources */,
@@ -1238,6 +1255,7 @@
 				4FD54E902D00BB78002CE52C /* LabelWritingToolsViewController.mm in Sources */,
 				4F1F022E2C23CE3A004F7EFF /* CyanViewController.m in Sources */,
 				4F3DD69C2C9BDCF6006F6F49 /* BaselineViewController.mm in Sources */,
+				4F6230C92D6205DE000A65A0 /* CloudChamberViewController.swift in Sources */,
 				4FA8EEF12C1CDBCA00B1358A /* FromTransitionViewController.mm in Sources */,
 				4FC234C02D317A7700202A24 /* ExpandableCollectionViewCell.mm in Sources */,
 				4F413E652D3B60B00037366B /* XRTextFormattingViewController.mm in Sources */,
@@ -1246,6 +1264,7 @@
 				4F082E742C18E269002263ED /* SceneActivationViewController.mm in Sources */,
 				4F082EAC2C1B59C1002263ED /* CalendarViewController.mm in Sources */,
 				4F082E9F2C1B4831002263ED /* CustomDocument.mm in Sources */,
+				4FC4711C2D61DC1500C78FCA /* IntelligenceLightSourceViewController.swift in Sources */,
 				4F05047C2D53570F002D380C /* FluidSliderViewController.mm in Sources */,
 				4F082E622C188E34002263ED /* MainCollectionViewController.mm in Sources */,
 				4F59DEEF2CFFFA7B00E88830 /* NewWritingToolsViewController.mm in Sources */,
@@ -1278,6 +1297,7 @@
 				4F7941D82C7898470031F456 /* SplitKeyboardViewController.mm in Sources */,
 				4F4903772D03554E0017A47D /* MarqueeLabelViewController.mm in Sources */,
 				4F455F032C2038D200CDE688 /* CustomTransitionController.mm in Sources */,
+				4FC4711F2D61DF8900C78FCA /* IntelligenceSystemNoiseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1288,6 +1308,7 @@
 				4F59DEA62CFFF56100E88830 /* SystemBackgroundViewController.m in Sources */,
 				4F59DEA72CFFF56100E88830 /* LargeContentViewController.mm in Sources */,
 				4F59DEA82CFFF56100E88830 /* LegacyTabBarController.mm in Sources */,
+				4FC471222D61E1B700C78FCA /* IntelligenceButtonsViewController.swift in Sources */,
 				4F59DEA92CFFF56100E88830 /* NSObject+Foundation_IvarDescription.mm in Sources */,
 				4F59DEAA2CFFF56100E88830 /* OldLinkTextViewController.mm in Sources */,
 				4F59DEAB2CFFF56100E88830 /* LegacyTabBar2Controller.mm in Sources */,
@@ -1322,6 +1343,7 @@
 				4FD54E912D00BB78002CE52C /* LabelWritingToolsViewController.mm in Sources */,
 				4F59DEBD2CFFF56100E88830 /* CyanViewController.m in Sources */,
 				4F59DEBE2CFFF56100E88830 /* BaselineViewController.mm in Sources */,
+				4F6230C82D6205DE000A65A0 /* CloudChamberViewController.swift in Sources */,
 				4F59DEBF2CFFF56100E88830 /* FromTransitionViewController.mm in Sources */,
 				4FC234BF2D317A7700202A24 /* ExpandableCollectionViewCell.mm in Sources */,
 				4F413E662D3B60B00037366B /* XRTextFormattingViewController.mm in Sources */,
@@ -1330,6 +1352,7 @@
 				4F59DEC12CFFF56100E88830 /* SceneActivationViewController.mm in Sources */,
 				4F59DEC22CFFF56100E88830 /* CalendarViewController.mm in Sources */,
 				4F59DEC32CFFF56100E88830 /* CustomDocument.mm in Sources */,
+				4FC4711D2D61DC1500C78FCA /* IntelligenceLightSourceViewController.swift in Sources */,
 				4F05047D2D53570F002D380C /* FluidSliderViewController.mm in Sources */,
 				4F59DEC42CFFF56100E88830 /* MainCollectionViewController.mm in Sources */,
 				4F59DEF02CFFFA7B00E88830 /* NewWritingToolsViewController.mm in Sources */,
@@ -1362,6 +1385,7 @@
 				4F59DED82CFFF56100E88830 /* SplitKeyboardViewController.mm in Sources */,
 				4F4903782D03554E0017A47D /* MarqueeLabelViewController.mm in Sources */,
 				4F59DED92CFFF56100E88830 /* CustomTransitionController.mm in Sources */,
+				4FC471202D61DF8900C78FCA /* IntelligenceSystemNoiseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1386,7 +1410,7 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++23";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -1448,7 +1472,7 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++23";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;

@@ -1,6 +1,6 @@
 // swift-interface-format-version: 1.0
 // swift-compiler-version: Apple Swift version 6.0.3 effective-5.10 (swiftlang-6.0.3.1.6 clang-1600.0.30.1)
-// swift-module-flags: -target arm64-apple-ios18.2-simulator -enable-objc-interop -autolink-force-load -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -library-level api -enable-bare-slash-regex -module-name UIKitPrivate
+// swift-module-flags: -target arm64-apple-ios18.2 -enable-objc-interop -autolink-force-load -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -library-level api -enable-bare-slash-regex -module-name UIKitPrivate
 // swift-module-flags-ignorable: -no-verify-emitted-module-interface
 import Swift
 import UIKit
@@ -171,7 +171,7 @@ public enum IntelligenceUI {
         open var textSegmentsCovered: Swift.Bool { get set }
 
         open func setText(_: Swift.String, animated: Swift.Bool)
-        open func setAttributedTex(_: Foundation.AttributedString, animated: Swift.Bool)
+        open func setAttributedText(_: Foundation.AttributedString, animated: Swift.Bool)
         open func setTextSegmentsCovered(_: Swift.Bool, animated: Swift.Bool)
     }
 }
@@ -318,4 +318,142 @@ extension UIKitPrivate._UIIntelligenceLightSourceView {
     public var configuration: UIKitPrivate._UIIntelligenceLightSourceConfiguration { get set }
     public convenience init?(frame: CoreGraphics.CGRect, configuration: UIKitPrivate._UIIntelligenceLightSourceConfiguration?)
     public override required convenience init?(coder: Foundation.NSCoder)
+}
+
+@available(iOS 18.0, visionOS 2.0, *)
+@_originallyDefinedIn(module: "UIKit", iOS 18.0)
+@_originallyDefinedIn(module: "UIKit", visionOS 2.0)
+extension UIKitPrivate._UIIntelligenceSystemNoiseView {
+    public convenience init(frame: CoreGraphics.CGRect, preferringAudioReactivity: Swift.Bool)
+    // public convenience init(frame: CoreGraphics.CGRect, serviceIdentity: RunningBoardServices.RBSProcessIdentity, sceneSpecification: UIKit.UIApplicationSceneSpecification)
+}
+
+@available(iOS 18.0, visionOS 2.0, *)
+@_originallyDefinedIn(module: "UIKit", iOS 18.0)
+@_originallyDefinedIn(module: "UIKit", visionOS 2.0)
+open class _UIIntelligenceButton: UIButton {
+    public enum Style: Swift.Hashable {
+        public static func == (lhs: UIKitPrivate._UIIntelligenceButton.Style, rhs: UIKitPrivate._UIIntelligenceButton.Style) -> Swift.Bool
+        public var hashValue: Swift.Int { get }
+        public func hash(into: inout Swift.Hasher)
+
+        case monochromatic
+        case staticMulticolor
+        case livingMulticolor
+    }
+
+    open class FillView: UIView {
+        public init(frame: CoreGraphics.CGRect, initialStyle: UIKitPrivate._UIIntelligenceButton.Style)
+        open var style: UIKitPrivate._UIIntelligenceButton.Style { get set }
+    }
+
+    open func setExpanded(_: Swift.Bool, animated: Swift.Bool)
+    open var isExpanded: Swift.Bool { get set }
+    open var style: UIKitPrivate._UIIntelligenceButton.Style { get set }
+}
+
+@available(iOS 18.0, visionOS 2.0, *)
+@_originallyDefinedIn(module: "UIKit", iOS 18.0)
+@_originallyDefinedIn(module: "UIKit", visionOS 2.0)
+extension UIKitPrivate._UIDirectionalLightPalette {
+    public convenience init(_: [UIKit.UIColor])
+    public convenience init(_: [(UIKit.UIColor, CoreGraphics.CGFloat)])
+    public convenience init(__colors: [UIKit.UIColor], locations: [Foundation.NSNumber])
+    @available(*, unavailable) public convenience override init()
+}
+
+@available(iOS 18.0, visionOS 2.0, *)
+@_originallyDefinedIn(module: "UIKit", iOS 18.0)
+@_originallyDefinedIn(module: "UIKit", visionOS 2.0)
+extension UIKit.UIView {
+    @objc open var _intelligenceBaseClass: Swift.AnyObject.Type { get }
+    @objc open var _intelligenceVisibleBounds: CoreGraphics.CGRect { get }
+    // @objc open func _intelligenceCollectContent(in: CoreGraphics.CGRect, collector: UIIntelligenceSupport.UIIntelligenceElementCollector)
+    // @objc open func _intelligenceCollectSubelements(in: CoreGraphics.CGRect, using: UIIntelligenceSupport.UIIntelligenceElementCollector, transformToRoot: (UIKit.UIView, CoreGraphics.CGRect) -> CoreGraphics.CGRect)
+    // @objc open func _intelligenceCollectElement(for: UIKit.UIView, in: CoreGraphics.CGRect, using: UIIntelligenceSupport.UIIntelligenceElementCollector, transformToRoot: (UIKit.UIView, CoreGraphics.CGRect) -> CoreGraphics.CGRect)
+    // @objc open func _intelligenceCollectRemoteContent(in: CoreGraphics.CGRect, remoteContextWrapper: UIIntelligenceSupport.UIIntelligenceCollectionRemoteContextWrapper)
+    // open var _appIntentsIntelligenceProvider: UIIntelligenceSupport.IntelligenceAppIntentsPayloadProviding & UIIntelligenceSupport.IntelligenceSubelementProviding?
+}
+
+@available(iOS 18.0, visionOS 2.0, *)
+@_originallyDefinedIn(module: "UIKit", iOS 18.0)
+@_originallyDefinedIn(module: "UIKit", visionOS 2.0)
+public final class _UIIntelligenceCommandManager {
+    public struct RunCompletionContext: Swift.Hashable, Swift.Codable {
+        public static func == (lhs: UIKitPrivate._UIIntelligenceCommandManager.RunCompletionContext, rhs: UIKitPrivate._UIIntelligenceCommandManager.RunCompletionContext) -> Swift.Bool
+        public var hashValue: Swift.Int { get }
+        public func hash(into: inout Swift.Hasher)
+        public init(from: Swift.Decoder) throws
+        public func encode(to: Swift.Encoder) throws
+    }
+
+    public enum CommandExecutionError: Swift.Hashable, Swift.Error, Swift.CustomStringConvertible {
+        case notFound
+        case notExecutable
+
+        public static func == (lhs: UIKitPrivate._UIIntelligenceCommandManager.CommandExecutionError, rhs: UIKitPrivate._UIIntelligenceCommandManager.CommandExecutionError) -> Swift.Bool
+        public var hashValue: Swift.Int { get }
+        public func hash(into: inout Swift.Hasher)
+        public var description: Swift.String { get }
+    }
+
+    public static var shared: UIKitPrivate._UIIntelligenceCommandManager { get }
+    // public final func fetchCommands(options: UIIntelligenceSupport.IntelligenceCollectionRequest.CommandOptions) -> [UIIntelligenceSupport.IntelligenceCommand]
+}
+
+@available(iOS 18.0, visionOS 2.0, *)
+@_originallyDefinedIn(module: "UIKit", iOS 18.0)
+@_originallyDefinedIn(module: "UIKit", visionOS 2.0)
+extension UIKit.UIVisualEffect {
+    @_silgen_name("$sSo14UIVisualEffectC5UIKitE24intelligenceContentLight6source19activationDirection012deactivationI0So015_UIIntelligenceefB0CSo01_kF16SourceDescriptorC_So01_ab10TransitionI0VAMtFZ")
+    public static func intelligenceContentLight(source: UIKitPrivate._UIIntelligenceLightSourceDescriptor, activationDirection: UIKitPrivate._UIVisualEffectTransitionDirection, deactivationDirection: UIKitPrivate._UIVisualEffectTransitionDirection) -> UIKitPrivate._UIIntelligenceContentLightEffect
+}
+
+@available(iOS 18.0, visionOS 2.0, *)
+@_originallyDefinedIn(module: "UIKit", iOS 18.0)
+@_originallyDefinedIn(module: "UIKit", visionOS 2.0)
+extension UIKitPrivate._UIIntelligenceContentLightEffect {
+    public override required convenience init?(coder: Foundation.NSCoder)
+    // public func _update(_: UIKitPrivate._UIVisualEffectDescriptor, for: UIKitPrivate._UIVisualEffectEnvironment, usage: UIKitPrivate._UIVisualEffectViewUsageHint)
+}
+
+@available(iOS 18.0, visionOS 2.0, *)
+@_originallyDefinedIn(module: "UIKit", iOS 18.0)
+@_originallyDefinedIn(module: "UIKit", visionOS 2.0)
+open class _UICloudChamber: UIKit.UIView {
+    public struct Configuration: Swift.Equatable {
+        public enum RenderMode: Swift.Hashable {
+            case unordered
+            case oldestFirst
+            case oldestLast
+            case additive
+            case screen
+            case maximum
+            case colorDodge
+
+            public static func == (lhs: UIKitPrivate._UICloudChamber.Configuration.RenderMode, rhs: UIKitPrivate._UICloudChamber.Configuration.RenderMode) -> Swift.Bool
+            public var hashValue: Swift.Int { get }
+            public func hash(into: inout Swift.Hasher)
+        }
+
+        public init(colors: [UIKit.UIColor], cellCount: Swift.UInt?, lifetime: CoreGraphics.CGFloat?, lifetimeVariation: CoreGraphics.CGFloat?, relativeSize: CoreGraphics.CGFloat?, sizeVariation: CoreGraphics.CGFloat?, growthRate: CoreGraphics.CGFloat?, renderMode: UIKitPrivate._UICloudChamber.Configuration.RenderMode?, spriteRadius: CoreGraphics.CGFloat?, seed: Swift.UInt32?)
+
+        public var colors: [UIKit.UIColor] { get set }
+        public var cellCount: Swift.UInt { get set }
+        public var lifetime: CoreGraphics.CGFloat { get set }
+        public var lifetimeVariation: CoreGraphics.CGFloat { get set }
+        public var relativeSize: CoreGraphics.CGFloat { get set }
+        public var sizeVariation: CoreGraphics.CGFloat { get set }
+        public var growthRate: CoreGraphics.CGFloat { get set }
+        public var renderMode: UIKitPrivate._UICloudChamber.Configuration.RenderMode { get set }
+        public var spriteRadius: CoreGraphics.CGFloat { get set }
+        public var seed: Swift.UInt32 { get set }
+
+        public static func == (lhs: UIKitPrivate._UICloudChamber.Configuration, rhs: UIKitPrivate._UICloudChamber.Configuration) -> Swift.Bool
+    }
+
+    public init(frame: CoreGraphics.CGRect, configuration: UIKitPrivate._UICloudChamber.Configuration)
+
+    
+    open var configuration: UIKitPrivate._UICloudChamber.Configuration { get set }
 }

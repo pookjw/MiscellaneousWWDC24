@@ -1,0 +1,13 @@
+#import <UIKitPrivate/UITextSuggestion.h>
+#import <UIKitPrivate/_UIIntelligenceLightSourceView.h>
+#import <UIKitPrivate/_UIIntelligenceLightSourceConfiguration.h>
+#import <UIKitPrivate/_UIIntelligenceLightSourceDescriptor.h>
+#import <UIKitPrivate/_UIIntelligenceSystemView.h>
+#import <UIKitPrivate/_UIIntelligenceSystemNoiseView.h>
+#import <UIKitPrivate/_UIDirectionalLightPalette.h>
+#import <UIKitPrivate/_UIColorPalette.h>
+#import <UIKitPrivate/_UIDirectionalLightConfiguration.h>
+#import <UIKitPrivate/_UIVisualEffectTransitionDirection.h>
+#import <UIKitPrivate/_UIIntelligenceContentLightEffect.h>
+#import <UIKitPrivate/_UILabelContentIntelligenceLightAttributedStrings.h>
+#import <UIKitPrivate/UILabel+IntelligentUI.h>
