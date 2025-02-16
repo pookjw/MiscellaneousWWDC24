@@ -147,8 +147,10 @@
 		4F59DEF02CFFFA7B00E88830 /* NewWritingToolsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F59DEEE2CFFFA7B00E88830 /* NewWritingToolsViewController.mm */; };
 		4F5D11C52C58AD5A000C12C3 /* WritingToolsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F5D11C42C58AD5A000C12C3 /* WritingToolsViewController.mm */; };
 		4F5FE5F62C5A0B950044345D /* article.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4F5FE5F52C5A0AE70044345D /* article.txt */; };
-		4F6230C82D6205DE000A65A0 /* CloudChamberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6230C72D6205DE000A65A0 /* CloudChamberViewController.swift */; };
-		4F6230C92D6205DE000A65A0 /* CloudChamberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6230C72D6205DE000A65A0 /* CloudChamberViewController.swift */; };
+		4F6230CC2D620BFA000A65A0 /* IntelligenceSystemNoiseViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F6230CB2D620BFA000A65A0 /* IntelligenceSystemNoiseViewController.mm */; };
+		4F6230CD2D620BFA000A65A0 /* IntelligenceSystemNoiseViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F6230CB2D620BFA000A65A0 /* IntelligenceSystemNoiseViewController.mm */; };
+		4F6230D32D620CC6000A65A0 /* CloudChamberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6230D22D620CC6000A65A0 /* CloudChamberViewController.swift */; };
+		4F6230D42D620CC6000A65A0 /* CloudChamberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6230D22D620CC6000A65A0 /* CloudChamberViewController.swift */; };
 		4F7941D02C7896760031F456 /* ProKeyboardViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7941CF2C7896760031F456 /* ProKeyboardViewController.mm */; };
 		4F7941D42C7897D50031F456 /* FloatingKeyboardViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7941D32C7897D50031F456 /* FloatingKeyboardViewController.mm */; };
 		4F7941D82C7898470031F456 /* SplitKeyboardViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F7941D72C7898470031F456 /* SplitKeyboardViewController.mm */; };
@@ -177,8 +179,6 @@
 		4FC234C02D317A7700202A24 /* ExpandableCollectionViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FC234BE2D317A7700202A24 /* ExpandableCollectionViewCell.mm */; };
 		4FC4711C2D61DC1500C78FCA /* IntelligenceLightSourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4711B2D61DC1500C78FCA /* IntelligenceLightSourceViewController.swift */; };
 		4FC4711D2D61DC1500C78FCA /* IntelligenceLightSourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4711B2D61DC1500C78FCA /* IntelligenceLightSourceViewController.swift */; };
-		4FC4711F2D61DF8900C78FCA /* IntelligenceSystemNoiseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4711E2D61DF8900C78FCA /* IntelligenceSystemNoiseViewController.swift */; };
-		4FC471202D61DF8900C78FCA /* IntelligenceSystemNoiseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4711E2D61DF8900C78FCA /* IntelligenceSystemNoiseViewController.swift */; };
 		4FC471222D61E1B700C78FCA /* IntelligenceButtonsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC471212D61E1B700C78FCA /* IntelligenceButtonsViewController.swift */; };
 		4FC471232D61E1B700C78FCA /* IntelligenceButtonsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC471212D61E1B700C78FCA /* IntelligenceButtonsViewController.swift */; };
 		4FC507812D2AC5DD009BFC65 /* BiometricKitDemoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FC507802D2AC5DD009BFC65 /* BiometricKitDemoViewController.mm */; };
@@ -344,7 +344,9 @@
 		4F5D11C32C58AD5A000C12C3 /* WritingToolsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WritingToolsViewController.h; sourceTree = "<group>"; };
 		4F5D11C42C58AD5A000C12C3 /* WritingToolsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WritingToolsViewController.mm; sourceTree = "<group>"; };
 		4F5FE5F52C5A0AE70044345D /* article.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = article.txt; sourceTree = "<group>"; };
-		4F6230C72D6205DE000A65A0 /* CloudChamberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudChamberViewController.swift; sourceTree = "<group>"; };
+		4F6230CA2D620BFA000A65A0 /* IntelligenceSystemNoiseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntelligenceSystemNoiseViewController.h; sourceTree = "<group>"; };
+		4F6230CB2D620BFA000A65A0 /* IntelligenceSystemNoiseViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = IntelligenceSystemNoiseViewController.mm; sourceTree = "<group>"; };
+		4F6230D22D620CC6000A65A0 /* CloudChamberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudChamberViewController.swift; sourceTree = "<group>"; };
 		4F7941CE2C7896760031F456 /* ProKeyboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProKeyboardViewController.h; sourceTree = "<group>"; };
 		4F7941CF2C7896760031F456 /* ProKeyboardViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ProKeyboardViewController.mm; sourceTree = "<group>"; };
 		4F7941D22C7897D50031F456 /* FloatingKeyboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FloatingKeyboardViewController.h; sourceTree = "<group>"; };
@@ -393,7 +395,6 @@
 		4FC234BD2D317A7700202A24 /* ExpandableCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExpandableCollectionViewCell.h; sourceTree = "<group>"; };
 		4FC234BE2D317A7700202A24 /* ExpandableCollectionViewCell.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ExpandableCollectionViewCell.mm; sourceTree = "<group>"; };
 		4FC4711B2D61DC1500C78FCA /* IntelligenceLightSourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceLightSourceViewController.swift; sourceTree = "<group>"; };
-		4FC4711E2D61DF8900C78FCA /* IntelligenceSystemNoiseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceSystemNoiseViewController.swift; sourceTree = "<group>"; };
 		4FC471212D61E1B700C78FCA /* IntelligenceButtonsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligenceButtonsViewController.swift; sourceTree = "<group>"; };
 		4FC5077F2D2AC5DD009BFC65 /* BiometricKitDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BiometricKitDemoViewController.h; sourceTree = "<group>"; };
 		4FC507802D2AC5DD009BFC65 /* BiometricKitDemoViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BiometricKitDemoViewController.mm; sourceTree = "<group>"; };
@@ -856,9 +857,10 @@
 			children = (
 				4F4D9CCB2D610CB600065012 /* PromptComposeViewController.swift */,
 				4FC4711B2D61DC1500C78FCA /* IntelligenceLightSourceViewController.swift */,
-				4FC4711E2D61DF8900C78FCA /* IntelligenceSystemNoiseViewController.swift */,
+				4F6230CA2D620BFA000A65A0 /* IntelligenceSystemNoiseViewController.h */,
+				4F6230CB2D620BFA000A65A0 /* IntelligenceSystemNoiseViewController.mm */,
+				4F6230D22D620CC6000A65A0 /* CloudChamberViewController.swift */,
 				4FC471212D61E1B700C78FCA /* IntelligenceButtonsViewController.swift */,
-				4F6230C72D6205DE000A65A0 /* CloudChamberViewController.swift */,
 			);
 			path = IntelligenceDemo;
 			sourceTree = "<group>";
@@ -1255,7 +1257,7 @@
 				4FD54E902D00BB78002CE52C /* LabelWritingToolsViewController.mm in Sources */,
 				4F1F022E2C23CE3A004F7EFF /* CyanViewController.m in Sources */,
 				4F3DD69C2C9BDCF6006F6F49 /* BaselineViewController.mm in Sources */,
-				4F6230C92D6205DE000A65A0 /* CloudChamberViewController.swift in Sources */,
+				4F6230D32D620CC6000A65A0 /* CloudChamberViewController.swift in Sources */,
 				4FA8EEF12C1CDBCA00B1358A /* FromTransitionViewController.mm in Sources */,
 				4FC234C02D317A7700202A24 /* ExpandableCollectionViewCell.mm in Sources */,
 				4F413E652D3B60B00037366B /* XRTextFormattingViewController.mm in Sources */,
@@ -1292,12 +1294,12 @@
 				4F83911C2CCCFEAE0005B8AC /* CustomViewMenuElementDynamicHeightViewController.mm in Sources */,
 				4F7BC13C2C3C43B900419197 /* MyNavigationItemViewController.mm in Sources */,
 				4F49040E2D049CD80017A47D /* IntelligenceLightLabelViewController.mm in Sources */,
+				4F6230CD2D620BFA000A65A0 /* IntelligenceSystemNoiseViewController.mm in Sources */,
 				4F7941D42C7897D50031F456 /* FloatingKeyboardViewController.mm in Sources */,
 				4F379CA12D44B108006EBDF3 /* AXOpenSettingsViewController.mm in Sources */,
 				4F7941D82C7898470031F456 /* SplitKeyboardViewController.mm in Sources */,
 				4F4903772D03554E0017A47D /* MarqueeLabelViewController.mm in Sources */,
 				4F455F032C2038D200CDE688 /* CustomTransitionController.mm in Sources */,
-				4FC4711F2D61DF8900C78FCA /* IntelligenceSystemNoiseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1343,7 +1345,7 @@
 				4FD54E912D00BB78002CE52C /* LabelWritingToolsViewController.mm in Sources */,
 				4F59DEBD2CFFF56100E88830 /* CyanViewController.m in Sources */,
 				4F59DEBE2CFFF56100E88830 /* BaselineViewController.mm in Sources */,
-				4F6230C82D6205DE000A65A0 /* CloudChamberViewController.swift in Sources */,
+				4F6230D42D620CC6000A65A0 /* CloudChamberViewController.swift in Sources */,
 				4F59DEBF2CFFF56100E88830 /* FromTransitionViewController.mm in Sources */,
 				4FC234BF2D317A7700202A24 /* ExpandableCollectionViewCell.mm in Sources */,
 				4F413E662D3B60B00037366B /* XRTextFormattingViewController.mm in Sources */,
@@ -1380,12 +1382,12 @@
 				4F59DED52CFFF56100E88830 /* CustomViewMenuElementDynamicHeightViewController.mm in Sources */,
 				4F59DED62CFFF56100E88830 /* MyNavigationItemViewController.mm in Sources */,
 				4F49040F2D049CD80017A47D /* IntelligenceLightLabelViewController.mm in Sources */,
+				4F6230CC2D620BFA000A65A0 /* IntelligenceSystemNoiseViewController.mm in Sources */,
 				4F59DED72CFFF56100E88830 /* FloatingKeyboardViewController.mm in Sources */,
 				4F379CA02D44B108006EBDF3 /* AXOpenSettingsViewController.mm in Sources */,
 				4F59DED82CFFF56100E88830 /* SplitKeyboardViewController.mm in Sources */,
 				4F4903782D03554E0017A47D /* MarqueeLabelViewController.mm in Sources */,
 				4F59DED92CFFF56100E88830 /* CustomTransitionController.mm in Sources */,
-				4FC471202D61DF8900C78FCA /* IntelligenceSystemNoiseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

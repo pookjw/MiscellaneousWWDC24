@@ -60,6 +60,7 @@
 #import "FluidSliderViewController.h"
 #import "BlurEffectStylesViewController.h"
 #import "PrototypingMenuSliderViewController.h"
+#import "IntelligenceSystemNoiseViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import <TargetConditionals.h>
