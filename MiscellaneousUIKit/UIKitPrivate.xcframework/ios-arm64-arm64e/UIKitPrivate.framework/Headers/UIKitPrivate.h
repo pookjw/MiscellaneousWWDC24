@@ -11,7 +11,3 @@
 #import <UIKitPrivate/_UIIntelligenceContentLightEffect.h>
 #import <UIKitPrivate/_UILabelContentIntelligenceLightAttributedStrings.h>
 #import <UIKitPrivate/UILabel+IntelligentUI.h>
-#import <UIKitPrivate/UIKeyboardLayoutGuide+LightEffects.h>
-#import <UIKitPrivate/UIKBInputBackdropView.h>
-#import <UIKitPrivate/_UIKBLightEffectsBackground.h>
-#import <UIKitPrivate/UIKBRenderConfig.h>

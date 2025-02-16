@@ -43,6 +43,7 @@ fileprivate final class PromptComposeViewController: UIKitPrivate.IntelligenceUI
         
         let defaultAction = UIAction(title: "Default") { _ in
             backgroundView.configuration = .default
+            print(backgroundView.inputView)
         }
         
         let standardAction = UIAction(title: "Standard") { _ in

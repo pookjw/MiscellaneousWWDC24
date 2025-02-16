@@ -61,6 +61,7 @@
 #import "BlurEffectStylesViewController.h"
 #import "PrototypingMenuSliderViewController.h"
 #import "IntelligenceSystemNoiseViewController.h"
+#import "KBRenderConfigViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import <TargetConditionals.h>
@@ -115,8 +116,8 @@ __attribute__((objc_direct_members))
     [super viewDidLoad];
     [self cellRegistration];
     
-    __kindof UIViewController *viewController = [reinterpret_cast<Class>(MiscellaneousUIKit::promptComposeViewControllerClass()) new];
-//    CloudChamberViewController *viewController = [CloudChamberViewController new];
+//    __kindof UIViewController *viewController = [reinterpret_cast<Class>(MiscellaneousUIKit::promptComposeViewControllerClass()) new];
+    KBRenderConfigViewController *viewController = [KBRenderConfigViewController new];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     [viewController release];
     [self presentViewController:navigationController animated:YES completion:nil];
@@ -156,6 +157,7 @@ __attribute__((objc_direct_members))
 
 - (NSArray<Class> *)classes {
     return @[
+        KBRenderConfigViewController.class,
         CloudChamberViewController.class,
         IntelligenceButtonsViewController.class,
         IntelligenceSystemNoiseViewController.class,
