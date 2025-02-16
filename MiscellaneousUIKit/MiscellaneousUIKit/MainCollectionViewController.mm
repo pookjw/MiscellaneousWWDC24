@@ -118,7 +118,7 @@ __attribute__((objc_direct_members))
     [self cellRegistration];
     
 //    __kindof UIViewController *viewController = [reinterpret_cast<Class>(MiscellaneousUIKit::promptComposeViewControllerClass()) new];
-    KBRenderConfigViewController *viewController = [KBRenderConfigViewController new];
+    CloudChamberViewController *viewController = [CloudChamberViewController new];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     [viewController release];
     [self presentViewController:navigationController animated:YES completion:nil];
