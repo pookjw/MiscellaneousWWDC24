@@ -106,12 +106,17 @@
 
 - (void)reconfigureItemModelsWithIdentifiers:(NSArray<NSString *> *)identifiers {
     NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+    
+    BOOL found = NO;
     for (ConfigurationItemModel *itemModel in snapshot.itemIdentifiers) {
         if ([identifiers containsObject:itemModel.identifier]) {
             [snapshot reloadItemsWithIdentifiers:@[itemModel]];
+            found = YES;
             break;
         }
     }
+    assert(found);
+    
     [self.dataSource applySnapshot:snapshot animatingDifferences:NO];
     [snapshot release];
 }

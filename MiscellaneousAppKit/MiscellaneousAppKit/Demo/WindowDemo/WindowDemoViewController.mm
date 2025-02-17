@@ -26,6 +26,8 @@
 #import "RectSlidersView.h"
 #import "UnsafeDebouncer.h"
 #include <math.h>
+#import "NSStringFromNSEventModifierFlags.h"
+#import "WindowDemoView.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
@@ -56,6 +58,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
 @interface WindowDemoViewController () <ConfigurationViewDelegate, NSAppearanceCustomization> {
     double _lastTimestamp;
 }
+@property (retain, nonatomic, readonly, getter=_ownView) WindowDemoView *ownView;
 @property (retain, nonatomic, readonly, getter=_configurationView) ConfigurationView *configurationView;
 @property (copy, nonatomic, nullable, getter=_stageChangedDate, setter=_setStageChangedDate:) NSDate *stageChangedDate;
 @property (assign, nonatomic, getter=_preventsApplicationTerminationWhenModal, setter=_setPreventsApplicationTerminationWhenModal:) BOOL preventsApplicationTerminationWhenModal;
@@ -65,11 +68,13 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
 @end
 
 @implementation WindowDemoViewController
+@synthesize ownView = _ownView;
 @synthesize configurationView = _configurationView;
 @synthesize appearance = _appearance;
 
 - (void)dealloc {
     [NSNotificationCenter.defaultCenter removeObserver:self];
+    [_ownView release];
     [_configurationView release];
     [_stageChangedDate release];
     [_appearance release];
@@ -77,6 +82,8 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     [_displayLink release];
     [_reloadWhenFrameChangedDebouncer cancelPendingBlock];
     [_reloadWhenFrameChangedDebouncer release];
+    [self.view.window removeObserver:self forKeyPath:@"contentLayoutRect"];
+    
     [super dealloc];
 }
 
@@ -90,8 +97,25 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     return responds;
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"contentLayoutRect"] and [object isKindOfClass:[NSWindow class]]) {
+//        [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Content Layout Rect"]];
+        [self.reloadWhenFrameChangedDebouncer scheduleBlock:^(BOOL cancelled) {
+            if (cancelled) return;
+            [self _reload];
+        }];
+        return;
+    }
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+}
+
 - (NSAppearance *)effectiveAppearance {
     return self.appearance;
+}
+
+- (void)loadView {
+    self.view = self.ownView;
 }
 
 - (void)viewDidLoad {
@@ -105,8 +129,8 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     
     ConfigurationView *configurationView = self.configurationView;
     configurationView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-    configurationView.frame = self.view.bounds;
-    [self.view addSubview:configurationView];
+    configurationView.frame = self.ownView.bounds;
+    [self.ownView addSubview:configurationView];
     
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didChangeWindowActiveSpace:) name:MA_NSWindowActiveSpaceDidChangeNotification object:nil];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didChangeActiveSpace:) name:NSWorkspaceActiveSpaceDidChangeNotification object:NSWorkspace.sharedWorkspace];
@@ -121,8 +145,14 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     reinterpret_cast<void (*)(objc_super *, SEL, id, id)>(objc_msgSendSuper2)(&superInfo, _cmd, newWindow, oldWindow);
     [self _reload];
     
+    if (oldWindow) {
+        oldWindow.appearanceSource = nil;
+        [oldWindow removeObserver:self forKeyPath:@"contentLayoutRect"];
+    }
+    
     if (newWindow) {
         newWindow.appearanceSource = self;
+        [newWindow addObserver:self forKeyPath:@"contentLayoutRect" options:NSKeyValueObservingOptionNew context:NULL];
     }
 }
 
@@ -173,13 +203,32 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     } else if ([action isEqualToString:@"minSize"]) {
         self.view.window.minSize = configuration.rect.size;
         if (!isTracking) {
-            [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"maxSize"]];
+            [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Max Size"]];
         }
     } else if ([action isEqualToString:@"maxSize"]) {
         self.view.window.maxSize = configuration.rect.size;
         if (!isTracking) {
-            [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"minSize"]];
+            [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Min Size"]];
         }
+    } else if ([action isEqualToString:@"contentMinSize"]) {
+        self.view.window.contentMinSize = configuration.rect.size;
+        if (!isTracking) {
+            [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Content Max Size"]];
+        }
+    } else if ([action isEqualToString:@"contentMaxSize"]) {
+        self.view.window.contentMaxSize = configuration.rect.size;
+        if (!isTracking) {
+            [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Content Min Size"]];
+        }
+    } else if ([action isEqualToString:@"setContentSize:"]) {
+        [self.view.window setContentSize:configuration.rect.size];
+        [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Frame", @"contentRectForFrameRect:"]];
+    } else if ([action isEqualToString:@"minFullScreenContentSize"]) {
+        self.view.window.minFullScreenContentSize = configuration.rect.size;
+        [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Max Full Screen Content Size"]];
+    } else if ([action isEqualToString:@"maxFullScreenContentSize"]) {
+        self.view.window.maxFullScreenContentSize = configuration.rect.size;
+        [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Min Full Screen Content Size"]];
     } else {
         abort();
     }
@@ -211,6 +260,15 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     [self _reload];
 }
 
+- (WindowDemoView *)_ownView {
+    if (auto ownView = _ownView) return ownView;
+    
+    WindowDemoView *ownView = [WindowDemoView new];
+    
+    _ownView = ownView;
+    return ownView;
+}
+
 - (ConfigurationView *)_configurationView {
     if (auto configurationView = _configurationView) return configurationView;
     
@@ -228,6 +286,18 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeMinFullScreenContentSizeItemModel],
+        [self _makeMaxFullScreenContentSizeItemModel],
+        [self _makeContentLayoutRectItemModel],
+        [self _makeContentLayoutGuideItemModel],
+        [self _makeSetContentSizeItemModel],
+        [self _makeContentMinSizeItemModel],
+        [self _makeContentMaxSizeItemModel],
+        [self _makeInLiveResizeItemModel],
+        [self _makePreservesContentDuringLiveResizeItemModel],
+        [self _makeResizeFlagsItemModel],
+        [self _makeZoomItemModel],
+        [self _makePerformZoomItemModel],
         [self _makeMinSizeItemModel],
         [self _makeMaxSizeItemModel],
         [self _makeContentAspectRatioItemModel],
@@ -1291,6 +1361,291 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     }];
 }
 
+- (ConfigurationItemModel *)_makePerformZoomItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Perform Zoom"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Perform Zoom (Zoomed : %@)", unretainedSelf.view.window.zoomed ? @"YES" : @"NO"];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeZoomItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Zoom"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Zoom (Zoomed : %@)", unretainedSelf.view.window.zoomed ? @"YES" : @"NO"];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+// command 같은 Key를 누른채 Resize 해보면 값이 나옴
+- (ConfigurationItemModel *)_makeResizeFlagsItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Resize Flags"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Resize Flags : %@", NSStringFromNSEventModifierFlags(unretainedSelf.view.window.resizeFlags)];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+// https://x.com/_silgen_name/status/1891516058374492537
+- (ConfigurationItemModel *)_makePreservesContentDuringLiveResizeItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Preserves Content During Live Resize"
+                                            userInfo:nil
+                                               label:@"Preserves Content During Live Resize (Don't Use)"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.preservesContentDuringLiveResize);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeInLiveResizeItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"In Live Resize"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"In Live Resize : %@", unretainedSelf.view.window.inLiveResize ? @"YES" : @"NO"];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeContentMinSizeItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Content Min Size"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Content Min Size : %@", NSStringFromSize(unretainedSelf.view.window.contentMinSize)];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSMenu *menu = [NSMenu new];
+        
+        NSMenuItem *menuItem = [NSMenuItem new];
+        RectSlidersView *slidersView = [[RectSlidersView alloc] initWithFrame:NSMakeRect(0., 0., 300., 100.)];
+        
+        NSSize contentMinSize = unretainedSelf.view.window.contentMinSize;
+        NSSize contentMaxSize = unretainedSelf.view.window.contentMaxSize;
+        slidersView.configuration = [RectSlidersConfiguration configurationWithRect:NSMakeRect(0., 0., (contentMinSize.width == FLT_MAX) ? 0. : contentMinSize.width, (contentMinSize.height == FLT_MAX) ? 0. : contentMinSize.height)
+                                                                            minRect:NSMakeRect(0., 0., 100., 100.)
+                                                                            maxRect:NSMakeRect(0., 0., (contentMaxSize.width == FLT_MAX) ? 3000. : contentMaxSize.width, (contentMaxSize.height == FLT_MAX) ? 3000. : contentMaxSize.height)
+                                                                           keyPaths:[NSSet setWithObjects:RectSlidersKeyPathWidth, RectSlidersKeyPathHeight, nil]
+                                                                           userInfo:@{
+            @"selfValue": [NSValue value:reinterpret_cast<const void *>(&unretainedSelf) withObjCType:@encode(uintptr_t)],
+            @"action": @"contentMinSize"
+        }];
+        
+        menuItem.view = slidersView;
+        [slidersView release];
+        [menu addItem:menuItem];
+        [menuItem release];
+        
+        ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Menu" menu:menu showsMenuAsPrimaryAction:YES];
+        [menu release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeContentMaxSizeItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Content Max Size"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Content Max Size : %@", NSStringFromSize(unretainedSelf.view.window.contentMinSize)];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSMenu *menu = [NSMenu new];
+        
+        NSMenuItem *menuItem = [NSMenuItem new];
+        RectSlidersView *slidersView = [[RectSlidersView alloc] initWithFrame:NSMakeRect(0., 0., 300., 100.)];
+        
+        NSSize contentMinSize = unretainedSelf.view.window.contentMinSize;
+        NSSize contentMaxSize = unretainedSelf.view.window.contentMaxSize;
+        slidersView.configuration = [RectSlidersConfiguration configurationWithRect:NSMakeRect(0., 0., (contentMaxSize.width == FLT_MAX) ? 0. : contentMaxSize.width, (contentMaxSize.height == FLT_MAX) ? 0. : contentMaxSize.height)
+                                                                            minRect:NSMakeRect(0., 0., (contentMinSize.width == FLT_MAX) ? 0. : contentMinSize.width, (contentMinSize.height == FLT_MAX) ? 0. : contentMinSize.height)
+                                                                            maxRect:NSMakeRect(0., 0., 3000., 3000.)
+                                                                           keyPaths:[NSSet setWithObjects:RectSlidersKeyPathWidth, RectSlidersKeyPathHeight, nil]
+                                                                           userInfo:@{
+            @"selfValue": [NSValue value:reinterpret_cast<const void *>(&unretainedSelf) withObjCType:@encode(uintptr_t)],
+            @"action": @"contentMaxSize"
+        }];
+        
+        menuItem.view = slidersView;
+        [slidersView release];
+        [menu addItem:menuItem];
+        [menuItem release];
+        
+        ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Menu" menu:menu showsMenuAsPrimaryAction:YES];
+        [menu release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeSetContentSizeItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Content Size"
+                                            userInfo:nil
+                                               label:@"Content Size"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSMenu *menu = [NSMenu new];
+        
+        NSMenuItem *menuItem = [NSMenuItem new];
+        RectSlidersView *slidersView = [[RectSlidersView alloc] initWithFrame:NSMakeRect(0., 0., 300., 100.)];
+        
+        NSSize contentSize = [unretainedSelf.view.window contentRectForFrameRect:unretainedSelf.view.window.frame].size;
+        slidersView.configuration = [RectSlidersConfiguration configurationWithRect:NSMakeRect(0., 0., contentSize.width, contentSize.height)
+                                                                            minRect:NSMakeRect(0., 0., 100., 100.)
+                                                                            maxRect:NSMakeRect(0., 0., 3000., 3000.)
+                                                                           keyPaths:[NSSet setWithObjects:RectSlidersKeyPathWidth, RectSlidersKeyPathHeight, nil]
+                                                                           userInfo:@{
+            @"selfValue": [NSValue value:reinterpret_cast<const void *>(&unretainedSelf) withObjCType:@encode(uintptr_t)],
+            @"action": @"setContentSize:"
+        }];
+        
+        menuItem.view = slidersView;
+        [slidersView release];
+        [menu addItem:menuItem];
+        [menuItem release];
+        
+        ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Menu" menu:menu showsMenuAsPrimaryAction:YES];
+        [menu release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeContentLayoutGuideItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Content Layout Guide"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Content Layout Guide : %@", unretainedSelf.view.window.contentLayoutGuide];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeContentLayoutRectItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Content Layout Rect"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Content Layout Rect : %@", NSStringFromRect(unretainedSelf.view.window.contentLayoutRect)];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeMinFullScreenContentSizeItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Min Full Screen Content Size"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Min Full Screen Content Size : %@", NSStringFromSize(unretainedSelf.view.window.minFullScreenContentSize)];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSMenu *menu = [NSMenu new];
+        
+        NSMenuItem *menuItem = [NSMenuItem new];
+        RectSlidersView *slidersView = [[RectSlidersView alloc] initWithFrame:NSMakeRect(0., 0., 300., 100.)];
+        
+        NSSize minFullScreenContentSize = unretainedSelf.view.window.minFullScreenContentSize;
+        NSSize maxFullScreenContentSize = unretainedSelf.view.window.maxFullScreenContentSize;
+        slidersView.configuration = [RectSlidersConfiguration configurationWithRect:NSMakeRect(0., 0., (minFullScreenContentSize.width == FLT_MAX) ? 0. : minFullScreenContentSize.width, (minFullScreenContentSize.height == FLT_MAX) ? 0. : minFullScreenContentSize.height)
+                                                                            minRect:NSMakeRect(0., 0., 100., 100.)
+                                                                            maxRect:NSMakeRect(0., 0., (maxFullScreenContentSize.width == FLT_MAX) ? 3000. : maxFullScreenContentSize.width, (maxFullScreenContentSize.height == FLT_MAX) ? 3000. : maxFullScreenContentSize.height)
+                                                                           keyPaths:[NSSet setWithObjects:RectSlidersKeyPathWidth, RectSlidersKeyPathHeight, nil]
+                                                                           userInfo:@{
+            @"selfValue": [NSValue value:reinterpret_cast<const void *>(&unretainedSelf) withObjCType:@encode(uintptr_t)],
+            @"action": @"minFullScreenContentSize"
+        }];
+        
+        menuItem.view = slidersView;
+        [slidersView release];
+        [menu addItem:menuItem];
+        [menuItem release];
+        
+        ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Menu" menu:menu showsMenuAsPrimaryAction:YES];
+        [menu release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeMaxFullScreenContentSizeItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Max Full Screen Content Size"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Max Full Screen Content Size : %@", NSStringFromSize(unretainedSelf.view.window.maxFullScreenContentSize)];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSMenu *menu = [NSMenu new];
+        
+        NSMenuItem *menuItem = [NSMenuItem new];
+        RectSlidersView *slidersView = [[RectSlidersView alloc] initWithFrame:NSMakeRect(0., 0., 300., 100.)];
+        
+        NSSize minFullScreenContentSize = unretainedSelf.view.window.minFullScreenContentSize;
+        NSSize maxFullScreenContentSize = unretainedSelf.view.window.maxFullScreenContentSize;
+        slidersView.configuration = [RectSlidersConfiguration configurationWithRect:NSMakeRect(0., 0., (maxFullScreenContentSize.width == FLT_MAX) ? 0. : maxFullScreenContentSize.width, (maxFullScreenContentSize.height == FLT_MAX) ? 0. : maxFullScreenContentSize.height)
+                                                                            minRect:NSMakeRect(0., 0., (minFullScreenContentSize.width == FLT_MAX) ? 0. : minFullScreenContentSize.width, (minFullScreenContentSize.height == FLT_MAX) ? 0. : minFullScreenContentSize.height)
+                                                                            maxRect:NSMakeRect(0., 0., 3000., 3000.)
+                                                                           keyPaths:[NSSet setWithObjects:RectSlidersKeyPathWidth, RectSlidersKeyPathHeight, nil]
+                                                                           userInfo:@{
+            @"selfValue": [NSValue value:reinterpret_cast<const void *>(&unretainedSelf) withObjCType:@encode(uintptr_t)],
+            @"action": @"maxFullScreenContentSize"
+        }];
+        
+        menuItem.view = slidersView;
+        [slidersView release];
+        [menu addItem:menuItem];
+        [menuItem release];
+        
+        ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Menu" menu:menu showsMenuAsPrimaryAction:YES];
+        [menu release];
+        
+        return description;
+    }];
+}
+
 - (void)_didTriggerDisplayLink:(CADisplayLink *)sender {
     if (_lastTimestamp == 0.0) {
         _lastTimestamp = sender.timestamp;
@@ -1604,6 +1959,16 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
         window.resizeIncrements = NSMakeSize(1., 1.);
         [configurationView reconfigureItemModelsWithIdentifiers:@[@"Aspect Ratio", @"Resize Increments", @"Content Aspect Ratio"]];
         return NO;
+    } else if ([identifier isEqualToString:@"Perform Zoom"]) {
+        [window performZoom:nil];
+        return YES;
+    } else if ([identifier isEqualToString:@"Zoom"]) {
+        [window zoom:nil];
+        return YES;
+    } else if ([identifier isEqualToString:@"Preserves Content During Live Resize"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        window.preservesContentDuringLiveResize = boolValue;
+        return YES;
     } else {
         abort();
     }

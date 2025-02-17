@@ -272,6 +272,7 @@ RectSlidersKeyPath const RectSlidersKeyPathHeight = @"RectSlidersKeyPathHeight";
     ptrdiff_t offset = ivar_getOffset(*ivarPtr);
     free(ivars);
     uintptr_t base = reinterpret_cast<uintptr_t>(sender.cell);
+    // TODO: _sliderCellBitfieldLock
     uint8_t value = *reinterpret_cast<uint8_t *>(base + offset);
     BOOL isTracking = (value & 0x8);
     

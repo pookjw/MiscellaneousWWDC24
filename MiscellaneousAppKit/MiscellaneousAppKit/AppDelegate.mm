@@ -23,6 +23,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     startWindowActiveSpaceObservation();
+    NSLog(@"%s", getenv("MTC_APPKIT_SUPPRESSIONS"));
     
     MyMenu *menu = [MyMenu new];
     [NSApp setServicesMenu:menu.servicesMenu];
