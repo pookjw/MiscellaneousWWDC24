@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 MA_EXTERN NSNotificationName const RectSlidersViewDidChangeValueNotification;
 
+MA_EXTERN NSString * const RectSlidersIsTrackingKey;
 MA_EXTERN NSString * const RectSlidersConfigurationKey;
 MA_EXTERN NSString * const RectSlidersChangedKeyPath;
 

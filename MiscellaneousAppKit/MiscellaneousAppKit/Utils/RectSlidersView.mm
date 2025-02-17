@@ -8,6 +8,8 @@
 #import "RectSlidersView.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
+#import <cstring>
+#import <ranges>
 
 #define RECT_VALUE_KEY @"rectValue"
 #define MIN_RECT_VALUE_KEY @"minRectValue"
@@ -22,6 +24,7 @@
 #define HEIGHT_SLIDER_TAG 103
 
 NSNotificationName const RectSlidersViewDidChangeValueNotification = @"RectSlidersViewDidChangeValueNotification";
+NSString * const RectSlidersIsTrackingKey = @"RectSlidersIsTrackingKey";
 NSString * const RectSlidersConfigurationKey = @"RectSlidersConfigurationKey";
 NSString * const RectSlidersChangedKeyPath = @"RectSlidersChangedKeyPath";
 RectSlidersKeyPath const RectSlidersKeyPathX = @"RectSlidersKeyPathX";
@@ -257,9 +260,25 @@ RectSlidersKeyPath const RectSlidersKeyPathHeight = @"RectSlidersKeyPathHeight";
         abort();
     }
     
+    unsigned int ivarsCount;
+    Ivar *ivars = class_copyIvarList([sender.cell class], &ivarsCount);
+    
+    Ivar *ivarPtr = std::ranges::find_if(ivars, ivars + ivarsCount, [](Ivar ivar) {
+        auto name = ivar_getName(ivar);
+        return std::strcmp(name, "_scFlags") == 0;
+    });
+    
+    assert(*ivarPtr != NULL);
+    ptrdiff_t offset = ivar_getOffset(*ivarPtr);
+    free(ivars);
+    uintptr_t base = reinterpret_cast<uintptr_t>(sender.cell);
+    uint8_t value = *reinterpret_cast<uint8_t *>(base + offset);
+    BOOL isTracking = (value & 0x8);
+    
     [NSNotificationCenter.defaultCenter postNotificationName:RectSlidersViewDidChangeValueNotification
                                                       object:self
                                                     userInfo:@{
+        RectSlidersIsTrackingKey: @(isTracking),
         RectSlidersConfigurationKey: [self _configurationFromSliderVaues],
         RectSlidersChangedKeyPath: keyPath
     }];

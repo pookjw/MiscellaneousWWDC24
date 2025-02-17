@@ -25,6 +25,7 @@
 #import "MainWindowController.h"
 #import "RectSlidersView.h"
 #import "UnsafeDebouncer.h"
+#include <math.h>
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
@@ -144,6 +145,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     if (self != selfValue.pointerValue) return;
     
     NSString *action = configuration.userInfo[@"action"];
+    BOOL isTracking = static_cast<NSNumber *>(notification.userInfo[RectSlidersIsTrackingKey]).boolValue;
     
     if ([action isEqualToString:@"setFrame:display:animate:"]) {
         [self.view.window setFrame:configuration.rect display:NO animate:NO];
@@ -161,10 +163,23 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
         [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Animation Resize Time"]];
     } else if ([action isEqualToString:@"aspectRatio"]) {
         self.view.window.aspectRatio = configuration.rect.size;
-        [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Aspect Ratio", @"Resize Increments"]];
+        [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Aspect Ratio", @"Resize Increments", @"Content Aspect Ratio"]];
     } else if ([action isEqualToString:@"resizeIncrements"]) {
         self.view.window.resizeIncrements = configuration.rect.size;
-        [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Aspect Ratio", @"Resize Increments"]];
+        [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Aspect Ratio", @"Resize Increments", @"Content Aspect Ratio"]];
+    } else if ([action isEqualToString:@"contentAspectRatio"]) {
+        self.view.window.contentAspectRatio = configuration.rect.size;
+        [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Aspect Ratio", @"Resize Increments", @"Content Aspect Ratio"]];
+    } else if ([action isEqualToString:@"minSize"]) {
+        self.view.window.minSize = configuration.rect.size;
+        if (!isTracking) {
+            [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"maxSize"]];
+        }
+    } else if ([action isEqualToString:@"maxSize"]) {
+        self.view.window.maxSize = configuration.rect.size;
+        if (!isTracking) {
+            [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"minSize"]];
+        }
     } else {
         abort();
     }
@@ -213,6 +228,9 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeMinSizeItemModel],
+        [self _makeMaxSizeItemModel],
+        [self _makeContentAspectRatioItemModel],
         [self _makeResizeIncrementsItemModel],
         [self _makeAspectRatioItemModel],
         [self _makeAnimationResizeTimeItemModel],
@@ -1158,6 +1176,121 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     }];
 }
 
+- (ConfigurationItemModel *)_makeContentAspectRatioItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Content Aspect Ratio"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Content Aspect Ratio : %@", NSStringFromSize(unretainedSelf.view.window.contentAspectRatio)];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSMenu *menu = [NSMenu new];
+        
+        NSMenuItem *menuItem = [NSMenuItem new];
+        RectSlidersView *slidersView = [[RectSlidersView alloc] initWithFrame:NSMakeRect(0., 0., 300., 100.)];
+        
+        NSSize contentAspectRatio = unretainedSelf.view.window.contentAspectRatio;
+        slidersView.configuration = [RectSlidersConfiguration configurationWithRect:NSMakeRect(0., 0., contentAspectRatio.width, contentAspectRatio.height)
+                                                                            minRect:NSMakeRect(0., 0., 0.1, 0.1)
+                                                                            maxRect:NSMakeRect(0., 0., 1., 1.)
+                                                                           keyPaths:[NSSet setWithObjects:RectSlidersKeyPathWidth, RectSlidersKeyPathHeight, nil]
+                                                                           userInfo:@{
+            @"selfValue": [NSValue value:reinterpret_cast<const void *>(&unretainedSelf) withObjCType:@encode(uintptr_t)],
+            @"action": @"contentAspectRatio"
+        }];
+        
+        menuItem.view = slidersView;
+        [slidersView release];
+        [menu addItem:menuItem];
+        [menuItem release];
+        
+        ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Reset (or menu)" menu:menu showsMenuAsPrimaryAction:NO];
+        [menu release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeMinSizeItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Min Size"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Min Size : %@", NSStringFromSize(unretainedSelf.view.window.minSize)];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSMenu *menu = [NSMenu new];
+        
+        NSMenuItem *menuItem = [NSMenuItem new];
+        RectSlidersView *slidersView = [[RectSlidersView alloc] initWithFrame:NSMakeRect(0., 0., 300., 100.)];
+        
+        NSSize minSize = unretainedSelf.view.window.minSize;
+        NSSize maxSize = unretainedSelf.view.window.maxSize;
+        
+        slidersView.configuration = [RectSlidersConfiguration configurationWithRect:NSMakeRect(0., 0., minSize.width, minSize.height)
+                                                                            minRect:NSZeroRect
+                                                                            maxRect:NSMakeRect(0., 0., (maxSize.width == FLT_MAX) ? 3000. : maxSize.width, (maxSize.height == FLT_MAX) ? 3000. : maxSize.height)
+                                                                           keyPaths:[NSSet setWithObjects:RectSlidersKeyPathWidth, RectSlidersKeyPathHeight, nil]
+                                                                           userInfo:@{
+            @"selfValue": [NSValue value:reinterpret_cast<const void *>(&unretainedSelf) withObjCType:@encode(uintptr_t)],
+            @"action": @"minSize"
+        }];
+        
+        menuItem.view = slidersView;
+        [slidersView release];
+        [menu addItem:menuItem];
+        [menuItem release];
+        
+        ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Sliders" menu:menu showsMenuAsPrimaryAction:YES];
+        [menu release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeMaxSizeItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Max Size"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Max Size : %@", NSStringFromSize(unretainedSelf.view.window.maxSize)];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSMenu *menu = [NSMenu new];
+        
+        NSMenuItem *menuItem = [NSMenuItem new];
+        RectSlidersView *slidersView = [[RectSlidersView alloc] initWithFrame:NSMakeRect(0., 0., 300., 100.)];
+        
+        NSSize minSize = unretainedSelf.view.window.minSize;
+        NSSize maxSize = unretainedSelf.view.window.maxSize;
+        
+        slidersView.configuration = [RectSlidersConfiguration configurationWithRect:NSMakeRect(0., 0., maxSize.width, maxSize.height)
+                                                                            minRect:NSMakeRect(0., 0., minSize.width, minSize.height)
+                                                                            maxRect:NSMakeRect(0., 0., 3000., 3000.)
+                                                                           keyPaths:[NSSet setWithObjects:RectSlidersKeyPathWidth, RectSlidersKeyPathHeight, nil]
+                                                                           userInfo:@{
+            @"selfValue": [NSValue value:reinterpret_cast<const void *>(&unretainedSelf) withObjCType:@encode(uintptr_t)],
+            @"action": @"maxSize"
+        }];
+        
+        menuItem.view = slidersView;
+        [slidersView release];
+        [menu addItem:menuItem];
+        [menuItem release];
+        
+        ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Sliders" menu:menu showsMenuAsPrimaryAction:YES];
+        [menu release];
+        
+        return description;
+    }];
+}
+
 - (void)_didTriggerDisplayLink:(CADisplayLink *)sender {
     if (_lastTimestamp == 0.0) {
         _lastTimestamp = sender.timestamp;
@@ -1465,10 +1598,11 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
         
         [self _reload];
         return NO;
-    } else if ([identifier isEqualToString:@"Aspect Ratio"] or [identifier isEqualToString:@"Resize Increments"]) {
+    } else if ([identifier isEqualToString:@"Aspect Ratio"] or [identifier isEqualToString:@"Resize Increments"] or [identifier isEqualToString:@"Content Aspect Ratio"]) {
         window.aspectRatio = NSZeroSize;
+        window.contentAspectRatio = NSZeroSize;
         window.resizeIncrements = NSMakeSize(1., 1.);
-        [configurationView reconfigureItemModelsWithIdentifiers:@[@"Aspect Ratio", @"Resize Increments"]];
+        [configurationView reconfigureItemModelsWithIdentifiers:@[@"Aspect Ratio", @"Resize Increments", @"Content Aspect Ratio"]];
         return NO;
     } else {
         abort();

@@ -18,7 +18,7 @@
     if (self.showsMenuAsPrimaryAction) {
         NSMenu *menu = sender.menu;
         assert(menu != nil);
-        [NSMenu popUpContextMenu:menu withEvent:NSApp.currentEvent forView:sender];
+        [NSMenu popUpContextMenu:menu withEvent:sender.window.currentEvent forView:sender];
         return;
     }
     
