@@ -30,4 +30,24 @@
     return self;
 }
 
+- (void)becomeKeyWindow {
+    [super becomeKeyWindow];
+    NSLog(@"%s", __func__);
+}
+
+- (void)resignKeyWindow {
+    [super resignKeyWindow];
+    NSLog(@"%s", __func__);
+}
+
+- (void)becomeMainWindow {
+    [super becomeMainWindow];
+    NSLog(@"%s", __func__);
+}
+
+- (void)resignMainWindow {
+    [super resignMainWindow];
+    NSLog(@"%s", __func__);
+}
+
 @end

@@ -11,6 +11,10 @@
 
 @implementation NSBundle (MA_Category)
 
++ (NSDictionary<NSString *,NSArray<NSString *> *> *)ma_nsKitLocalizedTablesForContatingKey:(NSString *)key {
+    return [_NSKitBundle() ma_localizedTablesForContatingKey:key];
+}
+
 - (NSDictionary<NSString *, NSArray<NSString *> *> *)ma_localizedTablesForContatingKey:(NSString *)key {
     NSArray<NSURL *> *urls = [self URLsForResourcesWithExtension:@"loctable" subdirectory:nil];
     NSString *languageCode = NSLocale.currentLocale.languageCode;
@@ -24,7 +28,7 @@
         NSMutableArray<NSString *> *keys = [NSMutableArray new];
         
         for (NSString *_key in strings.allKeys) {
-            if ([_key containsString:key]) {
+            if ([_key localizedCaseInsensitiveContainsString:key]) {
                 [keys addObject:_key];
             }
         }

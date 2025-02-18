@@ -160,6 +160,11 @@
     [submenu addItem:pasteMenuItem];
     [pasteMenuItem release];
     
+    NSMenuItem *findMenuItem = [[NSMenuItem alloc] initWithTitle:@"Find..." action:@selector(performTextFinderAction:) keyEquivalent:@"f"];
+    findMenuItem.tag = NSTextFinderActionShowFindInterface;
+    [submenu addItem:findMenuItem];
+    [findMenuItem release];
+    
     NSMenuItem *selectAllMenuItem = [[NSMenuItem alloc] initWithTitle:_NXKitString(@"FindPanel", @"Select All") action:@selector(selectAll:) keyEquivalent:@"a"];
     [submenu addItem:selectAllMenuItem];
     [selectAllMenuItem release];

@@ -31,6 +31,8 @@
 @property (retain, nonatomic, readonly, getter=_collectionView) NSCollectionView *collectionView;
 @property (retain, nonatomic, readonly, getter=_scrollView) NSScrollView *scrollView;
 @property (retain, nonatomic, readonly, getter=_reloadButton) NSButton *reloadButton;
+@property (retain, nonatomic, readonly, getter=_findButton) NSButton *findButton;
+@property (retain, nonatomic, readonly, getter=_textFinder) NSTextFinder *textFinder;
 @end
 
 @implementation ConfigurationView
@@ -39,6 +41,8 @@
 @synthesize collectionView = _collectionView;
 @synthesize scrollView = _scrollView;
 @synthesize reloadButton = _reloadButton;
+@synthesize findButton = _findButton;
+@synthesize textFinder = _textFinder;
 
 + (NSUserInterfaceItemIdentifier)_switchItemIdentifier {
     return NSStringFromClass([ConfigurationSwitchItem class]);
@@ -96,7 +100,19 @@
     [_collectionView release];
     [_scrollView release];
     [_reloadButton release];
+    [_findButton release];
+    [_textFinder release];
     [super dealloc];
+}
+
+- (BOOL)respondsToSelector:(SEL)aSelector {
+    BOOL responds = [super respondsToSelector:aSelector];
+    
+    if (!responds) {
+        NSLog(@"%@ does not respond to %s.", NSStringFromClass([self class]), sel_getName(aSelector));
+    }
+    
+    return responds;
 }
 
 - (void)layout {
@@ -105,6 +121,8 @@
 }
 
 - (void)reconfigureItemModelsWithIdentifiers:(NSArray<NSString *> *)identifiers {
+    if (identifiers.count == 0) return;
+    
     NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
     
     BOOL found = NO;
@@ -131,12 +149,18 @@
     
     NSButton *reloadButton = self.reloadButton;
     reloadButton.translatesAutoresizingMaskIntoConstraints = NO;
-//    reloadButton.frame = NSMakeRect(-30., -30., 30., 30.);
-//    reloadButton.autoresizingMask = NSViewMinXMargin | NSViewMinYMargin;
     [self addSubview:reloadButton];
     [NSLayoutConstraint activateConstraints:@[
         [reloadButton.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-20.],
         [reloadButton.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:-20.]
+    ]];
+    
+    NSButton *findButton = self.findButton;
+    findButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:findButton];
+    [NSLayoutConstraint activateConstraints:@[
+        [findButton.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:20.],
+        [findButton.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:-20.]
     ]];
 }
 
@@ -370,6 +394,7 @@
     scrollView.drawsBackground = NO;
     scrollView.scrollerStyle = NSScrollerStyleOverlay;
     scrollView.autohidesScrollers = YES;
+    scrollView.findBarVisible = YES;
     
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(scrollView, sel_registerName("_addBackgroundView:"), self.visualEffectView);
     
@@ -404,6 +429,29 @@
     return reloadButton;
 }
 
+- (NSButton *)_findButton {
+    if (auto findButton = _findButton) return findButton;
+    
+    NSButton *findButton = [NSButton buttonWithImage:[NSImage imageWithSystemSymbolName:@"magnifyingglass" accessibilityDescription:nil]
+                                                target:self
+                                                action:@selector(performTextFinderAction:)];
+    findButton.tag = NSTextFinderActionShowFindInterface;
+    findButton.toolTip = @"Find";
+    
+    _findButton = [findButton retain];
+    return findButton;
+}
+
+- (NSTextFinder *)_textFinder {
+    if (auto textFinder = _textFinder) return textFinder;
+    
+    NSTextFinder *textFinder = [NSTextFinder new];
+    textFinder.client = self;
+    
+    _textFinder = textFinder;
+    return textFinder;
+}
+
 - (void)setDelegate:(id<ConfigurationViewDelegate>)delegate {
     _delegate = delegate;
     
@@ -427,6 +475,16 @@
     } else {
         [self.visualEffectView removeFromSuperview];
     }
+}
+
+- (void)performTextFinderAction:(id)sender {
+    NSInteger tag = reinterpret_cast<NSInteger (*)(id, SEL)>(objc_msgSend)(sender, @selector(tag));
+    assert([self.textFinder validateAction:static_cast<NSTextFinderAction>(tag)]);
+    [self.textFinder performAction:static_cast<NSTextFinderAction>(tag)];
+}
+
+- (BOOL)validateUserInterfaceItem:(id<NSValidatedUserInterfaceItem>)item {
+    return [self.textFinder validateAction:static_cast<NSTextFinderAction>(item.tag)];
 }
 
 - (void)configurationSwitchItem:(ConfigurationSwitchItem *)configurationSwitchItem didToggleValue:(BOOL)value {
@@ -486,6 +544,14 @@
     if (delegate == nil) return;
     
     [delegate didTriggerReloadButtonWithConfigurationView:self];
+}
+
+- (NSString *)string {
+    return @"Foo";
+}
+
+- (void)replaceCharactersInRange:(NSRange)range withString:(NSString *)string {
+    
 }
 
 @end

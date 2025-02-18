@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @required - (BOOL)configurationView:(ConfigurationView *)configurationView didTriggerActionWithItemModel:(ConfigurationItemModel *)itemModel newValue:(id<NSCopying>)newValue;
 @end
 
-@interface ConfigurationView : NSView
+@interface ConfigurationView : NSView <NSTextFinderClient, NSUserInterfaceValidations>
 @property (assign, nonatomic) BOOL showBlendedBackground;
 @property (retain, nonatomic, readonly) NSCollectionViewDiffableDataSource<NSNull *, ConfigurationItemModel *> *dataSource;
 @property (assign, nonatomic) id<ConfigurationViewDelegate> delegate;

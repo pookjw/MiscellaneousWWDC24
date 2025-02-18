@@ -15,6 +15,7 @@
 #import "IntelligenceUILightViewController.h"
 #import "IntelligenceUIPlatterViewController.h"
 #import "IntelligenceDemoViewController.h"
+#import "TextViewDemoViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 
@@ -40,6 +41,7 @@
 
 + (NSArray<Class> *)_classes {
     return @[
+        [TextViewDemoViewController class],
         [IntelligenceDemoViewController class],
         [IntelligenceUIPlatterViewController class],
         [IntelligenceUILightViewController class],

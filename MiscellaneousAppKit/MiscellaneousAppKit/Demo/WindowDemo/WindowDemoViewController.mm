@@ -28,6 +28,8 @@
 #include <math.h>
 #import "NSStringFromNSEventModifierFlags.h"
 #import "WindowDemoView.h"
+#import "NSStringFromNSWindowLevel.h"
+#import "WindowDemoSetFrameUsingNameView.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
@@ -55,11 +57,12 @@ NSAppearanceName const NSAppearanceNameVibrantDarkVisibleBezels = @"NSAppearance
 NSAppearanceName const NSAppearanceNameDarkAquaVisibleBezels = @"NSAppearanceNameDarkAquaVisibleBezels";
 NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppearanceNameAccessibilityGraphiteDarkAqua";
 
-@interface WindowDemoViewController () <ConfigurationViewDelegate, NSAppearanceCustomization> {
+@interface WindowDemoViewController () <ConfigurationViewDelegate, NSAppearanceCustomization, NSToolbarDelegate> {
     double _lastTimestamp;
 }
 @property (retain, nonatomic, readonly, getter=_ownView) WindowDemoView *ownView;
 @property (retain, nonatomic, readonly, getter=_configurationView) ConfigurationView *configurationView;
+@property (retain, nonatomic, readonly, getter=_toolbar) NSToolbar *toolbar;
 @property (copy, nonatomic, nullable, getter=_stageChangedDate, setter=_setStageChangedDate:) NSDate *stageChangedDate;
 @property (assign, nonatomic, getter=_preventsApplicationTerminationWhenModal, setter=_setPreventsApplicationTerminationWhenModal:) BOOL preventsApplicationTerminationWhenModal;
 @property (retain, nonatomic, nullable, getter=_displayLink, setter=_setDisplayLink:) CADisplayLink *displayLink;
@@ -70,12 +73,14 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
 @implementation WindowDemoViewController
 @synthesize ownView = _ownView;
 @synthesize configurationView = _configurationView;
+@synthesize toolbar = _toolbar;
 @synthesize appearance = _appearance;
 
 - (void)dealloc {
     [NSNotificationCenter.defaultCenter removeObserver:self];
     [_ownView release];
     [_configurationView release];
+    [_toolbar release];
     [_stageChangedDate release];
     [_appearance release];
     [_displayLink invalidate];
@@ -138,6 +143,12 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didResizeWindow:) name:NSWindowDidResizeNotification object:nil];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didMoveWindow:) name:NSWindowDidMoveNotification object:nil];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didEndSheet:) name:NSWindowDidEndSheetNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didChangeOcclusionState:) name:NSWindowDidChangeOcclusionStateNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didChangeUserDefaults:) name:NSUserDefaultsDidChangeNotification object:NSUserDefaults.standardUserDefaults];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_windowDidBecomeKey:) name:NSWindowDidBecomeKeyNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_windowDidResignKey:) name:NSWindowDidResignKeyNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_windowDidResignMain:) name:NSWindowDidResignMainNotification object:nil];
 }
 
 - (void)_viewDidMoveToWindow:(NSWindow * _Nullable)newWindow fromWindow:(NSWindow * _Nullable)oldWindow {
@@ -148,6 +159,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     if (oldWindow) {
         oldWindow.appearanceSource = nil;
         [oldWindow removeObserver:self forKeyPath:@"contentLayoutRect"];
+        oldWindow.toolbar = nil;
     }
     
     if (newWindow) {
@@ -260,6 +272,54 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     [self _reload];
 }
 
+- (void)_didChangeOcclusionState:(NSNotification *)notification {
+    NSWindow *window = self.view.window;
+    if (window == nil) return;
+    if (![notification.object isEqual:window]) return;
+    
+    [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Occlusion State"]];
+}
+
+- (void)_didChangeUserDefaults:(NSNotification *)notification {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.reloadWhenFrameChangedDebouncer scheduleBlock:^(BOOL cancelled) {
+            [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"String With Saved Frame"]];
+        }];
+    });
+}
+
+- (void)_windowDidBecomeKey:(NSNotification *)notification {
+    NSWindow *window = self.view.window;
+    if (window == nil) return;
+    if (![notification.object isEqual:window]) return;
+    
+    [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Key Window"]];
+}
+
+- (void)_windowDidResignKey:(NSNotification *)notification {
+    NSWindow *window = self.view.window;
+    if (window == nil) return;
+    if (![notification.object isEqual:window]) return;
+    
+    [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Key Window"]];
+}
+
+- (void)_windowDidBecomeMain:(NSNotification *)notification {
+    NSWindow *window = self.view.window;
+    if (window == nil) return;
+    if (![notification.object isEqual:window]) return;
+    
+    [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Main Window"]];
+}
+
+- (void)_windowDidResignMain:(NSNotification *)notification {
+    NSWindow *window = self.view.window;
+    if (window == nil) return;
+    if (![notification.object isEqual:window]) return;
+    
+    [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Main Window"]];
+}
+
 - (WindowDemoView *)_ownView {
     if (auto ownView = _ownView) return ownView;
     
@@ -280,12 +340,46 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     return configurationView;
 }
 
+- (NSToolbar *)_toolbar {
+    if (auto toolbar = _toolbar) return toolbar;
+    
+    NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier:@"WindowDemo Toolbar"];
+    toolbar.delegate = self;
+    toolbar.allowsUserCustomization = YES;
+    toolbar.displayMode = NSToolbarDisplayModeIconAndLabel;
+    
+    _toolbar = toolbar;
+    return toolbar;
+}
+
 - (void)_reload {
     NSDiffableDataSourceSnapshot *snapshot = [NSDiffableDataSourceSnapshot new];
     [snapshot appendSectionsWithIdentifiers:@[[NSNull null]]];
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeRunToolbarCustomizationPaletteItemModel],
+        [self _makeToggleToolbarShownItemModel],
+        [self _makeToolbarItemModel],
+        [self _makeMakeMainWindowItemModel],
+        [self _makeMainWindowItemModel],
+        [self _makeCanBecomeMainWindowItemModel],
+        [self _makeMakeKeyAndOrderFrontItemModel],
+        [self _makeMakeKeyWindowItemModel],
+        [self _makeCanBecomeKeyWindowItemModel],
+        [self _makeKeyWindowItemModel],
+        [self _makeSetFrameFromStringItemModel],
+        [self _makeStringWithSavedFrameItemModel],
+        [self _makeSaveFrameUsingNameItemModel],
+        [self _makeSetFrameUsingNameItemModel],
+        [self _makeFrameAutosaveNameItemModel],
+        [self _makeOcclusionStateItemModel],
+        [self _makeIsVisibleItemModel],
+        [self _makeLevelItemModel],
+        [self _makeOrderOutItemModel],
+        [self _makeOrderBackItemModel],
+        [self _makeOrderFrontItemModel],
+        [self _makeOrderFrontRegardlessItemModel],
         [self _makeMinFullScreenContentSizeItemModel],
         [self _makeMaxFullScreenContentSizeItemModel],
         [self _makeContentLayoutRectItemModel],
@@ -311,6 +405,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
         [self _makeSetFrameDisplayAnimateItemModel],
         [self _makeContentRectForFrameRectItemModel],
         [self _makeFrameItemModel],
+        [self _makeChildWindowsItemModel],
         [self _makeSheetsItemModel],
         [self _makeBeginCriticalSheetAndEndSheetItemModel],
         [self _makeBeginSheetAndEndSheetItemModel],
@@ -1646,6 +1741,293 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     }];
 }
 
+- (ConfigurationItemModel *)_makeOrderOutItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Order Out"
+                                            userInfo:nil
+                                               label:@"Order Out"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeOrderBackItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Order Back"
+                                            userInfo:nil
+                                               label:@"Order Back"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeOrderFrontItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Order Front"
+                                            userInfo:nil
+                                               label:@"Order Front"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeOrderFrontRegardlessItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Order Front Regardless"
+                                            userInfo:nil
+                                               label:@"Order Front Regardless"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeLevelItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Level"
+                                            userInfo:nil
+                                               label:@"Level"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSUInteger count;
+        NSWindowLevel *allLevels = allNSWindowLevels(&count);
+        
+        auto levelTitlesVector = std::views::iota(allLevels, allLevels + count)
+        | std::views::transform([](NSWindowLevel *levelPtr) -> NSString * {
+            return NSStringFromNSWindowLevel(*levelPtr);
+        })
+        | std::ranges::to<std::vector<NSString *>>();
+        
+        NSArray<NSString *> *levelTitles = [[NSArray alloc] initWithObjects:levelTitlesVector.data() count:levelTitlesVector.size()];
+        NSString *selectedLevelTitle = NSStringFromNSWindowLevel(unretainedSelf.view.window.level);
+        
+        ConfigurationPopUpButtonDescription *description = [ConfigurationPopUpButtonDescription descriptionWithTitles:levelTitles
+                                                                                                       selectedTitles:@[selectedLevelTitle]
+                                                                                                 selectedDisplayTitle:selectedLevelTitle];
+        [levelTitles release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeIsVisibleItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Is Visible"
+                                            userInfo:nil
+                                               label:@"Is Visible"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.visible);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeOcclusionStateItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Occlusion State"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        // https://developer.apple.com/library/archive/documentation/Performance/Conceptual/power_efficiency_guidelines_osx/WorkWhenVisible.html
+        return [NSString stringWithFormat:@"Occlusion State : %@", ((unretainedSelf.view.window.occlusionState & NSWindowOcclusionStateVisible) == 0) ? @"Not Visible" : @"Visible"];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeFrameAutosaveNameItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Frame Autosave Name"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Frame Autosave Name : %@", unretainedSelf.view.window.frameAutosaveName];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeSetFrameUsingNameItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Set Frame Using Name"
+                                            userInfo:nil
+                                               label:@"Set Frame Using Name"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeSaveFrameUsingNameItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Save Frame Using Name"
+                                            userInfo:nil
+                                               label:@"Save Frame Using Name"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeStringWithSavedFrameItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"String With Saved Frame"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        NSWindowPersistableFrameDescriptor stringWithSavedFrame = unretainedSelf.view.window.stringWithSavedFrame;
+        return [NSString stringWithFormat:@"String With Saved Frame : %@", stringWithSavedFrame];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeSetFrameFromStringItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Set Frame From String"
+                                            userInfo:nil
+                                               label:@"Set Frame From String"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeKeyWindowItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Key Window"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Key Window : %@", unretainedSelf.view.window.keyWindow ? @"YES" : @"NO"];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeCanBecomeKeyWindowItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Can Become Key Window"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Can Become Key Window : %@", unretainedSelf.view.window.canBecomeKeyWindow ? @"YES" : @"NO"];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeMakeKeyWindowItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Make Key Window"
+                                            userInfo:nil
+                                               label:@"Make Key Window after 3 seconds"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeMakeKeyAndOrderFrontItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Make Key And Order Front"
+                                            userInfo:nil
+                                               label:@"Make Key And Order Front after 3 seconds"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeMainWindowItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Main Window"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Main Window : %@", unretainedSelf.view.window.mainWindow ? @"YES" : @"NO"];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeCanBecomeMainWindowItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Can Become Main Window"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Can Become Main Window : %@", unretainedSelf.view.window.canBecomeMainWindow ? @"YES" : @"NO"];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeMakeMainWindowItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Make Main Window"
+                                            userInfo:nil
+                                               label:@"Make Main Window after 3 seconds"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeToolbarItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Toolbar"
+                                            userInfo:nil
+                                               label:@"Toolbar"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.toolbar != nil);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeToggleToolbarShownItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Toggle Toolbar Shown"
+                                            userInfo:nil
+                                               label:@"Toggle Toolbar Shown"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeRunToolbarCustomizationPaletteItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Run Toolbar Customization Palette"
+                                            userInfo:nil
+                                               label:@"Run Toolbar Customization Palette"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeChildWindowsItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Child Windows"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Child Windows (%ld)", unretainedSelf.view.window.childWindows.count];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
 - (void)_didTriggerDisplayLink:(CADisplayLink *)sender {
     if (_lastTimestamp == 0.0) {
         _lastTimestamp = sender.timestamp;
@@ -1664,8 +2046,34 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     self.view.window.alphaValue = a;
 }
 
+- (void)_didTriggerTestToolbarItem:(NSToolbarItem *)sender {
+    NSLog(@"%s", __func__);
+}
 
 #pragma mark - Items 2
+
+- (NSArray<NSToolbarItemIdentifier> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
+    return @[
+        @"Test Item"
+    ];
+}
+
+- (NSArray<NSToolbarItemIdentifier> *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar {
+    return [self toolbarAllowedItemIdentifiers:toolbar];
+}
+
+- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSToolbarItemIdentifier)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
+    if ([itemIdentifier isEqualToString:@"Test Item"]) {
+        NSToolbarItem *item = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
+        item.label = @"Test";
+        item.image = [NSImage imageWithSystemSymbolName:@"apple.intelligence" accessibilityDescription:nil];
+        item.target = self;
+        item.action = @selector(_didTriggerTestToolbarItem:);
+        return [item autorelease];
+    } else {
+        abort();
+    }
+}
 
 - (void)didTriggerReloadButtonWithConfigurationView:(ConfigurationView *)configurationView {
     [self _reload];
@@ -1897,7 +2305,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
         alert.informativeText = [NSString stringWithFormat:@"isSheet : %@\nsheetParent : %p", _panel.isSheet ? @"YES" : @"NO", _panel.sheetParent];
         [alert release];
         
-        [self _reload];
+        [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Attached Sheet & isSheet & sheetParent", @"Sheets", @"Child Windows"]];
         return NO;
     } else if ([identifier isEqualToString:@"Begin Sheet & End Sheet"]) {
         NSAlert *alert = [NSAlert new];
@@ -1915,7 +2323,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
         
         [alert release];
         
-        [self _reload];
+        [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Attached Sheet & isSheet & sheetParent", @"Sheets", @"Child Windows"]];
         return NO;
     } else if ([identifier isEqualToString:@"Begin Critical Sheet & End Sheet"]) {
         {
@@ -1951,7 +2359,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
             [alert release];
         }
         
-        [self _reload];
+        [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Attached Sheet & isSheet & sheetParent", @"Sheets", @"Child Windows"]];
         return NO;
     } else if ([identifier isEqualToString:@"Aspect Ratio"] or [identifier isEqualToString:@"Resize Increments"] or [identifier isEqualToString:@"Content Aspect Ratio"]) {
         window.aspectRatio = NSZeroSize;
@@ -1969,6 +2377,238 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
         BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
         window.preservesContentDuringLiveResize = boolValue;
         return YES;
+    } else if ([identifier isEqualToString:@"Order Out"]) {
+        [window orderOut:nil];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [window orderFront:nil];
+        });
+        return NO;
+    } else if ([identifier isEqualToString:@"Order Back"]) {
+        [window orderBack:nil];
+        return NO;
+    } else if ([identifier isEqualToString:@"Order Front"]) {
+        [window orderFront:nil];
+        return NO;
+    } else if ([identifier isEqualToString:@"Order Front Regardless"]) {
+        [window orderFrontRegardless];
+        return NO;
+    } else if ([identifier isEqualToString:@"Level"]) {
+        auto incomingLevel = NSWindowLevelFromString(static_cast<NSString *>(newValue));
+        window.level = incomingLevel;
+        return YES;
+    } else if ([identifier isEqualToString:@"Is Visible"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        [window setIsVisible:boolValue];
+        if (!boolValue) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [window setIsVisible:YES];
+                [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Is Visible"]];
+            });
+        }
+        return NO;
+    } else if ([identifier isEqualToString:@"Frame Autosave Name"]) {
+        NSWindowFrameAutosaveName frameAutosaveName = window.frameAutosaveName;
+        
+        NSAlert *alert = [NSAlert new];
+        alert.messageText = @"Frame Autosave Name";
+        
+        [alert addButtonWithTitle:@"OK"];
+        [alert addButtonWithTitle:@"Cancel"];
+        
+        NSTextField *textField = [NSTextField new];
+        if (frameAutosaveName == nil) {
+            textField.stringValue = @"";
+        } else {
+            textField.stringValue = frameAutosaveName;
+        }
+        
+        [textField sizeToFit];
+        textField.frame = NSMakeRect(0., 0., 300., NSHeight(textField.frame));
+        
+        alert.accessoryView = textField;
+        
+        ConfigurationView *configurationView = self.configurationView;
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            if (returnCode != NSAlertFirstButtonReturn) {
+                NSLog(@"Cancelled");
+                return;
+            }
+            
+            NSString *stringValue = textField.stringValue;
+            if (stringValue.length == 0) {
+                NSLog(@"Not set");
+                return;
+            }
+            
+            BOOL result = [window setFrameAutosaveName:stringValue];
+            
+            // Resizable하지 않을 경우
+            assert(result);
+            
+            [configurationView reconfigureItemModelsWithIdentifiers:@[@"Frame Autosave Name"]];
+        }];
+        
+        [textField release];
+        [alert release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Set Frame Using Name"]) {
+        NSWindowFrameAutosaveName frameAutosaveName = window.frameAutosaveName;
+        
+        NSAlert *alert = [NSAlert new];
+        alert.messageText = @"Set Frame Using Name";
+        
+        WindowDemoSetFrameUsingNameView *accessoryView = [WindowDemoSetFrameUsingNameView new];
+        accessoryView.autosaveName = frameAutosaveName;
+        alert.accessoryView = accessoryView;
+        
+        NSButton *okButton = [alert addButtonWithTitle:@"OK"];
+        [alert addButtonWithTitle:@"Cancel"];
+        
+        alert.window.defaultButtonCell = okButton.cell;
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            if (returnCode != NSAlertFirstButtonReturn) {
+                NSLog(@"Cancelled");
+                return;
+            }
+            
+            NSString *stringValue = accessoryView.autosaveName;
+            if (stringValue.length == 0) {
+                NSLog(@"Not set");
+                return;
+            }
+            
+            [window setFrameUsingName:stringValue force:accessoryView.force];
+        }];
+        
+        [accessoryView release];
+        [alert release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Save Frame Using Name"]) {
+        NSWindowFrameAutosaveName frameAutosaveName = window.frameAutosaveName;
+        
+        NSAlert *alert = [NSAlert new];
+        alert.messageText = @"Save Frame Using Name";
+        
+        [alert addButtonWithTitle:@"OK"];
+        [alert addButtonWithTitle:@"Cancel"];
+        
+        NSTextField *textField = [NSTextField new];
+        if (frameAutosaveName == nil) {
+            textField.stringValue = @"";
+        } else {
+            textField.stringValue = frameAutosaveName;
+        }
+        
+        [textField sizeToFit];
+        textField.frame = NSMakeRect(0., 0., 300., NSHeight(textField.frame));
+        
+        alert.accessoryView = textField;
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            if (returnCode != NSAlertFirstButtonReturn) {
+                NSLog(@"Cancelled");
+                return;
+            }
+            
+            NSString *stringValue = textField.stringValue;
+            if (stringValue.length == 0) {
+                NSLog(@"Not set");
+                return;
+            }
+            
+            [window saveFrameUsingName:stringValue];
+        }];
+        
+        [textField release];
+        [alert release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Set Frame From String"]) {
+        NSWindowFrameAutosaveName frameAutosaveName = window.frameAutosaveName;
+        
+        NSAlert *alert = [NSAlert new];
+        alert.messageText = @"Set Frame From String";
+        
+        [alert addButtonWithTitle:@"OK"];
+        [alert addButtonWithTitle:@"Cancel"];
+        
+        NSTextField *textField = [NSTextField new];
+        if (frameAutosaveName == nil) {
+            textField.stringValue = @"";
+        } else {
+            textField.stringValue = frameAutosaveName;
+        }
+        
+        [textField sizeToFit];
+        textField.frame = NSMakeRect(0., 0., 300., NSHeight(textField.frame));
+        
+        id<NSObject> observation = [NSNotificationCenter.defaultCenter addObserverForName:NSControlTextDidChangeNotification
+                                                                                   object:textField
+                                                                                    queue:nil
+                                                                               usingBlock:^(NSNotification * _Nonnull notification) {
+            NSLog(@"%@", notification);
+        }];
+        
+        static void *key = &key;
+        objc_setAssociatedObject(alert, key, observation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        
+        alert.accessoryView = textField;
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            if (returnCode != NSAlertFirstButtonReturn) {
+                NSLog(@"Cancelled");
+                return;
+            }
+            
+            NSString *stringValue = textField.stringValue;
+            if (stringValue.length == 0) {
+                NSLog(@"Not set");
+                return;
+            }
+            
+            // TODO
+        }];
+        
+        [textField release];
+        [alert release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Make Key Window"]) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [window makeKeyWindow];
+            [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Key Window", @"Main Window"]];
+        });
+        return NO;
+    } else if ([identifier isEqualToString:@"Make Key And Order Front"]) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [window makeKeyAndOrderFront:nil];
+            [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Key Window", @"Main Window"]];
+        });
+        return NO;
+    } else if ([identifier isEqualToString:@"Make Main Window"]) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [window makeMainWindow];
+            [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Key Window", @"Main Window"]];
+        });
+        return NO;
+    } else if ([identifier isEqualToString:@"Toolbar"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        if (boolValue) {
+            window.toolbar = self.toolbar;
+        } else {
+            window.toolbar = nil;
+        }
+        return NO;
+    } else if ([identifier isEqualToString:@"Toggle Toolbar Shown"]) {
+        [window toggleToolbarShown:nil];
+        return NO;
+    } else if ([identifier isEqualToString:@"Run Toolbar Customization Palette"]) {
+        [window runToolbarCustomizationPalette:nil];
+        return NO;
     } else {
         abort();
     }
