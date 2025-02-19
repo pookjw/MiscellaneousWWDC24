@@ -51,8 +51,53 @@
     
     BOOL isTracking = static_cast<NSNumber *>(notification.userInfo[RectSlidersIsTrackingKey]).boolValue;
     if (!isTracking) {
-        static_cast<NSButton *>(self.view).menu = [self _makeMenu];
+        [self _reloadMenu:nil];
     }
+}
+
+- (void)_didTriggerLayoutAttributeMenuItem:(NSMenuItem *)sender {
+    NSLayoutAttribute layoutAttribute = NSLayoutAttributeFromString(sender.title);
+    self.layoutAttribute = layoutAttribute;
+    [self _reloadMenu:nil];
+}
+
+- (void)_didTriggerAutomaticallyAdjustsSizeMenuItem:(NSMenuItem *)sender {
+    self.automaticallyAdjustsSize = !self.automaticallyAdjustsSize;
+    [self _reloadMenu:nil];
+}
+
+- (void)_didTriggerHiddenMenuItem:(NSMenuItem *)sender {
+    self.hidden = !self.hidden;
+    [self _reloadMenu:nil];
+    
+    if (self.hidden) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.hidden = NO;
+            [self _reloadMenu:nil];
+        });
+    }
+}
+
+- (void)_didTriggerInFullScreenMenuItem:(NSMenuItem *)sender {
+    BOOL inFullScreen = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("inFullScreen"));
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(self, sel_registerName("setInFullScreen:"), !inFullScreen);
+    [self _reloadMenu:nil];
+}
+
+- (void)_didTriggerAllowsAutomaticSeparatorMenuItem:(NSMenuItem *)sender {
+    BOOL allowsAutomaticSeparator = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("allowsAutomaticSeparator"));
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(self, sel_registerName("setAllowsAutomaticSeparator:"), !allowsAutomaticSeparator);
+    [self _reloadMenu:nil];
+}
+
+- (void)_didTriggerPrefersDefaultSizeMenuItem:(NSMenuItem *)sender {
+    BOOL prefersDefaultSize = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("prefersDefaultSize"));
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(self, sel_registerName("setPrefersDefaultSize:"), !prefersDefaultSize);
+    [self _reloadMenu:nil];
+}
+
+- (void)_reloadMenu:(id)sender {
+    static_cast<NSButton *>(self.view).menu = [self _makeMenu];
 }
 
 - (NSMenu *)_makeMenu {
@@ -94,8 +139,101 @@
         NSUInteger count;
         NSLayoutAttribute *allAttributes = allNSLayoutAttributes(&count);
         for (NSLayoutAttribute *ptr : std::views::iota(allAttributes, allAttributes + count)) {
-            // TODO
+            NSLayoutAttribute layoutAttribute = *ptr;
+            NSMenuItem *menuItem = [NSMenuItem new];
+            menuItem.title = NSStringFromNSLayoutAttribute(layoutAttribute);
+            menuItem.state = (self.layoutAttribute == layoutAttribute) ? NSControlStateValueOn : NSControlStateValueOff;
+            menuItem.target = self;
+            menuItem.action = @selector(_didTriggerLayoutAttributeMenuItem:);
+            [submenu addItem:menuItem];
+            [menuItem release];
         }
+        
+        item.submenu = submenu;
+        [submenu release];
+        
+        [menu addItem:item];
+        [item release];
+    }
+    
+    {
+        NSMenuItem *item = [NSMenuItem new];
+        item.title = @"Automatically Adjusts Size";
+        item.state = self.automaticallyAdjustsSize ? NSControlStateValueOn : NSControlStateValueOff;
+        item.target = self;
+        item.action = @selector(_didTriggerAutomaticallyAdjustsSizeMenuItem:);
+        [menu addItem:item];
+        [item release];
+    }
+    
+    {
+        NSMenuItem *item = [NSMenuItem new];
+        item.title = @"Hidden (Show after 3 seconds)";
+        item.state = self.hidden ? NSControlStateValueOn : NSControlStateValueOff;
+        item.target = self;
+        item.action = @selector(_didTriggerHiddenMenuItem:);
+        [menu addItem:item];
+        [item release];
+    }
+    
+    [menu addItem:[NSMenuItem separatorItem]];
+    
+    {
+        CGFloat visibleAmount = reinterpret_cast<CGFloat (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("visibleAmount"));
+        NSMenuItem *item = [NSMenuItem new];
+        item.title = [NSString stringWithFormat:@"Visible Amount : %lf", visibleAmount];
+        [menu addItem:item];
+        [item release];
+    }
+    
+    {
+        NSMenuItem *item = [NSMenuItem new];
+        item.title = @"In FullScreen";
+        item.target = self;
+        item.action = @selector(_didTriggerInFullScreenMenuItem:);
+        
+        BOOL inFullScreen = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("inFullScreen"));
+        item.state = inFullScreen ? NSControlStateValueOn : NSControlStateValueOff;
+        
+        [menu addItem:item];
+        [item release];
+    }
+    
+    {
+        NSMenuItem *item = [NSMenuItem new];
+        item.title = @"Allows Automatic Separator";
+        item.target = self;
+        item.action = @selector(_didTriggerAllowsAutomaticSeparatorMenuItem:);
+        
+        BOOL allowsAutomaticSeparator = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("allowsAutomaticSeparator"));
+        item.state = allowsAutomaticSeparator ? NSControlStateValueOn : NSControlStateValueOff;
+        
+        [menu addItem:item];
+        [item release];
+    }
+    
+    {
+        NSMenuItem *item = [NSMenuItem new];
+        item.title = @"Prefers Default Size";
+        item.target = self;
+        item.action = @selector(_didTriggerPrefersDefaultSizeMenuItem:);
+        
+        BOOL prefersDefaultSize = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("prefersDefaultSize"));
+        item.state = prefersDefaultSize ? NSControlStateValueOn : NSControlStateValueOff;
+        
+        [menu addItem:item];
+        [item release];
+    }
+    
+    [menu addItem:[NSMenuItem separatorItem]];
+    
+    {
+        NSMenuItem *item = [NSMenuItem new];
+        item.title = @"Reload";
+        item.target = self;
+        item.action = @selector(_reloadMenu:);
+        [menu addItem:item];
+        [item release];
     }
     
     return [menu autorelease];

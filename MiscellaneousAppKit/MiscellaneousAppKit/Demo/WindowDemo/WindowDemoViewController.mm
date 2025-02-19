@@ -390,6 +390,9 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeTitlebarAccessoryViewControllersItemModel],
+        [self _makeRemoveTitlebarAccessoryViewControllerAtIndexItemModel],
+        [self _makeInsertTitlebarAccessoryViewControllerItemModel],
         [self _makeAddTitlebarAccessoryViewControllerItemModel],
         [self _makeWindowTitlebarLayoutDirectionItemModel],
         [self _makeTitlebarSeparatorStyleItemModel],
@@ -2385,6 +2388,68 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     }];
 }
 
+- (ConfigurationItemModel *)_makeInsertTitlebarAccessoryViewControllerItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Insert Titlebar Accessory View Controller"
+                                            userInfo:nil
+                                               label:@"Insert Titlebar Accessory View Controller"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSInteger count = unretainedSelf.view.window.titlebarAccessoryViewControllers.count;
+        
+        auto titlesVector = std::views::iota(0, count + 1)
+        | std::views::transform([](NSInteger index) {
+            return @(index).stringValue;
+        })
+        | std::ranges::to<std::vector<NSString *>>();
+        
+        NSArray<NSString *> *titles = [[NSArray alloc] initWithObjects:titlesVector.data() count:titlesVector.size()];
+        ConfigurationPopUpButtonDescription *description = [ConfigurationPopUpButtonDescription descriptionWithTitles:titles selectedTitles:@[] selectedDisplayTitle:nil];
+        [titles release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeRemoveTitlebarAccessoryViewControllerAtIndexItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Remove Titlebar Accessory View Controller"
+                                            userInfo:nil
+                                               label:@"Remove Titlebar Accessory View Controller"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSInteger count = unretainedSelf.view.window.titlebarAccessoryViewControllers.count;
+        
+        auto titlesVector = std::views::iota(0, count)
+        | std::views::transform([](NSInteger index) {
+            return @(index).stringValue;
+        })
+        | std::ranges::to<std::vector<NSString *>>();
+        
+        NSArray<NSString *> *titles = [[NSArray alloc] initWithObjects:titlesVector.data() count:titlesVector.size()];
+        ConfigurationPopUpButtonDescription *description = [ConfigurationPopUpButtonDescription descriptionWithTitles:titles selectedTitles:@[] selectedDisplayTitle:nil];
+        [titles release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeTitlebarAccessoryViewControllersItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Titlebar Accessory View Controllers"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Titlebar Accessory View Controllers : %ld", unretainedSelf.view.window.titlebarAccessoryViewControllers.count];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
 
 #pragma mark - Items 2
 
@@ -3119,6 +3184,23 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
         WindowDemoTitlebarAccessoryViewController *accessoryViewController = [WindowDemoTitlebarAccessoryViewController new];
         [window addTitlebarAccessoryViewController:accessoryViewController];
         [accessoryViewController release];
+        [configurationView reconfigureItemModelsWithIdentifiers:@[@"Insert Titlebar Accessory View Controller", @"Remove Titlebar Accessory View Controller", @"Titlebar Accessory View Controllers"]];
+        return NO;
+    } else if ([identifier isEqualToString:@"Insert Titlebar Accessory View Controller"]) {
+        NSString *title = static_cast<NSString *>(newValue);
+        NSInteger index = title.integerValue;
+        WindowDemoTitlebarAccessoryViewController *accessoryViewController = [WindowDemoTitlebarAccessoryViewController new];
+        [window insertTitlebarAccessoryViewController:accessoryViewController atIndex:index];
+        [accessoryViewController release];
+        [configurationView reconfigureItemModelsWithIdentifiers:@[@"Insert Titlebar Accessory View Controller", @"Remove Titlebar Accessory View Controller", @"Titlebar Accessory View Controllers"]];
+        return NO;
+    } else if ([identifier isEqualToString:@"Remove Titlebar Accessory View Controller"]) {
+        NSString *title = static_cast<NSString *>(newValue);
+        NSInteger index = title.integerValue;
+        WindowDemoTitlebarAccessoryViewController *accessoryViewController = [WindowDemoTitlebarAccessoryViewController new];
+        [window removeTitlebarAccessoryViewControllerAtIndex:index];
+        [accessoryViewController release];
+        [configurationView reconfigureItemModelsWithIdentifiers:@[@"Insert Titlebar Accessory View Controller", @"Remove Titlebar Accessory View Controller", @"Titlebar Accessory View Controllers"]];
         return NO;
     } else {
         abort();
