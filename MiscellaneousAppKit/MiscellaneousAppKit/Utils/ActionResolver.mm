@@ -54,6 +54,7 @@
     control.objectValue = control;;
     
     // control.objectValue은 NSCopying을 지원해야 함
+    // 참고 : NSControl이 Copy되면 작동하지 않을 것
     assert(objc_getAssociatedObject(control, [ActionResolver _associationKey]) == nil);
     objc_setAssociatedObject(control, [ActionResolver _associationKey], self, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }

@@ -10,7 +10,7 @@
 NSString * NSStringFromNSWindowSharingType(NSWindowSharingType sharingType) {
     switch (sharingType) {
         case NSWindowSharingNone:
-            return @"(None)";
+            return @"None";
         case NSWindowSharingReadOnly:
             return @"Read Only";
         case NSWindowSharingReadWrite:
@@ -21,7 +21,7 @@ NSString * NSStringFromNSWindowSharingType(NSWindowSharingType sharingType) {
 }
 
 NSWindowSharingType NSWindowSharingTypeFromString(NSString *string) {
-    if ([string isEqualToString:@"(None)"]) {
+    if ([string isEqualToString:@"None"]) {
         return NSWindowSharingNone;
     } else if ([string isEqualToString:@"Read Only"]) {
         return NSWindowSharingReadOnly;

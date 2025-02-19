@@ -22,7 +22,7 @@
         }
         
         for (NSString *selectedTitle in selectedTitles) {
-            assert(![selectedTitle isEqualToString:@"None"]);
+            assert(![selectedTitle isEqualToString:@"(None)"]);
         }
     } else {
         if (selectedDisplayTitle != nil) {

@@ -259,7 +259,7 @@
                 NSPopUpButton *popUpButton = item.popUpButton;
                 
                 [popUpButton.menu removeAllItems];
-                [popUpButton addItemWithTitle:@"None"];
+                [popUpButton addItemWithTitle:@"(None)"];
                 [popUpButton addItemsWithTitles:description.titles];
                 
                 if (NSString *selectedDisplayTitle = description.selectedDisplayTitle) {
@@ -277,7 +277,7 @@
                 //
                 
                 NSMenuItem *noneItem = [popUpButton itemAtIndex:0];
-                assert([noneItem.title isEqualToString:@"None"]);
+                assert([noneItem.title isEqualToString:@"(None)"]);
                 noneItem.enabled = NO;
                 noneItem.state = (description.selectedTitles.count > 0) ? NSControlStateValueOff : NSControlStateValueOn;
                 
@@ -410,6 +410,8 @@
     scrollView.drawsBackground = NO;
     scrollView.scrollerStyle = NSScrollerStyleOverlay;
     scrollView.autohidesScrollers = YES;
+    scrollView.automaticallyAdjustsContentInsets = NO;
+    scrollView.contentInsets = NSEdgeInsetsMake(0., 0., self.reloadButton.fittingSize.height + 20., 0.);
     
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(scrollView, sel_registerName("_addBackgroundView:"), self.visualEffectView);
     

@@ -1,5 +1,5 @@
 //
-//  WindowDemoWindow.m
+//  WindowDemoWindow.mm
 //  MiscellaneousAppKit
 //
 //  Created by Jinwoo Kim on 1/31/25.
@@ -7,7 +7,12 @@
 
 #import "WindowDemoWindow.h"
 #import "WindowDemoViewController.h"
+#import "WindowDemoWindowDelegate.h"
 #include <unistd.h>
+
+@interface WindowDemoWindow ()
+@property (retain, nonatomic, readonly) WindowDemoWindowDelegate *ownDelegate;
+@end
 
 @implementation WindowDemoWindow
 
@@ -22,12 +27,21 @@
         self.contentMinSize = NSMakeSize(400., 800.);
         self.canBecomeVisibleWithoutLogin = YES;
         
+        WindowDemoWindowDelegate *ownDelegate = [WindowDemoWindowDelegate new];
+        self.delegate = ownDelegate;
+        _ownDelegate = ownDelegate;
+        
         WindowDemoViewController *contentViewController = [WindowDemoViewController new];
         self.contentViewController = contentViewController;
         [contentViewController release];
     }
     
     return self;
+}
+
+- (void)dealloc {
+    [_ownDelegate release];
+    [super dealloc];
 }
 
 - (void)becomeKeyWindow {

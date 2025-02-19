@@ -13,4 +13,10 @@
 @end
 
 @implementation WindowDemoView
+
+- (void)resetCursorRects {
+    [super resetCursorRects];
+    [self addCursorRect:self.bounds cursor:NSCursor.arrowCursor];
+}
+
 @end

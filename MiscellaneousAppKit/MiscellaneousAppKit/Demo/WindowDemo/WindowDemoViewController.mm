@@ -33,6 +33,11 @@
 #import "WindowDemoWindow.h"
 #import "NSStringFromNSWindowOrderingMode.h"
 #import "ActionResolver.h"
+#import "WindowButtonsView.h"
+#import "NSStringFromNSWindowToolbarStyle.h"
+#import "NSStringFromNSTitlebarSeparatorStyle.h"
+#import "NSStringFromNSUserInterfaceLayoutDirection.h"
+#import "WindowDemoTitlebarAccessoryViewController.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
@@ -72,6 +77,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
 @property (retain, nonatomic, readonly, getter=_reloadWhenFrameChangedDebouncer) UnsafeDebouncer *reloadWhenFrameChangedDebouncer;
 @property (assign, nonatomic, getter=_animationResizeTimeRect, setter=_setAnimationResizeTimeRect:) NSRect animationResizeTimeRect;
 @property (retain, nonatomic, readonly, getter=_windowDefaultButton) NSButton *windowDefaultButton;
+@property (retain, nonatomic, getter=_windowFieldEditorScrollView, setter=_setWindowFieldEditorScrollView:) NSScrollView *windowFieldEditorScrollView;
 @end
 
 @implementation WindowDemoViewController
@@ -80,6 +86,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
 @synthesize toolbar = _toolbar;
 @synthesize appearance = _appearance;
 @synthesize windowDefaultButton = _windowDefaultButton;
+@synthesize windowFieldEditorScrollView = _windowFieldEditorScrollView;
 
 - (void)dealloc {
     [NSNotificationCenter.defaultCenter removeObserver:self];
@@ -93,6 +100,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     [_reloadWhenFrameChangedDebouncer cancelPendingBlock];
     [_reloadWhenFrameChangedDebouncer release];
     [_windowDefaultButton release];
+    [_windowFieldEditorScrollView release];
     
     [self.view.window removeObserver:self forKeyPath:@"contentLayoutRect"];
     [super dealloc];
@@ -382,6 +390,20 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeAddTitlebarAccessoryViewControllerItemModel],
+        [self _makeWindowTitlebarLayoutDirectionItemModel],
+        [self _makeTitlebarSeparatorStyleItemModel],
+        [self _makeToolbarStyleItemModel],
+        [self _makeTitlebarAppearsTransparentItemModel],
+//        [self _makeShowsToolbarButtonItemModel],
+        [self _makeStandardWindowButtonItemModel],
+        [self _makePushCrosshairCursorMenuItemModel],
+        [self _makeResetCursorRectsItemModel],
+        [self _makeInvalidateCursorRectsForViewItemModel],
+        [self _makeDiscardCursorRectsItemModel],
+        [self _makeCursorRectsEnabledItemModel],
+        [self _makeExcludedFromWindowsMenuItemModel],
+        [self _makeEndEditingForItemModel],
         [self _makeFieldEditorForObjectItemModel],
         [self _makeDisableKeyEquivalentForDefaultButtonCellItemModel],
         [self _makeEnableKeyEquivalentForDefaultButtonCellItemModel],
@@ -2146,8 +2168,6 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
 }
 
 - (ConfigurationItemModel *)_makeEnableKeyEquivalentForDefaultButtonCellItemModel {
-    __block auto unretainedSelf = self;
-    
     return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
                                           identifier:@"Enable Key Equivalent For Default Button Cell"
                                             userInfo:nil
@@ -2158,8 +2178,6 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
 }
 
 - (ConfigurationItemModel *)_makeDisableKeyEquivalentForDefaultButtonCellItemModel {
-    __block auto unretainedSelf = self;
-    
     return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
                                           identifier:@"Disable Key Equivalent For Default Button Cell"
                                             userInfo:nil
@@ -2172,16 +2190,203 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
 - (ConfigurationItemModel *)_makeFieldEditorForObjectItemModel {
     __block auto unretainedSelf = self;
     
-    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
                                           identifier:@"Field Editor"
                                             userInfo:nil
                                                label:@"Field Editor"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
-        return [ConfigurationPopUpButtonDescription descriptionWithTitles:@[@"createFlag : YES", @"createFlag : NO"]
-                                                           selectedTitles:@[]
-                                                     selectedDisplayTitle:nil];
+        return @(unretainedSelf.windowFieldEditorScrollView != nil);
     }];
 }
+
+- (ConfigurationItemModel *)_makeEndEditingForItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"End Editing"
+                                            userInfo:nil
+                                               label:@"End Editing"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeExcludedFromWindowsMenuItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Excluded From Windows Menu"
+                                            userInfo:nil
+                                               label:@"Excluded From Windows Menu"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.excludedFromWindowsMenu);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeCursorRectsEnabledItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Cursor Rects Enabled"
+                                            userInfo:nil
+                                               label:@"Cursor Rects Enabled"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.areCursorRectsEnabled);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeDiscardCursorRectsItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Discard Cursor Rects"
+                                            userInfo:nil
+                                               label:@"Discard Cursor Rects (Does nothing)"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeInvalidateCursorRectsForViewItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Invalidate Cursor Rects For View"
+                                            userInfo:nil
+                                               label:@"Invalidate Cursor Rects For View"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeResetCursorRectsItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Reset Cursor Rects"
+                                            userInfo:nil
+                                               label:@"Reset Cursor Rects"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makePushCrosshairCursorMenuItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Add Cursor Rect"
+                                            userInfo:nil
+                                               label:@"Add Cursor Rect"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeStandardWindowButtonItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Standard Window Button"
+                                            userInfo:nil
+                                               label:@"Standard Window Button"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeShowsToolbarButtonItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Shows Toolbar Button"
+                                            userInfo:nil
+                                               label:@"Shows Toolbar Button (deprecated)"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.showsToolbarButton);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeTitlebarAppearsTransparentItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Titlebar Appears Transparent"
+                                            userInfo:nil
+                                               label:@"Titlebar Appears Transparent"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.titlebarAppearsTransparent);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeToolbarStyleItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Toolbar Style"
+                                            userInfo:nil
+                                               label:@"Toolbar Style"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSUInteger count;
+        NSWindowToolbarStyle *allStyles = allNSWindowToolbarStyles(&count);
+        
+        auto titlesVector = std::views::iota(allStyles, allStyles + count)
+        | std::views::transform([](NSWindowToolbarStyle *ptr) {
+            return NSStringFromNSWindowToolbarStyle(*ptr);
+        })
+        | std::ranges::to<std::vector<NSString *>>();
+        
+        NSArray<NSString *> *titles = [[NSArray alloc] initWithObjects:titlesVector.data() count:titlesVector.size()];
+        NSString *selectedTitle = NSStringFromNSWindowToolbarStyle(unretainedSelf.view.window.toolbarStyle);
+        
+        ConfigurationPopUpButtonDescription *description = [ConfigurationPopUpButtonDescription descriptionWithTitles:titles selectedTitles:@[selectedTitle] selectedDisplayTitle:selectedTitle];
+        [titles release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeTitlebarSeparatorStyleItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Titlebar Separator Style"
+                                            userInfo:nil
+                                               label:@"Titlebar Separator Style"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSUInteger count;
+        NSTitlebarSeparatorStyle *allStyles = allNSTitlebarSeparatorStyles(&count);
+        
+        auto titlesVector = std::views::iota(allStyles, allStyles + count)
+        | std::views::transform([](NSTitlebarSeparatorStyle *ptr) {
+            return NSStringFromNSTitlebarSeparatorStyle(*ptr);
+        })
+        | std::ranges::to<std::vector<NSString *>>();
+        
+        NSArray<NSString *> *titles = [[NSArray alloc] initWithObjects:titlesVector.data() count:titlesVector.size()];
+        NSString *selectedTitle = NSStringFromNSTitlebarSeparatorStyle(unretainedSelf.view.window.titlebarSeparatorStyle);
+        
+        ConfigurationPopUpButtonDescription *description = [ConfigurationPopUpButtonDescription descriptionWithTitles:titles selectedTitles:@[selectedTitle] selectedDisplayTitle:selectedTitle];
+        [titles release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeWindowTitlebarLayoutDirectionItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Window Titlebar Layout Direction"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Window Titlebar Layout Direction : %@", NSStringFromNSUserInterfaceLayoutDirection(unretainedSelf.view.window.windowTitlebarLayoutDirection)];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeAddTitlebarAccessoryViewControllerItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Add Titlebar Accessory View Controller"
+                                            userInfo:nil
+                                               label:@"Add Titlebar Accessory View Controller"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+
+#pragma mark - Items 2
 
 - (void)_didTriggerDisplayLink:(CADisplayLink *)sender {
     if (_lastTimestamp == 0.0) {
@@ -2208,8 +2413,6 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
 - (void)_reconfigureSheetsAndChildWindowsItemModels {
     [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Attached Sheet & isSheet & sheetParent", @"Sheets", @"Child Windows", @"Add Child Window Ordered", @"Remove Child Window"]];
 }
-
-#pragma mark - Items 2
 
 - (NSArray<NSToolbarItemIdentifier> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
     return @[
@@ -2807,20 +3010,115 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
         reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(window, sel_registerName("_disableEnablingKeyEquivalentForDefaultButtonCell"));
         return NO;
     } else if ([identifier isEqualToString:@"Field Editor"]) {
-        NSString *title = static_cast<NSString *>(newValue);
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
         
-        BOOL createFlag;
-        if ([title isEqualToString:@"createFlag : YES"]) {
-            createFlag = YES;
-        } else if ([title isEqualToString:@"createFlag : NO"]) {
-            createFlag = NO;
+        if (boolValue) {
+            assert(self.windowFieldEditorScrollView == nil);
+            NSScrollView *windowFieldEditorScrollView = [NSScrollView new];
+            self.windowFieldEditorScrollView = windowFieldEditorScrollView;
+            
+            __kindof NSText *fieldEditor = [window fieldEditor:YES forObject:nil];
+            windowFieldEditorScrollView.documentView = fieldEditor;
+            
+            windowFieldEditorScrollView.drawsBackground = YES;
+            
+            [self.view addSubview:windowFieldEditorScrollView];
+            windowFieldEditorScrollView.translatesAutoresizingMaskIntoConstraints = NO;
+            [NSLayoutConstraint activateConstraints:@[
+                [windowFieldEditorScrollView.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
+                [windowFieldEditorScrollView.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor],
+                [windowFieldEditorScrollView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor multiplier:0.5],
+                [windowFieldEditorScrollView.heightAnchor constraintEqualToAnchor:self.view.heightAnchor multiplier:0.5]
+            ]];
         } else {
-            abort();
+            NSScrollView *windowFieldEditorScrollView = self.windowFieldEditorScrollView;
+            assert(windowFieldEditorScrollView != nil);
+            [windowFieldEditorScrollView removeFromSuperview];
+            self.windowFieldEditorScrollView = nil;
         }
         
-        NSText *text = [window fieldEditor:createFlag forObject:nil];
-        NSLog(@"%@", text);
+        return NO;
+    } else if ([identifier isEqualToString:@"End Editing"]) {
+        [window endEditingFor:nil];
+        return NO;
+    } else if ([identifier isEqualToString:@"Excluded From Windows Menu"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        window.excludedFromWindowsMenu = boolValue;
+        return NO;
+    } else if ([identifier isEqualToString:@"Cursor Rects Enabled"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
         
+        if (boolValue) {
+            [window enableCursorRects];
+        } else {
+            [window disableCursorRects];
+        }
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Discard Cursor Rects"]) {
+        [window discardCursorRects];
+        return NO;
+    } else if ([identifier isEqualToString:@"Invalidate Cursor Rects For View"]) {
+        [window invalidateCursorRectsForView:self.view];
+        return NO;
+    } else if ([identifier isEqualToString:@"Reset Cursor Rects"]) {
+        [window resetCursorRects];
+        return NO;
+    } else if ([identifier isEqualToString:@"Add Cursor Rect"]) {
+        [self.view addCursorRect:self.view.bounds cursor:NSCursor.crosshairCursor];
+        return NO;
+    } else if ([identifier isEqualToString:@"Standard Window Button"]) {
+        NSAlert *alert = [NSAlert new];
+        alert.messageText = @"Standard Window Button";
+        
+        WindowButtonsView *accessoryView = [[WindowButtonsView alloc] initWithFrame:NSMakeRect(0., 0., 300., 200.)];
+        alert.accessoryView = accessoryView;
+        [accessoryView release];
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        
+        [alert release];
+        return NO;
+    } else if ([identifier isEqualToString:@"Shows Toolbar Button"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        window.showsToolbarButton = boolValue;
+        return NO;
+    } else if ([identifier isEqualToString:@"Titlebar Appears Transparent"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        window.titlebarAppearsTransparent = boolValue;
+        
+        if (boolValue && ((window.styleMask & NSWindowStyleMaskFullSizeContentView) == 0)) {
+            window.styleMask |= NSWindowStyleMaskFullSizeContentView;
+            [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Style Mask"]];
+            
+            NSAlert *alert = [NSAlert new];
+            alert.messageText = @"Information";
+            alert.informativeText = @"NSWindowStyleMaskFullSizeContentView was added.";
+            
+            [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+                
+            }];
+            
+            [alert release];
+        }
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Toolbar Style"]) {
+        NSString *title = static_cast<NSString *>(newValue);
+        NSWindowToolbarStyle style = NSWindowToolbarStyleFromString(title);
+        window.toolbarStyle = style;
+        return YES;
+    } else if ([identifier isEqualToString:@"Titlebar Separator Style"]) {
+        NSString *title = static_cast<NSString *>(newValue);
+        NSTitlebarSeparatorStyle style = NSTitlebarSeparatorStyleFromString(title);
+        window.titlebarSeparatorStyle = style;
+        return YES;
+    } else if ([identifier isEqualToString:@"Add Titlebar Accessory View Controller"]) {
+        WindowDemoTitlebarAccessoryViewController *accessoryViewController = [WindowDemoTitlebarAccessoryViewController new];
+        [window addTitlebarAccessoryViewController:accessoryViewController];
+        [accessoryViewController release];
         return NO;
     } else {
         abort();
