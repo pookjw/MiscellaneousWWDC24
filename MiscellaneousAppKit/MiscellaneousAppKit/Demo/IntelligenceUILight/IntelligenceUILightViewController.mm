@@ -75,7 +75,6 @@
 }
 
 - (void)_reload {
-    NSCollectionViewDiffableDataSource<NSNull *, ConfigurationItemModel *> *dataSource = self.configurationView.dataSource;
     NSDiffableDataSourceSnapshot<NSNull *, ConfigurationItemModel *> *snapshot = [NSDiffableDataSourceSnapshot new];
     
     [snapshot appendSectionsWithIdentifiers:@[[NSNull null]]];
@@ -87,7 +86,7 @@
     ]
                intoSectionWithIdentifier:[NSNull null]];
     
-    [dataSource applySnapshot:snapshot animatingDifferences:NO];
+    [self.configurationView applySnapshot:snapshot animatingDifferences:NO];
     [snapshot release];
 }
 

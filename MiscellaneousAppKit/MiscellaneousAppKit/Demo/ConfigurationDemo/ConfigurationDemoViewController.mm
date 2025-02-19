@@ -197,7 +197,7 @@
     [snapshot appendItemsWithIdentifiers:@[switchItemModel, shouldReconfigureItemModel, sliderItemModel, stepperItemModel, buttonNoMenuItemModel, buttonWithMenuItemModel_1, buttonWithMenuItemModel_2, popUpButtonItemModel, colorWellItemModel] intoSectionWithIdentifier:[NSNull null]];
     [snapshot reloadItemsWithIdentifiers:snapshot.itemIdentifiers];
     
-    [self.configurationView.dataSource applySnapshot:snapshot animatingDifferences:YES];
+    [self.configurationView applySnapshot:snapshot animatingDifferences:YES];
     [snapshot release];
 }
 

@@ -16,11 +16,12 @@ NS_ASSUME_NONNULL_BEGIN
 @required - (BOOL)configurationView:(ConfigurationView *)configurationView didTriggerActionWithItemModel:(ConfigurationItemModel *)itemModel newValue:(id<NSCopying>)newValue;
 @end
 
-@interface ConfigurationView : NSView <NSTextFinderClient, NSUserInterfaceValidations>
+@interface ConfigurationView : NSView
 @property (assign, nonatomic) BOOL showBlendedBackground;
-@property (retain, nonatomic, readonly) NSCollectionViewDiffableDataSource<NSNull *, ConfigurationItemModel *> *dataSource;
+@property (copy, nonatomic, readonly) NSDiffableDataSourceSnapshot<NSNull *, ConfigurationItemModel *> *snapshot;
 @property (assign, nonatomic) id<ConfigurationViewDelegate> delegate;
 - (void)reconfigureItemModelsWithIdentifiers:(NSArray<NSString *> *)identifiers;
+- (void)applySnapshot:(NSDiffableDataSourceSnapshot<NSNull *, ConfigurationItemModel *> *)snapshot animatingDifferences:(BOOL)animatingDifferences;
 @end
 
 NS_ASSUME_NONNULL_END

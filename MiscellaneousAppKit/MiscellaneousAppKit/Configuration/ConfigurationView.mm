@@ -17,7 +17,7 @@
 #import "ConfigurationColorWellItem.h"
 #import "ConfigurationLabelItem.h"
 
-@interface ConfigurationView () <ConfigurationSwitchItemDelegate, ConfigurationSliderItemDelegate, ConfigurationStepperItemDelegate, ConfigurationButtonItemDelegate, ConfigurationPopUpButtonItemDelegate, ConfigurationColorWellItemDelegate>
+@interface ConfigurationView () <ConfigurationSwitchItemDelegate, ConfigurationSliderItemDelegate, ConfigurationStepperItemDelegate, ConfigurationButtonItemDelegate, ConfigurationPopUpButtonItemDelegate, ConfigurationColorWellItemDelegate, NSSearchFieldDelegate>
 @property (class, nonatomic, readonly, getter=_switchItemIdentifier) NSUserInterfaceItemIdentifier switchItemIdentifier;
 @property (class, nonatomic, readonly, getter=_sliderItemIdentifier) NSUserInterfaceItemIdentifier sliderItemIdentifier;
 @property (class, nonatomic, readonly, getter=_stepperItemIdentifier) NSUserInterfaceItemIdentifier stepperItemIdentifier;
@@ -31,8 +31,10 @@
 @property (retain, nonatomic, readonly, getter=_collectionView) NSCollectionView *collectionView;
 @property (retain, nonatomic, readonly, getter=_scrollView) NSScrollView *scrollView;
 @property (retain, nonatomic, readonly, getter=_reloadButton) NSButton *reloadButton;
-@property (retain, nonatomic, readonly, getter=_findButton) NSButton *findButton;
-@property (retain, nonatomic, readonly, getter=_textFinder) NSTextFinder *textFinder;
+@property (retain, nonatomic, readonly, getter=_searchField) NSSearchField *searchField;
+@property (retain, nonatomic, readonly, getter=_stackView) NSStackView *stackView;
+@property (copy, nonatomic, nullable, getter=_originalSnapshot, setter=_setOriginalSnapshot:) NSDiffableDataSourceSnapshot<NSNull *, ConfigurationItemModel *> *originalSnapshot;
+@property (retain, nonatomic, readonly, getter=_dataSource) NSCollectionViewDiffableDataSource<NSNull *, ConfigurationItemModel *> *dataSource;
 @end
 
 @implementation ConfigurationView
@@ -41,8 +43,8 @@
 @synthesize collectionView = _collectionView;
 @synthesize scrollView = _scrollView;
 @synthesize reloadButton = _reloadButton;
-@synthesize findButton = _findButton;
-@synthesize textFinder = _textFinder;
+@synthesize searchField = _searchField;
+@synthesize stackView = _stackView;
 
 + (NSUserInterfaceItemIdentifier)_switchItemIdentifier {
     return NSStringFromClass([ConfigurationSwitchItem class]);
@@ -100,8 +102,9 @@
     [_collectionView release];
     [_scrollView release];
     [_reloadButton release];
-    [_findButton release];
-    [_textFinder release];
+    [_searchField release];
+    [_stackView release];
+    [_originalSnapshot release];
     [super dealloc];
 }
 
@@ -123,29 +126,29 @@
 - (void)reconfigureItemModelsWithIdentifiers:(NSArray<NSString *> *)identifiers {
     if (identifiers.count == 0) return;
     
-    NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+    NSCollectionViewDiffableDataSource<NSNull * ,ConfigurationItemModel *> *dataSource = self.dataSource;
+    if (NSWidth(self.collectionView.bounds) == 0.) return;
     
-    BOOL found = NO;
+    NSDiffableDataSourceSnapshot *snapshot = [dataSource.snapshot copy];
+    
     for (ConfigurationItemModel *itemModel in snapshot.itemIdentifiers) {
         if ([identifiers containsObject:itemModel.identifier]) {
             [snapshot reloadItemsWithIdentifiers:@[itemModel]];
-            found = YES;
             break;
         }
     }
-    assert(found);
     
-    [self.dataSource applySnapshot:snapshot animatingDifferences:NO];
+    [dataSource applySnapshot:snapshot animatingDifferences:NO];
     [snapshot release];
 }
 
 - (void)_commonInit_ConfigurationView {
     NSRect bounds = self.bounds;
     
-    NSScrollView *scrollView = self.scrollView;
-    scrollView.frame = bounds;
-    scrollView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-    [self addSubview:scrollView];
+    NSStackView *stackView = self.stackView;
+    stackView.frame = bounds;
+    stackView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    [self addSubview:stackView];
     
     NSButton *reloadButton = self.reloadButton;
     reloadButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -154,17 +157,22 @@
         [reloadButton.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-20.],
         [reloadButton.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:-20.]
     ]];
-    
-    NSButton *findButton = self.findButton;
-    findButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:findButton];
-    [NSLayoutConstraint activateConstraints:@[
-        [findButton.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:20.],
-        [findButton.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:-20.]
-    ]];
 }
 
-- (NSCollectionViewDiffableDataSource<NSNull *,ConfigurationItemModel *> *)dataSource {
+- (NSDiffableDataSourceSnapshot<NSNull *,ConfigurationItemModel *> *)snapshot {
+    if (auto originalSnapshot = self.originalSnapshot) {
+        return [[originalSnapshot copy] autorelease];
+    }
+    
+    return [[self.dataSource.snapshot copy] autorelease];
+}
+
+- (void)applySnapshot:(NSDiffableDataSourceSnapshot<NSNull *,ConfigurationItemModel *> *)snapshot animatingDifferences:(BOOL)animatingDifferences {
+    self.originalSnapshot = snapshot;
+    [self _filterItemModelsWithQuery:self.searchField.stringValue animatingDifferences:animatingDifferences];
+}
+
+- (NSCollectionViewDiffableDataSource<NSNull *,ConfigurationItemModel *> *)_dataSource {
     if (auto dataSource = _dataSource) return dataSource;
     
     __block auto unretainedSelf = self;
@@ -221,15 +229,23 @@
                 return item;
             }
             case ConfigurationItemModelTypeButton: {
-                assert([value isKindOfClass:[ConfigurationButtonDescription class]]);
-                auto description = static_cast<ConfigurationButtonDescription *>(value);
-                
                 ConfigurationButtonItem *item = [collectionView makeItemWithIdentifier:ConfigurationView.buttonItemIdentifier forIndexPath:indexPath];
                 item.delegate = unretainedSelf;
                 item.textField.stringValue = label;
-                item.showsMenuAsPrimaryAction = description.showsMenuAsPrimaryAction;
-                item.button.menu = description.menu;
-                item.button.title = description.title;
+                
+                if ([value isKindOfClass:[ConfigurationButtonDescription class]]) {
+                    auto description = static_cast<ConfigurationButtonDescription *>(value);
+                    item.showsMenuAsPrimaryAction = description.showsMenuAsPrimaryAction;
+                    item.button.menu = description.menu;
+                    item.button.title = description.title;
+                } else if ([value isKindOfClass:[NSNull class]]) {
+                    NSLog(@"Setting the class of Value to NSNull is deprecated. Instead, use ConfigurationButtonDescription.");
+                    item.showsMenuAsPrimaryAction = NO;
+                    item.button.menu = nil;
+                    item.button.title = @"Button";
+                } else {
+                    abort();
+                }
                 
                 return item;
             }
@@ -394,7 +410,6 @@
     scrollView.drawsBackground = NO;
     scrollView.scrollerStyle = NSScrollerStyleOverlay;
     scrollView.autohidesScrollers = YES;
-    scrollView.findBarVisible = YES;
     
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(scrollView, sel_registerName("_addBackgroundView:"), self.visualEffectView);
     
@@ -429,27 +444,35 @@
     return reloadButton;
 }
 
-- (NSButton *)_findButton {
-    if (auto findButton = _findButton) return findButton;
+- (NSSearchField *)_searchField {
+    if (auto searchField = _searchField) return searchField;
     
-    NSButton *findButton = [NSButton buttonWithImage:[NSImage imageWithSystemSymbolName:@"magnifyingglass" accessibilityDescription:nil]
-                                                target:self
-                                                action:@selector(performTextFinderAction:)];
-    findButton.tag = NSTextFinderActionShowFindInterface;
-    findButton.toolTip = @"Find";
+    NSSearchField *searchField = [NSSearchField new];
+    searchField.delegate = self;
     
-    _findButton = [findButton retain];
-    return findButton;
+    _searchField = searchField;
+    return searchField;
 }
 
-- (NSTextFinder *)_textFinder {
-    if (auto textFinder = _textFinder) return textFinder;
+- (NSStackView *)_stackView {
+    if (auto stackView = _stackView) return stackView;
     
-    NSTextFinder *textFinder = [NSTextFinder new];
-    textFinder.client = self;
+    NSStackView *stackView = [NSStackView new];
+    stackView.orientation = NSUserInterfaceLayoutOrientationVertical;
+    stackView.distribution = NSStackViewDistributionFillProportionally;
+    stackView.alignment = NSLayoutAttributeWidth;
     
-    _textFinder = textFinder;
-    return textFinder;
+    NSSearchField *searchField = self.searchField;
+    NSScrollView *scrollView = self.scrollView;
+    
+//    [searchField setContentHuggingPriority:NSLayoutPriorityRequired forOrientation:NSLayoutConstraintOrientationVertical];
+//    [scrollView setContentHuggingPriority:NSLayoutPriorityDefaultHigh forOrientation:NSLayoutConstraintOrientationVertical];
+    
+    [stackView addArrangedSubview:searchField];
+    [stackView addArrangedSubview:scrollView];
+    
+    _stackView = stackView;
+    return stackView;
 }
 
 - (void)setDelegate:(id<ConfigurationViewDelegate>)delegate {
@@ -478,13 +501,7 @@
 }
 
 - (void)performTextFinderAction:(id)sender {
-    NSInteger tag = reinterpret_cast<NSInteger (*)(id, SEL)>(objc_msgSend)(sender, @selector(tag));
-    assert([self.textFinder validateAction:static_cast<NSTextFinderAction>(tag)]);
-    [self.textFinder performAction:static_cast<NSTextFinderAction>(tag)];
-}
-
-- (BOOL)validateUserInterfaceItem:(id<NSValidatedUserInterfaceItem>)item {
-    return [self.textFinder validateAction:static_cast<NSTextFinderAction>(item.tag)];
+    [self.searchField becomeFirstResponder];
 }
 
 - (void)configurationSwitchItem:(ConfigurationSwitchItem *)configurationSwitchItem didToggleValue:(BOOL)value {
@@ -546,12 +563,46 @@
     [delegate didTriggerReloadButtonWithConfigurationView:self];
 }
 
-- (NSString *)string {
-    return @"Foo";
+- (void)_filterItemModelsWithQuery:(NSString * _Nullable)query animatingDifferences:(BOOL)animatingDifferences {
+    NSDiffableDataSourceSnapshot<NSNull *, ConfigurationItemModel *> * __autoreleasing snapshot;
+    if ((query == nil) or (query.length == 0)) {
+        snapshot = self.originalSnapshot;
+    } else {
+        snapshot = [[NSDiffableDataSourceSnapshot new] autorelease];
+        NSDiffableDataSourceSnapshot<NSNull *, ConfigurationItemModel *> *originalSnapshot = self.originalSnapshot;
+        
+        for (NSNull *sectionModel in originalSnapshot.sectionIdentifiers) {
+            [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
+            
+            for (ConfigurationItemModel *itemModel in [originalSnapshot itemIdentifiersInSectionWithIdentifier:sectionModel]) {
+                BOOL contains;
+                
+                NSString *identifier = itemModel.identifier;
+                if ([identifier localizedCaseInsensitiveContainsString:query]) {
+                    contains = YES;
+                } else {
+                    id value = itemModel.valueResolver(itemModel);
+                    NSString *label = itemModel.labelResolver(itemModel, value);
+                    
+                    if ([label localizedCaseInsensitiveContainsString:query]) {
+                        contains = YES;
+                    } else {
+                        contains = NO;
+                    }
+                }
+                
+                if (contains) {
+                    [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
+                }
+            }
+        }
+    }
+    
+    [self.dataSource applySnapshot:snapshot animatingDifferences:animatingDifferences];
 }
 
-- (void)replaceCharactersInRange:(NSRange)range withString:(NSString *)string {
-    
+- (void)controlTextDidChange:(NSNotification *)obj {
+    [self _filterItemModelsWithQuery:self.searchField.stringValue animatingDifferences:YES];
 }
 
 @end

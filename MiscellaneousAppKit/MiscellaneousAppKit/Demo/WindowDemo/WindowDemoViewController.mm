@@ -443,7 +443,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     
     [snapshot reloadItemsWithIdentifiers:snapshot.itemIdentifiers];
     
-    [self.configurationView.dataSource applySnapshot:snapshot animatingDifferences:YES];
+    [self.configurationView applySnapshot:snapshot animatingDifferences:YES];
     [snapshot release];
 }
 

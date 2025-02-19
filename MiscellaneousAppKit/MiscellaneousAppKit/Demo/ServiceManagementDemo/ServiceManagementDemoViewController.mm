@@ -67,7 +67,7 @@ extern "C" char * xpc_bundle_get_property(xpc_object_t bundle, int32_t key);
     
     [snapshot reloadItemsWithIdentifiers:snapshot.itemIdentifiers];
     
-    [self.configurationView.dataSource applySnapshot:snapshot animatingDifferences:YES];
+    [self.configurationView applySnapshot:snapshot animatingDifferences:YES];
     [snapshot release];
 }
 
