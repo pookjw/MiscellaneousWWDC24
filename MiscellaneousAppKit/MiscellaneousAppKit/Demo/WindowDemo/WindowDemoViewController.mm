@@ -30,6 +30,9 @@
 #import "WindowDemoView.h"
 #import "NSStringFromNSWindowLevel.h"
 #import "WindowDemoSetFrameUsingNameView.h"
+#import "WindowDemoWindow.h"
+#import "NSStringFromNSWindowOrderingMode.h"
+#import "ActionResolver.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
@@ -68,6 +71,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
 @property (retain, nonatomic, nullable, getter=_displayLink, setter=_setDisplayLink:) CADisplayLink *displayLink;
 @property (retain, nonatomic, readonly, getter=_reloadWhenFrameChangedDebouncer) UnsafeDebouncer *reloadWhenFrameChangedDebouncer;
 @property (assign, nonatomic, getter=_animationResizeTimeRect, setter=_setAnimationResizeTimeRect:) NSRect animationResizeTimeRect;
+@property (retain, nonatomic, readonly, getter=_windowDefaultButton) NSButton *windowDefaultButton;
 @end
 
 @implementation WindowDemoViewController
@@ -75,6 +79,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
 @synthesize configurationView = _configurationView;
 @synthesize toolbar = _toolbar;
 @synthesize appearance = _appearance;
+@synthesize windowDefaultButton = _windowDefaultButton;
 
 - (void)dealloc {
     [NSNotificationCenter.defaultCenter removeObserver:self];
@@ -87,8 +92,9 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     [_displayLink release];
     [_reloadWhenFrameChangedDebouncer cancelPendingBlock];
     [_reloadWhenFrameChangedDebouncer release];
-    [self.view.window removeObserver:self forKeyPath:@"contentLayoutRect"];
+    [_windowDefaultButton release];
     
+    [self.view.window removeObserver:self forKeyPath:@"contentLayoutRect"];
     [super dealloc];
 }
 
@@ -160,6 +166,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
         oldWindow.appearanceSource = nil;
         [oldWindow removeObserver:self forKeyPath:@"contentLayoutRect"];
         oldWindow.toolbar = nil;
+        oldWindow.defaultButtonCell = nil;
     }
     
     if (newWindow) {
@@ -352,12 +359,33 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     return toolbar;
 }
 
+- (NSButton *)_windowDefaultButton {
+    if (auto windowDefaultButton = _windowDefaultButton) return windowDefaultButton;
+    
+    NSButton *windowDefaultButton = [NSButton buttonWithImage:[NSImage imageWithSystemSymbolName:@"apple.intelligence"
+                                                                        accessibilityDescription:nil]
+                                                       target:nil
+                                                       action:nil];
+    
+    ActionResolver *resolver = [ActionResolver resolver:^(id  _Nonnull sender) {
+        NSLog(@"Clicked windowDefaultButton!");
+    }];
+    [resolver setupControl:windowDefaultButton];
+    
+    _windowDefaultButton = [windowDefaultButton retain];
+    return windowDefaultButton;
+}
+
 - (void)_reload {
     NSDiffableDataSourceSnapshot *snapshot = [NSDiffableDataSourceSnapshot new];
     [snapshot appendSectionsWithIdentifiers:@[[NSNull null]]];
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeDefaultButtonCellItemModel],
+        [self _makeParentWindowItemModel],
+        [self _makeRemoveChildWindowItemModel],
+        [self _makeAddChildWindowOrderedItemModel],
         [self _makeRunToolbarCustomizationPaletteItemModel],
         [self _makeToggleToolbarShownItemModel],
         [self _makeToolbarItemModel],
@@ -2028,6 +2056,92 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     }];
 }
 
+- (ConfigurationItemModel *)_makeAddChildWindowOrderedItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Add Child Window Ordered"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Add Child Window Ordered : %ld child windows", unretainedSelf.view.window.childWindows.count];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSUInteger count;
+        NSWindowOrderingMode *allModes = allNSWindowOrderingModes(&count);
+        
+        auto titlesVector = std::views::iota(allModes, allModes + count)
+        | std::views::transform([](NSWindowOrderingMode *modePtr) {
+            return NSStringFromNSWindowOrderingMode(*modePtr);
+        })
+        | std::ranges::to<std::vector<NSString *>>();
+        
+        NSArray<NSString *> *titles = [[NSArray alloc] initWithObjects:titlesVector.data() count:titlesVector.size()];
+        ConfigurationPopUpButtonDescription *description = [ConfigurationPopUpButtonDescription descriptionWithTitles:titles selectedTitles:@[] selectedDisplayTitle:nil];
+        [titles release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeRemoveChildWindowItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Remove Child Window"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Remove Child Window : %ld child windows", unretainedSelf.view.window.childWindows.count];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSMenu *menu = [NSMenu new];
+        
+        NSArray<__kindof NSWindow *> *childWindows = unretainedSelf.view.window.childWindows;
+        
+        for (NSWindow *childWindow in childWindows) {
+            NSMenuItem *item = [NSMenuItem new];
+            item.title = childWindow.description;
+            ActionResolver *resolver = [ActionResolver resolver:^(id  _Nonnull sender) {
+                [unretainedSelf.view.window removeChildWindow:childWindow];
+                [unretainedSelf _reconfigureSheetsAndChildWindowsItemModels];
+            }];
+            [resolver setupMenuItem:item];
+            [menu addItem:item];
+            [item release];
+        }
+        
+        ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Menu" menu:menu showsMenuAsPrimaryAction:YES];
+        [menu release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeParentWindowItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Parent Window"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Parent Window : %@", unretainedSelf.view.window.parentWindow];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeDefaultButtonCellItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Default Button Cell"
+                                            userInfo:nil
+                                               label:@"Default Button Cell"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.defaultButtonCell != nil);
+    }];
+}
+
 - (void)_didTriggerDisplayLink:(CADisplayLink *)sender {
     if (_lastTimestamp == 0.0) {
         _lastTimestamp = sender.timestamp;
@@ -2048,6 +2162,10 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
 
 - (void)_didTriggerTestToolbarItem:(NSToolbarItem *)sender {
     NSLog(@"%s", __func__);
+}
+
+- (void)_reconfigureSheetsAndChildWindowsItemModels {
+    [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Attached Sheet & isSheet & sheetParent", @"Sheets", @"Child Windows", @"Add Child Window Ordered", @"Remove Child Window"]];
 }
 
 #pragma mark - Items 2
@@ -2305,7 +2423,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
         alert.informativeText = [NSString stringWithFormat:@"isSheet : %@\nsheetParent : %p", _panel.isSheet ? @"YES" : @"NO", _panel.sheetParent];
         [alert release];
         
-        [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Attached Sheet & isSheet & sheetParent", @"Sheets", @"Child Windows"]];
+        [self _reconfigureSheetsAndChildWindowsItemModels];
         return NO;
     } else if ([identifier isEqualToString:@"Begin Sheet & End Sheet"]) {
         NSAlert *alert = [NSAlert new];
@@ -2323,7 +2441,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
         
         [alert release];
         
-        [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Attached Sheet & isSheet & sheetParent", @"Sheets", @"Child Windows"]];
+        [self _reconfigureSheetsAndChildWindowsItemModels];
         return NO;
     } else if ([identifier isEqualToString:@"Begin Critical Sheet & End Sheet"]) {
         {
@@ -2359,7 +2477,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
             [alert release];
         }
         
-        [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Attached Sheet & isSheet & sheetParent", @"Sheets", @"Child Windows"]];
+        [self _reconfigureSheetsAndChildWindowsItemModels];
         return NO;
     } else if ([identifier isEqualToString:@"Aspect Ratio"] or [identifier isEqualToString:@"Resize Increments"] or [identifier isEqualToString:@"Content Aspect Ratio"]) {
         window.aspectRatio = NSZeroSize;
@@ -2608,6 +2726,36 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
         return NO;
     } else if ([identifier isEqualToString:@"Run Toolbar Customization Palette"]) {
         [window runToolbarCustomizationPalette:nil];
+        return NO;
+    } else if ([identifier isEqualToString:@"Add Child Window Ordered"]) {
+        auto title = static_cast<NSString *>(newValue);
+        NSWindowOrderingMode mode = NSWindowOrderingModeFromString(title);
+        
+        WindowDemoWindow *childWindow = [WindowDemoWindow new];
+        [window addChildWindow:childWindow ordered:mode];
+        [childWindow release];
+        [self _reconfigureSheetsAndChildWindowsItemModels];
+        return NO;
+    } else if ([identifier isEqualToString:@"Default Button Cell"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        NSButton *windowDefaultButton = self.windowDefaultButton;
+        
+        if (boolValue) {
+            assert(windowDefaultButton.superview == nil);
+            
+            [self.view addSubview:windowDefaultButton];
+            windowDefaultButton.translatesAutoresizingMaskIntoConstraints = NO;
+            [NSLayoutConstraint activateConstraints:@[
+                [windowDefaultButton.centerXAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.centerXAnchor],
+                [windowDefaultButton.centerYAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.centerYAnchor]
+            ]];
+            
+            window.defaultButtonCell = windowDefaultButton.cell;
+        } else {
+            window.defaultButtonCell = nil;
+            [windowDefaultButton removeFromSuperview];
+        }
+        
         return NO;
     } else {
         abort();

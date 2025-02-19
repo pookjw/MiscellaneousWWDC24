@@ -336,7 +336,7 @@
 //        NSInteger numberOfItems = reinterpret_cast<NSInteger (*)(id, SEL, NSInteger)>(objc_msgSend)(_dataSourceSnapshot, sel_registerName("numberOfItemsInSection:"), sectionIndex);
         
         NSCollectionLayoutSize *itemSize = [NSCollectionLayoutSize sizeWithWidthDimension:[NSCollectionLayoutDimension fractionalWidthDimension:1.]
-                                                                          heightDimension:[NSCollectionLayoutDimension estimatedDimension:60.]];
+                                                                          heightDimension:[NSCollectionLayoutDimension estimatedDimension:40.]];
         
         NSCollectionLayoutSize *separatorSize = [NSCollectionLayoutSize sizeWithWidthDimension:[NSCollectionLayoutDimension fractionalWidthDimension:1.]
                                                                                heightDimension:[NSCollectionLayoutDimension absoluteDimension:1.]];
@@ -349,7 +349,7 @@
         NSCollectionLayoutItem *item = [NSCollectionLayoutItem itemWithLayoutSize:itemSize supplementaryItems:@[separatorItem]];
         
         NSCollectionLayoutSize *groupSize = [NSCollectionLayoutSize sizeWithWidthDimension:[NSCollectionLayoutDimension fractionalWidthDimension:1.]
-                                                                           heightDimension:[NSCollectionLayoutDimension estimatedDimension:61.]];
+                                                                           heightDimension:[NSCollectionLayoutDimension estimatedDimension:41.]];
         
         NSCollectionLayoutGroup *group = [NSCollectionLayoutGroup horizontalGroupWithLayoutSize:groupSize subitem:item count:1];
         

@@ -16,17 +16,7 @@
 }
 
 + (SEL)action {
-    return @selector(_didTrigger:);
-}
-
-+ (BOOL)conformsToProtocol:(Protocol *)protocol {
-    BOOL conforms = [super conformsToProtocol:protocol];
-    
-    if (!conforms) {
-        NSLog(@"%@", NSStringFromProtocol(protocol));
-    }
-    
-    return conforms;
+    return @selector(_didTriggerActionResolver:);
 }
 
 - (instancetype)initWithResolver:(void (^)(id _Nonnull))resolver {
@@ -46,20 +36,26 @@
     [super dealloc];
 }
 
-- (void)_didTrigger:(id)sender {
+- (void)_didTriggerActionResolver:(id)sender {
     _resolver(sender);
 }
 
 - (void)setupMenuItem:(NSMenuItem *)menuItem {
     menuItem.target = self;
     menuItem.action = [ActionResolver action];
+    
+    // NSMenuItem은 복사될 여지가 있기에 Associated Object로 처리하면 안 됨
     menuItem.representedObject = self;
 }
 
 - (void)setupControl:(NSControl *)control {
     control.target = self;
     control.action = [ActionResolver action];
-    control.objectValue = self;
+    control.objectValue = control;;
+    
+    // control.objectValue은 NSCopying을 지원해야 함
+    assert(objc_getAssociatedObject(control, [ActionResolver _associationKey]) == nil);
+    objc_setAssociatedObject(control, [ActionResolver _associationKey], self, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end
