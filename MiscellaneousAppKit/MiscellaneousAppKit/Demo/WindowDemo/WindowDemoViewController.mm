@@ -382,6 +382,9 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeFieldEditorForObjectItemModel],
+        [self _makeDisableKeyEquivalentForDefaultButtonCellItemModel],
+        [self _makeEnableKeyEquivalentForDefaultButtonCellItemModel],
         [self _makeDefaultButtonCellItemModel],
         [self _makeParentWindowItemModel],
         [self _makeRemoveChildWindowItemModel],
@@ -2142,6 +2145,44 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     }];
 }
 
+- (ConfigurationItemModel *)_makeEnableKeyEquivalentForDefaultButtonCellItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Enable Key Equivalent For Default Button Cell"
+                                            userInfo:nil
+                                               label:@"Enable Key Equivalent For Default Button Cell"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeDisableKeyEquivalentForDefaultButtonCellItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Disable Key Equivalent For Default Button Cell"
+                                            userInfo:nil
+                                               label:@"Disable Key Equivalent For Default Button Cell"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeFieldEditorForObjectItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Field Editor"
+                                            userInfo:nil
+                                               label:@"Field Editor"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationPopUpButtonDescription descriptionWithTitles:@[@"createFlag : YES", @"createFlag : NO"]
+                                                           selectedTitles:@[]
+                                                     selectedDisplayTitle:nil];
+    }];
+}
+
 - (void)_didTriggerDisplayLink:(CADisplayLink *)sender {
     if (_lastTimestamp == 0.0) {
         _lastTimestamp = sender.timestamp;
@@ -2755,6 +2796,30 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
             window.defaultButtonCell = nil;
             [windowDefaultButton removeFromSuperview];
         }
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Enable Key Equivalent For Default Button Cell"]) {
+//        [window enableKeyEquivalentForDefaultButtonCell];
+        reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(window, sel_registerName("_enableEnablingKeyEquivalentForDefaultButtonCell"));
+        return NO;
+    } else if ([identifier isEqualToString:@"Disable Key Equivalent For Default Button Cell"]) {
+        //        [window disableKeyEquivalentForDefaultButtonCell];
+        reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(window, sel_registerName("_disableEnablingKeyEquivalentForDefaultButtonCell"));
+        return NO;
+    } else if ([identifier isEqualToString:@"Field Editor"]) {
+        NSString *title = static_cast<NSString *>(newValue);
+        
+        BOOL createFlag;
+        if ([title isEqualToString:@"createFlag : YES"]) {
+            createFlag = YES;
+        } else if ([title isEqualToString:@"createFlag : NO"]) {
+            createFlag = NO;
+        } else {
+            abort();
+        }
+        
+        NSText *text = [window fieldEditor:createFlag forObject:nil];
+        NSLog(@"%@", text);
         
         return NO;
     } else {
