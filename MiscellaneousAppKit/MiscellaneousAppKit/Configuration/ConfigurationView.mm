@@ -126,15 +126,29 @@
 - (void)reconfigureItemModelsWithIdentifiers:(NSArray<NSString *> *)identifiers {
     if (identifiers.count == 0) return;
     
-    NSCollectionViewDiffableDataSource<NSNull * ,ConfigurationItemModel *> *dataSource = self.dataSource;
-    if (NSWidth(self.collectionView.bounds) == 0.) return;
+    {
+        NSDiffableDataSourceSnapshot<NSNull *, ConfigurationItemModel *> *originalSnapshot = self.originalSnapshot;
+        
+        NSMutableArray<NSString *> *verification = [identifiers mutableCopy];
+        for (ConfigurationItemModel *itemModel in originalSnapshot.itemIdentifiers) {
+            NSInteger index = [verification indexOfObject:itemModel.identifier];
+            if (index != NSNotFound) {
+                [verification removeObjectAtIndex:index];
+            }
+        }
+        assert(verification.count == 0);
+        [verification release];
+    }
     
-    NSDiffableDataSourceSnapshot *snapshot = [dataSource.snapshot copy];
+    NSRect bounds = self.collectionView.bounds;
+    if (NSWidth(bounds) == 0. or NSHeight(bounds) == 0.) return;
+    
+    NSCollectionViewDiffableDataSource<NSNull *, ConfigurationItemModel *> *dataSource = self.dataSource;
+    NSDiffableDataSourceSnapshot<NSNull *, ConfigurationItemModel *> *snapshot = [dataSource.snapshot copy];
     
     for (ConfigurationItemModel *itemModel in snapshot.itemIdentifiers) {
         if ([identifiers containsObject:itemModel.identifier]) {
             [snapshot reloadItemsWithIdentifiers:@[itemModel]];
-            break;
         }
     }
     

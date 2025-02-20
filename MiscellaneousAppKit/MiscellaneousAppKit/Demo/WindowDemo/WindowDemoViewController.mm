@@ -38,6 +38,9 @@
 #import "NSStringFromNSTitlebarSeparatorStyle.h"
 #import "NSStringFromNSUserInterfaceLayoutDirection.h"
 #import "WindowDemoTitlebarAccessoryViewController.h"
+#import "NSStringFromNSWindowUserTabbingPreference.h"
+#import <CoreFoundation/CoreFoundation.h>
+#import "NSStringFromNSWindowTabbingMode.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
@@ -65,6 +68,8 @@ NSAppearanceName const NSAppearanceNameVibrantDarkVisibleBezels = @"NSAppearance
 NSAppearanceName const NSAppearanceNameDarkAquaVisibleBezels = @"NSAppearanceNameDarkAquaVisibleBezels";
 NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppearanceNameAccessibilityGraphiteDarkAqua";
 
+APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceChanged;
+
 @interface WindowDemoViewController () <ConfigurationViewDelegate, NSAppearanceCustomization, NSToolbarDelegate> {
     double _lastTimestamp;
 }
@@ -90,6 +95,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
 
 - (void)dealloc {
     [NSNotificationCenter.defaultCenter removeObserver:self];
+    [NSDistributedNotificationCenter.defaultCenter removeObserver:self];
     [_ownView release];
     [_configurationView release];
     [_toolbar release];
@@ -102,7 +108,11 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     [_windowDefaultButton release];
     [_windowFieldEditorScrollView release];
     
-    [self.view.window removeObserver:self forKeyPath:@"contentLayoutRect"];
+    if (NSWindow *window = self.view.window) {
+        [window removeObserver:self forKeyPath:@"contentLayoutRect"];
+        [window removeObserver:self forKeyPath:@"tabGroup"];
+    }
+    
     [super dealloc];
 }
 
@@ -117,13 +127,43 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"contentLayoutRect"] and [object isKindOfClass:[NSWindow class]]) {
-//        [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Content Layout Rect"]];
-        [self.reloadWhenFrameChangedDebouncer scheduleBlock:^(BOOL cancelled) {
-            if (cancelled) return;
-            [self _reload];
-        }];
-        return;
+    if ([keyPath isEqualToString:@"contentLayoutRect"]) {
+        if ([object isKindOfClass:[NSWindow class]]) {
+            assert([self.view.window isEqual:object]);
+    //        [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Content Layout Rect"]];
+            [self.reloadWhenFrameChangedDebouncer scheduleBlock:^(BOOL cancelled) {
+                if (cancelled) return;
+                [self _reload];
+            }];
+            return;
+        }
+    } else if ([keyPath isEqualToString:@"tabGroup"]) {
+        if ([object isKindOfClass:[NSWindow class]]) {
+            assert([self.view.window isEqual:object]);
+            
+            if (NSWindowTabGroup *oldTabGroup = change[NSKeyValueChangeOldKey]) {
+                if (![oldTabGroup isKindOfClass:[NSNull class]]) {
+                    [oldTabGroup removeObserver:self forKeyPath:@"windows"];
+                }
+            }
+            
+            NSWindowTabGroup *newTabGroup = change[NSKeyValueChangeNewKey];
+            if (newTabGroup == nil) newTabGroup = self.view.window.tabGroup;
+            if ([newTabGroup isKindOfClass:[NSNull class]]) newTabGroup = self.view.window.tabGroup;
+            
+            if (newTabGroup != nil) {
+                [newTabGroup addObserver:self forKeyPath:@"windows" options:NSKeyValueObservingOptionNew context:NULL];
+                [self _reconfigureTabItemModels];
+            }
+            
+            return;
+        }
+    } else if ([keyPath isEqual:@"windows"]) {
+        if ([object isKindOfClass:[NSWindowTabGroup class]]) {
+            assert([self.view.window.tabGroup isEqual:object]);
+            [self _reconfigureTabItemModels];
+            return;
+        }
     }
     
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -163,6 +203,11 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_windowDidResignKey:) name:NSWindowDidResignKeyNotification object:nil];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:nil];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_windowDidResignMain:) name:NSWindowDidResignMainNotification object:nil];
+    
+    [NSDistributedNotificationCenter.defaultCenter addObserver:self
+                                                      selector:@selector(_didChangeAppearancePreference:)
+                                                          name:NSAppleNoRedisplayAppearancePreferenceChanged
+                                                        object:nil];
 }
 
 - (void)_viewDidMoveToWindow:(NSWindow * _Nullable)newWindow fromWindow:(NSWindow * _Nullable)oldWindow {
@@ -173,6 +218,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     if (oldWindow) {
         oldWindow.appearanceSource = nil;
         [oldWindow removeObserver:self forKeyPath:@"contentLayoutRect"];
+        [oldWindow removeObserver:self forKeyPath:@"tabGroup"];
         oldWindow.toolbar = nil;
         oldWindow.defaultButtonCell = nil;
     }
@@ -180,6 +226,7 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     if (newWindow) {
         newWindow.appearanceSource = self;
         [newWindow addObserver:self forKeyPath:@"contentLayoutRect" options:NSKeyValueObservingOptionNew context:NULL];
+        [newWindow addObserver:self forKeyPath:@"tabGroup" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:NULL];
     }
 }
 
@@ -335,6 +382,11 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Main Window"]];
 }
 
+- (void)_didChangeAppearancePreference:(NSNotification *)notification {
+    reinterpret_cast<void (*)(Class, SEL)>(objc_msgSend)([NSWindow class], sel_registerName("_updateTabbingModePreference"));
+    [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"User Tabbing Preference"]];
+}
+
 - (WindowDemoView *)_ownView {
     if (auto ownView = _ownView) return ownView;
     
@@ -390,6 +442,19 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeTabGroupIdentifierItemModel],
+        [self _makeTabbedWindowsItemModel],
+        [self _makeAddTabbedWindowOrderedItemModel],
+        [self _makeTabbingIdentifierItemModel],
+        [self _makeToggleTabBarItemModel],
+        [self _makeTabbingModeItemModel],
+        [self _makeTabImageItemModel],
+        [self _makeTabShowIconItemModel],
+        [self _makeTabAccessoryViewItemModel],
+        [self _makeTabTooltipItemModel],
+        [self _makeTabTitleItemModel],
+        [self _makeUserTabbingPreferenceItemModel],
+        [self _makeAllowsAutomaticWindowTabbingItemModel],
         [self _makeTitlebarAccessoryViewControllersItemModel],
         [self _makeRemoveTitlebarAccessoryViewControllerAtIndexItemModel],
         [self _makeInsertTitlebarAccessoryViewControllerItemModel],
@@ -2450,6 +2515,202 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
     }];
 }
 
+- (ConfigurationItemModel *)_makeAllowsAutomaticWindowTabbingItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Allows Automatic Window Tabbing"
+                                            userInfo:nil
+                                               label:@"Allows Automatic Window Tabbing"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(NSWindow.allowsAutomaticWindowTabbing);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeUserTabbingPreferenceItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"User Tabbing Preference"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        NSWindowUserTabbingPreference userTabbingPreference = NSWindow.userTabbingPreference;
+        
+        return [NSString stringWithFormat:@"User Tabbing Preference : %@", NSStringFromNSWindowUserTabbingPreference(userTabbingPreference)];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeTabTitleItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Tab Title"
+                                            userInfo:nil labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Tab Title : %@", unretainedSelf.view.window.tab.title];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeTabTooltipItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Tab Tooltip"
+                                            userInfo:nil labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Tab Tooltip : %@", unretainedSelf.view.window.tab.toolTip];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeTabAccessoryViewItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Tab Accessory View"
+                                            userInfo:nil
+                                               label:@"Tab Accessory View"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.tab.accessoryView != nil);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeTabShowIconItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Tab Show Icon"
+                                            userInfo:nil
+                                               label:@"Tab Show Icon"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        BOOL showIcon = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(unretainedSelf.view.window.tab, sel_registerName("showIcon"));
+        return @(showIcon);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeTabImageItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Tab Image"
+                                            userInfo:nil
+                                               label:@"Tab Image"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSImage *image = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(unretainedSelf.view.window.tab, sel_registerName("image"));
+        return @(image != nil);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeTabbingModeItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Tabbing Mode"
+                                            userInfo:nil
+                                               label:@"Tabbing Mode"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSUInteger count;
+        NSWindowTabbingMode *allModes = allNSWindowTabbingModes(&count);
+        
+        auto titles = std::views::iota(allModes, allModes + count)
+        | std::views::transform([](NSWindowTabbingMode *ptr) {
+            return NSStringFromNSWindowTabbingMode(*ptr);
+        })
+        | std::ranges::to<std::vector<NSString *>>();
+        
+        NSString *selectedTitle = NSStringFromNSWindowTabbingMode(unretainedSelf.view.window.tabbingMode);
+        
+        return [ConfigurationPopUpButtonDescription descriptionWithTitles:[NSArray arrayWithObjects:titles.data() count:titles.size()]
+                                                           selectedTitles:@[selectedTitle]
+                                                     selectedDisplayTitle:selectedTitle];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeToggleTabBarItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Toggle Tab Bar"
+                                            userInfo:nil
+                                               label:@"Toggle Tab Bar"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeTabbingIdentifierItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Tabbing Identifier"
+                                            userInfo:nil
+                                               label:@"Tabbing Identifier"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeAddTabbedWindowOrderedItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Add Tabbed Window Ordered"
+                                            userInfo:nil
+                                               label:@"Add Tabbed Window Ordered"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSUInteger count;
+        NSWindowOrderingMode *allModes = allNSWindowOrderingModes(&count);
+        
+        auto titlesVector = std::views::iota(allModes, allModes + count)
+        | std::views::transform([](NSWindowOrderingMode *ptr) {
+            return NSStringFromNSWindowOrderingMode(*ptr);
+        })
+        | std::ranges::to<std::vector<NSString *>>();
+        
+        return [ConfigurationPopUpButtonDescription descriptionWithTitles:[NSArray arrayWithObjects:titlesVector.data() count:titlesVector.size()]
+                                                           selectedTitles:@[]
+                                                     selectedDisplayTitle:nil];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeTabbedWindowsItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Tabbed Windows"
+                                            userInfo:nil
+                                               label:@"Tabbed Windows"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSArray<NSWindow *> *tabbedWindows = unretainedSelf.view.window.tabbedWindows;
+        NSMutableArray<NSString *> *titles = [[NSMutableArray alloc] initWithCapacity:tabbedWindows.count];
+        for (NSWindow *window in tabbedWindows) {
+            [titles addObject:[NSString stringWithFormat:@"(NOP) %@", window.description]];
+        }
+        
+        ConfigurationPopUpButtonDescription *description = [ConfigurationPopUpButtonDescription descriptionWithTitles:titles selectedTitles:@[] selectedDisplayTitle:nil];
+        [titles release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeTabGroupIdentifierItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Tab Group Identifier"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        /*
+         -[NSWindow tabGroup]을 시도하면 값이 없을 때 즉석으로 tabGroup을 생성하며, KVO에 의해 즉시 Reconfigure Data Source가 발생한다.
+         Cell을 생성하는 도중에 Data Source를 수정하게 되므로, -_windowStackController을 통해 tabGroup의 생성을 방지한다.
+         */
+//        __kindof NSWindowTabGroup *tabGroup = unretainedSelf.view.window.tabGroup;
+        __kindof NSWindowTabGroup *tabGroup = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(unretainedSelf.view.window, sel_registerName("_windowStackController"));
+        
+        return [NSString stringWithFormat:@"Tab Group Identifier : %@", tabGroup.identifier];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
 
 #pragma mark - Items 2
 
@@ -2477,6 +2738,10 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
 
 - (void)_reconfigureSheetsAndChildWindowsItemModels {
     [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Attached Sheet & isSheet & sheetParent", @"Sheets", @"Child Windows", @"Add Child Window Ordered", @"Remove Child Window"]];
+}
+
+- (void)_reconfigureTabItemModels {
+    [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Tabbed Windows", @"Tab Group Identifier"]];
 }
 
 - (NSArray<NSToolbarItemIdentifier> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
@@ -3201,6 +3466,121 @@ NSAppearanceName const NSAppearanceNameAccessibilityGraphiteDarkAqua = @"NSAppea
         [window removeTitlebarAccessoryViewControllerAtIndex:index];
         [accessoryViewController release];
         [configurationView reconfigureItemModelsWithIdentifiers:@[@"Insert Titlebar Accessory View Controller", @"Remove Titlebar Accessory View Controller", @"Titlebar Accessory View Controllers"]];
+        return NO;
+    } else if ([identifier isEqualToString:@"Allows Automatic Window Tabbing"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        NSWindow.allowsAutomaticWindowTabbing = boolValue;
+        return NO;
+    } else if ([identifier isEqualToString:@"Tab Title"]) {
+        NSAlert *alert = [NSAlert new];
+        NSTextField *textField = [NSTextField new];
+        [textField sizeToFit];
+        textField.frame = NSMakeRect(0., 0., 300., NSHeight(textField.frame));
+        
+        NSWindowTab *windowTab = window.tab;
+        textField.stringValue = windowTab.title;
+        
+        alert.accessoryView = textField;
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            windowTab.title = textField.stringValue;
+            [configurationView reconfigureItemModelsWithIdentifiers:@[@"Tab Title"]];
+        }];
+        
+        [alert release];
+        return NO;
+    } else if ([identifier isEqualToString:@"Tab Tooltip"]) {
+        NSAlert *alert = [NSAlert new];
+        NSTextField *textField = [NSTextField new];
+        
+        NSWindowTab *windowTab = window.tab;
+        textField.stringValue = windowTab.toolTip;
+        [textField sizeToFit];
+        textField.frame = NSMakeRect(0., 0., 300., NSHeight(textField.frame));
+        
+        alert.accessoryView = textField;
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            windowTab.toolTip = textField.stringValue;
+            [configurationView reconfigureItemModelsWithIdentifiers:@[@"Tab Tooltip"]];
+        }];
+        
+        [alert release];
+        return NO;
+    } else if ([identifier isEqualToString:@"Tab Accessory View"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        
+        NSWindowTab *windowTab = window.tab;
+        if (boolValue) {
+            assert(windowTab.accessoryView == nil);
+            NSImage *image = [NSImage imageWithSystemSymbolName:@"apple.intelligence" accessibilityDescription:nil];
+            NSImageView *imageView = [NSImageView new];
+            imageView.image = image;
+            windowTab.accessoryView = imageView;
+            [imageView release];
+        } else {
+            assert(windowTab.accessoryView != nil);
+            windowTab.accessoryView = nil;
+        }
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Tab Show Icon"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(window.tab, sel_registerName("setShowIcon:"), boolValue);
+        return NO;
+    } else if ([identifier isEqualToString:@"Tab Image"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        
+        NSWindowTab *windowTab = window.tab;
+        if (boolValue) {
+            NSImage *image = [NSImage imageWithSystemSymbolName:@"apple.writing.tools" accessibilityDescription:nil];
+            reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(windowTab, sel_registerName("setImage:"), image);
+        } else {
+            reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(windowTab, sel_registerName("setImage:"), nil);
+        }
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Tabbing Mode"]) {
+        NSString *title = static_cast<NSString *>(newValue);
+        NSWindowTabbingMode mode = NSWindowTabbingModeFromString(title);
+        window.tabbingMode = mode;
+        return YES;
+    } else if ([identifier isEqualToString:@"Toggle Tab Bar"]) {
+        [window toggleTabBar:nil];
+        return NO;
+    } else if ([identifier isEqualToString:@"Tabbing Identifier"]) {
+        NSAlert *alert = [NSAlert new];
+        
+        NSTextField *textField = [NSTextField new];
+        textField.stringValue = window.tabbingIdentifier;
+        [textField sizeToFit];
+        textField.frame = NSMakeRect(0., 0., 300., NSHeight(textField.frame));
+        
+        alert.accessoryView = textField;
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            NSString *stringValue = textField.stringValue;
+            if (stringValue.length == 0) {
+                NSLog(@"Do nothing.");
+                return;
+            }
+            
+            window.tabbingIdentifier = textField.stringValue;
+            [configurationView reconfigureItemModelsWithIdentifiers:@[@"Tabbing Identifier"]];
+        }];
+        
+        [alert release];
+        return NO;
+    } else if ([identifier isEqualToString:@"Add Tabbed Window Ordered"]) {
+        NSString *title = static_cast<NSString *>(newValue);
+        NSWindowOrderingMode mode = NSWindowOrderingModeFromString(title);
+        
+        WindowDemoWindow *newWindow = [WindowDemoWindow new];
+        [window addTabbedWindow:newWindow ordered:mode];
+        [newWindow release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Tabbed Windows"]) {
         return NO;
     } else {
         abort();
