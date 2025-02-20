@@ -41,6 +41,8 @@
 #import "NSStringFromNSWindowUserTabbingPreference.h"
 #import <CoreFoundation/CoreFoundation.h>
 #import "NSStringFromNSWindowTabbingMode.h"
+#import "NSStringFromNSEventMask.h"
+#import "WindowDemoPostEventView.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
@@ -83,6 +85,7 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
 @property (assign, nonatomic, getter=_animationResizeTimeRect, setter=_setAnimationResizeTimeRect:) NSRect animationResizeTimeRect;
 @property (retain, nonatomic, readonly, getter=_windowDefaultButton) NSButton *windowDefaultButton;
 @property (retain, nonatomic, getter=_windowFieldEditorScrollView, setter=_setWindowFieldEditorScrollView:) NSScrollView *windowFieldEditorScrollView;
+@property (assign, nonatomic, getter=_initialFirstResponder, setter=_setInitialFirstResponder:) BOOL initialFirstResponder;
 @end
 
 @implementation WindowDemoViewController
@@ -111,6 +114,11 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     if (NSWindow *window = self.view.window) {
         [window removeObserver:self forKeyPath:@"contentLayoutRect"];
         [window removeObserver:self forKeyPath:@"tabGroup"];
+        
+        if (__kindof NSWindowTabGroup *tabGroup = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(window, sel_registerName("_windowStackController"))) {
+            [tabGroup removeObserver:self forKeyPath:@"windows"];
+            [tabGroup removeObserver:self forKeyPath:@"selectedWindow"];
+        }
     }
     
     [super dealloc];
@@ -144,6 +152,7 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
             if (NSWindowTabGroup *oldTabGroup = change[NSKeyValueChangeOldKey]) {
                 if (![oldTabGroup isKindOfClass:[NSNull class]]) {
                     [oldTabGroup removeObserver:self forKeyPath:@"windows"];
+                    [oldTabGroup removeObserver:self forKeyPath:@"selectedWindow"];
                 }
             }
             
@@ -153,12 +162,19 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
             
             if (newTabGroup != nil) {
                 [newTabGroup addObserver:self forKeyPath:@"windows" options:NSKeyValueObservingOptionNew context:NULL];
+                [newTabGroup addObserver:self forKeyPath:@"selectedWindow" options:NSKeyValueObservingOptionNew context:NULL];
                 [self _reconfigureTabItemModels];
             }
             
             return;
         }
     } else if ([keyPath isEqual:@"windows"]) {
+        if ([object isKindOfClass:[NSWindowTabGroup class]]) {
+            assert([self.view.window.tabGroup isEqual:object]);
+            [self _reconfigureTabItemModels];
+            return;
+        }
+    } else if ([keyPath isEqualToString:@"selectedWindow"]) {
         if ([object isKindOfClass:[NSWindowTabGroup class]]) {
             assert([self.view.window.tabGroup isEqual:object]);
             [self _reconfigureTabItemModels];
@@ -387,6 +403,12 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"User Tabbing Preference"]];
 }
 
+- (void)newWindowForTab:(id)sender {
+    WindowDemoWindow *newWindow = [WindowDemoWindow new];
+    [self.view.window.tabGroup addWindow:newWindow];
+    [newWindow release];
+}
+
 - (WindowDemoView *)_ownView {
     if (auto ownView = _ownView) return ownView;
     
@@ -442,6 +464,24 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeInitialFirstResponderItemModel],
+        [self _makeTryToPerformWithItemModel],
+        [self _makePostEventAtStartItemModel],
+        [self _makeDiscardEventsMatchingMaskBeforeEventItemModel],
+        [self _makeNextEventMatchingMaskUntilDateInModeDequeueItemModel],
+        [self _makeNextEventMatchingMaskUntilDateInModeDequeue_Dequeue_ItemModel],
+        [self _makeNextEventMatchingMaskItemModel],
+        [self _makeCurrentEventItemModel],
+        [self _makeAllowsToolTipsWhenApplicationIsInactiveItemModel],
+        [self _makeToggleTabOverviewItemModel],
+        [self _makeMoveTabToNewWindowItemModel],
+        [self _makeSelectPreviousTabItemModel],
+        [self _makeSelectNextTabItemModel],
+        [self _makeMergeAllWindowsItemModel],
+        [self _makeRemoveWindowItemModel],
+        [self _makeTabGroupInsertWindowAtIndexItemModel],
+        [self _makeTabGroupAddWindowItemModel],
+        [self _makeTabGroupSelectedWindowItemModel],
         [self _makeTabGroupWindowsItemModel],
         [self _makeTabGroupTabBarVisibleItemModel],
         [self _makeTabGroupOverviewVisibleItemModel],
@@ -2767,6 +2807,293 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     }];
 }
 
+- (ConfigurationItemModel *)_makeTabGroupSelectedWindowItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Tab Group Selected Window"
+                                            userInfo:nil
+                                               label:@"Tab Group Selected Window"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSMenu *menu = [NSMenu new];
+        
+        __kindof NSWindowTabGroup *tabGroup = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(unretainedSelf.view.window, sel_registerName("_windowStackController"));
+        
+        for (NSWindow *window in tabGroup.windows) {
+            NSMenuItem *item = [NSMenuItem new];
+            item.title = window.description;
+            item.state = ([window isEqual:tabGroup.selectedWindow]) ? NSControlStateValueOn : NSControlStateValueOff;
+            
+            __block auto unreaintedWindow = window;
+            ActionResolver *resolver = [ActionResolver resolver:^(id  _Nonnull sender) {
+                tabGroup.selectedWindow = unreaintedWindow;
+            }];
+            [resolver setupMenuItem:item];
+            
+            [menu addItem:item];
+            [item release];
+        }
+        
+        ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Menu" menu:menu showsMenuAsPrimaryAction:YES];
+        [menu release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeTabGroupAddWindowItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Tab Group Add Window"
+                                            userInfo:nil
+                                               label:@"Tab Group Add Window"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeTabGroupInsertWindowAtIndexItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Tab Group Insert Window At Index"
+                                            userInfo:nil
+                                               label:@"Tab Group Insert Window At Index"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        __kindof NSWindowTabGroup *tabGroup = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(unretainedSelf.view.window, sel_registerName("_windowStackController"));
+        NSInteger windowsCount = tabGroup.windows.count;
+        
+        auto titlesVector = std::views::iota(0, windowsCount + 1)
+        | std::views::transform([](NSInteger index) {
+            return @(index).stringValue;
+        })
+        | std::ranges::to<std::vector<NSString *>>();
+        
+        return [ConfigurationPopUpButtonDescription descriptionWithTitles:[NSArray arrayWithObjects:titlesVector.data() count:titlesVector.size()]
+                                                           selectedTitles:@[]
+                                                     selectedDisplayTitle:nil];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeRemoveWindowItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Tab Group Remove Window"
+                                            userInfo:nil
+                                               label:@"Tab Group Remove Window"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSMenu *menu = [NSMenu new];
+        
+        __kindof NSWindowTabGroup *tabGroup = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(unretainedSelf.view.window, sel_registerName("_windowStackController"));
+        
+        for (NSWindow *window in tabGroup.windows) {
+            NSMenuItem *item = [NSMenuItem new];
+            item.title = window.description;
+            
+            __block auto unreaintedWindow = window;
+            ActionResolver *resolver = [ActionResolver resolver:^(id  _Nonnull sender) {
+                [tabGroup removeWindow:unreaintedWindow];
+            }];
+            [resolver setupMenuItem:item];
+            
+            [menu addItem:item];
+            [item release];
+        }
+        
+        ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Menu" menu:menu showsMenuAsPrimaryAction:YES];
+        [menu release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeMergeAllWindowsItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Merge All Windows"
+                                            userInfo:nil
+                                               label:@"Merge All Windows"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeSelectNextTabItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Select Next Tab"
+                                            userInfo:nil
+                                               label:@"Select Next Tab"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeSelectPreviousTabItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Select Previous Tab"
+                                            userInfo:nil
+                                               label:@"Select Previous Tab"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeMoveTabToNewWindowItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Move Tab To New Window"
+                                            userInfo:nil
+                                               label:@"Move Tab To New Window"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeToggleTabOverviewItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Toggle Tab Overview"
+                                            userInfo:nil
+                                               label:@"Toggle Tab Overview"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeAllowsToolTipsWhenApplicationIsInactiveItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Allows ToolTips When Application Is Inactive"
+                                            userInfo:nil
+                                               label:@"Allows ToolTips When Application Is Inactive"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.allowsToolTipsWhenApplicationIsInactive);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeCurrentEventItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Current Event"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Current Event : %@", unretainedSelf.view.window.currentEvent];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Reload"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeNextEventMatchingMaskItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Next Event Matching Mask"
+                                            userInfo:nil
+                                               label:@"Next Event Matching Mask"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSUInteger count;
+        NSEventMask *allMasks = allNSEventMasks(&count);
+        
+        auto titlesVetor = std::views::iota(allMasks, allMasks + count)
+        | std::views::transform([](NSEventMask *ptr) {
+            return NSStringFromNSEventMask(*ptr);
+        })
+        | std::ranges::to<std::vector<NSString *>>();
+        
+        return [ConfigurationPopUpButtonDescription descriptionWithTitles:[NSArray arrayWithObjects:titlesVetor.data() count:titlesVetor.size()] selectedTitles:@[] selectedDisplayTitle:nil];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeNextEventMatchingMaskUntilDateInModeDequeueItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Next Event Matching Mask Until Date In Mode Dequeue"
+                                            userInfo:nil
+                                               label:@"Next Event Matching Mask Until Date In Mode Dequeue"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSUInteger count;
+        NSEventMask *allMasks = allNSEventMasks(&count);
+        
+        auto titlesVetor = std::views::iota(allMasks, allMasks + count)
+        | std::views::transform([](NSEventMask *ptr) {
+            return NSStringFromNSEventMask(*ptr);
+        })
+        | std::ranges::to<std::vector<NSString *>>();
+        
+        return [ConfigurationPopUpButtonDescription descriptionWithTitles:[NSArray arrayWithObjects:titlesVetor.data() count:titlesVetor.size()] selectedTitles:@[] selectedDisplayTitle:nil];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeNextEventMatchingMaskUntilDateInModeDequeue_Dequeue_ItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Next Event Matching Mask Until Date In Mode Dequeue (Dequeue)"
+                                            userInfo:nil
+                                               label:@"Next Event Matching Mask Until Date In Mode Dequeue (Dequeue)"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSUInteger count;
+        NSEventMask *allMasks = allNSEventMasks(&count);
+        
+        auto titlesVetor = std::views::iota(allMasks, allMasks + count)
+        | std::views::transform([](NSEventMask *ptr) {
+            return NSStringFromNSEventMask(*ptr);
+        })
+        | std::ranges::to<std::vector<NSString *>>();
+        
+        return [ConfigurationPopUpButtonDescription descriptionWithTitles:[NSArray arrayWithObjects:titlesVetor.data() count:titlesVetor.size()] selectedTitles:@[] selectedDisplayTitle:nil];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeDiscardEventsMatchingMaskBeforeEventItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Next Event Matching Mask Until Date In Mode Dequeue (Dequeue) + Discard Events Matching Mask Before Event"
+                                            userInfo:nil
+                                               label:@"Next Event Matching Mask Until Date In Mode Dequeue (Dequeue) + Discard Events Matching Mask Before Event"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSUInteger count;
+        NSEventMask *allMasks = allNSEventMasks(&count);
+        
+        auto titlesVetor = std::views::iota(allMasks, allMasks + count)
+        | std::views::transform([](NSEventMask *ptr) {
+            return NSStringFromNSEventMask(*ptr);
+        })
+        | std::ranges::to<std::vector<NSString *>>();
+        
+        return [ConfigurationPopUpButtonDescription descriptionWithTitles:[NSArray arrayWithObjects:titlesVetor.data() count:titlesVetor.size()] selectedTitles:@[] selectedDisplayTitle:nil];
+    }];
+}
+
+- (ConfigurationItemModel *)_makePostEventAtStartItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Post Event At Start"
+                                            userInfo:nil
+                                               label:@"Post Event At Start"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeTryToPerformWithItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Try To Perform With"
+                                            userInfo:nil
+                                               label:@"Try To Perform With"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        WindowDemoWindow *window = static_cast<WindowDemoWindow *>(unretainedSelf.view.window);
+        return @(window.tryToPerformEnabled);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeInitialFirstResponderItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Initial First Responder"
+                                            userInfo:nil
+                                               label:@"Initial First Responder"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.initialFirstResponder);
+    }];
+}
+
 
 #pragma mark - Items 2
 
@@ -2797,7 +3124,7 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
 }
 
 - (void)_reconfigureTabItemModels {
-    [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Tabbed Windows", @"Tab Group Identifier", @"Tab Group Overview Visible", @"Tab Group Tab Bar Visible", @"Tab Group Windows"]];
+    [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Tabbed Windows", @"Tab Group Identifier", @"Tab Group Overview Visible", @"Tab Group Tab Bar Visible", @"Tab Group Windows", @"Tab Group Selected Window", @"Tab Group Insert Window At Index", @"Tab Group Remove Window"]];
 }
 
 - (NSArray<NSToolbarItemIdentifier> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
@@ -3646,6 +3973,156 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
         tabGroup.overviewVisible = boolValue;
         return NO;
     } else if ([identifier isEqualToString:@"Tab Group Windows"]) {
+        return NO;
+    } else if ([identifier isEqualToString:@"Tab Group Add Window"]) {
+        WindowDemoWindow *newWindow = [WindowDemoWindow new];
+        [window.tabGroup addWindow:newWindow];
+        [newWindow release];
+        return NO;
+    } else if ([identifier isEqualToString:@"Tab Group Insert Window At Index"]) {
+        NSString *title = static_cast<NSString *>(newValue);
+        NSInteger index = title.integerValue;
+        
+        WindowDemoWindow *newWindow = [WindowDemoWindow new];
+        [window.tabGroup insertWindow:newWindow atIndex:index];
+        [newWindow release];
+        return NO;
+    } else if ([identifier isEqualToString:@"Merge All Windows"]) {
+        [window mergeAllWindows:nil];
+        return NO;
+    } else if ([identifier isEqualToString:@"Select Next Tab"]) {
+        [window selectNextTab:nil];
+        return NO;
+    } else if ([identifier isEqualToString:@"Select Previous Tab"]) {
+        [window selectPreviousTab:nil];
+        return NO;
+    } else if ([identifier isEqualToString:@"Move Tab To New Window"]) {
+        [window moveTabToNewWindow:nil];
+        return NO;
+    } else if ([identifier isEqualToString:@"Toggle Tab Overview"]) {
+        [window toggleTabOverview:nil];
+        return NO;
+    } else if ([identifier isEqualToString:@"Allows ToolTips When Application Is Inactive"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        window.allowsToolTipsWhenApplicationIsInactive = boolValue;
+        return NO;
+    } else if ([identifier isEqualToString:@"Current Event"]) {
+        return YES;
+    } else if ([identifier isEqualToString:@"Next Event Matching Mask"]) {
+        NSString *title = static_cast<NSString *>(newValue);
+        NSEventMask mask = NSEventMaskFromString(title);
+        
+        // [window nextEventMatchingMask:mask untilDate:[NSDate distantFuture] inMode:NSEventTrackingRunLoopMode dequeue:YES]
+        NSEvent * _Nullable event = [window nextEventMatchingMask:mask];
+        
+        NSAlert *alert = [NSAlert new];
+        alert.messageText = @"Result";
+        alert.informativeText = event.description;
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        [alert release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Next Event Matching Mask Until Date In Mode Dequeue"]) {
+        NSString *title = static_cast<NSString *>(newValue);
+        NSEventMask mask = NSEventMaskFromString(title);
+        
+        // dequeue = NO이면 Waiting 상태에서 누른 Event가 다른 View에 전달되지만, YES는 전달되지 않고 소멸된다.
+        NSEvent * _Nullable event = [window nextEventMatchingMask:mask untilDate:[NSDate.now dateByAddingTimeInterval:5.] inMode:NSEventTrackingRunLoopMode dequeue:NO];
+        NSLog(@"%@", event);
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Next Event Matching Mask Until Date In Mode Dequeue (Dequeue)"]) {
+        NSString *title = static_cast<NSString *>(newValue);
+        NSEventMask mask = NSEventMaskFromString(title);
+        
+        NSEvent * _Nullable event = [window nextEventMatchingMask:mask untilDate:[NSDate.now dateByAddingTimeInterval:5.] inMode:NSEventTrackingRunLoopMode dequeue:YES];
+        NSLog(@"%@", event);
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Next Event Matching Mask Until Date In Mode Dequeue (Dequeue) + Discard Events Matching Mask Before Event"]) {
+        NSString *title = static_cast<NSString *>(newValue);
+        NSEventMask mask = NSEventMaskFromString(title);
+        
+        // dequeue = NO이면 Waiting 상태에서 누른 Event가 다른 View에 전달되지만, YES는 전달되지 않고 소멸된다.
+        NSEvent * _Nullable event = [window nextEventMatchingMask:mask untilDate:[NSDate.now dateByAddingTimeInterval:5.] inMode:NSEventTrackingRunLoopMode dequeue:NO];
+        NSLog(@"%@", event);
+        
+        // 하지만 discard를 하면 즉시 소멸된다.
+        // beforeEvent은 NSEvent의 시간을 가져와서, 이 이전에 생성된 모든 Event에 discard 한다는 것이다. (-[NSApplication(NSEventRouting) discardEventsMatchingMask:beforeEvent:])
+        [window discardEventsMatchingMask:mask beforeEvent:nil];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Post Event At Start"]) {
+        NSAlert *alert = [NSAlert new];
+        WindowDemoPostEventView *accessoryView = [[WindowDemoPostEventView alloc] initWithFrame:NSMakeRect(0., 0., 300., 300.)];
+        alert.accessoryView = accessoryView;
+        [accessoryView release];
+        
+        alert.messageText = @"Drag!";
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        [alert release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Try To Perform With"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        static_cast<WindowDemoWindow *>(self.view.window).tryToPerformEnabled = boolValue;
+        
+        BOOL success = [window tryToPerform:@selector(cmdForTryToPerformWith:) with:nil];
+        if (!success) {
+            NSAlert *alert = [NSAlert new];
+            alert.messageText = @"Alert";
+            alert.informativeText = @"Not Responded...";
+            
+            [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+                
+            }];
+            
+            [alert release];
+        }
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Initial First Responder"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        self.initialFirstResponder = boolValue;
+        
+        NSAlert *alert = [NSAlert new];
+        
+        alert.messageText = @"Title";
+        
+        NSTextField *textField_1 = [NSTextField new];
+        NSTextField *textField_2 = [NSTextField new];
+        
+        NSStackView *stackView = [NSStackView new];
+        [stackView addArrangedSubview:textField_1];
+        [textField_1 release];
+        [stackView addArrangedSubview:textField_2];
+        stackView.orientation = NSUserInterfaceLayoutOrientationVertical;
+        stackView.distribution = NSStackViewDistributionFillEqually;
+        stackView.alignment = NSLayoutAttributeWidth;
+        stackView.spacing = 0.;
+        stackView.frame = NSMakeRect(0., 0., 300., stackView.fittingSize.height);
+        
+        alert.accessoryView = stackView;
+        [stackView release];
+        
+        if (boolValue) {
+            __kindof NSPanel *_panel = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(alert, sel_registerName("_panel"));
+            _panel.initialFirstResponder = textField_2;
+        }
+        
+        [textField_2 release];
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        
+        [alert release];
         return NO;
     } else {
         abort();

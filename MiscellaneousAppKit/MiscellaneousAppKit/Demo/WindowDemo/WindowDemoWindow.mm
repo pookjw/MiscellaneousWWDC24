@@ -9,6 +9,8 @@
 #import "WindowDemoViewController.h"
 #import "WindowDemoWindowDelegate.h"
 #include <unistd.h>
+#import <objc/runtime.h>
+#import <objc/message.h>
 
 @interface WindowDemoWindow ()
 @property (retain, nonatomic, readonly) WindowDemoWindowDelegate *ownDelegate;
@@ -44,6 +46,14 @@
     [super dealloc];
 }
 
+- (BOOL)respondsToSelector:(SEL)aSelector {
+    if (sel_isEqual(aSelector, @selector(cmdForTryToPerformWith:))) {
+        return self.tryToPerformEnabled;
+    }
+    
+    return [super respondsToSelector:aSelector];
+}
+
 - (void)becomeKeyWindow {
     [super becomeKeyWindow];
     NSLog(@"%s", __func__);
@@ -62,6 +72,18 @@
 - (void)resignMainWindow {
     [super resignMainWindow];
     NSLog(@"%s", __func__);
+}
+
+- (void)cmdForTryToPerformWith:(id)object {
+    NSAlert *alert = [NSAlert new];
+    alert.messageText = @"Alert";
+    alert.informativeText = @"Responded!";
+    
+    [alert beginSheetModalForWindow:self completionHandler:^(NSModalResponse returnCode) {
+        
+    }];
+    
+    [alert release];
 }
 
 @end
