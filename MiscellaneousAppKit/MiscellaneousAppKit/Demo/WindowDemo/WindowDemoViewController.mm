@@ -442,6 +442,9 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeTabGroupWindowsItemModel],
+        [self _makeTabGroupTabBarVisibleItemModel],
+        [self _makeTabGroupOverviewVisibleItemModel],
         [self _makeTabGroupIdentifierItemModel],
         [self _makeTabbedWindowsItemModel],
         [self _makeAddTabbedWindowOrderedItemModel],
@@ -2700,7 +2703,9 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
         /*
          -[NSWindow tabGroup]을 시도하면 값이 없을 때 즉석으로 tabGroup을 생성하며, KVO에 의해 즉시 Reconfigure Data Source가 발생한다.
          Cell을 생성하는 도중에 Data Source를 수정하게 되므로, -_windowStackController을 통해 tabGroup의 생성을 방지한다.
+         https://x.com/_silgen_name/status/1892477372970258793
          */
+        
 //        __kindof NSWindowTabGroup *tabGroup = unretainedSelf.view.window.tabGroup;
         __kindof NSWindowTabGroup *tabGroup = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(unretainedSelf.view.window, sel_registerName("_windowStackController"));
         
@@ -2708,6 +2713,57 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     }
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeTabGroupOverviewVisibleItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Tab Group Overview Visible"
+                                            userInfo:nil
+                                               label:@"Tab Group Overview Visible"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        __kindof NSWindowTabGroup *tabGroup = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(unretainedSelf.view.window, sel_registerName("_windowStackController"));
+        
+        return @(tabGroup.overviewVisible);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeTabGroupTabBarVisibleItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Tab Group Tab Bar Visible"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        __kindof NSWindowTabGroup *tabGroup = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(unretainedSelf.view.window, sel_registerName("_windowStackController"));
+        return [NSString stringWithFormat:@"Tab Group Tab Bar Visible : %@", tabGroup.tabBarVisible ? @"YES" : @"NO"];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeTabGroupWindowsItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Tab Group Windows"
+                                            userInfo:nil
+                                       label:@"Tab Group Windows"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        __kindof NSWindowTabGroup *tabGroup = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(unretainedSelf.view.window, sel_registerName("_windowStackController"));
+        NSArray<NSWindow *> *tabbedWindows = tabGroup.windows;
+        NSMutableArray<NSString *> *titles = [[NSMutableArray alloc] initWithCapacity:tabbedWindows.count];
+        for (NSWindow *window in tabbedWindows) {
+            [titles addObject:[NSString stringWithFormat:@"(NOP) %@", window.description]];
+        }
+        
+        ConfigurationPopUpButtonDescription *description = [ConfigurationPopUpButtonDescription descriptionWithTitles:titles selectedTitles:@[] selectedDisplayTitle:nil];
+        [titles release];
+        
+        return description;
     }];
 }
 
@@ -2741,7 +2797,7 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
 }
 
 - (void)_reconfigureTabItemModels {
-    [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Tabbed Windows", @"Tab Group Identifier"]];
+    [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Tabbed Windows", @"Tab Group Identifier", @"Tab Group Overview Visible", @"Tab Group Tab Bar Visible", @"Tab Group Windows"]];
 }
 
 - (NSArray<NSToolbarItemIdentifier> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
@@ -3547,6 +3603,7 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
         return YES;
     } else if ([identifier isEqualToString:@"Toggle Tab Bar"]) {
         [window toggleTabBar:nil];
+        [self _reconfigureTabItemModels];
         return NO;
     } else if ([identifier isEqualToString:@"Tabbing Identifier"]) {
         NSAlert *alert = [NSAlert new];
@@ -3581,6 +3638,14 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
         
         return NO;
     } else if ([identifier isEqualToString:@"Tabbed Windows"]) {
+        return NO;
+    } else if ([identifier isEqualToString:@"Tab Group Overview Visible"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        
+        NSWindowTabGroup *tabGroup = window.tabGroup;
+        tabGroup.overviewVisible = boolValue;
+        return NO;
+    } else if ([identifier isEqualToString:@"Tab Group Windows"]) {
         return NO;
     } else {
         abort();
