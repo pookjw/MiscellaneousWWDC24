@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WindowDemoWindowDelegate : NSObject <NSWindowDelegate>
+@interface WindowDemoWindowDelegate : NSObject <NSWindowDelegate, NSDraggingDestination>
 
 @end
 

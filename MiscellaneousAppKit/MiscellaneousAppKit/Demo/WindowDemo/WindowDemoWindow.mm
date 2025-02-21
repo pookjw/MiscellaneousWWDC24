@@ -13,7 +13,7 @@
 #import <objc/message.h>
 #import "WindowDemoRestoration.h"
 
-@interface WindowDemoWindow ()
+@interface WindowDemoWindow () <NSDraggingSource>
 @property (retain, nonatomic, readonly) WindowDemoWindowDelegate *ownDelegate;
 @end
 
@@ -103,6 +103,30 @@
     }];
     
     [alert release];
+}
+
+- (void)mouseDown:(NSEvent *)event {
+    NSMutableSet<NSString *> * _Nullable _dragTypes;
+    assert(object_getInstanceVariable(self, "_dragTypes", reinterpret_cast<void **>(&_dragTypes)) != NULL);
+
+    if ((_dragTypes == nil) or (_dragTypes.count == 0)) {
+        [super mouseDown:event];
+        return;
+    }
+    
+    NSPoint location = [event locationInWindow];
+    NSDraggingItem *item_1 = [[NSDraggingItem alloc] initWithPasteboardWriter:@"Test 1"];
+    [item_1 setDraggingFrame:NSMakeRect(location.x, location.y, 100., 100.) contents:[NSImage imageWithSystemSymbolName:@"apple.intelligence" accessibilityDescription:nil]];
+    NSDraggingItem *item_2 = [[NSDraggingItem alloc] initWithPasteboardWriter:@"Test 2"];
+    [item_2 setDraggingFrame:NSMakeRect(location.x, location.y, 100., 100.) contents:[NSImage imageWithSystemSymbolName:@"apple.writing.tools" accessibilityDescription:nil]];
+    [self beginDraggingSessionWithItems:@[item_1, item_2] event:event source:self];
+    [item_1 release];
+    [item_2 release];
+}
+
+- (NSDragOperation)draggingSession:(nonnull NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context {
+    NSLog(@"draggingSession %@", session);
+    return NSDragOperationCopy;
 }
 
 @end

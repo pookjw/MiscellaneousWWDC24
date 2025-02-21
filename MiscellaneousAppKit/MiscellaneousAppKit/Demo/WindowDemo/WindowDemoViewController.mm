@@ -51,6 +51,7 @@
 #import "WindowDemoRestoration.h"
 #import "NSStringFromNSWindowAnimationBehavior.h"
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
+#import "WindowDemoDragView.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
@@ -98,6 +99,7 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
 @property (assign, nonatomic, getter=_initialFirstResponder, setter=_setInitialFirstResponder:) BOOL initialFirstResponder;
 @property (retain, nonatomic, getter=_mouseLocationOutsideOfEventStreamTimer, setter=_setMouseLocationOutsideOfEventStreamTimer:) NSTimer *mouseLocationOutsideOfEventStreamTimer;
 @property (assign, nonatomic, getter=_restorationValue, setter=_setRestorationValue:) double restorationValue;
+@property (retain, nonatomic, readonly, getter=_dragView) WindowDemoDragView *dragView;
 @end
 
 @implementation WindowDemoViewController
@@ -107,6 +109,7 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
 @synthesize appearance = _appearance;
 @synthesize windowDefaultButton = _windowDefaultButton;
 @synthesize windowFieldEditorScrollView = _windowFieldEditorScrollView;
+@synthesize dragView = _dragView;
 
 - (void)dealloc {
     [NSNotificationCenter.defaultCenter removeObserver:self];
@@ -122,6 +125,7 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     [_reloadWhenFrameChangedDebouncer release];
     [_windowDefaultButton release];
     [_windowFieldEditorScrollView release];
+    [_dragView release];
     
     if (NSWindow *window = self.view.window) {
         [window removeObserver:self forKeyPath:@"contentLayoutRect"];
@@ -237,6 +241,16 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     configurationView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     configurationView.frame = self.ownView.bounds;
     [self.ownView addSubview:configurationView];
+    
+    WindowDemoDragView *dropView = self.dragView;
+    dropView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.ownView addSubview:dropView];
+    [NSLayoutConstraint activateConstraints:@[
+        [dropView.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
+        [dropView.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor],
+        [dropView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor multiplier:0.5],
+        [dropView.heightAnchor constraintEqualToAnchor:self.view.heightAnchor multiplier:0.5]
+    ]];
     
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didChangeWindowActiveSpace:) name:MA_NSWindowActiveSpaceDidChangeNotification object:nil];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didChangeActiveSpace:) name:NSWorkspaceActiveSpaceDidChangeNotification object:NSWorkspace.sharedWorkspace];
@@ -489,12 +503,24 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     return windowDefaultButton;
 }
 
+- (WindowDemoDragView *)_dragView {
+    if (auto dropView = _dragView) return dropView;
+    
+    WindowDemoDragView *dropView = [WindowDemoDragView new];
+    dropView.hidden = YES;
+    
+    _dragView = dropView;
+    return dropView;
+}
+
 - (void)_reload {
     NSDiffableDataSourceSnapshot *snapshot = [NSDiffableDataSourceSnapshot new];
     [snapshot appendSectionsWithIdentifiers:@[[NSNull null]]];
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeRegisterForAllDraggedTypesItemModel],
+        [self _makeDragViewVisibilityItemModel],
         [self _makeUnregisterDraggedTypes],
         [self _makeRegisterForDraggedTypesItemModel],
         [self _makeAnimationBehaviorItemModel],
@@ -3442,6 +3468,7 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     }];
 }
 
+// https://x.com/_silgen_name/status/1892978156069626217
 - (ConfigurationItemModel *)_makeRegisterForDraggedTypesItemModel {
     __block auto unretainedSelf = self;
     
@@ -3477,6 +3504,28 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
                                           identifier:@"Unregister Dragged Types"
                                             userInfo:nil
                                                label:@"Unregister Dragged Types"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeDragViewVisibilityItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Drag View Visibility"
+                                            userInfo:nil
+                                               label:@"Drag View Visibility"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(!unretainedSelf.dragView.hidden);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeRegisterForAllDraggedTypesItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Register For All Dragged Types"
+                                            userInfo:nil
+                                               label:@"Register For All Dragged Types"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
     }];
@@ -4685,6 +4734,20 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
         return YES;
     } else if ([identifier isEqualToString:@"Unregister Dragged Types"]) {
         [window unregisterDraggedTypes];
+        [configurationView reconfigureItemModelsWithIdentifiers:@[@"Register For Dragged Types"]];
+        return NO;
+    } else if ([identifier isEqualToString:@"Drag View Visibility"]) {
+        BOOL boolValue = reinterpret_cast<NSNumber *>(newValue).boolValue;
+        self.dragView.hidden = !boolValue;
+        return NO;
+    } else if ([identifier isEqualToString:@"Register For All Dragged Types"]) {
+        NSArray<UTType *> *allTypes = _UTGetAllCoreTypesConstants();
+        NSMutableArray<NSString *> *identifiers = [[NSMutableArray alloc] initWithCapacity:allTypes.count];
+        for (UTType *type in allTypes) {
+            [identifiers addObject:type.identifier];
+        }
+        [window registerForDraggedTypes:identifiers];
+        [identifiers release];
         [configurationView reconfigureItemModelsWithIdentifiers:@[@"Register For Dragged Types"]];
         return NO;
     } else {
