@@ -43,6 +43,11 @@
 #import "NSStringFromNSWindowTabbingMode.h"
 #import "NSStringFromNSEventMask.h"
 #import "WindowDemoPostEventView.h"
+#import "WindowDemoMakeFirstResponderView.h"
+#import "WindowDemoKeyViewDemoView.h"
+#import "NSStringFromNSSelectionDirection.h"
+#import "WindowDemoCalculateKeyViewLoopView.h"
+#import "WindowDemoAcceptsMouseMovedEventsView.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
@@ -86,6 +91,7 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
 @property (retain, nonatomic, readonly, getter=_windowDefaultButton) NSButton *windowDefaultButton;
 @property (retain, nonatomic, getter=_windowFieldEditorScrollView, setter=_setWindowFieldEditorScrollView:) NSScrollView *windowFieldEditorScrollView;
 @property (assign, nonatomic, getter=_initialFirstResponder, setter=_setInitialFirstResponder:) BOOL initialFirstResponder;
+@property (retain, nonatomic, getter=_mouseLocationOutsideOfEventStreamTimer, setter=_setMouseLocationOutsideOfEventStreamTimer:) NSTimer *mouseLocationOutsideOfEventStreamTimer;
 @end
 
 @implementation WindowDemoViewController
@@ -119,6 +125,11 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
             [tabGroup removeObserver:self forKeyPath:@"windows"];
             [tabGroup removeObserver:self forKeyPath:@"selectedWindow"];
         }
+    }
+    
+    if (NSTimer *mouseLocationOutsideOfEventStreamTimer = self.mouseLocationOutsideOfEventStreamTimer) {
+        [mouseLocationOutsideOfEventStreamTimer invalidate];
+        [mouseLocationOutsideOfEventStreamTimer release];
     }
     
     [super dealloc];
@@ -464,6 +475,16 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeMouseLocationOutsideOfEventStreamItemModel],
+        [self _makeIgnoresMouseEventsItemModel],
+        [self _makeAcceptsMouseMovedEventsItemModel],
+        [self _makeTransferWindowSharingToWindowItemModel],
+        [self _makeHasActiveWindowSharingSessionItemModel],
+        [self _makeAutorecalculatesKeyViewLoopItemModel],
+        [self _makeKeyViewSelectionDirectionItemModel],
+        [self _makeKeyViewItemModel],
+        [self _makeMakeFirstResponderItemModel],
+        [self _makeFirstResponderItemModel],
         [self _makeInitialFirstResponderItemModel],
         [self _makeTryToPerformWithItemModel],
         [self _makePostEventAtStartItemModel],
@@ -3094,6 +3115,153 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     }];
 }
 
+- (ConfigurationItemModel *)_makeFirstResponderItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"First Responder"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"First Responder : %@", unretainedSelf.view.window.firstResponder];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeMakeFirstResponderItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Make First Responder"
+                                            userInfo:nil
+                                               label:@"Make First Responder"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeKeyViewItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Key View"
+                                            userInfo:nil
+                                               label:@"Key View"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeKeyViewSelectionDirectionItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Key View Selection Direction"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Key View Selection Direction : %@", NSStringFromNSSelectionDirection(unretainedSelf.view.window.keyViewSelectionDirection)];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeAutorecalculatesKeyViewLoopItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Autorecalculates Key View Loop"
+                                            userInfo:nil
+                                               label:@"Autorecalculates Key View Loop"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeHasActiveWindowSharingSessionItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Has Active Window Sharing Session"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Has Active Window Sharing Session : %@", unretainedSelf.view.window.hasActiveWindowSharingSession ? @"YES" : @"NO"];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeTransferWindowSharingToWindowItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Transfer Window Sharing To Window"
+                                            userInfo:nil
+                                               label:@"Transfer Window Sharing To Window"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSMenu *menu = [NSMenu new];
+        
+        for (NSWindow *window in NSApp.windows) {
+            NSMenuItem *item = [NSMenuItem new];
+            item.title = window.description;
+            
+            if ([window isEqual:unretainedSelf.view.window]) {
+                item.enabled = NO;
+            } else {
+                item.enabled = YES;
+                
+                __block auto unretainedWindow = unretainedSelf.view.window;
+                ActionResolver *resolver = [ActionResolver resolver:^(id  _Nonnull sender) {
+                    [unretainedWindow transferWindowSharingToWindow:window completionHandler:^(NSError * _Nullable error) {
+                        assert(error == nil);
+                    }];
+                }];
+                [resolver setupMenuItem:item];
+            }
+            
+            [menu addItem:item];
+            [item release];
+        }
+        
+        ConfigurationButtonDescription *description = [ConfigurationButtonDescription descriptionWithTitle:@"Menu" menu:menu showsMenuAsPrimaryAction:YES];
+        [menu release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeAcceptsMouseMovedEventsItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Accepts Mouse Moved Events"
+                                            userInfo:nil
+                                               label:@"Accepts Mouse Moved Events"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeIgnoresMouseEventsItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Ignores Mouse Events"
+                                            userInfo:nil
+                                               label:@"Ignores Mouse Events (Disable after 3 seconds)"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.ignoresMouseEvents);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeMouseLocationOutsideOfEventStreamItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Mouse Location Outside Of Event Stream"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Mouse Location Outside Of Event Stream : %@", NSStringFromPoint(unretainedSelf.view.window.mouseLocationOutsideOfEventStream)];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.mouseLocationOutsideOfEventStreamTimer != nil);
+    }];
+}
+
 
 #pragma mark - Items 2
 
@@ -3536,6 +3704,7 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
         
         WindowDemoSetFrameUsingNameView *accessoryView = [WindowDemoSetFrameUsingNameView new];
         accessoryView.autosaveName = frameAutosaveName;
+        accessoryView.frame = NSMakeRect(0., 0., 300., accessoryView.fittingSize.height);
         alert.accessoryView = accessoryView;
         
         NSButton *okButton = [alert addButtonWithTitle:@"OK"];
@@ -4123,6 +4292,91 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
         }];
         
         [alert release];
+        return NO;
+    } else if ([identifier isEqualToString:@"Make First Responder"]) {
+        NSAlert *alert = [NSAlert new];
+        
+        WindowDemoMakeFirstResponderView *accessoryView = [WindowDemoMakeFirstResponderView new];
+        accessoryView.frame = NSMakeRect(0., 0., 300., accessoryView.fittingSize.height);
+        alert.accessoryView = accessoryView;
+        [accessoryView release];
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        [alert release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Key View"]) {
+        NSAlert *alert = [NSAlert new];
+        
+        WindowDemoKeyViewDemoView *accessoryView = [WindowDemoKeyViewDemoView new];
+        accessoryView.frame = NSMakeRect(0., 0., 300., accessoryView.fittingSize.height);
+        alert.accessoryView = accessoryView;
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        [alert release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Autorecalculates Key View Loop"]) {
+        NSAlert *alert = [NSAlert new];
+        
+        WindowDemoCalculateKeyViewLoopView *accessoryView = [WindowDemoCalculateKeyViewLoopView new];
+        accessoryView.frame = NSMakeRect(0., 0., 300., accessoryView.fittingSize.height);
+        alert.accessoryView = accessoryView;
+        [accessoryView release];
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        [alert release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Accepts Mouse Moved Events"]) {
+        NSAlert *alert = [NSAlert new];
+        
+        WindowDemoAcceptsMouseMovedEventsView *accessoryView = [WindowDemoAcceptsMouseMovedEventsView new];
+        accessoryView.frame = NSMakeRect(0., 0., 300., 300.);
+        alert.accessoryView = accessoryView;
+        [accessoryView release];
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        [alert release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Ignores Mouse Events"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        window.ignoresMouseEvents = boolValue;
+        
+        if (boolValue) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                window.ignoresMouseEvents = NO;
+                [configurationView reconfigureItemModelsWithIdentifiers:@[@"Ignores Mouse Events"]];
+            });
+        }
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Mouse Location Outside Of Event Stream"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        
+        if (boolValue) {
+            assert(self.mouseLocationOutsideOfEventStreamTimer == nil);
+            self.mouseLocationOutsideOfEventStreamTimer = [NSTimer scheduledTimerWithTimeInterval:1.
+                                                                                          repeats:YES
+                                                                                            block:^(NSTimer * _Nonnull timer) {
+                [configurationView reconfigureItemModelsWithIdentifiers:@[@"Mouse Location Outside Of Event Stream"]];
+            }];
+        } else {
+            NSTimer *mouseLocationOutsideOfEventStreamTimer = self.mouseLocationOutsideOfEventStreamTimer;
+            assert(mouseLocationOutsideOfEventStreamTimer != nil);
+            [mouseLocationOutsideOfEventStreamTimer invalidate];
+            self.mouseLocationOutsideOfEventStreamTimer = nil;
+        }
+        
         return NO;
     } else {
         abort();

@@ -26,9 +26,6 @@
         stackView.frame = self.bounds;
         stackView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         [self addSubview:stackView];
-        
-        NSSize size = [stackView fittingSize];
-        self.frame = NSMakeRect(0., 0., 300., size.height);
     }
     
     return self;
@@ -40,6 +37,14 @@
     [_frameLabel release];
     [_forceButton release];
     [super dealloc];
+}
+
+- (NSSize)intrinsicContentSize {
+    return self.stackView.intrinsicContentSize;
+}
+
+- (NSSize)fittingSize {
+    return self.stackView.fittingSize;
 }
 
 - (NSWindowFrameAutosaveName)autosaveName {
