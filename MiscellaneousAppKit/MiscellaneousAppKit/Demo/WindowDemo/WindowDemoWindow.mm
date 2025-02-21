@@ -11,6 +11,7 @@
 #include <unistd.h>
 #import <objc/runtime.h>
 #import <objc/message.h>
+#import "WindowDemoRestoration.h"
 
 @interface WindowDemoWindow ()
 @property (retain, nonatomic, readonly) WindowDemoWindowDelegate *ownDelegate;
@@ -28,6 +29,9 @@
         self.frameAutosaveName = @"WindowDemo";
         self.contentMinSize = NSMakeSize(400., 800.);
         self.canBecomeVisibleWithoutLogin = YES;
+        self.restorationClass = [WindowDemoRestoration class];
+        self.restorable = YES;
+        self.allowsConcurrentViewDrawing = YES;
         
         WindowDemoWindowDelegate *ownDelegate = [WindowDemoWindowDelegate new];
         self.delegate = ownDelegate;
@@ -72,6 +76,21 @@
 - (void)resignMainWindow {
     [super resignMainWindow];
     NSLog(@"%s", __func__);
+}
+
+- (void)update {
+    [super update];
+//    NSLog(@"%s", __func__);
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder backgroundQueue:(NSOperationQueue *)queue {
+    [super encodeRestorableStateWithCoder:coder backgroundQueue:queue];
+    [self.contentViewController encodeRestorableStateWithCoder:coder backgroundQueue:queue];
+}
+
+- (void)restoreStateWithCoder:(NSCoder *)coder {
+    [super restoreStateWithCoder:coder];
+    [self.contentViewController restoreStateWithCoder:coder];
 }
 
 - (void)cmdForTryToPerformWith:(id)object {

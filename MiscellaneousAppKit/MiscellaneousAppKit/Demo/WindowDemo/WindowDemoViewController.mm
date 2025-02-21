@@ -48,8 +48,13 @@
 #import "NSStringFromNSSelectionDirection.h"
 #import "WindowDemoCalculateKeyViewLoopView.h"
 #import "WindowDemoAcceptsMouseMovedEventsView.h"
+#import "WindowDemoRestoration.h"
+#import "NSStringFromNSWindowAnimationBehavior.h"
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
+
+UT_EXPORT NSArray<UTType *> *_UTGetAllCoreTypesConstants(void);
 
 NSAppearanceName const NSAppearanceNameCandidateBar = @"NSAppearanceNameCandidateBar";
 APPKIT_EXTERN NSAppearanceName const NSAppearanceNameSystem;
@@ -92,6 +97,7 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
 @property (retain, nonatomic, getter=_windowFieldEditorScrollView, setter=_setWindowFieldEditorScrollView:) NSScrollView *windowFieldEditorScrollView;
 @property (assign, nonatomic, getter=_initialFirstResponder, setter=_setInitialFirstResponder:) BOOL initialFirstResponder;
 @property (retain, nonatomic, getter=_mouseLocationOutsideOfEventStreamTimer, setter=_setMouseLocationOutsideOfEventStreamTimer:) NSTimer *mouseLocationOutsideOfEventStreamTimer;
+@property (assign, nonatomic, getter=_restorationValue, setter=_setRestorationValue:) double restorationValue;
 @end
 
 @implementation WindowDemoViewController
@@ -198,6 +204,20 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
 
 - (NSAppearance *)effectiveAppearance {
     return self.appearance;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder backgroundQueue:(NSOperationQueue *)queue {
+    [super encodeRestorableStateWithCoder:coder backgroundQueue:queue];
+    
+    [queue addOperationWithBlock:^{
+        [coder encodeDouble:self.restorationValue forKey:@"WindowDemoViewController.restorationValue"];
+    }];
+}
+
+- (void)restoreStateWithCoder:(NSCoder *)coder {
+    [super restoreStateWithCoder:coder];
+    self.restorationValue = [coder decodeDoubleForKey:@"WindowDemoViewController.restorationValue"];
+    [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Restoration Value"]];
 }
 
 - (void)loadView {
@@ -475,6 +495,16 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeUnregisterDraggedTypes],
+        [self _makeRegisterForDraggedTypesItemModel],
+        [self _makeAnimationBehaviorItemModel],
+        [self _makeAllowsConcurrentViewDrawingItemModel],
+        [self _makeSnapshotRestorationItemModel],
+        [self _makeRestorationNumberItemModel],
+        [self _makeRestorableItemModel],
+        [self _makeRestorationClassItemModel],
+        [self _makeTrackEventsMatchingMaskTimeoutModeHandlerItemModel],
+        [self _makeWindowNumberAtPointBelowWindowWithWindowNumberItemModel],
         [self _makeMouseLocationOutsideOfEventStreamItemModel],
         [self _makeIgnoresMouseEventsItemModel],
         [self _makeAcceptsMouseMovedEventsItemModel],
@@ -3232,7 +3262,7 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
                                             userInfo:nil
                                                label:@"Accepts Mouse Moved Events"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
-        return [NSNull null];
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
     }];
 }
 
@@ -3259,6 +3289,196 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     }
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         return @(unretainedSelf.mouseLocationOutsideOfEventStreamTimer != nil);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeWindowNumberAtPointBelowWindowWithWindowNumberItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Window Number At Point Below Window With Window Number"
+                                            userInfo:nil
+                                               label:@"Window Number At Point Below Window With Window Number"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSArray<NSWindow *> *windows = NSApp.windows;
+        NSMutableArray<NSString *> *titles = [[NSMutableArray alloc] initWithCapacity:windows.count];
+        
+        for (NSWindow *window in windows) {
+            NSRect frame = window.frame;
+            
+            if ((NSWidth(frame) <= 0.) or (NSHeight(frame) <= 0.)) {
+                [titles addObject:[NSString stringWithFormat:@"%@ (No Size)", window]];
+                continue;
+            }
+            
+            NSPoint centerPoint = NSMakePoint(NSMidX(frame), NSMidY(frame));
+            NSInteger windowNumber = window.windowNumber;
+            NSInteger output = [NSWindow windowNumberAtPoint:centerPoint belowWindowWithWindowNumber:0];
+            
+            NSUInteger tryCount = 0;
+            while ((windowNumber != output) and (tryCount++ < 30)) {
+                output = [NSWindow windowNumberAtPoint:centerPoint belowWindowWithWindowNumber:output];
+            }
+            
+            [titles addObject:[NSString stringWithFormat:@"%@, centerPoint : %@, windowNumber : %ld, output : %ld", window, NSStringFromPoint(centerPoint), window.windowNumber, output]];
+        }
+        
+        ConfigurationPopUpButtonDescription *description = [ConfigurationPopUpButtonDescription descriptionWithTitles:titles selectedTitles:@[] selectedDisplayTitle:nil];
+        [titles release];
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeTrackEventsMatchingMaskTimeoutModeHandlerItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Track Events Matching Mask Timeout Mode Handler"
+                                            userInfo:nil
+                                               label:@"Track Events Matching Mask Timeout Mode Handler"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSUInteger count;
+        NSEventMask *allMasks = allNSEventMasks(&count);
+        
+        auto titlesVector = std::views::iota(allMasks, allMasks + count)
+        | std::views::transform([](NSEventMask *ptr) {
+            return NSStringFromNSEventMask(*ptr);
+        })
+        | std::ranges::to<std::vector<NSString *>>();
+        
+        return [ConfigurationPopUpButtonDescription descriptionWithTitles:[NSArray arrayWithObjects:titlesVector.data() count:titlesVector.size()]
+                                                           selectedTitles:@[]
+                                                     selectedDisplayTitle:nil];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeRestorationClassItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Restoration Class"
+                                            userInfo:nil
+                                               label:@"Restoration Class"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.restorationClass != nil);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeRestorableItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Restorable"
+                                            userInfo:nil
+                                               label:@"Restorable"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.restorable);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeRestorationNumberItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeStepper
+                                          identifier:@"Restoration Value"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Restoration Value : %lf", unretainedSelf.restorationValue];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationStepperDescription descriptionWithStepperValue:unretainedSelf.restorationValue
+                                                               minimumValue:0.
+                                                               maximumValue:100.
+                                                                  stepValue:5.
+                                                                 continuous:YES
+                                                                 autorepeat:YES
+                                                                 valueWraps:YES];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeSnapshotRestorationItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Snapshot Restoration"
+                                            userInfo:nil
+                                               label:@"Snapshot Restoration"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        BOOL _isSnapshotRestorationEnabled = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(unretainedSelf.view.window, sel_registerName("_isSnapshotRestorationEnabled"));
+        return @(_isSnapshotRestorationEnabled);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeAllowsConcurrentViewDrawingItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Allows Concurrent View Drawing"
+                                            userInfo:nil
+                                               label:@"Allows Concurrent View Drawing"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.allowsConcurrentViewDrawing);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeAnimationBehaviorItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Animation Behavior"
+                                            userInfo:nil
+                                               label:@"Animation Behavior (Ouder Out & Front after 3 seconds)"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSUInteger count;
+        NSWindowAnimationBehavior *allBehaviors = allNSWindowAnimationBehaviors(&count);
+        
+        auto titlesVector = std::views::iota(allBehaviors, allBehaviors + count)
+        | std::views::transform([](NSWindowAnimationBehavior *ptr) {
+            return NSStringFromNSWindowAnimationBehavior(*ptr);
+        })
+        | std::ranges::to<std::vector<NSString *>>();
+        
+        NSString *selectedTitle = NSStringFromNSWindowAnimationBehavior(unretainedSelf.view.window.animationBehavior);
+        
+        return [ConfigurationPopUpButtonDescription descriptionWithTitles:[NSArray arrayWithObjects:titlesVector.data() count:titlesVector.size()]
+                                                           selectedTitles:@[selectedTitle]
+                                                     selectedDisplayTitle:selectedTitle];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeRegisterForDraggedTypesItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Register For Dragged Types"
+                                            userInfo:nil
+                                               label:@"Register For Dragged Types"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSArray<UTType *> *allTypes = _UTGetAllCoreTypesConstants();
+        NSMutableArray<NSString *> *identifiers = [[NSMutableArray alloc] initWithCapacity:allTypes.count];
+        for (UTType *type in allTypes) {
+            [identifiers addObject:type.identifier];
+        }
+        
+        NSMutableSet<NSString *> * _Nullable _dragTypes;
+        assert(object_getInstanceVariable(unretainedSelf.view.window, "_dragTypes", reinterpret_cast<void **>(&_dragTypes)) != NULL);
+        NSArray<NSString *> *registeredIdentfiers;
+        if (_dragTypes != nil) {
+            registeredIdentfiers = _dragTypes.allObjects;
+        } else {
+            registeredIdentfiers = @[];
+        }
+        
+        ConfigurationPopUpButtonDescription *description = [ConfigurationPopUpButtonDescription descriptionWithTitles:identifiers selectedTitles:registeredIdentfiers selectedDisplayTitle:registeredIdentfiers.firstObject];
+        [identifiers release];
+        
+        return description;
+    }];
+}
+
+- (ConfigurationItemModel *)_makeUnregisterDraggedTypes {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Unregister Dragged Types"
+                                            userInfo:nil
+                                               label:@"Unregister Dragged Types"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
     }];
 }
 
@@ -4377,6 +4597,95 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
             self.mouseLocationOutsideOfEventStreamTimer = nil;
         }
         
+        return NO;
+    } else if ([identifier isEqualToString:@"Window Number At Point Below Window With Window Number"]) {
+        return NO;
+    } else if ([identifier isEqualToString:@"Track Events Matching Mask Timeout Mode Handler"]) {
+        NSString *title = static_cast<NSString *>(newValue);
+        NSEventMask eventMask = NSEventMaskFromString(title);
+        
+        [window trackEventsMatchingMask:eventMask
+                                timeout:NSEventDurationForever
+                                   mode:NSEventTrackingRunLoopMode
+                                handler:^(NSEvent * _Nullable event, BOOL * _Nonnull stop) {
+            NSAlert *alert = [NSAlert new];
+            
+            alert.messageText = @"Alert";
+            alert.informativeText = event.description;
+            
+            [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+                
+            }];
+            
+            [alert release];
+            *stop = YES;
+        }];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Restoration Class"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        
+        if (boolValue) {
+            assert(window.restorationClass == nil);
+            window.restorationClass = [WindowDemoRestoration class];
+        } else {
+            assert(window.restorationClass != nil);
+            window.restorationClass = nil;
+        }
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Restorable"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        window.restorable = boolValue;
+        return NO;
+    } else if ([identifier isEqualToString:@"Restoration Value"]) {
+        double doubleValue = static_cast<NSNumber *>(newValue).doubleValue;
+        self.restorationValue = doubleValue;
+        [window invalidateRestorableState];
+//        id sharedManager = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("NSPersistentUIManager"), sel_registerName("sharedManager"));
+//        reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(sharedManager, sel_registerName("flushAllChanges"));
+        return YES;
+    } else if ([identifier isEqualToString:@"Snapshot Restoration"]) {
+        BOOL boolValue = reinterpret_cast<NSNumber *>(newValue).boolValue;
+        
+        if (boolValue) {
+            [window enableSnapshotRestoration];
+        } else {
+            [window disableSnapshotRestoration];
+        }
+        
+        return YES;
+    } else if ([identifier isEqualToString:@"Allows Concurrent View Drawing"]) {
+        BOOL boolValue = reinterpret_cast<NSNumber *>(newValue).boolValue;
+        window.allowsConcurrentViewDrawing = boolValue;
+        return NO;
+    } else if ([identifier isEqualToString:@"Animation Behavior"]) {
+        NSString *title = reinterpret_cast<NSString *>(newValue);
+        NSWindowAnimationBehavior behavior = NSWindowAnimationBehaviorFromString(title);
+        window.animationBehavior = behavior;
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [window orderOut:nil];
+            [window orderFrontRegardless];
+        });
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Register For Dragged Types"]) {
+        NSString *identifier = static_cast<NSString *>(newValue);
+        
+        NSMutableSet<NSString *> * _Nullable _dragTypes;
+        assert(object_getInstanceVariable(window, "_dragTypes", reinterpret_cast<void **>(&_dragTypes)) != NULL);
+        if ([_dragTypes containsObject:identifier]) {
+            NSLog(@"Unregistering type is not supported on this item.");
+            return NO;
+        }
+        
+        [window registerForDraggedTypes:@[identifier]];
+        
+        return YES;
+    } else if ([identifier isEqualToString:@"Unregister Dragged Types"]) {
+        [window unregisterDraggedTypes];
+        [configurationView reconfigureItemModelsWithIdentifiers:@[@"Register For Dragged Types"]];
         return NO;
     } else {
         abort();

@@ -253,7 +253,7 @@
                     item.button.menu = description.menu;
                     item.button.title = description.title;
                 } else if ([value isKindOfClass:[NSNull class]]) {
-                    NSLog(@"Setting the class of Value to NSNull is deprecated. Instead, use ConfigurationButtonDescription.");
+                    NSLog(@"Setting the class of Value to NSNull is deprecated. Instead, use ConfigurationButtonDescription. (identifier : %@)", itemModel.identifier);
                     item.showsMenuAsPrimaryAction = NO;
                     item.button.menu = nil;
                     item.button.title = @"Button";
