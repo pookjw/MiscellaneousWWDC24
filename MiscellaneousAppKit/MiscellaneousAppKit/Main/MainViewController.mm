@@ -16,6 +16,7 @@
 #import "IntelligenceUIPlatterViewController.h"
 #import "IntelligenceDemoViewController.h"
 #import "TextViewDemoViewController.h"
+#import "PasteboardDemoViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 
@@ -41,6 +42,7 @@
 
 + (NSArray<Class> *)_classes {
     return @[
+        [PasteboardDemoViewController class],
         [TextViewDemoViewController class],
         [IntelligenceDemoViewController class],
         [IntelligenceUIPlatterViewController class],
@@ -65,7 +67,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    self.preferredContentSize = NSMakeSize(400., 400.);
-//    [self _performActionWithIndex:1];
+    [self _performActionWithIndex:0];
 }
 
 - (NSScrollView *)_scrollView {
