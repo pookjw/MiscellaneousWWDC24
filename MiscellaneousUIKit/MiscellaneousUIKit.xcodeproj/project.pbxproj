@@ -187,6 +187,10 @@
 		4FD54C8A2D00854E002CE52C /* beer.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4FD54C882D00854E002CE52C /* beer.jpg */; };
 		4FD54E902D00BB78002CE52C /* LabelWritingToolsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD54E8F2D00BB78002CE52C /* LabelWritingToolsViewController.mm */; };
 		4FD54E912D00BB78002CE52C /* LabelWritingToolsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD54E8F2D00BB78002CE52C /* LabelWritingToolsViewController.mm */; };
+		4FD9E2CF2D697CC000BE7EB1 /* WebTabViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD9E2CE2D697CC000BE7EB1 /* WebTabViewController.mm */; };
+		4FD9E2D02D697CC000BE7EB1 /* WebTabViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD9E2CE2D697CC000BE7EB1 /* WebTabViewController.mm */; };
+		4FD9E2D22D69834800BE7EB1 /* web-extension-with-parent-directory.zip in Resources */ = {isa = PBXBuildFile; fileRef = 4FD9E2D12D69834800BE7EB1 /* web-extension-with-parent-directory.zip */; };
+		4FD9E2D32D69834800BE7EB1 /* web-extension-with-parent-directory.zip in Resources */ = {isa = PBXBuildFile; fileRef = 4FD9E2D12D69834800BE7EB1 /* web-extension-with-parent-directory.zip */; };
 		4FD9F9FA2D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD9F9F92D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm */; };
 		4FD9F9FB2D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD9F9F92D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm */; };
 		4FDABC692C3D35DE00F928DB /* SymbolTransitionsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FDABC682C3D35DE00F928DB /* SymbolTransitionsViewController.mm */; };
@@ -407,6 +411,9 @@
 		4FD54C882D00854E002CE52C /* beer.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = beer.jpg; sourceTree = "<group>"; };
 		4FD54E8E2D00BB78002CE52C /* LabelWritingToolsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelWritingToolsViewController.h; sourceTree = "<group>"; };
 		4FD54E8F2D00BB78002CE52C /* LabelWritingToolsViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LabelWritingToolsViewController.mm; sourceTree = "<group>"; };
+		4FD9E2CD2D697CC000BE7EB1 /* WebTabViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebTabViewController.h; sourceTree = "<group>"; };
+		4FD9E2CE2D697CC000BE7EB1 /* WebTabViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WebTabViewController.mm; sourceTree = "<group>"; };
+		4FD9E2D12D69834800BE7EB1 /* web-extension-with-parent-directory.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "web-extension-with-parent-directory.zip"; sourceTree = "<group>"; };
 		4FD9F9F82D5710CB00E38CF2 /* PrototypingMenuSliderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrototypingMenuSliderViewController.h; sourceTree = "<group>"; };
 		4FD9F9F92D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PrototypingMenuSliderViewController.mm; sourceTree = "<group>"; };
 		4FDABC672C3D35DE00F928DB /* SymbolTransitionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SymbolTransitionsViewController.h; sourceTree = "<group>"; };
@@ -530,6 +537,7 @@
 				4FA8EEEC2C1CD3B000B1358A /* image.heic */,
 				4FF8C2BF2D62373200256D17 /* balloon.png */,
 				4FD54C882D00854E002CE52C /* beer.jpg */,
+				4FD9E2D12D69834800BE7EB1 /* web-extension-with-parent-directory.zip */,
 				4FA8EEF82C1CE98100B1358A /* NSObject+Foundation_IvarDescription.h */,
 				4FA8EEF92C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm */,
 				4F082E472C188D6C002263ED /* AppDelegate.h */,
@@ -553,6 +561,7 @@
 		4F082E632C18906E002263ED /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4FD9E2CC2D697CAD00BE7EB1 /* WebTab */,
 				4FF8BFE92D621D7100256D17 /* KBRenderConfig */,
 				4F4D9CC32D6109C100065012 /* IntelligenceDemo */,
 				4FD9F9F72D5710BA00E38CF2 /* PrototypingMenuSlider */,
@@ -1098,6 +1107,15 @@
 			path = LabelWritingTools;
 			sourceTree = "<group>";
 		};
+		4FD9E2CC2D697CAD00BE7EB1 /* WebTab */ = {
+			isa = PBXGroup;
+			children = (
+				4FD9E2CD2D697CC000BE7EB1 /* WebTabViewController.h */,
+				4FD9E2CE2D697CC000BE7EB1 /* WebTabViewController.mm */,
+			);
+			path = WebTab;
+			sourceTree = "<group>";
+		};
 		4FD9F9F72D5710BA00E38CF2 /* PrototypingMenuSlider */ = {
 			isa = PBXGroup;
 			children = (
@@ -1208,6 +1226,7 @@
 			files = (
 				4F082E542C188D6D002263ED /* Assets.xcassets in Resources */,
 				4FD54C892D00854E002CE52C /* beer.jpg in Resources */,
+				4FD9E2D22D69834800BE7EB1 /* web-extension-with-parent-directory.zip in Resources */,
 				4F5FE5F62C5A0B950044345D /* article.txt in Resources */,
 				4F082E572C188D6D002263ED /* Base in Resources */,
 				4FF8C2C12D62373200256D17 /* balloon.png in Resources */,
@@ -1222,6 +1241,7 @@
 			files = (
 				4F59DEDE2CFFF56100E88830 /* Assets.xcassets in Resources */,
 				4FD54C8A2D00854E002CE52C /* beer.jpg in Resources */,
+				4FD9E2D32D69834800BE7EB1 /* web-extension-with-parent-directory.zip in Resources */,
 				4F59DEDF2CFFF56100E88830 /* article.txt in Resources */,
 				4F59DEE02CFFF56100E88830 /* Base in Resources */,
 				4FF8C2C02D62373200256D17 /* balloon.png in Resources */,
@@ -1298,6 +1318,7 @@
 				4F1F02282C23CD6C004F7EFF /* TabBarController.mm in Sources */,
 				4F05018D2D526313002D380C /* VariableGestureContextMenuInteractionViewController.mm in Sources */,
 				4F4904172D049E870017A47D /* IntelligenceLightViewController.swift in Sources */,
+				4FD9E2CF2D697CC000BE7EB1 /* WebTabViewController.mm in Sources */,
 				4F082E7B2C18FD18002263ED /* CustomDocumentViewController.mm in Sources */,
 				4F455F222C281AAC00CDE688 /* UpdateLinkViewController.mm in Sources */,
 				4F455F1A2C27EBE400CDE688 /* JitterAnimationViewController.mm in Sources */,
@@ -1388,6 +1409,7 @@
 				4F59DECA2CFFF56100E88830 /* TabBarController.mm in Sources */,
 				4F05018C2D526313002D380C /* VariableGestureContextMenuInteractionViewController.mm in Sources */,
 				4F4904162D049E870017A47D /* IntelligenceLightViewController.swift in Sources */,
+				4FD9E2D02D697CC000BE7EB1 /* WebTabViewController.mm in Sources */,
 				4F59DECB2CFFF56100E88830 /* CustomDocumentViewController.mm in Sources */,
 				4F59DECC2CFFF56100E88830 /* UpdateLinkViewController.mm in Sources */,
 				4F59DECD2CFFF56100E88830 /* JitterAnimationViewController.mm in Sources */,
@@ -1562,7 +1584,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1578,7 +1600,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				XROS_DEPLOYMENT_TARGET = 2.2;
+				XROS_DEPLOYMENT_TARGET = 2.4;
 			};
 			name = Debug;
 		};
@@ -1599,7 +1621,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1614,7 +1636,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "MiscellaneousUIKit/MiscellaneousUIKit-Bridging-Header.h";
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				XROS_DEPLOYMENT_TARGET = 2.2;
+				XROS_DEPLOYMENT_TARGET = 2.4;
 			};
 			name = Release;
 		};
@@ -1635,7 +1657,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1652,7 +1674,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				XROS_DEPLOYMENT_TARGET = 2.2;
+				XROS_DEPLOYMENT_TARGET = 2.4;
 			};
 			name = Debug;
 		};
@@ -1673,7 +1695,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1689,7 +1711,7 @@
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "MiscellaneousUIKit-Swift.h";
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				XROS_DEPLOYMENT_TARGET = 2.2;
+				XROS_DEPLOYMENT_TARGET = 2.4;
 			};
 			name = Release;
 		};

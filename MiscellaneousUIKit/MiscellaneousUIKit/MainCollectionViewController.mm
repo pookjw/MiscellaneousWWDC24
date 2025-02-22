@@ -67,6 +67,7 @@
 #import <objc/runtime.h>
 #import <TargetConditionals.h>
 #import "MiscellaneousUIKit-Swift.h"
+#import "WebTabViewController.h"
 
 OBJC_EXPORT _Nullable Class objc_loadClassref(_Nullable Class * _Nonnull clsref);
 
@@ -118,7 +119,7 @@ __attribute__((objc_direct_members))
     [self cellRegistration];
     
 //    __kindof UIViewController *viewController = [reinterpret_cast<Class>(MiscellaneousUIKit::promptComposeViewControllerClass()) new];
-    CloudChamberViewController *viewController = [CloudChamberViewController new];
+    WebTabViewController *viewController = [WebTabViewController new];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     [viewController release];
     [self presentViewController:navigationController animated:YES completion:nil];
@@ -158,6 +159,7 @@ __attribute__((objc_direct_members))
 
 - (NSArray<Class> *)classes {
     return @[
+        WebTabViewController.class,
         KBRenderConfigViewController.class,
         KBAnimatedRenderConfigViewController.class,
         CloudChamberViewController.class,
