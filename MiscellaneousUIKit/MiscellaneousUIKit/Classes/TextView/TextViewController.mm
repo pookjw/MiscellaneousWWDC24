@@ -306,4 +306,8 @@ UIKIT_EXTERN NSAttributedStringKey const NSTextAnimationAttributeName;
     NSLog(@"%s", __func__);
 }
 
+- (void)textView:(UITextView *)textView insertInputSuggestion:(UIInputSuggestion *)inputSuggestion {
+    NSLog(@"%@", inputSuggestion);
+}
+
 @end

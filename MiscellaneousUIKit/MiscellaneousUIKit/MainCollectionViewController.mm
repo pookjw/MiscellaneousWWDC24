@@ -120,7 +120,7 @@ __attribute__((objc_direct_members))
     [self cellRegistration];
     
 //    __kindof UIViewController *viewController = [reinterpret_cast<Class>(MiscellaneousUIKit::promptComposeViewControllerClass()) new];
-    TabBarController *viewController = [TabBarController new];
+    TextViewController *viewController = [TextViewController new];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     [viewController release];
     navigationController.modalPresentationStyle = UIModalPresentationFullScreen;

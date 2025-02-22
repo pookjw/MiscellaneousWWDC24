@@ -316,7 +316,7 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
 }
 
 - (CPListTemplate *)_makeTemplatesTemplate {
-    NSArray<NSString *> *titles = @[
+    NSMutableArray<NSString *> *titles = [NSMutableArray arrayWithArray:@[
         NSStringFromClass([CPSearchTemplate class]),
         NSStringFromClass([CPAlertTemplate class]),
         NSStringFromClass([CPContactTemplate class]),
@@ -329,8 +329,8 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
         NSStringFromClass([CPMessageComposeBarButton class]),
         NSStringFromClass([CPGridTemplate class]),
         NSStringFromClass([CPListTemplate class])
-    ];
-    NSArray<__kindof CPTemplate *> *templates = @[
+    ]];
+    NSMutableArray<__kindof CPTemplate *> *templates = [NSMutableArray arrayWithArray:@[
         [self _makeSearchTemplate],
         [self _makeActionSheetPresenterTemplate],
         [self _makeContactTemplate],
@@ -343,7 +343,16 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
         [self _makeDemoMessageComposeBarButtonTemplate],
         [self _makeDemoGridTemplate],
         [self _makeDemoListTemplate]
-    ];
+    ]];
+    
+    if (@available(iOS 18.4, *)) {
+        [titles addObject:@"showsSpinnerWhileEmpty"];
+        [templates addObject:[self _makeShowsSpinnerWhileEmptyTemplate]];
+        [titles addObject:@"Now Playing Sports"];
+        [templates addObject:[self _makeNowPlayingSportsTemplate]];
+    }
+    
+    assert(titles.count == templates.count);
     
     __block CPInterfaceController *interfaceController = self._interfaceController;
     
@@ -679,6 +688,10 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
     nowPlayingTemplate.albumArtistButtonEnabled = YES;
     nowPlayingTemplate.upNextButtonEnabled = YES;
     nowPlayingTemplate.upNextTitle = @"Up Next Title";
+    
+    if (@available(iOS 18.4, *)) {
+        nowPlayingTemplate.nowPlayingMode = nil;
+    }
     
     [nowPlayingTemplate addObserver:self];
     
@@ -1367,6 +1380,42 @@ extern "C" BOOL CPCurrentProcessHasMapsEntitlement(void);
     [action release];
     
     return [informationTemplate autorelease];
+}
+
+- (CPListTemplate *)_makeShowsSpinnerWhileEmptyTemplate API_AVAILABLE(ios(18.4)) {
+    CPListTemplate *listTemplate = [[CPListTemplate alloc] initWithTitle:@"Shows Spinner While Empty" sections:@[]];
+    listTemplate.showsSpinnerWhileEmpty = YES;
+    
+    return [listTemplate autorelease];
+}
+
+- (CPNowPlayingTemplate *)_makeNowPlayingSportsTemplate API_AVAILABLE(ios(18.4)) {
+    CPNowPlayingTemplate *nowPlayingTemplate = [self _makeNowPlayingTemplate];
+    
+    CPNowPlayingSportsTeamLogo *leftTeamLogo = [[CPNowPlayingSportsTeamLogo alloc] initWithTeamInitials:@"NK"];
+    CPNowPlayingSportsTeam *leftTeam = [[CPNowPlayingSportsTeam alloc] initWithName:@"North Korea" logo:leftTeamLogo teamStandings:@"Team Standings" eventScore:@"0" possessionIndicator:[UIImage systemImageNamed:@"trash.fill"] favorite:NO];
+    [leftTeamLogo release];
+    
+    CPNowPlayingSportsTeamLogo *rightTeamLogo = [[CPNowPlayingSportsTeamLogo alloc] initWithTeamLogo:[UIImage systemImageNamed:@"apple.intelligence"]];
+    CPNowPlayingSportsTeam *rightTeam = [[CPNowPlayingSportsTeam alloc] initWithName:@"South Korea" logo:rightTeamLogo teamStandings:@"Team Standings" eventScore:@"30" possessionIndicator:[UIImage systemImageNamed:@"suv.side.arrowtriangle.down.fill"] favorite:YES];
+    [rightTeamLogo release];
+    
+    CPNowPlayingSportsClock *eventClock = [[CPNowPlayingSportsClock alloc] initWithTimeRemaining:30. paused:YES];
+    CPNowPlayingSportsEventStatus *eventStatus = [[CPNowPlayingSportsEventStatus alloc] initWithEventStatusText:@[@"Event 1", @"Event 2", @"Event 3"] eventStatusImage:[UIImage systemImageNamed:@"duffle.bag.fill"] eventClock:eventClock];
+    [eventClock release];
+    
+    NSURL *url = [NSBundle.mainBundle URLForResource:@"image" withExtension:UTTypeHEIC.preferredFilenameExtension];
+    assert(url != nil);
+    UIImage *image = [UIImage imageWithContentsOfFile:url.path];
+    
+    CPNowPlayingModeSports *nowPlayingMode = [[CPNowPlayingModeSports alloc] initWithLeftTeam:leftTeam rightTeam:rightTeam eventStatus:eventStatus backgroundArtwork:image];
+    [leftTeam release];
+    [rightTeam release];
+    
+    nowPlayingTemplate.nowPlayingMode = nowPlayingMode;
+    [nowPlayingMode release];
+    
+    return nowPlayingTemplate;
 }
 
 @end
