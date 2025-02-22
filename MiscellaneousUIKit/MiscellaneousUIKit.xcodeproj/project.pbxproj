@@ -195,6 +195,12 @@
 		4FD9E2D82D69C47C00BE7EB1 /* ConversationContextViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD9E2D62D69C47C00BE7EB1 /* ConversationContextViewController.mm */; };
 		4FD9E2DA2D69D9CE00BE7EB1 /* mail_conversatoins.json in Resources */ = {isa = PBXBuildFile; fileRef = 4FD9E2D92D69D9CE00BE7EB1 /* mail_conversatoins.json */; };
 		4FD9E2DB2D69D9CE00BE7EB1 /* mail_conversatoins.json in Resources */ = {isa = PBXBuildFile; fileRef = 4FD9E2D92D69D9CE00BE7EB1 /* mail_conversatoins.json */; };
+		4FD9E5BD2D6A201C00BE7EB1 /* PasteboardDetectionPatternViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD9E5BC2D6A201C00BE7EB1 /* PasteboardDetectionPatternViewController.mm */; };
+		4FD9E5BE2D6A201C00BE7EB1 /* PasteboardDetectionPatternViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD9E5BC2D6A201C00BE7EB1 /* PasteboardDetectionPatternViewController.mm */; };
+		4FD9E88E2D6A222300BE7EB1 /* UIMenuElement+CP_NumberOfLines.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD9E88D2D6A222300BE7EB1 /* UIMenuElement+CP_NumberOfLines.mm */; };
+		4FD9E88F2D6A222300BE7EB1 /* UIMenuElement+CP_NumberOfLines.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD9E88D2D6A222300BE7EB1 /* UIMenuElement+CP_NumberOfLines.mm */; };
+		4FD9E8912D6A352700BE7EB1 /* DataDetection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD9E8902D6A352700BE7EB1 /* DataDetection.framework */; };
+		4FD9E8922D6A352C00BE7EB1 /* DataDetection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD9E8902D6A352700BE7EB1 /* DataDetection.framework */; };
 		4FD9F9FA2D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD9F9F92D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm */; };
 		4FD9F9FB2D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD9F9F92D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm */; };
 		4FDABC692C3D35DE00F928DB /* SymbolTransitionsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FDABC682C3D35DE00F928DB /* SymbolTransitionsViewController.mm */; };
@@ -421,6 +427,11 @@
 		4FD9E2D52D69C47C00BE7EB1 /* ConversationContextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationContextViewController.h; sourceTree = "<group>"; };
 		4FD9E2D62D69C47C00BE7EB1 /* ConversationContextViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ConversationContextViewController.mm; sourceTree = "<group>"; };
 		4FD9E2D92D69D9CE00BE7EB1 /* mail_conversatoins.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mail_conversatoins.json; sourceTree = "<group>"; };
+		4FD9E5BB2D6A201C00BE7EB1 /* PasteboardDetectionPatternViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasteboardDetectionPatternViewController.h; sourceTree = "<group>"; };
+		4FD9E5BC2D6A201C00BE7EB1 /* PasteboardDetectionPatternViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PasteboardDetectionPatternViewController.mm; sourceTree = "<group>"; };
+		4FD9E88C2D6A222300BE7EB1 /* UIMenuElement+CP_NumberOfLines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIMenuElement+CP_NumberOfLines.h"; sourceTree = "<group>"; };
+		4FD9E88D2D6A222300BE7EB1 /* UIMenuElement+CP_NumberOfLines.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIMenuElement+CP_NumberOfLines.mm"; sourceTree = "<group>"; };
+		4FD9E8902D6A352700BE7EB1 /* DataDetection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DataDetection.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk/System/Library/Frameworks/DataDetection.framework; sourceTree = DEVELOPER_DIR; };
 		4FD9F9F82D5710CB00E38CF2 /* PrototypingMenuSliderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrototypingMenuSliderViewController.h; sourceTree = "<group>"; };
 		4FD9F9F92D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PrototypingMenuSliderViewController.mm; sourceTree = "<group>"; };
 		4FDABC672C3D35DE00F928DB /* SymbolTransitionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SymbolTransitionsViewController.h; sourceTree = "<group>"; };
@@ -442,6 +453,7 @@
 			files = (
 				4FEC175F2D2274DE00F9945E /* WebKit.framework in Frameworks */,
 				4F5056532C5938F400B49BB9 /* SafariServices.framework in Frameworks */,
+				4FD9E8912D6A352700BE7EB1 /* DataDetection.framework in Frameworks */,
 				4F082E9C2C1B4505002263ED /* UniformTypeIdentifiers.framework in Frameworks */,
 				4F379CA32D44B113006EBDF3 /* Accessibility.framework in Frameworks */,
 				4F4D9CC52D610B1500065012 /* UIKitPrivate.xcframework in Frameworks */,
@@ -452,6 +464,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FD9E8922D6A352C00BE7EB1 /* DataDetection.framework in Frameworks */,
 				4FEC175E2D2274D900F9945E /* WebKit.framework in Frameworks */,
 				4F59DEDB2CFFF56100E88830 /* SafariServices.framework in Frameworks */,
 				4F4D9CC82D610B2000065012 /* UIKitPrivate.xcframework in Frameworks */,
@@ -547,6 +560,8 @@
 				4FD9E2D12D69834800BE7EB1 /* web-extension-with-parent-directory.zip */,
 				4FA8EEF82C1CE98100B1358A /* NSObject+Foundation_IvarDescription.h */,
 				4FA8EEF92C1CE98100B1358A /* NSObject+Foundation_IvarDescription.mm */,
+				4FD9E88C2D6A222300BE7EB1 /* UIMenuElement+CP_NumberOfLines.h */,
+				4FD9E88D2D6A222300BE7EB1 /* UIMenuElement+CP_NumberOfLines.mm */,
 				4F082E472C188D6C002263ED /* AppDelegate.h */,
 				4F082E482C188D6C002263ED /* AppDelegate.m */,
 				4F082E4A2C188D6C002263ED /* SceneDelegate.h */,
@@ -569,6 +584,7 @@
 		4F082E632C18906E002263ED /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4FD9E5BA2D6A200000BE7EB1 /* PasteboardDetectionPattern */,
 				4FD9E2D42D69C46E00BE7EB1 /* ConversationContext */,
 				4FD9E2CC2D697CAD00BE7EB1 /* WebTab */,
 				4FF8BFE92D621D7100256D17 /* KBRenderConfig */,
@@ -675,6 +691,7 @@
 		4F082E9A2C1B4504002263ED /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4FD9E8902D6A352700BE7EB1 /* DataDetection.framework */,
 				4F4D9CC42D610B1500065012 /* UIKitPrivate.xcframework */,
 				4F379CA22D44B113006EBDF3 /* Accessibility.framework */,
 				4FEC175D2D2274D900F9945E /* WebKit.framework */,
@@ -1134,6 +1151,15 @@
 			path = ConversationContext;
 			sourceTree = "<group>";
 		};
+		4FD9E5BA2D6A200000BE7EB1 /* PasteboardDetectionPattern */ = {
+			isa = PBXGroup;
+			children = (
+				4FD9E5BB2D6A201C00BE7EB1 /* PasteboardDetectionPatternViewController.h */,
+				4FD9E5BC2D6A201C00BE7EB1 /* PasteboardDetectionPatternViewController.mm */,
+			);
+			path = PasteboardDetectionPattern;
+			sourceTree = "<group>";
+		};
 		4FD9F9F72D5710BA00E38CF2 /* PrototypingMenuSlider */ = {
 			isa = PBXGroup;
 			children = (
@@ -1305,6 +1331,7 @@
 				4F8BD38D2C22E11F0031535F /* CustomDismissInteractiveTransitioning.mm in Sources */,
 				4F9C08B32C3E2B5F009897D6 /* TabBarAppearanceViewController.mm in Sources */,
 				4F59DEEA2CFFF6A900E88830 /* ApplicationCategoryViewController.mm in Sources */,
+				4FD9E5BE2D6A201C00BE7EB1 /* PasteboardDetectionPatternViewController.mm in Sources */,
 				4F1871942C4029CB002E7DFC /* CircleProgressViewController.mm in Sources */,
 				4F49067F2D04AF1F0017A47D /* VariableBlurViewController.mm in Sources */,
 				4F3DD6A32C9BE537006F6F49 /* CustomBaselineViewController.mm in Sources */,
@@ -1328,6 +1355,7 @@
 				4FC4711C2D61DC1500C78FCA /* IntelligenceLightSourceViewController.swift in Sources */,
 				4F05047C2D53570F002D380C /* FluidSliderViewController.mm in Sources */,
 				4F082E622C188E34002263ED /* MainCollectionViewController.mm in Sources */,
+				4FD9E88F2D6A222300BE7EB1 /* UIMenuElement+CP_NumberOfLines.mm in Sources */,
 				4F59DEEF2CFFFA7B00E88830 /* NewWritingToolsViewController.mm in Sources */,
 				4F1F022B2C23CE25004F7EFF /* PinkViewController.m in Sources */,
 				4F98BA282D55FABD006D958B /* BlurEffectStylesViewController.mm in Sources */,
@@ -1397,6 +1425,7 @@
 				4F59DEB62CFFF56100E88830 /* CustomDismissInteractiveTransitioning.mm in Sources */,
 				4F59DEB72CFFF56100E88830 /* TabBarAppearanceViewController.mm in Sources */,
 				4F59DEEB2CFFF6A900E88830 /* ApplicationCategoryViewController.mm in Sources */,
+				4FD9E5BD2D6A201C00BE7EB1 /* PasteboardDetectionPatternViewController.mm in Sources */,
 				4F59DEB82CFFF56100E88830 /* CircleProgressViewController.mm in Sources */,
 				4F4906802D04AF1F0017A47D /* VariableBlurViewController.mm in Sources */,
 				4F59DEB92CFFF56100E88830 /* CustomBaselineViewController.mm in Sources */,
@@ -1420,6 +1449,7 @@
 				4FC4711D2D61DC1500C78FCA /* IntelligenceLightSourceViewController.swift in Sources */,
 				4F05047D2D53570F002D380C /* FluidSliderViewController.mm in Sources */,
 				4F59DEC42CFFF56100E88830 /* MainCollectionViewController.mm in Sources */,
+				4FD9E88E2D6A222300BE7EB1 /* UIMenuElement+CP_NumberOfLines.mm in Sources */,
 				4F59DEF02CFFFA7B00E88830 /* NewWritingToolsViewController.mm in Sources */,
 				4F59DEC52CFFF56100E88830 /* PinkViewController.m in Sources */,
 				4F98BA272D55FABD006D958B /* BlurEffectStylesViewController.mm in Sources */,
