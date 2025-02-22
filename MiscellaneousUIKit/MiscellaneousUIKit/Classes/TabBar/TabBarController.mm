@@ -11,6 +11,7 @@
 #import "OrangeViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 FOUNDATION_EXPORT NSString * NSStringFromBOOL(BOOL);
 
@@ -140,7 +141,14 @@ void swizzle() {
             return [purpleViewController autorelease];
         }];
         
-        [self setTabs:@[pinkTab, cyanTab, orangeTab, tabGroup, searchTab]];
+        UITab *blackTab = [[UITab alloc] initWithTitle:@"Black" image:nil identifier:@"Black" viewControllerProvider:^UIViewController * _Nonnull(__kindof UITab * _Nonnull) {
+            UIViewController *viewController = [UIViewController new];
+            viewController.view.backgroundColor = UIColor.blackColor;
+            return [viewController autorelease];
+        }];
+        blackTab.enabled = NO;
+        
+        [self setTabs:@[pinkTab, cyanTab, orangeTab, tabGroup, searchTab, blackTab]];
         
         [pinkTab release];
         [cyanTab release];
@@ -363,6 +371,36 @@ void swizzle() {
     
     swipeActionsConfiguration.performsFirstActionWithFullSwipe = YES;
     return swipeActionsConfiguration;
+}
+
+- (NSArray<UIDragItem *> *)tabBarController:(UITabBarController *)tabBarController sidebar:(UITabBarControllerSidebar *)sidebar itemsForBeginningDragSession:(id<UIDragSession>)dragSession tab:(UITab *)tab {
+    NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:tab.title];
+    
+    UIDragItem *item = [[UIDragItem alloc] initWithItemProvider:itemProvider];
+    [itemProvider release];
+    
+    NSArray<UIDragItem *> *results = @[item];
+    [item release];
+    return results;
+}
+
+- (NSArray<UIDragItem *> *)tabBarController:(UITabBarController *)tabBarController sidebar:(UITabBarControllerSidebar *)sidebar itemsForAddingToDragSession:(id<UIDragSession>)dragSession tab:(UITab *)tab {
+    NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithItem:tab.title typeIdentifier:UTTypeText.identifier];
+    
+    UIDragItem *item = [[UIDragItem alloc] initWithItemProvider:itemProvider];
+    [itemProvider release];
+    
+    NSArray<UIDragItem *> *results = @[item];
+    [item release];
+    return results;
+}
+
+- (UIDropOperation)tabBarController:(UITabBarController *)tabBarController sidebar:(UITabBarControllerSidebar *)sidebar sidebarAction:(UIAction *)sidebarAction group:(UITabGroup *)group operationForAcceptingItemsFromDropSession:(id<UIDropSession>)session {
+    return UIDropOperationCopy;
+}
+
+- (void)tabBarController:(UITabBarController *)tabBarController sidebar:(UITabBarControllerSidebar *)sidebar sidebarAction:(UIAction *)sidebarAction group:(UITabGroup *)group acceptItemsFromDropSession:(id<UIDropSession>)session {
+    NSLog(@"%@", session.items);
 }
 
 @end
