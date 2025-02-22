@@ -191,6 +191,10 @@
 		4FD9E2D02D697CC000BE7EB1 /* WebTabViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD9E2CE2D697CC000BE7EB1 /* WebTabViewController.mm */; };
 		4FD9E2D22D69834800BE7EB1 /* web-extension-with-parent-directory.zip in Resources */ = {isa = PBXBuildFile; fileRef = 4FD9E2D12D69834800BE7EB1 /* web-extension-with-parent-directory.zip */; };
 		4FD9E2D32D69834800BE7EB1 /* web-extension-with-parent-directory.zip in Resources */ = {isa = PBXBuildFile; fileRef = 4FD9E2D12D69834800BE7EB1 /* web-extension-with-parent-directory.zip */; };
+		4FD9E2D72D69C47C00BE7EB1 /* ConversationContextViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD9E2D62D69C47C00BE7EB1 /* ConversationContextViewController.mm */; };
+		4FD9E2D82D69C47C00BE7EB1 /* ConversationContextViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD9E2D62D69C47C00BE7EB1 /* ConversationContextViewController.mm */; };
+		4FD9E2DA2D69D9CE00BE7EB1 /* mail_conversatoins.json in Resources */ = {isa = PBXBuildFile; fileRef = 4FD9E2D92D69D9CE00BE7EB1 /* mail_conversatoins.json */; };
+		4FD9E2DB2D69D9CE00BE7EB1 /* mail_conversatoins.json in Resources */ = {isa = PBXBuildFile; fileRef = 4FD9E2D92D69D9CE00BE7EB1 /* mail_conversatoins.json */; };
 		4FD9F9FA2D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD9F9F92D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm */; };
 		4FD9F9FB2D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FD9F9F92D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm */; };
 		4FDABC692C3D35DE00F928DB /* SymbolTransitionsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FDABC682C3D35DE00F928DB /* SymbolTransitionsViewController.mm */; };
@@ -414,6 +418,9 @@
 		4FD9E2CD2D697CC000BE7EB1 /* WebTabViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebTabViewController.h; sourceTree = "<group>"; };
 		4FD9E2CE2D697CC000BE7EB1 /* WebTabViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WebTabViewController.mm; sourceTree = "<group>"; };
 		4FD9E2D12D69834800BE7EB1 /* web-extension-with-parent-directory.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "web-extension-with-parent-directory.zip"; sourceTree = "<group>"; };
+		4FD9E2D52D69C47C00BE7EB1 /* ConversationContextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationContextViewController.h; sourceTree = "<group>"; };
+		4FD9E2D62D69C47C00BE7EB1 /* ConversationContextViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ConversationContextViewController.mm; sourceTree = "<group>"; };
+		4FD9E2D92D69D9CE00BE7EB1 /* mail_conversatoins.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mail_conversatoins.json; sourceTree = "<group>"; };
 		4FD9F9F82D5710CB00E38CF2 /* PrototypingMenuSliderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrototypingMenuSliderViewController.h; sourceTree = "<group>"; };
 		4FD9F9F92D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PrototypingMenuSliderViewController.mm; sourceTree = "<group>"; };
 		4FDABC672C3D35DE00F928DB /* SymbolTransitionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SymbolTransitionsViewController.h; sourceTree = "<group>"; };
@@ -550,6 +557,7 @@
 				4F082E532C188D6D002263ED /* Assets.xcassets */,
 				4F082E552C188D6D002263ED /* LaunchScreen.storyboard */,
 				4F5FE5F52C5A0AE70044345D /* article.txt */,
+				4FD9E2D92D69D9CE00BE7EB1 /* mail_conversatoins.json */,
 				4F082E582C188D6D002263ED /* Info.plist */,
 				4F082E592C188D6D002263ED /* main.m */,
 				4F4904102D049E3B0017A47D /* MiscellaneousUIKit-Bridging-Header.h */,
@@ -561,6 +569,7 @@
 		4F082E632C18906E002263ED /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4FD9E2D42D69C46E00BE7EB1 /* ConversationContext */,
 				4FD9E2CC2D697CAD00BE7EB1 /* WebTab */,
 				4FF8BFE92D621D7100256D17 /* KBRenderConfig */,
 				4F4D9CC32D6109C100065012 /* IntelligenceDemo */,
@@ -1116,6 +1125,15 @@
 			path = WebTab;
 			sourceTree = "<group>";
 		};
+		4FD9E2D42D69C46E00BE7EB1 /* ConversationContext */ = {
+			isa = PBXGroup;
+			children = (
+				4FD9E2D52D69C47C00BE7EB1 /* ConversationContextViewController.h */,
+				4FD9E2D62D69C47C00BE7EB1 /* ConversationContextViewController.mm */,
+			);
+			path = ConversationContext;
+			sourceTree = "<group>";
+		};
 		4FD9F9F72D5710BA00E38CF2 /* PrototypingMenuSlider */ = {
 			isa = PBXGroup;
 			children = (
@@ -1229,6 +1247,7 @@
 				4FD9E2D22D69834800BE7EB1 /* web-extension-with-parent-directory.zip in Resources */,
 				4F5FE5F62C5A0B950044345D /* article.txt in Resources */,
 				4F082E572C188D6D002263ED /* Base in Resources */,
+				4FD9E2DA2D69D9CE00BE7EB1 /* mail_conversatoins.json in Resources */,
 				4FF8C2C12D62373200256D17 /* balloon.png in Resources */,
 				4F0504772D5351DC002D380C /* Brightness.ca in Resources */,
 				4FA8EEED2C1CD3B000B1358A /* image.heic in Resources */,
@@ -1244,6 +1263,7 @@
 				4FD9E2D32D69834800BE7EB1 /* web-extension-with-parent-directory.zip in Resources */,
 				4F59DEDF2CFFF56100E88830 /* article.txt in Resources */,
 				4F59DEE02CFFF56100E88830 /* Base in Resources */,
+				4FD9E2DB2D69D9CE00BE7EB1 /* mail_conversatoins.json in Resources */,
 				4FF8C2C02D62373200256D17 /* balloon.png in Resources */,
 				4F0504782D5351DC002D380C /* Brightness.ca in Resources */,
 				4F59DEE12CFFF56100E88830 /* image.heic in Resources */,
@@ -1328,6 +1348,7 @@
 				4F4903C72D040AB90017A47D /* IndexedTextRange.mm in Sources */,
 				4FD9F9FA2D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm in Sources */,
 				4FB9FC422C58C2D6006B3245 /* NewLinkTextViewController.mm in Sources */,
+				4FD9E2D82D69C47C00BE7EB1 /* ConversationContextViewController.mm in Sources */,
 				4F082E4C2C188D6C002263ED /* SceneDelegate.mm in Sources */,
 				4F0CBAA52C43D3FA00743DE2 /* MySearchViewController.mm in Sources */,
 				4F3AFCA12C57F64E00F810CF /* PointerInteractionViewController.mm in Sources */,
@@ -1419,6 +1440,7 @@
 				4F4903C82D040AB90017A47D /* IndexedTextRange.mm in Sources */,
 				4FD9F9FB2D5710CB00E38CF2 /* PrototypingMenuSliderViewController.mm in Sources */,
 				4F59DED02CFFF56100E88830 /* NewLinkTextViewController.mm in Sources */,
+				4FD9E2D72D69C47C00BE7EB1 /* ConversationContextViewController.mm in Sources */,
 				4F59DED12CFFF56100E88830 /* SceneDelegate.mm in Sources */,
 				4F59DED22CFFF56100E88830 /* MySearchViewController.mm in Sources */,
 				4F59DED32CFFF56100E88830 /* PointerInteractionViewController.mm in Sources */,

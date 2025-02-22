@@ -68,6 +68,7 @@
 #import <TargetConditionals.h>
 #import "MiscellaneousUIKit-Swift.h"
 #import "WebTabViewController.h"
+#import "ConversationContextViewController.h"
 
 OBJC_EXPORT _Nullable Class objc_loadClassref(_Nullable Class * _Nonnull clsref);
 
@@ -119,7 +120,7 @@ __attribute__((objc_direct_members))
     [self cellRegistration];
     
 //    __kindof UIViewController *viewController = [reinterpret_cast<Class>(MiscellaneousUIKit::promptComposeViewControllerClass()) new];
-    WebTabViewController *viewController = [WebTabViewController new];
+    ConversationContextViewController *viewController = [ConversationContextViewController new];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     [viewController release];
     [self presentViewController:navigationController animated:YES completion:nil];
@@ -159,6 +160,7 @@ __attribute__((objc_direct_members))
 
 - (NSArray<Class> *)classes {
     return @[
+        ConversationContextViewController.class,
         WebTabViewController.class,
         KBRenderConfigViewController.class,
         KBAnimatedRenderConfigViewController.class,
