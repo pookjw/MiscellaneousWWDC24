@@ -123,6 +123,7 @@ __attribute__((objc_direct_members))
     ConversationContextViewController *viewController = [ConversationContextViewController new];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     [viewController release];
+//    navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:navigationController animated:YES completion:nil];
     [navigationController release];
 //    reinterpret_cast<void (*)(id, SEL, id, BOOL, UICollectionViewScrollPosition, BOOL, BOOL, BOOL, BOOL)>(objc_msgSend)(self.collectionView, sel_registerName("_selectItemAtIndexPath:animated:scrollPosition:notifyDelegate:deselectPrevious:performPrimaryAction:performCustomSelectionAction:"), [NSIndexPath indexPathForItem:0 inSection:0], NO, 0, YES, YES, NO, NO);

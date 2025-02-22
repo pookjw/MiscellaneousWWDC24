@@ -7,6 +7,8 @@
 
 #import "ConversationContextViewController.h"
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
+#import <objc/message.h>
+#import <objc/runtime.h>
 
 @interface ConversationContextViewController ()
 @end
@@ -16,18 +18,17 @@
 - (void)loadView {
     UITextField *textField = [UITextField new];
     
-    //    NSURL *articleURL = [NSBundle.mainBundle URLForResource:@"article" withExtension:UTTypePlainText.preferredFilenameExtension];
-    //    assert(articleURL != nil);
-    //    NSError * _Nullable error = nil;
-    //    NSString *text = [[NSString alloc] initWithContentsOfURL:articleURL encoding:NSUTF8StringEncoding error:&error];
-    //    assert(error == nil);
-    //    textView.text = text;
-    //    [text release];
-    
-//    UIMessageConversationContext *conversationContext = [UIMessageConversationContext new];
-//    UIMailConversationContext *foo = [UIMailConversationContext new];
-    
+//    __kindof UIConversationContext *conversationContext = [self _makeMessageConversationContext];
     __kindof UIConversationContext *conversationContext = [self _makeMailConversationContext];
+    id history = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(conversationContext, sel_registerName("inputContextHistoryRepresentation"));
+    id rep = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(history, sel_registerName("tiInputContextHistory"));
+    BOOL valid = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(rep, sel_registerName("validateForSmartReplyGeneration"));
+    if (!valid) {
+        NSString *invalidReasonsForSmartReplyGeneration = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(rep, sel_registerName("invalidReasonsForSmartReplyGeneration"));
+        NSLog(@"%@", invalidReasonsForSmartReplyGeneration);
+        abort();
+    }
+    assert(valid);
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         textField.conversationContext = conversationContext;
