@@ -48,7 +48,7 @@
     // NSInputContextHistory
     // TIInputContextEntry
     
-    NSString *threadIdentifier = [NSUUID UUID].UUIDString;
+    NSString *threadIdentifier =  @"Test";
     
     NSMutableArray *entries = [NSMutableArray new];
     [json enumerateObjectsUsingBlock:^(NSDictionary<NSString *,NSString *> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -156,14 +156,15 @@
     [super viewDidLoad];
     [self _reload];
     
-    [NSUserDefaults.standardUserDefaults setObject:@YES forKey:@"NSSmartReplyEnabled"];
+    [NSUserDefaults.standardUserDefaults removeObjectForKey:@"NSSmartReplyEnabled"];
+//    [NSUserDefaults.standardUserDefaults setObject:@YES forKey:@"NSSmartReplyEnabled"];
     
-//    Boolean f;
-//    Boolean boolValue = CFPreferencesGetAppBooleanValue(CFSTR("allowMailSmartReplies"), CFSTR("com.apple.applicationaccess"), &f);
+//    Boolean boolValue = CFPreferencesAppValueIsForced(CFSTR("allowMailSmartReplies"), CFSTR("com.apple.applicationaccess"));
 //    if (!boolValue) {
-//        boolValue = CFPreferencesAppValueIsForced(CFSTR("allowMailSmartReplies"), CFSTR("com.apple.applicationaccess"));
+//        Boolean keyExistsAndHasValidFormat;
+//        boolValue = CFPreferencesGetAppBooleanValue(CFSTR("allowMailSmartReplies"), CFSTR("com.apple.applicationaccess"), &keyExistsAndHasValidFormat);
+//        assert(keyExistsAndHasValidFormat || boolValue);
 //    }
-//    assert(boolValue);
 }
 
 - (ConfigurationView *)_configurationView {
@@ -306,7 +307,7 @@
     // NSInputContextHistory
     // TIInputContextEntry
     
-    NSString *threadIdentifier = [NSUUID UUID].UUIDString;
+    NSString *threadIdentifier = @"Test";
     
     NSMutableArray *entries = [NSMutableArray new];
     [json enumerateObjectsUsingBlock:^(NSDictionary<NSString *,NSString *> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

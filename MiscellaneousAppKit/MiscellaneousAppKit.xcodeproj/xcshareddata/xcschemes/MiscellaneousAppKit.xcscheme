@@ -55,7 +55,7 @@
          <EnvironmentVariable
             key = "MTC_VERBOSE"
             value = "1"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </EnvironmentVariable>
       </EnvironmentVariables>
       <AdditionalOptions>
