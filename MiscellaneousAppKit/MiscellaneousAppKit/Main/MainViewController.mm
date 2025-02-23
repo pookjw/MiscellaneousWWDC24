@@ -67,7 +67,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    self.preferredContentSize = NSMakeSize(400., 400.);
-    [self _performActionWithIndex:0];
+    [self _presentWindowForClass:[TextViewDemoViewController class]];
 }
 
 - (NSScrollView *)_scrollView {
@@ -143,9 +143,12 @@
     if (index == NSNotFound or index == -1) return;
     
     Class clickedClass = MainViewController.classes[index];
-    
-    if ([clickedClass isSubclassOfClass:[NSWindow class]]) {
-        __kindof NSWindow *window = [clickedClass new];
+    [self _presentWindowForClass:clickedClass];
+}
+
+- (void)_presentWindowForClass:(Class)_class {
+    if ([_class isSubclassOfClass:[NSWindow class]]) {
+        __kindof NSWindow *window = [_class new];
         [window makeKeyAndOrderFront:nil];
         
 //        NSMenu *menu = [NSMenu new];
@@ -154,19 +157,19 @@
 //        menuItem.action = @selector(hide:);
 //        [menu addItem:menuItem];
 //        [menuItem release];
-//        
+//
 //        [NSApp setWindowsMenu:menu];
 //        [menu release];
         
         [window release];
-    } else if ([clickedClass isSubclassOfClass:[NSViewController class]]) {
+    } else if ([_class isSubclassOfClass:[NSViewController class]]) {
         NSWindow *window = [[NSWindow alloc] initWithContentRect:NSMakeRect(0., 0., 600., 400.) styleMask:NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable | NSWindowStyleMaskTitled backing:NSBackingStoreBuffered defer:NO];
         
         window.releasedWhenClosed = NO;
-        window.title = NSStringFromClass(clickedClass);
+        window.title = NSStringFromClass(_class);
         window.contentMinSize = NSMakeSize(400., 400.);
         
-        __kindof NSViewController *contentViewController = [clickedClass new];
+        __kindof NSViewController *contentViewController = [_class new];
         window.contentViewController = contentViewController;
         [contentViewController release];
         

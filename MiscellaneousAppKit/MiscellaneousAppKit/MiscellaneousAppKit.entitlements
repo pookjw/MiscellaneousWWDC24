@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict/>
+<dict>
+	<key>com.apple.application-identifier</key>
+	<string>com.apple.mail</string>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>com.apple.suggestions.mail-intelligence</string>
+		<string>com.apple.mail.identities</string>
+		<string>com.apple.identities</string>
+	</array>
+	<key>com.apple.security.temporary-exception.shared-preference.read-write</key>
+	<array>
+		<string>com.apple.mail-shared</string>
+		<string>com.apple.onetimepasscodes</string>
+		<string>com.apple.siri.generativeassistantsettings</string>
+	</array>
+	<key>com.apple.security.temporary-exception.mach-lookup.global-name</key>
+	<array>
+		<string>com.apple.sage.textcomposition</string>
+		<string>com.apple.generativeexperiences.textcomposition</string>
+	</array>
+	<key>com.apple.generativeexperiences.textcomposition</key>
+	<true/>
+</dict>
 </plist>
