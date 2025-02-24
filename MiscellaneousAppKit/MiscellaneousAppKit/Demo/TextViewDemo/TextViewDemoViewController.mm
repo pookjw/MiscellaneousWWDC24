@@ -12,134 +12,14 @@
 #include <vector>
 #import <objc/message.h>
 #import <objc/runtime.h>
-#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 #import <CoreFoundation/CoreFoundation.h>
-
-@interface ComposeTextView : NSTextView
-@end
-
-@implementation ComposeTextView
-
-- (NSTextInputContext *)inputContext {
-    NSTextInputContext *result = [super inputContext];
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(result, sel_registerName("setInputContextHistory:"), [self _makeMailContextHistory]);
-    return result;
-}
-
-- (id)_makeMailContextHistory {
-    NSURL *url = [NSBundle.mainBundle URLForResource:@"mail_conversatoins" withExtension:UTTypeJSON.preferredFilenameExtension];
-    assert(url != nil);
-    NSData *data = [[NSData alloc] initWithContentsOfURL:url];
-    assert(data != nil);
-    NSError * error = nil;
-    NSArray<NSDictionary<NSString *, NSString *> *> *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingJSON5Allowed error:&error];
-    [data release];
-    assert(error == nil);
-    
-    NSMutableSet<NSString *> *addresses = [NSMutableSet new];
-    for (NSDictionary<NSString *, NSString *> *content in json) {
-        [addresses addObject:content[@"address"]];
-    }
-    NSString *selfAddress = addresses.allObjects.firstObject;
-    
-    NSMutableSet<NSString *> *addressesWithoutSelfAddress = [addresses mutableCopy];
-    [addressesWithoutSelfAddress removeObject:selfAddress];
-    
-    // NSInputContextHistory
-    // TIInputContextEntry
-    
-    NSString *threadIdentifier =  @"Test";
-    
-    NSMutableArray *entries = [NSMutableArray new];
-    [json enumerateObjectsUsingBlock:^(NSDictionary<NSString *,NSString *> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj[@"address"] isEqualToString:selfAddress]) return;
-        
-        id entry = [objc_lookUpClass("TIMutableInputContextEntry") new];
-        
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(entry, sel_registerName("setText:"), obj[@"body"]);
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(entry, sel_registerName("setSenderIdentifier:"), obj[@"address"]);
-        
-        NSDate *timestamp = [NSCalendar.currentCalendar dateByAddingUnit:NSCalendarUnitSecond
-                                                                value:-(json.count - idx) * 10
-                                                               toDate:[NSDate now]
-                                                              options:NSCalendarMatchNextTime];
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(entry, sel_registerName("setTimestamp:"), timestamp);
-        
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(entry, sel_registerName("setEntryIdentifier:"), [NSUUID UUID].UUIDString);
-        
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(entry, sel_registerName("setPrimaryRecipientIdentifiers:"), [NSSet setWithObject:selfAddress]);
-        
-        NSMutableSet<NSString *> *responseSecondaryRecipientIdentifiers = [addresses mutableCopy];
-        [responseSecondaryRecipientIdentifiers removeObject:obj[@"address"]];
-        [responseSecondaryRecipientIdentifiers removeObject:selfAddress];
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(entry, sel_registerName("setSecondaryRecipientIdentifiers:"), responseSecondaryRecipientIdentifiers);
-        [responseSecondaryRecipientIdentifiers release];
-        
-        /*
-         entryType = 1 (Message)
-         entryType = 2 (Mail)
-         */
-        reinterpret_cast<void (*)(id, SEL, NSInteger)>(objc_msgSend)(entry, sel_registerName("setEntryType:"), 2);
-        
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(entry, sel_registerName("setThreadIdentifier:"), threadIdentifier);
-        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(entry, sel_registerName("setIsFromMe:"), NO);
-        
-        [entries addObject:entry];
-        [entry release];
-    }];
-    [addresses release];
-    
-    
-    NSMutableDictionary<NSString *, NSPersonNameComponents *> *participantNameByIdentifier = [NSMutableDictionary new];
-    for (NSDictionary<NSString *, NSString *> *content in json) {
-        NSString *name = content[@"name"];
-        NSString *address = content[@"address"];
-        
-        NSPersonNameComponents *components = [NSPersonNameComponents new];
-        NSString *familyName = [name componentsSeparatedByString:@" "][0];
-        components.familyName = familyName;
-        NSString *givenName = [name componentsSeparatedByString:@" "][1];
-        components.givenName = givenName;
-        participantNameByIdentifier[address] = components;
-        [components release];
-    }
-    
-    id context = reinterpret_cast<id (*)(id, SEL, id, id, id, id, id, id)>(objc_msgSend)([objc_lookUpClass("NSInputContextHistory") alloc], sel_registerName("initWithThreadIdentifier:participantsIDtoNamesMap:firstPersonIDs:primaryRecipients:secondaryRecipients:infoDict:"), threadIdentifier, participantNameByIdentifier, [NSSet setWithObject:selfAddress], addressesWithoutSelfAddress, addressesWithoutSelfAddress, @{
-        @"hasCustomSignature": @NO,
-        @"showSmartReplySuggestions": @YES,
-        @"subject": @"Replying to you"
-    });
-    [addressesWithoutSelfAddress release];
-    [participantNameByIdentifier release];
-    
-    for (id entry in entries) {
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(context, sel_registerName("addEntry:"), entry);
-    }
-    [entries release];
-    
-    id rep = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(context, sel_registerName("tiInputContextHistory"));
-    BOOL valid = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(rep, sel_registerName("validateForSmartReplyGeneration"));
-    assert(valid);
-    
-    if (!valid) {
-        NSString *invalidReasonsForSmartReplyGeneration = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(rep, sel_registerName("invalidReasonsForSmartReplyGeneration"));
-        NSLog(@"%@", invalidReasonsForSmartReplyGeneration);
-        abort();
-    }
-    
-//    id history = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("_NSTextSmartReplyCompactContextHistory") alloc], sel_registerName("initWithContextHistory:"), context);
-//    [context release];
-    
-    return [context autorelease];
-}
-
-@end
+#import "TextView.h"
 
 @interface TextViewDemoViewController () <ConfigurationViewDelegate>
 @property (retain, nonatomic, readonly, getter=_splitView) NSSplitView *splitView;
 @property (retain, nonatomic, readonly, getter=_configurationView) ConfigurationView *configurationView;
 @property (retain, nonatomic, readonly, getter=_scrollView) NSScrollView *scrollView;
-@property (retain, nonatomic, readonly, getter=_textView) NSTextView *textView;
+@property (retain, nonatomic, readonly, getter=_textView) TextView *textView;
 @end
 
 @implementation TextViewDemoViewController
@@ -156,14 +36,13 @@
     [super viewDidLoad];
     [self _reload];
     
-    [NSUserDefaults.standardUserDefaults removeObjectForKey:@"NSSmartReplyEnabled"];
 //    [NSUserDefaults.standardUserDefaults setObject:@YES forKey:@"NSSmartReplyEnabled"];
     
 //    Boolean boolValue = CFPreferencesAppValueIsForced(CFSTR("allowMailSmartReplies"), CFSTR("com.apple.applicationaccess"));
 //    if (!boolValue) {
 //        Boolean keyExistsAndHasValidFormat;
 //        boolValue = CFPreferencesGetAppBooleanValue(CFSTR("allowMailSmartReplies"), CFSTR("com.apple.applicationaccess"), &keyExistsAndHasValidFormat);
-//        assert(keyExistsAndHasValidFormat || boolValue);
+//        assert(!keyExistsAndHasValidFormat || boolValue);
 //    }
 }
 
@@ -201,10 +80,10 @@
     return scrollView;
 }
 
-- (NSTextView *)_textView {
+- (TextView *)_textView {
     if (auto textView = _textView) return textView;
     
-    NSTextView *textView = [ComposeTextView new];
+    TextView *textView = [TextView new];
     textView.autoresizingMask = NSViewWidthSizable;
     textView.usesFindBar = YES;
     textView.incrementalSearchingEnabled = YES;
@@ -213,8 +92,7 @@
     textView.automaticTextCompletionEnabled = YES;
     textView.automaticTextReplacementEnabled = YES;
     textView.writingToolsBehavior = NSWritingToolsBehaviorComplete;
-    
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(textView.inputContext, sel_registerName("setInputContextHistory:"), [self _makeMailContextHistory]);
+    textView.smartReplyEnabled = YES;
     
     _textView = textView;
     return textView;
@@ -225,7 +103,7 @@
     
     [snapshot appendSectionsWithIdentifiers:@[[NSNull null]]];
     [snapshot appendItemsWithIdentifiers:@[
-        [self _makeMailContextHistoryItemModel],
+        [self _makeSmartReplyItemModel],
         [self _makeWritingToolsBehaviorItemModel],
         [self _makeAllowsWritingToolsAffordanceItemModel]
     ]
@@ -248,7 +126,7 @@
 }
 
 - (ConfigurationItemModel *)_makeWritingToolsBehaviorItemModel {
-    NSTextView *textView = self.textView;
+    TextView *textView = self.textView;
     
     return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
                                           identifier:@"Writing Tools Behavior"
@@ -272,126 +150,17 @@
     }];
 }
 
-- (ConfigurationItemModel *)_makeMailContextHistoryItemModel {
-    NSTextView *textView = self.textView;
+- (ConfigurationItemModel *)_makeSmartReplyItemModel {
+    TextView *textView = self.textView;
     
     return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
-                                          identifier:@"Mail Context History"
+                                          identifier:@"Smart Reply"
                                             userInfo:nil
-                                               label:@"Mail Context History"
+                                               label:@"Smart Reply"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
-        id inputContextHistory = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(textView.inputContext, sel_registerName("inputContextHistory"));
-        return @(inputContextHistory != nil);
+        return @(textView.smartInsertDeleteEnabled);
     }];
 }
-
-- (id)_makeMailContextHistory {
-    NSURL *url = [NSBundle.mainBundle URLForResource:@"mail_conversatoins" withExtension:UTTypeJSON.preferredFilenameExtension];
-    assert(url != nil);
-    NSData *data = [[NSData alloc] initWithContentsOfURL:url];
-    assert(data != nil);
-    NSError * error = nil;
-    NSArray<NSDictionary<NSString *, NSString *> *> *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingJSON5Allowed error:&error];
-    [data release];
-    assert(error == nil);
-    
-    NSMutableSet<NSString *> *addresses = [NSMutableSet new];
-    for (NSDictionary<NSString *, NSString *> *content in json) {
-        [addresses addObject:content[@"address"]];
-    }
-    NSString *selfAddress = addresses.allObjects.firstObject;
-    
-    NSMutableSet<NSString *> *addressesWithoutSelfAddress = [addresses mutableCopy];
-    [addressesWithoutSelfAddress removeObject:selfAddress];
-    
-    // NSInputContextHistory
-    // TIInputContextEntry
-    
-    NSString *threadIdentifier = @"Test";
-    
-    NSMutableArray *entries = [NSMutableArray new];
-    [json enumerateObjectsUsingBlock:^(NSDictionary<NSString *,NSString *> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj[@"address"] isEqualToString:selfAddress]) return;
-        
-        id entry = [objc_lookUpClass("TIMutableInputContextEntry") new];
-        
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(entry, sel_registerName("setText:"), obj[@"body"]);
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(entry, sel_registerName("setSenderIdentifier:"), obj[@"address"]);
-        
-        NSDate *timestamp = [NSCalendar.currentCalendar dateByAddingUnit:NSCalendarUnitSecond
-                                                                value:-(json.count - idx) * 10
-                                                               toDate:[NSDate now]
-                                                              options:NSCalendarMatchNextTime];
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(entry, sel_registerName("setTimestamp:"), timestamp);
-        
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(entry, sel_registerName("setEntryIdentifier:"), [NSUUID UUID].UUIDString);
-        
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(entry, sel_registerName("setPrimaryRecipientIdentifiers:"), [NSSet setWithObject:selfAddress]);
-        
-        NSMutableSet<NSString *> *responseSecondaryRecipientIdentifiers = [addresses mutableCopy];
-        [responseSecondaryRecipientIdentifiers removeObject:obj[@"address"]];
-        [responseSecondaryRecipientIdentifiers removeObject:selfAddress];
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(entry, sel_registerName("setSecondaryRecipientIdentifiers:"), responseSecondaryRecipientIdentifiers);
-        [responseSecondaryRecipientIdentifiers release];
-        
-        /*
-         entryType = 1 (Message)
-         entryType = 2 (Mail)
-         */
-        reinterpret_cast<void (*)(id, SEL, NSInteger)>(objc_msgSend)(entry, sel_registerName("setEntryType:"), 2);
-        
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(entry, sel_registerName("setThreadIdentifier:"), threadIdentifier);
-        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(entry, sel_registerName("setIsFromMe:"), NO);
-        
-        [entries addObject:entry];
-        [entry release];
-    }];
-    [addresses release];
-    
-    
-    NSMutableDictionary<NSString *, NSPersonNameComponents *> *participantNameByIdentifier = [NSMutableDictionary new];
-    for (NSDictionary<NSString *, NSString *> *content in json) {
-        NSString *name = content[@"name"];
-        NSString *address = content[@"address"];
-        
-        NSPersonNameComponents *components = [NSPersonNameComponents new];
-        NSString *familyName = [name componentsSeparatedByString:@" "][0];
-        components.familyName = familyName;
-        NSString *givenName = [name componentsSeparatedByString:@" "][1];
-        components.givenName = givenName;
-        participantNameByIdentifier[address] = components;
-        [components release];
-    }
-    
-    id context = reinterpret_cast<id (*)(id, SEL, id, id, id, id, id, id)>(objc_msgSend)([objc_lookUpClass("NSInputContextHistory") alloc], sel_registerName("initWithThreadIdentifier:participantsIDtoNamesMap:firstPersonIDs:primaryRecipients:secondaryRecipients:infoDict:"), threadIdentifier, participantNameByIdentifier, [NSSet setWithObject:selfAddress], addressesWithoutSelfAddress, addressesWithoutSelfAddress, @{
-        @"hasCustomSignature": @NO,
-        @"showSmartReplySuggestions": @YES,
-        @"subject": @"Replying to you"
-    });
-    [addressesWithoutSelfAddress release];
-    [participantNameByIdentifier release];
-    
-    for (id entry in entries) {
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(context, sel_registerName("addEntry:"), entry);
-    }
-    [entries release];
-    
-    id rep = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(context, sel_registerName("tiInputContextHistory"));
-    BOOL valid = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(rep, sel_registerName("validateForSmartReplyGeneration"));
-    assert(valid);
-    
-    if (!valid) {
-        NSString *invalidReasonsForSmartReplyGeneration = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(rep, sel_registerName("invalidReasonsForSmartReplyGeneration"));
-        NSLog(@"%@", invalidReasonsForSmartReplyGeneration);
-        abort();
-    }
-    
-//    id history = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("_NSTextSmartReplyCompactContextHistory") alloc], sel_registerName("initWithContextHistory:"), context);
-//    [context release];
-    
-    return [context autorelease];
-}
-
 
 - (BOOL)configurationView:(ConfigurationView *)configurationView didTriggerActionWithItemModel:(ConfigurationItemModel *)itemModel newValue:(id<NSCopying>)newValue {
     NSString *identifier = itemModel.identifier;
@@ -406,17 +175,9 @@
         NSWritingToolsBehavior behavior = NSWritingToolsBehaviorFromString(title);
         textView.writingToolsBehavior = behavior;
         return NO;
-    } else if ([identifier isEqualToString:@"Mail Context History"]) {
+    } else if ([identifier isEqualToString:@"Smart Reply"]) {
         BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
-        
-        if (boolValue) {
-            assert(reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(textView.inputContext, sel_registerName("inputContextHistory")) == nil);
-            reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(textView.inputContext, sel_registerName("setInputContextHistory:"), [self _makeMailContextHistory]);
-        } else {
-            assert(reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(textView.inputContext, sel_registerName("inputContextHistory")) != nil);
-            reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(textView.inputContext, sel_registerName("setInputContextHistory:"), nil);
-        }
-        
+        textView.smartInsertDeleteEnabled = boolValue;
         return NO;
     } else {
         abort();
