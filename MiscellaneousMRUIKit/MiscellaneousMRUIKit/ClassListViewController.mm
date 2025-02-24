@@ -42,6 +42,7 @@
 #import "CornerRadiusViewController.h"
 #import "WindowSceneZoomInteractionViewController.h"
 #import "EventSourceViewController.h"
+#import "ARKitDemoViewController.h"
 
 @interface ClassListViewController ()
 @property (retain, readonly, nonatomic) UICollectionViewCellRegistration *cellRegistration;
@@ -75,7 +76,7 @@
     [self cellRegistration];
     
 //    __kindof UIViewController *viewController = [[self classes][0] new];
-    __kindof UIViewController *viewController = [OrnamentViewController new];
+    __kindof UIViewController *viewController = [ARKitDemoViewController new];
     [self.navigationController pushViewController:viewController animated:YES];
     [viewController release];
 }
@@ -101,6 +102,7 @@
 
 - (NSArray<Class> *)classes {
     return @[
+        ARKitDemoViewController.class,
         EventSourceViewController.class,
         WindowSceneZoomInteractionViewController.class,
         CornerRadiusViewController.class,

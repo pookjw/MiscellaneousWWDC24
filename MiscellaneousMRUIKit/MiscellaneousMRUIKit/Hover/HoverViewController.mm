@@ -267,22 +267,22 @@ CG_EXTERN NSString * const kCARemoteEffectStateIdle;
     configuration.scrollDirection = UICollectionViewScrollDirectionVertical;
     
     UICollectionViewCompositionalLayout *collectionViewLayout = [[UICollectionViewCompositionalLayout alloc] initWithSectionProvider:^NSCollectionLayoutSection * _Nullable(NSInteger sectionIndex, id<NSCollectionLayoutEnvironment>  _Nonnull layoutEnvironment) {
-        NSUInteger quotient = std::floorf(layoutEnvironment.container.contentSize.width / 200.f);
+        NSUInteger quotient = floor(layoutEnvironment.container.contentSize.width / 200.);
         NSUInteger count = MAX(quotient, 2);
         
-        NSCollectionLayoutSize *itemSize = [NSCollectionLayoutSize sizeWithWidthDimension:[NSCollectionLayoutDimension fractionalWidthDimension:1.f / count]
-                                                                          heightDimension:[NSCollectionLayoutDimension fractionalHeightDimension:1.f]];
+        NSCollectionLayoutSize *itemSize = [NSCollectionLayoutSize sizeWithWidthDimension:[NSCollectionLayoutDimension fractionalWidthDimension:1. / count]
+                                                                          heightDimension:[NSCollectionLayoutDimension fractionalHeightDimension:1.]];
         
         NSCollectionLayoutItem *item = [NSCollectionLayoutItem itemWithLayoutSize:itemSize];
-        item.contentInsets = NSDirectionalEdgeInsetsMake(10.f, 10.f, 10.f, 10.f);
+        item.contentInsets = NSDirectionalEdgeInsetsMake(10., 10., 10., 10.);
         
-        NSCollectionLayoutSize *groupSize = [NSCollectionLayoutSize sizeWithWidthDimension:[NSCollectionLayoutDimension fractionalWidthDimension:1.f]
-                                                                           heightDimension:[NSCollectionLayoutDimension fractionalWidthDimension:1.f / count]];
+        NSCollectionLayoutSize *groupSize = [NSCollectionLayoutSize sizeWithWidthDimension:[NSCollectionLayoutDimension fractionalWidthDimension:1.]
+                                                                           heightDimension:[NSCollectionLayoutDimension fractionalWidthDimension:1. / count]];
         
         NSCollectionLayoutGroup *group = [NSCollectionLayoutGroup horizontalGroupWithLayoutSize:groupSize repeatingSubitem:item count:count];
         
         NSCollectionLayoutSection *section = [NSCollectionLayoutSection sectionWithGroup:group];
-        section.contentInsets = NSDirectionalEdgeInsetsMake(10.f, 10.f, 10.f, 10.f);
+        section.contentInsets = NSDirectionalEdgeInsetsMake(10., 10., 10., 10.);
         
         return section;
     }

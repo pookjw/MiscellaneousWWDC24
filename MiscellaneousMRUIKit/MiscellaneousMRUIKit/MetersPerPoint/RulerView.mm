@@ -70,7 +70,7 @@
         CGPathMoveToPoint(path, NULL, 0., 0.);
         CGPathAddLineToPoint(path, NULL, 0., CGRectGetHeight(rect));
         
-        for (NSInteger base : std::views::iota(0, static_cast<NSInteger>(std::ceil(centimeters / 4.0)))) {
+        for (NSInteger base : std::views::iota(0, static_cast<NSInteger>(ceil(centimeters / 4.0)))) {
             base *= 4;
             textLayer.string = @(base).stringValue;
             

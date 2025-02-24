@@ -2,33 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>com.apple.private.suggestions</key>
-	<true/>
-	<key>com.apple.private.suggestions.mail</key>
-	<true/>
-	<key>com.apple.application-identifier</key>
-	<string>com.apple.mail</string>
-	<key>com.apple.security.temporary-exception.shared-preference.read-only</key>
-	<array>
-		<string>com.apple.suggestions</string>
-		<string>com.apple.parsecd</string>
-	</array>
-	<key>com.apple.sage.textcomposition</key>
-	<true/>
 	<key>com.apple.security.exception.shared-preference.read-only</key>
 	<array>
 		<string>com.apple.applicationaccess</string>
-	</array>
-	<key>keychain-access-groups</key>
-	<array>
-		<string>com.apple.suggestions.mail-intelligence</string>
-		<string>com.apple.mail.identities</string>
-		<string>com.apple.identities</string>
-	</array>
-	<key>com.apple.security.temporary-exception.mach-lookup.global-name</key>
-	<array>
-		<string>com.apple.sage.textcomposition</string>
-		<string>com.apple.generativeexperiences.textcomposition</string>
 	</array>
 	<key>com.apple.generativeexperiences.textcomposition</key>
 	<true/>

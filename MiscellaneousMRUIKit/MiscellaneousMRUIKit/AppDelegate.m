@@ -56,6 +56,8 @@ CP_EXTERN const UISceneSessionRole CPSceneSessionRoleImmersiveSpaceApplication;
         configuration.delegateClass = ToggleImmersiveStylesSceneDelegate.class;
     } else if ([activityType isEqualToString:@"SceneSizeRestrictions"]) {
         configuration.delegateClass = SceneSizeRestrictionsSceneDelegate.class;
+    } else if ([activityType isEqualToString:@"ARStereoProperties"]) {
+        // NOP
     } else {
         configuration.delegateClass = SceneDelegate.class;
     }

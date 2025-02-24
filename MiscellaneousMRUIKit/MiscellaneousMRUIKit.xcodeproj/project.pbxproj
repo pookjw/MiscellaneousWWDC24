@@ -59,6 +59,18 @@
 		4FAB0F512D5A63C90082E639 /* DarknessPreferenceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0F4F2D5A63C90082E639 /* DarknessPreferenceViewController.mm */; };
 		4FAB0F552D5A6B820082E639 /* AnchoringTargetViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0F542D5A6B820082E639 /* AnchoringTargetViewController.mm */; };
 		4FAB0F562D5A6B820082E639 /* AnchoringTargetViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB0F542D5A6B820082E639 /* AnchoringTargetViewController.mm */; };
+		4FB9D6F52D6C50CC0007D368 /* ARKitDemoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FB9D6F42D6C50CC0007D368 /* ARKitDemoViewController.mm */; };
+		4FB9D6F62D6C50CC0007D368 /* ARKitDemoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FB9D6F42D6C50CC0007D368 /* ARKitDemoViewController.mm */; };
+		4FB9D6F92D6C519D0007D368 /* ARStereoPropertiesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FB9D6F82D6C519D0007D368 /* ARStereoPropertiesViewController.mm */; };
+		4FB9D6FA2D6C519D0007D368 /* ARStereoPropertiesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FB9D6F82D6C519D0007D368 /* ARStereoPropertiesViewController.mm */; };
+		4FB9D6FC2D6C51B00007D368 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FB9D6FB2D6C51B00007D368 /* ARKit.framework */; };
+		4FB9D6FD2D6C51B30007D368 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FB9D6FB2D6C51B00007D368 /* ARKit.framework */; };
+		4FB9D6FF2D6C541F0007D368 /* toy_drummer_idle.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 4FB9D6FE2D6C541F0007D368 /* toy_drummer_idle.usdz */; };
+		4FB9D7002D6C541F0007D368 /* toy_drummer_idle.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 4FB9D6FE2D6C541F0007D368 /* toy_drummer_idle.usdz */; };
+		4FB9D7032D6C5D780007D368 /* UIApplication+mrui_requestSceneWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FB9D7022D6C5D780007D368 /* UIApplication+mrui_requestSceneWrapper.mm */; };
+		4FB9D7042D6C5D780007D368 /* UIApplication+mrui_requestSceneWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FB9D7022D6C5D780007D368 /* UIApplication+mrui_requestSceneWrapper.mm */; };
+		4FB9D73F2D6C6E280007D368 /* NSProcessInfo+MUI_Category.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FB9D73E2D6C6E280007D368 /* NSProcessInfo+MUI_Category.mm */; };
+		4FB9D7402D6C6E280007D368 /* NSProcessInfo+MUI_Category.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FB9D73E2D6C6E280007D368 /* NSProcessInfo+MUI_Category.mm */; };
 		4FCD46912D5B05440024EFFE /* EdgeInsetViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD46902D5B05440024EFFE /* EdgeInsetViewController.mm */; };
 		4FCD46922D5B05440024EFFE /* EdgeInsetViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD46902D5B05440024EFFE /* EdgeInsetViewController.mm */; };
 		4FCD46972D5B0B500024EFFE /* CornerInsetViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FCD46962D5B0B500024EFFE /* CornerInsetViewController.mm */; };
@@ -218,6 +230,16 @@
 		4FAB0F4F2D5A63C90082E639 /* DarknessPreferenceViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DarknessPreferenceViewController.mm; sourceTree = "<group>"; };
 		4FAB0F532D5A6B820082E639 /* AnchoringTargetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnchoringTargetViewController.h; sourceTree = "<group>"; };
 		4FAB0F542D5A6B820082E639 /* AnchoringTargetViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AnchoringTargetViewController.mm; sourceTree = "<group>"; };
+		4FB9D6F32D6C50CC0007D368 /* ARKitDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARKitDemoViewController.h; sourceTree = "<group>"; };
+		4FB9D6F42D6C50CC0007D368 /* ARKitDemoViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ARKitDemoViewController.mm; sourceTree = "<group>"; };
+		4FB9D6F72D6C519D0007D368 /* ARStereoPropertiesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARStereoPropertiesViewController.h; sourceTree = "<group>"; };
+		4FB9D6F82D6C519D0007D368 /* ARStereoPropertiesViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ARStereoPropertiesViewController.mm; sourceTree = "<group>"; };
+		4FB9D6FB2D6C51B00007D368 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
+		4FB9D6FE2D6C541F0007D368 /* toy_drummer_idle.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = toy_drummer_idle.usdz; sourceTree = "<group>"; };
+		4FB9D7012D6C5D780007D368 /* UIApplication+mrui_requestSceneWrapper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "UIApplication+mrui_requestSceneWrapper.hpp"; sourceTree = "<group>"; };
+		4FB9D7022D6C5D780007D368 /* UIApplication+mrui_requestSceneWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIApplication+mrui_requestSceneWrapper.mm"; sourceTree = "<group>"; };
+		4FB9D73D2D6C6E280007D368 /* NSProcessInfo+MUI_Category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSProcessInfo+MUI_Category.h"; sourceTree = "<group>"; };
+		4FB9D73E2D6C6E280007D368 /* NSProcessInfo+MUI_Category.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSProcessInfo+MUI_Category.mm"; sourceTree = "<group>"; };
 		4FCD468F2D5B05440024EFFE /* EdgeInsetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EdgeInsetViewController.h; sourceTree = "<group>"; };
 		4FCD46902D5B05440024EFFE /* EdgeInsetViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = EdgeInsetViewController.mm; sourceTree = "<group>"; };
 		4FCD46932D5B0A7B0024EFFE /* MRUIInset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MRUIInset.h; sourceTree = "<group>"; };
@@ -286,6 +308,7 @@
 				4F98BCFA2D56730B006D958B /* UniformTypeIdentifiers.framework in Frameworks */,
 				4FE624A42D158871008D14D8 /* WebKit.framework in Frameworks */,
 				4FE626F32D15B8D6008D14D8 /* CompositorServices.framework in Frameworks */,
+				4FB9D6FC2D6C51B00007D368 /* ARKit.framework in Frameworks */,
 				4F26D3412C2FFAD20097B837 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,6 +320,7 @@
 				4F98BCFB2D56730F006D958B /* UniformTypeIdentifiers.framework in Frameworks */,
 				4FE624A52D15887D008D14D8 /* WebKit.framework in Frameworks */,
 				4FE626F22D15B8CF008D14D8 /* CompositorServices.framework in Frameworks */,
+				4FB9D6FD2D6C51B30007D368 /* ARKit.framework in Frameworks */,
 				4FE6249A2D15877A008D14D8 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -335,6 +359,7 @@
 			isa = PBXGroup;
 			children = (
 				4F98BCF62D5672F2006D958B /* image.heic */,
+				4FB9D6FE2D6C541F0007D368 /* toy_drummer_idle.usdz */,
 				4F05B7612C834CA5001ECA93 /* MiscellaneousMRUIKit Private.entitlements */,
 				4F1C71202C2F2442002E096A /* AppDelegate.h */,
 				4F1C71212C2F2442002E096A /* AppDelegate.m */,
@@ -344,6 +369,8 @@
 				4F26D2EA2C2FDBFC0097B837 /* ClassListViewController.mm */,
 				4F4123792D586FA8009966F4 /* NSObject+Foundation_IvarDescription.h */,
 				4F41237A2D586FA8009966F4 /* NSObject+Foundation_IvarDescription.mm */,
+				4FB9D73D2D6C6E280007D368 /* NSProcessInfo+MUI_Category.h */,
+				4FB9D73E2D6C6E280007D368 /* NSProcessInfo+MUI_Category.mm */,
 				4FCD46932D5B0A7B0024EFFE /* MRUIInset.h */,
 				4F26D33E2C2FFAC00097B837 /* MRUISize3D.h */,
 				4F98BD052D57AE11006D958B /* MRUISize3D.mm */,
@@ -353,6 +380,9 @@
 				4FFB27612D59F53D0070D95D /* enableVolumetricPresntationForWindow.mm */,
 				4FCD46AD2D5B41430024EFFE /* ToolBox.h */,
 				4FCD46AE2D5B41430024EFFE /* ToolBox.mm */,
+				4FB9D7012D6C5D780007D368 /* UIApplication+mrui_requestSceneWrapper.hpp */,
+				4FB9D7022D6C5D780007D368 /* UIApplication+mrui_requestSceneWrapper.mm */,
+				4FB9D6F22D6C50460007D368 /* ARKitDemo */,
 				4FCD46A42D5B3A9E0024EFFE /* EventSource */,
 				4FCD469F2D5B15D00024EFFE /* Unknown */,
 				4FFB276E2D5A38050070D95D /* ChromeVisibility */,
@@ -423,6 +453,7 @@
 		4F26D33F2C2FFAD20097B837 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4FB9D6FB2D6C51B00007D368 /* ARKit.framework */,
 				4F98BCF92D56730B006D958B /* UniformTypeIdentifiers.framework */,
 				4FE626F12D15B8CF008D14D8 /* CompositorServices.framework */,
 				4FE624A32D158871008D14D8 /* WebKit.framework */,
@@ -571,6 +602,17 @@
 				4FAB0F542D5A6B820082E639 /* AnchoringTargetViewController.mm */,
 			);
 			path = AnchoringTarget;
+			sourceTree = "<group>";
+		};
+		4FB9D6F22D6C50460007D368 /* ARKitDemo */ = {
+			isa = PBXGroup;
+			children = (
+				4FB9D6F32D6C50CC0007D368 /* ARKitDemoViewController.h */,
+				4FB9D6F42D6C50CC0007D368 /* ARKitDemoViewController.mm */,
+				4FB9D6F72D6C519D0007D368 /* ARStereoPropertiesViewController.h */,
+				4FB9D6F82D6C519D0007D368 /* ARStereoPropertiesViewController.mm */,
+			);
+			path = ARKitDemo;
 			sourceTree = "<group>";
 		};
 		4FCD468E2D5B053A0024EFFE /* EdgeInset */ = {
@@ -840,6 +882,7 @@
 			files = (
 				4F98BCF72D5672F2006D958B /* image.heic in Resources */,
 				4F1C712D2C2F2443002E096A /* Assets.xcassets in Resources */,
+				4FB9D6FF2D6C541F0007D368 /* toy_drummer_idle.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -849,6 +892,7 @@
 			files = (
 				4F98BCF82D5672F2006D958B /* image.heic in Resources */,
 				4FE6249C2D15877A008D14D8 /* Assets.xcassets in Resources */,
+				4FB9D7002D6C541F0007D368 /* toy_drummer_idle.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -882,9 +926,11 @@
 				4F26D2EB2C2FDBFC0097B837 /* ClassListViewController.mm in Sources */,
 				4F1C713F2C31CB9D002E096A /* ViewpointAzimuthWindowScene.mm in Sources */,
 				4F7902352C53B02000A3E913 /* VolumeBaseplateVisibilitySceneDelegate.mm in Sources */,
+				4FB9D6F52D6C50CC0007D368 /* ARKitDemoViewController.mm in Sources */,
 				4F26D34B2C30086F0097B837 /* DefaultWorldScalingSceneDelegate.mm in Sources */,
 				4F26D2EF2C2FDDED0097B837 /* LaunchPlacementParametersViewController.mm in Sources */,
 				4FFB275F2D59F2590070D95D /* SceneSizeRestrictionsConfigurationViewController.mm in Sources */,
+				4FB9D7402D6C6E280007D368 /* NSProcessInfo+MUI_Category.mm in Sources */,
 				4FE624A82D1588B2008D14D8 /* WebXRViewController.mm in Sources */,
 				4FAA17782C353BB700188F35 /* ImmersiveSceneClientSettingsWindowScene.mm in Sources */,
 				4F98BD032D57860E006D958B /* OrnamentChildViewController.mm in Sources */,
@@ -892,6 +938,7 @@
 				4FAB0F3D2D5915FA0082E639 /* StageViewController.mm in Sources */,
 				4FFB275B2D59F1110070D95D /* SceneSizeRestrictionsSceneDelegate.mm in Sources */,
 				4FCD46B02D5B41430024EFFE /* ToolBox.mm in Sources */,
+				4FB9D7032D6C5D780007D368 /* UIApplication+mrui_requestSceneWrapper.mm in Sources */,
 				4F4123A02D589638009966F4 /* RulerView.mm in Sources */,
 				4FFB240C2D58D5F40070D95D /* HoverContentConfiguration.mm in Sources */,
 				4FCD46A32D5B16080024EFFE /* WindowSceneZoomInteractionViewController.mm in Sources */,
@@ -916,6 +963,7 @@
 				4F26D33D2C2FF9E80097B837 /* VolumetricWorldAlignmentBehaviorWindowScene.mm in Sources */,
 				4FFB2A482D5A53640070D95D /* VisualFidelityViewController.mm in Sources */,
 				4FAB0F462D5A60F80082E639 /* ZoomModeViewController.mm in Sources */,
+				4FB9D6FA2D6C519D0007D368 /* ARStereoPropertiesViewController.mm in Sources */,
 				4FAB0F382D5915990082E639 /* SceneSizeRestrictionsViewController.mm in Sources */,
 				4FAA17842C357A1700188F35 /* UpperLimbsViewController.mm in Sources */,
 				4FD9F9DB2D55C38000E38CF2 /* SWSViewController.mm in Sources */,
@@ -950,9 +998,11 @@
 				4FE6248C2D15877A008D14D8 /* ClassListViewController.mm in Sources */,
 				4FE6248D2D15877A008D14D8 /* ViewpointAzimuthWindowScene.mm in Sources */,
 				4FE6248E2D15877A008D14D8 /* VolumeBaseplateVisibilitySceneDelegate.mm in Sources */,
+				4FB9D6F62D6C50CC0007D368 /* ARKitDemoViewController.mm in Sources */,
 				4FE6248F2D15877A008D14D8 /* DefaultWorldScalingSceneDelegate.mm in Sources */,
 				4FE624902D15877A008D14D8 /* LaunchPlacementParametersViewController.mm in Sources */,
 				4FFB275E2D59F2590070D95D /* SceneSizeRestrictionsConfigurationViewController.mm in Sources */,
+				4FB9D73F2D6C6E280007D368 /* NSProcessInfo+MUI_Category.mm in Sources */,
 				4FE624A92D1588B2008D14D8 /* WebXRViewController.mm in Sources */,
 				4FE624912D15877A008D14D8 /* ImmersiveSceneClientSettingsWindowScene.mm in Sources */,
 				4F98BD042D57860E006D958B /* OrnamentChildViewController.mm in Sources */,
@@ -960,6 +1010,7 @@
 				4FAB0F3C2D5915FA0082E639 /* StageViewController.mm in Sources */,
 				4FFB275A2D59F1110070D95D /* SceneSizeRestrictionsSceneDelegate.mm in Sources */,
 				4FCD46AF2D5B41430024EFFE /* ToolBox.mm in Sources */,
+				4FB9D7042D6C5D780007D368 /* UIApplication+mrui_requestSceneWrapper.mm in Sources */,
 				4F4123A12D589638009966F4 /* RulerView.mm in Sources */,
 				4FFB240B2D58D5F40070D95D /* HoverContentConfiguration.mm in Sources */,
 				4FCD46A22D5B16080024EFFE /* WindowSceneZoomInteractionViewController.mm in Sources */,
@@ -984,6 +1035,7 @@
 				4FE624972D15877A008D14D8 /* VolumetricWorldAlignmentBehaviorWindowScene.mm in Sources */,
 				4FFB2A492D5A53640070D95D /* VisualFidelityViewController.mm in Sources */,
 				4FAB0F472D5A60F80082E639 /* ZoomModeViewController.mm in Sources */,
+				4FB9D6F92D6C519D0007D368 /* ARStereoPropertiesViewController.mm in Sources */,
 				4FAB0F372D5915990082E639 /* SceneSizeRestrictionsViewController.mm in Sources */,
 				4FE624982D15877A008D14D8 /* UpperLimbsViewController.mm in Sources */,
 				4FD9F9DC2D55C38000E38CF2 /* SWSViewController.mm in Sources */,
@@ -1145,7 +1197,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 7;
-				XROS_DEPLOYMENT_TARGET = 1.0;
+				XROS_DEPLOYMENT_TARGET = 2.4;
 			};
 			name = Debug;
 		};
@@ -1179,7 +1231,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "MiscellaneousMRUIKit/MiscellaneousMRUIKit-Bridging-Header.h";
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 7;
-				XROS_DEPLOYMENT_TARGET = 1.0;
+				XROS_DEPLOYMENT_TARGET = 2.4;
 			};
 			name = Release;
 		};
@@ -1214,7 +1266,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "MiscellaneousMRUIKit/MiscellaneousMRUIKit-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "MiscellaneousMRUIKit-Swift.h";
 				TARGETED_DEVICE_FAMILY = 7;
-				XROS_DEPLOYMENT_TARGET = 1.0;
+				XROS_DEPLOYMENT_TARGET = 2.4;
 			};
 			name = Debug;
 		};
@@ -1249,7 +1301,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "MiscellaneousMRUIKit/MiscellaneousMRUIKit-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "MiscellaneousMRUIKit-Swift.h";
 				TARGETED_DEVICE_FAMILY = 7;
-				XROS_DEPLOYMENT_TARGET = 1.0;
+				XROS_DEPLOYMENT_TARGET = 2.4;
 			};
 			name = Release;
 		};
