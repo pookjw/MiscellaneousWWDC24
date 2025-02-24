@@ -35,7 +35,9 @@
     return responds;
 }
 
-- (void)loadView {
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
     UIButtonConfiguration *configuration = [UIButtonConfiguration plainButtonConfiguration];
     configuration.title = @"Present";
     
@@ -51,6 +53,8 @@
             __kindof UIViewController *generationViewController = ((id (*)(id, SEL))objc_msgSend)(viewController, sel_registerName("generationViewController"));
             ((void (*)(id, SEL))objc_msgSend)(generationViewController, sel_registerName("_viewControllerPresentationDidInitiate"));
         }
+        viewController.modalPresentationStyle = UIModalPresentationPopover;
+        viewController.popoverPresentationController.sourceView = action.sender;
         
         ((void (*)(id, SEL, id))objc_msgSend)(viewController, sel_registerName("setDelegate:"), unretained);
         ((void (*)(id, SEL, id))objc_msgSend)(viewController, sel_registerName("setSourceImage:"), [UIImage imageNamed:@"image"]);
@@ -73,7 +77,12 @@
     UIButton *button = [UIButton buttonWithConfiguration:configuration primaryAction:action];
     button.enabled = ((BOOL (*)(Class, SEL))objc_msgSend)(objc_lookUpClass("GPImageEditionViewController"), sel_registerName("isAvailable"));
     
-    self.view = button;
+    button.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:button];
+    [NSLayoutConstraint activateConstraints:@[
+        [button.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
+        [button.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor]
+    ]];
 }
 
 - (void)imageEditionViewControllerDidFinishEditing:(__kindof UIViewController *)viewController error:(NSError * _Nullable)error {
