@@ -119,6 +119,7 @@ RectSlidersKeyPath const RectSlidersKeyPathHeight = @"RectSlidersKeyPathHeight";
 @property (retain, nonatomic, readonly, getter=_ySlider) NSSlider *ySlider;
 @property (retain, nonatomic, readonly, getter=_widthSlider) NSSlider *widthSlider;
 @property (retain, nonatomic, readonly, getter=_heghtSlider) NSSlider *heightSlider;
+@property (copy, nonatomic, nullable, getter=_configurationUserInfo, setter=_setConfigurationUserInfo:) NSDictionary *configurationUserInfo;
 @end
 
 @implementation RectSlidersView
@@ -126,6 +127,7 @@ RectSlidersKeyPath const RectSlidersKeyPathHeight = @"RectSlidersKeyPathHeight";
 @synthesize ySlider = _ySlider;
 @synthesize widthSlider = _widthSlider;
 @synthesize heightSlider = _heightSlider;
+@synthesize configurationUserInfo = _configurationUserInfo;
 
 - (instancetype)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -158,7 +160,6 @@ RectSlidersKeyPath const RectSlidersKeyPathHeight = @"RectSlidersKeyPathHeight";
 }
 
 - (void)dealloc {
-    [_configuration release];
     [_xSlider release];
     [_ySlider release];
     [_widthSlider release];
@@ -169,6 +170,18 @@ RectSlidersKeyPath const RectSlidersKeyPathHeight = @"RectSlidersKeyPathHeight";
 - (void)encodeWithCoder:(NSCoder *)coder {
     [super encodeWithCoder:coder];
     [coder encodeObject:self.configuration forKey:CONFIGURATION_KEY];
+}
+
+- (NSSize)fittingSize {
+    NSSize fittingSize = self.xSlider.fittingSize;
+    fittingSize.height *= 4.0;
+    return fittingSize;
+}
+
+- (NSSize)intrinsicContentSize {
+    NSSize intrinsicContentSize = self.xSlider.intrinsicContentSize;
+    intrinsicContentSize.height *= 4.0;
+    return intrinsicContentSize;
 }
 
 - (void)layout {
@@ -212,25 +225,28 @@ RectSlidersKeyPath const RectSlidersKeyPathHeight = @"RectSlidersKeyPathHeight";
     return slider;
 }
 
+- (RectSlidersConfiguration *)configuration {
+    return [self _configurationFromSliderValues];
+}
+
 - (void)setConfiguration:(RectSlidersConfiguration *)configuration {
-    [_configuration release];
-    _configuration = [configuration copy];
+    self.configurationUserInfo = configuration.userInfo;
     
-    _xSlider.minValue = NSMinX(_configuration.minRect);
-    _xSlider.maxValue = NSMinX(_configuration.maxRect);
-    _xSlider.doubleValue = NSMinX(_configuration.rect);
+    _xSlider.minValue = NSMinX(configuration.minRect);
+    _xSlider.maxValue = NSMinX(configuration.maxRect);
+    _xSlider.doubleValue = NSMinX(configuration.rect);
     
-    _ySlider.minValue = NSMinY(_configuration.minRect);
-    _ySlider.maxValue = NSMinY(_configuration.maxRect);
-    _ySlider.doubleValue = NSMinY(_configuration.rect);
+    _ySlider.minValue = NSMinY(configuration.minRect);
+    _ySlider.maxValue = NSMinY(configuration.maxRect);
+    _ySlider.doubleValue = NSMinY(configuration.rect);
     
-    _widthSlider.minValue = NSWidth(_configuration.minRect);
-    _widthSlider.maxValue = NSWidth(_configuration.maxRect);
-    _widthSlider.doubleValue = NSWidth(_configuration.rect);
+    _widthSlider.minValue = NSWidth(configuration.minRect);
+    _widthSlider.maxValue = NSWidth(configuration.maxRect);
+    _widthSlider.doubleValue = NSWidth(configuration.rect);
     
-    _heightSlider.minValue = NSHeight(_configuration.minRect);
-    _heightSlider.maxValue = NSHeight(_configuration.maxRect);
-    _heightSlider.doubleValue = NSHeight(_configuration.rect);
+    _heightSlider.minValue = NSHeight(configuration.minRect);
+    _heightSlider.maxValue = NSHeight(configuration.maxRect);
+    _heightSlider.doubleValue = NSHeight(configuration.rect);
     
     
     NSMutableArray<NSSlider *> *hideSliders = [[NSMutableArray alloc] initWithObjects:_xSlider, _ySlider, _widthSlider, _heightSlider, nil];
@@ -280,16 +296,35 @@ RectSlidersKeyPath const RectSlidersKeyPathHeight = @"RectSlidersKeyPathHeight";
                                                       object:self
                                                     userInfo:@{
         RectSlidersIsTrackingKey: @(isTracking),
-        RectSlidersConfigurationKey: [self _configurationFromSliderVaues],
+        RectSlidersConfigurationKey: [self _configurationFromSliderValues],
         RectSlidersChangedKeyPath: keyPath
     }];
 }
 
-- (RectSlidersConfiguration *)_configurationFromSliderVaues {
-    return [self.configuration configurationWithNewRect:NSMakeRect(_xSlider.doubleValue,
-                                                                   _ySlider.doubleValue,
-                                                                   _widthSlider.doubleValue,
-                                                                   _heightSlider.doubleValue)];
+- (RectSlidersConfiguration *)_configurationFromSliderValues {
+    NSMutableSet<RectSlidersKeyPath> *keyPaths = [NSMutableSet new];
+    
+    if (!_xSlider.hidden) {
+        [keyPaths addObject:RectSlidersKeyPathX];
+    }
+    if (!_ySlider.hidden) {
+        [keyPaths addObject:RectSlidersKeyPathY];
+    }
+    if (!_widthSlider.hidden) {
+        [keyPaths addObject:RectSlidersKeyPathWidth];
+    }
+    if (!_heightSlider.hidden) {
+        [keyPaths addObject:RectSlidersKeyPathHeight];
+    }
+    
+    RectSlidersConfiguration *configuration = [RectSlidersConfiguration configurationWithRect:NSMakeRect(_xSlider.doubleValue, _ySlider.doubleValue, _widthSlider.doubleValue, _heightSlider.doubleValue)
+                                                                                      minRect:NSMakeRect(_xSlider.minValue, _ySlider.minValue, _widthSlider.minValue, _heightSlider.minValue)
+                                                                                      maxRect:NSMakeRect(_xSlider.maxValue, _ySlider.maxValue, _widthSlider.maxValue, _heightSlider.maxValue)
+                                                                                     keyPaths:keyPaths
+                                                                                     userInfo:self.configurationUserInfo];
+    [keyPaths release];
+    
+    return configuration;
 }
 
 - (NSArray<NSSlider *> *)_slidersFromKeyPaths:(NSSet<RectSlidersKeyPath> * _Nullable)keyPaths {

@@ -52,6 +52,7 @@
 #import "NSStringFromNSWindowAnimationBehavior.h"
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 #import "WindowDemoDragView.h"
+#import "WindowDemoConvertingCoordinatesView.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
@@ -519,6 +520,13 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeConvertRectToScreenItemModel],
+        [self _makeConvertRectToBackingItemModel],
+        [self _makeConvertRectFromScreenItemModel],
+        [self _makeConvertRectFromBackingItemModel],
+        [self _makeBackingAlignedRectItemModel],
+        [self _makeBackingScaleFactorItemModel],
+        [self _makeDocumentEditedItemModel],
         [self _makeRegisterForAllDraggedTypesItemModel],
         [self _makeDragViewVisibilityItemModel],
         [self _makeUnregisterDraggedTypes],
@@ -3531,6 +3539,82 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     }];
 }
 
+- (ConfigurationItemModel *)_makeDocumentEditedItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Document Edited"
+                                            userInfo:nil
+                                               label:@"Document Edited"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.documentEdited);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeBackingScaleFactorItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Backing Scale Factor"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Backing Scale Factor : %lf", unretainedSelf.view.window.backingScaleFactor];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeBackingAlignedRectItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Backing Aligned Rect"
+                                            userInfo:nil
+                                               label:@"Backing Aligned Rect"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Alert"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeConvertRectFromBackingItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Convert Rect From Backing"
+                                            userInfo:nil
+                                               label:@"Convert Rect From Backing"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Alert"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeConvertRectFromScreenItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Convert Rect From Screen"
+                                            userInfo:nil
+                                               label:@"Convert Rect From Screen"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Alert"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeConvertRectToBackingItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Convert Rect To Backing"
+                                            userInfo:nil
+                                               label:@"Convert Rect To Backing"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Alert"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeConvertRectToScreenItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Convert Rect To Screen"
+                                            userInfo:nil
+                                               label:@"Convert Rect To Screen"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Alert"];
+    }];
+}
+
 
 #pragma mark - Items 2
 
@@ -4749,6 +4833,90 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
         [window registerForDraggedTypes:identifiers];
         [identifiers release];
         [configurationView reconfigureItemModelsWithIdentifiers:@[@"Register For Dragged Types"]];
+        return NO;
+    } else if ([identifier isEqualToString:@"Document Edited"]) {
+        BOOL boolValue = reinterpret_cast<NSNumber *>(newValue).boolValue;
+        window.documentEdited = boolValue;
+        return NO;
+    } else if ([identifier isEqualToString:@"Backing Aligned Rect"]) {
+        NSAlert *alert = [NSAlert new];
+        alert.messageText = @"Backing Aligned Rect";
+        
+        WindowDemoConvertingCoordinatesView *accessoryView = [WindowDemoConvertingCoordinatesView new];
+        accessoryView.type = WindowDemoConvertingCoordinatesTypeBackingAlignedRect;
+        accessoryView.frame = NSMakeRect(0., 0., 300., accessoryView.fittingSize.height);
+        alert.accessoryView = accessoryView;
+        [accessoryView release];
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        [alert release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Convert Rect From Backing"]) {
+        NSAlert *alert = [NSAlert new];
+        alert.messageText = @"Convert Rect From Backing";
+        
+        WindowDemoConvertingCoordinatesView *accessoryView = [WindowDemoConvertingCoordinatesView new];
+        accessoryView.type = WindowDemoConvertingCoordinatesTypeConvertRectFromBacking;
+        accessoryView.frame = NSMakeRect(0., 0., 300., accessoryView.fittingSize.height);
+        alert.accessoryView = accessoryView;
+        [accessoryView release];
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        [alert release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Convert Rect From Screen"]) {
+        NSAlert *alert = [NSAlert new];
+        alert.messageText = @"Convert Rect From Screen";
+        
+        WindowDemoConvertingCoordinatesView *accessoryView = [WindowDemoConvertingCoordinatesView new];
+        accessoryView.type = WindowDemoConvertingCoordinatesTypeConvertRectFromScreen;
+        accessoryView.frame = NSMakeRect(0., 0., 300., accessoryView.fittingSize.height);
+        alert.accessoryView = accessoryView;
+        [accessoryView release];
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        [alert release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Convert Rect To Backing"]) {
+        NSAlert *alert = [NSAlert new];
+        alert.messageText = @"Convert Rect To Backing";
+        
+        WindowDemoConvertingCoordinatesView *accessoryView = [WindowDemoConvertingCoordinatesView new];
+        accessoryView.type = WindowDemoConvertingCoordinatesTypeConvertRectToBacking;
+        accessoryView.frame = NSMakeRect(0., 0., 300., accessoryView.fittingSize.height);
+        alert.accessoryView = accessoryView;
+        [accessoryView release];
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        [alert release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Convert Rect To Screen"]) {
+        NSAlert *alert = [NSAlert new];
+        alert.messageText = @"Convert Rect To Screen";
+        
+        WindowDemoConvertingCoordinatesView *accessoryView = [WindowDemoConvertingCoordinatesView new];
+        accessoryView.type = WindowDemoConvertingCoordinatesTypeConvertRectToScreen;
+        accessoryView.frame = NSMakeRect(0., 0., 300., accessoryView.fittingSize.height);
+        alert.accessoryView = accessoryView;
+        [accessoryView release];
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        [alert release];
+        
         return NO;
     } else {
         abort();
