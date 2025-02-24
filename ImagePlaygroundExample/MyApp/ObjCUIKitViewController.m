@@ -44,7 +44,7 @@
     UIAction *action = [UIAction actionWithHandler:^(__kindof UIAction * _Nonnull action) {
         ObjCUIKitViewController *unretained = weakSelf;
         if (unretained == nil) return;
-        ;
+        
         __kindof UIViewController *viewController = [objc_lookUpClass("GPImageEditionViewController") new];
         
         if (@available(iOS 18.4, *)) {
