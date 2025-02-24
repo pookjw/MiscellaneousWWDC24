@@ -44,15 +44,20 @@
     UIAction *action = [UIAction actionWithHandler:^(__kindof UIAction * _Nonnull action) {
         ObjCUIKitViewController *unretained = weakSelf;
         if (unretained == nil) return;
-        
+        ;
         __kindof UIViewController *viewController = [objc_lookUpClass("GPImageEditionViewController") new];
+        
+        if (@available(iOS 18.4, *)) {
+            __kindof UIViewController *generationViewController = ((id (*)(id, SEL))objc_msgSend)(viewController, sel_registerName("generationViewController"));
+            ((void (*)(id, SEL))objc_msgSend)(generationViewController, sel_registerName("_viewControllerPresentationDidInitiate"));
+        }
         
         ((void (*)(id, SEL, id))objc_msgSend)(viewController, sel_registerName("setDelegate:"), unretained);
         ((void (*)(id, SEL, id))objc_msgSend)(viewController, sel_registerName("setSourceImage:"), [UIImage imageNamed:@"image"]);
         
         id catPrompt = ((id (*)(id, SEL, id))objc_msgSend)([objc_lookUpClass("GPPromptElement") alloc], sel_registerName("initWithText:"), @"Cat");
         
-        id extractedPrompt = ((id (*)(id, SEL, id, id, BOOL, BOOL, BOOL, BOOL))objc_msgSend)([objc_lookUpClass("GPPromptElement") alloc], sel_registerName("initWithText:title:isPersonHandle:isSuggestableText:needsConceptsExtraction:needsSuggestableConceptsExtraction:"), @"In a deep and mystical forest, a magical deer stands by a small lake shrouded in a soft, blue mist. The deer has shimmering silver fur and majestic golden antlers that emit a gentle light, illuminating the surroundings. Around the deer, small glowing butterflies gather, creating an enchanting scene. The night sky is filled with twinkling stars, and the moonlight bathes the forest, adding to the air of mystery and wonder.", @"Magical Deer in the Forest", NO, NO, YES, NO);
+        id extractedPrompt = ((id (*)(id, SEL, id, id, BOOL, BOOL, BOOL, BOOL, id, CGImageRef))objc_msgSend)([objc_lookUpClass("GPPromptElement") alloc], sel_registerName("initWithText:title:isPersonHandle:isSuggestableText:needsConceptsExtraction:needsSuggestableConceptsExtraction:drawing:image:"), @"In a deep and mystical forest, a magical deer stands by a small lake shrouded in a soft, blue mist. The deer has shimmering silver fur and majestic golden antlers that emit a gentle light, illuminating the surroundings. Around the deer, small glowing butterflies gather, creating an enchanting scene. The night sky is filled with twinkling stars, and the moonlight bathes the forest, adding to the air of mystery and wonder.", @"Magical Deer in the Forest", NO, NO, YES, NO, nil, nil);
         
         id recipe = ((id (*)(id, SEL, id, id, id))objc_msgSend)([objc_lookUpClass("GPRecipe") alloc], sel_registerName("initWithEncodedRecipe:prompts:contextElements:"), nil, nil, @[catPrompt, extractedPrompt]);
         [catPrompt release];

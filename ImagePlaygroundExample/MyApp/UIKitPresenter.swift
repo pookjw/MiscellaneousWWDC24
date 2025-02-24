@@ -30,6 +30,9 @@ struct UIKitPresenter: UIViewControllerRepresentable {
                         guard let self else { return }
                         
                         let imagePlaygroundViewController = ImagePlaygroundViewController()
+                        imagePlaygroundViewController.allowedGenerationStyles = ImagePlaygroundStyle.all
+                        imagePlaygroundViewController.selectedGenerationStyle = .sketch
+                        imagePlaygroundViewController.personalizationPolicy = .enabled // 사람 얼굴 선택
                         imagePlaygroundViewController.sourceImage = UIImage(named: "image")
                         imagePlaygroundViewController.concepts = [
                             ImagePlaygroundConcept.text("Cat"),

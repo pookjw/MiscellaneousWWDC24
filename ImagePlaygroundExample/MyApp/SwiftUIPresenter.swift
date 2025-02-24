@@ -36,6 +36,8 @@ struct SwiftUIPresenter: View {
             },
             onCancellation: {}
         )
+        .imagePlaygroundGenerationStyle(.illustration, in: ImagePlaygroundStyle.all)
+        .imagePlaygroundPersonalizationPolicy(.enabled) // 사람 얼굴 선택
     }
 }
 
