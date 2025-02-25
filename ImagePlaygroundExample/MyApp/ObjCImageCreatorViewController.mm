@@ -12,15 +12,29 @@
 
 // -[NSXPCConnection _sendSelector:withProxy:arg1:arg2:arg3:arg4:]
 
+/*
+ (lldb) po [NSObject _fd__protocolDescriptionForProtocol:(Protocol *)NSProtocolFromString(@"ImagePlayground.GPNonUIExtension")]
+ <ImagePlayground.GPNonUIExtension: 0x1f86e1c60> :
+ in ImagePlayground.GPNonUIExtension:
+     Instance Methods:
+         - (void) releaseAssertion;
+         - (void) acquireAssertion;
+         - (void) stopGeneration:(id)arg1;
+         - (void) fetchAvailableStylesWithCompletion:(^block)arg1;
+         - (void) startGenerationWithStyle:(id)arg1 promptElements:(id)arg2 replyHandler:(^block)arg3 batchID:(id)arg4;
+ */
+
 @interface ObjCImageCreatorViewController ()
 @property (retain, nonatomic, readonly, getter=_connection) NSXPCConnection *connection;
 @property (retain, nonatomic, readonly, getter=_barButtonItem) UIBarButtonItem *barButtonItem;
 @property (retain, nonatomic, readonly, getter=_promptElements) NSMutableArray *promptElements;
 @property (assign, nonatomic, getter=_requestCount, setter=_setRequestCount:) NSUInteger requestCount;
-@property (copy, nonatomic, getter=_style, setter=_setStyle:) NSString *style;
+@property (copy, nonatomic, nullable, getter=_style, setter=_setStyle:) NSString *style;
 @property (retain, nonatomic, readonly, getter=_resultImages) NSMutableArray<UIImage *> *resultImages;
 @property (retain, nonatomic, readonly, getter=_cellRegistration) UICollectionViewCellRegistration *cellRegistration;
 @property (retain, nonatomic, readonly, getter=_activityIndicatorView) UIActivityIndicatorView *activityIndicatorView;
+@property (copy, nonatomic, nullable, getter=_batchID, setter=_setBatchID:) NSUUID *batchID;
+@property (copy, nonatomic, nullable, getter=_allStyles, setter=_setAllStyles:) NSArray<NSString *> *allStyles;
 @end
 
 @implementation ObjCImageCreatorViewController
@@ -79,6 +93,10 @@
 }
 
 - (void)dealloc {
+    if (NSUUID *batchID = self.batchID) {
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(_connection.remoteObjectProxy, sel_registerName("stopGeneration:"), batchID);
+    }
+    
     [_connection invalidate];
     [_connection release];
     [_barButtonItem release];
@@ -86,6 +104,8 @@
     [_resultImages release];
     [_activityIndicatorView release];
     [_style release];
+    [_batchID release];
+    [_allStyles release];
     [super dealloc];
 }
 
@@ -101,6 +121,15 @@
     connection.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:NSProtocolFromString(@"ImagePlayground.GPNonUIExtension")];
     [connection resume];
     
+    assert(connection.remoteObjectProxy != nil);
+    
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(connection.remoteObjectProxy, sel_registerName("fetchAvailableStylesWithCompletion:"), ^(NSArray<NSString *> *allStyles) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.allStyles = allStyles;
+            self.style = allStyles.firstObject;
+        });
+    });
+    
     _connection = [connection retain];
     _promptElements = [NSMutableArray new];
     
@@ -110,7 +139,6 @@
     
     _resultImages = [NSMutableArray new];
     _requestCount = 4;
-    self.style = @"animation";
 }
 
 - (void)viewDidLoad {
@@ -249,33 +277,41 @@
             [results addObject:menu];
         }
         
-        {
-            NSArray<NSString *> *allStyles = @[@"animation", @"illustration", @"sketch"];
-            NSMutableArray<UIAction *> *actions = [[NSMutableArray alloc] initWithCapacity:allStyles.count];
-            NSString *selectedStyle = unretainedSelf.style;
-            
-            for (NSString *style in allStyles) {
-                UIAction *action = [UIAction actionWithTitle:style image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                    unretainedSelf.style = style;
-                }];
+        if (unretainedSelf.allStyles == nil) {
+            UIAction *action = [UIAction actionWithTitle:@"Retrieving Styles..." image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                 
-                action.state = ([style isEqualToString:selectedStyle]) ? UIMenuElementStateOn : UIMenuElementStateOff;
-                [actions addObject:action];
+            }];
+            action.attributes = UIMenuElementAttributesDisabled;
+            [results addObject:action];
+        } else {
+            {
+                NSArray<NSString *> *allStyles = unretainedSelf.allStyles;
+                NSMutableArray<UIAction *> *actions = [[NSMutableArray alloc] initWithCapacity:allStyles.count];
+                NSString *selectedStyle = unretainedSelf.style;
+                
+                for (NSString *style in allStyles) {
+                    UIAction *action = [UIAction actionWithTitle:style image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                        unretainedSelf.style = style;
+                    }];
+                    
+                    action.state = ([style isEqualToString:selectedStyle]) ? UIMenuElementStateOn : UIMenuElementStateOff;
+                    [actions addObject:action];
+                }
+                
+                UIMenu *menu = [UIMenu menuWithTitle:@"Style" children:actions];
+                [actions release];
+                menu.subtitle = selectedStyle;
+                [results addObject:menu];
             }
             
-            UIMenu *menu = [UIMenu menuWithTitle:@"Style" children:actions];
-            [actions release];
-            menu.subtitle = selectedStyle;
-            [results addObject:menu];
-        }
-        
-        {
-            if (promptElements.count > 0) {
-                UIAction *performAcion = [UIAction actionWithTitle:@"Perform" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                    [unretainedSelf _requestWithBatchID:[NSUUID UUID] startingFromIndex:0];
-                }];
-                
-                [results addObject:performAcion];
+            {
+                if (promptElements.count > 0) {
+                    UIAction *performAcion = [UIAction actionWithTitle:@"Perform" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                        [unretainedSelf _requestWithBatchID:[NSUUID UUID] startingFromIndex:0];
+                    }];
+                    
+                    [results addObject:performAcion];
+                }
             }
         }
         
@@ -288,6 +324,7 @@
 
 - (void)_requestWithBatchID:(NSUUID *)batchID startingFromIndex:(NSInteger)index {
     if (self.requestCount <= index) {
+        self.batchID = nil;
         [self.activityIndicatorView stopAnimating];
         self.barButtonItem.customView = nil;
         self.barButtonItem.menu = [self _makeMenu];
@@ -295,6 +332,7 @@
     }
     
     if (index == 0) {
+        self.batchID = batchID;
         self.barButtonItem.menu = nil;
         self.barButtonItem.customView = self.activityIndicatorView;
         [self.activityIndicatorView startAnimating];

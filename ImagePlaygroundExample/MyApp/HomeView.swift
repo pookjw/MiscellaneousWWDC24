@@ -12,14 +12,12 @@ struct HomeView: View {
         List {
             NavigationLink {
                 SwiftUIPresenter()
-                    .ignoresSafeArea()
             } label: {
                 Text("SwiftUI Presenter")
             }
             
             NavigationLink {
                 UIKitPresenter()
-                    .ignoresSafeArea()
             } label: {
                 Text("UIKit Presenter")
             }
@@ -34,7 +32,6 @@ struct HomeView: View {
             if #available(iOS 18.4, *) {
                 NavigationLink {
                     ImageCreatorView()
-                        .ignoresSafeArea()
                 } label: {
                     Text("Image Creator")
                 }
