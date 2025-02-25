@@ -10,6 +10,8 @@
 
 int main(int argc, char * argv[]) {
     @autoreleasepool {
+//        [NSUserDefaults.standardUserDefaults setObject:@YES forKey:@"UIViewShowAlignmentRects"];
+//        [NSUserDefaults.standardUserDefaults removeObjectForKey:@"UIViewShowAlignmentRects"];
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
 }
