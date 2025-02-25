@@ -6,14 +6,22 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4F3394B72D6D9CD800A7224D /* ExtensionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F3394B52D6D9CD800A7224D /* ExtensionKit.framework */; };
+		4F3394B82D6D9CD800A7224D /* ExtensionFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F3394B62D6D9CD800A7224D /* ExtensionFoundation.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		4F0953C12CD5DF6C00E3A547 /* MyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F3394B52D6D9CD800A7224D /* ExtensionKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExtensionKit.framework; path = System/Library/Frameworks/ExtensionKit.framework; sourceTree = SDKROOT; };
+		4F3394B62D6D9CD800A7224D /* ExtensionFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExtensionFoundation.framework; path = System/Library/Frameworks/ExtensionFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
 		4F0953E52CD5E8F200E3A547 /* Exceptions for "MyApp" folder in "MyApp" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			additionalCompilerFlagsByRelativePath = {
+				ObjCImageCreatorViewController.mm = "-fno-objc-arc";
 				ObjCUIKitViewController.m = "-fno-objc-arc";
 			};
 			target = 4F0953C02CD5DF6C00E3A547 /* MyApp */;
@@ -36,6 +44,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F3394B72D6D9CD800A7224D /* ExtensionKit.framework in Frameworks */,
+				4F3394B82D6D9CD800A7224D /* ExtensionFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				4F0953C32CD5DF6C00E3A547 /* MyApp */,
+				4F3394B42D6D9CD800A7224D /* Frameworks */,
 				4F0953C22CD5DF6C00E3A547 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -56,6 +67,15 @@
 				4F0953C12CD5DF6C00E3A547 /* MyApp.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		4F3394B42D6D9CD800A7224D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4F3394B62D6D9CD800A7224D /* ExtensionFoundation.framework */,
+				4F3394B52D6D9CD800A7224D /* ExtensionKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,7 +218,9 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -254,6 +276,8 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_VERSION = 6.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -275,7 +299,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -308,7 +332,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

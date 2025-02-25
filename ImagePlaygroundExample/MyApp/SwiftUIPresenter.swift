@@ -36,8 +36,21 @@ struct SwiftUIPresenter: View {
             },
             onCancellation: {}
         )
-        .imagePlaygroundGenerationStyle(.illustration, in: ImagePlaygroundStyle.all)
-        .imagePlaygroundPersonalizationPolicy(.enabled) // 사람 얼굴 선택
+        .conditional { view in
+            if #available(iOS 18.4, *) {
+                view
+                    .imagePlaygroundGenerationStyle(.illustration, in: ImagePlaygroundStyle.all)
+                    .imagePlaygroundPersonalizationPolicy(.enabled) // 사람 얼굴 선택
+            } else {
+                view
+            }
+        }
+    }
+}
+
+extension View {
+    fileprivate func conditional<T: View>(@ViewBuilder _ block: (Self) -> T) -> T {
+        block(self)
     }
 }
 

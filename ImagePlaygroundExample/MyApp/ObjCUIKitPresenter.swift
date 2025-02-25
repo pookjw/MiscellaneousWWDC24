@@ -5,7 +5,6 @@
 //  Created by Jinwoo Kim on 11/2/24.
 //
 
-import UIKit
 import SwiftUI
 
 struct ObjCUIKitPresenter: UIViewControllerRepresentable {
