@@ -78,6 +78,7 @@
 			membershipExceptions = (
 				com.pookjw.MiscellaneousAppKit.Helper.plist,
 				com.pookjw.MiscellaneousAppKit.LoginAgent.plist,
+				Info.plist,
 			);
 			target = 4F9429662D4BDC7E00802D6F /* MiscellaneousAppKit */;
 		};
@@ -470,6 +471,7 @@
 					"$(PROJECT_DIR)",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MiscellaneousAppKit/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -506,6 +508,7 @@
 					"$(PROJECT_DIR)",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MiscellaneousAppKit/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (

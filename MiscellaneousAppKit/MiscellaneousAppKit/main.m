@@ -15,6 +15,9 @@
  */
 
 int main(int argc, const char * argv[]) {
+    // https://developer.apple.com/documentation/appkit/nswindow/miniwindowimage?language=objc
+    [NSUserDefaults.standardUserDefaults setValue:@YES forKey:@"AppleDockIconEnabled"];
+    
     AppDelegate *delegate = [AppDelegate new];
     NSApplication *application = NSApplication.sharedApplication;
     application.delegate = delegate;

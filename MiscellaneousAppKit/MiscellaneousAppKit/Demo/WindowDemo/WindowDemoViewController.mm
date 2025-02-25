@@ -53,6 +53,7 @@
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 #import "WindowDemoDragView.h"
 #import "WindowDemoConvertingCoordinatesView.h"
+#import "NSStringFromNSWindowTitleVisibility.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
@@ -265,6 +266,10 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_windowDidResignKey:) name:NSWindowDidResignKeyNotification object:nil];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:nil];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_windowDidResignMain:) name:NSWindowDidResignMainNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_windowDidMoveScreen:) name:NSWindowDidChangeScreenNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_windowDidDeminiaturize:) name:NSWindowDidDeminiaturizeNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_windowDidMiniaturize:) name:NSWindowDidMiniaturizeNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_windowWillMiniaturize:) name:NSWindowWillMiniaturizeNotification object:nil];
     
     [NSDistributedNotificationCenter.defaultCenter addObserver:self
                                                       selector:@selector(_didChangeAppearancePreference:)
@@ -449,6 +454,22 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"User Tabbing Preference"]];
 }
 
+- (void)_windowDidMoveScreen:(NSNotification *)notification {
+    [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Screen"]];
+}
+
+- (void)_windowDidDeminiaturize:(NSNotification *)notification {
+    [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Miniaturized"]];
+}
+
+- (void)_windowDidMiniaturize:(NSNotification *)notification {
+    [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Miniaturized"]];
+}
+
+- (void)_windowWillMiniaturize:(NSNotification *)notification {
+    [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Miniaturized"]];
+}
+
 - (void)newWindowForTab:(id)sender {
     WindowDemoWindow *newWindow = [WindowDemoWindow new];
     [self.view.window.tabGroup addWindow:newWindow];
@@ -520,6 +541,29 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeDockTileContentViewItemModel],
+        [self _makeDockTileBadgeLabelItemModel],
+        [self _makeDockTileShowsApplicationBadgeItemModel],
+        [self _makeDockTileItemModel],
+        [self _makeMiniwindowTitleItemModel],
+        [self _makeMiniwindowImageItemModel],
+        [self _makeDeminiaturizeItemModel],
+        [self _makeMiniaturizeItemModel],
+        [self _makePerformMiniaturizeItemModel],
+        [self _makeMiniaturizedItemModel],
+        [self _makeCloseItemModel],
+        [self _makePerformCloseItemModel],
+        [self _makeReleasedWhenClosedItemModel],
+        [self _makeCenterItemModel],
+        [self _makeMovableItemModel],
+        [self _makeMovableByWindowBackgroundItemModel],
+        [self _makeDisplaysWhenScreenProfileChangesItemModel],
+        [self _makeDeepestScreenItemModel],
+        [self _makeScreenItemModel],
+        [self _makeRepresentedURLItemModel],
+        [self _makeTitleVisibilityItemModel],
+        [self _makeSubtitleItemModel],
+        [self _makeTitleItemModel],
         [self _makeConvertRectToScreenItemModel],
         [self _makeConvertRectToBackingItemModel],
         [self _makeConvertRectFromScreenItemModel],
@@ -3615,6 +3659,301 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     }];
 }
 
+- (ConfigurationItemModel *)_makeTitleItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Title"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Title : %@", unretainedSelf.view.window.title];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Alert"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeSubtitleItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Subtitle"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Subtitle : %@", unretainedSelf.view.window.subtitle];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Alert"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeTitleVisibilityItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Title Visibility"
+                                            userInfo:nil
+                                               label:@"Title Visibility"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSUInteger count;
+        NSWindowTitleVisibility *allVisibilities = allNSWindowTitleVisibilities(&count);
+        
+        auto titlesVector = std::views::iota(allVisibilities, allVisibilities + count)
+        | std::views::transform([](NSWindowTitleVisibility *ptr) {
+            return NSStringFromNSWindowTitleVisibility(*ptr);
+        })
+        | std::ranges::to<std::vector<NSString *>>();
+        
+        NSString *selectedTitle = NSStringFromNSWindowTitleVisibility(unretainedSelf.view.window.titleVisibility);
+        
+        return [ConfigurationPopUpButtonDescription descriptionWithTitles:[NSArray arrayWithObjects:titlesVector.data() count:titlesVector.size()]
+                                                           selectedTitles:@[selectedTitle]
+                                                     selectedDisplayTitle:selectedTitle];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeRepresentedURLItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Represented URL"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Represented URL : %@", unretainedSelf.view.window.representedURL];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Alert"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeScreenItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Screen"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Screen : %@", unretainedSelf.view.window.screen];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeDeepestScreenItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Deepest Screen"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Deepest Screen (Reconfigure after 3 seconds) : %@", unretainedSelf.view.window.deepestScreen];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeDisplaysWhenScreenProfileChangesItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Displays When Screen Profile Changes"
+                                            userInfo:nil
+                                               label:@"Displays When Screen Profile Changes"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.displaysWhenScreenProfileChanges);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeMovableByWindowBackgroundItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Movable By Window Background"
+                                            userInfo:nil
+                                               label:@"Movable By Window Background"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.movableByWindowBackground);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeMovableItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Movable"
+                                            userInfo:nil
+                                               label:@"Movable"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.movable);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeCenterItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Center"
+                                            userInfo:nil
+                                               label:@"Center"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeReleasedWhenClosedItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Released When Closed"
+                                            userInfo:nil
+                                               label:@"Released When Closed"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.releasedWhenClosed);
+    }];
+}
+
+- (ConfigurationItemModel *)_makePerformCloseItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Perform Close"
+                                            userInfo:nil
+                                               label:@"Perform Close"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeCloseItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Close"
+                                            userInfo:nil
+                                               label:@"Close"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeMiniaturizedItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Miniaturized"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Miniaturized : %@", unretainedSelf.view.window.miniaturized ? @"YES" : @"NO"];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makePerformMiniaturizeItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Perform Miniaturize"
+                                            userInfo:nil
+                                               label:@"Perform Miniaturize"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeMiniaturizeItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Miniaturize"
+                                            userInfo:nil
+                                               label:@"Miniaturize"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeDeminiaturizeItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Deminiaturize"
+                                            userInfo:nil
+                                               label:@"Deminiaturize (Miniaturize and Deminiaturize after 3 seconds)"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeMiniwindowImageItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Miniwindow Image"
+                                            userInfo:nil
+                                               label:@"Miniwindow Image"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.miniwindowImage != nil);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeMiniwindowTitleItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Miniwindow Title"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Miniwindow Title : %@", unretainedSelf.view.window.miniwindowTitle];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeDockTileItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Dock Title"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Dock Title : %@", unretainedSelf.view.window.dockTile];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeDockTileShowsApplicationBadgeItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Dock Tile - Shows Application Badge"
+                                            userInfo:nil
+                                               label:@"Dock Tile - Shows Application Badge"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.dockTile.showsApplicationBadge);
+    }];
+}
+
+- (ConfigurationItemModel *)_makeDockTileBadgeLabelItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Dock Tile - Badge Label"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Dock Tile - Badge Label : %@", unretainedSelf.view.window.dockTile.badgeLabel];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Alert"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeDockTileContentViewItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
+                                          identifier:@"Dock Tile - Content View"
+                                            userInfo:nil
+                                               label:@"Dock Tile - Content View"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return @(unretainedSelf.view.window.dockTile.contentView != nil);
+    }];
+}
+
 
 #pragma mark - Items 2
 
@@ -4917,6 +5256,216 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
         }];
         [alert release];
         
+        return NO;
+    } else if ([identifier isEqualToString:@"Title"]) {
+        NSAlert *alert = [NSAlert new];
+        
+        alert.messageText = @"Window Title";
+        
+        NSTextField *accessoryView = [NSTextField new];
+        accessoryView.stringValue = window.title;
+        accessoryView.frame = NSMakeRect(0., 0., 300., accessoryView.fittingSize.height);
+        alert.accessoryView = accessoryView;
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            window.title = accessoryView.stringValue;
+            [configurationView reconfigureItemModelsWithIdentifiers:@[@"Title"]];
+        }];
+        [accessoryView release];
+        [alert release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Subtitle"]) {
+        NSAlert *alert = [NSAlert new];
+        
+        alert.messageText = @"Window Subtitle";
+        
+        NSTextField *accessoryView = [NSTextField new];
+        accessoryView.stringValue = window.subtitle;
+        accessoryView.frame = NSMakeRect(0., 0., 300., accessoryView.fittingSize.height);
+        alert.accessoryView = accessoryView;
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            window.subtitle = accessoryView.stringValue;
+            [configurationView reconfigureItemModelsWithIdentifiers:@[@"Subtitle"]];
+        }];
+        [accessoryView release];
+        [alert release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Title Visibility"]) {
+        NSString *title = static_cast<NSString *>(newValue);
+        window.titleVisibility = NSWindowTitleVisibilityFromString(title);
+        return NO;
+    } else if ([identifier isEqualToString:@"Represented URL"]) {
+        NSAlert *alert = [NSAlert new];
+        
+        alert.messageText = @"Represented URL";
+        
+        NSTextField *accessoryView = [NSTextField new];
+        
+        if (NSURL *representedURL = window.representedURL) {
+            accessoryView.stringValue = representedURL.path;
+        } else {
+            accessoryView.stringValue = @"";
+        }
+        
+        accessoryView.frame = NSMakeRect(0., 0., 300., accessoryView.fittingSize.height);
+        alert.accessoryView = accessoryView;
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            NSString *stringValue = accessoryView.stringValue;
+            
+            if (stringValue.length == 0) {
+                window.representedURL = nil;
+            } else {
+                window.representedURL = [NSURL fileURLWithPath:stringValue];
+            }
+            
+            [configurationView reconfigureItemModelsWithIdentifiers:@[@"Represented URL"]];
+        }];
+        [accessoryView release];
+        [alert release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Deepest Screen"]) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [configurationView reconfigureItemModelsWithIdentifiers:@[@"Deepest Screen"]];
+        });
+        return NO;
+    } else if ([identifier isEqualToString:@"Displays When Screen Profile Changes"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        window.displaysWhenScreenProfileChanges = boolValue;
+        return NO;
+    } else if ([identifier isEqualToString:@"Movable By Window Background"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        window.movableByWindowBackground = boolValue;
+        return NO;
+    } else if ([identifier isEqualToString:@"Movable"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        window.movable = boolValue;
+        return NO;
+    } else if ([identifier isEqualToString:@"Center"]) {
+        [window center];
+        return NO;
+    } else if ([identifier isEqualToString:@"Released When Closed"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        window.releasedWhenClosed = boolValue;
+        return NO;
+    } else if ([identifier isEqualToString:@"Perform Close"]) {
+        [window performClose:nil];
+        return NO;
+    } else if ([identifier isEqualToString:@"Close"]) {
+        [window close];
+        return NO;
+    } else if ([identifier isEqualToString:@"Perform Miniaturize"]) {
+        [window performMiniaturize:nil];
+        return NO;
+    } else if ([identifier isEqualToString:@"Miniaturize"]) {
+        [window miniaturize:nil];
+        return NO;
+    } else if ([identifier isEqualToString:@"Deminiaturize"]) {
+        [window miniaturize:nil];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [window deminiaturize:nil];
+        });
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Miniwindow Image"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        
+        if (boolValue) {
+            assert(window.miniwindowImage == nil);
+            NSURL *url = [NSBundle.mainBundle URLForResource:@"popcorns" withExtension:UTTypePNG.preferredFilenameExtension];
+            assert(url != nil);
+            NSImage *image = [[NSImage alloc] initWithContentsOfURL:url];
+            assert(image != nil);
+            
+            window.miniwindowImage = image;
+            [image release];
+        } else {
+            assert(window.miniwindowImage != nil);
+            window.miniwindowImage = nil;
+        }
+        
+        [configurationView reconfigureItemModelsWithIdentifiers:@[@"Dock Tile - Content View"]];
+        return NO;
+    } else if ([identifier isEqualToString:@"Miniwindow Title"]) {
+        NSAlert *alert = [NSAlert new];
+        
+        alert.messageText = @"Miniwindow Title";
+        
+        NSTextField *accessoryView = [NSTextField new];
+        accessoryView.stringValue = window.miniwindowTitle;
+        accessoryView.frame = NSMakeRect(0., 0., 300., accessoryView.fittingSize.height);
+        alert.accessoryView = accessoryView;
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            window.miniwindowTitle = accessoryView.stringValue;
+            [configurationView reconfigureItemModelsWithIdentifiers:@[@"Miniwindow Title"]];
+        }];
+        [accessoryView release];
+        [alert release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Dock Tile - Shows Application Badge"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        window.dockTile.showsApplicationBadge = boolValue;
+        return NO;
+    } else if ([identifier isEqualToString:@"Dock Tile - Badge Label"]) {
+        NSAlert *alert = [NSAlert new];
+        
+        alert.messageText = @"Dock Tile - Badge Label";
+        
+        NSTextField *accessoryView = [NSTextField new];
+        
+        if (NSString *badgeLabel = window.dockTile.badgeLabel) {
+            accessoryView.stringValue = badgeLabel;
+        } else {
+            accessoryView.stringValue = @"";
+        }
+        
+        accessoryView.frame = NSMakeRect(0., 0., 300., accessoryView.fittingSize.height);
+        alert.accessoryView = accessoryView;
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            NSString *stringValue = accessoryView.stringValue;
+            
+            if (stringValue.length == 0) {
+                window.dockTile.badgeLabel = nil;
+            } else {
+                window.dockTile.badgeLabel = stringValue;
+            }
+            
+            [configurationView reconfigureItemModelsWithIdentifiers:@[@"Dock Tile - Badge Label"]];
+        }];
+        [accessoryView release];
+        [alert release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Dock Tile - Content View"]) {
+        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
+        
+        if (boolValue) {
+            assert(window.dockTile.contentView == nil);
+            NSURL *url = [NSBundle.mainBundle URLForResource:@"popcorns" withExtension:UTTypePNG.preferredFilenameExtension];
+            assert(url != nil);
+            NSImage *image = [[NSImage alloc] initWithContentsOfURL:url];
+            assert(image != nil);
+            
+            NSImageView *imageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0., 0., window.dockTile.size.width, window.dockTile.size.height)];
+            imageView.image = image;
+            [image release];
+            window.dockTile.contentView = imageView;
+            [window.dockTile display];
+            [imageView release];
+        } else {
+            assert(window.dockTile.contentView != nil);
+            window.dockTile.contentView = nil;
+        }
+        
+        [configurationView reconfigureItemModelsWithIdentifiers:@[@"Miniwindow Image"]];
         return NO;
     } else {
         abort();
