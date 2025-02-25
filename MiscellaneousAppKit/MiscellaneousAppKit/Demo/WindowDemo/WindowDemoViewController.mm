@@ -54,6 +54,7 @@
 #import "WindowDemoDragView.h"
 #import "WindowDemoConvertingCoordinatesView.h"
 #import "NSStringFromNSWindowTitleVisibility.h"
+#import "WindowDemoValidRequestorView.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
@@ -541,6 +542,7 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeValidRequestorForSendTypeReturnTypeItemModel],
         [self _makeDataWithPDFInsideRectItemModel],
         [self _makeDataWithEPSInsideRectItemModel],
         [self _makePrintItemModel],
@@ -3987,6 +3989,16 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     }];
 }
 
+- (ConfigurationItemModel *)_makeValidRequestorForSendTypeReturnTypeItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Valid Requestor For Send Type Return Type"
+                                            userInfo:nil
+                                               label:@"Valid Requestor For Send Type Return Type"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
 
 
 #pragma mark - Items 2
@@ -5505,9 +5517,87 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
         [window print:nil];
         return NO;
     } else if ([identifier isEqualToString:@"Data With EPS Inside Rect"]) {
-        abort();
-    } else if ([identifier isEqualToString:@"Data With PDF Inside Rect"]) {
-        abort();
+        NSSize size = window.frame.size;
+        NSData *data = [window dataWithEPSInsideRect:NSMakeRect(0., 0., size.width, size.height)];
+        
+        NSSavePanel *savePanel = [NSSavePanel new];
+        
+        savePanel.allowedContentTypes = @[[UTType typeWithIdentifier:@"com.adobe.encapsulated-postscript"]];
+        
+        [savePanel beginSheetModalForWindow:window completionHandler:^(NSModalResponse result) {
+            NSURL *URL = savePanel.URL;
+            NSError * _Nullable error = nil;
+            [data writeToURL:URL options:0 error:&error];
+            assert(error == nil);
+        }];
+        [savePanel release];
+        
+        /*
+         EPS는 더 이상 사용할 수 없다.
+         */
+//        NSEPSImageRep *rep = [[NSEPSImageRep alloc] initWithData:data];
+//        assert(rep != nil);
+//        [rep release];
+        
+//        NSImage *image = [[NSImage alloc] initWithData:data];
+//        assert(image != nil);
+//        
+//        NSAlert *alert = [NSAlert new];
+//        alert.messageText = @"Data With EPS Inside Rect";
+//        
+//        NSImageView *imageView = [NSImageView new];
+//        imageView.image = image;
+//        
+//        NSSize imageSize = image.size;
+//        [image release];
+//        imageView.frame = NSMakeRect(0., 0., imageSize.width, imageSize.height);
+//        alert.accessoryView = imageView;
+//        [imageView release];
+//        
+//        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+//            
+//        }];
+//        [alert release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Data With PDF Inside Rect"]) {NSSize size = window.frame.size;
+        NSData *data = [window dataWithPDFInsideRect:NSMakeRect(0., 0., size.width, size.height)];
+        NSImage *image = [[NSImage alloc] initWithData:data];
+        assert(image != nil);
+        
+        NSAlert *alert = [NSAlert new];
+        alert.messageText = @"Data With PDF Inside Rect";
+        
+        NSImageView *imageView = [NSImageView new];
+        imageView.image = image;
+        
+        NSSize imageSize = image.size;
+        [image release];
+        imageView.frame = NSMakeRect(0., 0., imageSize.width, imageSize.height);
+        alert.accessoryView = imageView;
+        [imageView release];
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        [alert release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Valid Requestor For Send Type Return Type"]) {
+        NSAlert *alert = [NSAlert new];
+        alert.messageText = @"Valid Requestor For Send Type Return Type";
+        
+        WindowDemoValidRequestorView *accessoryView = [WindowDemoValidRequestorView new];
+        accessoryView.frame = NSMakeRect(0., 0., 300., accessoryView.fittingSize.height);
+        alert.accessoryView = accessoryView;
+        [accessoryView release];
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        [alert release];
+        
+        return NO;
     } else {
         abort();
     }
