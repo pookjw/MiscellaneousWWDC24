@@ -541,6 +541,9 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeDataWithPDFInsideRectItemModel],
+        [self _makeDataWithEPSInsideRectItemModel],
+        [self _makePrintItemModel],
         [self _makeDockTileContentViewItemModel],
         [self _makeDockTileBadgeLabelItemModel],
         [self _makeDockTileShowsApplicationBadgeItemModel],
@@ -3954,6 +3957,37 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     }];
 }
 
+- (ConfigurationItemModel *)_makePrintItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Print"
+                                            userInfo:nil
+                                               label:@"Print"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Print"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeDataWithEPSInsideRectItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Data With EPS Inside Rect"
+                                            userInfo:nil
+                                               label:@"Data With EPS Inside Rect"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Print"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeDataWithPDFInsideRectItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Data With PDF Inside Rect"
+                                            userInfo:nil
+                                               label:@"Data With PDF Inside Rect"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Print"];
+    }];
+}
+
+
 
 #pragma mark - Items 2
 
@@ -5467,6 +5501,13 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
         
         [configurationView reconfigureItemModelsWithIdentifiers:@[@"Miniwindow Image"]];
         return NO;
+    } else if ([identifier isEqualToString:@"Print"]) {
+        [window print:nil];
+        return NO;
+    } else if ([identifier isEqualToString:@"Data With EPS Inside Rect"]) {
+        abort();
+    } else if ([identifier isEqualToString:@"Data With PDF Inside Rect"]) {
+        abort();
     } else {
         abort();
     }
