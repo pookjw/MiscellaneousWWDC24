@@ -265,6 +265,7 @@
             }
             case ConfigurationItemModelTypePopUpButton: {
                 ConfigurationPopUpButtonItem *item = [collectionView makeItemWithIdentifier:ConfigurationView.popUpButtonItemIdentifier forIndexPath:indexPath];
+                
                 item.delegate = unretainedSelf;
                 item.textField.stringValue = label;
                 
@@ -272,7 +273,9 @@
                 auto description = static_cast<ConfigurationPopUpButtonDescription *>(value);
                 NSPopUpButton *popUpButton = item.popUpButton;
                 
+                [popUpButton removeAllItems];
                 [popUpButton.menu removeAllItems];
+                
                 [popUpButton addItemWithTitle:@"(None)"];
                 [popUpButton addItemsWithTitles:description.titles];
                 

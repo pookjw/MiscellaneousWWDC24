@@ -56,6 +56,7 @@
 #import "NSStringFromNSWindowTitleVisibility.h"
 #import "WindowDemoValidRequestorView.h"
 #import "WindowDemoAnchorAttributeForOrientationView.h"
+#import "NSStringFromNSDisplayGamut.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
@@ -543,6 +544,11 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeIsFloatingPanelItemModel],
+        [self _makeIsModalPanelItemModel],
+        [self _makeHasTitleBarItemModel],
+        [self _makeHasCloseBoxItemModel],
+        [self _makeCanRepresentDisplayGamutItemModel],
         [self _makeAnchorAttributeForOrientationItemModel],
         [self _makeVisualizeConstraintsItemModel],
         [self _makeLayoutIfNeededItemModel],
@@ -4037,14 +4043,91 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
 }
 
 - (ConfigurationItemModel *)_makeAnchorAttributeForOrientationItemModel {
-    __block auto unretainedSelf = self;
-    
     return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
                                           identifier:@"Anchor Attribute For Orientation"
                                             userInfo:nil
                                                label:@"Anchor Attribute For Orientation"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         return [ConfigurationButtonDescription descriptionWithTitle:@"Alert"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeCanRepresentDisplayGamutItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                          identifier:@"Can Represent Display Gamut"
+                                            userInfo:nil
+                                               label:@"Can Represent Display Gamut"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        NSUInteger count;
+        const NSDisplayGamut *allGamuts = allNSDisplayGamuts(&count);
+        
+        auto titleVector = std::views::iota(allGamuts, allGamuts + count)
+        | std::views::transform([window = unretainedSelf.view.window](const NSDisplayGamut *ptr) {
+            return [NSString stringWithFormat:@"%@ : %@", NSStringFromNSDisplayGamut(*ptr), [window canRepresentDisplayGamut:*ptr] ? @"Available" : @"Not Available"];
+        })
+        | std::ranges::to<std::vector<NSString *>>();
+        
+        return [ConfigurationPopUpButtonDescription descriptionWithTitles:[NSArray arrayWithObjects:titleVector.data() count:titleVector.size()]
+                                                           selectedTitles:@[]
+                                                     selectedDisplayTitle:nil];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeHasCloseBoxItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Has Close Box"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Has Close Box : %@", unretainedSelf.view.window.hasCloseBox ? @"YES" : @"NO"];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeHasTitleBarItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Has Title Bar"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Has Title Bar : %@", unretainedSelf.view.window.hasTitleBar ? @"YES" : @"NO"];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeIsModalPanelItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Is Modal Panel"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Is Modal Panel : %@", unretainedSelf.view.window.modalPanel ? @"YES" : @"NO"];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeIsFloatingPanelItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Is Floating Panel"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Is Floating Panel : %@", unretainedSelf.view.window.floatingPanel ? @"YES" : @"NO"];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
     }];
 }
 
@@ -5703,6 +5786,8 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
         }];
         [alert release];
         
+        return NO;
+    } else if ([identifier isEqualToString:@"Can Represent Display Gamut"]) {
         return NO;
     } else {
         abort();
