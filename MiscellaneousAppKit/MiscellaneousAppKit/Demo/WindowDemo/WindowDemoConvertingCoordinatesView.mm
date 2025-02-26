@@ -161,11 +161,11 @@
     
     {
         NSUInteger count;
-        NSAlignmentOptions *allOptions = allNSAlignmentOptions(&count);
+        const NSAlignmentOptions *allOptions = allNSAlignmentOptions(&count);
         
         NSAlignmentOptions options = self.options;
         
-        for (NSAlignmentOptions *ptr : std::views::iota(allOptions, allOptions + count)) {
+        for (const NSAlignmentOptions *ptr : std::views::iota(allOptions, allOptions + count)) {
             NSAlignmentOptions value = *ptr;
             
             NSMenuItem *item = [NSMenuItem new];
@@ -184,9 +184,9 @@
     
     {
         NSUInteger count;
-        NSAlignmentOptions *allOptions = allNSAlignmentOptionsConvenienceCombinations(&count);
+        const NSAlignmentOptions *allOptions = allNSAlignmentOptionsConvenienceCombinations(&count);
         
-        for (NSAlignmentOptions *ptr : std::views::iota(allOptions, allOptions + count)) {
+        for (const NSAlignmentOptions *ptr : std::views::iota(allOptions, allOptions + count)) {
             NSAlignmentOptions value = *ptr;
             
             NSMenuItem *item = [NSMenuItem new];

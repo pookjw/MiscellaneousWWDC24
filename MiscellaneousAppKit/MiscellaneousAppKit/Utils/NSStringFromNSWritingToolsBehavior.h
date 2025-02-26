@@ -12,6 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 MA_EXTERN NSString * NSStringFromNSWritingToolsBehavior(NSWritingToolsBehavior behavior);
 MA_EXTERN NSWritingToolsBehavior NSWritingToolsBehaviorFromString(NSString *string);
-MA_EXTERN NSWritingToolsBehavior * allNSWritingToolsBehaviors(NSUInteger * _Nullable count);
+MA_EXTERN const NSWritingToolsBehavior * allNSWritingToolsBehaviors(NSUInteger * _Nullable count);
 
 NS_ASSUME_NONNULL_END

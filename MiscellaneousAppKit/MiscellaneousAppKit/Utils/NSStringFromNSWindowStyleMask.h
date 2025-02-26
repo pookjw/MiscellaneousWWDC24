@@ -12,6 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 MA_EXTERN NSString * NSStringFromNSWindowStyleMask(NSWindowStyleMask styleMask);
 MA_EXTERN NSWindowStyleMask NSWindowStyleMaskFromString(NSString *string);
-MA_EXTERN NSWindowStyleMask * allNSWindowStyleMasks(NSUInteger * _Nullable count);
+MA_EXTERN const NSWindowStyleMask * allNSWindowStyleMasks(NSUInteger * _Nullable count);
 
 NS_ASSUME_NONNULL_END

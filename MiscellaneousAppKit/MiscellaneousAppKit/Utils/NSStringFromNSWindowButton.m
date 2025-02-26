@@ -44,8 +44,8 @@ NSWindowButton NSWindowButtonFromString(NSString *string) {
     }
 }
 
-NSWindowButton * allNSWindowButtons(NSUInteger * _Nullable count) {
-    static NSWindowButton allButtons[] = {
+const NSWindowButton * allNSWindowButtons(NSUInteger * _Nullable count) {
+    static const NSWindowButton allButtons[] = {
         NSWindowCloseButton,
         NSWindowMiniaturizeButton,
         NSWindowZoomButton,

@@ -142,10 +142,10 @@
                                                label:@"Writing Tools Behavior"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         NSUInteger count;
-        NSWritingToolsBehavior *allBehaviors = allNSWritingToolsBehaviors(&count);
+        const NSWritingToolsBehavior *allBehaviors = allNSWritingToolsBehaviors(&count);
         
         auto titlesVector = std::views::iota(allBehaviors, allBehaviors + count)
-        | std::views::transform([](NSWritingToolsBehavior *ptr) {
+        | std::views::transform([](const NSWritingToolsBehavior *ptr) {
             return NSStringFromNSWritingToolsBehavior(*ptr);
         })
         | std::ranges::to<std::vector<NSString *>>();

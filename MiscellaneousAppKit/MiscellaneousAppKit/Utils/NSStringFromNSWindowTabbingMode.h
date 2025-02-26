@@ -12,6 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 MA_EXTERN NSString * NSStringFromNSWindowTabbingMode(NSWindowTabbingMode mode);
 MA_EXTERN NSWindowTabbingMode NSWindowTabbingModeFromString(NSString *string);
-MA_EXTERN NSWindowTabbingMode * allNSWindowTabbingModes(NSUInteger * _Nullable count);
+MA_EXTERN const NSWindowTabbingMode * allNSWindowTabbingModes(NSUInteger * _Nullable count);
 
 NS_ASSUME_NONNULL_END

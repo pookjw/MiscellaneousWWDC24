@@ -36,8 +36,8 @@ NSPasteboardAccessBehavior NSPasteboardAccessBehaviorFromString(NSString *string
     }
 }
 
-NSPasteboardAccessBehavior * allNSPasteboardAccessBehaviors(NSUInteger * _Nullable count) {
-    static NSPasteboardAccessBehavior allBehaviors[] = {
+const NSPasteboardAccessBehavior * allNSPasteboardAccessBehaviors(NSUInteger * _Nullable count) {
+    static const NSPasteboardAccessBehavior allBehaviors[] = {
         NSPasteboardAccessBehaviorDefault,
         NSPasteboardAccessBehaviorAsk,
         NSPasteboardAccessBehaviorAlwaysAllow,

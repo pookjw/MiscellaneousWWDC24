@@ -36,8 +36,8 @@ NSTitlebarSeparatorStyle NSTitlebarSeparatorStyleFromString(NSString *string) {
     }
 }
 
-NSTitlebarSeparatorStyle * allNSTitlebarSeparatorStyles(NSUInteger * _Nullable count) {
-    static NSTitlebarSeparatorStyle allStyles[] = {
+const NSTitlebarSeparatorStyle * allNSTitlebarSeparatorStyles(NSUInteger * _Nullable count) {
+    static const NSTitlebarSeparatorStyle allStyles[] = {
         NSTitlebarSeparatorStyleAutomatic,
         NSTitlebarSeparatorStyleNone,
         NSTitlebarSeparatorStyleLine,

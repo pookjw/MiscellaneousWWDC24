@@ -32,8 +32,8 @@ NSWindowOrderingMode NSWindowOrderingModeFromString(NSString *string) {
     }
 }
 
-NSWindowOrderingMode * allNSWindowOrderingModes(NSUInteger * _Nullable count) {
-    static NSWindowOrderingMode allModes[] = {
+const NSWindowOrderingMode * allNSWindowOrderingModes(NSUInteger * _Nullable count) {
+    static const NSWindowOrderingMode allModes[] = {
         NSWindowAbove,
         NSWindowBelow,
         NSWindowOut

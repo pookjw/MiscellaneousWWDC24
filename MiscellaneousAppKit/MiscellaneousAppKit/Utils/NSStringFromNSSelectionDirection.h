@@ -14,6 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 MA_EXTERN NSString * NSStringFromNSSelectionDirection(NSSelectionDirection direction);
 MA_EXTERN NSSelectionDirection NSSelectionDirectionFromString(NSString *string);
-MA_EXTERN NSSelectionDirection * allNSSelectionDirections(NSUInteger * _Nullable count);
+MA_EXTERN const NSSelectionDirection * allNSSelectionDirections(NSUInteger * _Nullable count);
 
 NS_ASSUME_NONNULL_END

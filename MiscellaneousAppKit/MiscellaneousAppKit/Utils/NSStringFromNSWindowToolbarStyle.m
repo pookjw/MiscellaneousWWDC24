@@ -40,8 +40,8 @@ NSWindowToolbarStyle NSWindowToolbarStyleFromString(NSString *string) {
     }
 }
 
-NSWindowToolbarStyle * allNSWindowToolbarStyles(NSUInteger * _Nullable count) {
-    static NSWindowToolbarStyle allStyles[] = {
+const NSWindowToolbarStyle * allNSWindowToolbarStyles(NSUInteger * _Nullable count) {
+    static const NSWindowToolbarStyle allStyles[] = {
         NSWindowToolbarStyleAutomatic,
         NSWindowToolbarStyleExpanded,
         NSWindowToolbarStylePreference,

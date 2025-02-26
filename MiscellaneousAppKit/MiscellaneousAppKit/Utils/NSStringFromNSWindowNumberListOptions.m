@@ -42,8 +42,8 @@ NSWindowNumberListOptions NSWindowNumberListOptionsFromString(NSString *string) 
     return options;
 }
 
-NSWindowNumberListOptions * allNSWindowNumberListOptions(NSUInteger * _Nullable count) {
-    static NSWindowNumberListOptions allOptions[] = {
+const NSWindowNumberListOptions * allNSWindowNumberListOptions(NSUInteger * _Nullable count) {
+    static const NSWindowNumberListOptions allOptions[] = {
         NSWindowNumberListAllApplications,
         NSWindowNumberListAllSpaces
     };

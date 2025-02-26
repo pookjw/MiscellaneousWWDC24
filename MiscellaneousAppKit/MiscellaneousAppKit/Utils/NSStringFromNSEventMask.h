@@ -12,6 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 MA_EXTERN NSString * NSStringFromNSEventMask(NSEventMask mask);
 MA_EXTERN NSEventMask NSEventMaskFromString(NSString *string);
-MA_EXTERN NSEventMask * allNSEventMasks(NSUInteger * _Nullable count);
+MA_EXTERN const NSEventMask * allNSEventMasks(NSUInteger * _Nullable count);
 
 NS_ASSUME_NONNULL_END

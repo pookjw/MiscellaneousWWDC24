@@ -90,8 +90,8 @@ NSAlignmentOptions NSAlignmentOptionsFromString(NSString *string) {
     return options;
 }
 
-NSAlignmentOptions * allNSAlignmentOptions(NSUInteger * _Nullable count) {
-    static NSAlignmentOptions allOptions[] = {
+const NSAlignmentOptions * allNSAlignmentOptions(NSUInteger * _Nullable count) {
+    static const NSAlignmentOptions allOptions[] = {
         NSAlignMinXInward,
         NSAlignMinYInward,
         NSAlignMaxXInward,
@@ -145,8 +145,8 @@ NSAlignmentOptions NSAlignmentOptionsConvenienceCombinationsFromString(NSString 
     }
 }
 
-NSAlignmentOptions * allNSAlignmentOptionsConvenienceCombinations(NSUInteger * _Nullable count) {
-    static NSAlignmentOptions combinations[] = {
+const NSAlignmentOptions * allNSAlignmentOptionsConvenienceCombinations(NSUInteger * _Nullable count) {
+    static const NSAlignmentOptions combinations[] = {
         NSAlignAllEdgesInward,
         NSAlignAllEdgesOutward,
         NSAlignAllEdgesNearest

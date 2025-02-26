@@ -32,8 +32,8 @@ NSWindowTabbingMode NSWindowTabbingModeFromString(NSString *string) {
     }
 }
 
-NSWindowTabbingMode * allNSWindowTabbingModes(NSUInteger * _Nullable count) {
-    static NSWindowTabbingMode allModes[] = {
+const NSWindowTabbingMode * allNSWindowTabbingModes(NSUInteger * _Nullable count) {
+    static const NSWindowTabbingMode allModes[] = {
         NSWindowTabbingModeAutomatic,
         NSWindowTabbingModePreferred,
         NSWindowTabbingModeDisallowed

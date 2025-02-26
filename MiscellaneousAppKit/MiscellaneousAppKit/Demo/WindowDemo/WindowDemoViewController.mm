@@ -761,13 +761,13 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     }
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         NSUInteger count;
-        NSWindowStyleMask *styleMasks = allNSWindowStyleMasks(&count);
+        const NSWindowStyleMask *styleMasks = allNSWindowStyleMasks(&count);
         NSWindowStyleMask styleMask = unretainedSelf.view.window.styleMask;
         
         NSMutableArray<NSString *> *allTitles = [[NSMutableArray alloc] initWithCapacity:count];
         NSMutableArray<NSString *> *selectedTitles = [NSMutableArray new];
         
-        for (NSWindowStyleMask *_styleMaskPtr : std::views::iota(styleMasks, styleMasks + count)) {
+        for (const NSWindowStyleMask *_styleMaskPtr : std::views::iota(styleMasks, styleMasks + count)) {
             NSWindowStyleMask _styleMask = *_styleMaskPtr;
             NSString *title = NSStringFromNSWindowStyleMask(_styleMask);
             
@@ -1099,21 +1099,21 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
                                                label:@"Autorecalculates Content Border Thickness"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         NSUInteger count;
-        NSRectEdge *allEdges = allNSRectEdges(&count);
+        const NSRectEdge *allEdges = allNSRectEdges(&count);
         
         auto titlesVector = std::views::iota(allEdges, allEdges + count)
-        | std::views::transform([](NSRectEdge *ptr) { return *ptr; })
-        | std::views::transform([](NSRectEdge edge) -> NSString * {
+        | std::views::transform([](const NSRectEdge *ptr) { return *ptr; })
+        | std::views::transform([](const NSRectEdge edge) -> NSString * {
             return NSStringFromNSRectEdge(edge);
         })
         | std::ranges::to<std::vector<NSString *>>();
         
         auto selectedTitlesVector = std::views::iota(allEdges, allEdges + count)
-        | std::views::transform([](NSRectEdge *ptr) { return *ptr; })
+        | std::views::transform([](const NSRectEdge *ptr) { return *ptr; })
         | std::views::filter([window = unretainedSelf.view.window](NSRectEdge edge) {
             return [window autorecalculatesContentBorderThicknessForEdge:edge];
         })
-        | std::views::transform([](NSRectEdge edge) -> NSString * {
+        | std::views::transform([](const NSRectEdge edge) -> NSString * {
             return NSStringFromNSRectEdge(edge);
         })
         | std::ranges::to<std::vector<NSString *>>();
@@ -1209,11 +1209,11 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
                                                label:@"Window Numbers With Options"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         NSUInteger count;
-        NSWindowNumberListOptions *allOptions = allNSWindowNumberListOptions(&count);
+        const NSWindowNumberListOptions *allOptions = allNSWindowNumberListOptions(&count);
         
         auto optionTitlesVector = std::views::iota(allOptions, allOptions + count)
-        | std::views::transform([](NSWindowNumberListOptions *ptr) -> NSWindowNumberListOptions { return *ptr; })
-        | std::views::transform([](NSWindowNumberListOptions option) -> NSString * {
+        | std::views::transform([](const NSWindowNumberListOptions *ptr) -> const NSWindowNumberListOptions { return *ptr; })
+        | std::views::transform([](const NSWindowNumberListOptions option) -> NSString * {
             return NSStringFromNSWindowNumberListOptions(option);
         })
         | std::ranges::to<std::vector<NSString *>>();
@@ -1255,11 +1255,11 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
                                                label:@"Sharing Type"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         NSUInteger count;
-        NSWindowSharingType *allTypes = allNSWindowSharingTypes(&count);
+        const NSWindowSharingType *allTypes = allNSWindowSharingTypes(&count);
         
         auto titlesVector = std::views::iota(allTypes, allTypes + count)
-        | std::views::transform([](NSWindowSharingType *ptr) { return *ptr; })
-        | std::views::transform([](NSWindowSharingType type) {
+        | std::views::transform([](const NSWindowSharingType *ptr) { return *ptr; })
+        | std::views::transform([](const NSWindowSharingType type) {
             return NSStringFromNSWindowSharingType(type);
         })
         | std::ranges::to<std::vector<NSString *>>();
@@ -2095,10 +2095,10 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
                                                label:@"Level"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         NSUInteger count;
-        NSWindowLevel *allLevels = allNSWindowLevels(&count);
+        const NSWindowLevel *allLevels = allNSWindowLevels(&count);
         
         auto levelTitlesVector = std::views::iota(allLevels, allLevels + count)
-        | std::views::transform([](NSWindowLevel *levelPtr) -> NSString * {
+        | std::views::transform([](const NSWindowLevel *levelPtr) -> NSString * {
             return NSStringFromNSWindowLevel(*levelPtr);
         })
         | std::ranges::to<std::vector<NSString *>>();
@@ -2344,10 +2344,10 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     }
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         NSUInteger count;
-        NSWindowOrderingMode *allModes = allNSWindowOrderingModes(&count);
+        const NSWindowOrderingMode *allModes = allNSWindowOrderingModes(&count);
         
         auto titlesVector = std::views::iota(allModes, allModes + count)
-        | std::views::transform([](NSWindowOrderingMode *modePtr) {
+        | std::views::transform([](const NSWindowOrderingMode *modePtr) {
             return NSStringFromNSWindowOrderingMode(*modePtr);
         })
         | std::ranges::to<std::vector<NSString *>>();
@@ -2568,10 +2568,10 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
                                                label:@"Toolbar Style"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         NSUInteger count;
-        NSWindowToolbarStyle *allStyles = allNSWindowToolbarStyles(&count);
+        const NSWindowToolbarStyle *allStyles = allNSWindowToolbarStyles(&count);
         
         auto titlesVector = std::views::iota(allStyles, allStyles + count)
-        | std::views::transform([](NSWindowToolbarStyle *ptr) {
+        | std::views::transform([](const NSWindowToolbarStyle *ptr) {
             return NSStringFromNSWindowToolbarStyle(*ptr);
         })
         | std::ranges::to<std::vector<NSString *>>();
@@ -2595,10 +2595,10 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
                                                label:@"Titlebar Separator Style"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         NSUInteger count;
-        NSTitlebarSeparatorStyle *allStyles = allNSTitlebarSeparatorStyles(&count);
+        const NSTitlebarSeparatorStyle *allStyles = allNSTitlebarSeparatorStyles(&count);
         
         auto titlesVector = std::views::iota(allStyles, allStyles + count)
-        | std::views::transform([](NSTitlebarSeparatorStyle *ptr) {
+        | std::views::transform([](const NSTitlebarSeparatorStyle *ptr) {
             return NSStringFromNSTitlebarSeparatorStyle(*ptr);
         })
         | std::ranges::to<std::vector<NSString *>>();
@@ -2796,10 +2796,10 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
                                                label:@"Tabbing Mode"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         NSUInteger count;
-        NSWindowTabbingMode *allModes = allNSWindowTabbingModes(&count);
+        const NSWindowTabbingMode *allModes = allNSWindowTabbingModes(&count);
         
         auto titles = std::views::iota(allModes, allModes + count)
-        | std::views::transform([](NSWindowTabbingMode *ptr) {
+        | std::views::transform([](const NSWindowTabbingMode *ptr) {
             return NSStringFromNSWindowTabbingMode(*ptr);
         })
         | std::ranges::to<std::vector<NSString *>>();
@@ -2839,10 +2839,10 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
                                                label:@"Add Tabbed Window Ordered"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         NSUInteger count;
-        NSWindowOrderingMode *allModes = allNSWindowOrderingModes(&count);
+        const NSWindowOrderingMode *allModes = allNSWindowOrderingModes(&count);
         
         auto titlesVector = std::views::iota(allModes, allModes + count)
-        | std::views::transform([](NSWindowOrderingMode *ptr) {
+        | std::views::transform([](const NSWindowOrderingMode *ptr) {
             return NSStringFromNSWindowOrderingMode(*ptr);
         })
         | std::ranges::to<std::vector<NSString *>>();
@@ -3131,10 +3131,10 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
                                                label:@"Next Event Matching Mask"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         NSUInteger count;
-        NSEventMask *allMasks = allNSEventMasks(&count);
+        const NSEventMask *allMasks = allNSEventMasks(&count);
         
         auto titlesVetor = std::views::iota(allMasks, allMasks + count)
-        | std::views::transform([](NSEventMask *ptr) {
+        | std::views::transform([](const NSEventMask *ptr) {
             return NSStringFromNSEventMask(*ptr);
         })
         | std::ranges::to<std::vector<NSString *>>();
@@ -3150,10 +3150,10 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
                                                label:@"Next Event Matching Mask Until Date In Mode Dequeue"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         NSUInteger count;
-        NSEventMask *allMasks = allNSEventMasks(&count);
+        const NSEventMask *allMasks = allNSEventMasks(&count);
         
         auto titlesVetor = std::views::iota(allMasks, allMasks + count)
-        | std::views::transform([](NSEventMask *ptr) {
+        | std::views::transform([](const NSEventMask *ptr) {
             return NSStringFromNSEventMask(*ptr);
         })
         | std::ranges::to<std::vector<NSString *>>();
@@ -3169,10 +3169,10 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
                                                label:@"Next Event Matching Mask Until Date In Mode Dequeue (Dequeue)"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         NSUInteger count;
-        NSEventMask *allMasks = allNSEventMasks(&count);
+        const NSEventMask *allMasks = allNSEventMasks(&count);
         
         auto titlesVetor = std::views::iota(allMasks, allMasks + count)
-        | std::views::transform([](NSEventMask *ptr) {
+        | std::views::transform([](const NSEventMask *ptr) {
             return NSStringFromNSEventMask(*ptr);
         })
         | std::ranges::to<std::vector<NSString *>>();
@@ -3188,10 +3188,10 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
                                                label:@"Next Event Matching Mask Until Date In Mode Dequeue (Dequeue) + Discard Events Matching Mask Before Event"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         NSUInteger count;
-        NSEventMask *allMasks = allNSEventMasks(&count);
+        const NSEventMask *allMasks = allNSEventMasks(&count);
         
         auto titlesVetor = std::views::iota(allMasks, allMasks + count)
-        | std::views::transform([](NSEventMask *ptr) {
+        | std::views::transform([](const NSEventMask *ptr) {
             return NSStringFromNSEventMask(*ptr);
         })
         | std::ranges::to<std::vector<NSString *>>();
@@ -3424,10 +3424,10 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
                                                label:@"Track Events Matching Mask Timeout Mode Handler"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         NSUInteger count;
-        NSEventMask *allMasks = allNSEventMasks(&count);
+        const NSEventMask *allMasks = allNSEventMasks(&count);
         
         auto titlesVector = std::views::iota(allMasks, allMasks + count)
-        | std::views::transform([](NSEventMask *ptr) {
+        | std::views::transform([](const NSEventMask *ptr) {
             return NSStringFromNSEventMask(*ptr);
         })
         | std::ranges::to<std::vector<NSString *>>();
@@ -3516,10 +3516,10 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
                                                label:@"Animation Behavior (Ouder Out & Front after 3 seconds)"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         NSUInteger count;
-        NSWindowAnimationBehavior *allBehaviors = allNSWindowAnimationBehaviors(&count);
+        const NSWindowAnimationBehavior *allBehaviors = allNSWindowAnimationBehaviors(&count);
         
         auto titlesVector = std::views::iota(allBehaviors, allBehaviors + count)
-        | std::views::transform([](NSWindowAnimationBehavior *ptr) {
+        | std::views::transform([](const NSWindowAnimationBehavior *ptr) {
             return NSStringFromNSWindowAnimationBehavior(*ptr);
         })
         | std::ranges::to<std::vector<NSString *>>();
@@ -3708,10 +3708,10 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
                                                label:@"Title Visibility"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         NSUInteger count;
-        NSWindowTitleVisibility *allVisibilities = allNSWindowTitleVisibilities(&count);
+        const NSWindowTitleVisibility *allVisibilities = allNSWindowTitleVisibilities(&count);
         
         auto titlesVector = std::views::iota(allVisibilities, allVisibilities + count)
-        | std::views::transform([](NSWindowTitleVisibility *ptr) {
+        | std::views::transform([](const NSWindowTitleVisibility *ptr) {
             return NSStringFromNSWindowTitleVisibility(*ptr);
         })
         | std::ranges::to<std::vector<NSString *>>();

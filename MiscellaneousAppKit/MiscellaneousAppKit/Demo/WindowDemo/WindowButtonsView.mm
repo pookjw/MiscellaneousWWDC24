@@ -87,9 +87,9 @@
     NSWindowStyleMask styleMask = self.window.styleMask;
     
     NSUInteger count;
-    NSWindowButton *allWindowButtons = allNSWindowButtons(&count);
+    const NSWindowButton *allWindowButtons = allNSWindowButtons(&count);
     
-    for (NSWindowButton *windowButtonPtr : std::views::iota(allWindowButtons, allWindowButtons + count)) {
+    for (const NSWindowButton *windowButtonPtr : std::views::iota(allWindowButtons, allWindowButtons + count)) {
         NSWindowButton windowButton = *windowButtonPtr;
         
         NSString *string = NSStringFromNSWindowButton(windowButton);

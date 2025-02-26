@@ -12,6 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 MA_EXTERN NSString * NSStringFromNSLayoutConstraintOrientation(NSLayoutConstraintOrientation orientation);
 MA_EXTERN NSLayoutConstraintOrientation NSLayoutConstraintOrientationFromString(NSString *string);
-MA_EXTERN NSLayoutConstraintOrientation * allNSLayoutConstraintOrientations(NSUInteger * _Nullable count);
+MA_EXTERN const NSLayoutConstraintOrientation * allNSLayoutConstraintOrientations(NSUInteger * _Nullable count);
 
 NS_ASSUME_NONNULL_END

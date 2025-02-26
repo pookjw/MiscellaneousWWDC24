@@ -36,8 +36,8 @@ NSRectEdge NSRectEdgeFromString(NSString *string) {
     }
 }
 
-NSRectEdge * allNSRectEdges(NSUInteger * _Nullable count) {
-    static NSRectEdge allEdges[] = {
+const NSRectEdge * allNSRectEdges(NSUInteger * _Nullable count) {
+    static const NSRectEdge allEdges[] = {
         NSRectEdgeMinX,
         NSRectEdgeMinY,
         NSRectEdgeMaxX,

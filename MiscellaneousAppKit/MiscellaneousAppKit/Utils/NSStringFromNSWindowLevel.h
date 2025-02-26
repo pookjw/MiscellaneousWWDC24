@@ -12,6 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 MA_EXTERN NSString * NSStringFromNSWindowLevel(NSWindowLevel level);
 MA_EXTERN NSWindowLevel NSWindowLevelFromString(NSString *string);
-MA_EXTERN NSWindowLevel * allNSWindowLevels(NSUInteger * _Nullable count);
+MA_EXTERN const NSWindowLevel * allNSWindowLevels(NSUInteger * _Nullable count);
 
 NS_ASSUME_NONNULL_END

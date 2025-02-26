@@ -53,8 +53,8 @@ NSWindowLevel NSWindowLevelFromString(NSString *string) {
     }
 }
 
-NSWindowLevel * allNSWindowLevels(NSUInteger * _Nullable count) {
-    static NSWindowLevel allLevels[] = {
+const NSWindowLevel * allNSWindowLevels(NSUInteger * _Nullable count) {
+    static const NSWindowLevel allLevels[] = {
         NSNormalWindowLevel,
         NSFloatingWindowLevel,
         NSSubmenuWindowLevel,

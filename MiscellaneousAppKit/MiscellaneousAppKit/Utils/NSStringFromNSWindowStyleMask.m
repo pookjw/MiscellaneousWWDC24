@@ -111,9 +111,8 @@ NSWindowStyleMask NSWindowStyleMaskFromString(NSString *string) {
     return styleMask;
 }
 
-NSWindowStyleMask * allNSWindowStyleMasks(NSUInteger * _Nullable count) {
-    NSWindowSharingType f;
-    static NSWindowStyleMask allMasks[] = {
+const NSWindowStyleMask * allNSWindowStyleMasks(NSUInteger * _Nullable count) {
+    static const NSWindowStyleMask allMasks[] = {
         NSWindowStyleMaskBorderless,
         NSWindowStyleMaskTitled,
         NSWindowStyleMaskClosable,

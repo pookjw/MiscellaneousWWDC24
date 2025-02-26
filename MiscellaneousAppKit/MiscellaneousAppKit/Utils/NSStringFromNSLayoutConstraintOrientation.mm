@@ -28,8 +28,8 @@ NSLayoutConstraintOrientation NSLayoutConstraintOrientationFromString(NSString *
     }
 }
 
-NSLayoutConstraintOrientation * allNSLayoutConstraintOrientations(NSUInteger * _Nullable count) {
-    static NSLayoutConstraintOrientation allOrientations[] = {
+const NSLayoutConstraintOrientation * allNSLayoutConstraintOrientations(NSUInteger * _Nullable count) {
+    static const NSLayoutConstraintOrientation allOrientations[] = {
         NSLayoutConstraintOrientationHorizontal,
         NSLayoutConstraintOrientationVertical
     };

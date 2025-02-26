@@ -40,8 +40,8 @@ NSWindowAnimationBehavior NSWindowAnimationBehaviorFromString(NSString *string) 
     }
 }
 
-NSWindowAnimationBehavior * allNSWindowAnimationBehaviors(NSUInteger * _Nullable count) {
-    static NSWindowAnimationBehavior allBehaviors[] = {
+const NSWindowAnimationBehavior * allNSWindowAnimationBehaviors(NSUInteger * _Nullable count) {
+    static const NSWindowAnimationBehavior allBehaviors[] = {
         NSWindowAnimationBehaviorDefault,
         NSWindowAnimationBehaviorNone,
         NSWindowAnimationBehaviorDocumentWindow,

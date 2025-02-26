@@ -32,7 +32,7 @@ NSSelectionDirection NSSelectionDirectionFromString(NSString *string) {
     }
 }
 
-NSSelectionDirection * allNSSelectionDirections(NSUInteger * _Nullable count) {
+const NSSelectionDirection * allNSSelectionDirections(NSUInteger * _Nullable count) {
     static NSSelectionDirection allDirections[] = {
         NSDirectSelection,
         NSSelectingNext,

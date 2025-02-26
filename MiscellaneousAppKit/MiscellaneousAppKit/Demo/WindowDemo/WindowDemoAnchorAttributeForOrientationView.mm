@@ -259,10 +259,10 @@
 
 - (NSArray<NSString *> *)_allLayoutAttributeStrings {
     NSUInteger count;
-    NSLayoutAttribute *allAttributes = allNSLayoutAttributes(&count);
+    const NSLayoutAttribute *allAttributes = allNSLayoutAttributes(&count);
     
     auto vector = std::views::iota(allAttributes, allAttributes + count)
-    | std::views::transform([](NSLayoutAttribute *ptr) {
+    | std::views::transform([](const NSLayoutAttribute *ptr) {
         return NSStringFromNSLayoutAttribute(*ptr);
     })
     | std::ranges::to<std::vector<NSString *>>();

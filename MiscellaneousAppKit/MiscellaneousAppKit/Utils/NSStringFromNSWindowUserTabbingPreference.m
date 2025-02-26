@@ -32,8 +32,8 @@ NSWindowUserTabbingPreference NSWindowUserTabbingPreferenceFromString(NSString *
     }
 }
 
-NSWindowUserTabbingPreference * allNSWindowUserTabbingPreferences(NSUInteger * _Nullable count) {
-    static NSWindowUserTabbingPreference allPreferences[] = {
+const NSWindowUserTabbingPreference * allNSWindowUserTabbingPreferences(NSUInteger * _Nullable count) {
+    static const NSWindowUserTabbingPreference allPreferences[] = {
         NSWindowUserTabbingPreferenceManual,
         NSWindowUserTabbingPreferenceAlways,
         NSWindowUserTabbingPreferenceInFullScreen

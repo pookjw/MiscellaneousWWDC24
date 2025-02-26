@@ -364,10 +364,10 @@ UT_EXPORT NSArray<UTType *> *_UTGetAllCoreTypesConstants(void);
                                                label:@"Prepare For New Contents With Options"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         NSUInteger count;
-        NSPasteboardContentsOptions *allOptions = allNSPasteboardContentsOptions(&count);
+        const NSPasteboardContentsOptions *allOptions = allNSPasteboardContentsOptions(&count);
         
         auto titlesVector = std::views::iota(allOptions, allOptions + count)
-        | std::views::transform([](NSPasteboardContentsOptions *ptr) {
+        | std::views::transform([](const NSPasteboardContentsOptions *ptr) {
             return NSStringFromNSPasteboardContentsOptions(*ptr);
         })
         | std::ranges::to<std::vector<NSString *>>();

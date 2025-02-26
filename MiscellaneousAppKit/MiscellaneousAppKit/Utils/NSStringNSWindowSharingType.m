@@ -32,8 +32,8 @@ NSWindowSharingType NSWindowSharingTypeFromString(NSString *string) {
     }
 }
 
-NSWindowSharingType * allNSWindowSharingTypes(NSUInteger * _Nullable count) {
-    static NSWindowSharingType allTypes[] = {
+const NSWindowSharingType * allNSWindowSharingTypes(NSUInteger * _Nullable count) {
+    static const NSWindowSharingType allTypes[] = {
         NSWindowSharingNone,
         NSWindowSharingReadOnly,
         NSWindowSharingReadWrite

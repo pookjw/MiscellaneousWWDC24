@@ -137,8 +137,8 @@
         NSMenu *submenu = [NSMenu new];
         
         NSUInteger count;
-        NSLayoutAttribute *allAttributes = allNSLayoutAttributes(&count);
-        for (NSLayoutAttribute *ptr : std::views::iota(allAttributes, allAttributes + count)) {
+        const NSLayoutAttribute *allAttributes = allNSLayoutAttributes(&count);
+        for (const NSLayoutAttribute *ptr : std::views::iota(allAttributes, allAttributes + count)) {
             NSLayoutAttribute layoutAttribute = *ptr;
             NSMenuItem *menuItem = [NSMenuItem new];
             menuItem.title = NSStringFromNSLayoutAttribute(layoutAttribute);

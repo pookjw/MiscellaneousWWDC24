@@ -28,8 +28,8 @@ NSUserInterfaceLayoutDirection NSUserInterfaceLayoutDirectionFromString(NSString
     }
 }
 
-NSUserInterfaceLayoutDirection * allNSUserInterfaceLayoutDirections(NSUInteger * _Nullable count) {
-    static NSUserInterfaceLayoutDirection allDirections[] = {
+const NSUserInterfaceLayoutDirection * allNSUserInterfaceLayoutDirections(NSUInteger * _Nullable count) {
+    static const NSUserInterfaceLayoutDirection allDirections[] = {
         NSUserInterfaceLayoutDirectionLeftToRight,
         NSUserInterfaceLayoutDirectionRightToLeft
     };

@@ -42,8 +42,8 @@ NSPasteboardContentsOptions NSPasteboardContentsOptionsFromString(NSString *stri
     return options;
 }
 
-NSPasteboardContentsOptions * allNSPasteboardContentsOptions(NSUInteger * _Nullable count) {
-    static NSPasteboardContentsOptions allOptions[] = {
+const NSPasteboardContentsOptions * allNSPasteboardContentsOptions(NSUInteger * _Nullable count) {
+    static const NSPasteboardContentsOptions allOptions[] = {
         0,
         NSPasteboardContentsCurrentHostOnly
     };

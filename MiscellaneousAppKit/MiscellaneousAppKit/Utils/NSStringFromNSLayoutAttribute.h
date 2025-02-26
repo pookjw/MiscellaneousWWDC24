@@ -12,6 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 MA_EXTERN NSString * NSStringFromNSLayoutAttribute(NSLayoutAttribute attribute);
 MA_EXTERN NSLayoutAttribute NSLayoutAttributeFromString(NSString *string);
-MA_EXTERN NSLayoutAttribute * allNSLayoutAttributes(NSUInteger * _Nullable count);
+MA_EXTERN const NSLayoutAttribute * allNSLayoutAttributes(NSUInteger * _Nullable count);
 
 NS_ASSUME_NONNULL_END

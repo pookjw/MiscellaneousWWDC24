@@ -12,6 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 MA_EXTERN NSString * NSStringFromNSWindowSharingType(NSWindowSharingType sharingType);
 MA_EXTERN NSWindowSharingType NSWindowSharingTypeFromString(NSString *string);
-MA_EXTERN NSWindowSharingType * allNSWindowSharingTypes(NSUInteger * _Nullable count);
+MA_EXTERN const NSWindowSharingType * allNSWindowSharingTypes(NSUInteger * _Nullable count);
 
 NS_ASSUME_NONNULL_END

@@ -12,6 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 MA_EXTERN NSString * NSStringFromNSWindowOrderingMode(NSWindowOrderingMode mode);
 MA_EXTERN NSWindowOrderingMode NSWindowOrderingModeFromString(NSString *string);
-MA_EXTERN NSWindowOrderingMode * allNSWindowOrderingModes(NSUInteger * _Nullable count);
+MA_EXTERN const NSWindowOrderingMode * allNSWindowOrderingModes(NSUInteger * _Nullable count);
 
 NS_ASSUME_NONNULL_END

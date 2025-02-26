@@ -28,8 +28,8 @@ NSWindowTitleVisibility NSWindowTitleVisibilityFromString(NSString *string) {
     }
 }
 
-NSWindowTitleVisibility * allNSWindowTitleVisibilities(NSUInteger * _Nullable count) {
-    static NSWindowTitleVisibility allVisibilities[] = {
+const NSWindowTitleVisibility * allNSWindowTitleVisibilities(NSUInteger * _Nullable count) {
+    static const NSWindowTitleVisibility allVisibilities[] = {
         NSWindowTitleVisible,
         NSWindowTitleHidden
     };

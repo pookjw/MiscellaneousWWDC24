@@ -36,8 +36,8 @@ NSWritingToolsBehavior NSWritingToolsBehaviorFromString(NSString *string) {
     }
 }
 
-NSWritingToolsBehavior * allNSWritingToolsBehaviors(NSUInteger * _Nullable count) {
-    static NSWritingToolsBehavior allBehaviors[] = {
+const NSWritingToolsBehavior * allNSWritingToolsBehaviors(NSUInteger * _Nullable count) {
+    static const NSWritingToolsBehavior allBehaviors[] = {
         NSWritingToolsBehaviorNone,
         NSWritingToolsBehaviorDefault,
         NSWritingToolsBehaviorComplete,

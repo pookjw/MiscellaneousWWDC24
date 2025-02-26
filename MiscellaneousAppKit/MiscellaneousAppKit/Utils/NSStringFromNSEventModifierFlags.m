@@ -75,8 +75,8 @@ NSEventModifierFlags NSEventModifierFlagsFromString(NSString *string) {
     return flags;
 }
 
-NSEventModifierFlags * allNSEventModifierFlags(NSUInteger * _Nullable count) {
-    static NSEventModifierFlags allFlags[] = {
+const NSEventModifierFlags * allNSEventModifierFlags(NSUInteger * _Nullable count) {
+    static const NSEventModifierFlags allFlags[] = {
         NSEventModifierFlagCapsLock,
         NSEventModifierFlagShift,
         NSEventModifierFlagControl,

@@ -201,8 +201,8 @@ NSEventMask NSEventMaskFromString(NSString *string) {
     return mask;
 }
 
-NSEventMask * allNSEventMasks(NSUInteger * _Nullable count) {
-    static NSEventMask allMasks[] = {
+const NSEventMask * allNSEventMasks(NSUInteger * _Nullable count) {
+    static const NSEventMask allMasks[] = {
         NSEventMaskLeftMouseDown,
         NSEventMaskLeftMouseUp,
         NSEventMaskRightMouseDown,

@@ -12,6 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 MA_EXTERN NSString * NSStringFromNSWindowToolbarStyle(NSWindowToolbarStyle style);
 MA_EXTERN NSWindowToolbarStyle NSWindowToolbarStyleFromString(NSString *string);
-MA_EXTERN NSWindowToolbarStyle * allNSWindowToolbarStyles(NSUInteger * _Nullable count);
+MA_EXTERN const NSWindowToolbarStyle * allNSWindowToolbarStyles(NSUInteger * _Nullable count);
 
 NS_ASSUME_NONNULL_END

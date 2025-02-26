@@ -12,11 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 MA_EXTERN NSString * NSStringFromNSAlignmentOptions(NSAlignmentOptions options);
 MA_EXTERN NSAlignmentOptions NSAlignmentOptionsFromString(NSString *string);
-MA_EXTERN NSAlignmentOptions * allNSAlignmentOptions(NSUInteger * _Nullable count);
+MA_EXTERN const NSAlignmentOptions * allNSAlignmentOptions(NSUInteger * _Nullable count);
 
 MA_EXTERN NSString * NSStringFromNSStringFromNSAlignmentOptionsConvenienceCombinations(NSAlignmentOptions options);
 MA_EXTERN NSAlignmentOptions NSAlignmentOptionsConvenienceCombinationsFromString(NSString *string);
-MA_EXTERN NSAlignmentOptions * allNSAlignmentOptionsConvenienceCombinations(NSUInteger * _Nullable count);
+MA_EXTERN const NSAlignmentOptions * allNSAlignmentOptionsConvenienceCombinations(NSUInteger * _Nullable count);
 
 NS_ASSUME_NONNULL_END
 

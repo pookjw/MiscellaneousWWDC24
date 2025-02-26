@@ -72,8 +72,8 @@ NSLayoutAttribute NSLayoutAttributeFromString(NSString *string) {
     }
 }
 
-NSLayoutAttribute * allNSLayoutAttributes(NSUInteger * _Nullable count) {
-    static NSLayoutAttribute allAttributes[] = {
+const NSLayoutAttribute * allNSLayoutAttributes(NSUInteger * _Nullable count) {
+    static const NSLayoutAttribute allAttributes[] = {
         NSLayoutAttributeNotAnAttribute,
         NSLayoutAttributeLeft,
         NSLayoutAttributeRight,

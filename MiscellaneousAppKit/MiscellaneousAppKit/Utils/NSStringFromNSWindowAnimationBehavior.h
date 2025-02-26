@@ -12,6 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 MA_EXTERN NSString * NSStringFromNSWindowAnimationBehavior(NSWindowAnimationBehavior behavior);
 MA_EXTERN NSWindowAnimationBehavior NSWindowAnimationBehaviorFromString(NSString *string);
-MA_EXTERN NSWindowAnimationBehavior * allNSWindowAnimationBehaviors(NSUInteger * _Nullable count);
+MA_EXTERN const NSWindowAnimationBehavior * allNSWindowAnimationBehaviors(NSUInteger * _Nullable count);
 
 NS_ASSUME_NONNULL_END
