@@ -13,6 +13,14 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 
+typedef NS_ENUM(NSUInteger, WindowDemoAnchorAttributeForOrientationLabelTag) {
+    WindowDemoAnchorAttributeForOrientationLabelTagTop = 1 << 0,
+    WindowDemoAnchorAttributeForOrientationLabelTagLeading = 1 << 1,
+    WindowDemoAnchorAttributeForOrientationLabelTagCenter = 1 << 2,
+    WindowDemoAnchorAttributeForOrientationLabelTagTrailing = 1 << 3,
+    WindowDemoAnchorAttributeForOrientationLabelTagBottom = 1 << 4
+};
+
 @interface WindowDemoAnchorAttributeForOrientationView ()
 @property (retain, nonatomic, readonly, getter=_stackView) NSStackView *stackView;
 @property (retain, nonatomic, getter=_labelTopConstraint, setter=_setLabelTopConstraint:) NSLayoutConstraint *labelTopConstraint;
@@ -22,19 +30,20 @@
 @property (retain, nonatomic, getter=_labelWidthConstraint, setter=_setLabelWidthConstraint:) NSLayoutConstraint *labelWidthConstraint;
 @property (retain, nonatomic, getter=_labelHeightConstraint, setter=_setLabelHeightConstraint:) NSLayoutConstraint *labelHeightConstraint;
 @property (retain, nonatomic, readonly, getter=_labelContainerView) NSView *labelContainerView;
-@property (retain, nonatomic, readonly, getter=_label) NSTextField *label;
+@property (retain, nonatomic, readonly, getter=_labelSubContainerView) NSView *labelSubContainerView;
 @property (retain, nonatomic, readonly, getter=_leadingButton) NSButton *leadingButton;
 @property (retain, nonatomic, readonly, getter=_trailingButton) NSButton *trailingButton;
 @property (retain, nonatomic, readonly, getter=_topButton) NSButton *topButton;
 @property (retain, nonatomic, readonly, getter=_bottomButton) NSButton *bottomButton;
 @property (retain, nonatomic, readonly, getter=_anchorAttributeForHorizontalOrientationButton) NSPopUpButton *anchorAttributeForHorizontalOrientationButton;
 @property (retain, nonatomic, readonly, getter=_anchorAttributeForVerticalOrientationButton) NSPopUpButton *anchorAttributeForVerticalOrientationButton;
+@property (assign, nonatomic, getter=_enabedLabelTags, setter=_setEnabledLabelTags:) WindowDemoAnchorAttributeForOrientationLabelTag enabledLabelTags;
 @end
 
 @implementation WindowDemoAnchorAttributeForOrientationView
 @synthesize stackView = _stackView;
 @synthesize labelContainerView = _labelContainerView;
-@synthesize label = _label;
+@synthesize labelSubContainerView = _labelSubContainerView;
 @synthesize leadingButton = _leadingButton;
 @synthesize trailingButton = _trailingButton;
 @synthesize topButton = _topButton;
@@ -48,6 +57,8 @@
         stackView.frame = self.bounds;
         stackView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         [self addSubview:stackView];
+        
+        self.enabledLabelTags = WindowDemoAnchorAttributeForOrientationLabelTagCenter;
     }
     
     return self;
@@ -56,7 +67,6 @@
 - (void)dealloc {
     [_stackView release];
     [_labelContainerView release];
-    [_label release];
     [_leadingButton release];
     [_trailingButton release];
     [_topButton release];
@@ -89,6 +99,41 @@
     return self.stackView.intrinsicContentSize;
 }
 
+- (void)updateConstraints {
+    [super updateConstraints];
+    
+    typedef WindowDemoAnchorAttributeForOrientationLabelTag Tag;
+    
+    {
+        Tag tags = self.enabledLabelTags;
+        
+        for (NSTextField *label in self.labelSubContainerView.subviews) {
+            if ((tags & label.tag) != 0) {
+                tags = static_cast<Tag>(tags & ~label.tag);
+                [label removeConstraints:label.constraints];
+            } else {
+                [label removeFromSuperview];
+            }
+        }
+        
+        NSUInteger shiftCount = 0;
+        while (tags != 0) {
+            if ((tags & 1) != 0) {
+                NSTextField *label = [self _makeLabel];
+                label.tag = (1 << shiftCount);
+                [self.labelSubContainerView addSubview:label];
+            }
+            
+            tags = static_cast<Tag>(tags >> 1);
+            shiftCount += 1;
+        }
+    }
+    
+    {
+        
+    }
+}
+
 - (NSStackView *)_stackView {
     if (auto stackView = _stackView) return stackView;
     
@@ -117,21 +162,21 @@
     
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(labelContainerView, sel_registerName("setBackgroundColor:"), NSColor.blueColor);
     
-    NSTextField *label = self.label;
-    label.translatesAutoresizingMaskIntoConstraints = NO;
-    [labelContainerView addSubview:label];
+    NSView *labelSubContainerView = self.labelSubContainerView;
+    labelSubContainerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [labelContainerView addSubview:labelSubContainerView];
     
-    NSLayoutConstraint *labelTopConstraint = [label.topAnchor constraintEqualToAnchor:labelContainerView.topAnchor constant:100.];
+    NSLayoutConstraint *labelTopConstraint = [labelSubContainerView.topAnchor constraintEqualToAnchor:labelContainerView.topAnchor constant:100.];
     self.labelTopConstraint = labelTopConstraint;
-    NSLayoutConstraint *labelLeadingConstraint = [label.leadingAnchor constraintEqualToAnchor:labelContainerView.leadingAnchor constant:100.];
+    NSLayoutConstraint *labelLeadingConstraint = [labelSubContainerView.leadingAnchor constraintEqualToAnchor:labelContainerView.leadingAnchor constant:100.];
     self.labelLeadingConstraint = labelLeadingConstraint;
-    NSLayoutConstraint *labelTrailingConstraint = [label.trailingAnchor constraintEqualToAnchor:labelContainerView.trailingAnchor constant:-100.];
+    NSLayoutConstraint *labelTrailingConstraint = [labelSubContainerView.trailingAnchor constraintEqualToAnchor:labelContainerView.trailingAnchor constant:-100.];
     self.labelTrailingConstraint = labelTrailingConstraint;
-    NSLayoutConstraint *labelBottomConstraint = [label.bottomAnchor constraintEqualToAnchor:labelContainerView.bottomAnchor constant:-100.];
+    NSLayoutConstraint *labelBottomConstraint = [labelSubContainerView.bottomAnchor constraintEqualToAnchor:labelContainerView.bottomAnchor constant:-100.];
     self.labelBottomConstraint = labelBottomConstraint;
-    NSLayoutConstraint *labelWidthConstraint = [label.widthAnchor constraintEqualToConstant:100.];
+    NSLayoutConstraint *labelWidthConstraint = [labelSubContainerView.widthAnchor constraintEqualToConstant:100.];
     self.labelWidthConstraint = labelWidthConstraint;
-    NSLayoutConstraint *labelHeightConstraint = [label.heightAnchor constraintEqualToConstant:100.];
+    NSLayoutConstraint *labelHeightConstraint = [labelSubContainerView.heightAnchor constraintEqualToConstant:100.];
     self.labelHeightConstraint = labelHeightConstraint;
     
     [NSLayoutConstraint activateConstraints:@[
@@ -147,26 +192,25 @@
     return labelContainerView;
 }
 
-- (NSTextField *)_label {
-    if (auto label = _label) return label;
+- (NSView *)_labelSubContainerView {
+    if (auto labelSubContainerView = _labelSubContainerView) return labelSubContainerView;
     
-    NSURL *url = [NSBundle.mainBundle URLForResource:@"letter" withExtension:UTTypePlainText.preferredFilenameExtension];
-    assert(url != nil);
-    NSError * _Nullable error = nil;
-    NSData *data = [[NSData alloc] initWithContentsOfURL:url options:0 error:&error];
-    assert(error == nil);
-    NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    [data release];
+    NSView *labelSubContainerView = [NSView new];
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(labelSubContainerView, sel_registerName("setBackgroundColor:"), NSColor.redColor);
     
-    NSTextField *label = [NSTextField wrappingLabelWithString:string];
-    [string release];
+    NSTextField *centerLabel = [self _makeLabel];
+    centerLabel.tag = WindowDemoAnchorAttributeForOrientationLabelTagCenter;
+    centerLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [labelSubContainerView addSubview:centerLabel];
+    [NSLayoutConstraint activateConstraints:@[
+        [centerLabel.topAnchor constraintEqualToAnchor:labelSubContainerView.topAnchor],
+        [centerLabel.leadingAnchor constraintEqualToAnchor:labelSubContainerView.leadingAnchor],
+        [centerLabel.trailingAnchor constraintEqualToAnchor:labelSubContainerView.trailingAnchor],
+        [centerLabel.bottomAnchor constraintEqualToAnchor:labelSubContainerView.bottomAnchor]
+    ]];
     
-    label.drawsBackground = YES;
-    label.textColor = NSColor.blackColor;
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(label, sel_registerName("setBackgroundColor:"), NSColor.whiteColor);
-    
-    _label = [label retain];
-    return label;
+    _labelSubContainerView = labelSubContainerView;
+    return labelSubContainerView;
 }
 
 - (NSButton *)_leadingButton {
@@ -259,50 +303,47 @@
 }
 
 - (void)_didTriggerButton:(NSButton *)sender {
-    [NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
-        context.duration = 1.;
-        
-        NSLayoutConstraint *constraint;
-        NSLayoutConstraint *otherConstraint;
-        NSLayoutConstraint *sizeContraint;
-        BOOL isNegative;
-        if ([sender isEqual:self.leadingButton]) {
-            constraint = self.labelLeadingConstraint;
-            otherConstraint = self.labelTrailingConstraint;
-            sizeContraint = self.labelWidthConstraint;
-            isNegative = NO;
-        } else if ([sender isEqual:self.trailingButton]) {
-            constraint = self.labelTrailingConstraint;
-            otherConstraint = self.labelLeadingConstraint;
-            sizeContraint = self.labelWidthConstraint;
-            isNegative = YES;
-        } else if ([sender isEqual:self.topButton]) {
-            constraint = self.labelTopConstraint;
-            otherConstraint = self.labelBottomConstraint;
-            sizeContraint = self.labelHeightConstraint;
-            isNegative = NO;
-        } else if ([sender isEqual:self.bottomButton]) {
-            constraint = self.labelBottomConstraint;
-            otherConstraint = self.labelTopConstraint;
-            sizeContraint = self.labelHeightConstraint;
-            isNegative = YES;
-        } else {
-            abort();
-        }
-        
-        if (constraint.constant == 0.) {
-            if (isNegative) {
-                [constraint animator].constant = -100.;
-            } else {
-                [constraint animator].constant = 100.;
-            }
-            
-            [sizeContraint animator].constant -= 100.;
-        } else {
-            [constraint animator].constant = 0.;
-            [sizeContraint animator].constant += 100.;
-        }
-    }];
+    typedef WindowDemoAnchorAttributeForOrientationLabelTag Tag;
+    
+    Tag tag;
+    if ([sender isEqual:self.leadingButton]) {
+        tag = WindowDemoAnchorAttributeForOrientationLabelTagLeading;
+    } else if ([sender isEqual:self.trailingButton]) {
+        tag = WindowDemoAnchorAttributeForOrientationLabelTagTrailing;
+    } else if ([sender isEqual:self.topButton]) {
+        tag = WindowDemoAnchorAttributeForOrientationLabelTagTop;
+    } else if ([sender isEqual:self.bottomButton]) {
+        tag = WindowDemoAnchorAttributeForOrientationLabelTagBottom;
+    } else {
+        abort();
+    }
+    
+    if ((self.enabledLabelTags & tag) != 0) {
+        self.enabledLabelTags = static_cast<Tag>(self.enabledLabelTags & ~tag);
+    } else {
+        self.enabledLabelTags = static_cast<Tag>(self.enabledLabelTags | tag);
+    }
+    
+    self.needsUpdateConstraints = YES;
+}
+
+- (NSTextField *)_makeLabel {
+    NSURL *url = [NSBundle.mainBundle URLForResource:@"letter" withExtension:UTTypePlainText.preferredFilenameExtension];
+    assert(url != nil);
+    NSError * _Nullable error = nil;
+    NSData *data = [[NSData alloc] initWithContentsOfURL:url options:0 error:&error];
+    assert(error == nil);
+    NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    [data release];
+
+    NSTextField *label = [NSTextField wrappingLabelWithString:string];
+    [string release];
+
+    label.drawsBackground = YES;
+    label.textColor = NSColor.blackColor;
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(label, sel_registerName("setBackgroundColor:"), NSColor.whiteColor);
+
+    return label;
 }
 
 - (void)_didTriggerAnchorPopupButton:(NSPopUpButton *)sender {
