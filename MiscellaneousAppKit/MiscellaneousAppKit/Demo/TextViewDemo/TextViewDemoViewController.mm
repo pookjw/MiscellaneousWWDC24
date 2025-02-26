@@ -28,6 +28,14 @@
 @synthesize scrollView = _scrollView;
 @synthesize textView = _textView;
 
+- (void)dealloc {
+    [_splitView release];
+    [_configurationView release];
+    [_scrollView release];
+    [_textView release];
+    [super dealloc];
+}
+
 - (void)loadView {
     self.view = self.splitView;
 }

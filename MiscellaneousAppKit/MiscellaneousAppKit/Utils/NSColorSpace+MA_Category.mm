@@ -11,8 +11,8 @@
 #include <ranges>
 #include <numeric>
 
-NSColorSpaceModel * allNSColorSpaceModels(NSUInteger * _Nullable count) {
-    static NSColorSpaceModel allModels[] = {
+const NSColorSpaceModel * allNSColorSpaceModels(NSUInteger * _Nullable count) {
+    static const NSColorSpaceModel allModels[] = {
         NSColorSpaceModelUnknown,
         NSColorSpaceModelGray,
         NSColorSpaceModelRGB,
@@ -66,9 +66,9 @@ NSColorSpaceModel * allNSColorSpaceModels(NSUInteger * _Nullable count) {
     //
     
     NSUInteger modelsCount;
-    NSColorSpaceModel *allModels = allNSColorSpaceModels(&modelsCount);
+    const NSColorSpaceModel *allModels = allNSColorSpaceModels(&modelsCount);
     
-    for (NSColorSpaceModel *modelPtr : std::views::iota(allModels, allModels + modelsCount)) {
+    for (const NSColorSpaceModel *modelPtr : std::views::iota(allModels, allModels + modelsCount)) {
         NSArray<NSColorSpace *> *availableColorSpaces = [NSColorSpace availableColorSpacesWithModel:*modelPtr];
         
         for (NSColorSpace *_colorSpace in availableColorSpaces) {

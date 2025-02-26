@@ -13,43 +13,30 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 
-typedef NS_ENUM(NSUInteger, WindowDemoAnchorAttributeForOrientationLabelTag) {
-    WindowDemoAnchorAttributeForOrientationLabelTagTop = 1 << 0,
-    WindowDemoAnchorAttributeForOrientationLabelTagLeading = 1 << 1,
-    WindowDemoAnchorAttributeForOrientationLabelTagCenter = 1 << 2,
-    WindowDemoAnchorAttributeForOrientationLabelTagTrailing = 1 << 3,
-    WindowDemoAnchorAttributeForOrientationLabelTagBottom = 1 << 4
-};
-
 @interface WindowDemoAnchorAttributeForOrientationView ()
 @property (retain, nonatomic, readonly, getter=_stackView) NSStackView *stackView;
-@property (retain, nonatomic, getter=_labelTopConstraint, setter=_setLabelTopConstraint:) NSLayoutConstraint *labelTopConstraint;
-@property (retain, nonatomic, getter=_labelLeadingConstraint, setter=_setLabelLeadingConstraint:) NSLayoutConstraint *labelLeadingConstraint;
-@property (retain, nonatomic, getter=_labelTrailingConstraint, setter=_setLabelTrailingConstraint:) NSLayoutConstraint *labelTrailingConstraint;
-@property (retain, nonatomic, getter=_labelBottomConstraint, setter=_setLabelBottomConstraint:) NSLayoutConstraint *labelBottomConstraint;
-@property (retain, nonatomic, getter=_labelWidthConstraint, setter=_setLabelWidthConstraint:) NSLayoutConstraint *labelWidthConstraint;
-@property (retain, nonatomic, getter=_labelHeightConstraint, setter=_setLabelHeightConstraint:) NSLayoutConstraint *labelHeightConstraint;
-@property (retain, nonatomic, readonly, getter=_labelContainerView) NSView *labelContainerView;
-@property (retain, nonatomic, readonly, getter=_labelSubContainerView) NSView *labelSubContainerView;
-@property (retain, nonatomic, readonly, getter=_leadingButton) NSButton *leadingButton;
-@property (retain, nonatomic, readonly, getter=_trailingButton) NSButton *trailingButton;
-@property (retain, nonatomic, readonly, getter=_topButton) NSButton *topButton;
-@property (retain, nonatomic, readonly, getter=_bottomButton) NSButton *bottomButton;
+@property (retain, nonatomic, readonly, getter=_containerView) NSView *containerView;
+@property (retain, nonatomic, readonly, getter=_subcontainerView) NSView *subcontainerView;
+@property (retain, nonatomic, readonly, getter=_primaryView) NSView *primaryView;
+@property (retain, nonatomic, readonly, getter=_secondaryView) NSView *secondaryView;
+@property (retain, nonatomic, readonly, getter=_toggleButton) NSButton *toggleButton;
+
+@property (retain, nonatomic, getter=_subcontainerViewWidthConstraint, setter=_setSubcontainerViewWidthConstraint:) NSLayoutConstraint *subcontainerViewWidthConstraint;
+@property (copy, nonatomic, getter=_expandedConstraints, setter=_setExpandedConstraints:) NSArray<NSLayoutConstraint *> *expandedConstraints;
+@property (copy, nonatomic, getter=_collapsedConstraints, setter=_setCollapsedConstraints:) NSArray<NSLayoutConstraint *> *collapsedConstraints;
+
 @property (retain, nonatomic, readonly, getter=_anchorAttributeForHorizontalOrientationButton) NSPopUpButton *anchorAttributeForHorizontalOrientationButton;
-@property (retain, nonatomic, readonly, getter=_anchorAttributeForVerticalOrientationButton) NSPopUpButton *anchorAttributeForVerticalOrientationButton;
-@property (assign, nonatomic, getter=_enabedLabelTags, setter=_setEnabledLabelTags:) WindowDemoAnchorAttributeForOrientationLabelTag enabledLabelTags;
+@property (assign, nonatomic, getter=_isExpanded, setter=_setExpanded:) BOOL expanded;
 @end
 
 @implementation WindowDemoAnchorAttributeForOrientationView
 @synthesize stackView = _stackView;
-@synthesize labelContainerView = _labelContainerView;
-@synthesize labelSubContainerView = _labelSubContainerView;
-@synthesize leadingButton = _leadingButton;
-@synthesize trailingButton = _trailingButton;
-@synthesize topButton = _topButton;
-@synthesize bottomButton = _bottomButton;
+@synthesize containerView = _containerView;
+@synthesize subcontainerView = _subcontainerView;
+@synthesize primaryView = _primaryView;
+@synthesize secondaryView = _secondaryView;
+@synthesize toggleButton = _toggleButton;
 @synthesize anchorAttributeForHorizontalOrientationButton = _anchorAttributeForHorizontalOrientationButton;
-@synthesize anchorAttributeForVerticalOrientationButton = _anchorAttributeForVerticalOrientationButton;
 
 - (instancetype)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -58,7 +45,7 @@ typedef NS_ENUM(NSUInteger, WindowDemoAnchorAttributeForOrientationLabelTag) {
         stackView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         [self addSubview:stackView];
         
-        self.enabledLabelTags = WindowDemoAnchorAttributeForOrientationLabelTagCenter;
+        self.expanded = NO;
     }
     
     return self;
@@ -66,19 +53,15 @@ typedef NS_ENUM(NSUInteger, WindowDemoAnchorAttributeForOrientationLabelTag) {
 
 - (void)dealloc {
     [_stackView release];
-    [_labelContainerView release];
-    [_leadingButton release];
-    [_trailingButton release];
-    [_topButton release];
-    [_bottomButton release];
+    [_containerView release];
+    [_subcontainerView release];
+    [_primaryView release];
+    [_secondaryView release];
+    [_toggleButton release];
     [_anchorAttributeForHorizontalOrientationButton release];
-    [_anchorAttributeForVerticalOrientationButton release];
-    [_labelTopConstraint release];
-    [_labelLeadingConstraint release];
-    [_labelTrailingConstraint release];
-    [_labelBottomConstraint release];
-    [_labelWidthConstraint release];
-    [_labelHeightConstraint release];
+    [_subcontainerViewWidthConstraint release];
+    [_expandedConstraints release];
+    [_collapsedConstraints release];
     [super dealloc];
 }
 
@@ -87,7 +70,6 @@ typedef NS_ENUM(NSUInteger, WindowDemoAnchorAttributeForOrientationLabelTag) {
     
     if (NSWindow *window = self.window) {
         [self.anchorAttributeForHorizontalOrientationButton selectItemWithTitle:NSStringFromNSLayoutAttribute([window anchorAttributeForOrientation:NSLayoutConstraintOrientationHorizontal])];
-        [self.anchorAttributeForVerticalOrientationButton selectItemWithTitle:NSStringFromNSLayoutAttribute([window anchorAttributeForOrientation:NSLayoutConstraintOrientationVertical])];
     }
 }
 
@@ -102,36 +84,46 @@ typedef NS_ENUM(NSUInteger, WindowDemoAnchorAttributeForOrientationLabelTag) {
 - (void)updateConstraints {
     [super updateConstraints];
     
-    typedef WindowDemoAnchorAttributeForOrientationLabelTag Tag;
-    
-    {
-        Tag tags = self.enabledLabelTags;
+    [NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
+        context.duration = 1.;
         
-        for (NSTextField *label in self.labelSubContainerView.subviews) {
-            if ((tags & label.tag) != 0) {
-                tags = static_cast<Tag>(tags & ~label.tag);
-                [label removeConstraints:label.constraints];
-            } else {
-                [label removeFromSuperview];
-            }
+        NSView *secondaryView = self.secondaryView;
+        NSLayoutConstraint *subcontainerViewWidthConstraint = [self.subcontainerViewWidthConstraint animator];
+        
+        NSMutableArray<NSLayoutConstraint *> *collapsedConstraints = [[NSMutableArray alloc] initWithCapacity:self.collapsedConstraints.count];
+        for (NSLayoutConstraint *constraint in self.collapsedConstraints) {
+            [collapsedConstraints addObject:[constraint animator]];
+        }
+        NSMutableArray<NSLayoutConstraint *> *expandedConstraints = [[NSMutableArray alloc] initWithCapacity:self.expandedConstraints.count];
+        for (NSLayoutConstraint *constraint in self.expandedConstraints) {
+            [expandedConstraints addObject:constraint];
         }
         
-        NSUInteger shiftCount = 0;
-        while (tags != 0) {
-            if ((tags & 1) != 0) {
-                NSTextField *label = [self _makeLabel];
-                label.tag = (1 << shiftCount);
-                [self.labelSubContainerView addSubview:label];
-            }
+        if (self.expanded) {
+            secondaryView.hidden = NO;
+            [subcontainerViewWidthConstraint animator].constant = 200.;
             
-            tags = static_cast<Tag>(tags >> 1);
-            shiftCount += 1;
+            for (NSLayoutConstraint *constraint in collapsedConstraints) {
+                constraint.active = NO;
+            }
+            for (NSLayoutConstraint *constraint in expandedConstraints) {
+                constraint.active = YES;
+            }
+        } else {
+            secondaryView.hidden = YES;
+            subcontainerViewWidthConstraint.constant = 100.;
+            
+            for (NSLayoutConstraint *constraint in expandedConstraints) {
+                constraint.active = NO;
+            }
+            for (NSLayoutConstraint *constraint in collapsedConstraints) {
+                constraint.active = YES;
+            }
         }
-    }
-    
-    {
         
-    }
+        [collapsedConstraints release];
+        [expandedConstraints release];
+    }];
 }
 
 - (NSStackView *)_stackView {
@@ -139,13 +131,9 @@ typedef NS_ENUM(NSUInteger, WindowDemoAnchorAttributeForOrientationLabelTag) {
     
     NSStackView *stackView = [NSStackView new];
     
-    [stackView addArrangedSubview:self.labelContainerView];
-    [stackView addArrangedSubview:self.leadingButton];
-    [stackView addArrangedSubview:self.trailingButton];
-    [stackView addArrangedSubview:self.topButton];
-    [stackView addArrangedSubview:self.bottomButton];
+    [stackView addArrangedSubview:self.containerView];
+    [stackView addArrangedSubview:self.toggleButton];
     [stackView addArrangedSubview:self.anchorAttributeForHorizontalOrientationButton];
-    [stackView addArrangedSubview:self.anchorAttributeForVerticalOrientationButton];
     
     stackView.orientation = NSUserInterfaceLayoutOrientationVertical;
     stackView.distribution = NSStackViewDistributionFill;
@@ -155,110 +143,104 @@ typedef NS_ENUM(NSUInteger, WindowDemoAnchorAttributeForOrientationLabelTag) {
     return stackView;
 }
 
-- (NSView *)_labelContainerView {
-    if (auto labelContainerView = _labelContainerView) return labelContainerView;
+- (NSView *)_containerView {
+    if (auto containerView = _containerView) return containerView;
     
-    NSView *labelContainerView = [NSView new];
+    NSView *containerView = [NSView new];
     
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(labelContainerView, sel_registerName("setBackgroundColor:"), NSColor.blueColor);
+    containerView.translatesAutoresizingMaskIntoConstraints = NO;
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(containerView, sel_registerName("setBackgroundColor:"), NSColor.blueColor);
     
-    NSView *labelSubContainerView = self.labelSubContainerView;
-    labelSubContainerView.translatesAutoresizingMaskIntoConstraints = NO;
-    [labelContainerView addSubview:labelSubContainerView];
+    NSView *subcontainerView = self.subcontainerView;
+    subcontainerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [containerView addSubview:subcontainerView];
     
-    NSLayoutConstraint *labelTopConstraint = [labelSubContainerView.topAnchor constraintEqualToAnchor:labelContainerView.topAnchor constant:100.];
-    self.labelTopConstraint = labelTopConstraint;
-    NSLayoutConstraint *labelLeadingConstraint = [labelSubContainerView.leadingAnchor constraintEqualToAnchor:labelContainerView.leadingAnchor constant:100.];
-    self.labelLeadingConstraint = labelLeadingConstraint;
-    NSLayoutConstraint *labelTrailingConstraint = [labelSubContainerView.trailingAnchor constraintEqualToAnchor:labelContainerView.trailingAnchor constant:-100.];
-    self.labelTrailingConstraint = labelTrailingConstraint;
-    NSLayoutConstraint *labelBottomConstraint = [labelSubContainerView.bottomAnchor constraintEqualToAnchor:labelContainerView.bottomAnchor constant:-100.];
-    self.labelBottomConstraint = labelBottomConstraint;
-    NSLayoutConstraint *labelWidthConstraint = [labelSubContainerView.widthAnchor constraintEqualToConstant:100.];
-    self.labelWidthConstraint = labelWidthConstraint;
-    NSLayoutConstraint *labelHeightConstraint = [labelSubContainerView.heightAnchor constraintEqualToConstant:100.];
-    self.labelHeightConstraint = labelHeightConstraint;
+    NSLayoutConstraint *subcontainerViewWidthConstraint = [subcontainerView.widthAnchor constraintEqualToConstant:100.];
+    self.subcontainerViewWidthConstraint = subcontainerViewWidthConstraint;
     
     [NSLayoutConstraint activateConstraints:@[
-        labelTopConstraint,
-        labelLeadingConstraint,
-        labelTrailingConstraint,
-        labelBottomConstraint,
-        labelWidthConstraint,
-        labelHeightConstraint
+        [subcontainerView.topAnchor constraintEqualToAnchor:containerView.topAnchor],
+        [subcontainerView.trailingAnchor constraintEqualToAnchor:containerView.trailingAnchor],
+        [subcontainerView.bottomAnchor constraintEqualToAnchor:containerView.bottomAnchor],
+        subcontainerViewWidthConstraint,
+        [containerView.heightAnchor constraintEqualToConstant:200.]
     ]];
     
-    _labelContainerView = labelContainerView;
-    return labelContainerView;
+    _containerView = containerView;
+    return containerView;
 }
 
-- (NSView *)_labelSubContainerView {
-    if (auto labelSubContainerView = _labelSubContainerView) return labelSubContainerView;
+- (NSView *)_subcontainerView {
+    if (auto subcontainerView = _subcontainerView) return subcontainerView;
     
-    NSView *labelSubContainerView = [NSView new];
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(labelSubContainerView, sel_registerName("setBackgroundColor:"), NSColor.redColor);
+    NSView *subcontainerView = [NSView new];
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(subcontainerView, sel_registerName("setBackgroundColor:"), NSColor.redColor);
     
-    NSTextField *centerLabel = [self _makeLabel];
-    centerLabel.tag = WindowDemoAnchorAttributeForOrientationLabelTagCenter;
-    centerLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [labelSubContainerView addSubview:centerLabel];
+    NSView *primaryView = self.primaryView;
+    NSView *secondaryView = self.secondaryView;
+    
+    primaryView.translatesAutoresizingMaskIntoConstraints = NO;
+    secondaryView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [subcontainerView addSubview:primaryView];
+    [subcontainerView addSubview:secondaryView];
+    
+    NSLayoutConstraint *primaryLeadingToSubcontainerContraint = [primaryView.leadingAnchor constraintEqualToAnchor:subcontainerView.leadingAnchor];
+    self.collapsedConstraints = @[primaryLeadingToSubcontainerContraint];
+    
     [NSLayoutConstraint activateConstraints:@[
-        [centerLabel.topAnchor constraintEqualToAnchor:labelSubContainerView.topAnchor],
-        [centerLabel.leadingAnchor constraintEqualToAnchor:labelSubContainerView.leadingAnchor],
-        [centerLabel.trailingAnchor constraintEqualToAnchor:labelSubContainerView.trailingAnchor],
-        [centerLabel.bottomAnchor constraintEqualToAnchor:labelSubContainerView.bottomAnchor]
+        [primaryView.topAnchor constraintEqualToAnchor:subcontainerView.topAnchor],
+        primaryLeadingToSubcontainerContraint,
+        [primaryView.bottomAnchor constraintEqualToAnchor:subcontainerView.bottomAnchor],
+        [primaryView.widthAnchor constraintEqualToConstant:100.],
+        [secondaryView.widthAnchor constraintEqualToConstant:100.]
     ]];
     
-    _labelSubContainerView = labelSubContainerView;
-    return labelSubContainerView;
+    self.expandedConstraints = @[
+        [secondaryView.topAnchor constraintEqualToAnchor:subcontainerView.topAnchor],
+        [secondaryView.leadingAnchor constraintEqualToAnchor:subcontainerView.leadingAnchor],
+        [secondaryView.bottomAnchor constraintEqualToAnchor:subcontainerView.bottomAnchor],
+        [secondaryView.trailingAnchor constraintEqualToAnchor:primaryView.leadingAnchor]
+    ];
+    
+    _subcontainerView = subcontainerView;
+    return subcontainerView;
 }
 
-- (NSButton *)_leadingButton {
-    if (auto leadingButton = _leadingButton) return leadingButton;
+- (NSView *)_primaryView {
+    if (auto primaryView = _primaryView) return primaryView;
     
-    NSButton *leadingButton = [NSButton new];
-    leadingButton.target = self;
-    leadingButton.action = @selector(_didTriggerButton:);
-    leadingButton.title = @"Toggle Left";
+    NSTextField *primaryView = [NSTextField labelWithString:@"Primary"];
+    primaryView.drawsBackground = YES;
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(primaryView, sel_registerName("setBackgroundColor:"), NSColor.orangeColor);
     
-    _leadingButton = leadingButton;
-    return leadingButton;
+    _primaryView = [primaryView retain];
+    return primaryView;
 }
 
-- (NSButton *)_trailingButton {
-    if (auto trailingButton = _trailingButton) return trailingButton;
+- (NSView *)_secondaryView {
+    if (auto secondaryView = _secondaryView) return secondaryView;
     
-    NSButton *trailingButton = [NSButton new];
-    trailingButton.target = self;
-    trailingButton.action = @selector(_didTriggerButton:);
-    trailingButton.title = @"Toggle Right";
+    NSTextField *secondaryView = [NSTextField labelWithString:@"Secondary"];
+    secondaryView.drawsBackground = YES;
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(secondaryView, sel_registerName("setBackgroundColor:"), NSColor.greenColor);
     
-    _trailingButton = trailingButton;
-    return trailingButton;
+    secondaryView.hidden = YES;
+    
+    _secondaryView = secondaryView;
+    return secondaryView;
 }
 
-- (NSButton *)_topButton {
-    if (auto topButton = _topButton) return topButton;
+- (NSButton *)_toggleButton {
+    if (auto toggleButton = _toggleButton) return toggleButton;
     
-    NSButton *topButton = [NSButton new];
-    topButton.target = self;
-    topButton.action = @selector(_didTriggerButton:);
-    topButton.title = @"Toggle Up";
+    NSButton *toggleButton = [NSButton new];
+    toggleButton.title = @"Toggle";
+    toggleButton.target = self;
+    toggleButton.action = @selector(_didTriggerToggleButton:);
     
-    _topButton = topButton;
-    return topButton;
-}
-
-- (NSButton *)_bottomButton {
-    if (auto bottomButton = _bottomButton) return bottomButton;
-    
-    NSButton *bottomButton = [NSButton new];
-    bottomButton.target = self;
-    bottomButton.action = @selector(_didTriggerButton:);
-    bottomButton.title = @"Toggle Down";
-    
-    _bottomButton = bottomButton;
-    return bottomButton;
+    _toggleButton = toggleButton;
+    return toggleButton;
 }
 
 - (NSPopUpButton *)_anchorAttributeForHorizontalOrientationButton {
@@ -275,20 +257,6 @@ typedef NS_ENUM(NSUInteger, WindowDemoAnchorAttributeForOrientationLabelTag) {
     return anchorAttributeForHorizontalOrientationButton;
 }
 
-- (NSPopUpButton *)_anchorAttributeForVerticalOrientationButton {
-    if (auto anchorAttributeForVerticalOrientationButton = _anchorAttributeForVerticalOrientationButton) return anchorAttributeForVerticalOrientationButton;
-    
-    NSPopUpButton *anchorAttributeForVerticalOrientationButton = [NSPopUpButton new];
-    anchorAttributeForVerticalOrientationButton.title = @"Vertical";
-    [anchorAttributeForVerticalOrientationButton addItemsWithTitles:[self _allLayoutAttributeStrings]];
-    
-    anchorAttributeForVerticalOrientationButton.target = self;
-    anchorAttributeForVerticalOrientationButton.action = @selector(_didTriggerAnchorPopupButton:);
-    
-    _anchorAttributeForVerticalOrientationButton = anchorAttributeForVerticalOrientationButton;
-    return anchorAttributeForVerticalOrientationButton;
-}
-
 - (NSArray<NSString *> *)_allLayoutAttributeStrings {
     NSUInteger count;
     NSLayoutAttribute *allAttributes = allNSLayoutAttributes(&count);
@@ -300,31 +268,6 @@ typedef NS_ENUM(NSUInteger, WindowDemoAnchorAttributeForOrientationLabelTag) {
     | std::ranges::to<std::vector<NSString *>>();
     
     return [NSArray arrayWithObjects:vector.data() count:vector.size()];
-}
-
-- (void)_didTriggerButton:(NSButton *)sender {
-    typedef WindowDemoAnchorAttributeForOrientationLabelTag Tag;
-    
-    Tag tag;
-    if ([sender isEqual:self.leadingButton]) {
-        tag = WindowDemoAnchorAttributeForOrientationLabelTagLeading;
-    } else if ([sender isEqual:self.trailingButton]) {
-        tag = WindowDemoAnchorAttributeForOrientationLabelTagTrailing;
-    } else if ([sender isEqual:self.topButton]) {
-        tag = WindowDemoAnchorAttributeForOrientationLabelTagTop;
-    } else if ([sender isEqual:self.bottomButton]) {
-        tag = WindowDemoAnchorAttributeForOrientationLabelTagBottom;
-    } else {
-        abort();
-    }
-    
-    if ((self.enabledLabelTags & tag) != 0) {
-        self.enabledLabelTags = static_cast<Tag>(self.enabledLabelTags & ~tag);
-    } else {
-        self.enabledLabelTags = static_cast<Tag>(self.enabledLabelTags | tag);
-    }
-    
-    self.needsUpdateConstraints = YES;
 }
 
 - (NSTextField *)_makeLabel {
@@ -346,18 +289,14 @@ typedef NS_ENUM(NSUInteger, WindowDemoAnchorAttributeForOrientationLabelTag) {
     return label;
 }
 
+- (void)_didTriggerToggleButton:(NSButton *)sender {
+    self.expanded = !self.expanded;
+    self.needsUpdateConstraints = YES;
+}
+
 - (void)_didTriggerAnchorPopupButton:(NSPopUpButton *)sender {
-    NSLayoutConstraintOrientation orientation;
-    if ([sender isEqual:self.anchorAttributeForHorizontalOrientationButton]) {
-        orientation = NSLayoutConstraintOrientationHorizontal;
-    } else if ([sender isEqual:self.anchorAttributeForVerticalOrientationButton]) {
-        orientation = NSLayoutConstraintOrientationVertical;
-    } else {
-        abort();
-    }
-    
     NSLayoutAttribute attribute = NSLayoutAttributeFromString(sender.titleOfSelectedItem);
-    [self.window setAnchorAttribute:attribute forOrientation:orientation];
+    [self.window setAnchorAttribute:attribute forOrientation:NSLayoutConstraintOrientationHorizontal];
 }
 
 @end

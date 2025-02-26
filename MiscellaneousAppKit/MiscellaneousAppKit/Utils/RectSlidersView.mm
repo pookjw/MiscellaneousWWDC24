@@ -164,6 +164,7 @@ RectSlidersKeyPath const RectSlidersKeyPathHeight = @"RectSlidersKeyPathHeight";
     [_ySlider release];
     [_widthSlider release];
     [_heightSlider release];
+    [_configurationUserInfo release];
     [super dealloc];
 }
 

@@ -855,10 +855,12 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
         
         NSColorSpace *colorSpace = unretainedSelf.view.window.colorSpace;
         if (colorSpace == nil) {
+            [titles release];
             return @"nil";
         }
         NSString *name = colorSpace.localizedName;
         if (name == nil) {
+            [titles release];
             return colorSpace.description;
         }
         
@@ -894,10 +896,10 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
                                                label:@"Depth Limit"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         NSUInteger count;
-        NSWindowDepth *depths = allNSWindowDepths(&count);
+        const NSWindowDepth *depths = allNSWindowDepths(&count);
         
         NSMutableArray<NSString *> *titles = [[NSMutableArray alloc] initWithCapacity:count];
-        for (NSWindowDepth *depthPtr : std::views::iota(depths, depths + count)) {
+        for (const NSWindowDepth *depthPtr : std::views::iota(depths, depths + count)) {
             NSWindowDepth depth = *depthPtr;
             [titles addObject:NSStringFromNSWindowDepth(depth)];
         }
@@ -930,10 +932,10 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
                                                label:@"Window Depth Alert"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         NSUInteger count;
-        NSWindowDepth *depths = allNSWindowDepths(&count);
+        const NSWindowDepth *depths = allNSWindowDepths(&count);
         
         NSMutableArray<NSString *> *titles = [[NSMutableArray alloc] initWithCapacity:count];
-        for (NSWindowDepth *depthPtr : std::views::iota(depths, depths + count)) {
+        for (const NSWindowDepth *depthPtr : std::views::iota(depths, depths + count)) {
             NSWindowDepth depth = *depthPtr;
             [titles addObject:NSStringFromNSWindowDepth(depth)];
         }
@@ -4696,6 +4698,7 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
                 [windowFieldEditorScrollView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor multiplier:0.5],
                 [windowFieldEditorScrollView.heightAnchor constraintEqualToAnchor:self.view.heightAnchor multiplier:0.5]
             ]];
+            [windowFieldEditorScrollView release];
         } else {
             NSScrollView *windowFieldEditorScrollView = self.windowFieldEditorScrollView;
             assert(windowFieldEditorScrollView != nil);
@@ -5097,6 +5100,7 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
         WindowDemoKeyViewDemoView *accessoryView = [WindowDemoKeyViewDemoView new];
         accessoryView.frame = NSMakeRect(0., 0., 300., accessoryView.fittingSize.height);
         alert.accessoryView = accessoryView;
+        [accessoryView release];
         
         [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
             
@@ -5687,6 +5691,7 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
         NSAlert *alert = [NSAlert new];
         
         alert.messageText = @"Anchor Attribute For Orientation";
+        alert.informativeText = @"???";
         
         WindowDemoAnchorAttributeForOrientationView *accessoryView = [WindowDemoAnchorAttributeForOrientationView new];
         accessoryView.frame = NSMakeRect(0., 0., 300., accessoryView.fittingSize.height);

@@ -18,7 +18,7 @@ NSString * NSStringFromNSWindowDepth(NSWindowDepth windowDepth) {
         case NSWindowDepthTwentyfourBitRGB:
             return @"TwentyfourBitRGB";
         default:
-            abort();
+            return @(windowDepth).stringValue;
     }
 }
 
@@ -32,19 +32,29 @@ NSWindowDepth NSWindowDepthFromString(NSString *string) {
     } else if ([string isEqualToString:@"TwentyfourBitRGB"]) {
         return NSWindowDepthTwentyfourBitRGB;
     } else {
-        abort();
+        NSInteger integer = string.integerValue;
+        return (NSWindowDepth)integer;
     }
 }
 
-NSWindowDepth *allNSWindowDepths(NSUInteger * _Nullable count) {
-    static NSWindowDepth allDepths[] = {
-        NSWindowDepthOnehundredtwentyeightBitRGB,
-        NSWindowDepthSixtyfourBitRGB,
-        NSWindowDepthTwentyfourBitRGB
-    };
+const NSWindowDepth *allNSWindowDepths(NSUInteger * _Nullable count) {
+    static const NSWindowDepth *allDepths;
+    static NSUInteger _count;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        allDepths = NSAvailableWindowDepths();
+        
+        NSUInteger __count = 0;
+        while (allDepths[__count] != 0) {
+            __count++;
+        }
+        
+        _count = __count;
+    });
     
     if (count != NULL) {
-        *count = sizeof(allDepths) / sizeof(NSWindowDepth);
+        *count = _count;
     }
     
     return allDepths;

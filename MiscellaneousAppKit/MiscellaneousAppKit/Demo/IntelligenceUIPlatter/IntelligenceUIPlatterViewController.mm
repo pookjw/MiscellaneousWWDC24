@@ -122,6 +122,7 @@
         [switchView.centerXAnchor constraintEqualToAnchor:platterContentView.centerXAnchor],
         [switchView.centerYAnchor constraintEqualToAnchor:platterContentView.centerYAnchor]
     ]];
+    [switchView release];
     
     _platterContentView = platterContentView;
     return platterContentView;

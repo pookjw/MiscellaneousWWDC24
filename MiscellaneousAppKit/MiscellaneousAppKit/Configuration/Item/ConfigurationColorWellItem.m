@@ -9,6 +9,11 @@
 
 @implementation ConfigurationColorWellItem
 
+- (void)dealloc {
+    [_colorWell release];
+    [super dealloc];
+}
+
 - (IBAction)_didSelectColor:(NSColorWell *)sender {
     id<ConfigurationColorWellItemDelegate> delegate = self.delegate;
     if (delegate == nil) return;

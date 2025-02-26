@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-MA_EXTERN NSColorSpaceModel * allNSColorSpaceModels(NSUInteger * _Nullable count);
+MA_EXTERN const NSColorSpaceModel * allNSColorSpaceModels(NSUInteger * _Nullable count);
 
 @interface NSColorSpace (MA_Category)
 + (NSArray<NSColorSpace *> *)ma_allColorSpaces;

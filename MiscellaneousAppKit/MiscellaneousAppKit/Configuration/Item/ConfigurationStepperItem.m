@@ -9,6 +9,11 @@
 
 @implementation ConfigurationStepperItem
 
+- (void)dealloc {
+    [_stepper release];
+    [super dealloc];
+}
+
 - (IBAction)_didChangeValue:(NSStepper *)sender {
     id<ConfigurationStepperItemDelegate> delegate = self.delegate;
     if (delegate == nil) return;
