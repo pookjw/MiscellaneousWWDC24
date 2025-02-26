@@ -55,6 +55,7 @@
 #import "WindowDemoConvertingCoordinatesView.h"
 #import "NSStringFromNSWindowTitleVisibility.h"
 #import "WindowDemoValidRequestorView.h"
+#import "WindowDemoAnchorAttributeForOrientationView.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
@@ -542,6 +543,10 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeAnchorAttributeForOrientationItemModel],
+        [self _makeVisualizeConstraintsItemModel],
+        [self _makeLayoutIfNeededItemModel],
+        [self _makeUpdateConstraintsIfNeededItemModel],
         [self _makeValidRequestorForSendTypeReturnTypeItemModel],
         [self _makeDataWithPDFInsideRectItemModel],
         [self _makeDataWithEPSInsideRectItemModel],
@@ -3999,6 +4004,47 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     }];
 }
 
+- (ConfigurationItemModel *)_makeUpdateConstraintsIfNeededItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Update Constraints If Needed"
+                                            userInfo:nil
+                                               label:@"Update Constraints If Needed"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeLayoutIfNeededItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Layout If Needed"
+                                            userInfo:nil
+                                               label:@"Layout If Needed"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeVisualizeConstraintsItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Visualize Constraints"
+                                            userInfo:nil
+                                               label:@"Visualize Constraints"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeAnchorAttributeForOrientationItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Anchor Attribute For Orientation"
+                                            userInfo:nil
+                                               label:@"Anchor Attribute For Orientation"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Alert"];
+    }];
+}
 
 
 #pragma mark - Items 2
@@ -5588,6 +5634,61 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
         alert.messageText = @"Valid Requestor For Send Type Return Type";
         
         WindowDemoValidRequestorView *accessoryView = [WindowDemoValidRequestorView new];
+        accessoryView.frame = NSMakeRect(0., 0., 300., accessoryView.fittingSize.height);
+        alert.accessoryView = accessoryView;
+        [accessoryView release];
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        [alert release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Update Constraints If Needed"]) {
+        //        id _auxiliaryStorage;
+        //        assert(object_getInstanceVariable(window, "_auxiliaryStorage", reinterpret_cast<void **>(&_auxiliaryStorage)) != NULL);
+        //
+        //        unsigned int ivarsCount;
+        //        Ivar *ivars = class_copyIvarList([_auxiliaryStorage class], &ivarsCount);
+        //
+        //        Ivar *ivarPtr = std::ranges::find_if(ivars, ivars + ivarsCount, [](Ivar ivar) {
+        //            auto name = ivar_getName(ivar);
+        //            return std::strcmp(name, "_auxWFlags") == 0;
+        //        });
+        //
+        //        assert(*ivarPtr != NULL);
+        //        ptrdiff_t offset = ivar_getOffset(*ivarPtr);
+        //        free(ivars);
+        //
+        //        offset += 0x8;
+        //
+        //        uintptr_t base = reinterpret_cast<uintptr_t>(_auxiliaryStorage);
+        //        uint64_t value = *reinterpret_cast<uint64_t *>(base + offset);
+        //        value |= (1ULL << 54);
+        
+        [window updateConstraintsIfNeeded];
+        return NO;
+    } else if ([identifier isEqualToString:@"Layout If Needed"]) {
+        [window layoutIfNeeded];
+        return NO;
+    } else if ([identifier isEqualToString:@"Visualize Constraints"]) {
+        __block void (^block)(NSView *view);
+        block = ^(NSView *view) {
+            [window visualizeConstraints:view.constraints];
+            
+            for (NSView *subview in view.subviews) {
+                block(subview);
+            }
+        };
+        
+        block(window.contentView);
+        return NO;
+    } else if ([identifier isEqualToString:@"Anchor Attribute For Orientation"]) {
+        NSAlert *alert = [NSAlert new];
+        
+        alert.messageText = @"Anchor Attribute For Orientation";
+        
+        WindowDemoAnchorAttributeForOrientationView *accessoryView = [WindowDemoAnchorAttributeForOrientationView new];
         accessoryView.frame = NSMakeRect(0., 0., 300., accessoryView.fittingSize.height);
         alert.accessoryView = accessoryView;
         [accessoryView release];
