@@ -208,6 +208,8 @@
 		4FEC175C2D226CC900F9945E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FEC175A2D226CC300F9945E /* MapKit.framework */; };
 		4FEC175E2D2274D900F9945E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FEC175D2D2274D900F9945E /* WebKit.framework */; };
 		4FEC175F2D2274DE00F9945E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FEC175D2D2274D900F9945E /* WebKit.framework */; };
+		4FED3C272D6E2F3E009A6367 /* UIVisualEffectView+Category.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FED3C262D6E2F3E009A6367 /* UIVisualEffectView+Category.mm */; };
+		4FED3C282D6E2F3E009A6367 /* UIVisualEffectView+Category.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FED3C262D6E2F3E009A6367 /* UIVisualEffectView+Category.mm */; };
 		4FF8BFEC2D621D8000256D17 /* KBAnimatedRenderConfigViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FF8BFEB2D621D8000256D17 /* KBAnimatedRenderConfigViewController.mm */; };
 		4FF8BFED2D621D8000256D17 /* KBAnimatedRenderConfigViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FF8BFEB2D621D8000256D17 /* KBAnimatedRenderConfigViewController.mm */; };
 		4FF8BFF02D62350200256D17 /* KBRenderConfigViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FF8BFEF2D62350200256D17 /* KBRenderConfigViewController.mm */; };
@@ -452,6 +454,8 @@
 		4FDABC6A2C3D3C5600F928DB /* MiscellaneousUIKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MiscellaneousUIKit.entitlements; sourceTree = "<group>"; };
 		4FEC175A2D226CC300F9945E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/iOSSupport/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		4FEC175D2D2274D900F9945E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/iOSSupport/System/Library/PrivateFrameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
+		4FED3C252D6E2F3E009A6367 /* UIVisualEffectView+Category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIVisualEffectView+Category.h"; sourceTree = "<group>"; };
+		4FED3C262D6E2F3E009A6367 /* UIVisualEffectView+Category.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIVisualEffectView+Category.mm"; sourceTree = "<group>"; };
 		4FF8BFEA2D621D8000256D17 /* KBAnimatedRenderConfigViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KBAnimatedRenderConfigViewController.h; sourceTree = "<group>"; };
 		4FF8BFEB2D621D8000256D17 /* KBAnimatedRenderConfigViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = KBAnimatedRenderConfigViewController.mm; sourceTree = "<group>"; };
 		4FF8BFEE2D62350200256D17 /* KBRenderConfigViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KBRenderConfigViewController.h; sourceTree = "<group>"; };
@@ -604,6 +608,8 @@
 				4F082E4B2C188D6C002263ED /* SceneDelegate.mm */,
 				4F082E602C188E34002263ED /* MainCollectionViewController.h */,
 				4F082E612C188E34002263ED /* MainCollectionViewController.mm */,
+				4FED3C252D6E2F3E009A6367 /* UIVisualEffectView+Category.h */,
+				4FED3C262D6E2F3E009A6367 /* UIVisualEffectView+Category.mm */,
 				4F082E632C18906E002263ED /* Classes */,
 				4F082E532C188D6D002263ED /* Assets.xcassets */,
 				4F082E552C188D6D002263ED /* LaunchScreen.storyboard */,
@@ -1409,6 +1415,7 @@
 				4FBEC51E2C3C568C008A2F17 /* SymbolEffectsViewController.mm in Sources */,
 				4FA8EEF42C1CDBD700B1358A /* ToTransitionViewController.mm in Sources */,
 				4F9C08D42C3E5574009897D6 /* ToolbarAppearanceViewController.mm in Sources */,
+				4FED3C272D6E2F3E009A6367 /* UIVisualEffectView+Category.mm in Sources */,
 				4F4903C32D040A220017A47D /* IndexedTextPosition.mm in Sources */,
 				4FF8BFED2D621D8000256D17 /* KBAnimatedRenderConfigViewController.mm in Sources */,
 				4FD54E902D00BB78002CE52C /* LabelWritingToolsViewController.mm in Sources */,
@@ -1503,6 +1510,7 @@
 				4F59DEBA2CFFF56100E88830 /* SymbolEffectsViewController.mm in Sources */,
 				4F59DEBB2CFFF56100E88830 /* ToTransitionViewController.mm in Sources */,
 				4F59DEBC2CFFF56100E88830 /* ToolbarAppearanceViewController.mm in Sources */,
+				4FED3C282D6E2F3E009A6367 /* UIVisualEffectView+Category.mm in Sources */,
 				4F4903C42D040A220017A47D /* IndexedTextPosition.mm in Sources */,
 				4FF8BFEC2D621D8000256D17 /* KBAnimatedRenderConfigViewController.mm in Sources */,
 				4FD54E912D00BB78002CE52C /* LabelWritingToolsViewController.mm in Sources */,
