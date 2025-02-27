@@ -274,8 +274,16 @@
                 auto description = static_cast<ConfigurationPopUpButtonDescription *>(value);
                 NSPopUpButton *popUpButton = item.popUpButton;
                 
-                NSMenu *menu = popUpButton.menu;
-                [menu removeAllItems];
+                /*
+                 NSMenu를 새로 생성해야 한다.
+                 
+                 만약 NSMenu를 그대로 활용한다면
+                 NSPopupMenuWindow이 뜨는 도중에 WindowDemoViewController에 Window 관련 Notification이 수신되면서 Reconfigure가 일어나고,
+                 현재 뜨려는 NSMenu가 다른 Item이 되어, 엉뚱한 Item이 뜨는 문제가 있다.
+                 
+                 따라서 Reconfigure가 일어나도, 여기에서 설정되는 NSMenu와 뜨려는 NSMenu는 별개이어야 한다.
+                 */
+                NSMenu *menu = [NSMenu new];
                 
                 {
                     NSMenuItem *noneItem = [NSMenuItem new];
@@ -296,7 +304,7 @@
                 }
                 
                 popUpButton.menu = menu;
-//                [menu release];
+                [menu release];
                 
                 //
                 
