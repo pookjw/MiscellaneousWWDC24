@@ -51,7 +51,18 @@
         [circleView.heightAnchor constraintEqualToConstant:40.]
     ]];
     
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_windowDidBecomeMain:) name:NSWindowDidBecomeKeyNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_windowDidBecomeMain:) name:NSWindowDidResignKeyNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_windowDidBecomeMain:) name:NSWindowDidBecomeMainNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_windowDidBecomeMain:) name:NSWindowDidResignMainNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_windowDidBecomeMain:) name:NSWindowDidChangeScreenNotification object:nil];
+    
     [self _reload];
+}
+
+- (void)_windowDidBecomeMain:(NSNotification *)notification {
+    [self.configurationView reconfigureItemModelsWithIdentifiers:@[@"Should Reconfigure"]];
 }
 
 - (ConfigurationView *)_configurationView {
@@ -194,7 +205,23 @@
         return backgroundColor;
     }];
     
-    [snapshot appendItemsWithIdentifiers:@[switchItemModel, shouldReconfigureItemModel, sliderItemModel, stepperItemModel, buttonNoMenuItemModel, buttonWithMenuItemModel_1, buttonWithMenuItemModel_2, popUpButtonItemModel, colorWellItemModel] intoSectionWithIdentifier:[NSNull null]];
+    ConfigurationItemModel *numbersItemModel = [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                                                              identifier:@"Numbers"
+                                                                                userInfo:nil
+                                                                                   label:@"Numbers"
+                                                                           valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationPopUpButtonDescription descriptionWithTitles:@[@"0", @"1", @"2"] selectedTitles:@[] selectedDisplayTitle:nil];
+    }];
+    
+    ConfigurationItemModel *alphabetItemModel = [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
+                                                                              identifier:@"Alphabet"
+                                                                                userInfo:nil
+                                                                                   label:@"Alphabet"
+                                                                           valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationPopUpButtonDescription descriptionWithTitles:@[@"A", @"B", @"C"] selectedTitles:@[] selectedDisplayTitle:nil];
+    }];
+    
+    [snapshot appendItemsWithIdentifiers:@[alphabetItemModel, switchItemModel, shouldReconfigureItemModel, sliderItemModel, stepperItemModel, buttonNoMenuItemModel, buttonWithMenuItemModel_1, buttonWithMenuItemModel_2, numbersItemModel, colorWellItemModel, popUpButtonItemModel] intoSectionWithIdentifier:[NSNull null]];
     [snapshot reloadItemsWithIdentifiers:snapshot.itemIdentifiers];
     
     [self.configurationView applySnapshot:snapshot animatingDifferences:YES];

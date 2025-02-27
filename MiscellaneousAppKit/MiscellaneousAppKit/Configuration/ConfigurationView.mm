@@ -274,7 +274,8 @@
                 auto description = static_cast<ConfigurationPopUpButtonDescription *>(value);
                 NSPopUpButton *popUpButton = item.popUpButton;
                 
-                NSMenu *menu = [NSMenu new];
+                NSMenu *menu = popUpButton.menu;
+                [menu removeAllItems];
                 
                 {
                     NSMenuItem *noneItem = [NSMenuItem new];
@@ -295,7 +296,7 @@
                 }
                 
                 popUpButton.menu = menu;
-                [menu release];
+//                [menu release];
                 
                 //
                 
