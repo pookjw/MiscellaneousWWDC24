@@ -58,6 +58,7 @@
 #import "WindowDemoAnchorAttributeForOrientationView.h"
 #import "NSStringFromNSDisplayGamut.h"
 #import "WindowDemoIsModalOrFloatingWindowView.h"
+#import "WindowDemoBeginDraggingSessionView.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
@@ -545,6 +546,7 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeBeginDraggingSessionWithItemsItemModel],
         [self _makeTilingStateItemModel],
         [self _makeCascadingReferenceFrameItemModel],
         [self _makeOrderedIndexItemModel],
@@ -4232,6 +4234,16 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     }];
 }
 
+- (ConfigurationItemModel *)_makeBeginDraggingSessionWithItemsItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Begin Dragging Session With Items"
+                                            userInfo:nil
+                                               label:@"Begin Dragging Session With Items"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
 
 #pragma mark - Items 2
 
@@ -5904,6 +5916,22 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
         double doubleValue = static_cast<NSNumber *>(newValue).doubleValue;
         window.orderedIndex = doubleValue;
         return YES;
+    } else if ([identifier isEqualToString:@"Begin Dragging Session With Items"]) {
+        NSAlert *alert = [NSAlert new];
+        
+        alert.messageText = @"Begin Dragging Session With Items";
+        
+        WindowDemoBeginDraggingSessionView *accessoryView = [WindowDemoBeginDraggingSessionView new];
+        accessoryView.frame = NSMakeRect(0., 0., 300., accessoryView.fittingSize.height);
+        alert.accessoryView = accessoryView;
+        [accessoryView release];
+        
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            
+        }];
+        [alert release];
+        
+        return NO;
     } else {
         abort();
     }
