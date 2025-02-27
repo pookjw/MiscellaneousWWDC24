@@ -21,7 +21,7 @@
         label.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         [self addSubview:label];
         
-        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_windowDidUpdate:) name:NSWindowDidUpdateNotification object:nil];
+        [NSApp addObserver:self forKeyPath:@"modalWindow" options:NSKeyValueObservingOptionNew context:NULL];
     }
     
     return self;
@@ -32,6 +32,15 @@
     [super dealloc];
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"modalWindow"] and [object isKindOfClass:[NSApplication class]]) {
+        [self _updateLabel];
+        return;
+    }
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+}
+
 - (NSSize)fittingSize {
     return self.label.fittingSize;
 }
@@ -40,11 +49,18 @@
     return self.label.intrinsicContentSize;
 }
 
-- (void)_windowDidUpdate:(NSNotification *)notification {
-    if ([notification.object isEqual:self.window]) {
-        [self _updateLabel];
-    }
-}
+//- (void)viewWillMoveToWindow:(NSWindow *)newWindow {
+//    [super viewWillMoveToWindow:newWindow];
+//    [self.window removeObserver:self forKeyPath:@"isModalPanel"];
+//}
+//
+//- (void)viewDidMoveToWindow {
+//    [super viewDidMoveToWindow];
+//    
+//    if (NSWindow *window = self.window) {
+//        [window addObserver:self forKeyPath:@"isModalPanel" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:NULL];
+//    }
+//}
 
 - (NSTextField *)_label {
     if (auto label = _label) return label;
@@ -56,7 +72,7 @@
 }
 
 - (void)_updateLabel {
-    self.label.stringValue = [NSString stringWithFormat:@"Is Modal Window : %@", self.window.floatingPanel ? @"YES" : @"NO"];
+    self.label.stringValue = [NSString stringWithFormat:@"Is Modal Window : %@", self.window.modalPanel ? @"YES" : @"NO"];
 }
 
 @end
