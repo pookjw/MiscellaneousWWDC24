@@ -129,4 +129,19 @@
     return NSDragOperationCopy;
 }
 
+- (id)handleCloseScriptCommand:(NSCloseCommand *)command {
+    // TODO
+    abort();
+}
+
+- (id)handlePrintScriptCommand:(NSScriptCommand *)command {
+    // TODO
+    abort();
+}
+
+- (id)handleSaveScriptCommand:(NSScriptCommand *)command {
+    // TODO
+    abort();
+}
+
 @end

@@ -163,11 +163,11 @@
         
         [window release];
     } else if ([_class isSubclassOfClass:[NSViewController class]]) {
-        NSWindow *window = [[NSWindow alloc] initWithContentRect:NSMakeRect(0., 0., 600., 200.) styleMask:NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable | NSWindowStyleMaskTitled backing:NSBackingStoreBuffered defer:NO];
+        NSWindow *window = [[NSWindow alloc] initWithContentRect:NSMakeRect(0., 0., 600., 400.) styleMask:NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable | NSWindowStyleMaskTitled backing:NSBackingStoreBuffered defer:NO];
         
         window.releasedWhenClosed = NO;
         window.title = NSStringFromClass(_class);
-        window.contentMinSize = NSMakeSize(400., 200.);
+        window.contentMinSize = NSMakeSize(400., 400.);
         
         __kindof NSViewController *contentViewController = [_class new];
         window.contentViewController = contentViewController;

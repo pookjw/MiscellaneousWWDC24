@@ -1,17 +1,17 @@
 //
-//  WindowDemoIsModalWindowView.mm
+//  WindowDemoIsModalOrFloatingWindowView.mm
 //  MiscellaneousAppKit
 //
 //  Created by Jinwoo Kim on 2/27/25.
 //
 
-#import "WindowDemoIsModalWindowView.h"
+#import "WindowDemoIsModalOrFloatingWindowView.h"
 
-@interface WindowDemoIsModalWindowView ()
+@interface WindowDemoIsModalOrFloatingWindowView ()
 @property (retain, nonatomic, readonly, getter=_label) NSTextField *label;
 @end
 
-@implementation WindowDemoIsModalWindowView
+@implementation WindowDemoIsModalOrFloatingWindowView
 @synthesize label = _label;
 
 - (instancetype)initWithFrame:(NSRect)frame {
@@ -28,12 +28,16 @@
 }
 
 - (void)dealloc {
+    [NSApp removeObserver:self forKeyPath:@"modalWindow"];
     [_label release];
     [super dealloc];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"modalWindow"] and [object isKindOfClass:[NSApplication class]]) {
+        [self _updateLabel];
+        return;
+    } else if ([keyPath isEqualToString:@"floatingPanel"] and [object isKindOfClass:[NSWindow class]]) {
         [self _updateLabel];
         return;
     }
@@ -49,30 +53,30 @@
     return self.label.intrinsicContentSize;
 }
 
-//- (void)viewWillMoveToWindow:(NSWindow *)newWindow {
-//    [super viewWillMoveToWindow:newWindow];
-//    [self.window removeObserver:self forKeyPath:@"isModalPanel"];
-//}
-//
-//- (void)viewDidMoveToWindow {
-//    [super viewDidMoveToWindow];
-//    
-//    if (NSWindow *window = self.window) {
-//        [window addObserver:self forKeyPath:@"isModalPanel" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:NULL];
-//    }
-//}
+- (void)viewWillMoveToWindow:(NSWindow *)newWindow {
+    [super viewWillMoveToWindow:newWindow];
+    [self.window removeObserver:self forKeyPath:@"floatingPanel"];
+}
+
+- (void)viewDidMoveToWindow {
+    [super viewDidMoveToWindow];
+    
+    if (NSWindow *window = self.window) {
+        [window addObserver:self forKeyPath:@"floatingPanel" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:NULL];
+    }
+}
 
 - (NSTextField *)_label {
     if (auto label = _label) return label;
     
-    NSTextField *label = [NSTextField wrappingLabelWithString:@"Pending"];
+    NSTextField *label = [NSTextField wrappingLabelWithString:@"Pending\nPending"];
     
     _label = [label retain];
     return label;
 }
 
 - (void)_updateLabel {
-    self.label.stringValue = [NSString stringWithFormat:@"Is Modal Window : %@", self.window.modalPanel ? @"YES" : @"NO"];
+    self.label.stringValue = [NSString stringWithFormat:@"Is Modal Window : %@\nIs Floating Window : %@", self.window.modalPanel ? @"YES" : @"NO", self.window.floatingPanel ? @"YES" : @"NO"];
 }
 
 @end

@@ -8,6 +8,17 @@
 #import <Cocoa/Cocoa.h>
 #import "AppDelegate.h"
 
+@interface NSWindow (FFCategory)
+@end
+@implementation NSWindow (FFCategory)
+- (NSString *)frameString {
+    return NSStringFromRect(self.frame);
+}
+- (NSString *)cascadingReferenceFrameString {
+    return NSStringFromRect(self.cascadingReferenceFrame);
+}
+@end
+
 /*
  NSWidgetView
  NSOcclusionDetectionView

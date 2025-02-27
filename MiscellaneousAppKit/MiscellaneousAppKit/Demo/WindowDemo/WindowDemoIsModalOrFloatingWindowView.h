@@ -1,5 +1,5 @@
 //
-//  WindowDemoIsModalWindowView.h
+//  WindowDemoIsModalOrFloatingWindowView.h
 //  MiscellaneousAppKit
 //
 //  Created by Jinwoo Kim on 2/27/25.
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WindowDemoIsModalWindowView : NSView
+@interface WindowDemoIsModalOrFloatingWindowView : NSView
 
 @end
 

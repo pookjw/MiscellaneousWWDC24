@@ -57,7 +57,7 @@
 #import "WindowDemoValidRequestorView.h"
 #import "WindowDemoAnchorAttributeForOrientationView.h"
 #import "NSStringFromNSDisplayGamut.h"
-#import "WindowDemoIsModalWindowView.h"
+#import "WindowDemoIsModalOrFloatingWindowView.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
@@ -545,6 +545,12 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeTilingStateItemModel],
+        [self _makeCascadingReferenceFrameItemModel],
+        [self _makeOrderedIndexItemModel],
+        [self _makeMiniaturizableItemModel],
+        [self _makeResizableItemModel],
+        [self _makeZoomableItemModel],
         [self _makeIsFloatingPanelItemModel],
         [self _makeIsModalPanelItemModel],
         [self _makeHasTitleBarItemModel],
@@ -4121,11 +4127,105 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
 - (ConfigurationItemModel *)_makeIsFloatingPanelItemModel {
     __block auto unretainedSelf = self;
     
-    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
                                           identifier:@"Is Floating Panel"
                                             userInfo:nil
                                        labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
         return [NSString stringWithFormat:@"Is Floating Panel : %@", unretainedSelf.view.window.floatingPanel ? @"YES" : @"NO"];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Alert"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeZoomableItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Zoomable"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Zoomable : %@", unretainedSelf.view.window.zoomable ? @"YES" : @"NO"];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeResizableItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Resizable"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Resizable : %@", unretainedSelf.view.window.resizable ? @"YES" : @"NO"];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeMiniaturizableItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Miniaturizable"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Miniaturizable : %@", unretainedSelf.view.window.miniaturizable ? @"YES" : @"NO"];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeOrderedIndexItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeStepper
+                                          identifier:@"Ordered Index"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Ordered Index : %ld", unretainedSelf.view.window.orderedIndex];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationStepperDescription descriptionWithStepperValue:unretainedSelf.view.window.orderedIndex
+                                                               minimumValue:0.
+                                                               maximumValue:100.
+                                                                  stepValue:1.
+                                                                 continuous:NO
+                                                                 autorepeat:NO
+                                                                 valueWraps:NO];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeCascadingReferenceFrameItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Cascading Reference Frame"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return [NSString stringWithFormat:@"Cascading Reference Frame : %@", NSStringFromRect(unretainedSelf.view.window.cascadingReferenceFrame)];
+    }
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [NSNull null];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeTilingStateItemModel {
+    __block auto unretainedSelf = self;
+    
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+                                          identifier:@"Tiling State"
+                                            userInfo:nil
+                                       labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        id _tilingStateController;
+        assert(object_getInstanceVariable(unretainedSelf.view.window, "_tilingStateController", reinterpret_cast<void **>(&_tilingStateController)) != NULL);
+        id tilingState = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(_tilingStateController, sel_registerName("tilingState"));
+        
+        return [NSString stringWithFormat:@"Tiling State : %@", tilingState];
     }
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         return [NSNull null];
@@ -4642,8 +4742,6 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
         
         return NO;
     } else if ([identifier isEqualToString:@"Set Frame From String"]) {
-        NSWindowFrameAutosaveName frameAutosaveName = window.frameAutosaveName;
-        
         NSAlert *alert = [NSAlert new];
         alert.messageText = @"Set Frame From String";
         
@@ -4651,25 +4749,8 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
         [alert addButtonWithTitle:@"Cancel"];
         
         NSTextField *textField = [NSTextField new];
-        if (frameAutosaveName == nil) {
-            textField.stringValue = @"";
-        } else {
-            textField.stringValue = frameAutosaveName;
-        }
-        
+        textField.stringValue = window.stringWithSavedFrame;
         [textField sizeToFit];
-        textField.frame = NSMakeRect(0., 0., 300., NSHeight(textField.frame));
-        
-        id<NSObject> observation = [NSNotificationCenter.defaultCenter addObserverForName:NSControlTextDidChangeNotification
-                                                                                   object:textField
-                                                                                    queue:nil
-                                                                               usingBlock:^(NSNotification * _Nonnull notification) {
-            NSLog(@"%@", notification);
-        }];
-        
-        static void *key = &key;
-        objc_setAssociatedObject(alert, key, observation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        
         alert.accessoryView = textField;
         
         [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
@@ -4684,7 +4765,7 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
                 return;
             }
             
-            // TODO
+            [window setFrameFromString:stringValue];
         }];
         
         [textField release];
@@ -5794,7 +5875,7 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
         NSAlert *alert = [NSAlert new];
         
         alert.messageText = @"Alert";
-        WindowDemoIsModalWindowView *accessoryView = [WindowDemoIsModalWindowView new];
+        WindowDemoIsModalOrFloatingWindowView *accessoryView = [WindowDemoIsModalOrFloatingWindowView new];
         accessoryView.frame = NSMakeRect(0., 0., 300., accessoryView.fittingSize.height);
         alert.accessoryView = accessoryView;
         [accessoryView release];
@@ -5803,6 +5884,26 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
         [alert release];
         
         return NO;
+    } else if ([identifier isEqualToString:@"Is Floating Panel"]) {
+        NSPanel *window = [[NSPanel alloc] initWithContentRect:NSMakeRect(0., 0., 600., 400.) styleMask:NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable | NSWindowStyleMaskTitled backing:NSBackingStoreBuffered defer:NO];
+        
+        window.releasedWhenClosed = NO;
+        window.contentMinSize = NSMakeSize(400., 400.);
+        
+        WindowDemoIsModalOrFloatingWindowView *contentView = [WindowDemoIsModalOrFloatingWindowView new];
+        window.contentView = contentView;
+        [contentView release];
+        
+        window.floatingPanel = YES;
+        
+        [window makeKeyAndOrderFront:nil];
+        [window release];
+        
+        return NO;
+    } else if ([identifier isEqualToString:@"Ordered Index"]) {
+        double doubleValue = static_cast<NSNumber *>(newValue).doubleValue;
+        window.orderedIndex = doubleValue;
+        return YES;
     } else {
         abort();
     }
