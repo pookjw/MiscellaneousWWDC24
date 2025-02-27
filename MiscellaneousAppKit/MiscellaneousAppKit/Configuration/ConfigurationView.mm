@@ -299,6 +299,7 @@
                 for (NSString *title in description.titles) {
                     NSMenuItem *item = [NSMenuItem new];
                     item.title = title;
+                    item.representedObject = itemModel.identifier;
                     [menu addItem:item];
                     [item release];
                 }
@@ -561,6 +562,21 @@
     ConfigurationItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
     assert(itemModel != nil);
     
+    [self _didChangeItemValueWithItemModel:itemModel newValue:newValue];
+}
+
+- (void)_didChangeItemValueWithIdentifier:(NSString *)identifier newValue:(id<NSCopying>)newValue {
+    for (ConfigurationItemModel *itemModel in self.snapshot.itemIdentifiers) {
+        if ([itemModel.identifier isEqualToString:identifier]) {
+            [self _didChangeItemValueWithItemModel:itemModel newValue:newValue];
+            return;
+        }
+    }
+    
+    abort();
+}
+
+- (void)_didChangeItemValueWithItemModel:(ConfigurationItemModel *)itemModel newValue:(id<NSCopying>)newValue {
     BOOL shouldReconfigure;
     if (id<ConfigurationViewDelegate> delegate = self.delegate) {
         shouldReconfigure = [delegate configurationView:self didTriggerActionWithItemModel:itemModel newValue:newValue];
@@ -628,6 +644,11 @@
 
 - (void)controlTextDidChange:(NSNotification *)obj {
     [self _filterItemModelsWithQuery:self.searchField.stringValue animatingDifferences:YES];
+}
+
+- (void)_popUpItemAction:(NSMenuItem *)sender {
+    // https://x.com/_silgen_name/status/1895002552774861135
+    [self _didChangeItemValueWithIdentifier:sender.representedObject newValue:sender.title];
 }
 
 @end

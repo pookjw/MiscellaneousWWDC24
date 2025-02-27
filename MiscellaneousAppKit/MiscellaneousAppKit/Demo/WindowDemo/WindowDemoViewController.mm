@@ -57,6 +57,7 @@
 #import "WindowDemoValidRequestorView.h"
 #import "WindowDemoAnchorAttributeForOrientationView.h"
 #import "NSStringFromNSDisplayGamut.h"
+#import "WindowDemoIsModalWindowView.h"
 
 OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
 
@@ -4106,14 +4107,14 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
 - (ConfigurationItemModel *)_makeIsModalPanelItemModel {
     __block auto unretainedSelf = self;
     
-    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeLabel
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
                                           identifier:@"Is Modal Panel"
                                             userInfo:nil
                                        labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
         return [NSString stringWithFormat:@"Is Modal Panel : %@", unretainedSelf.view.window.modalPanel ? @"YES" : @"NO"];
     }
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
-        return [NSNull null];
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Alert"];
     }];
 }
 
@@ -5788,6 +5789,19 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
         
         return NO;
     } else if ([identifier isEqualToString:@"Can Represent Display Gamut"]) {
+        return NO;
+    } else if ([identifier isEqualToString:@"Is Modal Panel"]) {
+        NSAlert *alert = [NSAlert new];
+        
+        alert.messageText = @"Alert";
+        WindowDemoIsModalWindowView *accessoryView = [WindowDemoIsModalWindowView new];
+        accessoryView.frame = NSMakeRect(0., 0., 300., accessoryView.fittingSize.height);
+        alert.accessoryView = accessoryView;
+        [accessoryView release];
+        
+        [alert runModal];
+        [alert release];
+        
         return NO;
     } else {
         abort();
