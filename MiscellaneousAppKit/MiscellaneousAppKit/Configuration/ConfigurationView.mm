@@ -16,6 +16,7 @@
 #import "ConfigurationPopUpButtonItem.h"
 #import "ConfigurationColorWellItem.h"
 #import "ConfigurationLabelItem.h"
+#include <ranges>
 
 @interface ConfigurationView () <ConfigurationSwitchItemDelegate, ConfigurationSliderItemDelegate, ConfigurationStepperItemDelegate, ConfigurationButtonItemDelegate, ConfigurationPopUpButtonItemDelegate, ConfigurationColorWellItemDelegate, NSSearchFieldDelegate>
 @property (class, nonatomic, readonly, getter=_switchItemIdentifier) NSUserInterfaceItemIdentifier switchItemIdentifier;
@@ -273,32 +274,28 @@
                 auto description = static_cast<ConfigurationPopUpButtonDescription *>(value);
                 NSPopUpButton *popUpButton = item.popUpButton;
                 
-                [popUpButton removeAllItems];
-                [popUpButton.menu removeAllItems];
+                NSMenu *menu = [NSMenu new];
                 
-                [popUpButton addItemWithTitle:@"(None)"];
-                [popUpButton addItemsWithTitles:description.titles];
-                
-                if (NSString *selectedDisplayTitle = description.selectedDisplayTitle) {
-                    [popUpButton selectItemWithTitle:selectedDisplayTitle];
-                    
-                    for (NSMenuItem *item in popUpButton.menu.itemArray) {
-                        if ([description.selectedTitles containsObject:item.title]) {
-                            item.state = NSControlStateValueOn;
-                        } else {
-                            item.state = NSControlStateValueOff;
-                        }
-                    }
+                {
+                    NSMenuItem *noneItem = [NSMenuItem new];
+                    noneItem.title = @"(None)";
+                    noneItem.enabled = NO;
+                    noneItem.state = (description.selectedTitles.count > 0) ? NSControlStateValueOff : NSControlStateValueOn;
+                    [menu addItem:noneItem];
+                    [noneItem release];
                 }
                 
-                //
+                [menu addItem:[NSMenuItem separatorItem]];
                 
-                NSMenuItem *noneItem = [popUpButton itemAtIndex:0];
-                assert([noneItem.title isEqualToString:@"(None)"]);
-                noneItem.enabled = NO;
-                noneItem.state = (description.selectedTitles.count > 0) ? NSControlStateValueOff : NSControlStateValueOn;
+                for (NSString *title in description.titles) {
+                    NSMenuItem *item = [NSMenuItem new];
+                    item.title = title;
+                    [menu addItem:item];
+                    [item release];
+                }
                 
-                [popUpButton.menu insertItem:[NSMenuItem separatorItem] atIndex:1];
+                popUpButton.menu = menu;
+                [menu release];
                 
                 //
                 
