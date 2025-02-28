@@ -550,6 +550,7 @@
                                        false,
                                        kCGRenderingIntentDefault);
     CGDataProviderRelease(dataProvider);
+    [decoded release];
     
 //    CGImageRef cgImage = MyApp::getCGImageFromGPImageAndFormat(result);
     
