@@ -24,6 +24,97 @@
          - (void) startGenerationWithStyle:(id)arg1 promptElements:(id)arg2 replyHandler:(^block)arg3 batchID:(id)arg4;
  */
 
+@interface _ObjCImageFormat : NSObject <NSSecureCoding> {
+    @package size_t _width;
+    @package size_t _height;
+    @package size_t _bitsPerComponent;
+    @package size_t _bitsPerPixel;
+    @package size_t _bytesPerRow;
+    @package CGBitmapInfo _bitmapInfo;
+    @package CGColorSpaceRef _colorSpace;
+}
+@end
+
+@implementation _ObjCImageFormat
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    if (self = [super init]) {
+        _width = [coder decodeIntegerForKey:@"w"];
+        _height = [coder decodeIntegerForKey:@"h"];
+        _bitsPerComponent = [coder decodeIntegerForKey:@"bpc"];
+        _bitsPerPixel = [coder decodeIntegerForKey:@"bpp"];
+        _bytesPerRow = [coder decodeIntegerForKey:@"bpr"];
+        
+        NSNumber *iNumber = [coder decodeObjectOfClass:[NSNumber class] forKey:@"i"];
+        _bitmapInfo = static_cast<CGBitmapInfo>(iNumber.integerValue);
+        assert(coder.error == nil);
+        
+        NSString *cs = [coder decodeObjectOfClass:[NSString class] forKey:@"cs"];
+        _colorSpace = CGColorSpaceCreateWithName((CFStringRef)cs);
+        assert(coder.error == nil);
+    }
+    
+    return self;
+}
+
+- (void)dealloc {
+    CGColorSpaceRelease(_colorSpace);
+    [super dealloc];
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeInteger:_width forKey:@"w"];
+    [coder encodeInteger:_height forKey:@"h"];
+    [coder encodeInteger:_bitsPerComponent forKey:@"bpc"];
+    [coder encodeInteger:_bitsPerPixel forKey:@"bpp"];
+    [coder encodeInteger:_bytesPerRow forKey:@"bpr"];
+    [coder encodeInteger:_bitmapInfo forKey:@"i"];
+    [coder encodeObject:(NSString *)CGColorSpaceGetName(_colorSpace) forKey:@"cs"];
+}
+
+@end
+
+@interface _ObjcImageResult : NSObject <NSSecureCoding> {
+    @package _ObjCImageFormat *_format;
+    @package NSData *_data;
+    @package CGImagePropertyOrientation _orientation;
+}
+@end
+
+@implementation _ObjcImageResult
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    if (self = [super init]) {
+        _format = [[coder decodeObjectOfClass:objc_lookUpClass("_ObjCImageFormat") forKey:@"format"] retain];
+        _data = [[coder decodeObjectOfClass:[NSData class] forKey:@"data"] retain];
+        _orientation = static_cast<CGImagePropertyOrientation>([coder decodeIntegerForKey:@"orientation"]);
+    }
+    
+    return self;
+}
+
+- (void)dealloc {
+    [_format release];
+    [_data release];
+    [super dealloc];
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeObject:_format forKey:@"format"];
+    [coder encodeObject:_data forKey:@"data"];
+    [coder encodeInteger:_orientation forKey:@"orientation"];
+}
+
+@end
+
 @interface ObjCImageCreatorViewController ()
 @property (retain, nonatomic, readonly, getter=_connection) NSXPCConnection *connection;
 @property (retain, nonatomic, readonly, getter=_barButtonItem) UIBarButtonItem *barButtonItem;
@@ -379,7 +470,89 @@
 }
 
 - (void)_didReceiveResult:(id)result {
-    CGImageRef cgImage = MyApp::getCGImageFromGPImageAndFormat(result);
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initRequiringSecureCoding:YES];
+    [result encodeWithCoder:archiver];
+    [archiver finishEncoding];
+    NSData *data = archiver.encodedData;
+    [archiver release];
+    
+    NSError * _Nullable error = nil;
+    NSPropertyListFormat format;
+    NSMutableDictionary *dictionary = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListMutableContainersAndLeaves format:&format error:&error];
+    assert(format == NSPropertyListBinaryFormat_v1_0);
+    assert(error == nil);
+    
+    /*
+     Data 구조는 아래와 같다.
+     
+     GPImageAndFormat
+     -> orientation : CGImagePropertyOrientation
+     -> data : NSData
+     -> format ImagePlayground.ImageFormat
+        -> i : CGBitmapInfo
+        -> ...
+     
+     이를 나는 아래처럼 변환하기 하기 위해
+     
+     _ObjcImageResult
+     -> orientation : CGImagePropertyOrientation
+     -> data : NSData
+     -> format _ObjCImageFormat
+        -> i : CGBitmapInfo
+        -> ...
+     
+     NSKeyedArchiver, NSKeyedUnarchiver로 Encode-Decode를 해줘야 하는데
+     1. 우선 _ObjcImageResult을 Encode
+     2. 1에서 Encode한 Data를 `-[_ObjcImageResult initWithCoder:]`로 Decode
+     3. 2에서 내부적으로 ImagePlayground.ImageFormat이 Decode 될 것
+     4. 원래라면 `-[_ObjcImageResult initWithCoder:]`에서 ImagePlayground.ImageFormat를 Decode한 다음, 걔를 다시 Encode-Decode해서 _ObjcImageResult로 변환해야 한다. 하지만 ImagePlayground.ImageFormat이 1번에서 Encode 될 때 i를 NSNumber로 Encode하고, Decode 할 때 Int64로 하는 프레임워크 버그가 있어 type mismatch error 발생
+     -> ImagePlayground.ImageFormat은 Decode가 불가능하다고 봐야함
+     
+     따라서 Data (Plist)의 값을 직접 바꿔서 ImagePlayground.ImageFormat의 Class 정의를 _ObjcImageResult로 바꿔줘야 한다.
+     */
+    NSMutableArray *objects = dictionary[@"$objects"];
+    [objects enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dictionary = static_cast<NSDictionary *>(obj);
+            NSString *classname = dictionary[@"$classname"];
+            if ([classname isEqual:@"ImagePlayground.ImageFormat"]) {
+                objects[idx] = @{
+                    @"$classname": NSStringFromClass([_ObjCImageFormat class]),
+                    @"$classes": @[
+                        NSStringFromClass([_ObjCImageFormat class]),
+                        NSStringFromClass([NSObject class])
+                    ]
+                };
+                *stop = YES;
+            }
+        }
+    }];
+    dictionary[@"$objects"] = objects;
+    
+    NSData *patchedData = [NSPropertyListSerialization dataWithPropertyList:dictionary format:NSPropertyListBinaryFormat_v1_0 options:0 error:&error];
+    [dictionary release];
+    
+    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:patchedData error:&error];
+    assert(error == nil);
+    
+    _ObjcImageResult *decoded = [[_ObjcImageResult alloc] initWithCoder:unarchiver];
+    CGDataProviderRef dataProvider = CGDataProviderCreateWithCFData((CFDataRef)decoded->_data);
+    
+    CGImageRef cgImage = CGImageCreate(decoded->_format->_width,
+                                       decoded->_format->_height,
+                                       decoded->_format->_bitsPerComponent,
+                                       decoded->_format->_bitsPerPixel,
+                                       decoded->_format->_bytesPerRow,
+                                       decoded->_format->_colorSpace,
+                                       decoded->_format->_bitmapInfo,
+                                       dataProvider,
+                                       NULL,
+                                       false,
+                                       kCGRenderingIntentDefault);
+    CGDataProviderRelease(dataProvider);
+    
+//    CGImageRef cgImage = MyApp::getCGImageFromGPImageAndFormat(result);
+    
     UIImage *image = [UIImage imageWithCGImage:cgImage];
     CGImageRelease(cgImage);
     
