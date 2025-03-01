@@ -9,7 +9,7 @@
 
 @implementation ConfigurationViewPresentationDescription
 
-- (instancetype)initWithStyle:(ConfigurationViewPresentationStyle)style viewBuilder:(__kindof NSView * _Nonnull (^)(void))viewBuilder {
+- (instancetype)initWithStyle:(ConfigurationViewPresentationStyle)style viewBuilder:(__kindof NSView * _Nonnull (^)(void (^layout)(void)))viewBuilder {
     if (self = [super init]) {
         _style = style;
         _viewBuilder = [viewBuilder copy];
@@ -26,7 +26,7 @@
     return [self retain];
 }
 
-+ (ConfigurationViewPresentationDescription *)descriptorWithStyle:(ConfigurationViewPresentationStyle)style viewBuilder:(__kindof NSView * _Nonnull (^)(void))viewBuilder {
++ (ConfigurationViewPresentationDescription *)descriptorWithStyle:(ConfigurationViewPresentationStyle)style viewBuilder:(__kindof NSView * _Nonnull (^)(void (^layout)(void)))viewBuilder {
     return [[[ConfigurationViewPresentationDescription alloc] initWithStyle:style viewBuilder:viewBuilder] autorelease];
 }
 

@@ -16,7 +16,6 @@
 #import "ConfigurationPopUpButtonItem.h"
 #import "ConfigurationColorWellItem.h"
 #import "ConfigurationLabelItem.h"
-#import "_ConfigurationAlert.h"
 #include <ranges>
 
 @interface ConfigurationView () <ConfigurationSwitchItemDelegate, ConfigurationSliderItemDelegate, ConfigurationStepperItemDelegate, ConfigurationButtonItemDelegate, ConfigurationPopUpButtonItemDelegate, ConfigurationColorWellItemDelegate, NSSearchFieldDelegate>
@@ -588,18 +587,22 @@
             break;
         }
         case ConfigurationItemModelTypeViewPresentation: {
-            _ConfigurationAlert *alert = [_ConfigurationAlert new];
+            NSAlert *alert = [NSAlert new];
             
             alert.messageText = configurationButtonItem.textField.stringValue;
             
             auto description = static_cast<ConfigurationViewPresentationDescription *>(configurationButtonItem.resolvedValue);
             [description isKindOfClass:[ConfigurationViewPresentationDescription class]];
             
-            __kindof NSView *resolvedView = description.viewBuilder();
+            __kindof NSView *resolvedView = description.viewBuilder(^{
+                [alert layout];
+            });
             alert.accessoryView = resolvedView;
             
             [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
-                
+                // resolvedView가 Layout Block을 retain하면 Retain Cycle이 일어나기에 이렇게 헤줘야함
+                alert.accessoryView = nil;
+                [resolvedView removeFromSuperview];
             }];
             [alert release];
             break;

@@ -15,12 +15,12 @@ typedef NS_ENUM(NSUInteger, ConfigurationViewPresentationStyle) {
 };
 
 @interface ConfigurationViewPresentationDescription : NSObject <NSCopying>
-@property (copy, nonatomic, readonly) __kindof NSView * (^viewBuilder)(void);
+@property (copy, nonatomic, readonly) __kindof NSView * (^viewBuilder)(void (^layout)(void));
 @property (assign, nonatomic, readonly) ConfigurationViewPresentationStyle style;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithStyle:(ConfigurationViewPresentationStyle)style viewBuilder:(__kindof NSView * (^)(void))viewBuilder;
-+ (ConfigurationViewPresentationDescription *)descriptorWithStyle:(ConfigurationViewPresentationStyle)style viewBuilder:(__kindof NSView * (^)(void))viewBuilder;
+- (instancetype)initWithStyle:(ConfigurationViewPresentationStyle)style viewBuilder:(__kindof NSView * (^)(void (^layout)(void)))viewBuilder;
++ (ConfigurationViewPresentationDescription *)descriptorWithStyle:(ConfigurationViewPresentationStyle)style viewBuilder:(__kindof NSView * (^)(void (^layout)(void)))viewBuilder;
 @end
 
 NS_ASSUME_NONNULL_END

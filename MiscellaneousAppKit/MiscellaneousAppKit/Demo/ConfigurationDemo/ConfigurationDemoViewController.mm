@@ -211,12 +211,14 @@
                                                                                                                                    label:@"Alert View"
                                                                                                                            valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         return [ConfigurationViewPresentationDescription descriptorWithStyle:ConfigurationViewPresentationStyleAlert
-                                                                 viewBuilder:^__kindof NSView * _Nonnull {
+                                                                 viewBuilder:^__kindof NSView * _Nonnull(void (^ _Nonnull layout)()) {
             NSTextField *textField = [NSTextField labelWithString:@"Test ABCDEFG"];
             
+            objc_setAssociatedObject(textField, (void *)0x134, layout, OBJC_ASSOCIATION_COPY_NONATOMIC);
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 textField.stringValue = @"123\nABC\nDEF";
                 [textField sizeToFit];
+                layout();
             });
             return textField;
         }];
