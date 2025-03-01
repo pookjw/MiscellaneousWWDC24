@@ -6,6 +6,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "ConfigurationBaseComponentItem.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)configurationStepperItem:(ConfigurationStepperItem *)configurationStepperItem didChangeValue:(double)value;
 @end
 
-@interface ConfigurationStepperItem : NSCollectionViewItem
+@interface ConfigurationStepperItem : ConfigurationBaseComponentItem
 @property (retain, nonatomic) IBOutlet NSStepper *stepper;
 @property (assign, nonatomic) id<ConfigurationStepperItemDelegate> delegate;
 @end

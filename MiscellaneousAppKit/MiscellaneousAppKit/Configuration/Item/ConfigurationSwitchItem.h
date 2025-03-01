@@ -6,6 +6,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "ConfigurationBaseComponentItem.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)configurationSwitchItem:(ConfigurationSwitchItem *)configurationSwitchItem didToggleValue:(BOOL)value;
 @end
 
-@interface ConfigurationSwitchItem : NSCollectionViewItem
+@interface ConfigurationSwitchItem : ConfigurationBaseComponentItem
 @property (retain, nonatomic) IBOutlet NSSwitch *toggleSwitch;
 @property (assign, nonatomic) id<ConfigurationSwitchItemDelegate> delegate;
 @end

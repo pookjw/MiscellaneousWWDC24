@@ -6,6 +6,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "ConfigurationBaseComponentItem.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)configurationPopUpButtonItem:(ConfigurationPopUpButtonItem *)configurationPopUpButtonItem didSelectItem:(NSMenuItem * _Nullable)selectedItem;
 @end
 
-@interface ConfigurationPopUpButtonItem : NSCollectionViewItem
+@interface ConfigurationPopUpButtonItem : ConfigurationBaseComponentItem
 @property (retain, nonatomic) IBOutlet NSPopUpButton *popUpButton;
 @property (assign, nonatomic) id<ConfigurationPopUpButtonItemDelegate> delegate;
 @end

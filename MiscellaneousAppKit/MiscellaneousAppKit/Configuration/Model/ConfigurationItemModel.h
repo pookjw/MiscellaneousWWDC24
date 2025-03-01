@@ -10,6 +10,7 @@
 #import "ConfigurationStepperDescription.h"
 #import "ConfigurationPopUpButtonDescription.h"
 #import "ConfigurationButtonDescription.h"
+#import "ConfigurationViewPresentationDescription.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,7 +21,8 @@ typedef NS_ENUM(NSUInteger, ConfigurationItemModelType) {
     ConfigurationItemModelTypeButton,
     ConfigurationItemModelTypePopUpButton,
     ConfigurationItemModelTypeColorWell,
-    ConfigurationItemModelTypeLabel
+    ConfigurationItemModelTypeLabel,
+    ConfigurationItemModelTypeViewPresentation
 };
 
 @interface ConfigurationItemModel <ValueType> : NSObject <NSCopying>

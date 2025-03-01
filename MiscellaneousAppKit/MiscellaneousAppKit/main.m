@@ -20,6 +20,7 @@
 @end
 
 /*
+ NSBannerView
  NSWidgetView
  NSOcclusionDetectionView
  _NSBoxMaterialCapableCustomView

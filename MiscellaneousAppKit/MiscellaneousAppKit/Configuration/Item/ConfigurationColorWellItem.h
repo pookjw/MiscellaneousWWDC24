@@ -6,6 +6,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "ConfigurationBaseComponentItem.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)configurationColorWellItem:(ConfigurationColorWellItem *)configurationColorWellItem didSelectColor:(NSColor *)color;
 @end
 
-@interface ConfigurationColorWellItem : NSCollectionViewItem
+@interface ConfigurationColorWellItem : ConfigurationBaseComponentItem
 @property (retain, nonatomic) IBOutlet NSColorWell *colorWell;
 @property (assign, nonatomic) id<ConfigurationColorWellItemDelegate> delegate;
 @end

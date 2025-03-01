@@ -25,7 +25,7 @@
     id<ConfigurationButtonItemDelegate> delegate = self.delegate;
     if (delegate == nil) return;
     
-    [delegate didTriggerButton:self];
+    [delegate configurationButtonItem:self didTriggerButton:sender];
 }
 
 @end

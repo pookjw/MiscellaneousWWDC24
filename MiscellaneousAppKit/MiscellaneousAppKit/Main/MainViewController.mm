@@ -67,7 +67,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    self.preferredContentSize = NSMakeSize(400., 400.);
-    [self _presentWindowForClass:[WindowDemoWindow class]];
+    [self _presentWindowForClass:[ConfigurationDemoViewController class]];
 }
 
 - (NSScrollView *)_scrollView {

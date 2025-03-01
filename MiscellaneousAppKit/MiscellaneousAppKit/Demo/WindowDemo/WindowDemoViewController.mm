@@ -546,6 +546,8 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     
 #pragma mark - Items 1
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeRequestSharingOfWindowUsingPreviewItemModel],
+        [self _makeRequestSharingOfWindowItemModel],
         [self _makeBeginDraggingSessionWithItemsItemModel],
         [self _makeTilingStateItemModel],
         [self _makeCascadingReferenceFrameItemModel],
@@ -4244,6 +4246,26 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
     }];
 }
 
+- (ConfigurationItemModel *)_makeRequestSharingOfWindowItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Request Sharing Of Window"
+                                            userInfo:nil
+                                               label:@"Request Sharing Of Window"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeRequestSharingOfWindowUsingPreviewItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeButton
+                                          identifier:@"Request Sharing Of Window Using Preview"
+                                            userInfo:nil
+                                               label:@"Request Sharing Of Window Using Preview"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationButtonDescription descriptionWithTitle:@"Button"];
+    }];
+}
+
 
 #pragma mark - Items 2
 
@@ -5931,6 +5953,14 @@ APPKIT_EXTERN NSNotificationName const NSAppleNoRedisplayAppearancePreferenceCha
         }];
         [alert release];
         
+        return NO;
+    } else if ([identifier isEqualToString:@"Request Sharing Of Window Using Preview"]) {
+        // TODO: ScreenCaptureKit
+        abort();
+        return NO;
+    } else if ([identifier isEqualToString:@"Request Sharing Of Window"]) {
+        // TODO: ScreenCaptureKit
+        abort();
         return NO;
     } else {
         abort();

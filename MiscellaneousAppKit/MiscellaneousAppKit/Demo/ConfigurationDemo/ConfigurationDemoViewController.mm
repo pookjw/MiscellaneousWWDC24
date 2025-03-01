@@ -205,23 +205,24 @@
         return backgroundColor;
     }];
     
-    ConfigurationItemModel *numbersItemModel = [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
-                                                                              identifier:@"Numbers"
-                                                                                userInfo:nil
-                                                                                   label:@"Numbers"
-                                                                           valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
-        return [ConfigurationPopUpButtonDescription descriptionWithTitles:@[@"0", @"1", @"2"] selectedTitles:@[] selectedDisplayTitle:nil];
+    ConfigurationItemModel<ConfigurationViewPresentationDescription *> *alertViewDescription = [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeViewPresentation
+                                                                                                                              identifier:@"Alert View"
+                                                                                                                                userInfo:nil
+                                                                                                                                   label:@"Alert View"
+                                                                                                                           valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationViewPresentationDescription descriptorWithStyle:ConfigurationViewPresentationStyleAlert
+                                                                 viewBuilder:^__kindof NSView * _Nonnull {
+            NSTextField *textField = [NSTextField labelWithString:@"Test ABCDEFG"];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                textField.stringValue = @"123\nABC\nDEF";
+                [textField sizeToFit];
+            });
+            return textField;
+        }];
     }];
     
-    ConfigurationItemModel *alphabetItemModel = [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypePopUpButton
-                                                                              identifier:@"Alphabet"
-                                                                                userInfo:nil
-                                                                                   label:@"Alphabet"
-                                                                           valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
-        return [ConfigurationPopUpButtonDescription descriptionWithTitles:@[@"A", @"B", @"C"] selectedTitles:@[] selectedDisplayTitle:nil];
-    }];
-    
-    [snapshot appendItemsWithIdentifiers:@[alphabetItemModel, switchItemModel, shouldReconfigureItemModel, sliderItemModel, stepperItemModel, buttonNoMenuItemModel, buttonWithMenuItemModel_1, buttonWithMenuItemModel_2, numbersItemModel, colorWellItemModel, popUpButtonItemModel] intoSectionWithIdentifier:[NSNull null]];
+    [snapshot appendItemsWithIdentifiers:@[alertViewDescription, switchItemModel, shouldReconfigureItemModel, sliderItemModel, stepperItemModel, buttonNoMenuItemModel, buttonWithMenuItemModel_1, buttonWithMenuItemModel_2, colorWellItemModel, popUpButtonItemModel] intoSectionWithIdentifier:[NSNull null]];
     [snapshot reloadItemsWithIdentifiers:snapshot.itemIdentifiers];
     
     [self.configurationView applySnapshot:snapshot animatingDifferences:YES];

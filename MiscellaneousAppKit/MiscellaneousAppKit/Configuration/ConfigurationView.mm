@@ -16,6 +16,7 @@
 #import "ConfigurationPopUpButtonItem.h"
 #import "ConfigurationColorWellItem.h"
 #import "ConfigurationLabelItem.h"
+#import "_ConfigurationAlert.h"
 #include <ranges>
 
 @interface ConfigurationView () <ConfigurationSwitchItemDelegate, ConfigurationSliderItemDelegate, ConfigurationStepperItemDelegate, ConfigurationButtonItemDelegate, ConfigurationPopUpButtonItemDelegate, ConfigurationColorWellItemDelegate, NSSearchFieldDelegate>
@@ -203,6 +204,7 @@
                 BOOL isOn = static_cast<NSNumber *>(value).boolValue;
                 
                 ConfigurationSwitchItem *item = [collectionView makeItemWithIdentifier:ConfigurationView.switchItemIdentifier forIndexPath:indexPath];
+                item.resolvedValue = value;
                 item.delegate = unretainedSelf;
                 item.textField.stringValue = label;
                 
@@ -217,6 +219,7 @@
                 auto sliderDescription = static_cast<ConfigurationSliderDescription *>(value);
                 
                 ConfigurationSliderItem *item = [collectionView makeItemWithIdentifier:ConfigurationView.sliderItemIdentifier forIndexPath:indexPath];
+                item.resolvedValue = value;
                 item.delegate = unretainedSelf;
                 item.textField.stringValue = label;
                 item.slider.minValue = sliderDescription.minimumValue;
@@ -231,6 +234,7 @@
                 auto stepperDescription = static_cast<ConfigurationStepperDescription *>(value);
                 
                 ConfigurationStepperItem *item = [collectionView makeItemWithIdentifier:ConfigurationView.stepperItemIdentifier forIndexPath:indexPath];
+                item.resolvedValue = value;
                 item.delegate = unretainedSelf;
                 item.textField.stringValue = label;
                 item.stepper.minValue = stepperDescription.minimumValue;
@@ -245,6 +249,7 @@
             }
             case ConfigurationItemModelTypeButton: {
                 ConfigurationButtonItem *item = [collectionView makeItemWithIdentifier:ConfigurationView.buttonItemIdentifier forIndexPath:indexPath];
+                item.resolvedValue = value;
                 item.delegate = unretainedSelf;
                 item.textField.stringValue = label;
                 
@@ -266,6 +271,7 @@
             }
             case ConfigurationItemModelTypePopUpButton: {
                 ConfigurationPopUpButtonItem *item = [collectionView makeItemWithIdentifier:ConfigurationView.popUpButtonItemIdentifier forIndexPath:indexPath];
+                item.resolvedValue = value;
                 
                 item.delegate = unretainedSelf;
                 item.textField.stringValue = label;
@@ -313,6 +319,7 @@
             }
             case ConfigurationItemModelTypeColorWell: {
                 ConfigurationColorWellItem *item = [collectionView makeItemWithIdentifier:ConfigurationView.colorWellItemIdentifier forIndexPath:indexPath];
+                item.resolvedValue = value;
                 item.delegate = unretainedSelf;
                 item.textField.stringValue = label;
                 
@@ -325,7 +332,33 @@
                 assert([value isKindOfClass:[NSNull class]]);
                 
                 ConfigurationLabelItem *item = [collectionView makeItemWithIdentifier:ConfigurationView.labelItemIdentifier forIndexPath:indexPath];
+                item.resolvedValue = value;
                 item.textField.stringValue = label;
+                
+                return item;
+            }
+            case ConfigurationItemModelTypeViewPresentation: {
+                assert([value isKindOfClass:[ConfigurationViewPresentationDescription class]]);
+                auto description = static_cast<ConfigurationViewPresentationDescription *>(value);
+                
+                ConfigurationButtonItem *item = [collectionView makeItemWithIdentifier:ConfigurationView.buttonItemIdentifier forIndexPath:indexPath];
+                item.resolvedValue = value;
+                item.delegate = unretainedSelf;
+                item.textField.stringValue = label;
+                
+                item.showsMenuAsPrimaryAction = NO;
+                item.button.menu = nil;
+                
+                switch (description.style) {
+                    case ConfigurationViewPresentationStyleAlert:
+                        item.button.title = @"Alert";
+                        break;
+                    case ConfigurationViewPresentationStylePopover:
+                        item.button.title = @"Popover";
+                        break;
+                    default:
+                        abort();
+                }
                 
                 return item;
             }
@@ -542,8 +575,38 @@
     [self _didChangeItemValueWithItem:configurationStepperItem newValue:@(value)];
 }
 
-- (void)didTriggerButton:(ConfigurationButtonItem *)configurationButtonItem {
-    [self _didChangeItemValueWithItem:configurationButtonItem newValue:[NSNull null]];
+- (void)configurationButtonItem:(ConfigurationButtonItem *)configurationButtonItem didTriggerButton:(NSButton *)sender {
+    NSIndexPath *indexPath = [self.collectionView indexPathForItem:configurationButtonItem];
+    if (indexPath == nil) return;
+    
+    ConfigurationItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
+    assert(itemModel != nil);
+    
+    switch (itemModel.type) {
+        case ConfigurationItemModelTypeButton: {
+            [self _didChangeItemValueWithItemModel:itemModel newValue:[NSNull null]];
+            break;
+        }
+        case ConfigurationItemModelTypeViewPresentation: {
+            _ConfigurationAlert *alert = [_ConfigurationAlert new];
+            
+            alert.messageText = configurationButtonItem.textField.stringValue;
+            
+            auto description = static_cast<ConfigurationViewPresentationDescription *>(configurationButtonItem.resolvedValue);
+            [description isKindOfClass:[ConfigurationViewPresentationDescription class]];
+            
+            __kindof NSView *resolvedView = description.viewBuilder();
+            alert.accessoryView = resolvedView;
+            
+            [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+                
+            }];
+            [alert release];
+            break;
+        }
+        default:
+            abort();
+    }
 }
 
 - (void)configurationPopUpButtonItem:(ConfigurationPopUpButtonItem *)configurationPopUpButtonItem didSelectItem:(NSMenuItem *)selectedItem {

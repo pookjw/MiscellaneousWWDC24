@@ -6,6 +6,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "ConfigurationBaseComponentItem.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)configurationSliderItem:(ConfigurationSliderItem *)configurationSliderItem didChangeValue:(double)value;
 @end
 
-@interface ConfigurationSliderItem : NSCollectionViewItem
+@interface ConfigurationSliderItem : ConfigurationBaseComponentItem
 @property (retain, nonatomic) IBOutlet NSSlider *slider;
 @property (assign, nonatomic) id<ConfigurationSliderItemDelegate> delegate;
 @end
