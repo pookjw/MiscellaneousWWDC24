@@ -7,8 +7,6 @@
 
 #import "_ConfigurationAlert.h"
 
-// TODO: viewGeometryNotificationCenter
-
 @interface _ConfigurationAlert ()
 @property (retain, nonatomic, nullable, getter=_geometryInWindowDidChangeObserver, setter=_setGeometryInWindowDidChange:) id<NSObject> geometryInWindowDidChangeObserver;
 @end
