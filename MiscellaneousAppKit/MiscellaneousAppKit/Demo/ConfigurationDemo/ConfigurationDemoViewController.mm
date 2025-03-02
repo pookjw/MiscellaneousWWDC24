@@ -221,10 +221,35 @@
                 layout();
             });
             return textField;
+        }
+                                                             didCloseHandler:^(__kindof NSView * _Nonnull resolvedView, NSDictionary<NSString *,id> * _Nonnull info) {
+            NSLog(@"%@", info);
         }];
     }];
     
-    [snapshot appendItemsWithIdentifiers:@[alertViewDescription, switchItemModel, shouldReconfigureItemModel, sliderItemModel, stepperItemModel, buttonNoMenuItemModel, buttonWithMenuItemModel_1, buttonWithMenuItemModel_2, colorWellItemModel, popUpButtonItemModel] intoSectionWithIdentifier:[NSNull null]];
+    ConfigurationItemModel<ConfigurationViewPresentationDescription *> *popoverViewDescription = [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeViewPresentation
+                                                                                                                                identifier:@"Popover"
+                                                                                                                                  userInfo:nil
+                                                                                                                                     label:@"Popover"
+                                                                                                                             valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationViewPresentationDescription descriptorWithStyle:ConfigurationViewPresentationStylePopover
+                                                                 viewBuilder:^__kindof NSView * _Nonnull(void (^ _Nonnull layout)()) {
+            NSTextField *textField = [NSTextField labelWithString:@"Test ABCDEFG"];
+            
+            objc_setAssociatedObject(textField, (void *)0x134, layout, OBJC_ASSOCIATION_COPY_NONATOMIC);
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                textField.stringValue = @"123\nABC\nDEF";
+                [textField sizeToFit];
+                layout();
+            });
+            return textField;
+        }
+                                                             didCloseHandler:^(__kindof NSView * _Nonnull resolvedView, NSDictionary<NSString *,id> * _Nonnull info) {
+            NSLog(@"%@", info);
+        }];
+    }];
+    
+    [snapshot appendItemsWithIdentifiers:@[popoverViewDescription, alertViewDescription, switchItemModel, shouldReconfigureItemModel, sliderItemModel, stepperItemModel, buttonNoMenuItemModel, buttonWithMenuItemModel_1, buttonWithMenuItemModel_2, colorWellItemModel, popUpButtonItemModel] intoSectionWithIdentifier:[NSNull null]];
     [snapshot reloadItemsWithIdentifiers:snapshot.itemIdentifiers];
     
     [self.configurationView applySnapshot:snapshot animatingDifferences:YES];

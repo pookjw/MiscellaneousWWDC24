@@ -587,24 +587,75 @@
             break;
         }
         case ConfigurationItemModelTypeViewPresentation: {
-            NSAlert *alert = [NSAlert new];
-            
-            alert.messageText = configurationButtonItem.textField.stringValue;
-            
             auto description = static_cast<ConfigurationViewPresentationDescription *>(configurationButtonItem.resolvedValue);
-            [description isKindOfClass:[ConfigurationViewPresentationDescription class]];
+            assert([description isKindOfClass:[ConfigurationViewPresentationDescription class]]);
             
-            __kindof NSView *resolvedView = description.viewBuilder(^{
-                [alert layout];
-            });
-            alert.accessoryView = resolvedView;
+            switch (description.style) {
+                case ConfigurationViewPresentationStyleAlert: {
+                    NSAlert *alert = [NSAlert new];
+                    
+                    alert.messageText = configurationButtonItem.textField.stringValue;
+                    
+                    __kindof NSView *resolvedView = description.viewBuilder(^{
+                        [alert layout];
+                    });
+                    alert.accessoryView = resolvedView;
+                    
+                    [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+                        // resolvedView가 Layout Block을 retain하면 Retain Cycle이 일어나기에 이렇게 해줘야함
+                        alert.accessoryView = nil;
+                        [resolvedView removeFromSuperview];
+                        
+                        description.didCloseHandler(resolvedView, @{ConfigurationViewPresentationModalResponseKey: @(returnCode)});
+                    }];
+                    [alert release];
+                    break;
+                }
+                case ConfigurationViewPresentationStylePopover: {
+                    NSPopover *popover = [NSPopover new];
+                    
+                    __kindof NSView *resolvedView = description.viewBuilder(^{
+                        NSView *view = popover.contentViewController.view;
+                        popover.contentSize = view.frame.size;
+                    });
+                    
+                    NSViewController *viewController = [NSViewController new];
+                    viewController.view = resolvedView;
+                    popover.contentViewController = viewController;
+                    [viewController release];
+                    
+                    popover.behavior = NSPopoverBehaviorSemitransient;
+                    
+                    static void *key = &key;
+                    
+                    id<NSObject> observer = [NSNotificationCenter.defaultCenter addObserverForName:NSPopoverDidCloseNotification
+                                                                                            object:popover
+                                                                                             queue:nil
+                                                                                        usingBlock:^(NSNotification * _Nonnull notification) {
+                        auto popover = static_cast<NSPopover *>(notification.object);
+                        
+                        // resolvedView가 Layout Block을 retain하면 Retain Cycle이 일어나기에 이렇게 해줘야함
+                        popover.contentViewController = nil;
+                        description.didCloseHandler(resolvedView, @{});
+                        
+                        // Popover -> Observer -> Resolved View -> Layout Block -> Popover으로 인해 Retain Cycle이 일어나므로, 'Observer -> Resolved View'를 제거한다.
+                        id<NSObject> observer = objc_getAssociatedObject(popover, key);
+                        [NSNotificationCenter.defaultCenter removeObserver:observer];
+                        objc_setAssociatedObject(popover, key, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                    }];
+                    
+                    objc_setAssociatedObject(popover, key, observer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                    
+                    [popover showRelativeToRect:NSZeroRect
+                                         ofView:sender
+                                  preferredEdge:NSRectEdgeMaxX];
+                    [popover release];
+                    break;
+                }
+                default:
+                    abort();
+            }
             
-            [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
-                // resolvedView가 Layout Block을 retain하면 Retain Cycle이 일어나기에 이렇게 헤줘야함
-                alert.accessoryView = nil;
-                [resolvedView removeFromSuperview];
-            }];
-            [alert release];
             break;
         }
         default:
