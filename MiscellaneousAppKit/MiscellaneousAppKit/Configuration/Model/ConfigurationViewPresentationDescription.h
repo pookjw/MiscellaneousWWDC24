@@ -8,15 +8,16 @@
 #import <Cocoa/Cocoa.h>
 #import "Extern.h"
 
-NS_ASSUME_NONNULL_BEGIN
+NS_HEADER_AUDIT_BEGIN(nullability, sendability)
 
 typedef NS_ENUM(NSUInteger, ConfigurationViewPresentationStyle) {
     ConfigurationViewPresentationStylePopover,
     ConfigurationViewPresentationStyleAlert
-};
+} NS_REFINED_FOR_SWIFT;
 
 MA_EXTERN NSString * const ConfigurationViewPresentationModalResponseKey;
 
+NS_REFINED_FOR_SWIFT
 @interface ConfigurationViewPresentationDescription : NSObject <NSCopying>
 @property (copy, nonatomic, readonly) __kindof NSView * (^viewBuilder)(void (^layout)(void));
 @property (copy, nonatomic, readonly) void (^didCloseHandler)(__kindof NSView *resolvedView, NSDictionary<NSString *, id> *info);
@@ -27,4 +28,4 @@ MA_EXTERN NSString * const ConfigurationViewPresentationModalResponseKey;
 + (ConfigurationViewPresentationDescription *)descriptorWithStyle:(ConfigurationViewPresentationStyle)style viewBuilder:(__kindof NSView * (^)(void (^layout)(void)))viewBuilder didCloseHandler:(void (^)(__kindof NSView *resolvedView, NSDictionary<NSString *, id> *info))didCloseHandler;
 @end
 
-NS_ASSUME_NONNULL_END
+NS_HEADER_AUDIT_END(nullability, sendability)

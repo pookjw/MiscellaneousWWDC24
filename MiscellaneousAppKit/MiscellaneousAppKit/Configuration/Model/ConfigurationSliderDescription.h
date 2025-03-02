@@ -9,6 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_REFINED_FOR_SWIFT
 @interface ConfigurationSliderDescription : NSObject <NSCopying>
 @property (assign, nonatomic, readonly) double sliderValue;
 @property (assign, nonatomic, readonly) double minimumValue;

@@ -19,6 +19,7 @@
 #import "PasteboardDemoViewController.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
+#import "MiscellaneousAppKit-Swift.h"
 
 @interface MainViewController () <NSTableViewDataSource, NSTableViewDelegate>
 @property (class, nonatomic, readonly, getter=_rowIdentifier) NSUserInterfaceItemIdentifier rowIdentifier;
@@ -42,6 +43,7 @@
 
 + (NSArray<Class> *)_classes {
     return @[
+        [SwiftConfigurationDemoViewController class],
         [PasteboardDemoViewController class],
         [TextViewDemoViewController class],
         [IntelligenceDemoViewController class],
@@ -67,7 +69,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    self.preferredContentSize = NSMakeSize(400., 400.);
-    [self _presentWindowForClass:[ConfigurationDemoViewController class]];
+    [self _presentWindowForClass:[SwiftConfigurationDemoViewController class]];
 }
 
 - (NSScrollView *)_scrollView {

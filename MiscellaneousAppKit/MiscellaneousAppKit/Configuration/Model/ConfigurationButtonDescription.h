@@ -9,9 +9,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_REFINED_FOR_SWIFT
 @interface ConfigurationButtonDescription : NSObject <NSCopying>
 @property (copy, nonatomic, readonly) NSString *title;
-@property (copy, nonatomic, readonly, nullable) NSMenu *menu;
 @property (assign, nonatomic, readonly) BOOL showsMenuAsPrimaryAction;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;

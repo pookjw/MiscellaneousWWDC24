@@ -20,11 +20,12 @@ typedef NS_ENUM(NSUInteger, ConfigurationItemModelType) {
     ConfigurationItemModelTypeStepper,
     ConfigurationItemModelTypeButton,
     ConfigurationItemModelTypePopUpButton,
-    ConfigurationItemModelTypeColorWell,
-    ConfigurationItemModelTypeLabel,
+    ConfigurationItemModelTypeColorWell,//
+    ConfigurationItemModelTypeLabel,//
     ConfigurationItemModelTypeViewPresentation
-};
+} NS_REFINED_FOR_SWIFT;
 
+NS_REFINED_FOR_SWIFT
 @interface ConfigurationItemModel <ValueType> : NSObject <NSCopying>
 @property (assign, nonatomic, readonly) ConfigurationItemModelType type;
 @property (copy, nonatomic, readonly) NSString *identifier;

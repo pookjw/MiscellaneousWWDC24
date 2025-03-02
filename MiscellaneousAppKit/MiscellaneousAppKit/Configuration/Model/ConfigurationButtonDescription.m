@@ -6,6 +6,11 @@
 //
 
 #import "ConfigurationButtonDescription.h"
+#import "ConfigurationButtonDescription+Private.h"
+
+@interface ConfigurationButtonDescription ()
+@property (copy, nonatomic, readonly, nullable) NSMenu *menu;
+@end
 
 @implementation ConfigurationButtonDescription
 

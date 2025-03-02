@@ -8,9 +8,12 @@
 #import <Cocoa/Cocoa.h>
 #import "ConfigurationItemModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
+NS_HEADER_AUDIT_BEGIN(nullability, sendability)
 
 @class ConfigurationView;
+
+NS_SWIFT_UI_ACTOR
+NS_REFINED_FOR_SWIFT
 @protocol ConfigurationViewDelegate <NSObject>
 @required
 - (BOOL)configurationView:(ConfigurationView *)configurationView didTriggerActionWithItemModel:(ConfigurationItemModel *)itemModel newValue:(id<NSCopying>)newValue;
@@ -20,10 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ConfigurationView : NSView
 @property (assign, nonatomic) BOOL showBlendedBackground;
-@property (copy, nonatomic, readonly) NSDiffableDataSourceSnapshot<NSNull *, ConfigurationItemModel *> *snapshot;
-@property (assign, nonatomic) id<ConfigurationViewDelegate> delegate;
+@property (copy, nonatomic, readonly) NSDiffableDataSourceSnapshot<NSNull *, ConfigurationItemModel *> *snapshot NS_REFINED_FOR_SWIFT;
+@property (assign, nonatomic) id<ConfigurationViewDelegate> delegate NS_REFINED_FOR_SWIFT NS_SWIFT_UNAVAILABLE("Use ConfigurationView.delegate");
 - (void)reconfigureItemModelsWithIdentifiers:(NSArray<NSString *> *)identifiers;
-- (void)applySnapshot:(NSDiffableDataSourceSnapshot<NSNull *, ConfigurationItemModel *> *)snapshot animatingDifferences:(BOOL)animatingDifferences;
+- (void)applySnapshot:(NSDiffableDataSourceSnapshot<NSNull *, ConfigurationItemModel *> *)snapshot animatingDifferences:(BOOL)animatingDifferences NS_REFINED_FOR_SWIFT;
 @end
 
-NS_ASSUME_NONNULL_END
+NS_HEADER_AUDIT_END(nullability, sendability)

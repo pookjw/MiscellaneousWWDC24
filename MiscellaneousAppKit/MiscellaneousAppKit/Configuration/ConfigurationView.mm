@@ -17,6 +17,7 @@
 #import "ConfigurationColorWellItem.h"
 #import "ConfigurationLabelItem.h"
 #include <ranges>
+#import "ConfigurationButtonDescription+Private.h"
 
 @interface ConfigurationView () <ConfigurationSwitchItemDelegate, ConfigurationSliderItemDelegate, ConfigurationStepperItemDelegate, ConfigurationButtonItemDelegate, ConfigurationPopUpButtonItemDelegate, ConfigurationColorWellItemDelegate, NSSearchFieldDelegate>
 @property (class, nonatomic, readonly, getter=_switchItemIdentifier) NSUserInterfaceItemIdentifier switchItemIdentifier;
@@ -293,7 +294,6 @@
                 {
                     NSMenuItem *noneItem = [NSMenuItem new];
                     noneItem.title = @"(None)";
-                    noneItem.enabled = NO;
                     noneItem.state = (description.selectedTitles.count > 0) ? NSControlStateValueOff : NSControlStateValueOn;
                     [menu addItem:noneItem];
                     [noneItem release];
@@ -311,6 +311,21 @@
                 
                 popUpButton.menu = menu;
                 [menu release];
+                
+                if (NSString *selectedDisplayTitle = description.selectedDisplayTitle) {
+                    assert([description.selectedTitles containsObject:selectedDisplayTitle]);
+                    [popUpButton selectItemWithTitle:selectedDisplayTitle];
+                }
+                
+                for (NSString *title in description.selectedTitles) {
+                    NSMenuItem *item = [popUpButton itemWithTitle:title];
+                    item.state = NSControlStateValueOn;
+                }
+                
+                NSMenuItem *noneItem = [popUpButton itemWithTitle:@"(None)"];
+                noneItem.enabled = NO;
+                noneItem.target = nil;
+                noneItem.action = nil;
                 
                 //
                 
@@ -636,7 +651,7 @@
                         
                         // resolvedView가 Layout Block을 retain하면 Retain Cycle이 일어나기에 이렇게 해줘야함
                         popover.contentViewController = nil;
-                        description.didCloseHandler(resolvedView, @{});
+                        description.didCloseHandler(resolvedView, @{NSPopoverCloseReasonKey: notification.userInfo[NSPopoverCloseReasonKey]});
                         
                         // Popover -> Observer -> Resolved View -> Layout Block -> Popover으로 인해 Retain Cycle이 일어나므로, 'Observer -> Resolved View'를 제거한다.
                         id<NSObject> observer = objc_getAssociatedObject(popover, key);

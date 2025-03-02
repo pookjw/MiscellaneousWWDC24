@@ -9,6 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_REFINED_FOR_SWIFT
 @interface ConfigurationStepperDescription : NSObject <NSCopying>
 @property (assign, nonatomic, readonly) double stepperValue;
 @property (assign, nonatomic, readonly) double minimumValue;

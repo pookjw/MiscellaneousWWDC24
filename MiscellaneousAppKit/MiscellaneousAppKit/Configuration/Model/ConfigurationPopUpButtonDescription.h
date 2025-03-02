@@ -9,6 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_REFINED_FOR_SWIFT
 @interface ConfigurationPopUpButtonDescription : NSObject <NSCopying>
 @property (copy, nonatomic, readonly) NSArray<NSString *> *titles;
 @property (copy, nonatomic, readonly) NSArray<NSString *> *selectedTitles;
