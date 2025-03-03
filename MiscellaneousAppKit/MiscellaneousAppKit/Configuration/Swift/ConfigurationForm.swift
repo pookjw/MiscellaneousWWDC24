@@ -135,6 +135,8 @@ extension ConfigurationForm {
     public struct EmptyItem: Item {
         public var _itemModel: ConfigurationItemModel? { nil }
         public var _didTriggerAction: (Any?) -> Void { { _ in } }
+        
+        public init() {}
     }
     
     public struct _ConditionalItem<TrueItem: Item, FalseItem: Item>: Item {

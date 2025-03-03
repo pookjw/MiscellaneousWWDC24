@@ -107,6 +107,8 @@ struct SwiftUIConfigurationDemoView: View {
                     }
                 )
             
+            ConfigurationForm.EmptyItem()
+            
             ConfigurationForm
                 .LabelItem(identifier: "Label", title: "Label")
         }
