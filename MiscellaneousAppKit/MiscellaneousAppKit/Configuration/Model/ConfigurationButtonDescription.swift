@@ -51,3 +51,85 @@ extension ConfigurationButtonDescription: _ObjectiveCBridgeable {
         ConfigurationButtonDescription(impl: source!)
     }
 }
+
+extension ConfigurationForm {
+    public struct ButtonItem: Item {
+        public let _itemModel: ConfigurationItemModel?
+        public let _didTriggerAction: (Any?) -> Void
+        
+        public init(
+            identifier: String,
+            title: String,
+            buttonTitle: String,
+            action: @escaping () -> Void
+        ) {
+            self.init(
+                itemModel: ConfigurationItemModel
+                    .buttonItem(
+                        identifier: identifier,
+                        label: title,
+                        valueResolver: { itemModel in
+                            ConfigurationButtonDescription(title: buttonTitle)
+                        }
+                    ),
+                didTriggerAction: { _ in
+                    action()
+                }
+            )
+        }
+        
+        public init(
+            identifier: String,
+            title: String,
+            buttonTitle: String,
+            secondaryMenu menu: NSMenu,
+            action: @escaping () -> Void
+        ) {
+            self.init(
+                itemModel: ConfigurationItemModel
+                    .buttonItem(
+                        identifier: identifier,
+                        label: title,
+                        valueResolver: { itemModel in
+                            ConfigurationButtonDescription(
+                                title: title,
+                                showsMenuAsPrimaryAction: false,
+                                menu: menu
+                            )
+                        }
+                    ),
+                didTriggerAction: { _ in
+                    action()
+                }
+            )
+        }
+        
+        public init(
+            identifier: String,
+            title: String,
+            buttonTitle: String,
+            primrayMenu menu: NSMenu
+        ) {
+            self.init(
+                itemModel: ConfigurationItemModel
+                    .buttonItem(
+                        identifier: identifier,
+                        label: title,
+                        valueResolver: { itemModel in
+                            ConfigurationButtonDescription(
+                                title: title,
+                                showsMenuAsPrimaryAction: true,
+                                menu: menu
+                            )
+                        }
+                    ),
+                didTriggerAction: { _ in }
+            )
+        }
+        
+        private init(itemModel: ConfigurationItemModel, didTriggerAction: @escaping (Any?) -> Void) {
+            _itemModel = itemModel
+            _didTriggerAction = didTriggerAction
+        }
+    }
+}

@@ -85,9 +85,7 @@ final class SwiftConfigurationDemoViewController: NSViewController {
                 label: "Pop Up Button"
             ) { itemModel in
                 ConfigurationPopUpButtonDescription(
-                    titles: ["1", "2", "3"],
-                    selectedTitles: [],
-                    selectedDisplayTitle: nil
+                    titles: [.selected("1"), .primarySelected("2"), .unselected("3")]
                 )
             }
     }

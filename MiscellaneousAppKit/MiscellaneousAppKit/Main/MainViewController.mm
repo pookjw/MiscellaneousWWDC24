@@ -43,6 +43,7 @@
 
 + (NSArray<Class> *)_classes {
     return @[
+        [SwiftUIConfigurationDemoViewController class],
         [SwiftConfigurationDemoViewController class],
         [PasteboardDemoViewController class],
         [TextViewDemoViewController class],
@@ -69,7 +70,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    self.preferredContentSize = NSMakeSize(400., 400.);
-    [self _presentWindowForClass:[SwiftConfigurationDemoViewController class]];
+    [self _presentWindowForClass:[SwiftUIConfigurationDemoViewController class]];
 }
 
 - (NSScrollView *)_scrollView {

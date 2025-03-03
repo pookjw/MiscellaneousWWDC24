@@ -14,6 +14,9 @@
 }
 
 - (instancetype)initWithTitles:(NSArray<NSString *> *)titles selectedTitles:(NSArray<NSString *> *)selectedTitles selectedDisplayTitle:(NSString *)selectedDisplayTitle {
+    assert(![ConfigurationPopUpButtonDescription _hasDuplicatedString:titles]);
+    assert(![ConfigurationPopUpButtonDescription _hasDuplicatedString:selectedTitles]);
+    
     if (selectedTitles.count > 0) {
         if (selectedDisplayTitle == nil) {
             abort();
@@ -48,6 +51,21 @@
 
 - (id)copyWithZone:(struct _NSZone *)zone {
     return [self retain];
+}
+
++ (BOOL)_hasDuplicatedString:(NSArray<NSString *> *)strings {
+    NSMutableArray<NSString *> *testArray = [[NSMutableArray alloc] initWithCapacity:strings.count];
+    BOOL result = NO;
+    for (NSString *string in strings) {
+        if ([testArray containsObject:string]) {
+            result = YES;
+            break;
+        }
+        
+        [testArray addObject:string];
+    }
+    [testArray release];
+    return result;
 }
 
 @end

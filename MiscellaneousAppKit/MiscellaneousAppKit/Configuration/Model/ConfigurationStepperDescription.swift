@@ -55,3 +55,10 @@ extension ConfigurationStepperDescription: _ObjectiveCBridgeable {
         ConfigurationStepperDescription(impl: source!)
     }
 }
+
+extension ConfigurationForm {
+//    public struct StepperItem: Item {
+//        public let _itemModel: ConfigurationItemModel
+//        public let _didTriggerAction: (Any?) -> Void
+//    }
+}

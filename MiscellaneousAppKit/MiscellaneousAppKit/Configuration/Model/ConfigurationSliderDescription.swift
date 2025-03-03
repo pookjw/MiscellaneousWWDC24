@@ -43,3 +43,60 @@ extension ConfigurationSliderDescription: _ObjectiveCBridgeable {
         ConfigurationSliderDescription(impl: source!)
     }
 }
+
+extension ConfigurationForm {
+    public struct SliderItem: Item {
+        public let _itemModel: ConfigurationItemModel?
+        public let _didTriggerAction: (Any?) -> Void
+        
+        public init(
+            identifier: String,
+            title: String,
+            value: Double,
+            minValue: Double,
+            maxValue: Double,
+            onEditingChanged: @escaping (Double) -> Void
+        ) {
+            self.init(
+                itemModel: ConfigurationItemModel
+                    .sliderItem(
+                        identifier: identifier,
+                        label: title,
+                        valueResolver: { itemModel in
+                            ConfigurationSliderDescription(value: value, minValue: minValue, maxValue: maxValue)
+                        }
+                    )
+            ) { newValue in
+                onEditingChanged(newValue as! Double)
+            }
+        }
+        
+        public init(
+            identifier: String,
+            title: String,
+            value: Double,
+            minValue: Double,
+            maxValue: Double,
+            continuous: Bool,
+            onEditingChanged: @escaping (Double) -> Void
+        ) {
+            self.init(
+                itemModel: ConfigurationItemModel
+                    .sliderItem(
+                        identifier: identifier,
+                        label: title,
+                        valueResolver: { itemModel in
+                            ConfigurationSliderDescription(value: value, minValue: minValue, maxValue: maxValue, continuous: continuous)
+                        }
+                    )
+            ) { newValue in
+                onEditingChanged(newValue as! Double)
+            }
+        }
+        
+        private init(itemModel: ConfigurationItemModel, didTriggerAction: @escaping (Any?) -> Void) {
+            _itemModel = itemModel
+            _didTriggerAction = didTriggerAction
+        }
+    }
+}
