@@ -20,6 +20,7 @@
 #import "ConfigurationButtonDescription+Private.h"
 
 @interface ConfigurationView () <ConfigurationSwitchItemDelegate, ConfigurationSliderItemDelegate, ConfigurationStepperItemDelegate, ConfigurationButtonItemDelegate, ConfigurationPopUpButtonItemDelegate, ConfigurationColorWellItemDelegate, NSSearchFieldDelegate>
+@property (class, nonatomic, readonly, getter=_attachedWindowItemIdentifierKey) void *attachedWindowItemIdentifierKey;
 @property (class, nonatomic, readonly, getter=_switchItemIdentifier) NSUserInterfaceItemIdentifier switchItemIdentifier;
 @property (class, nonatomic, readonly, getter=_sliderItemIdentifier) NSUserInterfaceItemIdentifier sliderItemIdentifier;
 @property (class, nonatomic, readonly, getter=_stepperItemIdentifier) NSUserInterfaceItemIdentifier stepperItemIdentifier;
@@ -47,6 +48,11 @@
 @synthesize reloadButton = _reloadButton;
 @synthesize searchField = _searchField;
 @synthesize stackView = _stackView;
+
++ (void *)_attachedWindowItemIdentifierKey {
+    static void *attachedWindowItemIdentifierKey = &attachedWindowItemIdentifierKey;
+    return attachedWindowItemIdentifierKey;
+}
 
 + (NSUserInterfaceItemIdentifier)_switchItemIdentifier {
     return NSStringFromClass([ConfigurationSwitchItem class]);
@@ -156,6 +162,59 @@
     
     [dataSource applySnapshot:snapshot animatingDifferences:NO];
     [snapshot release];
+}
+
+- (void)reloadViewPresentations {
+    NSWindow *window = self.window;
+    if (window == nil) return;
+    
+    NSArray<__kindof NSWindow *> *windows = window.childWindows;
+    if (__kindof NSWindow *attachedSheet = window.attachedSheet) {
+        windows = [windows arrayByAddingObject:attachedSheet];
+    }
+    
+    for (__kindof NSWindow *window in windows) {
+        NSString *identifier = objc_getAssociatedObject(window, ConfigurationView._attachedWindowItemIdentifierKey);
+        if (identifier == nil) continue;
+        
+        NSDiffableDataSourceSnapshot<NSNull *, ConfigurationItemModel *> *snapshot = self.originalSnapshot;
+        
+        ConfigurationItemModel * _Nullable itemModel = nil;
+        for (ConfigurationItemModel *_itemModel in snapshot.itemIdentifiers) {
+            if ([_itemModel.identifier isEqualToString:identifier]) {
+                itemModel = _itemModel;
+                break;
+            }
+        }
+        assert(itemModel != nil);
+        
+        auto description = static_cast<ConfigurationViewPresentationDescription *>(itemModel.valueResolver(itemModel));
+        assert([description isKindOfClass:[ConfigurationViewPresentationDescription class]]);
+        
+        switch (description.style) {
+            case ConfigurationViewPresentationStyleAlert: {
+                assert([window isKindOfClass:objc_lookUpClass("_NSAlertPanel")]);
+                NSAlert *alert = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(window, sel_registerName("alert"));
+                [alert.accessoryView removeFromSuperview];
+                alert.accessoryView = description.viewBuilder(^{
+                    [alert layout];
+                });
+                [alert layout];
+                break;
+            }
+            case ConfigurationViewPresentationStylePopover: {
+                assert([window isKindOfClass:objc_lookUpClass("_NSPopoverWindow")]);
+                NSPopover *_popover = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(window, sel_registerName("_popover"));
+                _popover.contentViewController.view = description.viewBuilder(^{
+                    NSView *view = _popover.contentViewController.view;
+                    _popover.contentSize = view.frame.size;
+                });
+                break;
+            }
+            default:
+                abort();
+        }
+    }
 }
 
 - (void)_commonInit_ConfigurationView {
@@ -616,6 +675,10 @@
                     });
                     alert.accessoryView = resolvedView;
                     
+                    __kindof NSWindow *_panel = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(alert, sel_registerName("_panel"));
+                    assert(_panel != nil);
+                    objc_setAssociatedObject(_panel, ConfigurationView._attachedWindowItemIdentifierKey, itemModel.identifier, OBJC_ASSOCIATION_COPY_NONATOMIC);
+                    
                     [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
                         // resolvedView가 Layout Block을 retain하면 Retain Cycle이 일어나기에 이렇게 해줘야함
                         alert.accessoryView = nil;
@@ -641,7 +704,7 @@
                     
                     popover.behavior = NSPopoverBehaviorSemitransient;
                     
-                    static void *key = &key;
+                    static void *observerKey = &observerKey;
                     
                     id<NSObject> observer = [NSNotificationCenter.defaultCenter addObserverForName:NSPopoverDidCloseNotification
                                                                                             object:popover
@@ -654,12 +717,16 @@
                         description.didCloseHandler(resolvedView, @{NSPopoverCloseReasonKey: notification.userInfo[NSPopoverCloseReasonKey]});
                         
                         // Popover -> Observer -> Resolved View -> Layout Block -> Popover으로 인해 Retain Cycle이 일어나므로, 'Observer -> Resolved View'를 제거한다.
-                        id<NSObject> observer = objc_getAssociatedObject(popover, key);
+                        id<NSObject> observer = objc_getAssociatedObject(popover, observerKey);
                         [NSNotificationCenter.defaultCenter removeObserver:observer];
-                        objc_setAssociatedObject(popover, key, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                        objc_setAssociatedObject(popover, observerKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                     }];
                     
-                    objc_setAssociatedObject(popover, key, observer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                    objc_setAssociatedObject(popover, observerKey, observer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                    
+                    __kindof NSWindow *_popoverWindow = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(popover, sel_registerName("_makePopoverWindowIfNeeded"));
+                    assert(_popoverWindow != nil);
+                    objc_setAssociatedObject(_popoverWindow, ConfigurationView._attachedWindowItemIdentifierKey, itemModel.identifier, OBJC_ASSOCIATION_COPY_NONATOMIC);
                     
                     [popover showRelativeToRect:NSZeroRect
                                          ofView:sender

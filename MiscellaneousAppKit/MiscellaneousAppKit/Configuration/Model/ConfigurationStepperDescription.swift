@@ -57,8 +57,47 @@ extension ConfigurationStepperDescription: _ObjectiveCBridgeable {
 }
 
 extension ConfigurationForm {
-//    public struct StepperItem: Item {
-//        public let _itemModel: ConfigurationItemModel
-//        public let _didTriggerAction: (Any?) -> Void
-//    }
+    public struct StepperItem: Item {
+        public let _itemModel: ConfigurationItemModel?
+        public let _didTriggerAction: (Any?) -> Void
+        
+        public init(
+            identifier: String,
+            title: String,
+            value: Double,
+            minValue: Double,
+            maxValue: Double,
+            stepValue: Double,
+            continuous: Bool,
+            autorepeat: Bool,
+            valueWraps: Bool,
+            onEditingChanged: @escaping (Double) -> Void
+        ) {
+            self.init(
+                itemModel: ConfigurationItemModel
+                    .stepperItem(
+                        identifier: identifier,
+                        label: title,
+                        valueResolver: { _ in
+                            ConfigurationStepperDescription(
+                                value: value,
+                                minValue: minValue,
+                                maxValue: maxValue,
+                                stepValue: stepValue,
+                                continuous: continuous,
+                                autorepeat: autorepeat,
+                                valueWraps: valueWraps
+                            )
+                        }
+                    )
+            ) { newValue in
+                onEditingChanged(newValue as! Double)
+            }
+        }
+        
+        private init(itemModel: ConfigurationItemModel, didTriggerAction: @escaping (Any?) -> Void) {
+            _itemModel = itemModel
+            _didTriggerAction = didTriggerAction
+        }
+    }
 }

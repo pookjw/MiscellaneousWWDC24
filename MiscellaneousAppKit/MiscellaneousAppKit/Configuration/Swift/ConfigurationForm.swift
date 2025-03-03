@@ -36,6 +36,7 @@ public struct ConfigurationForm: NSViewRepresentable {
     public func updateNSView(_ nsView: ConfigurationView, context: Context) {
         context.coordinator.items = items
         nsView.apply(makeSnapshot(), animatingDifferences: true)
+        nsView.reloadPresentations()
     }
     
     public func makeCoordinator() -> Coordinator {
@@ -63,7 +64,7 @@ public struct ConfigurationForm: NSViewRepresentable {
         }
         
         public var shouldShowReloadButton: Bool {
-            true
+            false
         }
         
         public func didTriggerReloadButton(_ configurationView: ConfigurationView) {
@@ -188,6 +189,49 @@ extension Swift.Optional : ConfigurationForm.Item where Wrapped : ConfigurationF
             return { _ in }
         case .some(let wrapped):
             return wrapped._didTriggerAction
+        }
+    }
+}
+
+extension ConfigurationForm {
+    public struct LabelItem: Item {
+        public let _itemModel: ConfigurationItemModel?
+        public let _didTriggerAction: (Any?) -> Void
+        
+        public init(
+            identifier: String,
+            title: String
+        ) {
+            self.init(
+                itemModel: ConfigurationItemModel.labelItem(identifier: identifier, label: title),
+                didTriggerAction: { _ in }
+            )
+        }
+        
+        private init(itemModel: ConfigurationItemModel, didTriggerAction: @escaping (Any?) -> Void) {
+            _itemModel = itemModel
+            _didTriggerAction = didTriggerAction
+        }
+    }
+}
+
+extension ConfigurationForm {
+    public struct ColorWellItem: Item {
+        public let _itemModel: ConfigurationItemModel?
+        public let _didTriggerAction: (Any?) -> Void
+        
+        public init(
+            identifier: String,
+            title: String,
+            color: Binding<NSColor>
+        ) {
+            // Slider, Stepper도 Binding으로 변경
+            fatalError()
+        }
+        
+        private init(itemModel: ConfigurationItemModel, didTriggerAction: @escaping (Any?) -> Void) {
+            _itemModel = itemModel
+            _didTriggerAction = didTriggerAction
         }
     }
 }

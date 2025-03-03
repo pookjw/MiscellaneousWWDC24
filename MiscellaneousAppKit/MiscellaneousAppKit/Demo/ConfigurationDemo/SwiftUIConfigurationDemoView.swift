@@ -14,6 +14,8 @@ final class SwiftUIConfigurationDemoViewController: NSViewController {
 }
 
 struct SwiftUIConfigurationDemoView: View {
+    @State private var flag = false
+    
     var body: some View {
         ConfigurationForm {
             ConfigurationForm
@@ -25,7 +27,6 @@ struct SwiftUIConfigurationDemoView: View {
                     print("Button")
                 }
             
-            if Bool.random() {
                 ConfigurationForm
                     .PopUpButtonItem(
                         identifier: "Pop Up Button",
@@ -40,7 +41,6 @@ struct SwiftUIConfigurationDemoView: View {
                     ) { string in
                         print(string)
                     }
-            }
             
             ConfigurationForm
                 .SliderItem(
@@ -53,6 +53,62 @@ struct SwiftUIConfigurationDemoView: View {
                 ) { newValue in
                     print(newValue)
                 }
+            
+            ConfigurationForm
+                .StepperItem(
+                    identifier: "Stepper",
+                    title: "Stepper",
+                    value: 0.5,
+                    minValue: .zero,
+                    maxValue: 1.0,
+                    stepValue: 0.3,
+                    continuous: true,
+                    autorepeat: true,
+                    valueWraps: true
+                ) { newValue in
+                    print(newValue)
+                }
+            
+            ConfigurationForm
+                .ViewPresentationItem
+                .alertStyle(
+                    identifier: "Alert",
+                    title: "Alert",
+                    viewBuilder: {
+                        Text(flag ? "Hello" : "Hello\nHello\nHello")
+                            .foregroundStyle(Color.black)
+                            .padding()
+                            .background(Color.white)
+                            .onTapGesture {
+                                flag.toggle()
+                            }
+                    },
+                    didCloseHandler: { response in
+                        print(response)
+                    }
+                )
+            
+            ConfigurationForm
+                .ViewPresentationItem
+                .popoverStyle(
+                    identifier: "Popover",
+                    title: "Popover",
+                    viewBuilder: {
+                        Text(flag ? "Hello" : "Hello\nHello\nHello")
+                            .foregroundStyle(Color.black)
+                            .padding()
+                            .background(Color.white)
+                            .onTapGesture {
+                                flag.toggle()
+                            }
+                    },
+                    didCloseHandler: { reason in
+                        print(reason)
+                    }
+                )
+            
+            ConfigurationForm
+                .LabelItem(identifier: "Label", title: "Label")
         }
     }
 }

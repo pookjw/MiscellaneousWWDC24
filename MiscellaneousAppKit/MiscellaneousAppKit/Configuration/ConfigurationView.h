@@ -27,6 +27,7 @@ NS_REFINED_FOR_SWIFT
 @property (assign, nonatomic) id<ConfigurationViewDelegate> delegate NS_REFINED_FOR_SWIFT NS_SWIFT_UNAVAILABLE("Use ConfigurationView.delegate");
 - (void)reconfigureItemModelsWithIdentifiers:(NSArray<NSString *> *)identifiers;
 - (void)applySnapshot:(NSDiffableDataSourceSnapshot<NSNull *, ConfigurationItemModel *> *)snapshot animatingDifferences:(BOOL)animatingDifferences NS_REFINED_FOR_SWIFT;
+- (void)reloadViewPresentations;
 @end
 
 NS_HEADER_AUDIT_END(nullability, sendability)

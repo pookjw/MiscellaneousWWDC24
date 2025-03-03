@@ -1,6 +1,12 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Hello" : {
+
+    },
+    "Hello\nHello\nHello" : {
+
+    },
     "Key" : {
       "extractionState" : "manual",
       "localizations" : {
