@@ -25,7 +25,7 @@ NS_REFINED_FOR_SWIFT
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithStyle:(ConfigurationViewPresentationStyle)style viewBuilder:(__kindof NSView * (^)(void (^layout)(void), __kindof NSView * _Nullable reloadingView))viewBuilder didCloseHandler:(void (^)(__kindof NSView *resolvedView, NSDictionary<NSString *, id> *info))didCloseHandler;
-+ (ConfigurationViewPresentationDescription *)descriptorWithStyle:(ConfigurationViewPresentationStyle)style viewBuilder:(__kindof NSView * (^)(void (^layout)(void), __kindof NSView * _Nullable reloadingView))viewBuilder didCloseHandler:(void (^)(__kindof NSView *resolvedView, NSDictionary<NSString *, id> *info))didCloseHandler;
++ (ConfigurationViewPresentationDescription *)descriptorWithStyle:(ConfigurationViewPresentationStyle)style viewBuilder:(__kindof NSView * (^)(void (^layout)(void), __kindof NSView * _Nullable reloadingView))viewBuilder didCloseHandler:(void (^ _Nullable)(__kindof NSView *resolvedView, NSDictionary<NSString *, id> *info))didCloseHandler;
 @end
 
 NS_HEADER_AUDIT_END(nullability, sendability)

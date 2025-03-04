@@ -797,7 +797,9 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
                         alert.accessoryView = nil;
                         [resolvedView removeFromSuperview];
                         
-                        description.didCloseHandler(resolvedView, @{ConfigurationViewPresentationModalResponseKey: @(returnCode)});
+                        if (auto didCloseHandler = description.didCloseHandler) {
+                            didCloseHandler(resolvedView, @{ConfigurationViewPresentationModalResponseKey: @(returnCode)});
+                        }
                     }];
                     [alert release];
                     break;
@@ -827,7 +829,10 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
                         
                         // resolvedView가 Layout Block을 retain하면 Retain Cycle이 일어나기에 이렇게 해줘야함
                         popover.contentViewController = nil;
-                        description.didCloseHandler(resolvedView, @{NSPopoverCloseReasonKey: notification.userInfo[NSPopoverCloseReasonKey]});
+                        
+                        if (auto didCloseHandler = description.didCloseHandler) {
+                            didCloseHandler(resolvedView, @{NSPopoverCloseReasonKey: notification.userInfo[NSPopoverCloseReasonKey]});
+                        }
                         
                         // Popover -> Observer -> Resolved View -> Layout Block -> Popover으로 인해 Retain Cycle이 일어나므로, 'Observer -> Resolved View'를 제거한다.
                         id<NSObject> observer = objc_getAssociatedObject(popover, observerKey);

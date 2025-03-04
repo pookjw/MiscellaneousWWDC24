@@ -10,11 +10,27 @@
 @implementation ConfigurationItemModel
 
 + (ConfigurationItemModel *)itemModelWithType:(ConfigurationItemModelType)type identifier:(NSString *)identifier userInfo:(NSDictionary * _Nullable)userInfo label:(NSString *)label valueResolver:(id<NSCopying>  _Nonnull (^)(ConfigurationItemModel * _Nonnull))valueResolver {
-    return [[[ConfigurationItemModel alloc] initWithType:type identifier:identifier userInfo:userInfo label:label valueResolver:valueResolver] autorelease];
+    return [[[ConfigurationItemModel alloc] initWithType:type
+                                              identifier:identifier
+                                                userInfo:userInfo
+                                           labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return label;
+    }
+                                           valueResolver:valueResolver] autorelease];
 }
 
 + (ConfigurationItemModel *)itemModelWithType:(ConfigurationItemModelType)type identifier:(NSString *)identifier userInfo:(NSDictionary * _Nullable)userInfo labelResolver:(NSString * _Nonnull (^)(ConfigurationItemModel * _Nonnull, id<NSCopying> _Nonnull))labelResolver valueResolver:(id<NSCopying>  _Nonnull (^)(ConfigurationItemModel * _Nonnull))valueResolver {
     return [[[ConfigurationItemModel alloc] initWithType:type identifier:identifier userInfo:userInfo labelResolver:labelResolver valueResolver:valueResolver] autorelease];
+}
+
++ (ConfigurationItemModel *)itemModelWithType:(ConfigurationItemModelType)type identifier:(NSString *)identifier label:(NSString *)label valueResolver:(id<NSCopying>  _Nonnull (^)(ConfigurationItemModel * _Nonnull))valueResolver {
+    return [[[ConfigurationItemModel alloc] initWithType:type
+                                              identifier:identifier
+                                                userInfo:nil
+                                           labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying>  _Nonnull value) {
+        return label;
+    }
+                                           valueResolver:valueResolver] autorelease];
 }
 
 - (instancetype)initWithType:(ConfigurationItemModelType)type identifier:(NSString *)identifier userInfo:(NSDictionary * _Nullable)userInfo labelResolver:(NSString * _Nonnull (^)(ConfigurationItemModel * _Nonnull, id<NSCopying> _Nonnull))labelResolver valueResolver:(id<NSCopying> _Nonnull (^)(ConfigurationItemModel * _Nonnull))valueResolver {
@@ -27,16 +43,6 @@
     }
     
     return self;
-}
-
-- (instancetype)initWithType:(ConfigurationItemModelType)type identifier:(NSString *)identifier userInfo:(NSDictionary * _Nullable)userInfo label:(NSString *)label valueResolver:(id<NSCopying> _Nonnull (^)(ConfigurationItemModel * _Nonnull))valueResolver {
-    return [self initWithType:type
-                   identifier:identifier
-                     userInfo:userInfo
-                labelResolver:^NSString * _Nonnull(ConfigurationItemModel * _Nonnull itemModel, id<NSCopying> _Nonnull value) {
-        return label;
-    }
-                valueResolver:valueResolver];
 }
 
 - (void)dealloc {

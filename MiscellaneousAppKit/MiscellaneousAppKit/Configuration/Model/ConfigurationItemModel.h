@@ -38,9 +38,9 @@ NS_REFINED_FOR_SWIFT
 
 + (ConfigurationItemModel *)itemModelWithType:(ConfigurationItemModelType)type identifier:(NSString *)identifier userInfo:(NSDictionary * _Nullable)userInfo labelResolver:(NSString * (^)(ConfigurationItemModel * itemModel, ValueType<NSCopying> value))labelResolver valueResolver:(ValueType<NSCopying> (^)(ConfigurationItemModel * itemModel))valueResolver;
 + (ConfigurationItemModel *)itemModelWithType:(ConfigurationItemModelType)type identifier:(NSString *)identifier userInfo:(NSDictionary * _Nullable)userInfo label:(NSString *)label valueResolver:(ValueType<NSCopying> (^)(ConfigurationItemModel * itemModel))valueResolver;
++ (ConfigurationItemModel *)itemModelWithType:(ConfigurationItemModelType)type identifier:(NSString *)identifier label:(NSString *)label valueResolver:(ValueType<NSCopying> (^)(ConfigurationItemModel * itemModel))valueResolver;
 
 - (instancetype)initWithType:(ConfigurationItemModelType)type identifier:(NSString *)identifier userInfo:(NSDictionary * _Nullable)userInfo labelResolver:(NSString * (^)(ConfigurationItemModel * itemModel, ValueType<NSCopying> value))labelResolver valueResolver:(ValueType<NSCopying> (^)(ConfigurationItemModel * itemModel))valueResolver;
-- (instancetype)initWithType:(ConfigurationItemModelType)type identifier:(NSString *)identifier userInfo:(NSDictionary * _Nullable)userInfo label:(NSString *)label valueResolver:(ValueType<NSCopying> (^)(ConfigurationItemModel * itemModel))valueResolver;
 @end
 
 NS_ASSUME_NONNULL_END
