@@ -11,7 +11,7 @@ NSString * const ConfigurationViewPresentationModalResponseKey = @"modalResponse
 
 @implementation ConfigurationViewPresentationDescription
 
-- (instancetype)initWithStyle:(ConfigurationViewPresentationStyle)style viewBuilder:(__kindof NSView * _Nonnull (^)(void (^layout)(void)))viewBuilder didCloseHandler:(void (^)(__kindof NSView *resolvedView, NSDictionary<NSString *, id> *info))didCloseHandler {
+- (instancetype)initWithStyle:(ConfigurationViewPresentationStyle)style viewBuilder:(__kindof NSView * _Nonnull (^)(void (^layout)(void), __kindof NSView * _Nullable reloadingView))viewBuilder didCloseHandler:(void (^)(__kindof NSView *resolvedView, NSDictionary<NSString *, id> *info))didCloseHandler {
     if (self = [super init]) {
         _style = style;
         _viewBuilder = [viewBuilder copy];
@@ -29,7 +29,7 @@ NSString * const ConfigurationViewPresentationModalResponseKey = @"modalResponse
     return [self retain];
 }
 
-+ (ConfigurationViewPresentationDescription *)descriptorWithStyle:(ConfigurationViewPresentationStyle)style viewBuilder:(__kindof NSView * _Nonnull (^)(void (^layout)(void)))viewBuilder didCloseHandler:(void (^)(__kindof NSView *resolvedView, NSDictionary<NSString *, id> *info))didCloseHandler {
++ (ConfigurationViewPresentationDescription *)descriptorWithStyle:(ConfigurationViewPresentationStyle)style viewBuilder:(__kindof NSView * _Nonnull (^)(void (^layout)(void), __kindof NSView * _Nullable reloadingView))viewBuilder didCloseHandler:(void (^)(__kindof NSView *resolvedView, NSDictionary<NSString *, id> *info))didCloseHandler {
     return [[[ConfigurationViewPresentationDescription alloc] initWithStyle:style viewBuilder:viewBuilder didCloseHandler:didCloseHandler] autorelease];
 }
 

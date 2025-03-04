@@ -195,20 +195,37 @@
             case ConfigurationViewPresentationStyleAlert: {
                 assert([window isKindOfClass:objc_lookUpClass("_NSAlertPanel")]);
                 NSAlert *alert = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(window, sel_registerName("alert"));
-                [alert.accessoryView removeFromSuperview];
-                alert.accessoryView = description.viewBuilder(^{
+                
+                NSView *oldView = alert.accessoryView;
+                assert(oldView != nil);
+                
+                NSView *newView = description.viewBuilder(^{
                     [alert layout];
-                });
+                }, oldView);
+                
+                if (![oldView isEqual:newView]) {
+                    [oldView removeFromSuperview];
+                    alert.accessoryView = newView;
+                }
+                
                 [alert layout];
                 break;
             }
             case ConfigurationViewPresentationStylePopover: {
                 assert([window isKindOfClass:objc_lookUpClass("_NSPopoverWindow")]);
                 NSPopover *_popover = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(window, sel_registerName("_popover"));
-                _popover.contentViewController.view = description.viewBuilder(^{
+                
+                NSView *oldView = _popover.contentViewController.view;
+                
+                NSView *newView = description.viewBuilder(^{
                     NSView *view = _popover.contentViewController.view;
                     _popover.contentSize = view.frame.size;
-                });
+                }, oldView);
+                
+                if (![oldView isEqual:newView]) {
+                    _popover.contentViewController.view = newView;
+                }
+                
                 break;
             }
             default:
@@ -672,7 +689,7 @@
                     
                     __kindof NSView *resolvedView = description.viewBuilder(^{
                         [alert layout];
-                    });
+                    }, nil);
                     alert.accessoryView = resolvedView;
                     
                     __kindof NSWindow *_panel = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(alert, sel_registerName("_panel"));
@@ -695,7 +712,7 @@
                     __kindof NSView *resolvedView = description.viewBuilder(^{
                         NSView *view = popover.contentViewController.view;
                         popover.contentSize = view.frame.size;
-                    });
+                    }, nil);
                     
                     NSViewController *viewController = [NSViewController new];
                     viewController.view = resolvedView;

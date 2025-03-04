@@ -16,16 +16,16 @@ public struct ConfigurationViewPresentationDescription {
     }
     
     public static func popoverStyle(
-        viewBuilder: @escaping (@MainActor (_ layout: @MainActor @escaping () -> Void) -> NSView),
+        viewBuilder: @escaping (@MainActor (_ layout: @MainActor @escaping () -> Void, _ reloadingView: NSView?) -> NSView),
         didCloseHandler: @escaping (@MainActor (_ resolvedView: NSView, _ reason: NSPopover.CloseReason) -> Void)
     ) -> ConfigurationViewPresentationDescription {
         let impl = __ConfigurationViewPresentationDescription(
             style: .popover,
-            viewBuilder: { layout in
+            viewBuilder: { layout, reloadingView in
                 let casted = unsafeBitCast(layout, to: (@Sendable () -> Void).self)
                 
                 return MainActor.assumeIsolated {
-                    viewBuilder(casted)
+                    viewBuilder(casted, reloadingView)
                 }
             },
             didCloseHandler: { resolvedView, info in
@@ -42,16 +42,16 @@ public struct ConfigurationViewPresentationDescription {
     }
     
     public static func alertStyle(
-        viewBuilder: @escaping (@MainActor (_ layout: @MainActor @escaping () -> Void) -> NSView),
+        viewBuilder: @escaping (@MainActor (_ layout: @MainActor @escaping () -> Void, _ reloadingView: NSView?) -> NSView),
         didCloseHandler: @escaping (@MainActor (_ resolvedView: NSView, _ response: NSApplication.ModalResponse) -> Void)
     ) -> ConfigurationViewPresentationDescription {
         let impl = __ConfigurationViewPresentationDescription(
             style: .alert,
-            viewBuilder: { layout in
+            viewBuilder: { layout, reloadingView in
                 let casted = unsafeBitCast(layout, to: (@Sendable () -> Void).self)
                 
                 return MainActor.assumeIsolated { 
-                    viewBuilder(casted)
+                    viewBuilder(casted, reloadingView)
                 }
             },
             didCloseHandler: { resolvedView, info in
@@ -104,8 +104,8 @@ extension ConfigurationForm {
                         label: title,
                         valueResolver: { _ in
                                 .popoverStyle(
-                                    viewBuilder: { layout in
-                                        ViewPresentationItem.sizableHostingView(viewBuilder: viewBuilder, layout: layout)
+                                    viewBuilder: { layout, reloadingView in
+                                        ViewPresentationItem.sizableHostingView(viewBuilder: viewBuilder, layout: layout, reloadingView: reloadingView)
                                     },
                                     didCloseHandler: { _, reason in
                                         didCloseHandler(reason)
@@ -116,6 +116,7 @@ extension ConfigurationForm {
                 didTriggerAction: { _ in }
             )
         }
+        
         public static func alertStyle<T: View>(
             identifier: String,
             title: String,
@@ -129,8 +130,8 @@ extension ConfigurationForm {
                         label: title,
                         valueResolver: { _ in
                                 .alertStyle(
-                                    viewBuilder: { layout in
-                                        ViewPresentationItem.sizableHostingView(viewBuilder: viewBuilder, layout: layout)
+                                    viewBuilder: { layout, reloadingView in
+                                        ViewPresentationItem.sizableHostingView(viewBuilder: viewBuilder, layout: layout, reloadingView: reloadingView)
                                     },
                                     didCloseHandler: { _, reason in
                                         didCloseHandler(reason)
@@ -144,9 +145,10 @@ extension ConfigurationForm {
         
         @MainActor private static func sizableHostingView<T: View>(
             @ViewBuilder viewBuilder: @escaping (@MainActor () -> T),
-            layout: @escaping () -> Void
+            layout: @escaping () -> Void,
+            reloadingView: NSView?
         ) -> NSView {
-            let hostingView = NSHostingView(rootView: AnyView(erasing: EmptyView()))
+            let hostingView = (reloadingView as? NSHostingView<AnyView>) ?? NSHostingView(rootView: AnyView(erasing: EmptyView()))
             
             let rootView = PresentationContentView(viewBuilder: viewBuilder)
                 .onGeometryChange(for: CGSize.self) { proxy in

@@ -129,7 +129,7 @@ final class SwiftConfigurationDemoViewController: NSViewController {
                 identifier: "Popover",
                 label: "Popover"
             ) { itemModel in
-                    .popoverStyle { layout in
+                    .popoverStyle { layout, _ in
                         let textField = NSTextField(labelWithString: "123")
                         
                         Task { @MainActor in
@@ -152,7 +152,7 @@ final class SwiftConfigurationDemoViewController: NSViewController {
                 identifier: "Alert",
                 label: "Alert"
             ) { itemModel in
-                    .alertStyle { layout in
+                    .alertStyle { layout, _ in
                         let textField = NSTextField(labelWithString: "123")
                         
                         Task { @MainActor in

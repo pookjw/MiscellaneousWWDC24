@@ -211,7 +211,7 @@
                                                                                                                                    label:@"Alert View"
                                                                                                                            valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         return [ConfigurationViewPresentationDescription descriptorWithStyle:ConfigurationViewPresentationStyleAlert
-                                                                 viewBuilder:^__kindof NSView * _Nonnull(void (^ _Nonnull layout)()) {
+                                                                 viewBuilder:^__kindof NSView * _Nonnull(void (^ _Nonnull layout)(), __kindof NSView * _Nullable reloadingView) {
             NSTextField *textField = [NSTextField labelWithString:@"Test ABCDEFG"];
             
             objc_setAssociatedObject(textField, (void *)0x134, layout, OBJC_ASSOCIATION_COPY_NONATOMIC);
@@ -233,7 +233,7 @@
                                                                                                                                      label:@"Popover"
                                                                                                                              valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
         return [ConfigurationViewPresentationDescription descriptorWithStyle:ConfigurationViewPresentationStylePopover
-                                                                 viewBuilder:^__kindof NSView * _Nonnull(void (^ _Nonnull layout)()) {
+                                                                 viewBuilder:^__kindof NSView * _Nonnull(void (^ _Nonnull layout)(), __kindof NSView * _Nullable reloadingView) {
             NSTextField *textField = [NSTextField labelWithString:@"Test ABCDEFG"];
             
             objc_setAssociatedObject(textField, (void *)0x134, layout, OBJC_ASSOCIATION_COPY_NONATOMIC);
