@@ -19,6 +19,24 @@
 #include <ranges>
 #import "ConfigurationButtonDescription+Private.h"
 
+OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
+
+@interface _ConfigurationPopover : NSPopover
+@property (assign, nonatomic) BOOL forceShouldStillBeVisibleRelativeToView;
+@end
+@implementation _ConfigurationPopover
+
+- (BOOL)_shouldStillBeVisibleRelativeToView:(NSView *)view {
+    if (self.forceShouldStillBeVisibleRelativeToView) {
+        return YES;
+    } else {
+        objc_super superInfo = { self, [self class] };
+        return reinterpret_cast<BOOL (*)(objc_super *, SEL, id)>(objc_msgSendSuper2)(&superInfo, _cmd, view);
+    }
+}
+
+@end
+
 @interface ConfigurationView () <ConfigurationSwitchItemDelegate, ConfigurationSliderItemDelegate, ConfigurationStepperItemDelegate, ConfigurationButtonItemDelegate, ConfigurationPopUpButtonItemDelegate, ConfigurationColorWellItemDelegate, NSSearchFieldDelegate>
 @property (class, nonatomic, readonly, getter=_attachedWindowItemIdentifierKey) void *attachedWindowItemIdentifierKey;
 @property (class, nonatomic, readonly, getter=_switchItemIdentifier) NSUserInterfaceItemIdentifier switchItemIdentifier;
@@ -164,74 +182,133 @@
     [snapshot release];
 }
 
-- (void)reloadViewPresentations {
+- (NSDictionary<NSString *, NSAlert *> *)_presentingAlertsByIdentifier {
     NSWindow *window = self.window;
-    if (window == nil) return;
+    if (window == nil) return @{};
     
     NSArray<__kindof NSWindow *> *windows = window.childWindows;
     if (__kindof NSWindow *attachedSheet = window.attachedSheet) {
         windows = [windows arrayByAddingObject:attachedSheet];
     }
     
+    NSMutableDictionary<NSString *, NSAlert *> *results = [NSMutableDictionary new];
+    
     for (__kindof NSWindow *window in windows) {
         NSString *identifier = objc_getAssociatedObject(window, ConfigurationView._attachedWindowItemIdentifierKey);
         if (identifier == nil) continue;
+        if (![window isKindOfClass:objc_lookUpClass("_NSAlertPanel")]) continue;
         
-        NSDiffableDataSourceSnapshot<NSNull *, ConfigurationItemModel *> *snapshot = self.originalSnapshot;
+        NSAlert *alert = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(window, sel_registerName("alert"));
+        results[identifier] = alert;
+    }
+    
+    return [results autorelease];
+}
+
+- (NSDictionary<NSString *, _ConfigurationPopover *> *)_presentingPopoversByIdentifier {
+    NSWindow *window = self.window;
+    if (window == nil) return @{};
+    
+    NSArray<__kindof NSWindow *> *windows = window.childWindows;
+    if (__kindof NSWindow *attachedSheet = window.attachedSheet) {
+        windows = [windows arrayByAddingObject:attachedSheet];
+    }
+    
+    NSMutableDictionary<NSString *, _ConfigurationPopover *> *results = [NSMutableDictionary new];
+    
+    for (__kindof NSWindow *window in windows) {
+        NSString *identifier = objc_getAssociatedObject(window, ConfigurationView._attachedWindowItemIdentifierKey);
+        if (identifier == nil) continue;
+        if (![window isKindOfClass:objc_lookUpClass("_NSPopoverWindow")]) continue;
         
-        ConfigurationItemModel * _Nullable itemModel = nil;
-        for (ConfigurationItemModel *_itemModel in snapshot.itemIdentifiers) {
-            if ([_itemModel.identifier isEqualToString:identifier]) {
-                itemModel = _itemModel;
-                break;
-            }
+        _ConfigurationPopover *_popover = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(window, sel_registerName("_popover"));
+        if (![_popover isKindOfClass:[_ConfigurationPopover class]]) continue;
+        
+        results[identifier] = _popover;
+    }
+    
+    return [results autorelease];
+}
+
+- (ConfigurationItemModel * _Nullable)_itemModelFromIdentifier:(NSString *)identifier {
+    NSDiffableDataSourceSnapshot<NSNull *, ConfigurationItemModel *> *snapshot = self.originalSnapshot;
+    
+    ConfigurationItemModel * _Nullable itemModel = nil;
+    for (ConfigurationItemModel *_itemModel in snapshot.itemIdentifiers) {
+        if ([_itemModel.identifier isEqualToString:identifier]) {
+            itemModel = _itemModel;
+            break;
         }
+    }
+    
+    return itemModel;
+}
+
+- (NSIndexPath * _Nullable)_indexPathFromIdentifier:(NSString *)identifier {
+    NSDiffableDataSourceSnapshot<NSNull *, ConfigurationItemModel *> *snapshot = self.originalSnapshot;
+    
+    ConfigurationItemModel * _Nullable itemModel = nil;
+    for (ConfigurationItemModel *_itemModel in snapshot.itemIdentifiers) {
+        if ([_itemModel.identifier isEqualToString:identifier]) {
+            itemModel = _itemModel;
+            break;
+        }
+    }
+    
+    if (itemModel == nil) return nil;
+    
+    NSInteger itemIndex = [snapshot indexOfItemIdentifier:itemModel];
+    NSInteger sectionIndex = [snapshot indexOfSectionIdentifier:[snapshot sectionIdentifierForSectionContainingItemIdentifier:itemModel]];
+    
+    return [NSIndexPath indexPathForItem:itemIndex inSection:sectionIndex];
+}
+
+- (void)reloadViewPresentations {
+    [[self _presentingAlertsByIdentifier] enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull identifier, NSAlert * _Nonnull alert, BOOL * _Nonnull stop) {
+        ConfigurationItemModel * _Nullable itemModel = [self _itemModelFromIdentifier:identifier];
         assert(itemModel != nil);
+        assert(itemModel.type == ConfigurationItemModelTypeViewPresentation);
         
         auto description = static_cast<ConfigurationViewPresentationDescription *>(itemModel.valueResolver(itemModel));
         assert([description isKindOfClass:[ConfigurationViewPresentationDescription class]]);
+        assert(description.style == ConfigurationViewPresentationStyleAlert);
         
-        switch (description.style) {
-            case ConfigurationViewPresentationStyleAlert: {
-                assert([window isKindOfClass:objc_lookUpClass("_NSAlertPanel")]);
-                NSAlert *alert = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(window, sel_registerName("alert"));
-                
-                NSView *oldView = alert.accessoryView;
-                assert(oldView != nil);
-                
-                NSView *newView = description.viewBuilder(^{
-                    [alert layout];
-                }, oldView);
-                
-                if (![oldView isEqual:newView]) {
-                    [oldView removeFromSuperview];
-                    alert.accessoryView = newView;
-                }
-                
-                [alert layout];
-                break;
-            }
-            case ConfigurationViewPresentationStylePopover: {
-                assert([window isKindOfClass:objc_lookUpClass("_NSPopoverWindow")]);
-                NSPopover *_popover = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(window, sel_registerName("_popover"));
-                
-                NSView *oldView = _popover.contentViewController.view;
-                
-                NSView *newView = description.viewBuilder(^{
-                    NSView *view = _popover.contentViewController.view;
-                    _popover.contentSize = view.frame.size;
-                }, oldView);
-                
-                if (![oldView isEqual:newView]) {
-                    _popover.contentViewController.view = newView;
-                }
-                
-                break;
-            }
-            default:
-                abort();
+        NSView *oldView = alert.accessoryView;
+        assert(oldView != nil);
+        
+        NSView *newView = description.viewBuilder(^{
+            [alert layout];
+        }, oldView);
+        
+        if (![oldView isEqual:newView]) {
+            [oldView removeFromSuperview];
+            alert.accessoryView = newView;
         }
-    }
+        
+        [alert layout];
+    }];
+    
+    [[self _presentingPopoversByIdentifier] enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull identifier, NSPopover * _Nonnull popover, BOOL * _Nonnull stop) {
+        ConfigurationItemModel * _Nullable itemModel = [self _itemModelFromIdentifier:identifier];
+        assert(itemModel != nil);
+        assert(itemModel.type == ConfigurationItemModelTypeViewPresentation);
+        
+        auto description = static_cast<ConfigurationViewPresentationDescription *>(itemModel.valueResolver(itemModel));
+        assert([description isKindOfClass:[ConfigurationViewPresentationDescription class]]);
+        assert(description.style == ConfigurationViewPresentationStylePopover);
+        
+        NSView *oldView = popover.contentViewController.view;
+        
+        NSView *newView = description.viewBuilder(^{
+//                    NSView *view = _popover.contentViewController.view;
+//                    _popover.contentSize = view.frame.size;
+            reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(popover, sel_registerName("_updateContentViewAndSizeFromViewController"));
+        }, oldView);
+        
+        if (![oldView isEqual:newView]) {
+            popover.contentViewController.view = newView;
+        }
+    }];
 }
 
 - (void)_commonInit_ConfigurationView {
@@ -260,8 +337,26 @@
 }
 
 - (void)applySnapshot:(NSDiffableDataSourceSnapshot<NSNull *,ConfigurationItemModel *> *)snapshot animatingDifferences:(BOOL)animatingDifferences {
+    NSDictionary<NSString *, _ConfigurationPopover *> *presentingPopoversByIdentifier = [self _presentingPopoversByIdentifier];
+    
+    for (_ConfigurationPopover *popover in presentingPopoversByIdentifier.allValues) {
+        popover.forceShouldStillBeVisibleRelativeToView = YES;
+    }
+    
     self.originalSnapshot = snapshot;
     [self _filterItemModelsWithQuery:self.searchField.stringValue animatingDifferences:animatingDifferences];
+    
+    [[self _presentingPopoversByIdentifier] enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull identifier, _ConfigurationPopover * _Nonnull popover, BOOL * _Nonnull stop) {
+        NSIndexPath *indexPath = [self _indexPathFromIdentifier:identifier];
+        assert(indexPath != nil);
+        
+        auto item = static_cast<ConfigurationButtonItem *>([self.collectionView itemAtIndexPath:indexPath]);
+        assert([item isKindOfClass:[ConfigurationButtonItem class]]);
+        
+        reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(item.button, sel_registerName("enableGeometryInWindowDidChangeNotification"));
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(popover, sel_registerName("setPositioningView:"), item.button);
+        popover.forceShouldStillBeVisibleRelativeToView = NO;
+    }];
 }
 
 - (NSCollectionViewDiffableDataSource<NSNull *,ConfigurationItemModel *> *)_dataSource {
@@ -707,7 +802,7 @@
                     break;
                 }
                 case ConfigurationViewPresentationStylePopover: {
-                    NSPopover *popover = [NSPopover new];
+                    _ConfigurationPopover *popover = [_ConfigurationPopover new];
                     
                     __kindof NSView *resolvedView = description.viewBuilder(^{
                         NSView *view = popover.contentViewController.view;

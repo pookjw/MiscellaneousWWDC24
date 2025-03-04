@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 3/2/25.
 //
 
-import Foundation
+import SwiftUI
 
 public struct ConfigurationStepperDescription {
     private let impl: __ConfigurationStepperDescription
@@ -64,14 +64,13 @@ extension ConfigurationForm {
         public init(
             identifier: String,
             title: String,
-            value: Double,
+            value: Binding<Double>,
             minValue: Double,
             maxValue: Double,
             stepValue: Double,
             continuous: Bool,
             autorepeat: Bool,
-            valueWraps: Bool,
-            onEditingChanged: @escaping (Double) -> Void
+            valueWraps: Bool
         ) {
             self.init(
                 itemModel: ConfigurationItemModel
@@ -80,7 +79,7 @@ extension ConfigurationForm {
                         label: title,
                         valueResolver: { _ in
                             ConfigurationStepperDescription(
-                                value: value,
+                                value: value.wrappedValue,
                                 minValue: minValue,
                                 maxValue: maxValue,
                                 stepValue: stepValue,
@@ -91,7 +90,7 @@ extension ConfigurationForm {
                         }
                     )
             ) { newValue in
-                onEditingChanged(newValue as! Double)
+                value.wrappedValue = newValue as! Double
             }
         }
         

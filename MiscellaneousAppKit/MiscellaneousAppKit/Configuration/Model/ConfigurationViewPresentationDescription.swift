@@ -155,7 +155,7 @@ extension ConfigurationForm {
                     proxy.size
                 } action: { [weak hostingView] oldValue, newValue in
                     guard let hostingView else { return }
-                    hostingView.frame.size = newValue
+                    hostingView.setFrameSize(newValue)
                     layout()
                 }
             

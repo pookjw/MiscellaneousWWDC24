@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 3/2/25.
 //
 
-import Foundation
+import SwiftUI
 
 public struct ConfigurationSliderDescription {
     private let impl: __ConfigurationSliderDescription
@@ -52,10 +52,9 @@ extension ConfigurationForm {
         public init(
             identifier: String,
             title: String,
-            value: Double,
+            value: Binding<Double>,
             minValue: Double,
-            maxValue: Double,
-            onEditingChanged: @escaping (Double) -> Void
+            maxValue: Double
         ) {
             self.init(
                 itemModel: ConfigurationItemModel
@@ -63,22 +62,25 @@ extension ConfigurationForm {
                         identifier: identifier,
                         label: title,
                         valueResolver: { itemModel in
-                            ConfigurationSliderDescription(value: value, minValue: minValue, maxValue: maxValue)
+                            ConfigurationSliderDescription(
+                                value: value.wrappedValue,
+                                minValue: minValue,
+                                maxValue: maxValue
+                            )
                         }
                     )
             ) { newValue in
-                onEditingChanged(newValue as! Double)
+                value.wrappedValue = newValue as! Double
             }
         }
         
         public init(
             identifier: String,
             title: String,
-            value: Double,
+            value: Binding<Double>,
             minValue: Double,
             maxValue: Double,
-            continuous: Bool,
-            onEditingChanged: @escaping (Double) -> Void
+            continuous: Bool
         ) {
             self.init(
                 itemModel: ConfigurationItemModel
@@ -86,11 +88,16 @@ extension ConfigurationForm {
                         identifier: identifier,
                         label: title,
                         valueResolver: { itemModel in
-                            ConfigurationSliderDescription(value: value, minValue: minValue, maxValue: maxValue, continuous: continuous)
+                            ConfigurationSliderDescription(
+                                value: value.wrappedValue,
+                                minValue: minValue,
+                                maxValue: maxValue,
+                                continuous: continuous
+                            )
                         }
                     )
             ) { newValue in
-                onEditingChanged(newValue as! Double)
+                value.wrappedValue = newValue as! Double
             }
         }
         

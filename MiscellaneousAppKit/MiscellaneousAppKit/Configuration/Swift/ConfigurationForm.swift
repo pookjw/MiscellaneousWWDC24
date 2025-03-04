@@ -35,7 +35,7 @@ public struct ConfigurationForm: NSViewRepresentable {
     
     public func updateNSView(_ nsView: ConfigurationView, context: Context) {
         context.coordinator.items = items
-        nsView.apply(makeSnapshot(), animatingDifferences: true)
+        nsView.apply(makeSnapshot(), animatingDifferences: false)
         nsView.reloadPresentations()
     }
     
@@ -227,13 +227,43 @@ extension ConfigurationForm {
             title: String,
             color: Binding<NSColor>
         ) {
-            // Slider, Stepper도 Binding으로 변경
-            fatalError()
+            _itemModel = ConfigurationItemModel
+                .colorWellItem(
+                    identifier: identifier,
+                    label: title
+                ) { _ in
+                    color.wrappedValue
+                }
+            
+            _didTriggerAction = { newColor in
+                color.wrappedValue = newColor as! NSColor
+            }
         }
+    }
+}
+
+extension ConfigurationForm {
+    public struct SwitchItem: Item {
+        public let _itemModel: ConfigurationItemModel?
+        public let _didTriggerAction: (Any?) -> Void
         
-        private init(itemModel: ConfigurationItemModel, didTriggerAction: @escaping (Any?) -> Void) {
-            _itemModel = itemModel
-            _didTriggerAction = didTriggerAction
+        public init(
+            identifier: String,
+            title: String,
+            isOn: Binding<Bool>
+        ) {
+            _itemModel = ConfigurationItemModel
+                .switchItem(
+                    identifier: identifier,
+                    label: title,
+                    valueResolver: { _ in
+                        isOn.wrappedValue    
+                    }
+                )
+            
+            _didTriggerAction = { newColor in
+                isOn.wrappedValue = newColor as! Bool
+            }
         }
     }
 }

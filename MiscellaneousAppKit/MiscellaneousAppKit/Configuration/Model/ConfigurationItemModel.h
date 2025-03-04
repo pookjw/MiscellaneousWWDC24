@@ -20,8 +20,8 @@ typedef NS_ENUM(NSUInteger, ConfigurationItemModelType) {
     ConfigurationItemModelTypeStepper,
     ConfigurationItemModelTypeButton,
     ConfigurationItemModelTypePopUpButton,
-    ConfigurationItemModelTypeColorWell,//
-    ConfigurationItemModelTypeLabel,//
+    ConfigurationItemModelTypeColorWell,
+    ConfigurationItemModelTypeLabel,
     ConfigurationItemModelTypeViewPresentation
 } NS_REFINED_FOR_SWIFT;
 
