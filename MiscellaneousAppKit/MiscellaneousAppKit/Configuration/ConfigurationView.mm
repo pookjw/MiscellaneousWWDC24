@@ -339,6 +339,7 @@ OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self
 - (void)applySnapshot:(NSDiffableDataSourceSnapshot<NSNull *,ConfigurationItemModel *> *)snapshot animatingDifferences:(BOOL)animatingDifferences {
     NSDictionary<NSString *, _ConfigurationPopover *> *presentingPopoversByIdentifier = [self _presentingPopoversByIdentifier];
     
+    // https://x.com/_silgen_name/status/1896887537609937325
     for (_ConfigurationPopover *popover in presentingPopoversByIdentifier.allValues) {
         popover.forceShouldStillBeVisibleRelativeToView = YES;
     }
