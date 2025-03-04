@@ -60,7 +60,8 @@ public struct ConfigurationForm: NSViewRepresentable {
                 }
             }
             
-            return false
+            let impl = itemModel as __ConfigurationItemModel
+            return impl.type == .popUpButton
         }
         
         public var shouldShowReloadButton: Bool {
