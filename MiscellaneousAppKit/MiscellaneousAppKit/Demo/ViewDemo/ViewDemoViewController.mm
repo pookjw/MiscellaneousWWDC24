@@ -12,6 +12,7 @@
 #import "ViewDemoAncestorSharedView.h"
 #import "ViewDemoEnclosingMenuItemView.h"
 #import "ViewDemoEnclosingScrollView.h"
+#import "ViewDemoPositionedSubviewView.h"
 
 @interface ViewDemoViewController () <ConfigurationViewDelegate>
 @property (retain, nonatomic, readonly, getter=_configurationView) ConfigurationView *configurationView;
@@ -41,6 +42,7 @@
     
     [snapshot appendSectionsWithIdentifiers:@[[NSNull null]]];
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeAddSubviewPositionedRelativeToItemModel],
         [self _makeEnclosingScrollViewItemModel],
         [self _makeEnclosingMenuItemItemModel],
         [self _makeAncestorSharedWithViewItemModel],
@@ -121,6 +123,19 @@
         return [ConfigurationViewPresentationDescription descriptorWithStyle:ConfigurationViewPresentationStyleAlert
                                                                  viewBuilder:^__kindof NSView * _Nonnull(void (^ _Nonnull layout)(), __kindof NSView * _Nullable reloadingView) {
             return [[[ViewDemoEnclosingScrollView alloc] initWithFrame:NSMakeRect(0., 0., 300., 300.)] autorelease];
+        }
+                                                             didCloseHandler:nil];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeAddSubviewPositionedRelativeToItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeViewPresentation
+                                          identifier:@"Add Subview Positioned Relative To"
+                                               label:@"Add Subview Positioned Relative To"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationViewPresentationDescription descriptorWithStyle:ConfigurationViewPresentationStyleAlert
+                                                                 viewBuilder:^__kindof NSView * _Nonnull(void (^ _Nonnull layout)(), __kindof NSView * _Nullable reloadingView) {
+            return [[[ViewDemoPositionedSubviewView alloc] initWithFrame:NSMakeRect(0., 0., 300., 300.)] autorelease];
         }
                                                              didCloseHandler:nil];
     }];
