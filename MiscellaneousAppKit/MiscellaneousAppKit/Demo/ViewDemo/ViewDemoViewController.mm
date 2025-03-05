@@ -14,6 +14,8 @@
 #import "ViewDemoEnclosingScrollView.h"
 #import "ViewDemoPositionedSubviewView.h"
 #import "ViewDemoRemoveFromSuperviewWithoutNeedingDisplayView.h"
+#import "ViewDemoReplaceSubviewView.h"
+#import "ViewDemoSortSubviewsView.h"
 
 @interface ViewDemoViewController () <ConfigurationViewDelegate>
 @property (retain, nonatomic, readonly, getter=_configurationView) ConfigurationView *configurationView;
@@ -43,6 +45,8 @@
     
     [snapshot appendSectionsWithIdentifiers:@[[NSNull null]]];
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeSortSubviewsItemModel],
+        [self _makeReplaceSubviewItemModel],
         [self _makeRemoveFromSuperviewWithoutNeedingDisplayViewItemModel],
         [self _makeAddSubviewPositionedRelativeToItemModel],
         [self _makeEnclosingScrollViewItemModel],
@@ -148,9 +152,35 @@
                                           identifier:@"Remove From Superview Without Needing Display View"
                                                label:@"Remove From Superview Without Needing Display View"
                                        valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
-        return [ConfigurationViewPresentationDescription descriptorWithStyle:ConfigurationViewPresentationStylePopover
+        return [ConfigurationViewPresentationDescription descriptorWithStyle:ConfigurationViewPresentationStyleAlert
                                                                  viewBuilder:^__kindof NSView * _Nonnull(void (^ _Nonnull layout)(), __kindof NSView * _Nullable reloadingView) {
             return [[[ViewDemoRemoveFromSuperviewWithoutNeedingDisplayView alloc] initWithFrame:NSMakeRect(0., 0., 300., 300.)] autorelease];
+        }
+                                                             didCloseHandler:nil];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeReplaceSubviewItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeViewPresentation
+                                          identifier:@"Replace Subview"
+                                               label:@"Replace Subview"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationViewPresentationDescription descriptorWithStyle:ConfigurationViewPresentationStyleAlert
+                                                                 viewBuilder:^__kindof NSView * _Nonnull(void (^ _Nonnull layout)(), __kindof NSView * _Nullable reloadingView) {
+            return [[[ViewDemoReplaceSubviewView alloc] initWithFrame:NSMakeRect(0., 0., 300., 300.)] autorelease];
+        }
+                                                             didCloseHandler:nil];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeSortSubviewsItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeViewPresentation
+                                          identifier:@"Sort Subviews"
+                                               label:@"Sort Subviews"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationViewPresentationDescription descriptorWithStyle:ConfigurationViewPresentationStyleAlert
+                                                                 viewBuilder:^__kindof NSView * _Nonnull(void (^ _Nonnull layout)(), __kindof NSView * _Nullable reloadingView) {
+            return [[[ViewDemoSortSubviewsView alloc] initWithFrame:NSMakeRect(0., 0., 300., 300.)] autorelease];
         }
                                                              didCloseHandler:nil];
     }];

@@ -24,6 +24,7 @@
  NSWidgetView
  NSOcclusionDetectionView
  _NSBoxMaterialCapableCustomView
+ convertRectToLayer:r
  */
 
 int main(int argc, const char * argv[]) {

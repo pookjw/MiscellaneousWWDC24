@@ -9,10 +9,13 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 
+// https://x.com/_silgen_name/status/1897301930990510165
+
 @interface _ViewDemoRemoveFromSuperviewWithoutNeedingDisplayChildView : NSView
 @end
 @implementation _ViewDemoRemoveFromSuperviewWithoutNeedingDisplayChildView
 - (void)drawRect:(NSRect)dirtyRect {
+    NSLog(@"%@", NSDate.now);
     [super drawRect:dirtyRect];
 }
 @end
@@ -28,6 +31,8 @@
 
 - (instancetype)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self, sel_registerName("setBackgroundColor:"), NSColor.whiteColor);
+        NSLog(@"%@", self.subview);
         [self addSubview:self.subview];
         [self addSubview:self.popUpButton];
     }
@@ -56,7 +61,6 @@
     if (auto subview = _subview) return subview;
     
     _ViewDemoRemoveFromSuperviewWithoutNeedingDisplayChildView *subview = [_ViewDemoRemoveFromSuperviewWithoutNeedingDisplayChildView new];
-//    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(subview, sel_registerName("setBackgroundColor:"), NSColor.systemGreenColor);
     
     _subview = subview;
     return subview;
@@ -67,7 +71,7 @@
     
     NSPopUpButton *popUpButton = [NSPopUpButton new];
     [popUpButton addItemsWithTitles:@[
-        @"Add subview", @"Remove From Superview Without Needing Display", @"Redraw"
+        @"Remove from Superview", @"Remove From Superview Without Needing Display"
     ]];
     popUpButton.target = self;
     popUpButton.action = @selector(_didTriggerPopUpButton:);
@@ -79,12 +83,12 @@
 - (void)_didTriggerPopUpButton:(NSPopUpButton *)sender {
     NSString *title = sender.titleOfSelectedItem;
     
-    if ([title isEqualToString:@"Add subview"]) {
+    if ([title isEqualToString:@"Remove from Superview"]) {
+        [self.subview removeFromSuperview];
         [self addSubview:self.subview];
     } else if ([title isEqualToString:@"Remove From Superview Without Needing Display"]) {
         [self.subview removeFromSuperviewWithoutNeedingDisplay];
-    } else if ([title isEqualToString:@"Redraw"]) {
-        abort();
+        [self addSubview:self.subview];
     } else {
         abort();
     }
