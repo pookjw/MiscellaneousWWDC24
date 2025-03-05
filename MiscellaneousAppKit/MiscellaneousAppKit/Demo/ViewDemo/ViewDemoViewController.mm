@@ -13,6 +13,7 @@
 #import "ViewDemoEnclosingMenuItemView.h"
 #import "ViewDemoEnclosingScrollView.h"
 #import "ViewDemoPositionedSubviewView.h"
+#import "ViewDemoRemoveFromSuperviewWithoutNeedingDisplayView.h"
 
 @interface ViewDemoViewController () <ConfigurationViewDelegate>
 @property (retain, nonatomic, readonly, getter=_configurationView) ConfigurationView *configurationView;
@@ -42,6 +43,7 @@
     
     [snapshot appendSectionsWithIdentifiers:@[[NSNull null]]];
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeRemoveFromSuperviewWithoutNeedingDisplayViewItemModel],
         [self _makeAddSubviewPositionedRelativeToItemModel],
         [self _makeEnclosingScrollViewItemModel],
         [self _makeEnclosingMenuItemItemModel],
@@ -136,6 +138,19 @@
         return [ConfigurationViewPresentationDescription descriptorWithStyle:ConfigurationViewPresentationStyleAlert
                                                                  viewBuilder:^__kindof NSView * _Nonnull(void (^ _Nonnull layout)(), __kindof NSView * _Nullable reloadingView) {
             return [[[ViewDemoPositionedSubviewView alloc] initWithFrame:NSMakeRect(0., 0., 300., 300.)] autorelease];
+        }
+                                                             didCloseHandler:nil];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeRemoveFromSuperviewWithoutNeedingDisplayViewItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeViewPresentation
+                                          identifier:@"Remove From Superview Without Needing Display View"
+                                               label:@"Remove From Superview Without Needing Display View"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationViewPresentationDescription descriptorWithStyle:ConfigurationViewPresentationStylePopover
+                                                                 viewBuilder:^__kindof NSView * _Nonnull(void (^ _Nonnull layout)(), __kindof NSView * _Nullable reloadingView) {
+            return [[[ViewDemoRemoveFromSuperviewWithoutNeedingDisplayView alloc] initWithFrame:NSMakeRect(0., 0., 300., 300.)] autorelease];
         }
                                                              didCloseHandler:nil];
     }];
