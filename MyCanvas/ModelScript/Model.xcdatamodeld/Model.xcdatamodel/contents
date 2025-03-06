@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23778.1" systemVersion="24E5222f" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Canvas" representedClassName="MCCanvas" syncable="YES" codeGenerationType="class">
+        <attribute name="lastEditedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="lastEditedDate"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+</model>

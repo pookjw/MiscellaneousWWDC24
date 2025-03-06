@@ -1,0 +1,5 @@
+framework module MyCanvasData.Private {
+    umbrella header "MyCanvasData-Private.h"
+    export *
+    module * { export * }
+}
