@@ -248,7 +248,7 @@ __attribute__((objc_direct_members))
     
     [context performBlock:^{
         MCCanvas *canvas = [[MCCanvas alloc] initWithContext:context];
-        canvas.lastEditedDate = [NSDate new];
+        canvas.lastEditedDate = [NSDate now];
         [canvas release];
         
         NSError * _Nullable error = nil;
