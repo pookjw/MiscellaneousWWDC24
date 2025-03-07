@@ -14,6 +14,9 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 #include <dlfcn.h>
+#import "NSStringFromUIUserInterfaceStyle.h"
+#import <TargetConditionals.h>
+#import "ToolItemsConfigurationViewController.h"
 
 /*
  -[PKTiledCanvasView _drawingEnded:estimatesTimeout:completion:]
@@ -22,15 +25,16 @@
  */
 
 __attribute__((objc_direct_members))
-@interface CanvasViewController () <PKCanvasViewDelegate, PKToolPickerDelegate, PKToolPickerObserver>
+@interface CanvasViewController () <PKCanvasViewDelegate, PKToolPickerDelegate, PKToolPickerObserver, ToolItemsConfigurationViewControllerDelegate>
 @property (retain, nonatomic, readonly, getter=_canvas) MCCanvas *canvas;
 @property (retain, nonatomic, readonly, getter=_imageView) UIImageView *imageView;
 @property (retain, nonatomic, readonly, getter=_canvasView) PKCanvasView *canvasView;
-@property (retain, nonatomic, readonly, getter=_toolPicker) PKToolPicker *toolPicker;
+@property (retain, nonatomic, getter=_toolPicker, setter=_setToolPicker:) PKToolPicker *toolPicker;
 @property (retain, nonatomic, readonly, getter=_doneBarButtonItem) UIBarButtonItem *doneBarButtonItem;
 @property (retain, nonatomic, readonly, getter=_menuBarButtonItem) UIBarButtonItem *menuBarButtonItem;
 @property (retain, nonatomic, readonly, getter=_undoBarButtonItem) UIBarButtonItem *undoBarButtonItem;
 @property (retain, nonatomic, readonly, getter=_redoBarButtonItem) UIBarButtonItem *redoBarButtonItem;
+@property (retain, nonatomic, readonly, getter=_toolPickerAccessoryItem) UIBarButtonItem *toolPickerAccessoryItem;
 @end
 
 @implementation CanvasViewController
@@ -41,9 +45,10 @@ __attribute__((objc_direct_members))
 @synthesize menuBarButtonItem = _menuBarButtonItem;
 @synthesize undoBarButtonItem = _undoBarButtonItem;
 @synthesize redoBarButtonItem = _redoBarButtonItem;
+@synthesize toolPickerAccessoryItem = _toolPickerAccessoryItem;
 
 + (void)load {
-    assert(dlopen("/System/Library/PrivateFrameworks/PencilPairingUI.framework/PencilPairingUI", RTLD_NOW) != NULL);
+    dlopen("/System/Library/PrivateFrameworks/PencilPairingUI.framework/PencilPairingUI", RTLD_NOW);
     
     if (Protocol *PNPWelcomeControllerDelegate = NSProtocolFromString(@"PNPWelcomeControllerDelegate")) {
         assert(class_addProtocol(self, PNPWelcomeControllerDelegate));
@@ -53,6 +58,10 @@ __attribute__((objc_direct_members))
 - (instancetype)initWithCanvas:(MCCanvas *)canvas {
     if (self = [super initWithNibName:nil bundle:nil]) {
         _canvas = [canvas retain];
+        
+        PKToolPicker *toolPicker = [PKToolPicker new];
+        self.toolPicker = toolPicker;
+        [toolPicker release];
     }
     
     return self;
@@ -68,6 +77,7 @@ __attribute__((objc_direct_members))
     [_menuBarButtonItem release];
     [_undoBarButtonItem release];
     [_redoBarButtonItem release];
+    [_toolPickerAccessoryItem release];
     [super dealloc];
 }
 
@@ -104,7 +114,6 @@ __attribute__((objc_direct_members))
         });
     }];
     
-    [self.toolPicker setVisible:YES forFirstResponder:self.canvasView];
     [self.canvasView becomeFirstResponder];
     
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didReceiveUndoManagerCheckpointNotification:) name:NSUndoManagerCheckpointNotification object:nil];
@@ -137,14 +146,21 @@ __attribute__((objc_direct_members))
     return canvasView;
 }
 
-- (PKToolPicker *)_toolPicker {
-    if (auto toolPicker = _toolPicker) return toolPicker;
+- (void)_setToolPicker:(PKToolPicker *)toolPicker {
+    if (PKToolPicker *oldToolPicker = _toolPicker) {
+        oldToolPicker.delegate = nil;
+        [oldToolPicker removeObserver:self];
+        [oldToolPicker setVisible:NO forFirstResponder:self.canvasView];
+        [oldToolPicker release];
+    }
     
-    PKToolPicker *toolPicker = [PKToolPicker new];
+    _toolPicker = [toolPicker retain];
+    
     toolPicker.delegate = self;
     [toolPicker addObserver:self];
     
     toolPicker.stateAutosaveName = self.canvas.objectID.URIRepresentation.path;
+    [toolPicker setVisible:YES forFirstResponder:self.canvasView];
     
     MCCanvas *canvas = self.canvas;
     [canvas.managedObjectContext performBlock:^{
@@ -159,9 +175,6 @@ __attribute__((objc_direct_members))
             reinterpret_cast<void (*)(id, SEL, id, BOOL)>(objc_msgSend)(toolPicker, sel_registerName("_restoreToolPickerStateFromRepresentation:notify:"), tools, YES);
         });
     }];
-    
-    _toolPicker = toolPicker;
-    return toolPicker;
 }
 
 - (UIBarButtonItem *)_doneBarButtonItem {
@@ -200,18 +213,28 @@ __attribute__((objc_direct_members))
     return redoBarButtonItem;
 }
 
+- (UIBarButtonItem *)_toolPickerAccessoryItem {
+    if (auto toolPickerAccessoryItem = _toolPickerAccessoryItem) return toolPickerAccessoryItem;
+    
+    UIBarButtonItem *toolPickerAccessoryItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"opticaldisc.fill"] style:UIBarButtonItemStylePlain target:self action:@selector(_didTriggerToolPickerAccessoryItem:)];
+    
+    _toolPickerAccessoryItem = toolPickerAccessoryItem;
+    return toolPickerAccessoryItem;
+}
+
 - (UIMenu *)_makeMenu {
     PKCanvasView *canvasView = self.canvasView;
     
     __kindof UIView *_tiledView;
     assert(object_getInstanceVariable(canvasView, "_tiledView", reinterpret_cast<void **>(&_tiledView)) != NULL);
     
-    PKToolPicker *toolPicker = self.toolPicker;
-    
     __block auto unretainedSelf = self;
     NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.UIKit"];
     
+    UIBarButtonItem *toolPickerAccessoryItem = self.toolPickerAccessoryItem;
+    
     UIDeferredMenuElement *element = [UIDeferredMenuElement elementWithUncachedProvider:^(void (^ _Nonnull completion)(NSArray<UIMenuElement *> * _Nonnull)) {
+        PKToolPicker *toolPicker = unretainedSelf.toolPicker;
         NSMutableArray<__kindof UIMenuElement *> *rootChildren = [NSMutableArray new];
         
         {
@@ -368,6 +391,130 @@ __attribute__((objc_direct_members))
                 [children addObject:menu];
             }
             
+            {
+                CGRect frameObscuredInView = [toolPicker frameObscuredInView:canvasView];
+                UIAction *action = [UIAction actionWithTitle:@"Frame Obscured In View (with canvasView)" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                    
+                }];
+                
+                action.attributes = UIMenuElementAttributesDisabled;
+                action.subtitle = NSStringFromCGRect(frameObscuredInView);
+                
+                [children addObject:action];
+            }
+            
+            {
+                NSArray<PKToolPickerItem *> * toolItems = toolPicker.toolItems;
+                NSMutableArray<UIAction *> *actions = [[NSMutableArray alloc] initWithCapacity:toolItems.count];
+                
+                for (PKToolPickerItem *toolItem in toolItems) {
+                    UIAction *action = [UIAction actionWithTitle:toolItem.identifier image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                        toolPicker.selectedToolItem = toolItem;
+                    }];
+                    
+                    action.state = ([toolItem isEqual:toolPicker.selectedToolItem]) ? UIMenuElementStateOn : UIMenuElementStateOff;
+                    [actions addObject:action];
+                }
+                
+                UIMenu *memu = [UIMenu menuWithTitle:@"Tool Items" children:actions];
+                [actions release];
+                memu.subtitle = toolPicker.selectedToolItem.identifier;
+                [children addObject:memu];
+            }
+            
+            {
+                NSUInteger count;
+                const UIUserInterfaceStyle *allStyles = allUIUserInterfaceStyles(&count);
+                
+                auto actionsVector = std::views::iota(allStyles, allStyles + count)
+                | std::views::transform([toolPicker](const UIUserInterfaceStyle *ptr) {
+                    UIAction *action = [UIAction actionWithTitle:NSStringFromUIUserInterfaceStyle(*ptr)
+                                                           image:nil
+                                                      identifier:nil
+                                                         handler:^(__kindof UIAction * _Nonnull action) {
+                        toolPicker.colorUserInterfaceStyle = *ptr;
+                    }];
+                    
+                    action.state = (toolPicker.colorUserInterfaceStyle == *ptr) ? UIMenuElementStateOn : UIMenuElementStateOff;
+                    
+                    return action;
+                })
+                | std::ranges::to<std::vector<UIAction *>>();
+                
+                NSArray<UIAction *> *actions = [[NSArray alloc] initWithObjects:actionsVector.data() count:actionsVector.size()];
+                UIMenu *menu = [UIMenu menuWithTitle:@"Color User Interface Style" children:actions];
+                [actions release];
+                menu.subtitle = NSStringFromUIUserInterfaceStyle(toolPicker.colorUserInterfaceStyle);
+                
+                [children addObject:menu];
+            }
+            
+            {
+                NSUInteger count;
+                const UIUserInterfaceStyle *allStyles = allUIUserInterfaceStyles(&count);
+                
+                auto actionsVector = std::views::iota(allStyles, allStyles + count)
+                | std::views::transform([toolPicker](const UIUserInterfaceStyle *ptr) {
+                    UIAction *action = [UIAction actionWithTitle:NSStringFromUIUserInterfaceStyle(*ptr)
+                                                           image:nil
+                                                      identifier:nil
+                                                         handler:^(__kindof UIAction * _Nonnull action) {
+                        toolPicker.overrideUserInterfaceStyle = *ptr;
+                    }];
+                    
+                    action.state = (toolPicker.overrideUserInterfaceStyle == *ptr) ? UIMenuElementStateOn : UIMenuElementStateOff;
+                    
+                    return action;
+                })
+                | std::ranges::to<std::vector<UIAction *>>();
+                
+                NSArray<UIAction *> *actions = [[NSArray alloc] initWithObjects:actionsVector.data() count:actionsVector.size()];
+                UIMenu *menu = [UIMenu menuWithTitle:@"Override User Interface Style" children:actions];
+                [actions release];
+                menu.subtitle = NSStringFromUIUserInterfaceStyle(toolPicker.overrideUserInterfaceStyle);
+                
+                [children addObject:menu];
+            }
+            
+            {
+                BOOL showsDrawingPolicyControls = toolPicker.showsDrawingPolicyControls;
+                
+                UIAction *action = [UIAction actionWithTitle:@"Shows Drawing Policy Controls" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                    toolPicker.showsDrawingPolicyControls = !showsDrawingPolicyControls;
+                }];
+                
+                action.state = showsDrawingPolicyControls ? UIMenuElementStateOn : UIMenuElementStateOff;
+                [children addObject:action];
+            }
+            
+            {
+                UIBarButtonItem *accessoryItem = toolPicker.accessoryItem;
+                
+                UIAction *action = [UIAction actionWithTitle:@"Accessory Item" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                    if (accessoryItem == nil) {
+                        toolPicker.accessoryItem = toolPickerAccessoryItem;
+                    } else {
+                        toolPicker.accessoryItem = nil;
+                    }
+                }];
+                
+                action.state = (accessoryItem != nil) ? UIMenuElementStateOn : UIMenuElementStateOff;
+                [children addObject:action];
+            }
+            
+#if TARGET_OS_VISION
+            {
+                BOOL prefersDismissControlVisible = toolPicker.prefersDismissControlVisible;
+                
+                UIAction *action = [UIAction actionWithTitle:@"Prefers Dismiss Control Visible" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                    toolPicker.prefersDismissControlVisible = !prefersDismissControlVisible;
+                }];
+                
+                action.state = prefersDismissControlVisible ? UIMenuElementStateOn : UIMenuElementStateOff;
+                [children addObject:action];
+            }
+#endif
+            
             UIMenu *menu = [UIMenu menuWithTitle:@"Tool Picker" children:children];
             [children release];
             [rootChildren addObject:menu];
@@ -436,6 +583,17 @@ __attribute__((objc_direct_members))
             [rootChildren addObject:menu];
         }
         
+        {
+            UIAction *action = [UIAction actionWithTitle:@"ToolItemsConfigurationViewController" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                ToolItemsConfigurationViewController *viewController = [[ToolItemsConfigurationViewController alloc] initWithToolItems:toolPicker.toolItems];
+                viewController.delegate = unretainedSelf;
+                [unretainedSelf presentViewController:viewController animated:YES completion:nil];
+                [viewController release];
+            }];
+            
+            [rootChildren addObject:action];
+        }
+        
         completion(rootChildren);
         [rootChildren release];
     }];
@@ -482,6 +640,10 @@ __attribute__((objc_direct_members))
 
 - (void)_didTriggerRedoBarButtonItem:(UIBarButtonItem *)sender {
     [self.canvasView.undoManager redo];
+}
+
+- (void)_didTriggerToolPickerAccessoryItem:(UIBarButtonItem *)sender {
+    NSLog(@"Hello World!");
 }
 
 - (void)_didReceiveUndoManagerCheckpointNotification:(NSNotification *)notification {
@@ -537,6 +699,12 @@ __attribute__((objc_direct_members))
 
 - (void)welcomeControllerButtonDidPress:(__kindof UIViewController *)welcomeController {
     NSLog(@"%s", __func__);
+}
+
+- (void)toolItemsConfigurationViewController:(ToolItemsConfigurationViewController *)toolItemsConfigurationViewController didFinishWithToolItems:(NSArray<__kindof PKToolPickerItem *> *)toolItems {
+    PKToolPicker *toolPicker = [[PKToolPicker alloc] initWithToolItems:toolItems];
+    self.toolPicker = toolPicker;
+    [toolPicker release];
 }
 
 @end
