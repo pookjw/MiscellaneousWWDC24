@@ -19,6 +19,8 @@
 #import "CanvasCustomItemInteraction.h"
 #import "MyCanvas-Swift.h"
 
+#warning TODO Custom Item 저장 / Transform
+
 /*
  -[PKTiledCanvasView _drawingEnded:estimatesTimeout:completion:]
  -[PKTiledView canvasViewDidEndDrawing:]
@@ -30,8 +32,6 @@ __attribute__((objc_direct_members))
 @property (retain, nonatomic, readonly, getter=_canvas) MCCanvas *canvas;
 @property (retain, nonatomic, readonly, getter=_imageView) UIImageView *imageView;
 @property (retain, nonatomic, readonly, getter=_canvasView) PKCanvasView *canvasView;
-@property (retain, nonatomic, readonly, getter=_customItemsScrollView) UIScrollView *customItemsScrollView;
-@property (retain, nonatomic, readonly, getter=_customItemsContentView) UIView *customItemsContentView;
 @property (retain, nonatomic, getter=_toolPicker, setter=_setToolPicker:) PKToolPicker *toolPicker;
 @property (retain, nonatomic, getter=_customItemInteraction) CanvasCustomItemInteraction *customItemInteraction;
 @property (retain, nonatomic, nullable, getter=_hoveringImageView, setter=_setHoveringImageView:) UIImageView *hoveringImageView;
@@ -45,8 +45,6 @@ __attribute__((objc_direct_members))
 @implementation CanvasViewController
 @synthesize imageView = _imageView;
 @synthesize canvasView = _canvasView;
-@synthesize customItemsScrollView = _customItemsScrollView;
-@synthesize customItemsContentView = _customItemsContentView;
 @synthesize toolPicker = _toolPicker;
 @synthesize customItemInteraction = _customItemInteraction;
 @synthesize doneBarButtonItem = _doneBarButtonItem;
@@ -107,6 +105,8 @@ __attribute__((objc_direct_members))
         
         toolPicker = [[PKToolPicker alloc] initWithToolItems:toolItems];
         [toolItems release];
+        toolPicker.selectedToolItem = toolPicker.toolItems.lastObject;
+        
         self.toolPicker = toolPicker;
         [toolPicker release];
     }
@@ -119,8 +119,6 @@ __attribute__((objc_direct_members))
     [_canvas release];
     [_imageView release];
     [_canvasView release];
-    [_customItemsScrollView release];
-    [_customItemsContentView release];
     [_toolPicker release];
     [_customItemInteraction release];
     [_hoveringImageView release];
@@ -130,12 +128,6 @@ __attribute__((objc_direct_members))
     [_redoBarButtonItem release];
     [_toolPickerAccessoryItem release];
     [super dealloc];
-}
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    self.customItemsScrollView.contentSize = self.canvasView.bounds.size;
-    self.customItemsContentView.frame = self.customItemsScrollView.bounds;
 }
 
 - (void)viewDidLoad {
@@ -148,9 +140,6 @@ __attribute__((objc_direct_members))
     
     [self.view addSubview:self.canvasView];
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self.view, sel_registerName("_addBoundsMatchingConstraintsForView:"), self.canvasView);
-    
-    [self.view addSubview:self.customItemsScrollView];
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self.view, sel_registerName("_addBoundsMatchingConstraintsForView:"), self.customItemsScrollView);
     
     UINavigationItem *navigationItem = self.navigationItem;
     navigationItem.trailingItemGroups = @[
@@ -201,36 +190,13 @@ __attribute__((objc_direct_members))
     canvasView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     canvasView.delegate = self;
     canvasView.maximumZoomScale = 10.;
+//    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(canvasView, sel_registerName("setPreservesCenterDuringRotation:"), YES);
     
     _canvasView = canvasView;
     
 //    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(canvasView, sel_registerName("setSupportsCopyAsText:"), YES);
     
     return canvasView;
-}
-
-- (UIScrollView *)_customItemsScrollView {
-    if (auto customItemsScrollView = _customItemsScrollView) return customItemsScrollView;
-    
-    UIScrollView *customItemsScrollView = [UIScrollView new];
-    customItemsScrollView.userInteractionEnabled = NO;
-    customItemsScrollView.delegate = self;
-    customItemsScrollView.minimumZoomScale = self.canvasView.minimumZoomScale;
-    customItemsScrollView.maximumZoomScale = self.canvasView.maximumZoomScale;
-    
-    [customItemsScrollView addSubview:self.customItemsContentView];
-    
-    _customItemsScrollView = customItemsScrollView;
-    return customItemsScrollView;
-}
-
-- (UIView *)_customItemsContentView {
-    if (auto customItemsContentView = _customItemsContentView) return customItemsContentView;
-    
-    UIView *customItemsContentView = [UIView new];
-    
-    _customItemsContentView = customItemsContentView;
-    return customItemsContentView;
 }
 
 - (void)_setToolPicker:(PKToolPicker *)toolPicker {
@@ -740,23 +706,25 @@ __attribute__((objc_direct_members))
     NSLog(@"%s", __func__);
 }
 
+- (void)_updateCustomItemsContentView {
+//    CGFloat zoomScale = self.canvasView.zoomScale;
+//    CGPoint contentOffset = self.canvasView.contentOffset;
+//    
+//    self.customItemsContentView.transform = CGAffineTransformMake(zoomScale, 0, 0, zoomScale, -contentOffset.x, -contentOffset.y);
+//    UIView *contentView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self.canvasView, sel_registerName("contentView"));
+//    self.customItemsContentView.anchorPoint = contentView.anchorPoint;
+//    self.customItemsContentView.transform = contentView.transform;
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if ([scrollView isEqual:self.canvasView]) {
-        self.customItemsScrollView.contentOffset = scrollView.contentOffset;
+        [self _updateCustomItemsContentView];
     }
 }
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
     if ([scrollView isEqual:self.canvasView]) {
-        self.customItemsScrollView.zoomScale = scrollView.zoomScale;
-    }
-}
-
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    if ([scrollView isEqual:self.customItemsScrollView]) {
-        return self.customItemsContentView;
-    } else {
-        return nil;
+        [self _updateCustomItemsContentView];
     }
 }
 
@@ -845,35 +813,41 @@ __attribute__((objc_direct_members))
 //}
 
 - (void)canvasCustomItemInteraction:(CanvasCustomItemInteraction *)canvasCustomItemInteraction didTriggerTapGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer {
+    UIView *contentView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self.canvasView, sel_registerName("contentView"));
+    
     UIImageView *hoveringImageView = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"apple.intelligence"]];
-    CGPoint location = [tapGestureRecognizer locationInView:self.customItemsContentView];
+    CGPoint location = [tapGestureRecognizer locationInView:contentView];
     auto customItem = static_cast<PKToolPickerCustomItem *>(self.toolPicker.selectedToolItem);
     CGFloat width = customItem.width;
     hoveringImageView.frame = CGRectMake(location.x - width * 0.5, location.y - width * 0.5, width, width);
     hoveringImageView.tintColor = customItem.color;
-    [self.customItemsContentView addSubview:hoveringImageView];
+    [contentView addSubview:hoveringImageView];
+    
+    [self.canvasView.undoManager registerUndoWithTarget:self selector:@selector(_undoCustomItem:) object:hoveringImageView];
     [hoveringImageView release];
 }
 
 - (void)canvasCustomItemInteraction:(CanvasCustomItemInteraction *)canvasCustomItemInteraction didTriggerHoverGestureRecognizer:(UIHoverGestureRecognizer *)hoverGestureRecognizer {
+    UIView *contentView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self.canvasView, sel_registerName("contentView"));
+    
     switch (hoverGestureRecognizer.state) {
         case UIGestureRecognizerStateBegan: {
             assert(self.hoveringImageView == nil);
             UIImageView *hoveringImageView = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"apple.intelligence"]];
-            CGPoint location = [hoverGestureRecognizer locationInView:self.customItemsContentView];
+            CGPoint location = [hoverGestureRecognizer locationInView:contentView];
             auto customItem = static_cast<PKToolPickerCustomItem *>(self.toolPicker.selectedToolItem);
             CGFloat width = customItem.width;
             hoveringImageView.frame = CGRectMake(location.x - width * 0.5, location.y - width * 0.5, width, width);
             hoveringImageView.tintColor = customItem.color;
             hoveringImageView.alpha = 0.5;
-            [self.customItemsContentView addSubview:hoveringImageView];
+            [contentView addSubview:hoveringImageView];
             self.hoveringImageView = hoveringImageView;
             [hoveringImageView release];
             break;
         }
         case UIGestureRecognizerStateChanged: {
             if (UIImageView *hoveringImageView = self.hoveringImageView) {
-                CGPoint location = [hoverGestureRecognizer locationInView:self.customItemsScrollView];
+                CGPoint location = [hoverGestureRecognizer locationInView:contentView];
                 auto customItem = static_cast<PKToolPickerCustomItem *>(self.toolPicker.selectedToolItem);
                 CGFloat width = customItem.width;
                 hoveringImageView.frame = CGRectMake(location.x - width * 0.5, location.y - width * 0.5, width, width);
@@ -898,6 +872,17 @@ __attribute__((objc_direct_members))
         default:
             break;
     }
+}
+
+- (void)_undoCustomItem:(UIImageView *)imageView {
+    [imageView removeFromSuperview];
+    [self.canvasView.undoManager registerUndoWithTarget:self selector:@selector(_redoCustomItem:) object:imageView];
+}
+
+- (void)_redoCustomItem:(UIImageView *)imageView {
+    UIView *contentView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self.canvasView, sel_registerName("contentView"));
+    [contentView addSubview:imageView];
+    [self.canvasView.undoManager registerUndoWithTarget:self selector:@selector(_undoCustomItem:) object:imageView];
 }
 
 @end
