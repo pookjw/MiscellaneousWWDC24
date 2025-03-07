@@ -32,10 +32,25 @@
         drawingDescription.attributeType = NSTransformableAttributeType;
         drawingDescription.valueTransformerName = MCPencilKitDrawingTransformer.transformerName;
         drawingDescription.attributeValueClassName = NSStringFromClass([PKDrawing class]);
+        drawingDescription.preservesValueInHistoryOnDeletion = YES;
         
-        canvasEntity.properties = @[lastEditedDateDescription, drawingDescription];
+        NSAttributeDescription *toolPickerStateDescription = [NSAttributeDescription new];
+        toolPickerStateDescription.name = @"toolPickerState";
+        toolPickerStateDescription.optional = YES;
+        toolPickerStateDescription.attributeType = NSTransformableAttributeType;
+        toolPickerStateDescription.valueTransformerName = NSSecureUnarchiveFromDataTransformerName;
+        toolPickerStateDescription.attributeValueClassName = NSStringFromClass([NSDictionary class]);
+        toolPickerStateDescription.preservesValueInHistoryOnDeletion = YES;
+        
+        canvasEntity.properties = @[
+            lastEditedDateDescription,
+            drawingDescription,
+            toolPickerStateDescription
+        ];
+        
         [lastEditedDateDescription release];
         [drawingDescription release];
+        [toolPickerStateDescription release];
         
         canvasEntity.uniquenessConstraints = @[@[@"lastEditedDate"]];
     }

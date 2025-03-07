@@ -10,6 +10,7 @@
 @implementation MCCanvas
 @dynamic lastEditedDate;
 @dynamic drawing;
+@dynamic toolPickerState;
 
 + (NSFetchRequest<MCCanvas *> *)fetchRequest {
     return [[[NSFetchRequest alloc] initWithEntityName:@"Canvas"] autorelease];

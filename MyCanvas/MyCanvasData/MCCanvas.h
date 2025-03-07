@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MCCanvas : NSManagedObject
 @property (copy, nonatomic, nullable) NSDate *lastEditedDate;
 @property (retain, nonatomic, nullable) PKDrawing *drawing;
+@property (retain, nonatomic, nullable) NSDictionary *toolPickerState;
 + (NSFetchRequest<MCCanvas *> *)fetchRequest;
 @end
 

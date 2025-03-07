@@ -168,13 +168,7 @@ __attribute__((objc_direct_members))
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     MCCanvas *canvas = [self.fetchedResultsController objectAtIndexPath:indexPath];
     assert(canvas != nil);
-    CanvasViewController *canvasViewController = [[CanvasViewController alloc] initWithCanvas:canvas];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:canvasViewController];
-    [canvasViewController release];
-    navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
-    
-    [self presentViewController:navigationController animated:YES completion:nil];
-    [navigationController release];
+    [self _presentCanvasViewControllerWithCanvas:canvas];
 }
 
 - (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths point:(CGPoint)point {
@@ -249,11 +243,16 @@ __attribute__((objc_direct_members))
     [context performBlock:^{
         MCCanvas *canvas = [[MCCanvas alloc] initWithContext:context];
         canvas.lastEditedDate = [NSDate now];
-        [canvas release];
         
         NSError * _Nullable error = nil;
         [context save:&error];
         assert(error == nil);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self _presentCanvasViewControllerWithCanvas:canvas];
+        });
+        
+        [canvas release];
     }];
 }
 
@@ -261,6 +260,16 @@ __attribute__((objc_direct_members))
     PreferencesViewController *preferencesViewController = [PreferencesViewController new];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:preferencesViewController];
     [preferencesViewController release];
+    [self presentViewController:navigationController animated:YES completion:nil];
+    [navigationController release];
+}
+
+- (void)_presentCanvasViewControllerWithCanvas:(MCCanvas *)canvas {
+    CanvasViewController *canvasViewController = [[CanvasViewController alloc] initWithCanvas:canvas];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:canvasViewController];
+    [canvasViewController release];
+    navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
+    
     [self presentViewController:navigationController animated:YES completion:nil];
     [navigationController release];
 }

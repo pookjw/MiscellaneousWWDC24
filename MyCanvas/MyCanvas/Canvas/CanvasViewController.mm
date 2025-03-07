@@ -144,6 +144,22 @@ __attribute__((objc_direct_members))
     toolPicker.delegate = self;
     [toolPicker addObserver:self];
     
+    toolPicker.stateAutosaveName = self.canvas.objectID.URIRepresentation.path;
+    
+    MCCanvas *canvas = self.canvas;
+    [canvas.managedObjectContext performBlock:^{
+        NSDictionary * _Nullable toolPickerState = canvas.toolPickerState;
+        if (toolPickerState == nil) return;
+        NSArray * _Nullable tools = toolPickerState[@"PKPaletteTools"];
+        if (tools == nil) return;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSString *key = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(toolPicker, sel_registerName("_paletteViewStateRestorationDefaultsKey"));
+            [NSUserDefaults.standardUserDefaults setObject:toolPickerState forKey:key];
+            reinterpret_cast<void (*)(id, SEL, id, BOOL)>(objc_msgSend)(toolPicker, sel_registerName("_restoreToolPickerStateFromRepresentation:notify:"), tools, YES);
+        });
+    }];
+    
     _toolPicker = toolPicker;
     return toolPicker;
 }
@@ -491,6 +507,20 @@ __attribute__((objc_direct_members))
     }
     
     self.canvasView.tool = tool;
+    
+    //
+    
+    NSString *key = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(toolPicker, sel_registerName("_paletteViewStateRestorationDefaultsKey"));
+    NSDictionary *toolPickerState = [NSUserDefaults.standardUserDefaults dictionaryForKey:key];
+    
+    MCCanvas *canvas = self.canvas;
+    NSManagedObjectContext *context = canvas.managedObjectContext;
+    [context performBlock:^{
+        canvas.toolPickerState = toolPickerState;
+        NSError * _Nullable error = nil;
+        [context save:&error];
+        assert(error == nil);
+    }];
 }
 
 - (void)toolPickerIsRulerActiveDidChange:(PKToolPicker *)toolPicker {
