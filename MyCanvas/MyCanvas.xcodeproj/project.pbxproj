@@ -85,6 +85,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
+				"NSDictionary+MCCategory.mm",
 			);
 			target = 4FBCC3FD2D795733005187E3 /* MyCanvas */;
 		};
@@ -105,6 +106,14 @@
 			);
 			target = 4FBCC4472D795C86005187E3 /* MyCanvasData */;
 		};
+		4FDF1FB22D7C946E0021EE5C /* Exceptions for "MyCanvas" folder in "MyCanvasData" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"NSDictionary+MCCategory.h",
+				"NSDictionary+MCCategory.mm",
+			);
+			target = 4FBCC4472D795C86005187E3 /* MyCanvasData */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -112,6 +121,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				4FBCC4152D795734005187E3 /* Exceptions for "MyCanvas" folder in "MyCanvas" target */,
+				4FDF1FB22D7C946E0021EE5C /* Exceptions for "MyCanvas" folder in "MyCanvasData" target */,
 			);
 			path = MyCanvas;
 			sourceTree = "<group>";
