@@ -19,7 +19,7 @@
 #import "CanvasCustomItemInteraction.h"
 #import "MyCanvas-Swift.h"
 
-#warning Image Transform / Drawing시 사라짐
+#warning Image Transform
 
 /*
  -[PKTiledCanvasView _drawingEnded:estimatesTimeout:completion:]
@@ -35,6 +35,7 @@ __attribute__((objc_direct_members))
 @property (retain, nonatomic, readonly, getter=_canvas) MCCanvas *canvas;
 @property (retain, nonatomic, readonly, getter=_imageView) UIImageView *imageView;
 @property (retain, nonatomic, readonly, getter=_canvasView) PKCanvasView *canvasView;
+@property (retain, nonatomic, readonly, getter=_customItemsContainerView) UIView *customItemsContainerView;
 @property (retain, nonatomic, getter=_toolPicker, setter=_setToolPicker:) PKToolPicker *toolPicker;
 @property (retain, nonatomic, getter=_customItemInteraction) CanvasCustomItemInteraction *customItemInteraction;
 @property (retain, nonatomic, nullable, getter=_hoveringImageView, setter=_setHoveringImageView:) UIImageView *hoveringImageView;
@@ -48,6 +49,7 @@ __attribute__((objc_direct_members))
 @implementation CanvasViewController
 @synthesize imageView = _imageView;
 @synthesize canvasView = _canvasView;
+@synthesize customItemsContainerView = _customItemsContainerView;
 @synthesize toolPicker = _toolPicker;
 @synthesize customItemInteraction = _customItemInteraction;
 @synthesize doneBarButtonItem = _doneBarButtonItem;
@@ -129,6 +131,7 @@ __attribute__((objc_direct_members))
     [_canvas release];
     [_imageView release];
     [_canvasView release];
+    [_customItemsContainerView release];
     [_toolPicker release];
     [_customItemInteraction release];
     [_hoveringImageView release];
@@ -154,6 +157,10 @@ __attribute__((objc_direct_members))
     
     [self.view addSubview:self.canvasView];
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self.view, sel_registerName("_addBoundsMatchingConstraintsForView:"), self.canvasView);
+    
+//    self.customItemsContainerView.frame = self.view.bounds;
+//    self.customItemsContainerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.view addSubview:self.customItemsContainerView];
     
     UINavigationItem *navigationItem = self.navigationItem;
     navigationItem.trailingItemGroups = @[
@@ -200,8 +207,6 @@ __attribute__((objc_direct_members))
         dispatch_async(dispatch_get_main_queue(), ^{
             self.canvasView.drawing = drawing;
             
-            UIView *contentView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self.canvasView, sel_registerName("contentView"));
-            
             for (NSDictionary *customItem in faultedCustomItems) {
                 UIImage *image = [UIImage systemImageNamed:customItem[@"systemImageName"]];
                 CGRect frame = static_cast<NSNumber *>(customItem[@"frame"]).CGRectValue;
@@ -209,7 +214,7 @@ __attribute__((objc_direct_members))
                 UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
                 imageView.image = image;
                 imageView.tintColor = tintColor;
-                [contentView addSubview:imageView];
+                [self.customItemsContainerView addSubview:imageView];
                 [imageView release];
             }
         });
@@ -220,6 +225,11 @@ __attribute__((objc_direct_members))
     [self.canvasView becomeFirstResponder];
     
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didReceiveUndoManagerCheckpointNotification:) name:NSUndoManagerCheckpointNotification object:nil];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self _updateCustomItemsContainerView];
 }
 
 - (UIImageView *)_imageView {
@@ -249,6 +259,17 @@ __attribute__((objc_direct_members))
 //    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(canvasView, sel_registerName("setSupportsCopyAsText:"), YES);
     
     return canvasView;
+}
+
+- (UIView *)_customItemsContainerView {
+    if (auto customItemsContainerView = _customItemsContainerView) return customItemsContainerView;
+    
+    UIView *customItemsContainerView = [UIView new];
+    customItemsContainerView.userInteractionEnabled = NO;
+//    customItemsContainerView.backgroundColor = [UIColor.systemPinkColor colorWithAlphaComponent:0.3];
+    
+    _customItemsContainerView = customItemsContainerView;
+    return customItemsContainerView;
 }
 
 - (void)_setToolPicker:(PKToolPicker *)toolPicker {
@@ -758,25 +779,23 @@ __attribute__((objc_direct_members))
     NSLog(@"%s", __func__);
 }
 
-- (void)_updateCustomItemsContentView {
-//    CGFloat zoomScale = self.canvasView.zoomScale;
-//    CGPoint contentOffset = self.canvasView.contentOffset;
-//    
-//    self.customItemsContentView.transform = CGAffineTransformMake(zoomScale, 0, 0, zoomScale, -contentOffset.x, -contentOffset.y);
-//    UIView *contentView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self.canvasView, sel_registerName("contentView"));
-//    self.customItemsContentView.anchorPoint = contentView.anchorPoint;
-//    self.customItemsContentView.transform = contentView.transform;
+- (void)_updateCustomItemsContainerView {
+    CGFloat zoomScale = self.canvasView.zoomScale;
+    UIView *contentView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self.canvasView, sel_registerName("contentView"));
+    CGRect rect = [contentView convertRect:contentView.bounds toView:self.view];
+    self.customItemsContainerView.frame = rect;
+    self.customItemsContainerView.transform = CGAffineTransformMakeScale(zoomScale, zoomScale);
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if ([scrollView isEqual:self.canvasView]) {
-        [self _updateCustomItemsContentView];
+        [self _updateCustomItemsContainerView];
     }
 }
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
     if ([scrollView isEqual:self.canvasView]) {
-        [self _updateCustomItemsContentView];
+        [self _updateCustomItemsContainerView];
     }
 }
 
@@ -920,50 +939,47 @@ __attribute__((objc_direct_members))
 }
 
 - (void)canvasCustomItemInteraction:(CanvasCustomItemInteraction *)canvasCustomItemInteraction didTriggerTapGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer {
-    UIView *contentView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self.canvasView, sel_registerName("contentView"));
     NSString *systemImageName = @"apple.intelligence";
-    UIImageView *hoveringImageView = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:systemImageName]];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:systemImageName]];
     auto customItem = static_cast<PKToolPickerCustomItem *>(self.toolPicker.selectedToolItem);
     
     CGRect frame;
     {
-        CGPoint location = [tapGestureRecognizer locationInView:contentView];
+        CGPoint location = [tapGestureRecognizer locationInView:self.customItemsContainerView];
         CGFloat width = customItem.width;
         frame = CGRectMake(location.x - width * 0.5, location.y - width * 0.5, width, width);
     }
     
-    hoveringImageView.frame = frame;
+    imageView.frame = frame;
     
     UIColor *tintColor = customItem.color;
-    hoveringImageView.tintColor = tintColor;
-    [contentView addSubview:hoveringImageView];
+    imageView.tintColor = tintColor;
+    [self.customItemsContainerView addSubview:imageView];
     
-    [self.undoManager registerUndoWithTarget:self selector:@selector(_undoCustomItem:) object:hoveringImageView];
-    [self _saveCustomItemWithImageView:hoveringImageView];
-    [hoveringImageView release];
+    [self.undoManager registerUndoWithTarget:self selector:@selector(_undoCustomItem:) object:imageView];
+    [self _saveCustomItemWithImageView:imageView];
+    [imageView release];
 }
 
 - (void)canvasCustomItemInteraction:(CanvasCustomItemInteraction *)canvasCustomItemInteraction didTriggerHoverGestureRecognizer:(UIHoverGestureRecognizer *)hoverGestureRecognizer {
-    UIView *contentView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self.canvasView, sel_registerName("contentView"));
-    
     switch (hoverGestureRecognizer.state) {
         case UIGestureRecognizerStateBegan: {
             assert(self.hoveringImageView == nil);
             UIImageView *hoveringImageView = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"apple.intelligence"]];
-            CGPoint location = [hoverGestureRecognizer locationInView:contentView];
+            CGPoint location = [hoverGestureRecognizer locationInView:self.customItemsContainerView];
             auto customItem = static_cast<PKToolPickerCustomItem *>(self.toolPicker.selectedToolItem);
             CGFloat width = customItem.width;
             hoveringImageView.frame = CGRectMake(location.x - width * 0.5, location.y - width * 0.5, width, width);
             hoveringImageView.tintColor = customItem.color;
             hoveringImageView.alpha = 0.5;
-            [contentView addSubview:hoveringImageView];
+            [self.customItemsContainerView addSubview:hoveringImageView];
             self.hoveringImageView = hoveringImageView;
             [hoveringImageView release];
             break;
         }
         case UIGestureRecognizerStateChanged: {
             if (UIImageView *hoveringImageView = self.hoveringImageView) {
-                CGPoint location = [hoverGestureRecognizer locationInView:contentView];
+                CGPoint location = [hoverGestureRecognizer locationInView:self.customItemsContainerView];
                 auto customItem = static_cast<PKToolPickerCustomItem *>(self.toolPicker.selectedToolItem);
                 CGFloat width = customItem.width;
                 hoveringImageView.frame = CGRectMake(location.x - width * 0.5, location.y - width * 0.5, width, width);
@@ -997,8 +1013,7 @@ __attribute__((objc_direct_members))
 }
 
 - (void)_redoCustomItem:(UIImageView *)imageView {
-    UIView *contentView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self.canvasView, sel_registerName("contentView"));
-    [contentView addSubview:imageView];
+    [self.customItemsContainerView addSubview:imageView];
     [self.undoManager registerUndoWithTarget:self selector:@selector(_undoCustomItem:) object:imageView];
     [self _saveCustomItemWithImageView:imageView];
 }
