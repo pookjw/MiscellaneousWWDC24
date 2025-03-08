@@ -7,6 +7,8 @@
 
 #import "CanvasCustomItemInteraction.h"
 
+#warning TODO prefersHoverToolPreview
+
 __attribute__((objc_direct_members))
 @interface CanvasCustomItemInteraction () {
     UIView *_view;

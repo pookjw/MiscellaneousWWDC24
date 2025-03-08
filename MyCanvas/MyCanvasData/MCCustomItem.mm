@@ -14,6 +14,7 @@
 @dynamic frame;
 @dynamic tintColor;
 @dynamic canvas;
+@dynamic transform;
 
 - (CGRect)cgFrame {
     if (NSDictionary<NSString *, id> *frame = self.frame) {
@@ -99,6 +100,55 @@
     };
     
     [componentsArray release];
+}
+
+- (CGAffineTransform)cgAffineTransform {
+    if (NSDictionary<NSString *, id> *transform = self.transform) {
+        auto aNumber = static_cast<NSNumber *>(transform[@"a"]);
+        auto bNumber = static_cast<NSNumber *>(transform[@"b"]);
+        auto cNumber = static_cast<NSNumber *>(transform[@"c"]);
+        auto dNumber = static_cast<NSNumber *>(transform[@"d"]);
+        auto txNumber = static_cast<NSNumber *>(transform[@"tx"]);
+        auto tyNumber = static_cast<NSNumber *>(transform[@"ty"]);
+        
+        CGFloat a;
+        CGFloat b;
+        CGFloat c;
+        CGFloat d;
+        CGFloat tx;
+        CGFloat ty;
+        
+#if CGFLOAT_IS_DOUBLE
+        a = aNumber.doubleValue;
+        b = bNumber.doubleValue;
+        c = cNumber.doubleValue;
+        d = dNumber.doubleValue;
+        tx = txNumber.doubleValue;
+        ty = tyNumber.doubleValue;
+#else
+        a = aNumber.floatValue;
+        b = bNumber.floatValue;
+        c = cNumber.floatValue;
+        d = dNumber.floatValue;
+        tx = txNumber.floatValue;
+        ty = tyNumber.floatValue;
+#endif
+        
+        return CGAffineTransformMake(a, b, c, d, tx, ty);
+    }
+    
+    return CGAffineTransformIdentity;
+}
+
+- (void)setCGAffineTransform:(CGAffineTransform)cgAffineTransform {
+    self.transform = @{
+        @"a": @(cgAffineTransform.a),
+        @"b": @(cgAffineTransform.b),
+        @"c": @(cgAffineTransform.c),
+        @"d": @(cgAffineTransform.d),
+        @"tx": @(cgAffineTransform.tx),
+        @"ty": @(cgAffineTransform.ty)
+    };
 }
 
 @end

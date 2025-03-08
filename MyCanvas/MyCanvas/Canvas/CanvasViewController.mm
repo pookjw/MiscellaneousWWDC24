@@ -19,8 +19,6 @@
 #import "CanvasCustomItemInteraction.h"
 #import "MyCanvas-Swift.h"
 
-#warning Image Transform
-
 /*
  -[PKTiledCanvasView _drawingEnded:estimatesTimeout:completion:]
  -[PKTiledView canvasViewDidEndDrawing:]
@@ -38,7 +36,7 @@ __attribute__((objc_direct_members))
 @property (retain, nonatomic, readonly, getter=_customItemsContainerView) UIView *customItemsContainerView;
 @property (retain, nonatomic, getter=_toolPicker, setter=_setToolPicker:) PKToolPicker *toolPicker;
 @property (retain, nonatomic, getter=_customItemInteraction) CanvasCustomItemInteraction *customItemInteraction;
-@property (retain, nonatomic, nullable, getter=_hoveringImageView, setter=_setHoveringImageView:) UIImageView *hoveringImageView;
+@property (retain, nonatomic, nullable, getter=_hoverImageView, setter=_sethoverImageView:) UIImageView *hoverImageView;
 @property (retain, nonatomic, readonly, getter=_doneBarButtonItem) UIBarButtonItem *doneBarButtonItem;
 @property (retain, nonatomic, readonly, getter=_menuBarButtonItem) UIBarButtonItem *menuBarButtonItem;
 @property (retain, nonatomic, readonly, getter=_undoBarButtonItem) UIBarButtonItem *undoBarButtonItem;
@@ -134,7 +132,7 @@ __attribute__((objc_direct_members))
     [_customItemsContainerView release];
     [_toolPicker release];
     [_customItemInteraction release];
-    [_hoveringImageView release];
+    [_hoverImageView release];
     [_doneBarButtonItem release];
     [_menuBarButtonItem release];
     [_undoBarButtonItem release];
@@ -158,9 +156,8 @@ __attribute__((objc_direct_members))
     [self.view addSubview:self.canvasView];
     reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self.view, sel_registerName("_addBoundsMatchingConstraintsForView:"), self.canvasView);
     
-//    self.customItemsContainerView.frame = self.view.bounds;
-//    self.customItemsContainerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.customItemsContainerView];
+    [self _updateCustomItemsContainerView];
     
     UINavigationItem *navigationItem = self.navigationItem;
     navigationItem.trailingItemGroups = @[
@@ -196,7 +193,8 @@ __attribute__((objc_direct_members))
             NSDictionary *result = @{
                 @"systemImageName": systemImageName,
                 @"frame": @(frame),
-                @"tintColor": [UIColor colorWithCGColor:tintColor]
+                @"tintColor": [UIColor colorWithCGColor:tintColor],
+                @"transform": [NSValue valueWithCGAffineTransform:customItem.cgAffineTransform]
             };
             
             CGColorRelease(tintColor);
@@ -211,9 +209,13 @@ __attribute__((objc_direct_members))
                 UIImage *image = [UIImage systemImageNamed:customItem[@"systemImageName"]];
                 CGRect frame = static_cast<NSNumber *>(customItem[@"frame"]).CGRectValue;
                 UIColor *tintColor = customItem[@"tintColor"];
+                CGAffineTransform transform = static_cast<NSValue *>(customItem[@"transform"]).CGAffineTransformValue;
+                
                 UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
                 imageView.image = image;
                 imageView.tintColor = tintColor;
+                imageView.transform = transform;
+                
                 [self.customItemsContainerView addSubview:imageView];
                 [imageView release];
             }
@@ -222,9 +224,12 @@ __attribute__((objc_direct_members))
         [faultedCustomItems release];
     }];
     
-    [self.canvasView becomeFirstResponder];
-    
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didReceiveUndoManagerCheckpointNotification:) name:NSUndoManagerCheckpointNotification object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.canvasView becomeFirstResponder];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -888,6 +893,7 @@ __attribute__((objc_direct_members))
     NSManagedObjectContext *context = canvas.managedObjectContext;
     CGRect frame = imageView.frame;
     UIColor *tintColor = imageView.tintColor;
+    CGAffineTransform transform = imageView.transform;
     
     UIImage *image = imageView.image;
     id imageAsset = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(image, sel_registerName("imageAsset"));
@@ -911,6 +917,7 @@ __attribute__((objc_direct_members))
         customItem.cgFrame = frame;
         customItem.systemImageName = assetName;
         [customItem setCGTintColor:tintColor.CGColor];
+        customItem.cgAffineTransform = transform;
         
         [canvas addCustomItemsObject:customItem];
         assert(customItem.canvas != nil);
@@ -939,7 +946,7 @@ __attribute__((objc_direct_members))
 }
 
 - (void)canvasCustomItemInteraction:(CanvasCustomItemInteraction *)canvasCustomItemInteraction didTriggerTapGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer {
-    NSString *systemImageName = @"apple.intelligence";
+    NSString *systemImageName = @"arrow.up";
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:systemImageName]];
     auto customItem = static_cast<PKToolPickerCustomItem *>(self.toolPicker.selectedToolItem);
     
@@ -951,6 +958,12 @@ __attribute__((objc_direct_members))
     }
     
     imageView.frame = frame;
+    
+    NSSet<UITouch *> *touches = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(tapGestureRecognizer, sel_registerName("sbf_activeTouches"));
+    if (UITouch *touch = touches.allObjects.firstObject) {
+        CGFloat rotation = [touch azimuthAngleInView:self.customItemsContainerView] - touch.rollAngle;
+        imageView.transform = CGAffineTransformMakeRotation(rotation);
+    }
     
     UIColor *tintColor = customItem.color;
     imageView.tintColor = tintColor;
@@ -964,41 +977,45 @@ __attribute__((objc_direct_members))
 - (void)canvasCustomItemInteraction:(CanvasCustomItemInteraction *)canvasCustomItemInteraction didTriggerHoverGestureRecognizer:(UIHoverGestureRecognizer *)hoverGestureRecognizer {
     switch (hoverGestureRecognizer.state) {
         case UIGestureRecognizerStateBegan: {
-            assert(self.hoveringImageView == nil);
-            UIImageView *hoveringImageView = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"apple.intelligence"]];
+            assert(self.hoverImageView == nil);
+            UIImageView *hoverImageView = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"arrow.up"]];
             CGPoint location = [hoverGestureRecognizer locationInView:self.customItemsContainerView];
             auto customItem = static_cast<PKToolPickerCustomItem *>(self.toolPicker.selectedToolItem);
             CGFloat width = customItem.width;
-            hoveringImageView.frame = CGRectMake(location.x - width * 0.5, location.y - width * 0.5, width, width);
-            hoveringImageView.tintColor = customItem.color;
-            hoveringImageView.alpha = 0.5;
-            [self.customItemsContainerView addSubview:hoveringImageView];
-            self.hoveringImageView = hoveringImageView;
-            [hoveringImageView release];
+            hoverImageView.frame = CGRectMake(location.x - width * 0.5, location.y - width * 0.5, width, width);
+            hoverImageView.tintColor = customItem.color;
+            hoverImageView.alpha = 0.5;
+            
+            CGFloat rotation = [hoverGestureRecognizer azimuthAngleInView:self.customItemsContainerView] - hoverGestureRecognizer.rollAngle;
+            hoverImageView.transform = CGAffineTransformMakeRotation(rotation);
+            
+            [self.customItemsContainerView addSubview:hoverImageView];
+            self.hoverImageView = hoverImageView;
+            [hoverImageView release];
             break;
         }
         case UIGestureRecognizerStateChanged: {
-            if (UIImageView *hoveringImageView = self.hoveringImageView) {
+            if (UIImageView *hoverImageView = self.hoverImageView) {
+                hoverImageView.transform = CGAffineTransformIdentity;
+                
                 CGPoint location = [hoverGestureRecognizer locationInView:self.customItemsContainerView];
                 auto customItem = static_cast<PKToolPickerCustomItem *>(self.toolPicker.selectedToolItem);
+                
                 CGFloat width = customItem.width;
-                hoveringImageView.frame = CGRectMake(location.x - width * 0.5, location.y - width * 0.5, width, width);
+                hoverImageView.frame = CGRectMake(location.x - width * 0.5, location.y - width * 0.5, width, width);
+                
+                CGFloat rotation = [hoverGestureRecognizer azimuthAngleInView:self.customItemsContainerView] - hoverGestureRecognizer.rollAngle;
+                hoverImageView.transform = CGAffineTransformMakeRotation(rotation);
             }
             break;
         }
-        case UIGestureRecognizerStateEnded: {
-            UIImageView *hoveringImageView = self.hoveringImageView;
-            assert(hoveringImageView != nil);
-            [hoveringImageView removeFromSuperview];
-            self.hoveringImageView = nil;
-            break;
-        }
+        case UIGestureRecognizerStateEnded:
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateFailed: {
-            UIImageView *hoveringImageView = self.hoveringImageView;
-            assert(hoveringImageView != nil);
-            [hoveringImageView removeFromSuperview];
-            self.hoveringImageView = nil;
+            UIImageView *hoverImageView = self.hoverImageView;
+            assert(hoverImageView != nil);
+            [hoverImageView removeFromSuperview];
+            self.hoverImageView = nil;
             break;
         }
         default:

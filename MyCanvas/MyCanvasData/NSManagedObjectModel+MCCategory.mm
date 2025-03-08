@@ -66,6 +66,60 @@
             [heightDescription release];
         }
         
+        NSCompositeAttributeDescription *transformDescription;
+        {
+            transformDescription = [NSCompositeAttributeDescription new];
+            transformDescription.name = @"transform";
+            transformDescription.optional = YES;
+            transformDescription.preservesValueInHistoryOnDeletion = YES;
+            
+            NSAttributeDescription *aDescription = [NSAttributeDescription new];
+            aDescription.name = @"x";
+            aDescription.attributeType = NSDoubleAttributeType;
+            aDescription.preservesValueInHistoryOnDeletion = YES;
+            
+            NSAttributeDescription *bDescription = [NSAttributeDescription new];
+            bDescription.name = @"b";
+            bDescription.attributeType = NSDoubleAttributeType;
+            bDescription.preservesValueInHistoryOnDeletion = YES;
+            
+            NSAttributeDescription *cDescription = [NSAttributeDescription new];
+            cDescription.name = @"c";
+            cDescription.attributeType = NSDoubleAttributeType;
+            cDescription.preservesValueInHistoryOnDeletion = YES;
+            
+            NSAttributeDescription *dDescription = [NSAttributeDescription new];
+            dDescription.name = @"d";
+            dDescription.attributeType = NSDoubleAttributeType;
+            dDescription.preservesValueInHistoryOnDeletion = YES;
+            
+            NSAttributeDescription *txDescription = [NSAttributeDescription new];
+            txDescription.name = @"tx";
+            txDescription.attributeType = NSDoubleAttributeType;
+            txDescription.preservesValueInHistoryOnDeletion = YES;
+            
+            NSAttributeDescription *tyDescription = [NSAttributeDescription new];
+            tyDescription.name = @"ty";
+            tyDescription.attributeType = NSDoubleAttributeType;
+            tyDescription.preservesValueInHistoryOnDeletion = YES;
+            
+            transformDescription.elements = @[
+                aDescription,
+                bDescription,
+                cDescription,
+                dDescription,
+                txDescription,
+                tyDescription
+            ];
+            
+            [aDescription release];
+            [bDescription release];
+            [cDescription release];
+            [dDescription release];
+            [txDescription release];
+            [tyDescription release];
+        }
+        
         NSCompositeAttributeDescription *tintColorDescription;
         {
             tintColorDescription = [NSCompositeAttributeDescription new];
@@ -97,12 +151,14 @@
         customItemEntity.properties = @[
             systemImageNameDescription,
             frameDescription,
-            tintColorDescription
+            tintColorDescription,
+            transformDescription
         ];
         
         [systemImageNameDescription release];
         [frameDescription release];
         [tintColorDescription release];
+        [transformDescription release];
     }
     
     NSEntityDescription *canvasEntity;
