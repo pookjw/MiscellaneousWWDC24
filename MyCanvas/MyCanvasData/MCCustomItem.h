@@ -19,8 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic, setter=setCGFrame:) CGRect cgFrame;
 @property (assign, nonatomic, setter=setCGAffineTransform:) CGAffineTransform cgAffineTransform;
 @property (retain, nonatomic, nullable) MCCanvas *canvas;
-- (CGColorRef)cgTintColor CF_RETURNS_RETAINED;
-- (void)setCGTintColor:(CGColorRef)cgTintColor;
+- (CGColorRef _Nullable)cgTintColor CF_RETURNS_RETAINED;
+- (void)setCGTintColor:(CGColorRef _Nullable)cgTintColor;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -39,6 +39,7 @@ __attribute__((objc_direct_members))
 - (void)dealloc {
     [_contentConfiguration release];
     [_canvasImageView release];
+    [_customItemsImageView release];
     [super dealloc];
 }
 
