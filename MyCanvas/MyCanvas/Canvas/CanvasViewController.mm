@@ -303,7 +303,7 @@ __attribute__((objc_direct_members))
     }];
 }
 
-- (void)_resetStateAutosave {
+- (void)_resetStateAutosave __attribute__((objc_direct)) {
     PKToolPicker *toolPicker = [[PKToolPicker alloc] initWithToolItems:@[]];
     toolPicker.stateAutosaveName = self.canvas.objectID.URIRepresentation.path;
     NSString *key = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(toolPicker, sel_registerName("_paletteViewStateRestorationDefaultsKey"));
@@ -366,7 +366,7 @@ __attribute__((objc_direct_members))
     return toolPickerAccessoryItem;
 }
 
-- (UIMenu *)_makeMenu {
+- (UIMenu *)_makeMenu __attribute__((objc_direct)) {
     PKCanvasView *canvasView = self.canvasView;
     
     __kindof UIView *_tiledView;
@@ -779,7 +779,7 @@ __attribute__((objc_direct_members))
     NSLog(@"%s", __func__);
 }
 
-- (void)_updateCustomItemsContainerView {
+- (void)_updateCustomItemsContainerView __attribute__((objc_direct)) {
     CGFloat zoomScale = self.canvasView.zoomScale;
     UIView *contentView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self.canvasView, sel_registerName("contentView"));
     CGRect rect = [contentView convertRect:contentView.bounds toView:self.view];
@@ -883,7 +883,7 @@ __attribute__((objc_direct_members))
 //    [toolPicker release];
 //}
 
-- (void)_saveCustomItemWithImageView:(UIImageView *)imageView {
+- (void)_saveCustomItemWithImageView:(UIImageView *)imageView __attribute__((objc_direct)) {
     MCCanvas *canvas = self.canvas;
     NSManagedObjectContext *context = canvas.managedObjectContext;
     CGRect frame = imageView.frame;
@@ -922,7 +922,7 @@ __attribute__((objc_direct_members))
     [customItem release];
 }
 
-- (void)_removeCustomItemWithImageView:(UIImageView *)imageView {
+- (void)_removeCustomItemWithImageView:(UIImageView *)imageView __attribute__((objc_direct)) {
     MCCanvas *canvas = self.canvas;
     NSManagedObjectContext *context = canvas.managedObjectContext;
     [context performBlock:^{

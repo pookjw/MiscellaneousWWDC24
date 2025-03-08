@@ -7,6 +7,7 @@
 
 #import "CanvasCustomItemInteraction.h"
 
+__attribute__((objc_direct_members))
 @interface CanvasCustomItemInteraction () {
     UIView *_view;
 }

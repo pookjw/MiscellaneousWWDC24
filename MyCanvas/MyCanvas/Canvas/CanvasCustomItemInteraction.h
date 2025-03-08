@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)canvasCustomItemInteraction:(CanvasCustomItemInteraction *)canvasCustomItemInteraction didTriggerHoverGestureRecognizer:(UIHoverGestureRecognizer *)hoverGestureRecognizer;
 @end
 
+__attribute__((objc_direct_members))
 @interface CanvasCustomItemInteraction : NSObject <UIInteraction>
 @property (assign, nonatomic, getter=isEnabled) BOOL enabled;
 @property (assign, nonatomic, nullable) id<CanvasCustomItemInteractionDelegate> delegate;
