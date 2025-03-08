@@ -6,22 +6,29 @@
 //
 
 #import "CanvasCollectionContentView.h"
+#import <objc/message.h>
+#import <objc/runtime.h>
 
 __attribute__((objc_direct_members))
 @interface CanvasCollectionContentView ()
 @property (copy, nonatomic, getter=_contentConfiguration, setter=_setContentConfiguration:) CanvasCollectionContentConfiguration *contentConfiguration;
-@property (retain, nonatomic, readonly, getter=_label) UILabel *label;
+@property (retain, nonatomic, readonly, getter=_canvasImageView) UIImageView *canvasImageView;
+@property (retain, nonatomic, readonly, getter=_customItemsImageView) UIImageView *customItemsImageView;
 @end
 
 @implementation CanvasCollectionContentView
-@synthesize label = _label;
+@synthesize canvasImageView = _canvasImageView;
+@synthesize customItemsImageView = _customItemsImageView;
 
 - (instancetype)initWithConfiguration:(CanvasCollectionContentConfiguration *)configuration {
     if (self = [super initWithFrame:CGRectNull]) {
-        UILabel *label = self.label;
-        label.frame = self.bounds;
-        label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        [self addSubview:label];
+        UIImageView *canvasImageView = self.canvasImageView;
+        [self addSubview:canvasImageView];
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self, sel_registerName("_addBoundsMatchingConstraintsForView:"), canvasImageView);
+        
+        UIImageView *customItemsImageView = self.customItemsImageView;
+        [self addSubview:customItemsImageView];
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self, sel_registerName("_addBoundsMatchingConstraintsForView:"), customItemsImageView);
         
         self.contentConfiguration = configuration;
     }
@@ -31,7 +38,7 @@ __attribute__((objc_direct_members))
 
 - (void)dealloc {
     [_contentConfiguration release];
-    [_label release];
+    [_canvasImageView release];
     [super dealloc];
 }
 
@@ -52,24 +59,42 @@ __attribute__((objc_direct_members))
     _contentConfiguration = [contentConfiguration copy];
     
     [MCCoreDataStack.sharedInstance.backgroundContext performBlock:^{
-        NSDate *lastEditedSate = contentConfiguration.canvas.lastEditedDate;
+        NSData *canvasImageData = contentConfiguration.canvas.canvasImageData;
+        NSData *customItemsImageData = contentConfiguration.canvas.customItemsImageData;
+        
+        UIImage *canvasImage = [[UIImage alloc] initWithData:canvasImageData];
+        UIImage *customItemsImage = [[UIImage alloc] initWithData:customItemsImageData];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([self.contentConfiguration.canvas isEqual:contentConfiguration.canvas]) {
-                self.label.text = lastEditedSate.description;
+                self.canvasImageView.image = canvasImage;
+                self.customItemsImageView.image = customItemsImage;
             }
         });
+        
+        [canvasImage release];
+        [customItemsImage release];
     }];
 }
 
-- (UILabel *)_label {
-    if (auto label = _label) return label;
+- (UIImageView *)_canvasImageView {
+    if (auto canvasImageView = _canvasImageView) return canvasImageView;
     
-    UILabel *label = [UILabel new];
-    label.numberOfLines = 0;
+    UIImageView *canvasImageView = [UIImageView new];
+    canvasImageView.contentMode = UIViewContentModeScaleAspectFit;
     
-    _label = label;
-    return label;
+    _canvasImageView = canvasImageView;
+    return canvasImageView;
+}
+
+- (UIImageView *)_customItemsImageView {
+    if (auto customItemsImageView = _customItemsImageView) return customItemsImageView;
+    
+    UIImageView *customItemsImageView = [UIImageView new];
+    customItemsImageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    _customItemsImageView = customItemsImageView;
+    return customItemsImageView;
 }
 
 @end

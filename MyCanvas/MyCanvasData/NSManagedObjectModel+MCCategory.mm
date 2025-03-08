@@ -74,7 +74,7 @@
             transformDescription.preservesValueInHistoryOnDeletion = YES;
             
             NSAttributeDescription *aDescription = [NSAttributeDescription new];
-            aDescription.name = @"x";
+            aDescription.name = @"a";
             aDescription.attributeType = NSDoubleAttributeType;
             aDescription.preservesValueInHistoryOnDeletion = YES;
             
@@ -189,15 +189,33 @@
         toolPickerStateDescription.attributeValueClassName = NSStringFromClass([NSDictionary class]);
         toolPickerStateDescription.preservesValueInHistoryOnDeletion = YES;
         
+        NSAttributeDescription *canvasImageDataDescription = [NSAttributeDescription new];
+        canvasImageDataDescription.name = @"canvasImageData";
+        canvasImageDataDescription.optional = YES;
+        canvasImageDataDescription.attributeType = NSBinaryDataAttributeType;
+        canvasImageDataDescription.allowsExternalBinaryDataStorage = YES;
+        canvasImageDataDescription.preservesValueInHistoryOnDeletion = YES;
+        
+        NSAttributeDescription *customItemsImageDataDescription = [NSAttributeDescription new];
+        customItemsImageDataDescription.name = @"customItemsImageData";
+        customItemsImageDataDescription.optional = YES;
+        customItemsImageDataDescription.attributeType = NSBinaryDataAttributeType;
+        customItemsImageDataDescription.allowsExternalBinaryDataStorage = YES;
+        customItemsImageDataDescription.preservesValueInHistoryOnDeletion = YES;
+        
         canvasEntity.properties = @[
             lastEditedDateDescription,
             drawingDescription,
             toolPickerStateDescription,
+            canvasImageDataDescription,
+            customItemsImageDataDescription
         ];
         
         [lastEditedDateDescription release];
         [drawingDescription release];
         [toolPickerStateDescription release];
+        [canvasImageDataDescription release];
+        [customItemsImageDataDescription release];
         
         canvasEntity.uniquenessConstraints = @[@[@"lastEditedDate"]];
     }

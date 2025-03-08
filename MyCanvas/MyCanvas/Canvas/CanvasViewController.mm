@@ -224,8 +224,6 @@ __attribute__((objc_direct_members))
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.canvasView.drawing = drawing;
-            
             for (NSDictionary *customItem in faultedCustomItems) {
                 UIImage *image = [UIImage systemImageNamed:customItem[@"systemImageName"]];
                 CGRect frame = static_cast<NSNumber *>(customItem[@"frame"]).CGRectValue;
@@ -242,6 +240,8 @@ __attribute__((objc_direct_members))
                 [self.customItemsContainerView addSubview:imageView];
                 [imageView release];
             }
+            
+            self.canvasView.drawing = drawing;
         });
         
         [faultedCustomItems release];
@@ -325,6 +325,30 @@ __attribute__((objc_direct_members))
     NSString *key = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(toolPicker, sel_registerName("_paletteViewStateRestorationDefaultsKey"));
     [NSUserDefaults.standardUserDefaults removeObjectForKey:key];
     [toolPicker release];
+}
+
+- (UIImage *)_customItemsImage {
+    UIGraphicsImageRendererFormat *format = [UIGraphicsImageRendererFormat formatForTraitCollection:self.customItemsContainerView.traitCollection];
+    
+    CGRect bounds = self.canvasView.drawing.bounds;
+    
+    UIGraphicsImageRenderer *renderer = [[UIGraphicsImageRenderer alloc] initWithSize:CGSizeMake(CGRectGetWidth(bounds), CGRectGetHeight(bounds)) format:format];
+    
+    UIImage *image = [renderer imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull rendererContext) {
+        CGContextSaveGState(rendererContext.CGContext);
+        CGContextTranslateCTM(rendererContext.CGContext, -CGRectGetMinX(bounds), -CGRectGetMinY(bounds));
+        assert([self.customItemsContainerView drawViewHierarchyInRect:self.customItemsContainerView.bounds afterScreenUpdates:YES]);
+        CGContextRestoreGState(rendererContext.CGContext);
+    }];
+    [renderer release];
+    
+    return image;
+}
+
+- (void)_contextQueue_updateThumbnailImageWithDrawing:(PKDrawing *)drawing traitCollection:(UITraitCollection *)traitCollection __attribute__((objc_direct)) {
+    UIImage *image = [drawing imageFromRect:drawing.bounds scale:traitCollection.displayScale];
+    MCCanvas *canvas = self.canvas;
+    canvas.canvasImageData = UIImagePNGRepresentation(image);
 }
 
 - (CanvasCustomItemInteraction *)_customItemInteraction {
@@ -807,10 +831,15 @@ __attribute__((objc_direct_members))
     
     MCCanvas *canvas = self.canvas;
     NSManagedObjectContext *managedObjectContext = canvas.managedObjectContext;
+    UITraitCollection *traitCollection = self.traitCollection;
+    UIImage *customItemsImage = [self _customItemsImage];
     
     [managedObjectContext performBlock:^{
         canvas.lastEditedDate = [NSDate now];
         canvas.drawing = drawing;
+        canvas.customItemsImageData = UIImagePNGRepresentation(customItemsImage);
+        [self _contextQueue_updateThumbnailImageWithDrawing:drawing traitCollection:traitCollection];
+        
         NSError * _Nullable error = nil;
         [managedObjectContext save:&error];
         assert(error == nil);
@@ -892,6 +921,7 @@ __attribute__((objc_direct_members))
     NSDictionary *toolPickerState = [NSUserDefaults.standardUserDefaults dictionaryForKey:key];
     
     MCCanvas *canvas = self.canvas;
+    
     NSManagedObjectContext *context = canvas.managedObjectContext;
     [context performBlock:^{
         canvas.toolPickerState = toolPickerState;
@@ -934,6 +964,8 @@ __attribute__((objc_direct_members))
 //}
 
 - (void)_saveCustomItemWithImageView:(UIImageView *)imageView __attribute__((objc_direct)) {
+    assert(imageView.superview != nil);
+    
     MCCanvas *canvas = self.canvas;
     NSManagedObjectContext *context = canvas.managedObjectContext;
     CGRect frame = imageView.frame;
@@ -944,6 +976,8 @@ __attribute__((objc_direct_members))
     id imageAsset = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(image, sel_registerName("imageAsset"));
     NSString *assetName = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(imageAsset, sel_registerName("assetName"));
     assert(assetName != nil);
+    
+    UIImage *customItemsImage = [self _customItemsImage];
     
     NSManagedObjectModel *managedObjectModel = context.persistentStoreCoordinator.managedObjectModel;
     NSEntityDescription *entity = managedObjectModel.entitiesByName[@"CustomItem"];
@@ -967,6 +1001,8 @@ __attribute__((objc_direct_members))
         [canvas addCustomItemsObject:customItem];
         assert(customItem.canvas != nil);
         
+        canvas.customItemsImageData = UIImagePNGRepresentation(customItemsImage);
+        
         [context save:&error];
         assert(error == nil);
     }];
@@ -975,6 +1011,7 @@ __attribute__((objc_direct_members))
 }
 
 - (void)_removeCustomItemWithImageView:(UIImageView *)imageView __attribute__((objc_direct)) {
+    UIImage *customItemsImage = [self _customItemsImage];
     MCCanvas *canvas = self.canvas;
     NSManagedObjectContext *context = canvas.managedObjectContext;
     [context performBlock:^{
@@ -984,6 +1021,8 @@ __attribute__((objc_direct_members))
 //        assert(object.canvas != nil);
 //        [object.canvas removeCustomItemsObject:object];
         [context deleteObject:object];
+        
+        canvas.customItemsImageData = UIImagePNGRepresentation(customItemsImage);
         
         NSError * _Nullable error = nil;
         [context save:&error];
@@ -1094,6 +1133,7 @@ __attribute__((objc_direct_members))
     [self _saveCustomItemWithImageView:imageView];
 }
 
+// Update는 복원이 안 되어서 중단
 - (void)_restoreWithTransaction:(NSPersistentHistoryTransaction *)transaction __attribute__((objc_direct)) {
     MCCanvas *canvas = self.canvas;
     NSManagedObjectContext *context = canvas.managedObjectContext;

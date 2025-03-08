@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (retain, nonatomic, nullable) PKDrawing *drawing;
 @property (retain, nonatomic, nullable) NSDictionary *toolPickerState;
 + (NSFetchRequest<MCCanvas *> *)fetchRequest;
+@property (copy, nonatomic, nullable) NSData *canvasImageData;
+@property (copy, nonatomic, nullable) NSData *customItemsImageData;
 @property (retain, nonatomic, nullable) NSOrderedSet<MCCustomItem *> *customItems;
 - (void)insertObject:(MCCustomItem *)value inCustomItemsAtIndex:(NSUInteger)idx;
 - (void)removeObjectFromCustomItemsAtIndex:(NSUInteger)idx;

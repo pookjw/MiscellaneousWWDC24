@@ -11,6 +11,8 @@
 @dynamic lastEditedDate;
 @dynamic drawing;
 @dynamic toolPickerState;
+@dynamic canvasImageData;
+@dynamic customItemsImageData;
 @dynamic customItems;
 
 + (NSFetchRequest<MCCanvas *> *)fetchRequest {
