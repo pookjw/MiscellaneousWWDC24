@@ -33,10 +33,9 @@
         for (NSString *subkey in [separated subarrayWithRange:NSMakeRange(0, separated.count - 1)]) {
             NSMutableDictionary *existing = target[subkey];
             if (existing == nil) {
-                NSMutableDictionary *newDic = [NSMutableDictionary new];
+                NSMutableDictionary *newDic = [NSMutableDictionary dictionary];
                 target[subkey] = newDic;
                 existing = newDic;
-                [newDic release];
             }
             target = existing;
         }
