@@ -1,0 +1,22 @@
+//
+//  MCCustomItem.h
+//  MyCanvasData
+//
+//  Created by Jinwoo Kim on 3/8/25.
+//
+
+#import <CoreData/CoreData.h>
+#import <CoreGraphics/CoreGraphics.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface MCCustomItem : NSManagedObject
+@property (copy, nonatomic, nullable) NSString *systemImageName;
+@property (copy, nonatomic, nullable) NSDictionary<NSString *, id> *frame;
+@property (copy, nonatomic, nullable) NSDictionary<NSString *, id> *tintColor;
+@property (assign, nonatomic, setter=setCGFrame:) CGRect cgFrame;
+- (CGColorRef)cgTintColor CF_RETURNS_RETAINED;
+- (void)setCGTintColor:(CGColorRef)cgTintColor;
+@end
+
+NS_ASSUME_NONNULL_END

@@ -160,9 +160,47 @@ __attribute__((objc_direct_members))
     [self.canvas.managedObjectContext performBlock:^{
         PKDrawing *drawing = self.canvas.drawing;
         
+        NSOrderedSet<MCCustomItem *> *customItems = self.canvas.customItems;
+        NSMutableArray<NSDictionary *> *faultedCustomItems = [NSMutableArray new];
+        for (MCCustomItem *customItem in customItems) {
+            NSString *systemImageName = customItem.systemImageName;
+            if (systemImageName == nil) continue;
+            
+            CGRect frame = customItem.cgFrame;
+            if (CGRectIsNull(frame)) continue;
+            
+            CGColorRef tintColor = [customItem cgTintColor];
+            if (tintColor == NULL) continue;
+            
+            NSDictionary *result = @{
+                @"systemImageName": systemImageName,
+                @"frame": @(frame),
+                @"tintColor": [UIColor colorWithCGColor:tintColor]
+            };
+            
+            CGColorRelease(tintColor);
+            
+            [faultedCustomItems addObject:result];
+        }
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             self.canvasView.drawing = drawing;
+            
+            UIView *contentView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self.canvasView, sel_registerName("contentView"));
+            
+            for (NSDictionary *customItem in faultedCustomItems) {
+                UIImage *image = [UIImage systemImageNamed:customItem[@"systemImageName"]];
+                CGRect frame = static_cast<NSNumber *>(customItem[@"frame"]).CGRectValue;
+                UIColor *tintColor = customItem[@"tintColor"];
+                UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
+                imageView.image = image;
+                imageView.tintColor = tintColor;
+                [contentView addSubview:imageView];
+                [imageView release];
+            }
         });
+        
+        [faultedCustomItems release];
     }];
     
     [self.canvasView becomeFirstResponder];
@@ -814,17 +852,41 @@ __attribute__((objc_direct_members))
 
 - (void)canvasCustomItemInteraction:(CanvasCustomItemInteraction *)canvasCustomItemInteraction didTriggerTapGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer {
     UIView *contentView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self.canvasView, sel_registerName("contentView"));
-    
-    UIImageView *hoveringImageView = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"apple.intelligence"]];
-    CGPoint location = [tapGestureRecognizer locationInView:contentView];
+    NSString *systemImageName = @"apple.intelligence";
+    UIImageView *hoveringImageView = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:systemImageName]];
     auto customItem = static_cast<PKToolPickerCustomItem *>(self.toolPicker.selectedToolItem);
-    CGFloat width = customItem.width;
-    hoveringImageView.frame = CGRectMake(location.x - width * 0.5, location.y - width * 0.5, width, width);
-    hoveringImageView.tintColor = customItem.color;
+    
+    CGRect frame;
+    {
+        CGPoint location = [tapGestureRecognizer locationInView:contentView];
+        CGFloat width = customItem.width;
+        frame = CGRectMake(location.x - width * 0.5, location.y - width * 0.5, width, width);
+    }
+    
+    hoveringImageView.frame = frame;
+    
+    UIColor *tintColor = customItem.color;
+    hoveringImageView.tintColor = tintColor;
     [contentView addSubview:hoveringImageView];
     
     [self.canvasView.undoManager registerUndoWithTarget:self selector:@selector(_undoCustomItem:) object:hoveringImageView];
     [hoveringImageView release];
+    
+    MCCanvas *canvas = self.canvas;
+    NSManagedObjectContext *context = canvas.managedObjectContext;
+    [context performBlock:^{
+        MCCustomItem *customItem = [[MCCustomItem alloc] initWithContext:context];
+        customItem.cgFrame = frame;
+        customItem.systemImageName = systemImageName;
+        [customItem setCGTintColor:tintColor.CGColor];
+        
+        [canvas addCustomItemsObject:customItem];
+        [customItem release];
+        
+        NSError * _Nullable error = nil;
+        [context save:&error];
+        assert(error == nil);
+    }];
 }
 
 - (void)canvasCustomItemInteraction:(CanvasCustomItemInteraction *)canvasCustomItemInteraction didTriggerHoverGestureRecognizer:(UIHoverGestureRecognizer *)hoverGestureRecognizer {

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23778.1" systemVersion="24E5222f" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23784.1" systemVersion="24E5222f" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="Canvas" representedClassName="MCCanvas" syncable="YES" codeGenerationType="class">
         <attribute name="lastEditedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="lastEditedDate"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
+        <relationship name="customItems" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="CustomItem" inverseName="canvas" inverseEntity="CustomItem"/>
     </entity>
+    <entity name="CustomItem" representedClassName="CustomItem" syncable="YES" codeGenerationType="class">
+        <relationship name="canvas" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Canvas" inverseName="customItems" inverseEntity="Canvas"/>
+    </entity>
+    <composite name="Rect">
+        <attribute name="x" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="y" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="width" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="height" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </composite>
 </model>

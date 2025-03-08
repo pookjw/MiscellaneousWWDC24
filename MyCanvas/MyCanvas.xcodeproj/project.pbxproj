@@ -12,6 +12,8 @@
 		4FBCC45B2D795C86005187E3 /* MyCanvasData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBCC4482D795C86005187E3 /* MyCanvasData.framework */; };
 		4FBCC45C2D795C86005187E3 /* MyCanvasData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBCC4482D795C86005187E3 /* MyCanvasData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4FBCC46D2D795CD1005187E3 /* MyCanvasData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBCC4482D795C86005187E3 /* MyCanvasData.framework */; };
+		4FDF1F982D7C12AD0021EE5C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FDF1F972D7C12AD0021EE5C /* CoreGraphics.framework */; };
+		4FDF1F9A2D7C19890021EE5C /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FDF1F992D7C19890021EE5C /* CoreFoundation.framework */; };
 		4FEABC532D798923009A3641 /* PencilKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FEABC522D798923009A3641 /* PencilKit.framework */; };
 		4FEABC622D79955F009A3641 /* PencilKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FEABC612D79955F009A3641 /* PencilKit.framework */; };
 /* End PBXBuildFile section */
@@ -71,6 +73,8 @@
 		4FBCC4382D795C32005187E3 /* MyCanvasUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyCanvasUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FBCC4482D795C86005187E3 /* MyCanvasData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyCanvasData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FBCC4692D795CD1005187E3 /* MyCanvasDataTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyCanvasDataTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FDF1F972D7C12AD0021EE5C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		4FDF1F992D7C19890021EE5C /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		4FEABAA32D796FF3009A3641 /* ModelScript */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ModelScript; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FEABC522D798923009A3641 /* PencilKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PencilKit.framework; path = System/Library/Frameworks/PencilKit.framework; sourceTree = SDKROOT; };
 		4FEABC612D79955F009A3641 /* PencilKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PencilKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk/System/iOSSupport/System/Library/PrivateFrameworks/PencilKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -96,6 +100,7 @@
 				Extern.h,
 				MCCanvas.h,
 				MCCoreDataStack.h,
+				MCCustomItem.h,
 				MyCanvasData.h,
 			);
 			target = 4FBCC4472D795C86005187E3 /* MyCanvasData */;
@@ -158,6 +163,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FDF1F9A2D7C19890021EE5C /* CoreFoundation.framework in Frameworks */,
+				4FDF1F982D7C12AD0021EE5C /* CoreGraphics.framework in Frameworks */,
 				4FEABC622D79955F009A3641 /* PencilKit.framework in Frameworks */,
 				4F2012092D795DD800E16A68 /* CoreData.framework in Frameworks */,
 			);
@@ -209,6 +216,8 @@
 		4FBCC4312D795BEA005187E3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4FDF1F992D7C19890021EE5C /* CoreFoundation.framework */,
+				4FDF1F972D7C12AD0021EE5C /* CoreGraphics.framework */,
 				4FEABC522D798923009A3641 /* PencilKit.framework */,
 				4FEABC612D79955F009A3641 /* PencilKit.framework */,
 				4F20120F2D795FCD00E16A68 /* UniformTypeIdentifiers.framework */,

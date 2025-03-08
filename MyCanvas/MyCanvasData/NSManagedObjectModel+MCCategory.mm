@@ -14,6 +14,97 @@
 + (NSManagedObjectModel *)mc_makeModel {
     NSManagedObjectModel *model = [NSManagedObjectModel new];
     
+    NSEntityDescription *customItemEntity;
+    {
+        customItemEntity = [NSEntityDescription new];
+        customItemEntity.name = @"CustomItem";
+        customItemEntity.managedObjectClassName = NSStringFromClass([MCCustomItem class]);
+        
+        NSAttributeDescription *systemImageNameDescription = [NSAttributeDescription new];
+        systemImageNameDescription.name = @"systemImageName";
+        systemImageNameDescription.optional = YES;
+        systemImageNameDescription.attributeType = NSStringAttributeType;
+        systemImageNameDescription.preservesValueInHistoryOnDeletion = YES;
+        
+        NSCompositeAttributeDescription *frameDescription;
+        {
+            frameDescription = [NSCompositeAttributeDescription new];
+            frameDescription.name = @"frame";
+            frameDescription.optional = YES;
+            frameDescription.preservesValueInHistoryOnDeletion = YES;
+            
+            NSAttributeDescription *xDescription = [NSAttributeDescription new];
+            xDescription.name = @"x";
+            xDescription.attributeType = NSDoubleAttributeType;
+            xDescription.preservesValueInHistoryOnDeletion = YES;
+            
+            NSAttributeDescription *yDescription = [NSAttributeDescription new];
+            yDescription.name = @"y";
+            yDescription.attributeType = NSDoubleAttributeType;
+            yDescription.preservesValueInHistoryOnDeletion = YES;
+            
+            NSAttributeDescription *widthDescription = [NSAttributeDescription new];
+            widthDescription.name = @"width";
+            widthDescription.attributeType = NSDoubleAttributeType;
+            widthDescription.preservesValueInHistoryOnDeletion = YES;
+            
+            NSAttributeDescription *heightDescription = [NSAttributeDescription new];
+            heightDescription.name = @"height";
+            heightDescription.attributeType = NSDoubleAttributeType;
+            heightDescription.preservesValueInHistoryOnDeletion = YES;
+            
+            frameDescription.elements = @[
+                xDescription,
+                yDescription,
+                widthDescription,
+                heightDescription
+            ];
+            
+            [xDescription release];
+            [yDescription release];
+            [widthDescription release];
+            [heightDescription release];
+        }
+        
+        NSCompositeAttributeDescription *tintColorDescription;
+        {
+            tintColorDescription = [NSCompositeAttributeDescription new];
+            tintColorDescription.name = @"tintColor";
+            tintColorDescription.optional = YES;
+            tintColorDescription.preservesValueInHistoryOnDeletion = YES;
+            
+            NSAttributeDescription *colorSpaceNameDescription = [NSAttributeDescription new];
+            colorSpaceNameDescription.name = @"colorSpaceName";
+            colorSpaceNameDescription.attributeType = NSStringAttributeType;
+            colorSpaceNameDescription.preservesValueInHistoryOnDeletion = YES;
+            
+            NSAttributeDescription *componentsDescription = [NSAttributeDescription new];
+            componentsDescription.name = @"components";
+            componentsDescription.attributeType = NSTransformableAttributeType;
+            componentsDescription.preservesValueInHistoryOnDeletion = YES;
+            componentsDescription.valueTransformerName = NSSecureUnarchiveFromDataTransformerName;
+            componentsDescription.attributeValueClassName = NSStringFromClass([NSArray class]);
+            
+            tintColorDescription.elements = @[
+                colorSpaceNameDescription,
+                componentsDescription
+            ];
+            
+            [colorSpaceNameDescription release];
+            [componentsDescription release];
+        }
+        
+        customItemEntity.properties = @[
+            systemImageNameDescription,
+            frameDescription,
+            tintColorDescription
+        ];
+        
+        [systemImageNameDescription release];
+        [frameDescription release];
+        [tintColorDescription release];
+    }
+    
     NSEntityDescription *canvasEntity;
     {
         canvasEntity = [NSEntityDescription new];
@@ -45,7 +136,7 @@
         canvasEntity.properties = @[
             lastEditedDateDescription,
             drawingDescription,
-            toolPickerStateDescription
+            toolPickerStateDescription,
         ];
         
         [lastEditedDateDescription release];
@@ -55,10 +146,40 @@
         canvasEntity.uniquenessConstraints = @[@[@"lastEditedDate"]];
     }
     
+    {
+        NSRelationshipDescription *canvasToCustomItemsDescription = [NSRelationshipDescription new];
+        canvasToCustomItemsDescription.name = @"customItems";
+        canvasToCustomItemsDescription.ordered = YES;
+        canvasToCustomItemsDescription.minCount = 0;
+        canvasToCustomItemsDescription.maxCount = 0;
+        canvasToCustomItemsDescription.deleteRule = NSCascadeDeleteRule;
+        canvasToCustomItemsDescription.destinationEntity = customItemEntity;
+        
+        NSRelationshipDescription *customItemToCanvasDescription = [NSRelationshipDescription new];
+        customItemToCanvasDescription.name = @"canvas";
+        customItemToCanvasDescription.ordered = NO;
+        customItemToCanvasDescription.minCount = 0;
+        customItemToCanvasDescription.maxCount = 1;
+        customItemToCanvasDescription.deleteRule = NSNullifyDeleteRule;
+        customItemToCanvasDescription.destinationEntity = canvasEntity;
+        
+        canvasToCustomItemsDescription.inverseRelationship = customItemToCanvasDescription;
+        customItemToCanvasDescription.inverseRelationship = canvasToCustomItemsDescription;
+        
+        canvasEntity.properties = [canvasEntity.properties arrayByAddingObject:canvasToCustomItemsDescription];
+        customItemEntity.properties = [customItemEntity.properties arrayByAddingObject:customItemToCanvasDescription];
+        
+        [canvasToCustomItemsDescription release];
+        [customItemToCanvasDescription release];
+    }
+    
     model.entities = @[
-        canvasEntity
+        canvasEntity,
+        customItemEntity
     ];
+    
     [canvasEntity release];
+    [customItemEntity release];
     
     return [model autorelease];
 }

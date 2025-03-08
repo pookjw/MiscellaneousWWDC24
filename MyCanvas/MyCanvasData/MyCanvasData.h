@@ -18,3 +18,4 @@ FOUNDATION_EXPORT const unsigned char MyCanvasDataVersionString[];
 #import <MyCanvasData/MCCoreDataStack.h>
 #import <MyCanvasData/MCCanvas.h>
 #import <MyCanvasData/Extern.h>
+#import <MyCanvasData/MCCustomItem.h>
