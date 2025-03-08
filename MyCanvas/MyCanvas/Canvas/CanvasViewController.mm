@@ -18,6 +18,7 @@
 #import <TargetConditionals.h>
 #import "CanvasCustomItemInteraction.h"
 #import "MyCanvas-Swift.h"
+#import "NSDictionary+MCCategory.h"
 
 /*
  -[PKTiledCanvasView _drawingEnded:estimatesTimeout:completion:]
@@ -175,6 +176,25 @@ __attribute__((objc_direct_members))
     
     navigationItem.style = UINavigationItemStyleEditor;
     
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didReceiveUndoManagerCheckpointNotification:) name:NSUndoManagerCheckpointNotification object:nil];
+    [self _reloadCanvas];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.canvasView becomeFirstResponder];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self _updateCustomItemsContainerView];
+}
+
+- (void)_reloadCanvas __attribute__((objc_direct)) {
+    for (UIView *subview in self.customItemsContainerView.subviews) {
+        [subview removeFromSuperview];
+    }
+    
     [self.canvas.managedObjectContext performBlock:^{
         PKDrawing *drawing = self.canvas.drawing;
         
@@ -194,7 +214,8 @@ __attribute__((objc_direct_members))
                 @"systemImageName": systemImageName,
                 @"frame": @(frame),
                 @"tintColor": [UIColor colorWithCGColor:tintColor],
-                @"transform": [NSValue valueWithCGAffineTransform:customItem.cgAffineTransform]
+                @"transform": [NSValue valueWithCGAffineTransform:customItem.cgAffineTransform],
+                @"objectID": customItem.objectID
             };
             
             CGColorRelease(tintColor);
@@ -210,11 +231,13 @@ __attribute__((objc_direct_members))
                 CGRect frame = static_cast<NSNumber *>(customItem[@"frame"]).CGRectValue;
                 UIColor *tintColor = customItem[@"tintColor"];
                 CGAffineTransform transform = static_cast<NSValue *>(customItem[@"transform"]).CGAffineTransformValue;
+                NSManagedObjectID *objectID = customItem[@"objectID"];
                 
                 UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
                 imageView.image = image;
                 imageView.tintColor = tintColor;
                 imageView.transform = transform;
+                objc_setAssociatedObject(imageView, CanvasViewController.imageViewObjectIDKey, objectID, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 
                 [self.customItemsContainerView addSubview:imageView];
                 [imageView release];
@@ -223,18 +246,6 @@ __attribute__((objc_direct_members))
         
         [faultedCustomItems release];
     }];
-    
-    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_didReceiveUndoManagerCheckpointNotification:) name:NSUndoManagerCheckpointNotification object:nil];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.canvasView becomeFirstResponder];
-}
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    [self _updateCustomItemsContainerView];
 }
 
 - (UIImageView *)_imageView {
@@ -381,6 +392,7 @@ __attribute__((objc_direct_members))
     NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.UIKit"];
     
     UIBarButtonItem *toolPickerAccessoryItem = self.toolPickerAccessoryItem;
+    MCCanvas *canvas = self.canvas;
     
     UIDeferredMenuElement *element = [UIDeferredMenuElement elementWithUncachedProvider:^(void (^ _Nonnull completion)(NSArray<UIMenuElement *> * _Nonnull)) {
         PKToolPicker *toolPicker = unretainedSelf.toolPicker;
@@ -748,6 +760,39 @@ __attribute__((objc_direct_members))
             [rootChildren addObject:action];
         }
         
+        {
+            UIDeferredMenuElement *element = [UIDeferredMenuElement elementWithUncachedProvider:^(void (^ _Nonnull completion)(NSArray<UIMenuElement *> * _Nonnull)) {
+                NSManagedObjectContext *context = canvas.managedObjectContext;
+                [context performBlock:^{
+                    NSPersistentHistoryChangeRequest *request = [NSPersistentHistoryChangeRequest fetchHistoryAfterDate:[NSDate dateWithTimeIntervalSince1970:0.]];
+                    request.resultType = NSPersistentHistoryResultTypeTransactionsAndChanges;
+                    
+                    NSError * _Nullable error = nil;
+                    NSPersistentHistoryResult *result = [context executeRequest:request error:&error];
+                    NSArray<NSPersistentHistoryTransaction *> *transactions = result.result;
+                    assert(error == nil);
+                    
+                    NSMutableArray<UIAction *> *actions = [[NSMutableArray alloc] initWithCapacity:transactions.count];
+                    for (NSPersistentHistoryTransaction *transaction in [transactions reverseObjectEnumerator]) {
+                        UIAction *action = [UIAction actionWithTitle:@(transaction.transactionNumber).stringValue image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                            [unretainedSelf _restoreWithTransaction:transaction];
+                        }];
+                        
+                        [actions addObject:action];
+                    }
+                    
+                    UIMenu *menu = [UIMenu menuWithTitle:@"Histories" children:actions];
+                    [actions release];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completion(@[menu]);
+                    });
+                }];
+            }];
+            
+            [rootChildren addObject:element];
+        }
+        
         completion(rootChildren);
         [rootChildren release];
     }];
@@ -935,9 +980,10 @@ __attribute__((objc_direct_members))
     [context performBlock:^{
         NSManagedObjectID *objectID = objc_getAssociatedObject(imageView, CanvasViewController.imageViewObjectIDKey);
         MCCustomItem *object = [context objectWithID:objectID];
-        assert(object != nil);
-        assert(object.canvas != nil);
-        [object.canvas removeCustomItemsObject:object];
+//        assert(object != nil);
+//        assert(object.canvas != nil);
+//        [object.canvas removeCustomItemsObject:object];
+        [context deleteObject:object];
         
         NSError * _Nullable error = nil;
         [context save:&error];
@@ -946,13 +992,26 @@ __attribute__((objc_direct_members))
 }
 
 - (void)canvasCustomItemInteraction:(CanvasCustomItemInteraction *)canvasCustomItemInteraction didTriggerTapGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer {
+    CGPoint location = [tapGestureRecognizer locationInView:self.customItemsContainerView];
+    
+    for (UIView *subview in self.customItemsContainerView.subviews) {
+        if (![subview isKindOfClass:[UIImageView class]]) continue;
+        if (!CGRectContainsPoint(subview.frame, location)) continue;
+        NSManagedObjectID *objectID = objc_getAssociatedObject(subview, CanvasViewController.imageViewObjectIDKey);
+        if (objectID == nil) continue;
+        
+        UIImageView *imageView = static_cast<UIImageView *>(subview);
+        [imageView removeFromSuperview];
+        [self _removeCustomItemWithImageView:imageView];
+        return;
+    }
+    
     NSString *systemImageName = @"arrow.up";
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:systemImageName]];
     auto customItem = static_cast<PKToolPickerCustomItem *>(self.toolPicker.selectedToolItem);
     
     CGRect frame;
     {
-        CGPoint location = [tapGestureRecognizer locationInView:self.customItemsContainerView];
         CGFloat width = customItem.width;
         frame = CGRectMake(location.x - width * 0.5, location.y - width * 0.5, width, width);
     }
@@ -1033,6 +1092,65 @@ __attribute__((objc_direct_members))
     [self.customItemsContainerView addSubview:imageView];
     [self.undoManager registerUndoWithTarget:self selector:@selector(_undoCustomItem:) object:imageView];
     [self _saveCustomItemWithImageView:imageView];
+}
+
+- (void)_restoreWithTransaction:(NSPersistentHistoryTransaction *)transaction __attribute__((objc_direct)) {
+    MCCanvas *canvas = self.canvas;
+    NSManagedObjectContext *context = canvas.managedObjectContext;
+    
+    [context performBlock:^{
+        NSPersistentHistoryChangeRequest *request = [NSPersistentHistoryChangeRequest fetchHistoryAfterTransaction:transaction];
+        request.resultType = NSPersistentHistoryResultTypeTransactionsAndChanges;
+        
+        NSError * _Nullable error = nil;
+        NSPersistentHistoryResult *result = [context executeRequest:request error:&error];
+        NSArray<NSPersistentHistoryTransaction *> *transactions = result.result;
+        assert(error == nil);
+        
+        for (NSPersistentHistoryTransaction *transaction in [transactions reverseObjectEnumerator]) {
+            NSArray<NSPersistentHistoryChange *> * changes = transaction.changes;
+            NSMutableDictionary<NSNumber *, NSManagedObjectID *> *recoveredObjectIDsByChangeID = [NSMutableDictionary new];
+            
+            for (NSPersistentHistoryChange *change in [changes reverseObjectEnumerator]) {
+                switch (change.changeType) {
+                    case NSPersistentHistoryChangeTypeDelete: {
+                        NSEntityDescription *entity = change.changedObjectID.entity;
+                        NSManagedObject *recoveredObject = [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
+                        [recoveredObject setValuesForKeysWithDictionary:change.tombstone.mc_nestedDictionary];
+                        
+                        NSError * _Nullable error = nil;
+                        [context obtainPermanentIDsForObjects:@[recoveredObject] error:&error];
+                        assert(error == nil);
+                        
+                        recoveredObjectIDsByChangeID[@(change.changeID)] = recoveredObject.objectID;
+                        [recoveredObject release];
+                        break;
+                    }
+                    case NSPersistentHistoryChangeTypeInsert: {
+                        NSManagedObject *object = [context objectWithID:change.changedObjectID];
+                        [context deleteObject:object];
+                        break;
+                    }
+                    case NSPersistentHistoryChangeTypeUpdate: {
+                        // TODO
+                        abort();
+                        break;
+                    }
+                    default:
+                        abort();
+                }
+            }
+            
+            [recoveredObjectIDsByChangeID release];
+        }
+        
+        [context save:&error];
+        assert(error == nil);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self _reloadCanvas];
+        });
+    }];
 }
 
 @end
