@@ -13,6 +13,7 @@
 @dynamic systemImageName;
 @dynamic frame;
 @dynamic tintColor;
+@dynamic canvas;
 
 - (CGRect)cgFrame {
     if (NSDictionary<NSString *, id> *frame = self.frame) {

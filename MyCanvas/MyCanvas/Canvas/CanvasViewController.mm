@@ -19,7 +19,7 @@
 #import "CanvasCustomItemInteraction.h"
 #import "MyCanvas-Swift.h"
 
-#warning TODO Custom Item 저장 / Transform
+#warning Image Transform / Drawing시 사라짐
 
 /*
  -[PKTiledCanvasView _drawingEnded:estimatesTimeout:completion:]
@@ -28,7 +28,10 @@
  */
 
 __attribute__((objc_direct_members))
-@interface CanvasViewController () <PKCanvasViewDelegate, PKToolPickerDelegate, PKToolPickerObserver, CanvasCustomItemInteractionDelegate>
+@interface CanvasViewController () <PKCanvasViewDelegate, PKToolPickerDelegate, PKToolPickerObserver, CanvasCustomItemInteractionDelegate> {
+    NSUndoManager *_undoManager;
+}
+@property (class, nonatomic, readonly, getter=_imageViewObjectIDKey) void *imageViewObjectIDKey;
 @property (retain, nonatomic, readonly, getter=_canvas) MCCanvas *canvas;
 @property (retain, nonatomic, readonly, getter=_imageView) UIImageView *imageView;
 @property (retain, nonatomic, readonly, getter=_canvasView) PKCanvasView *canvasView;
@@ -59,6 +62,11 @@ __attribute__((objc_direct_members))
     if (Protocol *PNPWelcomeControllerDelegate = NSProtocolFromString(@"PNPWelcomeControllerDelegate")) {
         assert(class_addProtocol(self, PNPWelcomeControllerDelegate));
     }
+}
+
++ (void *)_imageViewObjectIDKey {
+    static void *key = &key;
+    return key;
 }
 
 - (instancetype)initWithCanvas:(MCCanvas *)canvas {
@@ -109,6 +117,8 @@ __attribute__((objc_direct_members))
         
         self.toolPicker = toolPicker;
         [toolPicker release];
+        
+        _undoManager = [NSUndoManager new];
     }
     
     return self;
@@ -128,6 +138,10 @@ __attribute__((objc_direct_members))
     [_redoBarButtonItem release];
     [_toolPickerAccessoryItem release];
     [super dealloc];
+}
+
+- (NSUndoManager *)undoManager {
+    return _undoManager;
 }
 
 - (void)viewDidLoad {
@@ -771,11 +785,11 @@ __attribute__((objc_direct_members))
 }
 
 - (void)_didTriggerUndoBarButtonItem:(UIBarButtonItem *)sender {
-    [self.canvasView.undoManager undo];
+    [self.undoManager undo];
 }
 
 - (void)_didTriggerRedoBarButtonItem:(UIBarButtonItem *)sender {
-    [self.canvasView.undoManager redo];
+    [self.undoManager redo];
 }
 
 - (void)_didTriggerToolPickerAccessoryItem:(UIBarButtonItem *)sender {
@@ -784,10 +798,10 @@ __attribute__((objc_direct_members))
 
 - (void)_didReceiveUndoManagerCheckpointNotification:(NSNotification *)notification {
     if (!NSThread.isMainThread) return;
-    if (![self.canvasView.undoManager isEqual:notification.object]) return;
+    if (![self.undoManager isEqual:notification.object]) return;
     
-    self.undoBarButtonItem.enabled = self.canvasView.undoManager.canUndo;
-    self.redoBarButtonItem.enabled = self.canvasView.undoManager.canRedo;
+    self.undoBarButtonItem.enabled = self.undoManager.canUndo;
+    self.redoBarButtonItem.enabled = self.undoManager.canRedo;
 }
 
 - (void)toolPickerSelectedToolItemDidChange:(PKToolPicker *)toolPicker {
@@ -850,6 +864,61 @@ __attribute__((objc_direct_members))
 //    [toolPicker release];
 //}
 
+- (void)_saveCustomItemWithImageView:(UIImageView *)imageView {
+    MCCanvas *canvas = self.canvas;
+    NSManagedObjectContext *context = canvas.managedObjectContext;
+    CGRect frame = imageView.frame;
+    UIColor *tintColor = imageView.tintColor;
+    
+    UIImage *image = imageView.image;
+    id imageAsset = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(image, sel_registerName("imageAsset"));
+    NSString *assetName = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(imageAsset, sel_registerName("assetName"));
+    assert(assetName != nil);
+    
+    NSManagedObjectModel *managedObjectModel = context.persistentStoreCoordinator.managedObjectModel;
+    NSEntityDescription *entity = managedObjectModel.entitiesByName[@"CustomItem"];
+    assert(entity != nil);
+    
+    MCCustomItem *customItem = [[MCCustomItem alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
+    
+    [context performBlock:^{
+        [context insertObject:customItem];
+        
+        NSError * _Nullable error = nil;
+        [context obtainPermanentIDsForObjects:@[customItem] error:&error];
+        assert(error == nil);
+        objc_setAssociatedObject(imageView, CanvasViewController.imageViewObjectIDKey, customItem.objectID, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        
+        customItem.cgFrame = frame;
+        customItem.systemImageName = assetName;
+        [customItem setCGTintColor:tintColor.CGColor];
+        
+        [canvas addCustomItemsObject:customItem];
+        assert(customItem.canvas != nil);
+        
+        [context save:&error];
+        assert(error == nil);
+    }];
+    
+    [customItem release];
+}
+
+- (void)_removeCustomItemWithImageView:(UIImageView *)imageView {
+    MCCanvas *canvas = self.canvas;
+    NSManagedObjectContext *context = canvas.managedObjectContext;
+    [context performBlock:^{
+        NSManagedObjectID *objectID = objc_getAssociatedObject(imageView, CanvasViewController.imageViewObjectIDKey);
+        MCCustomItem *object = [context objectWithID:objectID];
+        assert(object != nil);
+        assert(object.canvas != nil);
+        [object.canvas removeCustomItemsObject:object];
+        
+        NSError * _Nullable error = nil;
+        [context save:&error];
+        assert(error == nil);
+    }];
+}
+
 - (void)canvasCustomItemInteraction:(CanvasCustomItemInteraction *)canvasCustomItemInteraction didTriggerTapGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer {
     UIView *contentView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self.canvasView, sel_registerName("contentView"));
     NSString *systemImageName = @"apple.intelligence";
@@ -869,24 +938,9 @@ __attribute__((objc_direct_members))
     hoveringImageView.tintColor = tintColor;
     [contentView addSubview:hoveringImageView];
     
-    [self.canvasView.undoManager registerUndoWithTarget:self selector:@selector(_undoCustomItem:) object:hoveringImageView];
+    [self.undoManager registerUndoWithTarget:self selector:@selector(_undoCustomItem:) object:hoveringImageView];
+    [self _saveCustomItemWithImageView:hoveringImageView];
     [hoveringImageView release];
-    
-    MCCanvas *canvas = self.canvas;
-    NSManagedObjectContext *context = canvas.managedObjectContext;
-    [context performBlock:^{
-        MCCustomItem *customItem = [[MCCustomItem alloc] initWithContext:context];
-        customItem.cgFrame = frame;
-        customItem.systemImageName = systemImageName;
-        [customItem setCGTintColor:tintColor.CGColor];
-        
-        [canvas addCustomItemsObject:customItem];
-        [customItem release];
-        
-        NSError * _Nullable error = nil;
-        [context save:&error];
-        assert(error == nil);
-    }];
 }
 
 - (void)canvasCustomItemInteraction:(CanvasCustomItemInteraction *)canvasCustomItemInteraction didTriggerHoverGestureRecognizer:(UIHoverGestureRecognizer *)hoverGestureRecognizer {
@@ -938,13 +992,15 @@ __attribute__((objc_direct_members))
 
 - (void)_undoCustomItem:(UIImageView *)imageView {
     [imageView removeFromSuperview];
-    [self.canvasView.undoManager registerUndoWithTarget:self selector:@selector(_redoCustomItem:) object:imageView];
+    [self.undoManager registerUndoWithTarget:self selector:@selector(_redoCustomItem:) object:imageView];
+    [self _removeCustomItemWithImageView:imageView];
 }
 
 - (void)_redoCustomItem:(UIImageView *)imageView {
     UIView *contentView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self.canvasView, sel_registerName("contentView"));
     [contentView addSubview:imageView];
-    [self.canvasView.undoManager registerUndoWithTarget:self selector:@selector(_undoCustomItem:) object:imageView];
+    [self.undoManager registerUndoWithTarget:self selector:@selector(_undoCustomItem:) object:imageView];
+    [self _saveCustomItemWithImageView:imageView];
 }
 
 @end

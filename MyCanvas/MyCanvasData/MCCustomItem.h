@@ -10,11 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class MCCanvas;
 @interface MCCustomItem : NSManagedObject
 @property (copy, nonatomic, nullable) NSString *systemImageName;
 @property (copy, nonatomic, nullable) NSDictionary<NSString *, id> *frame;
 @property (copy, nonatomic, nullable) NSDictionary<NSString *, id> *tintColor;
 @property (assign, nonatomic, setter=setCGFrame:) CGRect cgFrame;
+@property (retain, nonatomic, nullable) MCCanvas *canvas;
 - (CGColorRef)cgTintColor CF_RETURNS_RETAINED;
 - (void)setCGTintColor:(CGColorRef)cgTintColor;
 @end
