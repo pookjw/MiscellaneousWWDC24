@@ -112,25 +112,12 @@
     [snapshot appendSectionsWithIdentifiers:@[[NSNull null]]];
     [snapshot appendItemsWithIdentifiers:@[
         [self _makeSmartReplyItemModel],
-        [self _makeWritingToolsBehaviorItemModel],
-        [self _makeAllowsWritingToolsAffordanceItemModel]
+        [self _makeWritingToolsBehaviorItemModel]
     ]
                intoSectionWithIdentifier:[NSNull null]];
     
     [self.configurationView applySnapshot:snapshot animatingDifferences:NO];
     [snapshot release];
-}
-
-- (ConfigurationItemModel *)_makeAllowsWritingToolsAffordanceItemModel {
-    NSTextView *textView = self.textView;
-    
-    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeSwitch
-                                          identifier:@"Allows Writing Tools Affordance"
-                                            userInfo:nil
-                                               label:@"Allows Writing Tools Affordance"
-                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
-        return @(textView.allowsWritingToolsAffordance);
-    }];
 }
 
 - (ConfigurationItemModel *)_makeWritingToolsBehaviorItemModel {
@@ -174,11 +161,7 @@
     NSString *identifier = itemModel.identifier;
     NSTextView *textView = self.textView;
     
-    if ([identifier isEqualToString:@"Allows Writing Tools Affordance"]) {
-        BOOL boolValue = static_cast<NSNumber *>(newValue).boolValue;
-        textView.allowsWritingToolsAffordance = boolValue;
-        return NO;
-    } else if ([identifier isEqualToString:@"Writing Tools Behavior"]) {
+    if ([identifier isEqualToString:@"Writing Tools Behavior"]) {
         NSString *title = static_cast<NSString *>(newValue);
         NSWritingToolsBehavior behavior = NSWritingToolsBehaviorFromString(title);
         textView.writingToolsBehavior = behavior;

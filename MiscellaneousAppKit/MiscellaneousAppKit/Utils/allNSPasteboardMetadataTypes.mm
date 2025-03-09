@@ -8,6 +8,5 @@
 #import "allNSPasteboardMetadataTypes.h"
 
 NSArray<NSPasteboardMetadataType> * const allNSPasteboardMetadataTypes = @[
-    NSPasteboardMetadataTypeContentType,
-    NSPasteboardMetadataTypeImageProperties
+    NSPasteboardMetadataTypeContentType
 ];
