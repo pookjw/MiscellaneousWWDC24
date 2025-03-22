@@ -17,6 +17,7 @@
 + (void)load {
     MCPencilKitDrawingTransformer *transformer = [MCPencilKitDrawingTransformer new];
     [NSValueTransformer setValueTransformer:transformer forName:MCPencilKitDrawingTransformer.transformerName];
+    [transformer release];
 }
 
 + (NSArray<Class> *)allowedTopLevelClasses {
