@@ -16,6 +16,7 @@
 #import "ViewDemoRemoveFromSuperviewWithoutNeedingDisplayView.h"
 #import "ViewDemoReplaceSubviewView.h"
 #import "ViewDemoSortSubviewsView.h"
+#import "ViewDemoFrameRotationView.h"
 
 @interface ViewDemoViewController () <ConfigurationViewDelegate>
 @property (retain, nonatomic, readonly, getter=_configurationView) ConfigurationView *configurationView;
@@ -45,6 +46,7 @@
     
     [snapshot appendSectionsWithIdentifiers:@[[NSNull null]]];
     [snapshot appendItemsWithIdentifiers:@[
+        [self _makeFrameRotationViewItemModel],
         [self _makeSortSubviewsItemModel],
         [self _makeReplaceSubviewItemModel],
         [self _makeRemoveFromSuperviewWithoutNeedingDisplayViewItemModel],
@@ -181,6 +183,19 @@
         return [ConfigurationViewPresentationDescription descriptorWithStyle:ConfigurationViewPresentationStyleAlert
                                                                  viewBuilder:^__kindof NSView * _Nonnull(void (^ _Nonnull layout)(), __kindof NSView * _Nullable reloadingView) {
             return [[[ViewDemoSortSubviewsView alloc] initWithFrame:NSMakeRect(0., 0., 300., 300.)] autorelease];
+        }
+                                                             didCloseHandler:nil];
+    }];
+}
+
+- (ConfigurationItemModel *)_makeFrameRotationViewItemModel {
+    return [ConfigurationItemModel itemModelWithType:ConfigurationItemModelTypeViewPresentation
+                                          identifier:@"Frame Rotation"
+                                            label:@"Frame Rotation"
+                                       valueResolver:^id<NSCopying> _Nonnull(ConfigurationItemModel * _Nonnull itemModel) {
+        return [ConfigurationViewPresentationDescription descriptorWithStyle:ConfigurationViewPresentationStyleAlert
+                                                                 viewBuilder:^__kindof NSView * _Nonnull(void (^ _Nonnull layout)(), __kindof NSView * _Nullable reloadingView) {
+            return [[[ViewDemoFrameRotationView alloc] initWithFrame:NSMakeRect(0., 0., 300., 300.)] autorelease];
         }
                                                              didCloseHandler:nil];
     }];
