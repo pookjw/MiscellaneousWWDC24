@@ -5,6 +5,8 @@
 //  Created by Jinwoo Kim on 4/4/25.
 //
 
+// https://x.com/_silgen_name/status/1908178997940465868
+
 #import "ViewDemoBoundsRotationView.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
@@ -112,8 +114,8 @@
     NSSlider *slider = [NSSlider new];
     slider.target = self;
     slider.action = @selector(_sliderDidChange:);
-    slider.minValue = -180.;
-    slider.maxValue = 180.;
+    slider.minValue = -360.;
+    slider.maxValue = 360.;
     
     _slider = slider;
     return slider;
@@ -127,7 +129,7 @@
     rotation = sender.floatValue;
 #endif
     
-    self.rotationView.frameCenterRotation = rotation;
+    self.rotationView.frameRotation = rotation;
     self.rotation2View.boundsRotation = rotation;
     
     NSRect bounds = self.rotation2View.bounds;
