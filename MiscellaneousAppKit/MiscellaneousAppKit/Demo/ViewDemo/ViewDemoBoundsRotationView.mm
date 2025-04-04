@@ -11,33 +11,42 @@
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 @interface ViewDemoBoundsRotationView ()
-@property (retain, nonatomic, readonly, getter=_secondaryView) NSView *secondaryView;
-@property (retain, nonatomic, readonly, getter=_stackView) NSStackView *stackView;
-@property (retain, nonatomic, readonly, getter=_imageView) NSImageView *imageView;
+@property (retain, nonatomic, readonly, getter=_containerView) NSView *containerView;
+@property (retain, nonatomic, readonly, getter=_rotationView) NSView *rotationView;
+@property (retain, nonatomic, readonly, getter=_rotation2View) NSView *rotation2View;
+@property (retain, nonatomic, readonly, getter=_boundsView) NSView *boundsView;
 @property (retain, nonatomic, readonly, getter=_slider) NSSlider *slider;
 @end
 
 @implementation ViewDemoBoundsRotationView
-@synthesize secondaryView = _secondaryView;
-@synthesize stackView = _stackView;
-@synthesize imageView = _imageView;
+@synthesize containerView = _containerView;
+@synthesize rotationView = _rotationView;
+@synthesize rotation2View = _rotation2View;
+@synthesize boundsView = _boundsView;
 @synthesize slider = _slider;
 
 - (instancetype)initWithFrame:(NSRect)frame {
     if (self = [super initWithFrame:frame]) {
         reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(self, sel_registerName("setBackgroundColor:"), NSColor.systemOrangeColor);
         
-        [self addSubview:self.secondaryView];
-        self.secondaryView.frame = self.bounds;
-        self.secondaryView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        [self addSubview:self.boundsView];
         
-//        [self.secondaryView addSubview:self.imageView];
-//        self.imageView.frame = self.secondaryView.bounds;
-//        self.imageView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        [self addSubview:self.containerView];
+        self.containerView.translatesAutoresizingMaskIntoConstraints = NO;
+        [NSLayoutConstraint activateConstraints:@[
+            [self.containerView.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],
+            [self.containerView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
+            [self.containerView.widthAnchor constraintEqualToAnchor:self.widthAnchor multiplier:0.5],
+            [self.containerView.heightAnchor constraintEqualToAnchor:self.widthAnchor multiplier:0.5]
+        ]];
         
-        [self.secondaryView addSubview:self.stackView];
-        self.stackView.frame = self.secondaryView.bounds;
-        self.stackView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        [self.containerView addSubview:self.rotationView];
+        self.rotationView.frame = self.containerView.bounds;
+        self.rotationView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        
+        [self.containerView addSubview:self.rotation2View];
+        self.rotation2View.frame = self.containerView.bounds;
+        self.rotation2View.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         
         [self addSubview:self.slider];
     }
@@ -46,9 +55,10 @@
 }
 
 - (void)dealloc {
-    [_secondaryView release];
-    [_stackView release];
-    [_imageView release];
+    [_boundsView release];
+    [_containerView release];
+    [_rotationView release];
+    [_rotation2View release];
     [_slider release];
     [super dealloc];
 }
@@ -58,100 +68,42 @@
     self.slider.frame = NSMakeRect(0., 0., self.bounds.size.width, self.slider.fittingSize.height);
 }
 
-- (NSView *)_secondaryView {
-    if (auto secondaryView = _secondaryView) return secondaryView;
+- (NSView *)_boundsView {
+    if (auto boundsView = _boundsView) return boundsView;
     
-    NSView *secondaryView = [NSView new];
-    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(secondaryView, sel_registerName("setBackgroundColor:"), [NSColor.blueColor colorWithAlphaComponent:0.3]);
+    NSView *boundsView = [NSView new];
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(boundsView, sel_registerName("setBackgroundColor:"), NSColor.systemGreenColor);
     
-    _secondaryView = secondaryView;
-    return secondaryView;
+    _boundsView = boundsView;
+    return boundsView;
 }
 
-- (NSStackView *)_stackView {
-    if (auto stackView = _stackView) return stackView;
+- (NSView *)_containerView {
+    if (auto containerView = _containerView) return containerView;
     
-    NSStackView *stackView_1;
-    {
-        NSView *pinkView = [NSView new];
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(pinkView, sel_registerName("setBackgroundColor:"), NSColor.systemPinkColor);
-        
-        NSView *greenView = [NSView new];
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(greenView, sel_registerName("setBackgroundColor:"), NSColor.systemGreenColor);
-        
-        NSView *yellowView = [NSView new];
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(yellowView, sel_registerName("setBackgroundColor:"), NSColor.systemYellowColor);
-        
-        stackView_1 = [NSStackView new];
-        
-        [stackView_1 addArrangedSubview:pinkView];
-        [pinkView release];
-        [stackView_1 addArrangedSubview:greenView];
-        [greenView release];
-        [stackView_1 addArrangedSubview:yellowView];
-        [yellowView release];
-        
-        stackView_1.spacing = 0.;
-        stackView_1.orientation = NSUserInterfaceLayoutOrientationHorizontal;
-        stackView_1.alignment = NSLayoutAttributeHeight;
-        stackView_1.distribution = NSStackViewDistributionFillEqually;
-    }
+    NSView *containerView = [NSView new];
     
-    NSStackView *stackView_2;
-    {
-        NSView *brownView = [NSView new];
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(brownView, sel_registerName("setBackgroundColor:"), NSColor.systemBrownColor);
-        
-        NSView *indigoView = [NSView new];
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(indigoView, sel_registerName("setBackgroundColor:"), NSColor.systemIndigoColor);
-        
-        NSView *purpleView = [NSView new];
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(purpleView, sel_registerName("setBackgroundColor:"), NSColor.systemPurpleColor);
-        
-        stackView_2 = [NSStackView new];
-        
-        [stackView_2 addArrangedSubview:brownView];
-        [brownView release];
-        [stackView_2 addArrangedSubview:indigoView];
-        [indigoView release];
-        [stackView_2 addArrangedSubview:purpleView];
-        [purpleView release];
-        
-        stackView_2.spacing = 0.;
-        stackView_2.orientation = NSUserInterfaceLayoutOrientationHorizontal;
-        stackView_2.alignment = NSLayoutAttributeHeight;
-        stackView_2.distribution = NSStackViewDistributionFillEqually;
-    }
-    
-    NSStackView *stackView = [NSStackView new];
-    [stackView addArrangedSubview:stackView_1];
-    [stackView_1 release];
-    [stackView addArrangedSubview:stackView_2];
-    [stackView_2 release];
-    
-    stackView.spacing = 0.;
-    stackView.orientation = NSUserInterfaceLayoutOrientationVertical;
-    stackView.alignment = NSLayoutAttributeWidth;
-    stackView.distribution = NSStackViewDistributionFillEqually;
-    
-    _stackView = stackView;
-    return stackView;
+    _containerView = containerView;
+    return containerView;
 }
 
-- (NSImageView *)_imageView {
-    if (auto imageView = _imageView) return imageView;
+- (NSView *)_rotationView {
+    if (auto rotationView = _rotationView) return rotationView;
     
-    NSURL *url = [NSBundle.mainBundle URLForResource:@"popcorns" withExtension:UTTypePNG.preferredFilenameExtension];
-    assert(url != nil);
-    NSImage *image = [[NSImage alloc] initWithContentsOfURL:url];
-    assert(image != nil);
+    NSView *rotationView = [NSView new];
+    reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(rotationView, sel_registerName("setBackgroundColor:"), NSColor.systemPinkColor);
     
-    NSImageView *imageView = [NSImageView new];
-    imageView.image = image;
-    [image release];
+    _rotationView = rotationView;
+    return rotationView;
+}
+
+- (NSView *)_rotation2View {
+    if (auto rotation2View = _rotation2View) return rotation2View;
     
-    _imageView = imageView;
-    return imageView;
+    NSView *rotation2View = [NSView new];
+    
+    _rotation2View = rotation2View;
+    return rotation2View;
 }
 
 - (NSSlider *)_slider {
@@ -175,8 +127,12 @@
     rotation = sender.floatValue;
 #endif
     
-    self.secondaryView.boundsRotation = rotation;
-    NSLog(@"%@ %@", NSStringFromRect(self.secondaryView.bounds), NSStringFromRect(self.stackView.frame));
+    self.rotationView.frameCenterRotation = rotation;
+    self.rotation2View.boundsRotation = rotation;
+    
+    NSRect bounds = self.rotation2View.bounds;
+    NSRect converted = [self.rotation2View convertRect:bounds toView:self];
+    self.boundsView.frame = converted;
 }
 
 @end
