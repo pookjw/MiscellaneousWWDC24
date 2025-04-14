@@ -48,8 +48,7 @@ void swizzle() {
 @property (retain, nonatomic, readonly, getter=_menuBarButtonItem) UIBarButtonItem *menuBarButtonItem;
 @property (retain, nonatomic, readonly, getter=_locationManager) CLLocationManager *locationManager;
 
-@property (retain, nonatomic, nullable, getter=_viewObserver, setter=_setViewObserver:) KeyValueObserver *viewObserver;
-@property (retain, nonatomic, nullable, getter=_outgoingPresentationObserver, setter=_setOutgoingPresentationObserver:) KeyValueObserver *outgoingPresentationObserver;
+@property (retain, nonatomic, nullable, getter=_menuObserver, setter=_setMenuObserver:) KeyValueObserver *menuObserver;
 @end
 
 @implementation MapViewController
@@ -65,10 +64,8 @@ void swizzle() {
     [_mapView release];
     [_menuBarButtonItem release];
     [_locationManager release];
-    [_viewObserver invalidate];
-    [_viewObserver release];
-    [_outgoingPresentationObserver invalidate];
-    [_outgoingPresentationObserver release];
+    [_menuObserver invalidate];
+    [_menuObserver release];
     [super dealloc];
 }
 
@@ -81,23 +78,13 @@ void swizzle() {
     self.navigationItem.rightBarButtonItem = self.menuBarButtonItem;
     
     [self.locationManager requestWhenInUseAuthorization];
-}
-
-- (void)viewIsAppearing:(BOOL)animated {
-    [super viewIsAppearing:animated];
     [self _presentMenu];
 }
 
-- (void)_setViewObserver:(KeyValueObserver *)viewObserver {
-    [_viewObserver invalidate];
-    [_viewObserver release];
-    _viewObserver = [viewObserver retain];
-}
-
-- (void)_setOutgoingPresentationObserver:(KeyValueObserver *)outgoingPresentationObserver {
-    [_outgoingPresentationObserver invalidate];
-    [_outgoingPresentationObserver release];
-    _outgoingPresentationObserver = [outgoingPresentationObserver retain];
+- (void)_setMenuObserver:(KeyValueObserver *)menuObserver {
+    [_menuObserver invalidate];
+    [_menuObserver release];
+    _menuObserver = [menuObserver retain];
 }
 
 - (MKMapView *)_mapView {
@@ -732,46 +719,64 @@ void swizzle() {
     
     auto handler_1 = ^{
         __kindof UIControl * _Nullable requestsMenuBarButton = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self.menuBarButtonItem, sel_registerName("view"));
+        assert(requestsMenuBarButton != nil);
         
-        for (id<UIInteraction> interaction in requestsMenuBarButton.interactions) {
-            if ([interaction isKindOfClass:objc_lookUpClass("_UIClickPresentationInteraction")]) {
-                UIContextMenuInteraction *contextMenuInteraction = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(interaction, sel_registerName("delegate"));
-                
-                auto handler_2 = ^{
-                    reinterpret_cast<void (*)(id, SEL, CGPoint)>(objc_msgSend)(contextMenuInteraction, sel_registerName("_presentMenuAtLocation:"), CGPointZero);
-                };
-                
-                id _Nullable outgoingPresentation = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(contextMenuInteraction, sel_registerName("outgoingPresentation"));
-                
-                if (outgoingPresentation != nil) {
-                    KeyValueObserver *outgoingPresentationObserver = [[KeyValueObserver alloc] initWithObject:contextMenuInteraction forKeyPath:@"outgoingPresentation" options:NSKeyValueObservingOptionNew handler:^(KeyValueObserver * _Nonnull observer, NSString * _Nonnull keyPath, id  _Nonnull object, NSDictionary * _Nonnull change) {
-                        if ([change[NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
-                            handler_2();
-                            [observer invalidate];
-                        }
-                    }];
+        auto handler_2 = ^{
+            for (id<UIInteraction> interaction in requestsMenuBarButton.interactions) {
+                if ([interaction isKindOfClass:objc_lookUpClass("_UIClickPresentationInteraction")]) {
+                    UIContextMenuInteraction *contextMenuInteraction = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(interaction, sel_registerName("delegate"));
                     
-                    self.outgoingPresentationObserver = outgoingPresentationObserver;
-                    [outgoingPresentationObserver release];
-                } else {
-                    handler_2();
+                    auto handler_3 = ^{
+                        reinterpret_cast<void (*)(id, SEL, CGPoint)>(objc_msgSend)(contextMenuInteraction, sel_registerName("_presentMenuAtLocation:"), CGPointZero);
+                    };
+                    
+                    id _Nullable outgoingPresentation = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(contextMenuInteraction, sel_registerName("outgoingPresentation"));
+                    
+                    if (outgoingPresentation != nil) {
+                        KeyValueObserver *observer = [[KeyValueObserver alloc] initWithObject:contextMenuInteraction forKeyPath:@"outgoingPresentation" options:NSKeyValueObservingOptionNew handler:^(KeyValueObserver * _Nonnull observer, NSString * _Nonnull keyPath, id  _Nonnull object, NSDictionary * _Nonnull change) {
+                            if ([change[NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
+                                handler_3();
+                                [observer invalidate];
+                            }
+                        }];
+                        
+                        self.menuObserver = observer;
+                        [observer release];
+                    } else {
+                        handler_3();
+                    }
+                    
+                    break;
                 }
-                
-                break;
             }
+        };
+        
+        
+        if (requestsMenuBarButton.window == nil) {
+            KeyValueObserver *observer = [[KeyValueObserver alloc] initWithObject:requestsMenuBarButton forKeyPath:@"enabled" options:NSKeyValueObservingOptionNew handler:^(KeyValueObserver * _Nonnull observer, NSString * _Nonnull keyPath, __kindof UIControl * _Nonnull object, NSDictionary * _Nonnull change) {
+                if (object.window != nil) {
+                    handler_2();
+                    [observer invalidate];
+                }
+            }];
+            
+            self.menuObserver = observer;
+            [observer release];
+        } else {
+            handler_2();
         }
     };
     
     if (requestsMenuBarButton == nil) {
-        KeyValueObserver *viewObserver = [[KeyValueObserver alloc] initWithObject:self.menuBarButtonItem forKeyPath:@"view" options:NSKeyValueObservingOptionNew handler:^(KeyValueObserver * _Nonnull observer, NSString * _Nonnull keyPath, id  _Nonnull object, NSDictionary * _Nonnull change) {
-            if (change[NSKeyValueChangeNewKey] != nil) {
+        KeyValueObserver *observer = [[KeyValueObserver alloc] initWithObject:self.menuBarButtonItem forKeyPath:@"view" options:NSKeyValueObservingOptionNew handler:^(KeyValueObserver * _Nonnull observer, NSString * _Nonnull keyPath, id _Nonnull object, NSDictionary * _Nonnull change) {
+            if (![change[NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
                 handler_1();
                 [observer invalidate];
             }
         }];
         
-        self.viewObserver = viewObserver;
-        [viewObserver release];
+        self.menuObserver = observer;
+        [observer release];
     } else {
         handler_1();
     }
