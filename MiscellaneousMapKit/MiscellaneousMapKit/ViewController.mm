@@ -13,34 +13,43 @@
 #import "NSStringFromMKUserTrackingMode.h"
 #import "NSStringFromMKStandardMapEmphasisStyle.h"
 #import "allMKPointOfInterestCategories.h"
+#import "UIMenuElement+CP_NumberOfLines.h"
+#import "KeyValueObserver.h"
 #include <vector>
 #include <ranges>
 #include <dlfcn.h>
 
+MK_EXTERN MKMapRect const MKMapRectForCoordinateRegion(MKCoordinateRegion region);
+UIKIT_EXTERN NSNotificationName const UIPresentationControllerDismissalTransitionDidEndNotification;
+OBJC_EXPORT id objc_msgSendSuper2(void); /* objc_super superInfo = { self, [self class] }; */
+
 namespace mm_GEOConfigStorageCFProfile {
-    namespace getConfigValueForKey_countryCode_options_source_ {
-        id (*original)(id, SEL, id ,id, NSUInteger, NSInteger *);
-        id custom(id self, SEL _cmd, NSString *key, id contryCode, NSUInteger options, NSInteger *source) {
-            if ([key isEqualToString:@"DebugConsoleGestureEnabled"]) {
-                return @YES;
-            } else if ([key isEqualToString:@"ModernAppleLogo"]) {
-                return @YES;
-            } else {
-                return original(self, _cmd, key, contryCode, options, source);
-            }
-        }
-        void swizzle() {
-            Method method = class_getInstanceMethod(objc_lookUpClass("GEOConfigStorageCFProfile"), sel_registerName("getConfigValueForKey:countryCode:options:source:"));
-            original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
-            method_setImplementation(method, reinterpret_cast<IMP>(custom));
-        }
+namespace getConfigValueForKey_countryCode_options_source_ {
+id (*original)(id, SEL, id ,id, NSUInteger, NSInteger *);
+id custom(id self, SEL _cmd, NSString *key, id contryCode, NSUInteger options, NSInteger *source) {
+    if ([key isEqualToString:@"DebugConsoleGestureEnabled"]) {
+        return @YES;
+    } else if ([key isEqualToString:@"ModernAppleLogo"]) {
+        return @YES;
+    } else {
+        return original(self, _cmd, key, contryCode, options, source);
     }
 }
+void swizzle() {
+    Method method = class_getInstanceMethod(objc_lookUpClass("GEOConfigStorageCFProfile"), sel_registerName("getConfigValueForKey:countryCode:options:source:"));
+    original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
+    method_setImplementation(method, reinterpret_cast<IMP>(custom));
+}
+}
+}
 
-@interface ViewController ()
+@interface ViewController () <MKMapViewDelegate>
 @property (retain, nonatomic, readonly, getter=_mapView) MKMapView *mapView;
 @property (retain, nonatomic, readonly, getter=_menuBarButtonItem) UIBarButtonItem *menuBarButtonItem;
 @property (retain, nonatomic, readonly, getter=_locationManager) CLLocationManager *locationManager;
+
+@property (retain, nonatomic, nullable, getter=_viewObserver, setter=_setViewObserver:) KeyValueObserver *viewObserver;
+@property (retain, nonatomic, nullable, getter=_outgoingPresentationObserver, setter=_setOutgoingPresentationObserver:) KeyValueObserver *outgoingPresentationObserver;
 @end
 
 @implementation ViewController
@@ -56,6 +65,10 @@ namespace mm_GEOConfigStorageCFProfile {
     [_mapView release];
     [_menuBarButtonItem release];
     [_locationManager release];
+    [_viewObserver invalidate];
+    [_viewObserver release];
+    [_outgoingPresentationObserver invalidate];
+    [_outgoingPresentationObserver release];
     [super dealloc];
 }
 
@@ -70,10 +83,28 @@ namespace mm_GEOConfigStorageCFProfile {
     [self.locationManager requestWhenInUseAuthorization];
 }
 
+- (void)viewIsAppearing:(BOOL)animated {
+    [super viewIsAppearing:animated];
+    [self _presentMenu];
+}
+
+- (void)_setViewObserver:(KeyValueObserver *)viewObserver {
+    [_viewObserver invalidate];
+    [_viewObserver release];
+    _viewObserver = [viewObserver retain];
+}
+
+- (void)_setOutgoingPresentationObserver:(KeyValueObserver *)outgoingPresentationObserver {
+    [_outgoingPresentationObserver invalidate];
+    [_outgoingPresentationObserver release];
+    _outgoingPresentationObserver = [outgoingPresentationObserver retain];
+}
+
 - (MKMapView *)_mapView {
     if (auto mapView = _mapView) return mapView;
     
     MKMapView *mapView = [MKMapView new];
+    mapView.delegate = self;
     
     _mapView = mapView;
     return mapView;
@@ -99,6 +130,7 @@ namespace mm_GEOConfigStorageCFProfile {
 
 - (UIMenu *)_makeMenu {
     MKMapView *mapView = self.mapView;
+    __weak auto weakSelf = self;
     
     UIDeferredMenuElement *element = [UIDeferredMenuElement elementWithUncachedProvider:^(void (^ _Nonnull completion)(NSArray<UIMenuElement *> * _Nonnull)) {
         NSMutableArray<__kindof UIMenuElement *> *children = [NSMutableArray new];
@@ -136,6 +168,8 @@ namespace mm_GEOConfigStorageCFProfile {
                         
                         mapView.preferredConfiguration = newConfiguration;
                         [newConfiguration release];
+                        
+                        [weakSelf _presentMenu];
                     }];
                     
                     action.state = ([preferredConfiguration isKindOfClass:_class]) ? UIMenuElementStateOn : UIMenuElementStateOff;
@@ -158,7 +192,7 @@ namespace mm_GEOConfigStorageCFProfile {
                     const MKStandardMapEmphasisStyle *allStyles = allMKStandardMapEmphasisStyles(&count);
                     
                     auto actionsVector = std::views::iota(allStyles, allStyles + count)
-                    | std::views::transform([standardMapConfiguration, mapView](const MKStandardMapEmphasisStyle *stylePtr) -> UIAction * {
+                    | std::views::transform([standardMapConfiguration, mapView, weakSelf](const MKStandardMapEmphasisStyle *stylePtr) -> UIAction * {
                         const MKStandardMapEmphasisStyle style = *stylePtr;
                         
                         UIAction *action = [UIAction actionWithTitle:NSStringFromMKStandardMapEmphasisStyle(style)
@@ -169,6 +203,8 @@ namespace mm_GEOConfigStorageCFProfile {
                             copy.emphasisStyle = style;
                             mapView.preferredConfiguration = copy;
                             [copy release];
+                            
+                            [weakSelf _presentMenu];
                         }];
                         
                         action.state = (standardMapConfiguration.emphasisStyle == style) ? UIMenuElementStateOn : UIMenuElementStateOff;
@@ -184,57 +220,6 @@ namespace mm_GEOConfigStorageCFProfile {
                 }
                 
                 {
-                    NSArray<MKPointOfInterestCategory> *categories = allMKPointOfInterestCategories;
-                    MKPointOfInterestFilter *pointOfInterestFilter = [standardMapConfiguration.pointOfInterestFilter copy];
-                    if (pointOfInterestFilter == nil) pointOfInterestFilter = [[MKPointOfInterestFilter alloc] initExcludingCategories:@[]];
-                    
-                    NSMutableArray<UIAction *> *actions = [[NSMutableArray alloc] initWithCapacity:categories.count];
-                    for (MKPointOfInterestCategory category in categories) {
-                        UIAction *action = [UIAction actionWithTitle:category image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                            auto copy = static_cast<MKStandardMapConfiguration *>([standardMapConfiguration copy]);
-                            
-                            NSSet<MKPointOfInterestCategory> * _Nullable _excludedCategories;
-                            assert(object_getInstanceVariable(pointOfInterestFilter, "_excludedCategories", (void **)&_excludedCategories) != NULL);
-                            
-                            NSArray<MKPointOfInterestCategory> *newExcludingCategories;
-                            if (_excludedCategories == nil) {
-                                newExcludingCategories = @[category];
-                            } else {
-                                newExcludingCategories = [_excludedCategories.allObjects arrayByAddingObject:category];
-                            }
-                            
-                            MKPointOfInterestFilter *pointOfInterestFilter = [[MKPointOfInterestFilter alloc] initExcludingCategories:newExcludingCategories];
-                            copy.pointOfInterestFilter = pointOfInterestFilter;
-                            [pointOfInterestFilter release];
-                            
-                            mapView.preferredConfiguration = copy;
-                            [copy release];
-                        }];
-                        
-                        action.state = ([pointOfInterestFilter excludesCategory:category]) ? UIMenuElementStateOn : UIMenuElementStateOff;
-                        [actions addObject:action];
-                    }
-                    
-                    UIMenu *menu = [UIMenu menuWithTitle:@"Point Of Interest Filter (Exclude)" children:actions];
-                    [actions release];
-                    [children_3 addObject:menu];
-                }
-                
-                {
-                    BOOL showsTraffic = standardMapConfiguration.showsTraffic;
-                    
-                    UIAction *action = [UIAction actionWithTitle:@"Shows Traffic" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                        auto copy = static_cast<MKStandardMapConfiguration *>([standardMapConfiguration copy]);
-                        copy.showsTraffic = !showsTraffic;
-                        mapView.preferredConfiguration = copy;
-                        [copy release];
-                    }];
-                    
-                    action.state = showsTraffic ? UIMenuElementStateOn : UIMenuElementStateOff;
-                    [children_3 addObject:action];
-                }
-                
-                {
                     BOOL showsTopographicFeatures = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(standardMapConfiguration, sel_registerName("showsTopographicFeatures"));
                     
                     UIAction *action = [UIAction actionWithTitle:@"Shows Topographic Features" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
@@ -242,6 +227,8 @@ namespace mm_GEOConfigStorageCFProfile {
                         reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(copy, sel_registerName("setShowsTopographicFeatures:"), !showsTopographicFeatures);
                         mapView.preferredConfiguration = copy;
                         [copy release];
+                        
+                        [weakSelf _presentMenu];
                     }];
                     
                     action.state = showsTopographicFeatures ? UIMenuElementStateOn : UIMenuElementStateOff;
@@ -256,6 +243,8 @@ namespace mm_GEOConfigStorageCFProfile {
                         reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(copy, sel_registerName("setShowsHiking:"), !showsHiking);
                         mapView.preferredConfiguration = copy;
                         [copy release];
+                        
+                        [weakSelf _presentMenu];
                     }];
                     
                     action.state = showsHiking ? UIMenuElementStateOn : UIMenuElementStateOff;
@@ -285,7 +274,7 @@ namespace mm_GEOConfigStorageCFProfile {
                     NSUInteger count;
                     const MKMapElevationStyle *styles = allMKMapElevationStyles(&count);
                     auto actionsVector = std::views::iota(styles, styles + count)
-                    | std::views::transform([preferredConfiguration, mapView](const MKMapElevationStyle *stylePtr) -> UIAction * {
+                    | std::views::transform([preferredConfiguration, mapView, weakSelf](const MKMapElevationStyle *stylePtr) -> UIAction * {
                         const MKMapElevationStyle style = *stylePtr;
                         
                         UIAction *action = [UIAction actionWithTitle:NSStringFromMKMapElevationStyle(style)
@@ -296,6 +285,8 @@ namespace mm_GEOConfigStorageCFProfile {
                             configuration.elevationStyle = style;
                             mapView.preferredConfiguration = configuration;
                             [configuration release];
+                            
+                            [weakSelf _presentMenu];
                         }];
                         
                         action.state = (preferredConfiguration.elevationStyle == style) ? UIMenuElementStateOn : UIMenuElementStateOff;
@@ -309,6 +300,64 @@ namespace mm_GEOConfigStorageCFProfile {
                     [children_3 addObject:menu];
                 }
                 
+                if ([preferredConfiguration respondsToSelector:@selector(setPointOfInterestFilter:)]) {
+                    NSArray<MKPointOfInterestCategory> *categories = allMKPointOfInterestCategories;
+                    MKPointOfInterestFilter *pointOfInterestFilter = [reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(preferredConfiguration, @selector(pointOfInterestFilter)) copy];
+                    if (pointOfInterestFilter == nil) pointOfInterestFilter = [[MKPointOfInterestFilter alloc] initExcludingCategories:@[]];
+                    
+                    NSMutableArray<UIAction *> *actions = [[NSMutableArray alloc] initWithCapacity:categories.count];
+                    for (MKPointOfInterestCategory category in categories) {
+                        UIAction *action = [UIAction actionWithTitle:category image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                            auto copy = static_cast<MKMapConfiguration *>([preferredConfiguration copy]);
+                            
+                            NSSet<MKPointOfInterestCategory> * _Nullable _excludedCategories;
+                            assert(object_getInstanceVariable(pointOfInterestFilter, "_excludedCategories", (void **)&_excludedCategories) != NULL);
+                            
+                            NSArray<MKPointOfInterestCategory> *newExcludingCategories;
+                            if (_excludedCategories == nil) {
+                                newExcludingCategories = @[category];
+                            } else {
+                                newExcludingCategories = [_excludedCategories.allObjects arrayByAddingObject:category];
+                            }
+                            
+                            MKPointOfInterestFilter *pointOfInterestFilter = [[MKPointOfInterestFilter alloc] initExcludingCategories:newExcludingCategories];
+                            reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(copy, @selector(setPointOfInterestFilter:), pointOfInterestFilter);
+                            [pointOfInterestFilter release];
+                            
+                            mapView.preferredConfiguration = copy;
+                            [copy release];
+                            
+                            [weakSelf _presentMenu];
+                        }];
+                        
+                        action.state = ([pointOfInterestFilter excludesCategory:category]) ? UIMenuElementStateOn : UIMenuElementStateOff;
+                        [actions addObject:action];
+                    }
+                    
+                    [pointOfInterestFilter release];
+                    
+                    UIMenu *menu = [UIMenu menuWithTitle:@"Point Of Interest Filter (Exclude)" children:actions];
+                    [actions release];
+                    [children_3 addObject:menu];
+                }
+                
+                if ([preferredConfiguration respondsToSelector:@selector(setShowsTraffic:)]) {
+                    BOOL showsTraffic = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(preferredConfiguration, @selector(showsTraffic));
+                    
+                    UIAction *action = [UIAction actionWithTitle:@"Shows Traffic" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                        auto copy = static_cast<MKMapConfiguration *>([preferredConfiguration copy]);
+                        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(copy, @selector(setShowsTraffic:), !showsTraffic);
+                        mapView.preferredConfiguration = copy;
+                        [copy release];
+                        
+                        [weakSelf _presentMenu];
+                    }];
+                    
+                    action.state = showsTraffic ? UIMenuElementStateOn : UIMenuElementStateOff;
+                    [children_3 addObject:action];
+                }
+                
+                
                 UIMenu *menu = [UIMenu menuWithTitle:@"MKMapConfiguration" children:children_3];
                 [children_3 release];
                 [children_2 addObject:menu];
@@ -320,10 +369,44 @@ namespace mm_GEOConfigStorageCFProfile {
         }
         
         {
+            BOOL zoomEnabled = mapView.zoomEnabled;
+            
+            UIAction *action = [UIAction actionWithTitle:@"Zoom Enabled" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                mapView.zoomEnabled = !zoomEnabled;
+                [weakSelf _presentMenu];
+            }];
+            action.state = zoomEnabled ? UIMenuElementStateOn : UIMenuElementStateOff;
+            [children addObject:action];
+        }
+        
+        {
+            BOOL scrollEnabled = mapView.scrollEnabled;
+            
+            UIAction *action = [UIAction actionWithTitle:@"Scroll Enabled" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                mapView.scrollEnabled = !scrollEnabled;
+                [weakSelf _presentMenu];
+            }];
+            action.state = scrollEnabled ? UIMenuElementStateOn : UIMenuElementStateOff;
+            [children addObject:action]; 
+        }
+        
+        {
+            BOOL rotateEnabled = mapView.rotateEnabled;
+            
+            UIAction *action = [UIAction actionWithTitle:@"Rotate Enabled" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                mapView.rotateEnabled = !rotateEnabled;
+                [weakSelf _presentMenu];
+            }];
+            action.state = rotateEnabled ? UIMenuElementStateOn : UIMenuElementStateOff;
+            [children addObject:action]; 
+        }
+        
+        {
             BOOL isLocationConsoleEnabled = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(mapView, sel_registerName("isLocationConsoleEnabled"));
             
             UIAction *action = [UIAction actionWithTitle:@"Location Console Enabled" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                 reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(mapView, sel_registerName("setLocationConsoleEnabled:"), !isLocationConsoleEnabled);
+                [weakSelf _presentMenu];
             }];
             
             action.state = isLocationConsoleEnabled ? UIMenuElementStateOn : UIMenuElementStateOff;
@@ -335,6 +418,7 @@ namespace mm_GEOConfigStorageCFProfile {
             
             UIAction *action = [UIAction actionWithTitle:@"Shows User Location" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                 mapView.showsUserLocation = !showsUserLocation;
+                [weakSelf _presentMenu];
             }];
             
             action.state = showsUserLocation ? UIMenuElementStateOn : UIMenuElementStateOff;
@@ -346,13 +430,14 @@ namespace mm_GEOConfigStorageCFProfile {
             const MKUserTrackingMode *allModes = allMKUserTrackingModes(&count);
             
             auto actionsVector = std::views::iota(allModes, allModes + count)
-            | std::views::transform([mapView](const MKUserTrackingMode *modePtr) -> UIAction * {
+            | std::views::transform([mapView, weakSelf](const MKUserTrackingMode *modePtr) -> UIAction * {
                 const MKUserTrackingMode mode = *modePtr;
                 UIAction *action = [UIAction actionWithTitle:NSStringFromMKUserTrackingMode(mode)
                                                        image:nil
                                                   identifier:nil
                                                      handler:^(__kindof UIAction * _Nonnull action) {
                     [mapView setUserTrackingMode:mode animated:YES];
+                    [weakSelf _presentMenu];
                 }];
                 
                 action.state = (mapView.userTrackingMode == mode) ? UIMenuElementStateOn : UIMenuElementStateOff;
@@ -372,6 +457,7 @@ namespace mm_GEOConfigStorageCFProfile {
             
             UIAction *action = [UIAction actionWithTitle:@"Vector Kit Console Enabled" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                 reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(mapView, sel_registerName("_setVectorKitConsoleEnabled:"), !_isVectorKitConsoleEnabled);
+                [weakSelf _presentMenu];
             }];
             
             action.state = _isVectorKitConsoleEnabled ? UIMenuElementStateOn : UIMenuElementStateOff;
@@ -383,11 +469,51 @@ namespace mm_GEOConfigStorageCFProfile {
             NSMutableArray<__kindof UIMenuElement *> *children_2 = [NSMutableArray new];
             
             {
-                UIAction *action = [UIAction actionWithTitle:@"Move to Traffic Visible Location" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(33.9913623, -118.4614118);
-                    MKCoordinateSpan span = MKCoordinateSpanMake(0.01, 0.01);
+                CLLocationCoordinate2D center = mapView.region.center;
+                
+                UIAction *action = [UIAction actionWithTitle:@"Center" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                    UIPasteboard.generalPasteboard.string = [NSString stringWithFormat:@"%lf %lf", center.latitude, center.longitude];
+                    [weakSelf _presentMenu];
+                }];
+                
+                action.subtitle = [NSString stringWithFormat:@"latitude : %lf, longitude : %lf", center.latitude, center.longitude];
+                
+                [children_2 addObject:action];
+            }
+            
+            {
+                MKCoordinateSpan span = mapView.region.span;
+                
+                UIAction *action = [UIAction actionWithTitle:@"Span" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                }];
+                
+                action.subtitle = [NSString stringWithFormat:@"latitudeDelta : %lf, longitudeDelta : %lf", span.latitudeDelta, span.longitudeDelta];
+                action.attributes = UIMenuElementAttributesDisabled;
+                
+                [children_2 addObject:action];
+            }
+            
+            {
+                MKMapRect mapRect = MKMapRectForCoordinateRegion(mapView.region);
+                
+                UIAction *action = [UIAction actionWithTitle:@"Map Rect" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                }];
+                
+                action.subtitle = [NSString stringWithFormat:@"{{%lf, %lf}, {%lf, %lf}}", mapRect.origin.x, mapRect.origin.y, mapRect.size.width, mapRect.size.height];
+                action.attributes = UIMenuElementAttributesDisabled;
+                action.cp_overrideNumberOfSubtitleLines = 0;
+                
+                [children_2 addObject:action];
+            }
+            
+            {
+                UIAction *action = [UIAction actionWithTitle:@"Traffic Visible Location" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(37.8042483, -122.2840628);
+                    MKCoordinateSpan span = MKCoordinateSpanMake(0.03, 0.03);
                     MKCoordinateRegion region = MKCoordinateRegionMake(coord, span);
                     [mapView setRegion:region animated:YES];
+                    
+                    [weakSelf _presentMenu];
                 }];
                 [children_2 addObject:action];
             }
@@ -398,11 +524,198 @@ namespace mm_GEOConfigStorageCFProfile {
                     MKCoordinateSpan span = MKCoordinateSpanMake(0.05, 0.05);
                     MKCoordinateRegion region = MKCoordinateRegionMake(coord, span);
                     [mapView setRegion:region animated:YES];
+                    
+                    [weakSelf _presentMenu];
                 }];
                 [children_2 addObject:action];
             }
             
-            UIMenu *menu = [UIMenu menuWithTitle:@"Miscellaneous" children:children_2];
+            {
+                if (mapView.showsUserLocation) {
+                    UIAction *action = [UIAction actionWithTitle:@"Set Region with User Location" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                        CLLocationCoordinate2D coord = mapView.userLocation.location.coordinate;;
+                        MKCoordinateSpan span = MKCoordinateSpanMake(0.05, 0.05);
+                        MKCoordinateRegion region = MKCoordinateRegionMake(coord, span);
+                        [mapView setRegion:region animated:YES];
+                        
+                        [weakSelf _presentMenu];
+                    }];
+                    [children_2 addObject:action];
+                } else {
+                    UIAction *action = [UIAction actionWithTitle:@"Set Region with User Location" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                    }];
+                    action.attributes = UIMenuElementAttributesDisabled;
+                    action.subtitle = @"Requires showsUserLocation = YES";
+                    [children_2 addObject:action];
+                }
+            }
+            
+            UIMenu *menu = [UIMenu menuWithTitle:@"Region" children:children_2];
+            [children_2 release];
+            [children addObject:menu];
+        }
+        
+        {
+            CLLocationCoordinate2D centerCoordinate = mapView.centerCoordinate;
+            
+            UIAction *action = [UIAction actionWithTitle:@"Center Coordinate" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                UIPasteboard.generalPasteboard.string = [NSString stringWithFormat:@"%lf %lf", centerCoordinate.latitude, centerCoordinate.longitude];
+                [weakSelf _presentMenu];
+            }];
+            
+            action.subtitle = [NSString stringWithFormat:@"latitude : %lf, longitude : %lf", centerCoordinate.latitude, centerCoordinate.longitude];
+            
+            [children addObject:action];
+        }
+        
+        {
+            NSMutableArray<__kindof UIMenuElement *> *children_2 = [NSMutableArray new];
+            
+            {
+                UIAction *action = [UIAction actionWithTitle:NSStringFromClass([MKPlacemark class]) image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                    MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:mapView.centerCoordinate];
+                    [mapView addAnnotation:placemark];
+                    [placemark release];
+                    
+                    [weakSelf _presentMenu];
+                }];
+                [children_2 addObject:action];
+            }
+            
+            {
+                UIAction *action = [UIAction actionWithTitle:NSStringFromClass([MKUserLocation class]) image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                    MKUserLocation *userLocation = [MKUserLocation new];
+                    [mapView addAnnotation:userLocation];
+                    [userLocation release];
+                    
+                    [weakSelf _presentMenu];
+                }];
+                [children_2 addObject:action];
+            }
+            
+            {
+                NSArray<id<MKAnnotation>> *annotations = mapView.annotations;
+                NSMutableArray<__kindof UIMenuElement *> *children_3 = [[NSMutableArray alloc] initWithCapacity:annotations.count];
+                
+                for (id<MKAnnotation> annotation in annotations) {
+                    __kindof UIMenuElement *element;
+                    
+                    if ([annotation isKindOfClass:[MKPlacemark class]]) {
+                        UIAction *action = [UIAction actionWithTitle:NSStringFromClass([MKPlacemark class]) image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                            [mapView removeAnnotation:annotation];
+                            [weakSelf _presentMenu];
+                        }];
+                        action.attributes = UIMenuElementAttributesDestructive;
+                        action.subtitle = [annotation description];
+                        action.cp_overrideNumberOfSubtitleLines = 0;
+                        
+                        element = action;
+                    } else if ([annotation isKindOfClass:[MKUserLocation class]]) {
+                        auto casted = static_cast<MKUserLocation *>(annotation);
+                        
+                        NSMutableArray<__kindof UIMenuElement *> *children_4 = [NSMutableArray new];
+                        
+                        {
+                            UIAction *action = [UIAction actionWithTitle:@"Location" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                            }];
+                            action.attributes = UIMenuElementAttributesDisabled;
+                            action.subtitle = casted.location.description;
+                            action.cp_overrideNumberOfSubtitleLines = 0;
+                            [children_4 addObject:action];
+                        }
+                        
+                        {
+                            UIAction *action = [UIAction actionWithTitle:@"Updating" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                            }];
+                            action.attributes = UIMenuElementAttributesDisabled;
+                            action.subtitle = casted.updating ? @"YES" : @"NO";
+                            [children_4 addObject:action];
+                        }
+                        
+                        {
+                            UIAction *action = [UIAction actionWithTitle:@"Heading" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                            }];
+                            action.attributes = UIMenuElementAttributesDisabled;
+                            action.subtitle = casted.heading.description;
+                            [children_4 addObject:action];
+                        }
+                        
+                        {
+                            UIAction *action = [UIAction actionWithTitle:@"Title" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Title" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                                [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                                    textField.text = casted.title;
+                                }];
+                                
+                                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                                    [weakSelf _presentMenu];
+                                }];
+                                [alertController addAction:cancelAction];
+                                
+                                UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                    UIAlertController *_alertController = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(action, sel_registerName("_alertController"));
+                                    casted.title = _alertController.textFields.firstObject.text;
+                                    [weakSelf _presentMenu];
+                                }];
+                                [alertController addAction:doneAction];
+                                
+                                [weakSelf presentViewController:alertController animated:YES completion:nil];
+                            }];
+                            action.subtitle = casted.title;
+                            [children_4 addObject:action];
+                        }
+                        
+                        {
+                            UIAction *action = [UIAction actionWithTitle:@"Subtitle" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Subtitle" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                                [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                                    textField.text = casted.subtitle;
+                                }];
+                                
+                                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                                    [weakSelf _presentMenu];
+                                }];
+                                [alertController addAction:cancelAction];
+                                
+                                UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                    UIAlertController *_alertController = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(action, sel_registerName("_alertController"));
+                                    casted.subtitle = _alertController.textFields.firstObject.text;
+                                    [weakSelf _presentMenu];
+                                }];
+                                [alertController addAction:doneAction];
+                                
+                                [weakSelf presentViewController:alertController animated:YES completion:nil];
+                            }];
+                            action.subtitle = casted.subtitle;
+                            [children_4 addObject:action];
+                        }
+                        
+                        {
+                            UIAction *action = [UIAction actionWithTitle:@"Remove" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                                [mapView removeAnnotation:annotation];
+                                [weakSelf _presentMenu];
+                            }];
+                            action.attributes = UIMenuOptionsDestructive;
+                            [children_4 addObject:action];
+                        }
+                        
+                        UIMenu *menu = [UIMenu menuWithTitle:NSStringFromClass([MKUserLocation class]) children:children_4];
+                        [children_4 release];
+                        menu.subtitle = casted.description;
+                        element = menu;
+                    } else {
+                        abort();
+                    }
+                    
+                    [children_3 addObject:element];
+                }
+                
+                UIMenu *menu = [UIMenu menuWithTitle:@"" image:nil identifier:nil options:UIMenuOptionsDisplayInline children:children_3];
+                [children_3 release];
+                [children_2 addObject:menu];
+            }
+            
+            UIMenu *menu = [UIMenu menuWithTitle:@"Annotations" children:children_2];
             [children_2 release];
             [children addObject:menu];
         }
@@ -412,6 +725,56 @@ namespace mm_GEOConfigStorageCFProfile {
     }];
     
     return [UIMenu menuWithChildren:@[element]];
+}
+
+- (void)_presentMenu {
+    __kindof UIControl * _Nullable requestsMenuBarButton = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self.menuBarButtonItem, sel_registerName("view"));
+    
+    auto handler_1 = ^{
+        __kindof UIControl * _Nullable requestsMenuBarButton = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self.menuBarButtonItem, sel_registerName("view"));
+        
+        for (id<UIInteraction> interaction in requestsMenuBarButton.interactions) {
+            if ([interaction isKindOfClass:objc_lookUpClass("_UIClickPresentationInteraction")]) {
+                UIContextMenuInteraction *contextMenuInteraction = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(interaction, sel_registerName("delegate"));
+                
+                auto handler_2 = ^{
+                    reinterpret_cast<void (*)(id, SEL, CGPoint)>(objc_msgSend)(contextMenuInteraction, sel_registerName("_presentMenuAtLocation:"), CGPointZero);
+                };
+                
+                id _Nullable outgoingPresentation = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(contextMenuInteraction, sel_registerName("outgoingPresentation"));
+                
+                if (outgoingPresentation != nil) {
+                    KeyValueObserver *outgoingPresentationObserver = [[KeyValueObserver alloc] initWithObject:contextMenuInteraction forKeyPath:@"outgoingPresentation" options:NSKeyValueObservingOptionNew handler:^(KeyValueObserver * _Nonnull observer, NSString * _Nonnull keyPath, id  _Nonnull object, NSDictionary * _Nonnull change) {
+                        if ([change[NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
+                            handler_2();
+                            [observer invalidate];
+                        }
+                    }];
+                    
+                    self.outgoingPresentationObserver = outgoingPresentationObserver;
+                    [outgoingPresentationObserver release];
+                } else {
+                    handler_2();
+                }
+                
+                break;
+            }
+        }
+    };
+    
+    if (requestsMenuBarButton == nil) {
+        KeyValueObserver *viewObserver = [[KeyValueObserver alloc] initWithObject:self.menuBarButtonItem forKeyPath:@"view" options:NSKeyValueObservingOptionNew handler:^(KeyValueObserver * _Nonnull observer, NSString * _Nonnull keyPath, id  _Nonnull object, NSDictionary * _Nonnull change) {
+            if (change[NSKeyValueChangeNewKey] != nil) {
+                handler_1();
+                [observer invalidate];
+            }
+        }];
+        
+        self.viewObserver = viewObserver;
+        [viewObserver release];
+    } else {
+        handler_1();
+    }
 }
 
 @end
