@@ -1,11 +1,11 @@
 //
-//  ViewController.mm
+//  MapViewController.mm
 //  MiscellaneousMapKit
 //
 //  Created by Jinwoo Kim on 4/13/25.
 //
 
-#import "ViewController.h"
+#import "MapViewController.h"
 #import <MapKit/MapKit.h>
 #import <objc/message.h>
 #import <objc/runtime.h>
@@ -43,7 +43,7 @@ void swizzle() {
 }
 }
 
-@interface ViewController () <MKMapViewDelegate>
+@interface MapViewController () <MKMapViewDelegate>
 @property (retain, nonatomic, readonly, getter=_mapView) MKMapView *mapView;
 @property (retain, nonatomic, readonly, getter=_menuBarButtonItem) UIBarButtonItem *menuBarButtonItem;
 @property (retain, nonatomic, readonly, getter=_locationManager) CLLocationManager *locationManager;
@@ -52,7 +52,7 @@ void swizzle() {
 @property (retain, nonatomic, nullable, getter=_outgoingPresentationObserver, setter=_setOutgoingPresentationObserver:) KeyValueObserver *outgoingPresentationObserver;
 @end
 
-@implementation ViewController
+@implementation MapViewController
 @synthesize mapView = _mapView;
 @synthesize menuBarButtonItem = _menuBarButtonItem;
 @synthesize locationManager = _locationManager;
@@ -775,6 +775,10 @@ void swizzle() {
     } else {
         handler_1();
     }
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    return nil;
 }
 
 @end

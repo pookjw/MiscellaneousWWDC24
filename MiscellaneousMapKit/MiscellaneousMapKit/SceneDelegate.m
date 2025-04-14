@@ -6,13 +6,13 @@
 //
 
 #import "SceneDelegate.h"
-#import "ViewController.h"
+#import "MapViewController.h"
 
 @implementation SceneDelegate
 
 - (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session options:(UISceneConnectionOptions *)connectionOptions {
     UIWindow *window = [[UIWindow alloc] initWithWindowScene:(UIWindowScene *)scene];
-    ViewController *viewController = [ViewController new];
+    MapViewController *viewController = [MapViewController new];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     [viewController release];
     window.rootViewController = navigationController;
