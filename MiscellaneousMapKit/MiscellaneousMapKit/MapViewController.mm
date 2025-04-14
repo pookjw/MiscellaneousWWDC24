@@ -15,6 +15,7 @@
 #import "allMKPointOfInterestCategories.h"
 #import "UIMenuElement+CP_NumberOfLines.h"
 #import "KeyValueObserver.h"
+#import "WindowObservingInteraction.h"
 #include <vector>
 #include <ranges>
 #include <dlfcn.h>
@@ -753,15 +754,17 @@ void swizzle() {
         
         
         if (requestsMenuBarButton.window == nil) {
-            KeyValueObserver *observer = [[KeyValueObserver alloc] initWithObject:requestsMenuBarButton forKeyPath:@"enabled" options:NSKeyValueObservingOptionNew handler:^(KeyValueObserver * _Nonnull observer, NSString * _Nonnull keyPath, __kindof UIControl * _Nonnull object, NSDictionary * _Nonnull change) {
-                if (object.window != nil) {
-                    handler_2();
-                    [observer invalidate];
-                }
-            }];
+            WindowObservingInteraction *interaction = [WindowObservingInteraction new];
             
-            self.menuObserver = observer;
-            [observer release];
+            interaction.didMoveToWindow = ^(WindowObservingInteraction * _Nonnull interaction, UIWindow * _Nullable oldWindow, UIWindow * _Nullable newWindow) {
+                if (newWindow != nil) {
+                    [interaction.view removeInteraction:interaction];
+                    handler_2();
+                }
+            };
+            
+            [requestsMenuBarButton addInteraction:interaction];
+            [interaction release];
         } else {
             handler_2();
         }
