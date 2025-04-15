@@ -15,52 +15,6 @@
 
 OBJC_EXPORT id objc_msgSendSuper2(void);
 
-namespace mpu_GEOConfigStorageCFProfile {
-namespace getConfigValueForKey_countryCode_options_source_ {
-id (*original)(id, SEL, id ,id, NSUInteger, NSInteger *);
-id custom(id self, SEL _cmd, NSString *key, id contryCode, NSUInteger options, NSInteger *source) {
-    NSLog(@"Foo: %@", key);
-    if ([key isEqualToString:@"VKMLayoutEnabled_Flyover"]) {
-        return @YES;
-    } else if ([key isEqualToString:@"VKMLayoutEnabled_Navigation"]) {
-        return @YES;
-    } else if ([key isEqualToString:@"VKMLayoutEnabled_SPR"]) {
-        return @YES;
-//    } else if ([key isEqualToString:@"LockWatchFpsTo30hz"]) {
-//        return @YES;
-    } else if ([key hasPrefix:@"Shelbyville"]) {
-        return @YES;
-    } else if ([key hasPrefix:@"AllowNonSupportedDeviceAdvancedMap"]) {
-        return @YES;
-    } else if ([key isEqualToString:@"EnableFlyoverUnification"]) {
-        return @YES;
-    } else if ([key isEqualToString:@"ElevatedPolygonsEnabled"]) {
-        return @YES;
-    } else if ([key isEqualToString:@"ARDebugMinimapShowBuildings"]) {
-        return @YES;
-//    } else if ([key isEqualToString:@"ShowLabelCounts"]) {
-//        return @YES;
-    } else if ([key isEqualToString:@"TopographicDisplayEnabled"]) {
-        return @YES;
-    } else if ([key isEqualToString:@"ShelbyvilleTerrain"]) {
-        return @YES;
-    } else if ([key isEqualToString:@"ShelbyvilleColorizedBuildings"]) {
-        return @YES;
-    } else if ([key isEqualToString:@"Maps298"]) {
-        return @YES;
-    } else if ([key containsString:@"Shelbyville"]) {
-        return @YES;
-    } else {
-        return original(self, _cmd, key, contryCode, options, source);
-    }
-}
-void swizzle() {
-    Method method = class_getInstanceMethod(objc_lookUpClass("GEOConfigStorageCFProfile"), sel_registerName("getConfigValueForKey:countryCode:options:source:"));
-    original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
-    method_setImplementation(method, reinterpret_cast<IMP>(custom));
-}
-}
-}
 
 
 namespace mpu_GEOPlatform {
@@ -97,120 +51,6 @@ BOOL custom(id self, SEL _cmd) {
 }
 void swizzle() {
     Method method = class_getInstanceMethod(objc_lookUpClass("VKPlatform"), sel_registerName("supports3DBuildings"));
-    original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
-    method_setImplementation(method, reinterpret_cast<IMP>(custom));
-}
-}
-
-namespace supports3DBuildingStrokes {
-BOOL (*original)(id, SEL);
-BOOL custom(id self, SEL _cmd) {
-    return YES;
-}
-void swizzle() {
-    Method method = class_getInstanceMethod(objc_lookUpClass("VKPlatform"), sel_registerName("supports3DBuildingStrokes"));
-    original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
-    method_setImplementation(method, reinterpret_cast<IMP>(custom));
-}
-}
-
-namespace supportsHiResBuildings {
-BOOL (*original)(id, SEL);
-BOOL custom(id self, SEL _cmd) {
-    return YES;
-}
-void swizzle() {
-    Method method = class_getInstanceMethod(objc_lookUpClass("VKPlatform"), sel_registerName("supportsHiResBuildings"));
-    original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
-    method_setImplementation(method, reinterpret_cast<IMP>(custom));
-}
-}
-
-namespace allows3DPuck {
-BOOL (*original)(id, SEL);
-BOOL custom(id self, SEL _cmd) {
-    return YES;
-}
-void swizzle() {
-    Method method = class_getInstanceMethod(objc_lookUpClass("VKPlatform"), sel_registerName("allows3DPuck"));
-    original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
-    method_setImplementation(method, reinterpret_cast<IMP>(custom));
-}
-}
-
-namespace lowPerformanceDevice {
-BOOL (*original)(id, SEL);
-BOOL custom(id self, SEL _cmd) {
-    return NO;
-}
-void swizzle() {
-    Method method = class_getInstanceMethod(objc_lookUpClass("VKPlatform"), sel_registerName("lowPerformanceDevice"));
-    original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
-    method_setImplementation(method, reinterpret_cast<IMP>(custom));
-}
-}
-
-namespace supportsBuildingShadows {
-BOOL (*original)(id, SEL);
-BOOL custom(id self, SEL _cmd) {
-    return YES;
-}
-void swizzle() {
-    Method method = class_getInstanceMethod(objc_lookUpClass("VKPlatform"), sel_registerName("supportsBuildingShadows"));
-    original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
-    method_setImplementation(method, reinterpret_cast<IMP>(custom));
-}
-}
-
-namespace supportsARMode {
-BOOL (*original)(id, SEL);
-BOOL custom(id self, SEL _cmd) {
-    return YES;
-}
-void swizzle() {
-    Method method = class_getInstanceMethod(objc_lookUpClass("VKPlatform"), sel_registerName("supportsARMode"));
-    original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
-    method_setImplementation(method, reinterpret_cast<IMP>(custom));
-}
-}
-
-namespace isIphone {
-BOOL (*original)(id, SEL);
-BOOL custom(id self, SEL _cmd) {
-    return YES;
-}
-void swizzle() {
-    Method method = class_getInstanceMethod(objc_lookUpClass("VKPlatform"), sel_registerName("isIphone"));
-    original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
-    method_setImplementation(method, reinterpret_cast<IMP>(custom));
-}
-}
-
-namespace roadsWithSimpleLineMeshesAvailable {
-BOOL (*original)(id, SEL);
-BOOL custom(id self, SEL _cmd) {
-    return NO;
-}
-void swizzle() {
-    Method method = class_getInstanceMethod(objc_lookUpClass("VKPlatform"), sel_registerName("roadsWithSimpleLineMeshesAvailable"));
-    original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
-    method_setImplementation(method, reinterpret_cast<IMP>(custom));
-}
-}
-
-}
-
-/*
- dictionaryRepresentation
- */
-namespace mpu_GGEOClientCapabilities {
-namespace supportsAdvancedMap {
-BOOL (*original)(id, SEL);
-BOOL custom(id self, SEL _cmd) {
-    return YES;
-}
-void swizzle() {
-    Method method = class_getInstanceMethod(objc_lookUpClass("GEOClientCapabilities"), sel_registerName("supportsAdvancedMap"));
     original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
     method_setImplementation(method, reinterpret_cast<IMP>(custom));
 }
@@ -284,77 +124,6 @@ void swizzle() {
 }
 }
 
-namespace setEnableColorizedBuildings_ {
-void (*original)(id self, SEL _cmd, BOOL);
-void custom(id self, SEL _cmd, BOOL flag) {
-    original(self, _cmd, YES);
-}
-void swizzle() {
-    Method method = class_getInstanceMethod(objc_lookUpClass("VKMapView"), sel_registerName("setEnableColorizedBuildings:"));
-    assert(method != NULL);
-    original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
-    method_setImplementation(method, reinterpret_cast<IMP>(custom));
-}
-}
-
-namespace _daVinciDataAvailable {
-BOOL (*original)(id self, SEL _cmd);
-BOOL custom(id self, SEL _cmd) {
-    return YES;
-}
-void swizzle() {
-    Method method = class_getInstanceMethod(objc_lookUpClass("VKMapView"), sel_registerName("_daVinciDataAvailable"));
-    assert(method != NULL);
-    original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
-    method_setImplementation(method, reinterpret_cast<IMP>(custom));
-}
-}
-
-//namespace canEnter3DMode {
-//BOOL (*original)(id self, SEL _cmd);
-//BOOL custom(id self, SEL _cmd) {
-//    return NO;
-//}
-//void swizzle() {
-//    Method method = class_getInstanceMethod(objc_lookUpClass("VKMapView"), sel_registerName("canEnter3DMode"));
-//    assert(method != NULL);
-//    original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
-//    method_setImplementation(method, reinterpret_cast<IMP>(custom));
-//}
-//}
-
-namespace canShowFlyover {
-BOOL (*original)(id self, SEL _cmd);
-BOOL custom(id self, SEL _cmd) {
-    return YES;
-}
-void swizzle() {
-    Method method = class_getInstanceMethod(objc_lookUpClass("VKMapView"), sel_registerName("canShowFlyover"));
-    assert(method != NULL);
-    original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
-    method_setImplementation(method, reinterpret_cast<IMP>(custom));
-}
-}
-
-}
-
-
-
-namespace mpu_VKClassicGlobeCanva {
-
-namespace flyoverAvailable {
-BOOL (*original)(Class self, SEL _cmd);
-BOOL custom(Class self, SEL _cmd) {
-    return YES;
-}
-void swizzle() {
-    Method method = class_getInstanceMethod(objc_lookUpClass("VKClassicGlobeCanvas"), sel_registerName("flyoverAvailable"));
-    assert(method != NULL);
-    original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
-    method_setImplementation(method, reinterpret_cast<IMP>(custom));
-}
-}
-
 }
 
 namespace mpu_MKSystemController {
@@ -377,28 +146,13 @@ void swizzle() {
 @implementation MapViewController
 
 + (void)load {
-    mpu_GEOPlatform::supportsAdvancedMap::swizzle();
     mpu_GEOPlatform::mapsFeatureFreedomEnabled::swizzle();
     mpu_VKPlatform::supports3DBuildings::swizzle();
-    mpu_VKPlatform::supports3DBuildingStrokes::swizzle();
-    mpu_VKPlatform::supportsHiResBuildings::swizzle();
-    mpu_VKPlatform::allows3DPuck::swizzle();
-    mpu_VKPlatform::lowPerformanceDevice::swizzle();
-    mpu_VKPlatform::supportsBuildingShadows::swizzle();
-    mpu_VKPlatform::supportsARMode::swizzle();
-    mpu_VKPlatform::isIphone::swizzle();
-    mpu_VKPlatform::roadsWithSimpleLineMeshesAvailable::swizzle();
-    mpu_GEOConfigStorageCFProfile::getConfigValueForKey_countryCode_options_source_::swizzle();
     mpu_VKMapView::_globeIsEnabled::swizzle();
     mpu_VKMapView::_globeIsAvailable::swizzle();
     mpu_VKMapView::_elevatedGroundIsAvailable::swizzle();
     mpu_VKMapView::_elevatedGroundIsEnabled::swizzle();
     mpu_VKMapView::_colorizedBuildingsAllowed::swizzle();
-    mpu_VKMapView::setEnableColorizedBuildings_::swizzle();
-    mpu_VKMapView::_daVinciDataAvailable::swizzle();
-//    mpu_VKMapView::canEnter3DMode::swizzle();
-    mpu_VKMapView::canShowFlyover::swizzle();
-    mpu_VKClassicGlobeCanva::flyoverAvailable::swizzle();
     mpu_MKSystemController::supportsPitchAPI::swizzle();
     [self class];
 }
@@ -471,39 +225,21 @@ void swizzle() {
     [menuBarButtonItem release];
     
     id view = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self, sel_registerName("view"));
-    id camera = reinterpret_cast<id (*)(Class, SEL, CLLocationCoordinate2D, CLLocationDistance, CGFloat, CLLocationDirection)>(objc_msgSend)(objc_lookUpClass("MKMapCamera"), sel_registerName("cameraLookingAtCenterCoordinate:fromDistance:pitch:heading:"), CLLocationCoordinate2DMake(37.801734, -122.405793), 409.710641168369, 74.99999867197057, 173.3748958970743);
+    id camera = reinterpret_cast<id (*)(Class, SEL, CLLocationCoordinate2D, CLLocationDistance, CGFloat, CLLocationDirection)>(objc_msgSend)(objc_lookUpClass("MKMapCamera"), sel_registerName("cameraLookingAtCenterCoordinate:fromDistance:pitch:heading:"), CLLocationCoordinate2DMake(37.334606, -122.009102), 409.710641168369, 74.99999867197057, 173.3748958970743);
     reinterpret_cast<void (*)(id, SEL, id, BOOL)>(objc_msgSend)(view, sel_registerName("setCamera:animated:"), camera, YES);
     
     reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(view, sel_registerName("_setVectorKitConsoleEnabled:"), YES);
     
     id _mapView;
     assert(object_getInstanceVariable(view, "_mapView", (void **)&_mapView) != NULL);
-    NSLog(@"%ld", reinterpret_cast<NSInteger (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("terrainMode")));
     reinterpret_cast<void (*)(id, SEL, NSInteger)>(objc_msgSend)(_mapView, sel_registerName("setTerrainMode:"), 2);
     
-    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setEnableColorizedBuildings:"), YES);
-    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setEnableBuildingHeights:"), YES);
-    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setModernMapEnabled:"), YES);
+//    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setEnableColorizedBuildings:"), YES);
     reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setEnableGlobe:"), YES);
-    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setEnableRoundedBuildings:"), YES);
-    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setEnableAdvancedLighting:"), YES);
     reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setShowsBuildings:"), YES);
-    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setGesturing:"), YES);
-    reinterpret_cast<void (*)(id, SEL, int)>(objc_msgSend)(_mapView, sel_registerName("setFlyoverMode:"), -1);
-    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setIsPitchable:"), YES);
-    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setShowsVenues:"), YES);
-    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setShowsLiveEVData:"), YES);
     
-    assert(reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("_modernMapAllowed")));
-    assert(reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("_colorizedBuildingsAllowed")));
-    
-    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("enableColorizedBuildings"));
+//    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("enableColorizedBuildings"));
     reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("enableGlobe"));
-    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("enableRoundedBuildings"));
-    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("enableAdvancedLighting"));
-    
-    
-    NSLog(@"%ld", reinterpret_cast<NSInteger (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("currentMapMode")));
 }
 
 - (void)menuBarButtonItemDidTrigger:(id)sender {
