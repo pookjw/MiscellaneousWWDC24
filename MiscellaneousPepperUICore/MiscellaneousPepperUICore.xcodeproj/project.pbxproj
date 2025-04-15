@@ -13,6 +13,8 @@
 		4F172B262C5A90D5009A1DBC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F172B252C5A90D5009A1DBC /* AVFoundation.framework */; };
 		4F1F92B52CBC9D91002C1B90 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F92B42CBC9D91002C1B90 /* SwiftUIView.swift */; };
 		4F1F92B82CBC9F39002C1B90 /* SwiftUIViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F1F92B72CBC9F39002C1B90 /* SwiftUIViewController.mm */; };
+		4F2569762DAE0960004F7D1E /* MapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F2569752DAE0960004F7D1E /* MapViewController.mm */; };
+		4F2569772DAE0960004F7D1E /* MapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F2569752DAE0960004F7D1E /* MapViewController.mm */; };
 		4F27FA872CB11A2F00058509 /* WatchConnectivityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F27FA862CB11A2F00058509 /* WatchConnectivityViewController.mm */; };
 		4F2E2D4E2CB2E09500316C9E /* ExtensionDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F2E2D4D2CB2E09500316C9E /* ExtensionDelegate.mm */; };
 		4F45C7CD2D0C4B220019D5C3 /* WCSession+Category.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4F45C7CC2D0C4B220019D5C3 /* WCSession+Category.mm */; };
@@ -198,6 +200,8 @@
 		4F1F92B42CBC9D91002C1B90 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		4F1F92B62CBC9F39002C1B90 /* SwiftUIViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftUIViewController.h; sourceTree = "<group>"; };
 		4F1F92B72CBC9F39002C1B90 /* SwiftUIViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SwiftUIViewController.mm; sourceTree = "<group>"; };
+		4F2569742DAE0960004F7D1E /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		4F2569752DAE0960004F7D1E /* MapViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MapViewController.mm; sourceTree = "<group>"; };
 		4F27FA852CB11A2F00058509 /* WatchConnectivityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WatchConnectivityViewController.h; sourceTree = "<group>"; };
 		4F27FA862CB11A2F00058509 /* WatchConnectivityViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WatchConnectivityViewController.mm; sourceTree = "<group>"; };
 		4F2E2D4C2CB2E09500316C9E /* ExtensionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtensionDelegate.h; sourceTree = "<group>"; };
@@ -402,6 +406,15 @@
 				4F1F92B72CBC9F39002C1B90 /* SwiftUIViewController.mm */,
 			);
 			path = SwiftUIView;
+			sourceTree = "<group>";
+		};
+		4F2569732DAE08D3004F7D1E /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				4F2569742DAE0960004F7D1E /* MapViewController.h */,
+				4F2569752DAE0960004F7D1E /* MapViewController.mm */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 		4F27FA842CB11A1100058509 /* WatchConnectivity */ = {
@@ -766,6 +779,7 @@
 		4F94F8802CB10CC3002F31E2 /* MiscellaneousPepperUICore Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				4F2569732DAE08D3004F7D1E /* Map */,
 				4F94F80B2CB10CC3002F31E2 /* ActivityIndicator */,
 				4F94F80E2CB10CC3002F31E2 /* AlertPresenter */,
 				4F94F8132CB10CC3002F31E2 /* AlwaysOn */,
@@ -1036,6 +1050,7 @@
 				4F27FA872CB11A2F00058509 /* WatchConnectivityViewController.mm in Sources */,
 				4F94F89A2CB10CC3002F31E2 /* SheetPresenterViewController.mm in Sources */,
 				4FAB0D282D0CA2B50011A815 /* CarouselServicesListViewController.mm in Sources */,
+				4F2569772DAE0960004F7D1E /* MapViewController.mm in Sources */,
 				4F94F89B2CB10CC3002F31E2 /* PhotoPickerPresenterViewController.mm in Sources */,
 				4F94F89C2CB10CC3002F31E2 /* DigitalCrownView.mm in Sources */,
 				4F94F89D2CB10CC3002F31E2 /* VolumeIndicatorViewController.mm in Sources */,
@@ -1105,6 +1120,7 @@
 				4FAB0CF62D0C9FB10011A815 /* WatchConnectivityViewController.mm in Sources */,
 				4FAB0CF72D0C9FB10011A815 /* SheetPresenterViewController.mm in Sources */,
 				4FAB0D272D0CA2B50011A815 /* CarouselServicesListViewController.mm in Sources */,
+				4F2569762DAE0960004F7D1E /* MapViewController.mm in Sources */,
 				4FAB0CF82D0C9FB10011A815 /* PhotoPickerPresenterViewController.mm in Sources */,
 				4FAB0CF92D0C9FB10011A815 /* DigitalCrownView.mm in Sources */,
 				4FAB0CFA2D0C9FB10011A815 /* VolumeIndicatorViewController.mm in Sources */,

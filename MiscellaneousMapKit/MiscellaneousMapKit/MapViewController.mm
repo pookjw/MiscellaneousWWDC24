@@ -28,10 +28,47 @@ namespace mm_GEOConfigStorageCFProfile {
 namespace getConfigValueForKey_countryCode_options_source_ {
 id (*original)(id, SEL, id ,id, NSUInteger, NSInteger *);
 id custom(id self, SEL _cmd, NSString *key, id contryCode, NSUInteger options, NSInteger *source) {
-    if ([key isEqualToString:@"DebugConsoleGestureEnabled"]) {
+    if ([key isEqualToString:@"VKMLayoutEnabled_Flyover"]) {
         return @YES;
-    } else if ([key isEqualToString:@"ModernAppleLogo"]) {
+    } else if ([key isEqualToString:@"VKMLayoutEnabled_Navigation"]) {
         return @YES;
+    } else if ([key isEqualToString:@"VKMLayoutEnabled_SPR"]) {
+        return @YES;
+    } else if ([key isEqualToString:@"LockWatchFpsTo30hz"]) {
+        return @YES;
+    } else if ([key hasPrefix:@"Shelbyville"]) {
+        return @YES;
+    } else if ([key hasPrefix:@"AllowNonSupportedDeviceAdvancedMap"]) {
+        return @YES;
+    } else if ([key isEqualToString:@"EnableFlyoverUnification"]) {
+        return @YES;
+    } else if ([key isEqualToString:@"ElevatedPolygonsEnabled"]) {
+        return @YES;
+    } else if ([key isEqualToString:@"ARDebugMinimapShowBuildings"]) {
+        return @YES;
+//    } else if ([key isEqualToString:@"ShowLabelCounts"]) {
+//        return @YES;
+    } else if ([key isEqualToString:@"EnableVerboseLayoutReasonLogging"]) {
+        return @YES;
+    } else if ([key isEqualToString:@"SSAODemoButtonEnabled"]) {
+        return @YES;
+    } else if ([key isEqualToString:@"NavCameraDebugPage"]) {
+        return @YES;
+    } else if ([key isEqualToString:@"EnableVerboseEntityLogging"]) {
+        return @YES;
+    } else if ([key isEqualToString:@"EnableVerboseLayoutReasonLogging"]) {
+        return @YES;
+    } else if ([key isEqualToString:@"DisplayAllLabelsInARDebugString"]) {
+        return @YES;
+        
+//    } else if ([key isEqualToString:@"NavCameraEnableOverlay"]) {
+//        return @YES;
+//    } else if ([key isEqualToString:@"NavCameraEnableLegend"]) {
+//        return @YES;
+//    } else if ([key isEqualToString:@"DisableMSAA"]) {
+//        return @YES;
+//    } else if ([key isEqualToString:@"TopographicDisplayEnabled"]) {
+//        return @NO;
     } else {
         return original(self, _cmd, key, contryCode, options, source);
     }
@@ -80,6 +117,28 @@ void swizzle() {
     
     [self.locationManager requestWhenInUseAuthorization];
     [self _presentMenu];
+    
+    
+    id _mapView;
+    assert(object_getInstanceVariable(self.mapView, "_mapView", (void **)&_mapView) != NULL);
+    NSLog(@"%ld", reinterpret_cast<NSInteger (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("currentMapMode")));
+    reinterpret_cast<void (*)(id, SEL, NSInteger)>(objc_msgSend)(_mapView, sel_registerName("setTerrainMode:"), 3);
+    
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setEnableColorizedBuildings:"), YES);
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setEnableBuildingHeights:"), YES);
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setModernMapEnabled:"), YES);
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setEnableGlobe:"), YES);
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setEnableRoundedBuildings:"), YES);
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setEnableAdvancedLighting:"), YES);
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setShowsBuildings:"), YES);
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setShowsVenues:"), YES);
+    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setShowsLiveEVData:"), YES);
+    assert(reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("_modernMapAllowed")));
+    
+//    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("enableColorizedBuildings"));
+    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("enableGlobe"));
+    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("enableRoundedBuildings"));
+    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("enableAdvancedLighting"));
 }
 
 - (void)_setMenuObserver:(KeyValueObserver *)menuObserver {
@@ -460,7 +519,7 @@ void swizzle() {
                 CLLocationCoordinate2D center = mapView.region.center;
                 
                 UIAction *action = [UIAction actionWithTitle:@"Center" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                    UIPasteboard.generalPasteboard.string = [NSString stringWithFormat:@"%lf %lf", center.latitude, center.longitude];
+                    UIPasteboard.generalPasteboard.string = [NSString stringWithFormat:@"%lf, %lf", center.latitude, center.longitude];
                     [weakSelf _presentMenu];
                 }];
                 
@@ -473,10 +532,11 @@ void swizzle() {
                 MKCoordinateSpan span = mapView.region.span;
                 
                 UIAction *action = [UIAction actionWithTitle:@"Span" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                    UIPasteboard.generalPasteboard.string = [NSString stringWithFormat:@"%lf, %lf", span.latitudeDelta, span.longitudeDelta];
+                    [weakSelf _presentMenu];
                 }];
                 
                 action.subtitle = [NSString stringWithFormat:@"latitudeDelta : %lf, longitudeDelta : %lf", span.latitudeDelta, span.longitudeDelta];
-                action.attributes = UIMenuElementAttributesDisabled;
                 
                 [children_2 addObject:action];
             }
@@ -510,6 +570,30 @@ void swizzle() {
                 UIAction *action = [UIAction actionWithTitle:@"LAX" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                     CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(33.942791, -118.410042);
                     MKCoordinateSpan span = MKCoordinateSpanMake(0.05, 0.05);
+                    MKCoordinateRegion region = MKCoordinateRegionMake(coord, span);
+                    [mapView setRegion:region animated:YES];
+                    
+                    [weakSelf _presentMenu];
+                }];
+                [children_2 addObject:action];
+            }
+            
+            {
+                UIAction *action = [UIAction actionWithTitle:@"Coit Tower" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(37.802409, -122.405843);
+                    MKCoordinateSpan span = MKCoordinateSpanMake(0.001, 0.001);
+                    MKCoordinateRegion region = MKCoordinateRegionMake(coord, span);
+                    [mapView setRegion:region animated:YES];
+                    
+                    [weakSelf _presentMenu];
+                }];
+                [children_2 addObject:action];
+            }
+            
+            {
+                UIAction *action = [UIAction actionWithTitle:@"Book Passage" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(37.7958181, -122.3959085);
+                    MKCoordinateSpan span = MKCoordinateSpanMake(0.001, 0.001);
                     MKCoordinateRegion region = MKCoordinateRegionMake(coord, span);
                     [mapView setRegion:region animated:YES];
                     
@@ -704,6 +788,77 @@ void swizzle() {
             }
             
             UIMenu *menu = [UIMenu menuWithTitle:@"Annotations" children:children_2];
+            [children_2 release];
+            [children addObject:menu];
+        }
+        
+        {
+            NSMutableArray<__kindof UIMenuElement *> *children_2 = [NSMutableArray new];
+            MKMapCamera *camera = mapView.camera;
+            
+            {
+                UIAction *action = [UIAction actionWithTitle:@"Center Coordinate" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                    UIPasteboard.generalPasteboard.string = [NSString stringWithFormat:@"%lf, %lf", camera.centerCoordinate.latitude, camera.centerCoordinate.longitude];
+                    [weakSelf _presentMenu];
+                }];
+                action.subtitle = [NSString stringWithFormat:@"%lf, %lf", camera.centerCoordinate.latitude, camera.centerCoordinate.longitude];
+                [children_2 addObject:action];
+            }
+            
+            {
+                UIAction *action = [UIAction actionWithTitle:@"Heading" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                    UIPasteboard.generalPasteboard.string = @(camera.heading).stringValue;
+                    [weakSelf _presentMenu];
+                }];
+                action.subtitle = @(camera.heading).stringValue;
+                [children_2 addObject:action];
+            }
+            
+            {
+                UIAction *action = [UIAction actionWithTitle:@"Center Coordinate Distance" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                    UIPasteboard.generalPasteboard.string = @(camera.centerCoordinateDistance).stringValue;
+                    [weakSelf _presentMenu];
+                }];
+                action.subtitle = @(camera.centerCoordinateDistance).stringValue;
+                [children_2 addObject:action];
+            }
+            
+            {
+                UIAction *action = [UIAction actionWithTitle:@"Pitch" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                    UIPasteboard.generalPasteboard.string = @(camera.pitch).stringValue;
+                    [weakSelf _presentMenu];
+                }];
+                action.subtitle = @(camera.pitch).stringValue;
+                [children_2 addObject:action];
+            }
+            
+            {
+                UIAction *action = [UIAction actionWithTitle:@"Coit Tower" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                    MKMapCamera *camera = [MKMapCamera cameraLookingAtCenterCoordinate:CLLocationCoordinate2DMake(37.801734, -122.405793)
+                                                                          fromDistance:409.7106411683691
+                                                                                 pitch:74.99999867197057
+                                                                               heading:173.3748958970743];
+                    [mapView setCamera:camera animated:YES];
+                    
+                    [weakSelf _presentMenu];
+                }];
+                [children_2 addObject:action];
+            }
+            
+            {
+                UIAction *action = [UIAction actionWithTitle:@"Book Passage" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                    MKMapCamera *camera = [MKMapCamera cameraLookingAtCenterCoordinate:CLLocationCoordinate2DMake(37.796043, -122.392914)
+                                                                          fromDistance:481.1949875514527
+                                                                                 pitch:69.99999967119774
+                                                                               heading:42.48784350129402];
+                    [mapView setCamera:camera animated:YES];
+                    
+                    [weakSelf _presentMenu];
+                }];
+                [children_2 addObject:action];
+            }
+            
+            UIMenu *menu = [UIMenu menuWithTitle:@"Camera" children:children_2];
             [children_2 release];
             [children addObject:menu];
         }
