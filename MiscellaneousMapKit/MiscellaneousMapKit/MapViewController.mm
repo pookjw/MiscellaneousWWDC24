@@ -16,6 +16,7 @@
 #import "UIMenuElement+CP_NumberOfLines.h"
 #import "KeyValueObserver.h"
 #import "WindowObservingInteraction.h"
+#import "UIColor+Category.h"
 #include <vector>
 #include <ranges>
 #include <dlfcn.h>
@@ -82,6 +83,7 @@ void swizzle() {
 }
 
 @interface MapViewController () <MKMapViewDelegate>
+@property (class, nonatomic, readonly, getter=_annotationViewTypeKey) void *annotationViewTypeKey;
 @property (retain, nonatomic, readonly, getter=_mapView) MKMapView *mapView;
 @property (retain, nonatomic, readonly, getter=_mkMenuBarButtonItem) UIBarButtonItem *mkMenuBarButtonItem;
 @property (retain, nonatomic, readonly, getter=_vkMenuBarButtonItem) UIBarButtonItem *vkMenuBarButtonItem;
@@ -98,6 +100,11 @@ void swizzle() {
 
 + (void)load {
 //    mm_GEOConfigStorageCFProfile::getConfigValueForKey_countryCode_options_source_::swizzle();
+}
+
++ (void *)_annotationViewTypeKey {
+    static void *key = &key;
+    return key;
 }
 
 - (void)dealloc {
@@ -654,25 +661,53 @@ void swizzle() {
             NSMutableArray<__kindof UIMenuElement *> *children_2 = [NSMutableArray new];
             
             {
-                UIAction *action = [UIAction actionWithTitle:NSStringFromClass([MKPlacemark class]) image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                    MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:mapView.centerCoordinate];
-                    [mapView addAnnotation:placemark];
-                    [placemark release];
+                NSArray<Class> *annotationViewClasses = @[
+                    [MKAnnotationView class],
+                    [MKMarkerAnnotationView class],
+                    [MKPinAnnotationView class],
+                    [MKUserLocationView class],
+                    objc_lookUpClass("_MKPuckAnnotationView")
+                ];
+                NSArray<Class<MKAnnotation>> *annotationClasses = @[
+                    [MKPlacemark class],
+                    [MKUserLocation class]
+                ];
+                
+                NSMutableArray<__kindof UIMenuElement *> *children_3 = [NSMutableArray new];
+                
+                for (Class<MKAnnotation> annotationClass in annotationClasses) {
+                    NSMutableArray<__kindof UIMenuElement *> *children_4 = [NSMutableArray new];
                     
-                    [weakSelf _presentMkMenu];
-                }];
-                [children_2 addObject:action];
-            }
-            
-            {
-                UIAction *action = [UIAction actionWithTitle:NSStringFromClass([MKUserLocation class]) image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                    MKUserLocation *userLocation = [MKUserLocation new];
-                    [mapView addAnnotation:userLocation];
-                    [userLocation release];
+                    for (Class annoationViewClass in annotationViewClasses) {
+                        UIAction *action = [UIAction actionWithTitle:NSStringFromClass(annoationViewClass) image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                            id<MKAnnotation> annotation;
+                            
+                            if (annotationClass == [MKPlacemark class]) {
+                                annotation = [[MKPlacemark alloc] initWithCoordinate:mapView.centerCoordinate];
+                            } else if (annotationClass == [MKUserLocation class]) {
+                                annotation = [MKUserLocation new];
+                            } else {
+                                abort();
+                            }
+                            
+                            objc_setAssociatedObject(annotation, MapViewController.annotationViewTypeKey, annoationViewClass, OBJC_ASSOCIATION_ASSIGN);
+                            
+                            [mapView addAnnotation:annotation];
+                            [annotation release];
+                            
+                            [weakSelf _presentMkMenu];
+                        }];
+                        [children_4 addObject:action];
+                    }
                     
-                    [weakSelf _presentMkMenu];
-                }];
-                [children_2 addObject:action];
+                    UIMenu *menu = [UIMenu menuWithTitle:NSStringFromClass(annotationClass) children:children_4];
+                    [children_4 release];
+                    [children_3 addObject:menu];
+                }
+                
+                UIMenu *menu = [UIMenu menuWithTitle:@"Add Annotation" children:children_3];
+                [children_3 release];
+                [children_2 addObject:menu];
             }
             
             {
@@ -680,22 +715,77 @@ void swizzle() {
                 NSMutableArray<__kindof UIMenuElement *> *children_3 = [[NSMutableArray alloc] initWithCapacity:annotations.count];
                 
                 for (id<MKAnnotation> annotation in annotations) {
-                    __kindof UIMenuElement *element;
+                    NSMutableArray<__kindof UIMenuElement *> *children_4 = [NSMutableArray new];
                     
-                    if ([annotation isKindOfClass:[MKPlacemark class]]) {
-                        UIAction *action = [UIAction actionWithTitle:NSStringFromClass([MKPlacemark class]) image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                    {
+                        UIAction *action = [UIAction actionWithTitle:@"Title" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Title" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                            [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                                textField.text = annotation.title;
+                            }];
+                            
+                            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                                [weakSelf _presentMkMenu];
+                            }];
+                            [alertController addAction:cancelAction];
+                            
+                            UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                UIAlertController *_alertController = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(action, sel_registerName("_alertController"));
+                                reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(annotation, sel_registerName("setTitle:"), _alertController.textFields.firstObject.text);
+                                [weakSelf _presentMkMenu];
+                            }];
+                            [alertController addAction:doneAction];
+                            
+                            [weakSelf presentViewController:alertController animated:YES completion:nil];
+                        }];
+                        
+                        action.subtitle = annotation.title;
+                        action.attributes = ([annotation respondsToSelector:@selector(setTitle:)]) ? 0 : UIMenuElementAttributesDisabled;
+                        
+                        [children_4 addObject:action];
+                    }
+                    
+                    {
+                        UIAction *action = [UIAction actionWithTitle:@"Subtitle" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Subtitle" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                            [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                                textField.text = annotation.subtitle;
+                            }];
+                            
+                            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                                [weakSelf _presentMkMenu];
+                            }];
+                            [alertController addAction:cancelAction];
+                            
+                            UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                UIAlertController *_alertController = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(action, sel_registerName("_alertController"));
+                                reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(annotation, sel_registerName("setSubtitle:"), _alertController.textFields.firstObject.text);
+                                [weakSelf _presentMkMenu];
+                            }];
+                            [alertController addAction:doneAction];
+                            
+                            [weakSelf presentViewController:alertController animated:YES completion:nil];
+                        }];
+                        
+                        action.subtitle = annotation.subtitle;
+                        action.attributes = ([annotation respondsToSelector:@selector(setSubtitle:)]) ? 0 : UIMenuElementAttributesDisabled;
+                        
+                        [children_4 addObject:action];
+                    }
+                    
+                    {
+                        UIAction *action = [UIAction actionWithTitle:@"Remove" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                             [mapView removeAnnotation:annotation];
                             [weakSelf _presentMkMenu];
                         }];
-                        action.attributes = UIMenuElementAttributesDestructive;
-                        action.subtitle = [annotation description];
-                        action.cp_overrideNumberOfSubtitleLines = 0;
-                        
-                        element = action;
+                        action.attributes = UIMenuOptionsDestructive;
+                        [children_4 addObject:action];
+                    }
+                    
+                    if ([annotation isKindOfClass:[MKPlacemark class]]) {
+                        // nop
                     } else if ([annotation isKindOfClass:[MKUserLocation class]]) {
                         auto casted = static_cast<MKUserLocation *>(annotation);
-                        
-                        NSMutableArray<__kindof UIMenuElement *> *children_4 = [NSMutableArray new];
                         
                         {
                             UIAction *action = [UIAction actionWithTitle:@"Location" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
@@ -721,78 +811,35 @@ void swizzle() {
                             action.subtitle = casted.heading.description;
                             [children_4 addObject:action];
                         }
-                        
-                        {
-                            UIAction *action = [UIAction actionWithTitle:@"Title" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Title" message:nil preferredStyle:UIAlertControllerStyleAlert];
-                                [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-                                    textField.text = casted.title;
-                                }];
-                                
-                                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                                    [weakSelf _presentMkMenu];
-                                }];
-                                [alertController addAction:cancelAction];
-                                
-                                UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                                    UIAlertController *_alertController = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(action, sel_registerName("_alertController"));
-                                    casted.title = _alertController.textFields.firstObject.text;
-                                    [weakSelf _presentMkMenu];
-                                }];
-                                [alertController addAction:doneAction];
-                                
-                                [weakSelf presentViewController:alertController animated:YES completion:nil];
-                            }];
-                            action.subtitle = casted.title;
-                            [children_4 addObject:action];
-                        }
-                        
-                        {
-                            UIAction *action = [UIAction actionWithTitle:@"Subtitle" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Subtitle" message:nil preferredStyle:UIAlertControllerStyleAlert];
-                                [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-                                    textField.text = casted.subtitle;
-                                }];
-                                
-                                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                                    [weakSelf _presentMkMenu];
-                                }];
-                                [alertController addAction:cancelAction];
-                                
-                                UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                                    UIAlertController *_alertController = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(action, sel_registerName("_alertController"));
-                                    casted.subtitle = _alertController.textFields.firstObject.text;
-                                    [weakSelf _presentMkMenu];
-                                }];
-                                [alertController addAction:doneAction];
-                                
-                                [weakSelf presentViewController:alertController animated:YES completion:nil];
-                            }];
-                            action.subtitle = casted.subtitle;
-                            [children_4 addObject:action];
-                        }
-                        
-                        {
-                            UIAction *action = [UIAction actionWithTitle:@"Remove" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                                [mapView removeAnnotation:annotation];
-                                [weakSelf _presentMkMenu];
-                            }];
-                            action.attributes = UIMenuOptionsDestructive;
-                            [children_4 addObject:action];
-                        }
-                        
-                        UIMenu *menu = [UIMenu menuWithTitle:NSStringFromClass([MKUserLocation class]) children:children_4];
-                        [children_4 release];
-                        menu.subtitle = casted.description;
-                        element = menu;
                     } else {
                         abort();
                     }
                     
-                    [children_3 addObject:element];
+                    UIMenu *menu = [UIMenu menuWithTitle:NSStringFromClass([annotation class]) children:children_4];
+                    [children_4 release];
+                    menu.subtitle = annotation.description;
+                    [children_3 addObject:menu];
                 }
                 
                 UIMenu *menu = [UIMenu menuWithTitle:@"" image:nil identifier:nil options:UIMenuOptionsDisplayInline children:children_3];
+                [children_3 release];
+                [children_2 addObject:menu];
+            }
+            
+            {
+                NSMutableArray<__kindof UIMenuElement *> *children_3 = [NSMutableArray new];
+                id _annotationManager;
+                assert(object_getInstanceVariable(mapView, "_annotationManager", (void **)&_annotationManager) != NULL);
+                
+                {
+                    UIAction *action = [UIAction actionWithTitle:@"TODO (Select Annotation)" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                        
+                    }];
+                    action.attributes = UIMenuElementAttributesDisabled;
+                    [children_3 addObject:action];
+                }
+                
+                UIMenu *menu = [UIMenu menuWithTitle:@"Annotation Manager" children:children_3];
                 [children_3 release];
                 [children_2 addObject:menu];
             }
@@ -883,7 +930,7 @@ void swizzle() {
 - (UIMenu *)_makeVkMenu {
     MKMapView *mapView = self.mapView;
     id vkMapView;
-    assert(object_getInstanceVariable(self.mapView, "_mapView", (void **)&vkMapView) != NULL);
+    assert(object_getInstanceVariable(mapView, "_mapView", (void **)&vkMapView) != NULL);
     
     __weak auto weakSelf = self;
     
@@ -1014,7 +1061,46 @@ void swizzle() {
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
-    return nil;
+    Class annoationViewClass = objc_getAssociatedObject(annotation, MapViewController.annotationViewTypeKey);
+    assert(annoationViewClass != nil);
+    __kindof MKAnnotationView *view = [mapView dequeueReusableAnnotationViewWithIdentifier:NSStringFromClass(annoationViewClass)];
+    if (view == nil) {
+        view = [[[annoationViewClass alloc] initWithAnnotation:annotation reuseIdentifier:NSStringFromClass(annoationViewClass)] autorelease];
+    }
+    
+    if ([view class] == [MKMarkerAnnotationView class]) {
+        auto casted = static_cast<MKMarkerAnnotationView *>(view);
+        casted.animatesWhenAdded = YES;
+    } else if ([view class] == [MKPinAnnotationView class]) {
+        auto casted = static_cast<MKPinAnnotationView *>(view);
+        casted.animatesDrop = YES;
+        casted.pinTintColor = [UIColor mmp_randomColor];
+    } else {
+        abort();
+    }
+    
+    {
+        view.canShowCallout = YES;
+        
+        UIImageView *leftCalloutAccessoryView = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"apple.intelligence"]];
+        view.leftCalloutAccessoryView = leftCalloutAccessoryView;
+        [leftCalloutAccessoryView release];
+        
+        UIImageView *rightCalloutAccessoryView = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"apple.writing.tools"]];
+        view.rightCalloutAccessoryView = rightCalloutAccessoryView;
+        [rightCalloutAccessoryView release];
+        
+        UILabel *detailCalloutAccessoryView = [UILabel new];
+        detailCalloutAccessoryView.text = @"Detail Callout Accessory View";
+        [detailCalloutAccessoryView sizeToFit];
+        view.detailCalloutAccessoryView = detailCalloutAccessoryView;
+        [detailCalloutAccessoryView release];
+    }
+    
+    view.image = [UIImage systemImageNamed:@"star.fill"];
+    view.draggable = YES;
+    
+    return [view autorelease];
 }
 
 @end
