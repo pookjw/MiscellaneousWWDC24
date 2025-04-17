@@ -83,7 +83,8 @@ void swizzle() {
 
 @interface MapViewController () <MKMapViewDelegate>
 @property (retain, nonatomic, readonly, getter=_mapView) MKMapView *mapView;
-@property (retain, nonatomic, readonly, getter=_menuBarButtonItem) UIBarButtonItem *menuBarButtonItem;
+@property (retain, nonatomic, readonly, getter=_mkMenuBarButtonItem) UIBarButtonItem *mkMenuBarButtonItem;
+@property (retain, nonatomic, readonly, getter=_vkMenuBarButtonItem) UIBarButtonItem *vkMenuBarButtonItem;
 @property (retain, nonatomic, readonly, getter=_locationManager) CLLocationManager *locationManager;
 
 @property (retain, nonatomic, nullable, getter=_menuObserver, setter=_setMenuObserver:) KeyValueObserver *menuObserver;
@@ -91,16 +92,18 @@ void swizzle() {
 
 @implementation MapViewController
 @synthesize mapView = _mapView;
-@synthesize menuBarButtonItem = _menuBarButtonItem;
+@synthesize mkMenuBarButtonItem = _mkMenuBarButtonItem;
+@synthesize vkMenuBarButtonItem = _vkMenuBarButtonItem;
 @synthesize locationManager = _locationManager;
 
 + (void)load {
-    mm_GEOConfigStorageCFProfile::getConfigValueForKey_countryCode_options_source_::swizzle();
+//    mm_GEOConfigStorageCFProfile::getConfigValueForKey_countryCode_options_source_::swizzle();
 }
 
 - (void)dealloc {
     [_mapView release];
-    [_menuBarButtonItem release];
+    [_mkMenuBarButtonItem release];
+    [_vkMenuBarButtonItem release];
     [_locationManager release];
     [_menuObserver invalidate];
     [_menuObserver release];
@@ -113,32 +116,30 @@ void swizzle() {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.rightBarButtonItem = self.menuBarButtonItem;
+    self.navigationItem.rightBarButtonItems = @[self.mkMenuBarButtonItem, self.vkMenuBarButtonItem];
     
     [self.locationManager requestWhenInUseAuthorization];
-    [self _presentMenu];
+    [self _presentMkMenu];
     
     
     id _mapView;
     assert(object_getInstanceVariable(self.mapView, "_mapView", (void **)&_mapView) != NULL);
-    NSLog(@"%ld", reinterpret_cast<NSInteger (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("currentMapMode")));
-    reinterpret_cast<void (*)(id, SEL, NSInteger)>(objc_msgSend)(_mapView, sel_registerName("setTerrainMode:"), 3);
     
-    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setEnableColorizedBuildings:"), YES);
-    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setEnableBuildingHeights:"), YES);
-    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setModernMapEnabled:"), YES);
-    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setEnableGlobe:"), YES);
-    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setEnableRoundedBuildings:"), YES);
-    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setEnableAdvancedLighting:"), YES);
-    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setShowsBuildings:"), YES);
-    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setShowsVenues:"), YES);
-    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setShowsLiveEVData:"), YES);
-    assert(reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("_modernMapAllowed")));
+//    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setEnableColorizedBuildings:"), YES);
+//    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setEnableBuildingHeights:"), YES);
+//    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setModernMapEnabled:"), YES);
+//    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setEnableGlobe:"), YES);
+//    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setEnableRoundedBuildings:"), YES);
+//    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setEnableAdvancedLighting:"), YES);
+//    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setShowsBuildings:"), YES);
+//    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setShowsVenues:"), YES);
+//    reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(_mapView, sel_registerName("setShowsLiveEVData:"), YES);
+//    assert(reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("_modernMapAllowed")));
     
 //    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("enableColorizedBuildings"));
-    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("enableGlobe"));
-    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("enableRoundedBuildings"));
-    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("enableAdvancedLighting"));
+//    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("enableGlobe"));
+//    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("enableRoundedBuildings"));
+//    reinterpret_cast<void (*)(id, SEL)>(objc_msgSend)(_mapView, sel_registerName("enableAdvancedLighting"));
 }
 
 - (void)_setMenuObserver:(KeyValueObserver *)menuObserver {
@@ -157,13 +158,22 @@ void swizzle() {
     return mapView;
 }
 
-- (UIBarButtonItem *)_menuBarButtonItem {
-    if (auto menuBarButtonItem = _menuBarButtonItem) return menuBarButtonItem;
+- (UIBarButtonItem *)_mkMenuBarButtonItem {
+    if (auto mkMenuBarButtonItem = _mkMenuBarButtonItem) return mkMenuBarButtonItem;
     
-    UIBarButtonItem *menuBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"filemenu.and.selection"] menu:[self _makeMenu]];
+    UIBarButtonItem *mkMenuBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"filemenu.and.selection"] menu:[self _makeMkMenu]];
     
-    _menuBarButtonItem = menuBarButtonItem;
-    return menuBarButtonItem;
+    _mkMenuBarButtonItem = mkMenuBarButtonItem;
+    return mkMenuBarButtonItem;
+}
+
+- (UIBarButtonItem *)_vkMenuBarButtonItem {
+    if (auto vkMenuBarButtonItem  = _vkMenuBarButtonItem ) return vkMenuBarButtonItem ;
+    
+    UIBarButtonItem *vkMenuBarButtonItem  = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"ladybug.fill"] menu:[self _makeVkMenu]];
+    
+    _vkMenuBarButtonItem  = vkMenuBarButtonItem ;
+    return vkMenuBarButtonItem ;
 }
 
 - (CLLocationManager *)_locationManager {
@@ -175,7 +185,7 @@ void swizzle() {
     return locationManager;
 }
 
-- (UIMenu *)_makeMenu {
+- (UIMenu *)_makeMkMenu {
     MKMapView *mapView = self.mapView;
     __weak auto weakSelf = self;
     
@@ -216,7 +226,7 @@ void swizzle() {
                         mapView.preferredConfiguration = newConfiguration;
                         [newConfiguration release];
                         
-                        [weakSelf _presentMenu];
+                        [weakSelf _presentMkMenu];
                     }];
                     
                     action.state = ([preferredConfiguration isKindOfClass:_class]) ? UIMenuElementStateOn : UIMenuElementStateOff;
@@ -251,7 +261,7 @@ void swizzle() {
                             mapView.preferredConfiguration = copy;
                             [copy release];
                             
-                            [weakSelf _presentMenu];
+                            [weakSelf _presentMkMenu];
                         }];
                         
                         action.state = (standardMapConfiguration.emphasisStyle == style) ? UIMenuElementStateOn : UIMenuElementStateOff;
@@ -267,22 +277,6 @@ void swizzle() {
                 }
                 
                 {
-                    BOOL showsTopographicFeatures = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(standardMapConfiguration, sel_registerName("showsTopographicFeatures"));
-                    
-                    UIAction *action = [UIAction actionWithTitle:@"Shows Topographic Features" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                        auto copy = static_cast<MKStandardMapConfiguration *>([standardMapConfiguration copy]);
-                        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(copy, sel_registerName("setShowsTopographicFeatures:"), !showsTopographicFeatures);
-                        mapView.preferredConfiguration = copy;
-                        [copy release];
-                        
-                        [weakSelf _presentMenu];
-                    }];
-                    
-                    action.state = showsTopographicFeatures ? UIMenuElementStateOn : UIMenuElementStateOff;
-                    [children_3 addObject:action];
-                }
-                
-                {
                     BOOL showsHiking = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(standardMapConfiguration, sel_registerName("showsHiking"));
                     
                     UIAction *action = [UIAction actionWithTitle:@"Shows Hiking" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
@@ -291,7 +285,7 @@ void swizzle() {
                         mapView.preferredConfiguration = copy;
                         [copy release];
                         
-                        [weakSelf _presentMenu];
+                        [weakSelf _presentMkMenu];
                     }];
                     
                     action.state = showsHiking ? UIMenuElementStateOn : UIMenuElementStateOff;
@@ -333,7 +327,7 @@ void swizzle() {
                             mapView.preferredConfiguration = configuration;
                             [configuration release];
                             
-                            [weakSelf _presentMenu];
+                            [weakSelf _presentMkMenu];
                         }];
                         
                         action.state = (preferredConfiguration.elevationStyle == style) ? UIMenuElementStateOn : UIMenuElementStateOff;
@@ -374,7 +368,7 @@ void swizzle() {
                             mapView.preferredConfiguration = copy;
                             [copy release];
                             
-                            [weakSelf _presentMenu];
+                            [weakSelf _presentMkMenu];
                         }];
                         
                         action.state = ([pointOfInterestFilter excludesCategory:category]) ? UIMenuElementStateOn : UIMenuElementStateOff;
@@ -397,13 +391,29 @@ void swizzle() {
                         mapView.preferredConfiguration = copy;
                         [copy release];
                         
-                        [weakSelf _presentMenu];
+                        [weakSelf _presentMkMenu];
                     }];
                     
                     action.state = showsTraffic ? UIMenuElementStateOn : UIMenuElementStateOff;
                     [children_3 addObject:action];
                 }
                 
+                
+                if ([preferredConfiguration respondsToSelector:sel_registerName("showsTopographicFeatures")]) {
+                    BOOL showsTopographicFeatures = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(preferredConfiguration, sel_registerName("showsTopographicFeatures"));
+                    
+                    UIAction *action = [UIAction actionWithTitle:@"Shows Topographic Features" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                        auto copy = static_cast<MKStandardMapConfiguration *>([preferredConfiguration copy]);
+                        reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(copy, sel_registerName("setShowsTopographicFeatures:"), !showsTopographicFeatures);
+                        mapView.preferredConfiguration = copy;
+                        [copy release];
+                        
+                        [weakSelf _presentMkMenu];
+                    }];
+                    
+                    action.state = showsTopographicFeatures ? UIMenuElementStateOn : UIMenuElementStateOff;
+                    [children_3 addObject:action];
+                }
                 
                 UIMenu *menu = [UIMenu menuWithTitle:@"MKMapConfiguration" children:children_3];
                 [children_3 release];
@@ -420,7 +430,7 @@ void swizzle() {
             
             UIAction *action = [UIAction actionWithTitle:@"Zoom Enabled" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                 mapView.zoomEnabled = !zoomEnabled;
-                [weakSelf _presentMenu];
+                [weakSelf _presentMkMenu];
             }];
             action.state = zoomEnabled ? UIMenuElementStateOn : UIMenuElementStateOff;
             [children addObject:action];
@@ -431,7 +441,7 @@ void swizzle() {
             
             UIAction *action = [UIAction actionWithTitle:@"Scroll Enabled" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                 mapView.scrollEnabled = !scrollEnabled;
-                [weakSelf _presentMenu];
+                [weakSelf _presentMkMenu];
             }];
             action.state = scrollEnabled ? UIMenuElementStateOn : UIMenuElementStateOff;
             [children addObject:action]; 
@@ -442,7 +452,7 @@ void swizzle() {
             
             UIAction *action = [UIAction actionWithTitle:@"Rotate Enabled" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                 mapView.rotateEnabled = !rotateEnabled;
-                [weakSelf _presentMenu];
+                [weakSelf _presentMkMenu];
             }];
             action.state = rotateEnabled ? UIMenuElementStateOn : UIMenuElementStateOff;
             [children addObject:action]; 
@@ -453,7 +463,7 @@ void swizzle() {
             
             UIAction *action = [UIAction actionWithTitle:@"Location Console Enabled" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                 reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(mapView, sel_registerName("setLocationConsoleEnabled:"), !isLocationConsoleEnabled);
-                [weakSelf _presentMenu];
+                [weakSelf _presentMkMenu];
             }];
             
             action.state = isLocationConsoleEnabled ? UIMenuElementStateOn : UIMenuElementStateOff;
@@ -465,7 +475,7 @@ void swizzle() {
             
             UIAction *action = [UIAction actionWithTitle:@"Shows User Location" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                 mapView.showsUserLocation = !showsUserLocation;
-                [weakSelf _presentMenu];
+                [weakSelf _presentMkMenu];
             }];
             
             action.state = showsUserLocation ? UIMenuElementStateOn : UIMenuElementStateOff;
@@ -484,7 +494,7 @@ void swizzle() {
                                                   identifier:nil
                                                      handler:^(__kindof UIAction * _Nonnull action) {
                     [mapView setUserTrackingMode:mode animated:YES];
-                    [weakSelf _presentMenu];
+                    [weakSelf _presentMkMenu];
                 }];
                 
                 action.state = (mapView.userTrackingMode == mode) ? UIMenuElementStateOn : UIMenuElementStateOff;
@@ -504,7 +514,7 @@ void swizzle() {
             
             UIAction *action = [UIAction actionWithTitle:@"Vector Kit Console Enabled" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                 reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(mapView, sel_registerName("_setVectorKitConsoleEnabled:"), !_isVectorKitConsoleEnabled);
-                [weakSelf _presentMenu];
+                [weakSelf _presentMkMenu];
             }];
             
             action.state = _isVectorKitConsoleEnabled ? UIMenuElementStateOn : UIMenuElementStateOff;
@@ -520,7 +530,7 @@ void swizzle() {
                 
                 UIAction *action = [UIAction actionWithTitle:@"Center" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                     UIPasteboard.generalPasteboard.string = [NSString stringWithFormat:@"%lf, %lf", center.latitude, center.longitude];
-                    [weakSelf _presentMenu];
+                    [weakSelf _presentMkMenu];
                 }];
                 
                 action.subtitle = [NSString stringWithFormat:@"latitude : %lf, longitude : %lf", center.latitude, center.longitude];
@@ -533,7 +543,7 @@ void swizzle() {
                 
                 UIAction *action = [UIAction actionWithTitle:@"Span" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                     UIPasteboard.generalPasteboard.string = [NSString stringWithFormat:@"%lf, %lf", span.latitudeDelta, span.longitudeDelta];
-                    [weakSelf _presentMenu];
+                    [weakSelf _presentMkMenu];
                 }];
                 
                 action.subtitle = [NSString stringWithFormat:@"latitudeDelta : %lf, longitudeDelta : %lf", span.latitudeDelta, span.longitudeDelta];
@@ -561,7 +571,7 @@ void swizzle() {
                     MKCoordinateRegion region = MKCoordinateRegionMake(coord, span);
                     [mapView setRegion:region animated:YES];
                     
-                    [weakSelf _presentMenu];
+                    [weakSelf _presentMkMenu];
                 }];
                 [children_2 addObject:action];
             }
@@ -573,7 +583,7 @@ void swizzle() {
                     MKCoordinateRegion region = MKCoordinateRegionMake(coord, span);
                     [mapView setRegion:region animated:YES];
                     
-                    [weakSelf _presentMenu];
+                    [weakSelf _presentMkMenu];
                 }];
                 [children_2 addObject:action];
             }
@@ -585,7 +595,7 @@ void swizzle() {
                     MKCoordinateRegion region = MKCoordinateRegionMake(coord, span);
                     [mapView setRegion:region animated:YES];
                     
-                    [weakSelf _presentMenu];
+                    [weakSelf _presentMkMenu];
                 }];
                 [children_2 addObject:action];
             }
@@ -597,7 +607,7 @@ void swizzle() {
                     MKCoordinateRegion region = MKCoordinateRegionMake(coord, span);
                     [mapView setRegion:region animated:YES];
                     
-                    [weakSelf _presentMenu];
+                    [weakSelf _presentMkMenu];
                 }];
                 [children_2 addObject:action];
             }
@@ -610,7 +620,7 @@ void swizzle() {
                         MKCoordinateRegion region = MKCoordinateRegionMake(coord, span);
                         [mapView setRegion:region animated:YES];
                         
-                        [weakSelf _presentMenu];
+                        [weakSelf _presentMkMenu];
                     }];
                     [children_2 addObject:action];
                 } else {
@@ -632,7 +642,7 @@ void swizzle() {
             
             UIAction *action = [UIAction actionWithTitle:@"Center Coordinate" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                 UIPasteboard.generalPasteboard.string = [NSString stringWithFormat:@"%lf %lf", centerCoordinate.latitude, centerCoordinate.longitude];
-                [weakSelf _presentMenu];
+                [weakSelf _presentMkMenu];
             }];
             
             action.subtitle = [NSString stringWithFormat:@"latitude : %lf, longitude : %lf", centerCoordinate.latitude, centerCoordinate.longitude];
@@ -649,7 +659,7 @@ void swizzle() {
                     [mapView addAnnotation:placemark];
                     [placemark release];
                     
-                    [weakSelf _presentMenu];
+                    [weakSelf _presentMkMenu];
                 }];
                 [children_2 addObject:action];
             }
@@ -660,7 +670,7 @@ void swizzle() {
                     [mapView addAnnotation:userLocation];
                     [userLocation release];
                     
-                    [weakSelf _presentMenu];
+                    [weakSelf _presentMkMenu];
                 }];
                 [children_2 addObject:action];
             }
@@ -675,7 +685,7 @@ void swizzle() {
                     if ([annotation isKindOfClass:[MKPlacemark class]]) {
                         UIAction *action = [UIAction actionWithTitle:NSStringFromClass([MKPlacemark class]) image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                             [mapView removeAnnotation:annotation];
-                            [weakSelf _presentMenu];
+                            [weakSelf _presentMkMenu];
                         }];
                         action.attributes = UIMenuElementAttributesDestructive;
                         action.subtitle = [annotation description];
@@ -720,14 +730,14 @@ void swizzle() {
                                 }];
                                 
                                 UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                                    [weakSelf _presentMenu];
+                                    [weakSelf _presentMkMenu];
                                 }];
                                 [alertController addAction:cancelAction];
                                 
                                 UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                                     UIAlertController *_alertController = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(action, sel_registerName("_alertController"));
                                     casted.title = _alertController.textFields.firstObject.text;
-                                    [weakSelf _presentMenu];
+                                    [weakSelf _presentMkMenu];
                                 }];
                                 [alertController addAction:doneAction];
                                 
@@ -745,14 +755,14 @@ void swizzle() {
                                 }];
                                 
                                 UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                                    [weakSelf _presentMenu];
+                                    [weakSelf _presentMkMenu];
                                 }];
                                 [alertController addAction:cancelAction];
                                 
                                 UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                                     UIAlertController *_alertController = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(action, sel_registerName("_alertController"));
                                     casted.subtitle = _alertController.textFields.firstObject.text;
-                                    [weakSelf _presentMenu];
+                                    [weakSelf _presentMkMenu];
                                 }];
                                 [alertController addAction:doneAction];
                                 
@@ -765,7 +775,7 @@ void swizzle() {
                         {
                             UIAction *action = [UIAction actionWithTitle:@"Remove" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                                 [mapView removeAnnotation:annotation];
-                                [weakSelf _presentMenu];
+                                [weakSelf _presentMkMenu];
                             }];
                             action.attributes = UIMenuOptionsDestructive;
                             [children_4 addObject:action];
@@ -799,7 +809,7 @@ void swizzle() {
             {
                 UIAction *action = [UIAction actionWithTitle:@"Center Coordinate" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                     UIPasteboard.generalPasteboard.string = [NSString stringWithFormat:@"%lf, %lf", camera.centerCoordinate.latitude, camera.centerCoordinate.longitude];
-                    [weakSelf _presentMenu];
+                    [weakSelf _presentMkMenu];
                 }];
                 action.subtitle = [NSString stringWithFormat:@"%lf, %lf", camera.centerCoordinate.latitude, camera.centerCoordinate.longitude];
                 [children_2 addObject:action];
@@ -808,7 +818,7 @@ void swizzle() {
             {
                 UIAction *action = [UIAction actionWithTitle:@"Heading" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                     UIPasteboard.generalPasteboard.string = @(camera.heading).stringValue;
-                    [weakSelf _presentMenu];
+                    [weakSelf _presentMkMenu];
                 }];
                 action.subtitle = @(camera.heading).stringValue;
                 [children_2 addObject:action];
@@ -817,7 +827,7 @@ void swizzle() {
             {
                 UIAction *action = [UIAction actionWithTitle:@"Center Coordinate Distance" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                     UIPasteboard.generalPasteboard.string = @(camera.centerCoordinateDistance).stringValue;
-                    [weakSelf _presentMenu];
+                    [weakSelf _presentMkMenu];
                 }];
                 action.subtitle = @(camera.centerCoordinateDistance).stringValue;
                 [children_2 addObject:action];
@@ -826,7 +836,7 @@ void swizzle() {
             {
                 UIAction *action = [UIAction actionWithTitle:@"Pitch" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                     UIPasteboard.generalPasteboard.string = @(camera.pitch).stringValue;
-                    [weakSelf _presentMenu];
+                    [weakSelf _presentMkMenu];
                 }];
                 action.subtitle = @(camera.pitch).stringValue;
                 [children_2 addObject:action];
@@ -840,7 +850,7 @@ void swizzle() {
                                                                                heading:173.3748958970743];
                     [mapView setCamera:camera animated:YES];
                     
-                    [weakSelf _presentMenu];
+                    [weakSelf _presentMkMenu];
                 }];
                 [children_2 addObject:action];
             }
@@ -853,7 +863,7 @@ void swizzle() {
                                                                                heading:42.48784350129402];
                     [mapView setCamera:camera animated:YES];
                     
-                    [weakSelf _presentMenu];
+                    [weakSelf _presentMkMenu];
                 }];
                 [children_2 addObject:action];
             }
@@ -870,15 +880,78 @@ void swizzle() {
     return [UIMenu menuWithChildren:@[element]];
 }
 
-- (void)_presentMenu {
-    __kindof UIControl * _Nullable requestsMenuBarButton = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self.menuBarButtonItem, sel_registerName("view"));
+- (UIMenu *)_makeVkMenu {
+    MKMapView *mapView = self.mapView;
+    id vkMapView;
+    assert(object_getInstanceVariable(self.mapView, "_mapView", (void **)&vkMapView) != NULL);
+    
+    __weak auto weakSelf = self;
+    
+    UIDeferredMenuElement *element = [UIDeferredMenuElement elementWithUncachedProvider:^(void (^ _Nonnull completion)(NSArray<UIMenuElement *> * _Nonnull)) {
+        NSMutableArray<__kindof UIMenuElement *> *children = [NSMutableArray new];
+        
+        BOOL _globeIsEnabled = reinterpret_cast<BOOL (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("VKMapView"), sel_registerName("_globeIsEnabled"));
+        if (_globeIsEnabled) {
+            BOOL enableGlobe = reinterpret_cast<BOOL (*)(id, SEL)>(objc_msgSend)(vkMapView, sel_registerName("enableGlobe"));
+            
+            UIAction *action = [UIAction actionWithTitle:@"Globe" image:[UIImage systemImageNamed:@"globe.americas"] identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                reinterpret_cast<void (*)(id, SEL, BOOL)>(objc_msgSend)(vkMapView, sel_registerName("setEnableGlobe:"), !enableGlobe);
+                [weakSelf _presentVkMenu];
+            }];
+            
+            action.state = enableGlobe ? UIMenuElementStateOn : UIMenuElementStateOff;
+            [children addObject:action];
+        } else {
+            UIAction *action = [UIAction actionWithTitle:@"Globe" image:[UIImage systemImageNamed:@"globe.americas"] identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+            }];
+            action.attributes = UIMenuElementAttributesDisabled;
+            [children addObject:action];
+        }
+        
+        {
+            NSInteger currentTerrainMode = reinterpret_cast<NSInteger (*)(id, SEL)>(objc_msgSend)(vkMapView, sel_registerName("terrainMode"));
+            auto actionsVector = std::views::iota(0, 4)
+            | std::views::transform([vkMapView, weakSelf, currentTerrainMode](NSInteger terrainMode) -> UIAction * {
+                UIAction *action = [UIAction actionWithTitle:@(terrainMode).stringValue image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                    reinterpret_cast<void (*)(id, SEL, NSInteger)>(objc_msgSend)(vkMapView, sel_registerName("setTerrainMode:"), terrainMode);
+                }];
+                
+                action.state = (currentTerrainMode == terrainMode) ? UIMenuElementStateOn : UIMenuElementStateOff;
+                return action;
+            })
+            | std::ranges::to<std::vector<UIAction *>>();
+            
+            NSArray<UIAction *> *actions = [[NSArray alloc] initWithObjects:actionsVector.data() count:actionsVector.size()];
+            UIMenu *menu = [UIMenu menuWithTitle:@"Terrain Mode" children:actions];
+            [actions release];
+            menu.subtitle = @(currentTerrainMode).stringValue;
+            [children addObject:menu];
+        }
+        
+        completion(children);
+        [children release];
+    }];
+    
+    return [UIMenu menuWithChildren:@[element]];
+}
+
+- (void)_presentMkMenu {
+    [self _presentMenuForBarButtonItem:self.mkMenuBarButtonItem];
+}
+
+- (void)_presentVkMenu {
+    [self _presentMenuForBarButtonItem:self.vkMenuBarButtonItem];
+}
+
+- (void)_presentMenuForBarButtonItem:(UIBarButtonItem *)barButtonItem {
+    __kindof UIControl * _Nullable buttonView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(barButtonItem, sel_registerName("view"));
     
     auto handler_1 = ^{
-        __kindof UIControl * _Nullable requestsMenuBarButton = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(self.menuBarButtonItem, sel_registerName("view"));
-        assert(requestsMenuBarButton != nil);
+        __kindof UIControl * _Nullable buttonView = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(barButtonItem, sel_registerName("view"));
+        assert(buttonView != nil);
         
         auto handler_2 = ^{
-            for (id<UIInteraction> interaction in requestsMenuBarButton.interactions) {
+            for (id<UIInteraction> interaction in buttonView.interactions) {
                 if ([interaction isKindOfClass:objc_lookUpClass("_UIClickPresentationInteraction")]) {
                     UIContextMenuInteraction *contextMenuInteraction = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(interaction, sel_registerName("delegate"));
                     
@@ -908,7 +981,7 @@ void swizzle() {
         };
         
         
-        if (requestsMenuBarButton.window == nil) {
+        if (buttonView.window == nil) {
             WindowObservingInteraction *interaction = [WindowObservingInteraction new];
             
             interaction.didMoveToWindow = ^(WindowObservingInteraction * _Nonnull interaction, UIWindow * _Nullable oldWindow, UIWindow * _Nullable newWindow) {
@@ -918,15 +991,15 @@ void swizzle() {
                 }
             };
             
-            [requestsMenuBarButton addInteraction:interaction];
+            [buttonView addInteraction:interaction];
             [interaction release];
         } else {
             handler_2();
         }
     };
     
-    if (requestsMenuBarButton == nil) {
-        KeyValueObserver *observer = [[KeyValueObserver alloc] initWithObject:self.menuBarButtonItem forKeyPath:@"view" options:NSKeyValueObservingOptionNew handler:^(KeyValueObserver * _Nonnull observer, NSString * _Nonnull keyPath, id _Nonnull object, NSDictionary * _Nonnull change) {
+    if (buttonView == nil) {
+        KeyValueObserver *observer = [[KeyValueObserver alloc] initWithObject:barButtonItem forKeyPath:@"view" options:NSKeyValueObservingOptionNew handler:^(KeyValueObserver * _Nonnull observer, NSString * _Nonnull keyPath, id _Nonnull object, NSDictionary * _Nonnull change) {
             if (![change[NSKeyValueChangeNewKey] isKindOfClass:[NSNull class]]) {
                 handler_1();
                 [observer invalidate];
