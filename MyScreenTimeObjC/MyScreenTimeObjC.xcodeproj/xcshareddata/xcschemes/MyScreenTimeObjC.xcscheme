@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1600"
+   LastUpgradeVersion = "1630"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,10 +15,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4F082E432C188D6C002263ED"
-               BuildableName = "MiscellaneousUIKit.app"
-               BlueprintName = "MiscellaneousUIKit"
-               ReferencedContainer = "container:MiscellaneousUIKit.xcodeproj">
+               BlueprintIdentifier = "4F5874512DB8CBD50092DE36"
+               BuildableName = "MyScreenTimeObjC.app"
+               BlueprintName = "MyScreenTimeObjC"
+               ReferencedContainer = "container:MyScreenTimeObjC.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -44,25 +44,24 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4F082E432C188D6C002263ED"
-            BuildableName = "MiscellaneousUIKit.app"
-            BlueprintName = "MiscellaneousUIKit"
-            ReferencedContainer = "container:MiscellaneousUIKit.xcodeproj">
+            BlueprintIdentifier = "4F5874512DB8CBD50092DE36"
+            BuildableName = "MyScreenTimeObjC.app"
+            BlueprintName = "MyScreenTimeObjC"
+            ReferencedContainer = "container:MyScreenTimeObjC.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <CommandLineArguments>
-         <CommandLineArgument
-            argument = "-UIViewShowAlignmentRects YES"
-            isEnabled = "NO">
-         </CommandLineArgument>
-      </CommandLineArguments>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "MTC_VERBOSE"
-            value = "1"
-            isEnabled = "NO">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
+      <AdditionalOptions>
+         <AdditionalOption
+            key = "MallocStackLogging"
+            value = ""
+            isEnabled = "YES">
+         </AdditionalOption>
+         <AdditionalOption
+            key = "PrefersMallocStackLoggingLite"
+            value = ""
+            isEnabled = "YES">
+         </AdditionalOption>
+      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -74,10 +73,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4F082E432C188D6C002263ED"
-            BuildableName = "MiscellaneousUIKit.app"
-            BlueprintName = "MiscellaneousUIKit"
-            ReferencedContainer = "container:MiscellaneousUIKit.xcodeproj">
+            BlueprintIdentifier = "4F5874512DB8CBD50092DE36"
+            BuildableName = "MyScreenTimeObjC.app"
+            BlueprintName = "MyScreenTimeObjC"
+            ReferencedContainer = "container:MyScreenTimeObjC.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
