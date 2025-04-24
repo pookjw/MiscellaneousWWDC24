@@ -10,6 +10,7 @@ import Combine
 import FamilyControls
 import ManagedSettings
 import DeviceActivity
+import ManagedSettingsPrivate
 
 struct ContentView: View {
     @State private var authorizationStatus: FamilyControls.AuthorizationStatus?
@@ -116,6 +117,14 @@ struct ContentView: View {
                 }
                 
                 Button("Sync Store") {
+                    var intelligence = store.getIntelligence()
+                    intelligence.denyImagePlayground = true
+                    print(intelligence.denyImagePlayground)
+                    
+                    store.setIntelligence(intelligence)
+                    
+                    print(store.getIntelligence().denyImagePlayground)
+                    
                     store.shield.applications = selection.applicationTokens
                 }
                 

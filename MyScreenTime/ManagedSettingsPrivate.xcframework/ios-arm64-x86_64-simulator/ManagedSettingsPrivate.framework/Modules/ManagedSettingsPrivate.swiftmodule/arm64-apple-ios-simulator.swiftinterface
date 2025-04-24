@@ -1,0 +1,32 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.1 effective-5.10 (swiftlang-6.1.0.110.5 clang-1700.0.13.3)
+// swift-module-flags: -target arm64-apple-ios18.4-simulator -enable-objc-interop -autolink-force-load -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -library-level api -enable-bare-slash-regex -module-name ManagedSettingsPrivate
+// swift-module-flags-ignorable:  -interface-compiler-version 6.1
+import Swift
+import ManagedSettings
+import Foundation
+@_exported import ManagedSettingsPrivate
+import _Concurrency
+
+@available(iOS 18.0, visionOS 2.0, *)
+@_originallyDefinedIn(module: "ManagedSettings", iOS 18.0)
+@_originallyDefinedIn(module: "ManagedSettings", visionOS 2.0)
+public struct IntelligenceSettings: ManagedSettings.ManagedSettingsGroup {
+    public var denyExternalIntelligenceIntegrations: Swift.Bool? { get set }
+    public var denyGenmoji: Swift.Bool? { get set }
+    public var denyImagePlayground: Swift.Bool? { get set }
+    public var effectiveDenyImagePlayground: Swift.Bool? { get set }
+    public var denyImageWand: Swift.Bool? { get set }
+    public var denyWritingTools: Swift.Bool? { get set }
+}
+
+@available(iOS 18.0, visionOS 2.0, *)
+@_originallyDefinedIn(module: "ManagedSettings", iOS 18.0)
+@_originallyDefinedIn(module: "ManagedSettings", visionOS 2.0)
+extension ManagedSettings.ManagedSettingsStore {
+    // public var intelligence: ManagedSettingsPrivate.IntelligenceSettings { get set }
+    @_silgen_name("$s15ManagedSettings0aB5StoreC12intelligenceAA012IntelligenceB0VvgTj")
+    public func getIntelligence() -> ManagedSettingsPrivate.IntelligenceSettings
+    @_silgen_name("$s15ManagedSettings0aB5StoreC12intelligenceAA012IntelligenceB0VvsTj")
+    public func setIntelligence(_ intelligence: ManagedSettingsPrivate.IntelligenceSettings)
+}
