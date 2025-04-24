@@ -117,15 +117,8 @@ struct ContentView: View {
                 }
                 
                 Button("Sync Store") {
-                    var intelligence = store.getIntelligence()
-                    intelligence.denyImagePlayground = true
-                    print(intelligence.denyImagePlayground)
-                    
-                    store.setIntelligence(intelligence)
-                    
-                    print(store.getIntelligence().denyImagePlayground)
-                    
-                    store.shield.applications = selection.applicationTokens
+                    // com.apple.private.managed-settings.apply
+                    syncStore()
                 }
                 
                 Button("Start Monitoring") {
@@ -194,6 +187,38 @@ struct ContentView: View {
             let data = try! encoder.encode(newValue)
             UserDefaults.standard.set(data, forKey: "selection")
         }
+    }
+    
+    private func syncStore() {
+        //                    var intelligence = store.getIntelligence()
+        //                    intelligence.denyImagePlayground = true
+        //                    print(intelligence.denyImagePlayground)
+        //                    
+        //                    store.setIntelligence(intelligence)
+        //                    
+        //                    print(store.getIntelligence().denyImagePlayground)
+//        var calculator = store.getCalculator()
+//        calculator.denyInputModeRPN = true
+//        assert(calculator.denyInputModeRPN == true)
+//        calculator.denyInputModeUnitConversion = true
+//        assert(calculator.denyInputModeUnitConversion == true)
+//        calculator.denyMathPaperSolving = true
+//        assert(calculator.denyMathPaperSolving == true)
+//        calculator.denyModeMathPaper = true
+//        assert(calculator.denyModeMathPaper == true)
+//        calculator.denyModeProgrammer = true
+//        assert(calculator.denyModeProgrammer == true)
+//        calculator.denyModeScientific = true
+//        assert(calculator.denyModeScientific == true)
+//        calculator.forceSquareRootOnBasicCalculator = true
+//        assert(calculator.forceSquareRootOnBasicCalculator == true)
+//        store.set(calculator)
+        
+//        store.passcode.lockPasscode = true
+//        store.safari.cookiePolicy = .never
+//        store.webContent.blockedByFilter = WebContentSettings.FilterPolicy.none
+        
+        store.shield.applications = selection.applicationTokens
     }
 }
 

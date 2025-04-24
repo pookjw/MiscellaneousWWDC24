@@ -11,12 +11,17 @@
 #import "Swizzler.h"
 #import "SelectionDataSource.h"
 
+/*
+ _TtC14DeviceActivity28DeviceActivityMonitorContext
+ */
+
 @interface CollectionViewController ()
 @property (retain, nonatomic, readonly, getter=_cellRegistration) UICollectionViewCellRegistration *cellRegistration;
 @property (retain, nonatomic, readonly, getter=_headerRegistration) UICollectionViewSupplementaryRegistration *headerRegistration;
 @property (retain, nonatomic, readonly, getter=_menuBarButtonItem) UIBarButtonItem *menuBarButtonItem;
 @property (retain, nonatomic, readonly, getter=_familyControlsConnection) NSXPCConnection *familyControlsConnection;
 @property (retain, nonatomic, readonly, getter=_managedSettingsConnection) NSXPCConnection *managedSettingsConnection;
+@property (retain, nonatomic, readonly, getter=_usageTrackingConnection) NSXPCConnection *usageTrackingConnection;
 @property (retain, nonatomic, readonly, getter=_pickerRemoteTokens) NSMutableSet<NSUUID *> *pickerRemoteTokens;
 @property (retain, nonatomic, getter=_selections, setter=_setSelections:) SelectionDataSource *selections;
 @property (copy, nonatomic, getter=_storeValues, setter=_setStoreValues:) NSDictionary *storeValues;
@@ -54,6 +59,13 @@
         };
         [_managedSettingsConnection resume];
         
+        _usageTrackingConnection = reinterpret_cast<id (*)(id, SEL, id, NSXPCConnectionOptions)>(objc_msgSend)([NSXPCConnection alloc], sel_registerName("initWithMachServiceName:options:"), @"com.apple.UsageTrackingAgent", NSXPCConnectionPrivileged);
+        _usageTrackingConnection.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:NSProtocolFromString(@"USUsageTrackingAgent")];
+        _usageTrackingConnection.interruptionHandler = ^{
+            abort();
+        };
+        [_usageTrackingConnection resume];
+        
         [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_pickerDidCancel:) name:MT_ActivityPickerRemoteViewControllerDidCancelNotificationName object:nil];
         [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_pickerDidFinish:) name:MT_ActivityPickerRemoteViewControllerDidFinishSelectionNotificationName object:nil];
         [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(_pickerDidChangeSelection:) name:MT_ActivityPickerRemoteViewControllerDidChangeSelectionNotificationName object:nil];
@@ -71,6 +83,8 @@
     [_familyControlsConnection release];
     [_managedSettingsConnection invalidate];
     [_managedSettingsConnection release];
+    [_usageTrackingConnection invalidate];
+    [_usageTrackingConnection release];
     [_pickerRemoteTokens release];
     [_selections release];
     [_storeValues release];
@@ -222,125 +236,449 @@
 - (UIMenu *)_makeMenu {
     NSXPCConnection *familyControlsConnection = _familyControlsConnection;
     NSXPCConnection *managedSettingsConnection = _managedSettingsConnection;
+    NSXPCConnection *usageTrackingConnection = _usageTrackingConnection;
     __weak auto weakSelf = self;
     
+    /*
+     blockedByFilter
+     // all
+     {
+         "webContent.blockedByFilter" =     {
+             onlyAllow =         (
+                             {
+                     token =                 {
+                         data = {length = 128, bytes = 0x00000000 00000000 00000000 ead504fe ... 60be7a02 815a6e33 };
+                     };
+                 },
+                             {
+                     token =                 {
+                         data = {length = 128, bytes = 0x00000000 00000000 00000000 ead504fe ... 88c5963a f7f74fba };
+                     };
+                 },
+                             {
+                     token =                 {
+                         data = {length = 128, bytes = 0x00000000 00000000 00000000 ead504fe ... 0dd31a92 57c2632a };
+                     };
+                 }
+             );
+         };
+     }
+     
+     // auto
+     {
+         "webContent.blockedByFilter" =     {
+             autoAllow =         (
+                             {
+                     token =                 {
+                         data = {length = 128, bytes = 0x00000000 00000000 00000000 ead504fe ... 60be7a02 815a6e33 };
+                     };
+                 }
+             );
+             neverAllow =         (
+                             {
+                     token =                 {
+                         data = {length = 128, bytes = 0x00000000 00000000 00000000 ead504fe ... 0dd31a92 57c2632a };
+                     };
+                 }
+             );
+         };
+     }
+     
+     // specific
+     {
+         "webContent.blockedByFilter" =     {
+             neverAllow =         (
+                             {
+                     token =                 {
+                         data = {length = 128, bytes = 0x00000000 00000000 00000000 ead504fe ... 88c5963a f7f74fba };
+                     };
+                 },
+                             {
+                     token =                 {
+                         data = {length = 128, bytes = 0x00000000 00000000 00000000 ead504fe ... 0dd31a92 57c2632a };
+                     };
+                 },
+                             {
+                     token =                 {
+                         data = {length = 128, bytes = 0x00000000 00000000 00000000 ead504fe ... 60be7a02 815a6e33 };
+                     };
+                 }
+             );
+         };
+     }
+     */
+     
+    NSArray<NSString *> *boolKeys = @[
+        @"account.lockAccounts",
+        @"cellular.lockAppCellularData",
+        @"cellular.lockCellularPlan",
+        @"cellular.lockESIM",
+        @"dateAndTime.requireAutomaticDateAndTime",
+        @"passcode.lockPasscode",
+        @"siri.denySiri",
+        @"appStore.denyInAppPurchases",
+        @"appStore.requirePasswordForPurchases",
+        @"application.denyAppInstallation",
+        @"application.denyAppRemoval",
+        @"gameCenter.denyMultiplayerGaming",
+        @"gameCenter.denyAddingFriends",
+        @"media.denyExplicitContent",
+        @"media.denyMusicService",
+        @"media.denyBookstoreErotica",
+        @"safari.denyAutoFill"
+    ];
+    
+    NSArray<NSString *> *allKeys = [boolKeys arrayByAddingObjectsFromArray:@[
+        @"appStore.maximumRating",
+        @"media.maximumMovieRating",
+        @"media.maximumTVShowRating",
+        @"application.blockedApplications",
+        @"safari.cookiePolicy"
+    ]];
+    
     UIDeferredMenuElement *element = [UIDeferredMenuElement elementWithUncachedProvider:^(void (^ _Nonnull completion)(NSArray<UIMenuElement *> * _Nonnull)) {
-        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(familyControlsConnection.remoteObjectProxy, sel_registerName("getAuthorizationStatus:"), ^(NSNumber * _Nullable result, NSError * _Nullable error) {
+        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(familyControlsConnection.remoteObjectProxy, sel_registerName("getAuthorizationStatus:"), ^(NSNumber * _Nullable authorizedStatus, NSError * _Nullable error) {
             assert(error == nil);
             
-            NSMutableArray<__kindof UIMenuElement *> *children = [NSMutableArray new];
-            
-            {
-                NSMutableArray<__kindof UIMenuElement *> *children_2 = [NSMutableArray new];
-                
-                {
-                    UIAction *action_1 = [UIAction actionWithTitle:@"ActivityPickerRemoteViewController (Embedded)" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                        [weakSelf _showSelectionPickerWithEmbedded:YES];
-                    }];
-                    [children_2 addObject:action_1];
-                    UIAction *action_2 = [UIAction actionWithTitle:@"ActivityPickerRemoteViewController" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                        [weakSelf _showSelectionPickerWithEmbedded:NO];
-                    }];
-                    [children_2 addObject:action_2];
-                }
-                
-                {
-                    if (result.integerValue == 0) {
-                        UIAction *action = [UIAction actionWithTitle:@"Request Authorization" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                            //                        id center = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("FOAuthorizationCenter"), sel_registerName("sharedCenter"));
-                            //                        reinterpret_cast<void (*)(id, SEL, NSInteger, id)>(objc_msgSend)(center, sel_registerName("requestInternalAuthorizationForMember:completionHandler:"), 1, nil);
-                            reinterpret_cast<void (*)(id, SEL, NSInteger, id)>(objc_msgSend)(familyControlsConnection.remoteObjectProxy, sel_registerName("requestAuthorizationFor::"), 1, ^(NSNumber * _Nullable result, NSError * _Nullable error) {
-                                assert(error == nil);
-                            });
-                        }];
-                        [children_2 addObject:action];
-                    } else {
-                        UIAction *action = [UIAction actionWithTitle:@"Revoke Authorization" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                            reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(familyControlsConnection.remoteObjectProxy, sel_registerName("revokeAuthorization:"), ^(NSNumber * _Nullable what, NSError * _Nullable error) {
-                                assert(error == nil);
-                            });
-                        }];
-                        [children_2 addObject:action];
-                    }
-                }
-                
-                UIMenu *menu = [UIMenu menuWithTitle:@"Family Controls" children:children_2];
-                [children_2 release];
-                [children addObject:menu];
+            NSUUID * _Nullable recordIdentifier;
+            if (NSString *recordIdentifierString = [NSUserDefaults.standardUserDefaults stringForKey:@"recordIdentifier"]) {
+                recordIdentifier = [[NSUUID alloc] initWithUUIDString:recordIdentifierString];
+            } else {
+                recordIdentifier = nil;
             }
             
-            {
-                NSMutableArray<__kindof UIMenuElement *> *children_2 = [NSMutableArray new];
+            reinterpret_cast<void (*)(id, SEL, id, id, id, id, id)>(objc_msgSend)(managedSettingsConnection.remoteObjectProxy, sel_registerName("getValuesForSettingNames:recordIdentifier:storeContainer:storeName:replyHandler:"), allKeys, recordIdentifier, @"com.pookjw.MyScreenTimeObjC", @"Test", ^(NSDictionary * _Nullable storeValues, NSError * _Nullable error) {
+                assert(error == nil);
+                NSMutableArray<__kindof UIMenuElement *> *children = [NSMutableArray new];
                 
                 {
-                    UIAction *action = [UIAction actionWithTitle:@"Sync" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                        NSArray<NSData *> *applications = weakSelf.selections.applications;
-                        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:applications.count];
-                        for (NSData *data in applications) {
-                            [array addObject:@{@"token": @{@"data": data}}];
-                        }
-                        
-                        reinterpret_cast<void (*)(id, SEL, id, id, id, id, id)>(objc_msgSend)(managedSettingsConnection.remoteObjectProxy, sel_registerName("setValues:recordIdentifier:storeContainer:storeName:replyHandler:"), @{
-                            @"shield.applications": array
-                        }, nil, @"com.pookjw.MyScreenTimeObjC", @"Test", ^(NSUUID * _Nullable recordIdentifier, NSError * _Nullable error) {
-                            assert(error == nil);
-                            [NSUserDefaults.standardUserDefaults setValue:recordIdentifier.UUIDString forKey:@"recordIdentifier"];
-                            
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                [weakSelf _reloadWithCompletionHandler:nil];
-                            });
-                        });
-                        
-                        [array release];
-                    }];
-                    [children_2 addObject:action];
-                }
-                
-                if (NSString *recordIdentifierString = [NSUserDefaults.standardUserDefaults stringForKey:@"recordIdentifier"]) {
-                    NSUUID *recordIdentifier = [[NSUUID alloc] initWithUUIDString:recordIdentifierString];
+                    NSMutableArray<__kindof UIMenuElement *> *children_2 = [NSMutableArray new];
                     
                     {
-                        UIAction *action = [UIAction actionWithTitle:@"Clear" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                            reinterpret_cast<void (*)(id, SEL, id, id, id, id)>(objc_msgSend)(managedSettingsConnection.remoteObjectProxy, sel_registerName("clearAllSettingsForRecordIdentifier:storeContainer:storeName:replyHandler:"), recordIdentifier, @"com.pookjw.MyScreenTimeObjC", @"Test", ^(NSUUID * _Nullable recordIdentifier, NSError * _Nullable error) {
+                        UIAction *action_1 = [UIAction actionWithTitle:@"ActivityPickerRemoteViewController (Embedded)" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                            [weakSelf _showSelectionPickerWithEmbedded:YES];
+                        }];
+                        [children_2 addObject:action_1];
+                        UIAction *action_2 = [UIAction actionWithTitle:@"ActivityPickerRemoteViewController" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                            [weakSelf _showSelectionPickerWithEmbedded:NO];
+                        }];
+                        [children_2 addObject:action_2];
+                    }
+                    
+                    {
+                        if (authorizedStatus.integerValue == 0) {
+                            UIAction *action = [UIAction actionWithTitle:@"Request Authorization" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                                //                        id center = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("FOAuthorizationCenter"), sel_registerName("sharedCenter"));
+                                //                        reinterpret_cast<void (*)(id, SEL, NSInteger, id)>(objc_msgSend)(center, sel_registerName("requestInternalAuthorizationForMember:completionHandler:"), 1, nil);
+                                reinterpret_cast<void (*)(id, SEL, NSInteger, id)>(objc_msgSend)(familyControlsConnection.remoteObjectProxy, sel_registerName("requestAuthorizationFor::"), 1, ^(NSNumber * _Nullable result, NSError * _Nullable error) {
+                                    assert(error == nil);
+                                });
+                            }];
+                            [children_2 addObject:action];
+                        } else {
+                            UIAction *action = [UIAction actionWithTitle:@"Revoke Authorization" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                                reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(familyControlsConnection.remoteObjectProxy, sel_registerName("revokeAuthorization:"), ^(NSNumber * _Nullable what, NSError * _Nullable error) {
+                                    assert(error == nil);
+                                });
+                            }];
+                            [children_2 addObject:action];
+                        }
+                    }
+                    
+                    UIMenu *menu = [UIMenu menuWithTitle:@"Family Controls" children:children_2];
+                    [children_2 release];
+                    [children addObject:menu];
+                }
+                
+                {
+                    NSMutableArray<__kindof UIMenuElement *> *children_2 = [NSMutableArray new];
+                    
+                    {
+                        UIAction *action = [UIAction actionWithTitle:@"Shield All Applications" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                            NSArray<NSData *> *applications = weakSelf.selections.applications;
+                            NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:applications.count];
+                            for (NSData *data in applications) {
+                                [array addObject:@{@"token": @{@"data": data}}];
+                            }
+                            
+                            reinterpret_cast<void (*)(id, SEL, id, id, id, id, id)>(objc_msgSend)(managedSettingsConnection.remoteObjectProxy, sel_registerName("setValues:recordIdentifier:storeContainer:storeName:replyHandler:"), @{
+                                @"shield.applications": array
+                            }, nil, @"com.pookjw.MyScreenTimeObjC", @"Test", ^(NSUUID * _Nullable recordIdentifier, NSError * _Nullable error) {
                                 assert(error == nil);
                                 [NSUserDefaults.standardUserDefaults setValue:recordIdentifier.UUIDString forKey:@"recordIdentifier"];
+                                
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [weakSelf _reloadWithCompletionHandler:nil];
+                                });
                             });
+                            
+                            [array release];
+                        }];
+                        [children_2 addObject:action];
+                    }
+                    
+                    {
+                        UIAction *action = [UIAction actionWithTitle:@"Block All Applications" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                            NSArray<NSData *> *applications = weakSelf.selections.applications;
+                            NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:applications.count];
+                            for (NSData *data in applications) {
+                                [array addObject:@{@"token": @{@"data": data}}];
+                            }
+                            
+                            reinterpret_cast<void (*)(id, SEL, id, id, id, id, id)>(objc_msgSend)(managedSettingsConnection.remoteObjectProxy, sel_registerName("setValues:recordIdentifier:storeContainer:storeName:replyHandler:"), @{
+                                @"application.blockedApplications": array
+                            }, nil, @"com.pookjw.MyScreenTimeObjC", @"Test", ^(NSUUID * _Nullable recordIdentifier, NSError * _Nullable error) {
+                                assert(error == nil);
+                                [NSUserDefaults.standardUserDefaults setValue:recordIdentifier.UUIDString forKey:@"recordIdentifier"];
+                                
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [weakSelf _reloadWithCompletionHandler:nil];
+                                });
+                            });
+                            
+                            [array release];
+                        }];
+                        [children_2 addObject:action];
+                    }
+                    
+                    {
+                        NSMutableArray<__kindof UIMenuElement *> *children_3 = [NSMutableArray new];
+                        
+                        for (NSString *key in boolKeys) {
+                            BOOL value = static_cast<NSNumber *>(storeValues[key]).boolValue;
+                            
+                            UIAction *action = [UIAction actionWithTitle:key image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                                reinterpret_cast<void (*)(id, SEL, id, id, id, id, id)>(objc_msgSend)(managedSettingsConnection.remoteObjectProxy, sel_registerName("setValues:recordIdentifier:storeContainer:storeName:replyHandler:"), @{
+                                    key: @(!value)
+                                }, nil, @"com.pookjw.MyScreenTimeObjC", @"Test", ^(NSUUID * _Nullable recordIdentifier, NSError * _Nullable error) {
+                                    assert(error == nil);
+                                    [NSUserDefaults.standardUserDefaults setValue:recordIdentifier.UUIDString forKey:@"recordIdentifier"];
+                                });
+                            }];
+                            action.state = value ? UIMenuElementStateOn : UIMenuElementStateOff;
+                            [children_3 addObject:action];
+                        }
+                        
+                        UIMenu *menu = [UIMenu menuWithTitle:@"" image:nil identifier:nil options:UIMenuOptionsDisplayInline children:children_3];
+                        [children_3 release];
+                        [children_2 addObject:menu];
+                    }
+                    
+                    {
+                        auto value = static_cast<NSNumber *>(storeValues[@"appStore.maximumRating"]);
+                        NSMutableArray<__kindof UIMenuElement *> *children_3 = [NSMutableArray new];
+                        NSDictionary *ratingsKeyTitles = @{
+                            @0: @"None", @100: @"4+", @200: @"9+", @300: @"12+", @600: @"17+", @1000: @"All"
+                        };
+                        NSArray *sortedKeys = [ratingsKeyTitles.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSNumber * _Nonnull obj1, NSNumber * _Nonnull obj2) {
+                            return [obj1 compare:obj2];
                         }];
                         
-                        [children_2 addObject:action];
+                        for (NSNumber *rating in sortedKeys) {
+                            UIAction *action = [UIAction actionWithTitle:ratingsKeyTitles[rating] image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                                reinterpret_cast<void (*)(id, SEL, id, id, id, id, id)>(objc_msgSend)(managedSettingsConnection.remoteObjectProxy, sel_registerName("setValues:recordIdentifier:storeContainer:storeName:replyHandler:"), @{
+                                    @"appStore.maximumRating": rating
+                                }, nil, @"com.pookjw.MyScreenTimeObjC", @"Test", ^(NSUUID * _Nullable recordIdentifier, NSError * _Nullable error) {
+                                    assert(error == nil);
+                                    [NSUserDefaults.standardUserDefaults setValue:recordIdentifier.UUIDString forKey:@"recordIdentifier"];
+                                });
+                            }];
+                            
+                            if (value != nil) {
+                                action.state = [rating isEqualToNumber:value] ? UIMenuElementStateOn : UIMenuElementStateOff;
+                            }
+                            
+                            [children_3 addObject:action];
+                        }
+                        
+                        UIMenu *menu = [UIMenu menuWithTitle:@"appStore.maximumRating" children:children_3];
+                        [children_3 release];
+                        menu.subtitle = ratingsKeyTitles[value];
+                        [children_2 addObject:menu];
                     }
                     
                     {
-                        UIAction *action = [UIAction actionWithTitle:@"Delete" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                            reinterpret_cast<void (*)(id, SEL, id, id, id, id)>(objc_msgSend)(managedSettingsConnection.remoteObjectProxy, sel_registerName("deleteStores:recordIdentifier:storeContainer:replyHandler:"), @[@"Test"], recordIdentifier, @"com.pookjw.MyScreenTimeObjC", ^(NSUUID * _Nullable recordIdentifier, NSError * _Nullable error) {
-                                assert(error == nil);
-                                [NSUserDefaults.standardUserDefaults removeObjectForKey:@"recordIdentifier"];
-                            });
+                        auto value = static_cast<NSNumber *>(storeValues[@"media.maximumMovieRating"]);
+                        NSMutableArray<__kindof UIMenuElement *> *children_3 = [NSMutableArray new];
+                        NSDictionary *ratingsKeyTitles = @{
+                            @0: @"None", @100: @"G", @200: @"PG", @300: @"PG-13", @400: @"R", @500: @"NC-17", @1000: @"All"
+                        };
+                        NSArray *sortedKeys = [ratingsKeyTitles.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSNumber * _Nonnull obj1, NSNumber * _Nonnull obj2) {
+                            return [obj1 compare:obj2];
                         }];
-                        [children_2 addObject:action];
+                        
+                        for (NSNumber *rating in sortedKeys) {
+                            UIAction *action = [UIAction actionWithTitle:ratingsKeyTitles[rating] image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                                reinterpret_cast<void (*)(id, SEL, id, id, id, id, id)>(objc_msgSend)(managedSettingsConnection.remoteObjectProxy, sel_registerName("setValues:recordIdentifier:storeContainer:storeName:replyHandler:"), @{
+                                    @"media.maximumMovieRating": rating
+                                }, nil, @"com.pookjw.MyScreenTimeObjC", @"Test", ^(NSUUID * _Nullable recordIdentifier, NSError * _Nullable error) {
+                                    assert(error == nil);
+                                    [NSUserDefaults.standardUserDefaults setValue:recordIdentifier.UUIDString forKey:@"recordIdentifier"];
+                                });
+                            }];
+                            
+                            if (value != nil) {
+                                action.state = [rating isEqualToNumber:value] ? UIMenuElementStateOn : UIMenuElementStateOff;
+                            }
+                            
+                            [children_3 addObject:action];
+                        }
+                        
+                        UIMenu *menu = [UIMenu menuWithTitle:@"media.maximumMovieRating" children:children_3];
+                        [children_3 release];
+                        menu.subtitle = ratingsKeyTitles[value];
+                        [children_2 addObject:menu];
                     }
                     
                     {
-                        UIAction *action = [UIAction actionWithTitle:@"Test" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                            reinterpret_cast<void (*)(id, SEL, id, id, id, id, id)>(objc_msgSend)(managedSettingsConnection.remoteObjectProxy, sel_registerName("getValuesForSettingNames:recordIdentifier:storeContainer:storeName:replyHandler:"), @[@"shield.applications"], recordIdentifier, @"com.pookjw.MyScreenTimeObjC", @"Test", ^(id result, NSError * _Nullable error) {
-                                NSLog(@"%@ %@", result, error);
-                            });
+                        auto value = static_cast<NSNumber *>(storeValues[@"media.maximumTVShowRating"]);
+                        NSMutableArray<__kindof UIMenuElement *> *children_3 = [NSMutableArray new];
+                        NSDictionary *ratingsKeyTitles = @{
+                            @0: @"None", @100: @"TV-Y", @200: @"TV-Y7", @300: @"TV-G", @400: @"TV-PG", @500: @"TV-14", @600: @"TM-MA", @1000: @"All"
+                        };
+                        NSArray *sortedKeys = [ratingsKeyTitles.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSNumber * _Nonnull obj1, NSNumber * _Nonnull obj2) {
+                            return [obj1 compare:obj2];
                         }];
-                        [children_2 addObject:action];
+                        
+                        for (NSNumber *rating in sortedKeys) {
+                            UIAction *action = [UIAction actionWithTitle:ratingsKeyTitles[rating] image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                                reinterpret_cast<void (*)(id, SEL, id, id, id, id, id)>(objc_msgSend)(managedSettingsConnection.remoteObjectProxy, sel_registerName("setValues:recordIdentifier:storeContainer:storeName:replyHandler:"), @{
+                                    @"media.maximumTVShowRating": rating
+                                }, nil, @"com.pookjw.MyScreenTimeObjC", @"Test", ^(NSUUID * _Nullable recordIdentifier, NSError * _Nullable error) {
+                                    assert(error == nil);
+                                    [NSUserDefaults.standardUserDefaults setValue:recordIdentifier.UUIDString forKey:@"recordIdentifier"];
+                                });
+                            }];
+                            
+                            if (value != nil) {
+                                action.state = [rating isEqualToNumber:value] ? UIMenuElementStateOn : UIMenuElementStateOff;
+                            }
+                            
+                            [children_3 addObject:action];
+                        }
+                        
+                        UIMenu *menu = [UIMenu menuWithTitle:@"media.maximumTVShowRating" children:children_3];
+                        [children_3 release];
+                        menu.subtitle = ratingsKeyTitles[value];
+                        [children_2 addObject:menu];
                     }
                     
-                    [recordIdentifier release];
+                    {
+                        NSString *value = storeValues[@"safari.cookiePolicy"];
+                        NSArray<NSString *> *policies = @[@"never", @"currentWebsite", @"visitedWebsites", @"always"];
+                        NSMutableArray<__kindof UIMenuElement *> *children_3 = [NSMutableArray new];
+                        
+                        for (NSString *policy in policies) {
+                            UIAction *action = [UIAction actionWithTitle:policy image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                                reinterpret_cast<void (*)(id, SEL, id, id, id, id, id)>(objc_msgSend)(managedSettingsConnection.remoteObjectProxy, sel_registerName("setValues:recordIdentifier:storeContainer:storeName:replyHandler:"), @{
+                                    @"safari.cookiePolicy": policy
+                                }, nil, @"com.pookjw.MyScreenTimeObjC", @"Test", ^(NSUUID * _Nullable recordIdentifier, NSError * _Nullable error) {
+                                    assert(error == nil);
+                                    [NSUserDefaults.standardUserDefaults setValue:recordIdentifier.UUIDString forKey:@"recordIdentifier"];
+                                });
+                            }];
+                            
+                            if (value != nil) {
+                                action.state = [policy isEqualToString:value] ? UIMenuElementStateOn : UIMenuElementStateOff;
+                            }
+                            
+                            [children_3 addObject:action];
+                        }
+                        
+                        UIMenu *menu = [UIMenu menuWithTitle:@"safari.cookiePolicy" children:children_3];
+                        [children_3 release];
+                        menu.subtitle = value;
+                        [children_2 addObject:menu];
+                    }
+                    
+                    if (NSString *recordIdentifierString = [NSUserDefaults.standardUserDefaults stringForKey:@"recordIdentifier"]) {
+                        NSUUID *recordIdentifier = [[NSUUID alloc] initWithUUIDString:recordIdentifierString];
+                        
+                        {
+                            UIAction *action = [UIAction actionWithTitle:@"Clear" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                                reinterpret_cast<void (*)(id, SEL, id, id, id, id, id)>(objc_msgSend)(managedSettingsConnection.remoteObjectProxy, sel_registerName("removeValuesForSettingNames:recordIdentifier:storeContainer:storeName:replyHandler:"), allKeys, recordIdentifier, @"com.pookjw.MyScreenTimeObjC", @"Test", ^(NSUUID * _Nullable recordIdentifier, NSError * _Nullable error) {
+                                    assert(error == nil);
+                                    [NSUserDefaults.standardUserDefaults setValue:recordIdentifier.UUIDString forKey:@"recordIdentifier"];
+                                });
+                            }];
+                            
+                            action.subtitle = @"입력된 Key만 Clear (모든 Key가 정의됨)";
+                            [children_2 addObject:action];
+                        }
+                        
+                        {
+                            UIAction *action = [UIAction actionWithTitle:@"Clear" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                                reinterpret_cast<void (*)(id, SEL, id, id, id, id)>(objc_msgSend)(managedSettingsConnection.remoteObjectProxy, sel_registerName("clearAllSettingsForRecordIdentifier:storeContainer:storeName:replyHandler:"), recordIdentifier, @"com.pookjw.MyScreenTimeObjC", @"Test", ^(NSUUID * _Nullable recordIdentifier, NSError * _Nullable error) {
+                                    assert(error == nil);
+                                    [NSUserDefaults.standardUserDefaults setValue:recordIdentifier.UUIDString forKey:@"recordIdentifier"];
+                                });
+                            }];
+                            
+                            action.subtitle = @"모든 Key를 Clear";
+                            [children_2 addObject:action];
+                        }
+                        
+                        {
+                            UIAction *action = [UIAction actionWithTitle:@"Delete" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                                reinterpret_cast<void (*)(id, SEL, id, id, id, id)>(objc_msgSend)(managedSettingsConnection.remoteObjectProxy, sel_registerName("deleteStores:recordIdentifier:storeContainer:replyHandler:"), @[@"Test"], recordIdentifier, @"com.pookjw.MyScreenTimeObjC", ^(NSUUID * _Nullable recordIdentifier, NSError * _Nullable error) {
+                                    assert(error == nil);
+                                    [NSUserDefaults.standardUserDefaults removeObjectForKey:@"recordIdentifier"];
+                                });
+                            }];
+                            
+                            action.subtitle = @"Store 삭제";
+                            [children_2 addObject:action];
+                        }
+                        
+                        {
+                            UIAction *action = [UIAction actionWithTitle:@"Test" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                                reinterpret_cast<void (*)(id, SEL, id, id, id, id, id)>(objc_msgSend)(managedSettingsConnection.remoteObjectProxy, sel_registerName("getValuesForSettingNames:recordIdentifier:storeContainer:storeName:replyHandler:"), @[@"shield.applications"], recordIdentifier, @"com.pookjw.MyScreenTimeObjC", @"Test", ^(id result, NSError * _Nullable error) {
+                                    NSLog(@"%@ %@", result, error);
+                                });
+                            }];
+                            [children_2 addObject:action];
+                        }
+                        
+                        [recordIdentifier release];
+                    }
+                    
+                    UIMenu *menu = [UIMenu menuWithTitle:@"Managed Settings" children:children_2];
+                    [children_2 release];
+                    [children addObject:menu];
                 }
                 
-                UIMenu *menu = [UIMenu menuWithTitle:@"Managed Settings" children:children_2];
-                [children_2 release];
-                [children addObject:menu];
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completion(children);
+                {
+                    NSMutableArray<__kindof UIMenuElement *> *children_2 = [NSMutableArray new];
+                    
+                    {
+                        UIAction *action = [UIAction actionWithTitle:@"Start Monitoring Activity" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+#warning TODO
+                            id activity = reinterpret_cast<id (*)(id, SEL, id, id, BOOL, id)>(objc_msgSend)([objc_lookUpClass("USDeviceActivitySchedule") alloc], sel_registerName("initWithIntervalStart:intervalEnd:repeats:warningTime:"), nil, nil, NO, nil);
+                            
+                            id event = reinterpret_cast<id (*)(id, SEL, id, id, id, id, id)>(objc_msgSend)([objc_lookUpClass("USDeviceActivityEvent") alloc], sel_registerName("initWithApplicationTokens:categoryTokens:webDomainTokens:threshold:includesPastActivity:"), nil, nil, nil, nil, nil);
+                            
+                            reinterpret_cast<void (*)(id, SEL, id, id, id, id, id, id)>(objc_msgSend)(usageTrackingConnection.remoteObjectProxy, sel_registerName("startMonitoringActivity:withSchedule:events:forClient:withExtension:replyHandler:"), @"Test", activity, @{@"Event": event}, nil, nil, ^(NSError * _Nullable error) {
+                                assert(error == nil);
+                            });
+                            
+                            [activity release];
+                            [event release];
+                        }];
+                        [children_2 addObject:action];
+                    }
+                    
+                    UIMenu *menu = [UIMenu menuWithTitle:@"Device Activity" children:children_2];
+                    [children_2 release];
+                    [children addObject:menu];
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completion(children);
+                });
+                [children release];
             });
-            [children release];
+            
+            [recordIdentifier release];
         });
     }];
     
@@ -420,7 +758,7 @@
     }
     
     reinterpret_cast<void (*)(id, SEL, id, id, id, id, id)>(objc_msgSend)(self.managedSettingsConnection.remoteObjectProxy, sel_registerName("getValuesForSettingNames:recordIdentifier:storeContainer:storeName:replyHandler:"), @[@"shield.applications"], recordIdentifier, @"com.pookjw.MyScreenTimeObjC", @"Test", ^(NSDictionary * _Nullable result, NSError * _Nullable error) {
-        assert(error == nil);
+        if (error != nil) return;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             self.selections = [SelectionDataSource selectionFromSavedData];

@@ -29,7 +29,7 @@ void custom(__kindof UIViewController *self, SEL _cmd) {
 }
 void swizzle() {
     Method method = class_getInstanceMethod(objc_lookUpClass("ActivityPickerRemoteViewController"), sel_registerName("didCancel"));
-    assert(method != NULL);
+    if (method == NULL) return;
     original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
     method_setImplementation(method, reinterpret_cast<IMP>(custom));
 }
@@ -43,7 +43,7 @@ void custom(__kindof UIViewController *self, SEL _cmd) {
 }
 void swizzle() {
     Method method = class_getInstanceMethod(objc_lookUpClass("ActivityPickerRemoteViewController"), sel_registerName("didFinishSelection"));
-    assert(method != NULL);
+    if (method == NULL) return;
     original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
     method_setImplementation(method, reinterpret_cast<IMP>(custom));
 }

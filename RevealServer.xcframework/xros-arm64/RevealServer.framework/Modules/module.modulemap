@@ -1,0 +1,11 @@
+framework module RevealServer {
+  umbrella header "RevealServer.h"
+  export *
+
+  module * { export * }
+}
+
+module RevealServer.Swift {
+  header "RevealServer-Swift.h"
+  requires objc
+}

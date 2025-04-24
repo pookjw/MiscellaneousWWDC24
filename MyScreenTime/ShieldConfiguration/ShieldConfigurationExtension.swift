@@ -13,6 +13,10 @@ import UIKit
 // The system provides a default appearance for any methods that your subclass doesn't override.
 // Make sure that your class name matches the NSExtensionPrincipalClass in your Info.plist.
 final class ShieldConfigurationExtension: ShieldConfigurationDataSource {
+    override init() {
+        super.init()
+    }
+    
     override func configuration(shielding application: Application) -> ShieldConfiguration {
         // Customize the shield as needed for applications.
         ShieldConfiguration(backgroundBlurStyle: .dark, backgroundColor: .clear, icon: UIImage(systemName: "apple.intelligence"), title: ShieldConfiguration.Label(text: "Text", color: .systemPink), subtitle: ShieldConfiguration.Label(text: "Subtitle", color: .systemRed), primaryButtonLabel: ShieldConfiguration.Label(text: "Primary", color: .brown), primaryButtonBackgroundColor: .green, secondaryButtonLabel: ShieldConfiguration.Label(text: "Secondary", color: .brown))
@@ -33,3 +37,5 @@ final class ShieldConfigurationExtension: ShieldConfigurationDataSource {
         ShieldConfiguration()
     }
 }
+
+// po [NSPropertyListSerialization propertyListWithData:(id)$x1 options:0 format:0x0 error:0x0]

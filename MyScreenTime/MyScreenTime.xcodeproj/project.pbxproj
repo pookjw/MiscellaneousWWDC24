@@ -15,6 +15,7 @@
 		4FA6F0742DB7F63C0009E6CF /* DeviceActivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FA6F0732DB7F63C0009E6CF /* DeviceActivity.framework */; };
 		4FA6F07C2DB7F63C0009E6CF /* DeviceActivityMonitorExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4FA6F0722DB7F63C0009E6CF /* DeviceActivityMonitorExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4FE6E9832DBA3A9000EB89B8 /* ManagedSettingsPrivate.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE6E9602DBA363100EB89B8 /* ManagedSettingsPrivate.xcframework */; };
+		4FE6ECE22DBA8BF200EB89B8 /* ManagedSettingsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FA6F04D2DB7D5240009E6CF /* ManagedSettingsUI.framework */; platformFilter = ios; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		4FA6F0722DB7F63C0009E6CF /* DeviceActivityMonitorExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DeviceActivityMonitorExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FA6F0732DB7F63C0009E6CF /* DeviceActivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceActivity.framework; path = System/Library/Frameworks/DeviceActivity.framework; sourceTree = SDKROOT; };
 		4FE6E9602DBA363100EB89B8 /* ManagedSettingsPrivate.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = ManagedSettingsPrivate.xcframework; sourceTree = "<group>"; };
+		4FE6E9B22DBA461F00EB89B8 /* ipabuild.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ipabuild.sh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -130,6 +132,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FE6E9832DBA3A9000EB89B8 /* ManagedSettingsPrivate.xcframework in Frameworks */,
+				4FE6ECE22DBA8BF200EB89B8 /* ManagedSettingsUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,6 +173,7 @@
 				4FA6F0752DB7F63C0009E6CF /* DeviceActivityMonitorExtension */,
 				4FA6F04A2DB7D5240009E6CF /* Frameworks */,
 				4FA6F0202DB7A5B90009E6CF /* Products */,
+				4FE6E9B22DBA461F00EB89B8 /* ipabuild.sh */,
 			);
 			sourceTree = "<group>";
 		};
@@ -554,6 +558,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -583,6 +588,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

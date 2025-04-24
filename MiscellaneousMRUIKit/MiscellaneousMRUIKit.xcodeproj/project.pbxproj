@@ -119,6 +119,10 @@
 		4FE624A92D1588B2008D14D8 /* WebXRViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FE624A72D1588B2008D14D8 /* WebXRViewController.mm */; };
 		4FE626F22D15B8CF008D14D8 /* CompositorServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE626F12D15B8CF008D14D8 /* CompositorServices.framework */; platformFilters = (xros, ); };
 		4FE626F32D15B8D6008D14D8 /* CompositorServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE626F12D15B8CF008D14D8 /* CompositorServices.framework */; platformFilters = (xros, ); };
+		4FE6E9CE2DBA787200EB89B8 /* RevealServer.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE6E9CD2DBA787200EB89B8 /* RevealServer.xcframework */; };
+		4FE6E9CF2DBA787200EB89B8 /* RevealServer.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE6E9CD2DBA787200EB89B8 /* RevealServer.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4FE6E9D12DBA787700EB89B8 /* RevealServer.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE6E9CD2DBA787200EB89B8 /* RevealServer.xcframework */; };
+		4FE6E9D22DBA787700EB89B8 /* RevealServer.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE6E9CD2DBA787200EB89B8 /* RevealServer.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4FFB23B72D58AE610070D95D /* FeedbackGeneratorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB23B62D58AE610070D95D /* FeedbackGeneratorViewController.mm */; };
 		4FFB23B82D58AE610070D95D /* FeedbackGeneratorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB23B62D58AE610070D95D /* FeedbackGeneratorViewController.mm */; };
 		4FFB23C12D58B1240070D95D /* HoverViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB23C02D58B1240070D95D /* HoverViewController.mm */; };
@@ -154,6 +158,31 @@
 		4FFB2A512D5A5AB20070D95D /* DisplayContentModeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB2A502D5A5AB20070D95D /* DisplayContentModeViewController.mm */; };
 		4FFB2A522D5A5AB20070D95D /* DisplayContentModeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB2A502D5A5AB20070D95D /* DisplayContentModeViewController.mm */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4FE6E9D02DBA787200EB89B8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4FE6E9CF2DBA787200EB89B8 /* RevealServer.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FE6E9D32DBA787700EB89B8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4FE6E9D22DBA787700EB89B8 /* RevealServer.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4F05B7612C834CA5001ECA93 /* MiscellaneousMRUIKit Private.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MiscellaneousMRUIKit Private.entitlements"; sourceTree = "<group>"; };
@@ -266,6 +295,7 @@
 		4FE624A62D1588B2008D14D8 /* WebXRViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebXRViewController.h; sourceTree = "<group>"; };
 		4FE624A72D1588B2008D14D8 /* WebXRViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WebXRViewController.mm; sourceTree = "<group>"; };
 		4FE626F12D15B8CF008D14D8 /* CompositorServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CompositorServices.framework; path = Platforms/XROS.platform/Developer/SDKs/XROS2.2.sdk/System/Library/Frameworks/CompositorServices.framework; sourceTree = DEVELOPER_DIR; };
+		4FE6E9CD2DBA787200EB89B8 /* RevealServer.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:2V82U7HN27:Itty Bitty Labs Pty Ltd"; lastKnownFileType = wrapper.xcframework; name = RevealServer.xcframework; path = ../RevealServer.xcframework; sourceTree = "<group>"; };
 		4FFB23B52D58AE610070D95D /* FeedbackGeneratorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackGeneratorViewController.h; sourceTree = "<group>"; };
 		4FFB23B62D58AE610070D95D /* FeedbackGeneratorViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FeedbackGeneratorViewController.mm; sourceTree = "<group>"; };
 		4FFB23BF2D58B1240070D95D /* HoverViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoverViewController.h; sourceTree = "<group>"; };
@@ -310,6 +340,7 @@
 				4FE626F32D15B8D6008D14D8 /* CompositorServices.framework in Frameworks */,
 				4FB9D6FC2D6C51B00007D368 /* ARKit.framework in Frameworks */,
 				4F26D3412C2FFAD20097B837 /* QuartzCore.framework in Frameworks */,
+				4FE6E9CE2DBA787200EB89B8 /* RevealServer.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +353,7 @@
 				4FE626F22D15B8CF008D14D8 /* CompositorServices.framework in Frameworks */,
 				4FB9D6FD2D6C51B30007D368 /* ARKit.framework in Frameworks */,
 				4FE6249A2D15877A008D14D8 /* QuartzCore.framework in Frameworks */,
+				4FE6E9D12DBA787700EB89B8 /* RevealServer.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,6 +485,7 @@
 		4F26D33F2C2FFAD20097B837 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4FE6E9CD2DBA787200EB89B8 /* RevealServer.xcframework */,
 				4FB9D6FB2D6C51B00007D368 /* ARKit.framework */,
 				4F98BCF92D56730B006D958B /* UniformTypeIdentifiers.framework */,
 				4FE626F12D15B8CF008D14D8 /* CompositorServices.framework */,
@@ -814,6 +847,7 @@
 				4F1C71192C2F2442002E096A /* Sources */,
 				4F1C711A2C2F2442002E096A /* Frameworks */,
 				4F1C711B2C2F2442002E096A /* Resources */,
+				4FE6E9D02DBA787200EB89B8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -831,6 +865,7 @@
 				4FE624812D15877A008D14D8 /* Sources */,
 				4FE624992D15877A008D14D8 /* Frameworks */,
 				4FE6249B2D15877A008D14D8 /* Resources */,
+				4FE6E9D32DBA787700EB89B8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

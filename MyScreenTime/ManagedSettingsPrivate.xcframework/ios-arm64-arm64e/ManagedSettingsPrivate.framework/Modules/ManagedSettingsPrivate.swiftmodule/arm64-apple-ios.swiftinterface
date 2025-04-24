@@ -23,10 +23,47 @@ public struct IntelligenceSettings: ManagedSettings.ManagedSettingsGroup {
 @available(iOS 18.0, visionOS 2.0, *)
 @_originallyDefinedIn(module: "ManagedSettings", iOS 18.0)
 @_originallyDefinedIn(module: "ManagedSettings", visionOS 2.0)
+public struct CalculatorSettings: ManagedSettings.ManagedSettingsGroup {
+    public var denyInputModeRPN: Swift.Bool? { get set }
+    public var effectiveDenyInputModeRPN: Swift.Bool? { get set }
+    public var denyInputModeUnitConversion: Swift.Bool? { get set }
+    public var effectiveDenyInputModeUnitConversion: Swift.Bool? { get set }
+    public var denyMathPaperSolving: Swift.Bool? { get set }
+    public var effectiveDenyMathPaperSolving: Swift.Bool? { get set }
+    public var denyModeMathPaper: Swift.Bool? { get set }
+    public var effectiveDenyModeMathPaper: Swift.Bool? { get set }
+    public var denyModeProgrammer: Swift.Bool? { get set }
+    public var effectiveDenyModeProgrammer: Swift.Bool? { get set }
+    public var denyModeScientific: Swift.Bool? { get set }
+    public var effectiveDenyModeScientific: Swift.Bool? { get set }
+    public var forceSquareRootOnBasicCalculator: Swift.Bool? { get set }
+    public var effectiveForceSquareRootOnBasicCalculator: Swift.Bool? { get set }
+}
+
+@available(iOS 18.0, visionOS 2.0, *)
+@_originallyDefinedIn(module: "ManagedSettings", iOS 18.0)
+@_originallyDefinedIn(module: "ManagedSettings", visionOS 2.0)
+public struct AirDropSettings: ManagedSettings.ManagedSettingsGroup {
+    public var denyAirDrop: Swift.Bool? { get set }
+    public var effectiveDenyAirDrop: Swift.Bool? { get set }
+}
+
+@available(iOS 18.0, visionOS 2.0, *)
+@_originallyDefinedIn(module: "ManagedSettings", iOS 18.0)
+@_originallyDefinedIn(module: "ManagedSettings", visionOS 2.0)
 extension ManagedSettings.ManagedSettingsStore {
-    // public var intelligence: ManagedSettingsPrivate.IntelligenceSettings { get set }
     @_silgen_name("$s15ManagedSettings0aB5StoreC12intelligenceAA012IntelligenceB0VvgTj")
     public func getIntelligence() -> ManagedSettingsPrivate.IntelligenceSettings
     @_silgen_name("$s15ManagedSettings0aB5StoreC12intelligenceAA012IntelligenceB0VvsTj")
-    public func setIntelligence(_ intelligence: ManagedSettingsPrivate.IntelligenceSettings)
+    public func set(_ intelligence: ManagedSettingsPrivate.IntelligenceSettings)
+
+    @_silgen_name("$s15ManagedSettings0aB5StoreC10calculatorAA010CalculatorB0VvgTj")
+    public func getCalculator() -> ManagedSettingsPrivate.CalculatorSettings
+    @_silgen_name("$s15ManagedSettings0aB5StoreC10calculatorAA010CalculatorB0VvsTj")
+    public func set(_ calculator: ManagedSettingsPrivate.CalculatorSettings)
+
+    @_silgen_name("$s15ManagedSettings0aB5StoreC7airDropAA03AireB0VvgTj")
+    public func getAirDrop() -> ManagedSettingsPrivate.AirDropSettings
+    @_silgen_name("$s15ManagedSettings0aB5StoreC7airDropAA03AireB0VvsTj")
+    public func set(_ calculator: ManagedSettingsPrivate.AirDropSettings)
 }

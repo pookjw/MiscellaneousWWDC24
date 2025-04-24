@@ -1,0 +1,1276 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "RevealServer",
+    "printedName": "RevealServer",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "os",
+        "printedName": "os",
+        "declKind": "Import",
+        "moduleName": "RevealServer",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "CRevealSupport",
+        "printedName": "CRevealSupport",
+        "declKind": "Import",
+        "moduleName": "RevealServer",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "RevealServer"
+      },
+      {
+        "kind": "Import",
+        "name": "IBAGCDAsyncSocket",
+        "printedName": "IBAGCDAsyncSocket",
+        "declKind": "Import",
+        "moduleName": "RevealServer"
+      },
+      {
+        "kind": "Import",
+        "name": "os",
+        "printedName": "os",
+        "declKind": "Import",
+        "moduleName": "RevealServer"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "USBServiceAdvertiserError",
+        "printedName": "USBServiceAdvertiserError",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "invalidServicePort",
+            "printedName": "invalidServicePort",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(RevealServer.USBServiceAdvertiserError.Type) -> RevealServer.USBServiceAdvertiserError",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "USBServiceAdvertiserError",
+                    "printedName": "RevealServer.USBServiceAdvertiserError",
+                    "usr": "s:12RevealServer25USBServiceAdvertiserErrorO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "RevealServer.USBServiceAdvertiserError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "USBServiceAdvertiserError",
+                        "printedName": "RevealServer.USBServiceAdvertiserError",
+                        "usr": "s:12RevealServer25USBServiceAdvertiserErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12RevealServer25USBServiceAdvertiserErrorO18invalidServicePortyA2CmF",
+            "mangledName": "$s12RevealServer25USBServiceAdvertiserErrorO18invalidServicePortyA2CmF",
+            "moduleName": "RevealServer"
+          },
+          {
+            "kind": "Var",
+            "name": "bindFailed",
+            "printedName": "bindFailed",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(RevealServer.USBServiceAdvertiserError.Type) -> RevealServer.USBServiceAdvertiserError",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "USBServiceAdvertiserError",
+                    "printedName": "RevealServer.USBServiceAdvertiserError",
+                    "usr": "s:12RevealServer25USBServiceAdvertiserErrorO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "RevealServer.USBServiceAdvertiserError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "USBServiceAdvertiserError",
+                        "printedName": "RevealServer.USBServiceAdvertiserError",
+                        "usr": "s:12RevealServer25USBServiceAdvertiserErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12RevealServer25USBServiceAdvertiserErrorO10bindFailedyA2CmF",
+            "mangledName": "$s12RevealServer25USBServiceAdvertiserErrorO10bindFailedyA2CmF",
+            "moduleName": "RevealServer"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "RevealServer.USBServiceAdvertiserError?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "USBServiceAdvertiserError",
+                    "printedName": "RevealServer.USBServiceAdvertiserError",
+                    "usr": "s:12RevealServer25USBServiceAdvertiserErrorO"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:12RevealServer25USBServiceAdvertiserErrorO8rawValueACSgSi_tcfc",
+            "mangledName": "$s12RevealServer25USBServiceAdvertiserErrorO8rawValueACSgSi_tcfc",
+            "moduleName": "RevealServer",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12RevealServer25USBServiceAdvertiserErrorO8rawValueSivp",
+            "mangledName": "$s12RevealServer25USBServiceAdvertiserErrorO8rawValueSivp",
+            "moduleName": "RevealServer",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12RevealServer25USBServiceAdvertiserErrorO8rawValueSivg",
+                "mangledName": "$s12RevealServer25USBServiceAdvertiserErrorO8rawValueSivg",
+                "moduleName": "RevealServer",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:12RevealServer25USBServiceAdvertiserErrorO",
+        "mangledName": "$s12RevealServer25USBServiceAdvertiserErrorO",
+        "moduleName": "RevealServer",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "enumRawTypeName": "Int",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Error",
+            "printedName": "Error",
+            "usr": "s:s5ErrorP",
+            "mangledName": "$ss5ErrorP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "USBServiceAdvertiser",
+        "printedName": "USBServiceAdvertiser",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(service:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "USBServiceAdvertiser",
+                "printedName": "RevealServer.USBServiceAdvertiser",
+                "usr": "c:@M@RevealServer@objc(cs)IBAUSBServiceAdvertiser"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "IBAUSBService",
+                "printedName": "CRevealSupport.IBAUSBService",
+                "usr": "c:objc(cs)IBAUSBService"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@RevealServer@objc(cs)IBAUSBServiceAdvertiser(im)initWithService:",
+            "mangledName": "$s12RevealServer20USBServiceAdvertiserC7serviceACSo13IBAUSBServiceC_tcfc",
+            "moduleName": "RevealServer",
+            "objc_name": "initWithService:",
+            "declAttributes": [
+              "Required",
+              "AccessControl",
+              "ObjC"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "service",
+            "printedName": "service",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "IBAUSBService",
+                "printedName": "CRevealSupport.IBAUSBService",
+                "usr": "c:objc(cs)IBAUSBService"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@RevealServer@objc(cs)IBAUSBServiceAdvertiser(py)service",
+            "mangledName": "$s12RevealServer20USBServiceAdvertiserC7serviceSo13IBAUSBServiceCvp",
+            "moduleName": "RevealServer",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "IBAUSBService",
+                    "printedName": "CRevealSupport.IBAUSBService",
+                    "usr": "c:objc(cs)IBAUSBService"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@RevealServer@objc(cs)IBAUSBServiceAdvertiser(im)service",
+                "mangledName": "$s12RevealServer20USBServiceAdvertiserC7serviceSo13IBAUSBServiceCvg",
+                "moduleName": "RevealServer",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "IBAUSBService",
+                    "printedName": "CRevealSupport.IBAUSBService",
+                    "usr": "c:objc(cs)IBAUSBService"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@RevealServer@objc(cs)IBAUSBServiceAdvertiser(im)setService:",
+                "mangledName": "$s12RevealServer20USBServiceAdvertiserC7serviceSo13IBAUSBServiceCvs",
+                "moduleName": "RevealServer",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12RevealServer20USBServiceAdvertiserC7serviceSo13IBAUSBServiceCvM",
+                "mangledName": "$s12RevealServer20USBServiceAdvertiserC7serviceSo13IBAUSBServiceCvM",
+                "moduleName": "RevealServer",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "iba_listeningPort",
+            "printedName": "iba_listeningPort",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UInt",
+                "printedName": "Swift.UInt",
+                "usr": "s:Su"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@RevealServer@objc(cs)IBAUSBServiceAdvertiser(py)iba_listeningPort",
+            "mangledName": "$s12RevealServer20USBServiceAdvertiserC17iba_listeningPortSuvp",
+            "moduleName": "RevealServer",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UInt",
+                    "printedName": "Swift.UInt",
+                    "usr": "s:Su"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@RevealServer@objc(cs)IBAUSBServiceAdvertiser(im)iba_listeningPort",
+                "mangledName": "$s12RevealServer20USBServiceAdvertiserC17iba_listeningPortSuvg",
+                "moduleName": "RevealServer",
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "listeningPort",
+            "printedName": "listeningPort",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.UInt16?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UInt16",
+                    "printedName": "Swift.UInt16",
+                    "usr": "s:s6UInt16V"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12RevealServer20USBServiceAdvertiserC13listeningPorts6UInt16VSgvp",
+            "mangledName": "$s12RevealServer20USBServiceAdvertiserC13listeningPorts6UInt16VSgvp",
+            "moduleName": "RevealServer",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.UInt16?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UInt16",
+                        "printedName": "Swift.UInt16",
+                        "usr": "s:s6UInt16V"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12RevealServer20USBServiceAdvertiserC13listeningPorts6UInt16VSgvg",
+                "mangledName": "$s12RevealServer20USBServiceAdvertiserC13listeningPorts6UInt16VSgvg",
+                "moduleName": "RevealServer",
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "start",
+            "printedName": "start()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@RevealServer@objc(cs)IBAUSBServiceAdvertiser(im)startAndReturnError:",
+            "mangledName": "$s12RevealServer20USBServiceAdvertiserC5startyyKF",
+            "moduleName": "RevealServer",
+            "objc_name": "startAndReturnError:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "stop",
+            "printedName": "stop()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@RevealServer@objc(cs)IBAUSBServiceAdvertiser(im)stop",
+            "mangledName": "$s12RevealServer20USBServiceAdvertiserC4stopyyF",
+            "moduleName": "RevealServer",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "USBServiceAdvertiser",
+                "printedName": "RevealServer.USBServiceAdvertiser",
+                "usr": "c:@M@RevealServer@objc(cs)IBAUSBServiceAdvertiser"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@RevealServer@objc(cs)IBAUSBServiceAdvertiser(im)init",
+            "mangledName": "$s12RevealServer20USBServiceAdvertiserCACycfc",
+            "moduleName": "RevealServer",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "socket",
+            "printedName": "socket(_:didAcceptNewSocket:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ImplicitlyUnwrappedOptional",
+                "printedName": "IBAGCDAsyncSocket.IBAGCDAsyncSocket?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "IBAGCDAsyncSocket",
+                    "printedName": "IBAGCDAsyncSocket.IBAGCDAsyncSocket",
+                    "usr": "c:objc(cs)IBAGCDAsyncSocket"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ImplicitlyUnwrappedOptional",
+                "printedName": "IBAGCDAsyncSocket.IBAGCDAsyncSocket?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "IBAGCDAsyncSocket",
+                    "printedName": "IBAGCDAsyncSocket.IBAGCDAsyncSocket",
+                    "usr": "c:objc(cs)IBAGCDAsyncSocket"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@RevealServer@objc(cs)IBAUSBServiceAdvertiser(im)socket:didAcceptNewSocket:",
+            "mangledName": "$s12RevealServer20USBServiceAdvertiserC6socket_18didAcceptNewSocketySo011IBAGCDAsyncI0CSg_AHtF",
+            "moduleName": "RevealServer",
+            "objc_name": "socket:didAcceptNewSocket:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "socketDidDisconnect",
+            "printedName": "socketDidDisconnect(_:withError:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ImplicitlyUnwrappedOptional",
+                "printedName": "IBAGCDAsyncSocket.IBAGCDAsyncSocket?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "IBAGCDAsyncSocket",
+                    "printedName": "IBAGCDAsyncSocket.IBAGCDAsyncSocket",
+                    "usr": "c:objc(cs)IBAGCDAsyncSocket"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ImplicitlyUnwrappedOptional",
+                "printedName": "(any Swift.Error)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Error",
+                    "printedName": "any Swift.Error",
+                    "usr": "s:s5ErrorP"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@RevealServer@objc(cs)IBAUSBServiceAdvertiser(im)socketDidDisconnect:withError:",
+            "mangledName": "$s12RevealServer20USBServiceAdvertiserC19socketDidDisconnect_9withErrorySo17IBAGCDAsyncSocketCSg_s0I0_pSgtF",
+            "moduleName": "RevealServer",
+            "objc_name": "socketDidDisconnect:withError:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@RevealServer@objc(cs)IBAUSBServiceAdvertiser",
+        "mangledName": "$s12RevealServer20USBServiceAdvertiserC",
+        "moduleName": "RevealServer",
+        "objc_name": "IBAUSBServiceAdvertiser",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "RevealServer",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "RevealServer"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKitHelpers",
+        "printedName": "UIKitHelpers",
+        "declKind": "Import",
+        "moduleName": "RevealServer",
+        "declAttributes": [
+          "AccessControl"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "CRevealSupport",
+        "printedName": "CRevealSupport",
+        "declKind": "Import",
+        "moduleName": "RevealServer",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Darwin",
+        "printedName": "Darwin",
+        "declKind": "Import",
+        "moduleName": "RevealServer"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "RevealServer"
+      },
+      {
+        "kind": "Import",
+        "name": "FoundationHelpers",
+        "printedName": "FoundationHelpers",
+        "declKind": "Import",
+        "moduleName": "RevealServer",
+        "declAttributes": [
+          "AccessControl"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "IBAHTTPServer",
+        "printedName": "IBAHTTPServer",
+        "declKind": "Import",
+        "moduleName": "RevealServer"
+      },
+      {
+        "kind": "Import",
+        "name": "RevealSharedUtilities",
+        "printedName": "RevealSharedUtilities",
+        "declKind": "Import",
+        "moduleName": "RevealServer"
+      },
+      {
+        "kind": "Import",
+        "name": "ServerHTTPTransport",
+        "printedName": "ServerHTTPTransport",
+        "declKind": "Import",
+        "moduleName": "RevealServer"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKitHelpers",
+        "printedName": "UIKitHelpers",
+        "declKind": "Import",
+        "moduleName": "RevealServer",
+        "declAttributes": [
+          "AccessControl"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "os",
+        "printedName": "os",
+        "declKind": "Import",
+        "moduleName": "RevealServer"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "IBARevealServer",
+        "printedName": "IBARevealServer",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "IBARevealServer",
+                "printedName": "RevealServer.IBARevealServer",
+                "usr": "c:@M@RevealServer@objc(cs)IBARevealServer"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@RevealServer@objc(cs)IBARevealServer(im)init",
+            "mangledName": "$s12RevealServer09IBARevealB0CACycfc",
+            "moduleName": "RevealServer",
+            "overriding": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "AccessControl",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "shared",
+            "printedName": "shared",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "IBARevealServer",
+                "printedName": "RevealServer.IBARevealServer",
+                "usr": "c:@M@RevealServer@objc(cs)IBARevealServer"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@RevealServer@objc(cs)IBARevealServer(cpy)sharedServer",
+            "mangledName": "$s12RevealServer09IBARevealB0C6sharedACvpZ",
+            "moduleName": "RevealServer",
+            "static": true,
+            "objc_name": "sharedServer",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "IBARevealServer",
+                    "printedName": "RevealServer.IBARevealServer",
+                    "usr": "c:@M@RevealServer@objc(cs)IBARevealServer"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@RevealServer@objc(cs)IBARevealServer(cm)sharedServer",
+                "mangledName": "$s12RevealServer09IBARevealB0C6sharedACvgZ",
+                "moduleName": "RevealServer",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "isRunning",
+            "printedName": "isRunning",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@RevealServer@objc(cs)IBARevealServer(py)isRunning",
+            "mangledName": "$s12RevealServer09IBARevealB0C9isRunningSbvp",
+            "moduleName": "RevealServer",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@RevealServer@objc(cs)IBARevealServer(im)isRunning",
+                "mangledName": "$s12RevealServer09IBARevealB0C9isRunningSbvg",
+                "moduleName": "RevealServer",
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "start",
+            "printedName": "start()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@RevealServer@objc(cs)IBARevealServer(im)startAndReturnError:",
+            "mangledName": "$s12RevealServer09IBARevealB0C5startyyKF",
+            "moduleName": "RevealServer",
+            "objc_name": "startAndReturnError:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "stop",
+            "printedName": "stop()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@RevealServer@objc(cs)IBARevealServer(im)stop",
+            "mangledName": "$s12RevealServer09IBARevealB0C4stopyyF",
+            "moduleName": "RevealServer",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "netService",
+            "printedName": "netService(_:didNotPublish:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ImplicitlyUnwrappedOptional",
+                "printedName": "CRevealSupport.IBANetService?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "IBANetService",
+                    "printedName": "CRevealSupport.IBANetService",
+                    "usr": "c:objc(cs)IBANetService"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ImplicitlyUnwrappedOptional",
+                "printedName": "(any Swift.Error)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Error",
+                    "printedName": "any Swift.Error",
+                    "usr": "s:s5ErrorP"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@RevealServer@objc(cs)IBARevealServer(im)netService:didNotPublish:",
+            "mangledName": "$s12RevealServer09IBARevealB0C10netService_13didNotPublishySo06IBANetE0CSg_s5Error_pSgtF",
+            "moduleName": "RevealServer",
+            "objc_name": "netService:didNotPublish:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "netServiceDidPublish",
+            "printedName": "netServiceDidPublish(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ImplicitlyUnwrappedOptional",
+                "printedName": "CRevealSupport.IBANetService?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "IBANetService",
+                    "printedName": "CRevealSupport.IBANetService",
+                    "usr": "c:objc(cs)IBANetService"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@RevealServer@objc(cs)IBARevealServer(im)netServiceDidPublish:",
+            "mangledName": "$s12RevealServer09IBARevealB0C20netServiceDidPublishyySo06IBANetE0CSgF",
+            "moduleName": "RevealServer",
+            "objc_name": "netServiceDidPublish:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@RevealServer@objc(cs)IBARevealServer",
+        "mangledName": "$s12RevealServer09IBARevealB0C",
+        "moduleName": "RevealServer",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/admin\/actions-runner\/_work\/reveal\/reveal\/Server\/RevealServer\/Sources\/Logger.swift",
+      "kind": "StringLiteral",
+      "offset": 139,
+      "length": 32,
+      "value": "\"com.ittybittyapps.RevealServer\""
+    },
+    {
+      "filePath": "\/Users\/admin\/actions-runner\/_work\/reveal\/reveal\/Server\/RevealServer\/Sources\/Logger.swift",
+      "kind": "StringLiteral",
+      "offset": 183,
+      "length": 9,
+      "value": "\"General\""
+    },
+    {
+      "filePath": "\/Users\/admin\/actions-runner\/_work\/reveal\/reveal\/Server\/RevealServer\/Sources\/USBServiceAdvertiser.swift",
+      "kind": "IntegerLiteral",
+      "offset": 227,
+      "length": 5,
+      "value": "-1000"
+    },
+    {
+      "filePath": "\/Users\/admin\/actions-runner\/_work\/reveal\/reveal\/Server\/RevealServer\/Sources\/USBServiceAdvertiser.swift",
+      "kind": "IntegerLiteral",
+      "offset": 255,
+      "length": 5,
+      "value": "-2000"
+    },
+    {
+      "filePath": "\/Users\/admin\/actions-runner\/_work\/reveal\/reveal\/Server\/RevealServer\/Sources\/USBServiceAdvertiser.swift",
+      "kind": "StringLiteral",
+      "offset": 286,
+      "length": 36,
+      "value": "\"IBAUSBServiceAdvertiserErrorDomain\""
+    },
+    {
+      "filePath": "\/Users\/admin\/actions-runner\/_work\/reveal\/reveal\/Server\/RevealServer\/Sources\/USBServiceAdvertiser.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1887,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/admin\/actions-runner\/_work\/reveal\/reveal\/Server\/RevealServer\/Sources\/USBServiceAdvertiser.swift",
+      "kind": "StringLiteral",
+      "offset": 3510,
+      "length": 22,
+      "value": "\"USBServiceAdvertiser\""
+    },
+    {
+      "filePath": "\/Users\/admin\/actions-runner\/_work\/reveal\/reveal\/Server\/RevealServer\/Sources\/USBServiceAdvertiser.swift",
+      "kind": "Array",
+      "offset": 3628,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/admin\/actions-runner\/_work\/reveal\/reveal\/Server\/RevealServer\/Sources\/ApplicationStateTracker.swift",
+      "kind": "StringLiteral",
+      "offset": 3125,
+      "length": 58,
+      "value": "\"_UIViewServiceHostedWindowWillDisconnectNotificationName\""
+    },
+    {
+      "filePath": "\/Users\/admin\/actions-runner\/_work\/reveal\/reveal\/Server\/RevealServer\/Sources\/ApplicationStateTracker.swift",
+      "kind": "Array",
+      "offset": 3230,
+      "length": 2,
+      "value": "[]"
+    }
+  ]
+}

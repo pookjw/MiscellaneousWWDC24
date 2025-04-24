@@ -1,0 +1,61 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.1 effective-5.10 (swiftlang-6.1.0.110.21 clang-1700.0.13.3)
+// swift-module-flags: -target arm64-apple-xros2.4 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-upcoming-feature ConciseMagicFile -enable-upcoming-feature DeprecateApplicationMain -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature IsolatedDefaultValues -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name RevealServer
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface -interface-compiler-version 6.1
+import CRevealSupport
+import Darwin
+import Foundation
+import IBAGCDAsyncSocket
+import IBAHTTPServer
+@_exported import RevealServer
+import RevealSharedUtilities
+import ServerHTTPTransport
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+import os
+@_inheritsConvenienceInitializers @objc public class IBARevealServer : ObjectiveC.NSObject {
+  @objc override dynamic public init()
+  @objc(sharedServer) public static let shared: RevealServer.IBARevealServer
+  @objc public var isRunning: Swift.Bool {
+    @objc get
+  }
+  @objc public func start() throws
+  @objc public func stop()
+  @objc deinit
+}
+extension RevealServer.IBARevealServer : CRevealSupport.IBANetServiceDelegate {
+  @objc dynamic public func netService(_ sender: CRevealSupport.IBANetService!, didNotPublish error: (any Swift.Error)!)
+  @objc dynamic public func netServiceDidPublish(_ sender: CRevealSupport.IBANetService!)
+}
+public enum USBServiceAdvertiserError : Swift.Int, Swift.Error {
+  case invalidServicePort
+  case bindFailed
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc(IBAUSBServiceAdvertiser) public class USBServiceAdvertiser : ObjectiveC.NSObject {
+  @objc required public init(service: CRevealSupport.IBAUSBService)
+  @objc deinit
+  @objc public var service: CRevealSupport.IBAUSBService
+  @objc public var iba_listeningPort: Swift.UInt {
+    @objc get
+  }
+  public var listeningPort: Swift.UInt16? {
+    get
+  }
+  @objc public func start() throws
+  @objc public func stop()
+}
+extension RevealServer.USBServiceAdvertiser : IBAGCDAsyncSocket.IBAGCDAsyncSocketDelegate {
+  @objc dynamic public func socket(_ sock: IBAGCDAsyncSocket.IBAGCDAsyncSocket!, didAcceptNewSocket newSocket: IBAGCDAsyncSocket.IBAGCDAsyncSocket!)
+  @objc dynamic public func socketDidDisconnect(_ sock: IBAGCDAsyncSocket.IBAGCDAsyncSocket!, withError err: (any Swift.Error)!)
+}
+extension RevealServer.USBServiceAdvertiserError : Swift.Equatable {}
+extension RevealServer.USBServiceAdvertiserError : Swift.Hashable {}
+extension RevealServer.USBServiceAdvertiserError : Swift.RawRepresentable {}
