@@ -119,19 +119,21 @@ namespace sco_MonitorContext {
                     return;
                 }
                 
-                NSMutableSet<NSData *> *applicationTokens = [NSMutableSet new];
+                NSMutableArray *array = [NSMutableArray new];
                 for (id event in events.allValues) {
                     NSSet<NSData *> *_applicationTokens = reinterpret_cast<id (*)(id, SEL)>(objc_msgSend)(event, sel_registerName("applicationTokens"));
-                    [applicationTokens addObjectsFromArray:_applicationTokens.allObjects];
+                    for (NSData *token in _applicationTokens) {
+                        [array addObject:@{@"token": @{@"data": token}}];
+                    }
                 }
                 
                 reinterpret_cast<void (*)(id, SEL, id, id, id, id, id)>(objc_msgSend)(_managedSettingsConnection.remoteObjectProxy, sel_registerName("setValues:recordIdentifier:storeContainer:storeName:replyHandler:"), @{
-                    @"shield.applications": applicationTokens.allObjects
+                    @"shield.applications": array
                 }, nil, @"com.pookjw.MyScreenTimeObjC", @"Test", ^(NSUUID * _Nullable recordIdentifier, NSError * _Nullable error) {
                     replyHandler(error);
                 });
                 
-                [applicationTokens release];
+                [array release];
             });
         }
     });

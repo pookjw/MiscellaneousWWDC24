@@ -668,7 +668,7 @@
                             id activity = reinterpret_cast<id (*)(id, SEL, id, id, BOOL, id)>(objc_msgSend)([objc_lookUpClass("USDeviceActivitySchedule") alloc], sel_registerName("initWithIntervalStart:intervalEnd:repeats:warningTime:"), start, end, NO, nil);
                             [end release];
                             
-                            id event = reinterpret_cast<id (*)(id, SEL, id, id, id, id, BOOL)>(objc_msgSend)([objc_lookUpClass("USDeviceActivityEvent") alloc], sel_registerName("initWithApplicationTokens:categoryTokens:webDomainTokens:threshold:includesPastActivity:"), [NSSet setWithArray:weakSelf.selections.applications], [NSSet set], [NSSet set], threshold, NO);
+                            id event = reinterpret_cast<id (*)(id, SEL, id, id, id, id, BOOL)>(objc_msgSend)([objc_lookUpClass("USDeviceActivityEvent") alloc], sel_registerName("initWithApplicationTokens:categoryTokens:webDomainTokens:threshold:includesPastActivity:"), [NSSet setWithArray:weakSelf.selections.applications], [NSSet set], [NSSet set], threshold, YES);
                             [threshold release];
                             
                             reinterpret_cast<void (*)(id, SEL, id, id, id, id, id, id)>(objc_msgSend)(usageTrackingConnection.remoteObjectProxy, sel_registerName("startMonitoringActivity:withSchedule:events:forClient:withExtension:replyHandler:"), @"Test", activity, @{@"Event": event}, nil, nil, ^(NSError * _Nullable error) {
@@ -677,6 +677,18 @@
                             
                             [activity release];
                             [event release];
+                        }];
+                        [children_2 addObject:action];
+                    }
+                    
+                    {
+                        UIAction *action = [UIAction actionWithTitle:@"Stop Monitoring Activities" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                            reinterpret_cast<void (*)(id, SEL, id, id)>(objc_msgSend)(usageTrackingConnection.remoteObjectProxy, sel_registerName("fetchActivitiesForClient:replyHandler:"), nil, ^(NSArray<NSString *> * _Nullable activities, NSError * _Nullable error) {
+                                assert(error == nil);
+                                reinterpret_cast<void (*)(id, SEL, id, id, id)>(objc_msgSend)(usageTrackingConnection.remoteObjectProxy, sel_registerName("stopMonitoringActivities:forClient:replyHandler:"), activities, nil, ^(NSError * _Nullable error) {
+                                    assert(error == nil);
+                                });
+                            });
                         }];
                         [children_2 addObject:action];
                     }
@@ -695,7 +707,27 @@
                                 reinterpret_cast<void (*)(id, SEL, id, id, id)>(objc_msgSend)(usageTrackingConnection.remoteObjectProxy, sel_registerName("fetchEventsForActivity:withClient:replyHandler:"), activity, nil, ^(NSDictionary * _Nullable events, NSError * _Nullable error) {
                                     assert(error == nil);
                                     
-                                    NSLog(@"%@", events);
+                                    NSArray<NSData *> *applications = weakSelf.selections.applications;
+                                    NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:applications.count];
+                                    for (NSData *data in applications) {
+                                        [array addObject:@{@"token": @{@"data": data}}];
+                                    }
+                                    
+                                    NSUUID * _Nullable recordIdentifier;
+                                    if (NSString *recordIdentifierString = [NSUserDefaults.standardUserDefaults stringForKey:@"recordIdentifier"]) {
+                                        recordIdentifier = [[NSUUID alloc] initWithUUIDString:recordIdentifierString];
+                                    } else {
+                                        recordIdentifier = nil;
+                                    }
+                                    
+                                    reinterpret_cast<void (*)(id, SEL, id, id, id, id, id)>(objc_msgSend)(managedSettingsConnection.remoteObjectProxy, sel_registerName("setValues:recordIdentifier:storeContainer:storeName:replyHandler:"), @{
+                                        @"shield.applications": array
+                                    }, recordIdentifier, @"com.pookjw.MyScreenTimeObjC", @"Test", ^(NSUUID * _Nullable recordIdentifier, NSError * _Nullable error) {
+                                        assert(error == nil);
+                                    });
+                                    [recordIdentifier release];
+                                    
+                                    [array release];
                                 });
                             }
                         });
