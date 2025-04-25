@@ -700,37 +700,9 @@
                 
                 {
                     UIAction *action = [UIAction actionWithTitle:@"Test" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                        reinterpret_cast<void (*)(id, SEL, id, id)>(objc_msgSend)(usageTrackingConnection.remoteObjectProxy, sel_registerName("fetchActivitiesForClient:replyHandler:"), nil, ^(NSArray<NSString *> * _Nullable activities, NSError * _Nullable error) {
-                            assert(error == nil);
-                            
-                            for (NSString *activity in activities) {
-                                reinterpret_cast<void (*)(id, SEL, id, id, id)>(objc_msgSend)(usageTrackingConnection.remoteObjectProxy, sel_registerName("fetchEventsForActivity:withClient:replyHandler:"), activity, nil, ^(NSDictionary * _Nullable events, NSError * _Nullable error) {
-                                    assert(error == nil);
-                                    
-                                    NSArray<NSData *> *applications = weakSelf.selections.applications;
-                                    NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:applications.count];
-                                    for (NSData *data in applications) {
-                                        [array addObject:@{@"token": @{@"data": data}}];
-                                    }
-                                    
-                                    NSUUID * _Nullable recordIdentifier;
-                                    if (NSString *recordIdentifierString = [NSUserDefaults.standardUserDefaults stringForKey:@"recordIdentifier"]) {
-                                        recordIdentifier = [[NSUUID alloc] initWithUUIDString:recordIdentifierString];
-                                    } else {
-                                        recordIdentifier = nil;
-                                    }
-                                    
-                                    reinterpret_cast<void (*)(id, SEL, id, id, id, id, id)>(objc_msgSend)(managedSettingsConnection.remoteObjectProxy, sel_registerName("setValues:recordIdentifier:storeContainer:storeName:replyHandler:"), @{
-                                        @"shield.applications": array
-                                    }, recordIdentifier, @"com.pookjw.MyScreenTimeObjC", @"Test", ^(NSUUID * _Nullable recordIdentifier, NSError * _Nullable error) {
-                                        assert(error == nil);
-                                    });
-                                    [recordIdentifier release];
-                                    
-                                    [array release];
-                                });
-                            }
-                        });
+                        id query = reinterpret_cast<id (*)(Class, SEL, id)>(objc_msgSend)(objc_lookUpClass("_EXQuery"), sel_registerName("extensionPointIdentifierQuery:"), @"com.apple.deviceactivityui.report-service");
+                        NSArray *result = reinterpret_cast<id (*)(Class, SEL, id)>(objc_msgSend)(objc_lookUpClass("_EXQueryController"), sel_registerName("executeQuery:"), query);
+                        NSLog(@"%@", result);
                     }];
                     [children addObject:action];
                 }
