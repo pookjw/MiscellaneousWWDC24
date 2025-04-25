@@ -24,6 +24,7 @@ struct ContentView: View {
         }
     }()
     @State private var isPresented: Bool = false
+    @State private var isReportPresented: Bool = false
     @State private var store: ManagedSettings.ManagedSettingsStore = ManagedSettings.ManagedSettingsStore(named: .init("Test"))
     @State private var center: DeviceActivity.DeviceActivityCenter = .init()
     
@@ -176,6 +177,10 @@ struct ContentView: View {
                 Button("Test") {
                     test()
                 }
+                
+                Button("Present Report") {
+                    isReportPresented = true
+                }
             } label: {
                 Label("Menu", systemImage: "filemenu.and.selection")
             }
@@ -183,6 +188,9 @@ struct ContentView: View {
         .navigationTitle("Home")
         .navigationBarTitleDisplayMode(.inline)
         .familyActivityPicker(headerText: "Header Text", footerText: "Footer Text", isPresented: $isPresented, selection: $selection)
+        .sheet(isPresented: $isReportPresented) {
+            DeviceActivityReport(.init("Total Activity"), filter: DeviceActivityFilter())
+        }
         .onReceive(FamilyControls.AuthorizationCenter.shared.$authorizationStatus) { newValue in
             authorizationStatus = newValue
         }
