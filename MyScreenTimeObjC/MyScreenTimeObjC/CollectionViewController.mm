@@ -652,10 +652,17 @@
                     
                     {
                         UIAction *action = [UIAction actionWithTitle:@"Start Monitoring Activity" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-#warning TODO
-                            id activity = reinterpret_cast<id (*)(id, SEL, id, id, BOOL, id)>(objc_msgSend)([objc_lookUpClass("USDeviceActivitySchedule") alloc], sel_registerName("initWithIntervalStart:intervalEnd:repeats:warningTime:"), nil, nil, NO, nil);
+                            NSDateComponents *now = [NSCalendar.currentCalendar components:NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:[NSDate now]];
                             
-                            id event = reinterpret_cast<id (*)(id, SEL, id, id, id, id, id)>(objc_msgSend)([objc_lookUpClass("USDeviceActivityEvent") alloc], sel_registerName("initWithApplicationTokens:categoryTokens:webDomainTokens:threshold:includesPastActivity:"), nil, nil, nil, nil, nil);
+                            NSDateComponents *start = now;
+                            
+                            NSDateComponents *end = [now copy];
+                            end.hour += 1;
+                            
+                            id activity = reinterpret_cast<id (*)(id, SEL, id, id, BOOL, id)>(objc_msgSend)([objc_lookUpClass("USDeviceActivitySchedule") alloc], sel_registerName("initWithIntervalStart:intervalEnd:repeats:warningTime:"), start, end, NO, nil);
+                            [end release];
+                            
+                            id event = reinterpret_cast<id (*)(id, SEL, id, id, id, id, id)>(objc_msgSend)([objc_lookUpClass("USDeviceActivityEvent") alloc], sel_registerName("initWithApplicationTokens:categoryTokens:webDomainTokens:threshold:includesPastActivity:"), [NSSet setWithArray:weakSelf.selections.applications], nil, nil, nil, nil);
                             
                             reinterpret_cast<void (*)(id, SEL, id, id, id, id, id, id)>(objc_msgSend)(usageTrackingConnection.remoteObjectProxy, sel_registerName("startMonitoringActivity:withSchedule:events:forClient:withExtension:replyHandler:"), @"Test", activity, @{@"Event": event}, nil, nil, ^(NSError * _Nullable error) {
                                 assert(error == nil);
