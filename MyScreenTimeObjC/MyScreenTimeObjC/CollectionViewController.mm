@@ -59,7 +59,7 @@
         };
         [_managedSettingsConnection resume];
         
-        // TODO: -[NSXPCInterface setClasses:forSelector:argumentIndex:ofReply:] 정의 필요함
+        // TODO: 직접 NSXPCConnection을 생성하고 싶다면 -[NSXPCInterface setClasses:forSelector:argumentIndex:ofReply:] 정의 필요함
 //        _usageTrackingConnection = reinterpret_cast<id (*)(id, SEL, id, NSXPCConnectionOptions)>(objc_msgSend)([NSXPCConnection alloc], sel_registerName("initWithMachServiceName:options:"), @"com.apple.UsageTrackingAgent", NSXPCConnectionPrivileged);
 //        _usageTrackingConnection.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:NSProtocolFromString(@"USUsageTrackingAgent")];
         _usageTrackingConnection = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("USTrackingAgentConnection"), sel_registerName("newConnection"));
