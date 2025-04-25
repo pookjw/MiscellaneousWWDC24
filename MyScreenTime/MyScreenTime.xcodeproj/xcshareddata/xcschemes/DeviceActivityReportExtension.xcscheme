@@ -16,9 +16,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4FA6F0712DB7F63C0009E6CF"
-               BuildableName = "DeviceActivityMonitorExtension.appex"
-               BlueprintName = "DeviceActivityMonitorExtension"
+               BlueprintIdentifier = "4FF4E3762DBB60F000E3C1E2"
+               BuildableName = "DeviceActivityReportExtension.appex"
+               BlueprintName = "DeviceActivityReportExtension"
                ReferencedContainer = "container:MyScreenTime.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -57,8 +57,12 @@
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "2">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "0"
+         BundleIdentifier = "com.pookjw.MyScreenTimeObjC"
+         RemotePath = "/var/containers/Bundle/Application/6DF466E9-6A3B-4482-9EE1-8332E22F89F3/MyScreenTimeObjC.app">
+      </RemoteRunnable>
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4FA6F01E2DB7A5B90009E6CF"
@@ -66,7 +70,7 @@
             BlueprintName = "MyScreenTime"
             ReferencedContainer = "container:MyScreenTime.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

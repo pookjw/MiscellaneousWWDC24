@@ -123,19 +123,9 @@ struct ContentView: View {
                 }
                 
                 Button("Start Monitoring") {
-                    let now = Calendar.current.dateComponents([.month, .day, .hour, .minute], from: .now)
-                    
-                    var start = now
-//                    start.minute! += 3
-                    
-                    var end = now
-                    end.hour! += 1
-                    
-//                    var warningTime = now
-//                    warningTime.minute! += 5
-                    
-                    var threshold = now
-                    threshold.minute! = 50
+                    let start = Calendar.current.dateComponents([.month, .day, .hour, .minute], from: .now)
+                    let end = Calendar.current.dateComponents([.month, .day, .hour, .minute], from: .now.addingTimeInterval(40 * 60))
+                    let threshold = Calendar.current.dateComponents([.month, .day, .hour, .minute], from: .now.addingTimeInterval(50 * 60))
                     
                     let schedule = DeviceActivitySchedule.init(intervalStart: start, intervalEnd: end, repeats: true, warningTime: nil)
                     

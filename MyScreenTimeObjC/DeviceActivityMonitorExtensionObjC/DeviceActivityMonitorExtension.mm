@@ -12,7 +12,7 @@
 @interface DeviceActivityMonitorExtension ()
 @property (retain, nonatomic, readonly, getter=_managedSettingsConnection) NSXPCConnection *managedSettingsConnection;
 @property (retain, nonatomic, readonly, getter=_usageTrackingConnection) NSXPCConnection *usageTrackingConnection;
-- (void)intervalDidStartForActivity:(NSString *)activity replyHandler:(void (^ NS_NOESCAPE)(NSError * _Nullable error))replyHandler;
+- (void)intervalDidStartForActivity:(NSString *)activity replyHandler:(void (^)(NSError * _Nullable error))replyHandler;
 - (void)intervalDidEndForActivity:(NSString *)activity replyHandler:(void (^ NS_NOESCAPE)(NSError * _Nullable error))replyHandler;
 @end
 
@@ -105,7 +105,7 @@ namespace sco_MonitorContext {
     [super dealloc];
 }
 
-- (void)intervalDidStartForActivity:(NSString *)activity replyHandler:(void (^ NS_NOESCAPE)(NSError * _Nullable error))replyHandler {
+- (void)intervalDidStartForActivity:(NSString *)activity replyHandler:(void (^)(NSError * _Nullable error))replyHandler {
     reinterpret_cast<void (*)(id, SEL, id, id)>(objc_msgSend)(_usageTrackingConnection.remoteObjectProxy, sel_registerName("fetchActivitiesForClient:replyHandler:"), nil, ^(NSArray<NSString *> * _Nullable activities, NSError * _Nullable error) {
         if (error != nil) {
             replyHandler(error);

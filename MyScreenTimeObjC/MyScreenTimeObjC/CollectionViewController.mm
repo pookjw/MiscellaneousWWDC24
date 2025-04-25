@@ -10,6 +10,7 @@
 #import <objc/message.h>
 #import "Swizzler.h"
 #import "SelectionDataSource.h"
+#include <dlfcn.h>
 
 /*
  _TtC14DeviceActivity28DeviceActivityMonitorContext
@@ -31,6 +32,16 @@
 @synthesize cellRegistration = _cellRegistration;
 @synthesize headerRegistration = _headerRegistration;
 @synthesize menuBarButtonItem = _menuBarButtonItem;
+
++ (void)load {
+    assert(dlopen("/System/Library/Frameworks/_DeviceActivity_SwiftUI.framework/_DeviceActivity_SwiftUI", RTLD_NOW) != NULL);
+    
+    if (Protocol *EXHostViewControllerDelegate = NSProtocolFromString(@"EXHostViewControllerDelegate")) {
+        assert(class_addProtocol([CollectionViewController class], EXHostViewControllerDelegate));
+    } else {
+        abort();
+    }
+}
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     UICollectionLayoutListConfiguration *listConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearanceInsetGrouped];
@@ -633,15 +644,6 @@
                             [children_2 addObject:action];
                         }
                         
-                        {
-                            UIAction *action = [UIAction actionWithTitle:@"Test" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                                reinterpret_cast<void (*)(id, SEL, id, id, id, id, id)>(objc_msgSend)(managedSettingsConnection.remoteObjectProxy, sel_registerName("getValuesForSettingNames:recordIdentifier:storeContainer:storeName:replyHandler:"), @[@"shield.applications"], recordIdentifier, @"com.pookjw.MyScreenTimeObjC", @"Test", ^(id result, NSError * _Nullable error) {
-                                    NSLog(@"%@ %@", result, error);
-                                });
-                            }];
-                            [children_2 addObject:action];
-                        }
-                        
                         [recordIdentifier release];
                     }
                     
@@ -655,24 +657,17 @@
                     
                     {
                         UIAction *action = [UIAction actionWithTitle:@"Start Monitoring Activity" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                            NSDateComponents *now = [NSCalendar.currentCalendar components:NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:[NSDate now]];
+                            NSDateComponents *start = [NSCalendar.currentCalendar components:NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:[NSDate now]];
+                            NSDateComponents *end = [NSCalendar.currentCalendar components:NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:[[NSDate now] dateByAddingTimeInterval:40 * 60]];
+                            NSDateComponents *threshold = [NSCalendar.currentCalendar components:NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:[[NSDate now] dateByAddingTimeInterval:50 * 60]];
                             
-                            NSDateComponents *start = now;
-                            
-                            NSDateComponents *end = [now copy];
-                            end.hour += 1;
-                            
-                            NSDateComponents *threshold = [now copy];
-                            end.minute += 50;
-                            
-                            id activity = reinterpret_cast<id (*)(id, SEL, id, id, BOOL, id)>(objc_msgSend)([objc_lookUpClass("USDeviceActivitySchedule") alloc], sel_registerName("initWithIntervalStart:intervalEnd:repeats:warningTime:"), start, end, NO, nil);
-                            [end release];
+                            id activity = reinterpret_cast<id (*)(id, SEL, id, id, BOOL, id)>(objc_msgSend)([objc_lookUpClass("USDeviceActivitySchedule") alloc], sel_registerName("initWithIntervalStart:intervalEnd:repeats:warningTime:"), start, end, YES, nil);
                             
                             id event = reinterpret_cast<id (*)(id, SEL, id, id, id, id, BOOL)>(objc_msgSend)([objc_lookUpClass("USDeviceActivityEvent") alloc], sel_registerName("initWithApplicationTokens:categoryTokens:webDomainTokens:threshold:includesPastActivity:"), [NSSet setWithArray:weakSelf.selections.applications], [NSSet set], [NSSet set], threshold, YES);
-                            [threshold release];
-                            
+                            NSLog(@"%@", usageTrackingConnection);
                             reinterpret_cast<void (*)(id, SEL, id, id, id, id, id, id)>(objc_msgSend)(usageTrackingConnection.remoteObjectProxy, sel_registerName("startMonitoringActivity:withSchedule:events:forClient:withExtension:replyHandler:"), @"Test", activity, @{@"Event": event}, nil, nil, ^(NSError * _Nullable error) {
                                 assert(error == nil);
+                                NSLog(@"%@", usageTrackingConnection);
                             });
                             
                             [activity release];
@@ -702,7 +697,72 @@
                     UIAction *action = [UIAction actionWithTitle:@"Test" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                         id query = reinterpret_cast<id (*)(Class, SEL, id)>(objc_msgSend)(objc_lookUpClass("_EXQuery"), sel_registerName("extensionPointIdentifierQuery:"), @"com.apple.deviceactivityui.report-service");
                         NSArray *result = reinterpret_cast<id (*)(Class, SEL, id)>(objc_msgSend)(objc_lookUpClass("_EXQueryController"), sel_registerName("executeQuery:"), query);
-                        NSLog(@"%@", result);
+                        id identity = result[0];
+                        
+                        __kindof UIViewController *viewController = [objc_lookUpClass("EXHostViewController") new];
+                        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(viewController, sel_registerName("setDelegate:"), weakSelf);
+                        id configuration = reinterpret_cast<id (*)(id, SEL, id)>(objc_msgSend)([objc_lookUpClass("_EXHostViewControllerConfiguration") alloc], sel_registerName("initWithExtensionIdentity:"), identity);
+                        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(configuration, sel_registerName("setSceneIdentifier:"), @"EXDefaultScene");
+                        reinterpret_cast<void (*)(id, SEL, id)>(objc_msgSend)(viewController, sel_registerName("setConfiguration:"), configuration);
+                        [configuration release];
+                        
+                        [weakSelf presentViewController:viewController animated:YES completion:^{
+                            NSError * _Nullable error = nil;
+                            NSXPCConnection *connection = reinterpret_cast<id (*)(id, SEL, id *)>(objc_msgSend)(viewController, sel_registerName("makeXPCConnectionWithError:"), &error);
+                            assert(error == nil);
+                            connection.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:NSProtocolFromString(@"_TtP23_DeviceActivity_SwiftUI30DeviceActivityReportServiceXPC_")];
+                            [connection resume];
+                            
+                            NSDictionary *activityConfiguration = @{
+                                @"context": @"Total Activity",
+                                @"segment": @0,
+                                @"categories": @[],
+                                @"interval": @{
+                                    @"duration": @82800,
+                                    @"start": @767199600
+                                },
+                                @"webDomains": @[],
+                                @"categoryIdentifiers": @[],
+                                @"domains": @[],
+                                @"bundleIdentifiers": @[],
+                                @"applications": @[]
+                            };
+                            
+                            NSData *data = [NSJSONSerialization dataWithJSONObject:activityConfiguration options:0 error:&error];
+                            assert(error == nil);
+                            
+                            [connection retain];
+                            reinterpret_cast<void (*)(id, SEL, id, id)>(objc_msgSend)(connection.remoteObjectProxy, sel_registerName("discoverClientExtensionWithConfiguration::"), data, ^(NSError * _Nullable error) {
+                                assert(error == nil);
+                                [connection invalidate];
+                                [connection release];
+                            });
+                        }];
+                        [viewController release];
+                        
+                        
+                        /*
+                         (lldb) po [NSObject _fd__protocolDescriptionForProtocol:(Protocol *)NSProtocolFromString(@"_DeviceActivity_SwiftUI.DeviceActivityReportServiceXPC")]
+                         <_DeviceActivity_SwiftUI.DeviceActivityReportServiceXPC: 0x20aa0d1a0> :
+                         in _DeviceActivity_SwiftUI.DeviceActivityReportServiceXPC:
+                             Instance Methods:
+                                 - (void) discoverClientExtensionWithConfiguration:(id)arg1;
+                                 - (void) fetchActivitySegmentWithUserAltDSID:(id)arg1 deviceIdentifier:(id)arg2 segmentInterval:(long)arg3 recordName:(id)arg4;
+                                 - (void) updateClientConfiguration:(id)arg1;
+                         
+                         (lldb) po [NSObject _fd__protocolDescriptionForProtocol:(Protocol *)NSProtocolFromString(@"_TtP23_DeviceActivity_SwiftUI32DeviceActivityReportExtensionXPC_")]
+                         <_DeviceActivity_SwiftUI.DeviceActivityReportExtensionXPC: 0x20aa0d200> :
+                         in _DeviceActivity_SwiftUI.DeviceActivityReportExtensionXPC:
+                             Instance Methods:
+                                 - (void) updateDeviceActivityData:(id)arg1 segmentInterval:(id)arg2 replyHandler:(^block)arg3;
+                         
+                         discoverClientExtensionWithConfiguration:
+                         fetchActivitySegmentWithUserAltDSID:deviceIdentifier:segmentInterval:recordName:
+                         updateClientConfiguration:
+                         updateDeviceActivityData:segmentInterval:replyHandler:
+                         */
+                        
+                        
                     }];
                     [children addObject:action];
                 }
@@ -805,6 +865,15 @@
     });
     
     [recordIdentifier release];
+}
+
+- (void)hostViewControllerDidActivate:(__kindof UIViewController *)viewController {
+    NSLog(@"%s", __func__);
+}
+
+- (void)hostViewControllerWillDeactivate:(__kindof UIViewController *)viewController error:(NSError *)error {
+    NSLog(@"%s %@", __func__, error);
+    assert(error == nil);
 }
 
 @end

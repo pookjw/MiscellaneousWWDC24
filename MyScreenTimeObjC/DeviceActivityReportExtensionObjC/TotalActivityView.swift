@@ -11,7 +11,10 @@ struct TotalActivityView: View {
     let totalActivity: String
     
     var body: some View {
-        Text(totalActivity)
+        VStack {
+            Color.orange.frame(width: 100, height: 100)
+            Text(totalActivity)
+        }
     }
 }
 
