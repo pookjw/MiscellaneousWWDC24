@@ -16,7 +16,7 @@
  */
 
 @interface ShieldConfigurationExtension ()
-- (void)fetchConfigurationDataForApplication:(NSString *)application tokenData:(NSData *)tokenData localizedDisplayName:(NSString * _Nullable)localizedDisplayName replyHandler:(void (^)(NSData * _Nullable data, NSError * _Nullable error))replyHandler;
+- (void)fetchConfigurationDataForApplication:(NSString *)application tokenData:(NSData *)tokenData localizedDisplayName:(NSString * _Nullable)localizedDisplayName replyHandler:(void (^ NS_NOESCAPE)(NSData * _Nullable data, NSError * _Nullable error))replyHandler;
 @end
 
 namespace sco_ConfigurationContext {
@@ -57,7 +57,7 @@ namespace sco_ConfigurationContext {
     fetchConfigurationDataForApplication_tokenData_localizedDisplayName_replyHandler_::swizzle();
 }
 
-- (void)fetchConfigurationDataForApplication:(NSString *)application tokenData:(NSData *)tokenData localizedDisplayName:(NSString * _Nullable)localizedDisplayName replyHandler:(void (^)(NSData * _Nullable data, NSError * _Nullable error))replyHandler {
+- (void)fetchConfigurationDataForApplication:(NSString *)application tokenData:(NSData *)tokenData localizedDisplayName:(NSString * _Nullable)localizedDisplayName replyHandler:(void (^ NS_NOESCAPE)(NSData * _Nullable data, NSError * _Nullable error))replyHandler {
     NSError * _Nullable error = nil;
     NSData *systemPinkColorData = [NSKeyedArchiver archivedDataWithRootObject:UIColor.systemPinkColor requiringSecureCoding:YES error:&error];
     assert(error == nil);

@@ -59,8 +59,10 @@
         };
         [_managedSettingsConnection resume];
         
-        _usageTrackingConnection = reinterpret_cast<id (*)(id, SEL, id, NSXPCConnectionOptions)>(objc_msgSend)([NSXPCConnection alloc], sel_registerName("initWithMachServiceName:options:"), @"com.apple.UsageTrackingAgent", NSXPCConnectionPrivileged);
-        _usageTrackingConnection.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:NSProtocolFromString(@"USUsageTrackingAgent")];
+        // TODO: -[NSXPCInterface setClasses:forSelector:argumentIndex:ofReply:] 정의 필요함
+//        _usageTrackingConnection = reinterpret_cast<id (*)(id, SEL, id, NSXPCConnectionOptions)>(objc_msgSend)([NSXPCConnection alloc], sel_registerName("initWithMachServiceName:options:"), @"com.apple.UsageTrackingAgent", NSXPCConnectionPrivileged);
+//        _usageTrackingConnection.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:NSProtocolFromString(@"USUsageTrackingAgent")];
+        _usageTrackingConnection = reinterpret_cast<id (*)(Class, SEL)>(objc_msgSend)(objc_lookUpClass("USTrackingAgentConnection"), sel_registerName("newConnection"));
         _usageTrackingConnection.interruptionHandler = ^{
             abort();
         };
@@ -333,7 +335,8 @@
         @"media.maximumMovieRating",
         @"media.maximumTVShowRating",
         @"application.blockedApplications",
-        @"safari.cookiePolicy"
+        @"safari.cookiePolicy",
+        @"shield.applications"
     ]];
     
     UIDeferredMenuElement *element = [UIDeferredMenuElement elementWithUncachedProvider:^(void (^ _Nonnull completion)(NSArray<UIMenuElement *> * _Nonnull)) {
@@ -659,10 +662,14 @@
                             NSDateComponents *end = [now copy];
                             end.hour += 1;
                             
+                            NSDateComponents *threshold = [now copy];
+                            end.minute += 50;
+                            
                             id activity = reinterpret_cast<id (*)(id, SEL, id, id, BOOL, id)>(objc_msgSend)([objc_lookUpClass("USDeviceActivitySchedule") alloc], sel_registerName("initWithIntervalStart:intervalEnd:repeats:warningTime:"), start, end, NO, nil);
                             [end release];
                             
-                            id event = reinterpret_cast<id (*)(id, SEL, id, id, id, id, id)>(objc_msgSend)([objc_lookUpClass("USDeviceActivityEvent") alloc], sel_registerName("initWithApplicationTokens:categoryTokens:webDomainTokens:threshold:includesPastActivity:"), [NSSet setWithArray:weakSelf.selections.applications], nil, nil, nil, nil);
+                            id event = reinterpret_cast<id (*)(id, SEL, id, id, id, id, BOOL)>(objc_msgSend)([objc_lookUpClass("USDeviceActivityEvent") alloc], sel_registerName("initWithApplicationTokens:categoryTokens:webDomainTokens:threshold:includesPastActivity:"), [NSSet setWithArray:weakSelf.selections.applications], [NSSet set], [NSSet set], threshold, NO);
+                            [threshold release];
                             
                             reinterpret_cast<void (*)(id, SEL, id, id, id, id, id, id)>(objc_msgSend)(usageTrackingConnection.remoteObjectProxy, sel_registerName("startMonitoringActivity:withSchedule:events:forClient:withExtension:replyHandler:"), @"Test", activity, @{@"Event": event}, nil, nil, ^(NSError * _Nullable error) {
                                 assert(error == nil);
@@ -677,6 +684,23 @@
                     UIMenu *menu = [UIMenu menuWithTitle:@"Device Activity" children:children_2];
                     [children_2 release];
                     [children addObject:menu];
+                }
+                
+                {
+                    UIAction *action = [UIAction actionWithTitle:@"Test" image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                        reinterpret_cast<void (*)(id, SEL, id, id)>(objc_msgSend)(usageTrackingConnection.remoteObjectProxy, sel_registerName("fetchActivitiesForClient:replyHandler:"), nil, ^(NSArray<NSString *> * _Nullable activities, NSError * _Nullable error) {
+                            assert(error == nil);
+                            
+                            for (NSString *activity in activities) {
+                                reinterpret_cast<void (*)(id, SEL, id, id, id)>(objc_msgSend)(usageTrackingConnection.remoteObjectProxy, sel_registerName("fetchEventsForActivity:withClient:replyHandler:"), activity, nil, ^(NSDictionary * _Nullable events, NSError * _Nullable error) {
+                                    assert(error == nil);
+                                    
+                                    NSLog(@"%@", events);
+                                });
+                            }
+                        });
+                    }];
+                    [children addObject:action];
                 }
                 
                 dispatch_async(dispatch_get_main_queue(), ^{

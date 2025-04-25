@@ -172,7 +172,11 @@ struct ContentView: View {
                 } label: { 
                     Text("Reset Selections")
                 }
-            } label: { 
+                
+                Button("Test") {
+                    test()
+                }
+            } label: {
                 Label("Menu", systemImage: "filemenu.and.selection")
             }
         }
@@ -187,6 +191,12 @@ struct ContentView: View {
             let data = try! encoder.encode(newValue)
             UserDefaults.standard.set(data, forKey: "selection")
         }
+    }
+    
+    private func test() {
+        let center = DeviceActivityCenter()
+        print(center.activities)
+        print(center.events(for: .init("Test")))
     }
     
     private func syncStore() {

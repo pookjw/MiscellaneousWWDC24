@@ -14,7 +14,7 @@
  */
 
 @interface ShieldActionExtension ()
-- (void)handleWithAction:(NSInteger)action applicationTokenData:(NSData *)applicationTokenData replyHandler:(void (^)(NSNumber * _Nullable response, NSError * _Nullable error))replyHandler;
+- (void)handleWithAction:(NSInteger)action applicationTokenData:(NSData *)applicationTokenData replyHandler:(void (^ NS_NOESCAPE)(NSNumber * _Nullable response, NSError * _Nullable error))replyHandler;
 @end
 
 namespace sco_ActionContext {
@@ -52,7 +52,7 @@ namespace sco_ActionContext {
     handleWithAction_applicationTokenData_replyHandler_::swizzle();
 }
 
-- (void)handleWithAction:(NSInteger)action applicationTokenData:(NSData *)applicationTokenData replyHandler:(void (^)(NSNumber * _Nullable, NSError * _Nullable))replyHandler {
+- (void)handleWithAction:(NSInteger)action applicationTokenData:(NSData *)applicationTokenData replyHandler:(void (^ NS_NOESCAPE)(NSNumber * _Nullable, NSError * _Nullable))replyHandler {
     if (action == 1 /* primaryButtonPressed */) {
         replyHandler(@1 /* close */, nil);
     } else if (action == 2 /* secondaryButtonPressed */) {
