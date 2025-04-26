@@ -55,7 +55,7 @@ struct ContentView: View {
                     }
                     
                     if let token: ManagedSettings.ApplicationToken = application.token {
-                        Text(String(describing: token))
+                        Label.init(token)
                     }
                     
                     if let localizedDisplayName = application.localizedDisplayName {
@@ -175,11 +175,26 @@ struct ContentView: View {
                 Label("Menu", systemImage: "filemenu.and.selection")
             }
         }
+        .onAppear(perform: { 
+            isReportPresented = true
+        })
         .navigationTitle("Home")
         .navigationBarTitleDisplayMode(.inline)
         .familyActivityPicker(headerText: "Header Text", footerText: "Footer Text", isPresented: $isPresented, selection: $selection)
         .sheet(isPresented: $isReportPresented) {
-            DeviceActivityReport(.init("Total Activity"), filter: DeviceActivityFilter())
+            DeviceActivityReport(
+                .init("Total Activity"),
+                filter: DeviceActivityFilter(
+//                    segment: DeviceActivityFilter.SegmentInterval.hourly(during: DateInterval(start: Date.now.addingTimeInterval(-60*60), end: .now)),
+                    segment: .weekly(during: DateInterval(start: .distantPast, end: .distantFuture)),
+                    users: DeviceActivityFilter.Users.all,
+//                    devices: DeviceActivityFilter.Devices.init([DeviceActivityData.Device.Model.iPhone, DeviceActivityData.Device.Model.iPad, DeviceActivityData.Device.Model.iPod, DeviceActivityData.Device.Model.mac]),
+                    devices: .all,
+                    applications: selection.applicationTokens,
+                    categories: selection.categoryTokens,
+                    webDomains: selection.webDomainTokens
+                )
+            )
         }
         .onReceive(FamilyControls.AuthorizationCenter.shared.$authorizationStatus) { newValue in
             authorizationStatus = newValue

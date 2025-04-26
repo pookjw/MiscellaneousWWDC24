@@ -348,14 +348,14 @@
             if (arguments.count == 2) {
                 [result appendFormat:@" %@", name];
             } else {
-                [[name componentsSeparatedByString:@":"] enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if (obj.length == 0) {
-                        *stop = YES;
-                        return;
-                    }
-                    
-                    [result appendFormat:@" %@:(%@)arg%lu", obj, arguments[idx + 2], idx + 1];
-                }];
+                NSArray<NSString *> *_components = [name componentsSeparatedByString:@":"];
+                
+                if (_components.count > 0) {
+                    NSArray<NSString *> *components = [_components objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, _components.count - 1)]];
+                    [components enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        [result appendFormat:@" %@:(%@)arg%lu", obj, arguments[idx + 3], idx + 1];
+                    }];
+                }
             }
             
             [result appendFormat:@"; (%p)", imp];
@@ -395,14 +395,14 @@
             if (arguments.count == 3) {
                 [result appendFormat:@" %@", name];
             } else {
-                [[name componentsSeparatedByString:@":"] enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if (obj.length == 0) {
-                        *stop = YES;
-                        return;
-                    }
-                    
-                    [result appendFormat:@" %@:(%@)arg%lu", obj, arguments[idx + 3], idx + 1];
-                }];
+                NSArray<NSString *> *_components = [name componentsSeparatedByString:@":"];
+                
+                if (_components.count > 0) {
+                    NSArray<NSString *> *components = [_components objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, _components.count - 1)]];
+                    [components enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        [result appendFormat:@" %@:(%@)arg%lu", obj, arguments[idx + 3], idx + 1];
+                    }];
+                }
             }
             
             [result appendString:@";"];

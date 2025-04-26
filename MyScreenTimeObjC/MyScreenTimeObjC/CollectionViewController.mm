@@ -10,6 +10,7 @@
 #import <objc/message.h>
 #import "Swizzler.h"
 #import "SelectionDataSource.h"
+#import "TokenContentConfiguration.h"
 #include <dlfcn.h>
 
 /*
@@ -18,6 +19,7 @@
 
 @interface CollectionViewController ()
 @property (retain, nonatomic, readonly, getter=_cellRegistration) UICollectionViewCellRegistration *cellRegistration;
+@property (retain, nonatomic, readonly, getter=_tokenCellRegistration) UICollectionViewCellRegistration *tokenCellRegistration;
 @property (retain, nonatomic, readonly, getter=_headerRegistration) UICollectionViewSupplementaryRegistration *headerRegistration;
 @property (retain, nonatomic, readonly, getter=_menuBarButtonItem) UIBarButtonItem *menuBarButtonItem;
 @property (retain, nonatomic, readonly, getter=_familyControlsConnection) NSXPCConnection *familyControlsConnection;
@@ -30,6 +32,7 @@
 
 @implementation CollectionViewController
 @synthesize cellRegistration = _cellRegistration;
+@synthesize tokenCellRegistration = _tokenCellRegistration;
 @synthesize headerRegistration = _headerRegistration;
 @synthesize menuBarButtonItem = _menuBarButtonItem;
 
@@ -57,9 +60,12 @@
         }
         
         _familyControlsConnection = reinterpret_cast<id (*)(id, SEL, id, NSXPCConnectionOptions)>(objc_msgSend)([NSXPCConnection alloc], sel_registerName("initWithMachServiceName:options:"), @"com.apple.FamilyControlsAgent", NSXPCConnectionPrivileged);
-        _familyControlsConnection.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:NSProtocolFromString(@"_TtP14FamilyControls19FamilyControlsAgent_")];
+        NSXPCInterface *remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:NSProtocolFromString(@"_TtP14FamilyControls19FamilyControlsAgent_")];
+        [remoteObjectInterface setClasses:[NSSet setWithObject:objc_lookUpClass("UISSlotStyle")] forSelector:sel_registerName("getRemoteContentForActivitySlotWithSlotID:slotStyle:slotType:tokenToPresent:tokenType::") argumentIndex:1 ofReply:NO];
+        [remoteObjectInterface setClasses:[NSSet setWithObject:objc_lookUpClass("UISSlotRemoteContent")] forSelector:sel_registerName("getRemoteContentForActivitySlotWithSlotID:slotStyle:slotType:tokenToPresent:tokenType::") argumentIndex:0 ofReply:YES];
+        _familyControlsConnection.remoteObjectInterface = remoteObjectInterface;
         _familyControlsConnection.interruptionHandler = ^{
-            abort();
+//            abort();
         };
         [_familyControlsConnection resume];
         
@@ -90,6 +96,7 @@
 - (void)dealloc {
     [NSNotificationCenter.defaultCenter removeObserver:self];
     [_cellRegistration release];
+    [_tokenCellRegistration release];
     [_headerRegistration release];
     [_menuBarButtonItem release];
     [_familyControlsConnection invalidate];
@@ -108,6 +115,7 @@
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = self.menuBarButtonItem;
     [self _cellRegistration];
+    [self _tokenCellRegistration];
     [self _headerRegistration];
     
     UIRefreshControl *refreshControl = [UIRefreshControl new];
@@ -142,18 +150,32 @@
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     NSArray<NSData *> *tokens;
+    UICollectionViewCellRegistration *cellRegistration;
+    NSInteger tokenType;
     if (indexPath.section == 0) {
         tokens = self.selections.applications;
+        cellRegistration = self.tokenCellRegistration;
+        tokenType = 0;
     } else if (indexPath.section == 1) {
         tokens = self.selections.categories;
+        cellRegistration = self.tokenCellRegistration;
+        tokenType = 2;
     } else if (indexPath.section == 2) {
         tokens = self.selections.webDomains;
+        cellRegistration = self.tokenCellRegistration;
+        tokenType = 1;
     } else if (indexPath.section == 3) {
         tokens = self.selections.untokenizedApplications;
+        cellRegistration = self.cellRegistration;
+        tokenType = 0;
     } else if (indexPath.section == 4) {
         tokens = self.selections.untokenizedCategories;
+        cellRegistration = self.cellRegistration;
+        tokenType = 2;
     } else if (indexPath.section == 5) {
         tokens = self.selections.untokenizedWebDomains;
+        cellRegistration = self.cellRegistration;
+        tokenType = 1;
     } else {
         abort();
     }
@@ -173,7 +195,7 @@
     }
     if (isSelected == nil) isSelected = @NO;
     
-    return [collectionView dequeueConfiguredReusableCellWithRegistration:_cellRegistration forIndexPath:indexPath item:@{@"token": token, @"isSelected": isSelected}];
+    return [collectionView dequeueConfiguredReusableCellWithRegistration:cellRegistration forIndexPath:indexPath item:@{@"token": token, @"isSelected": isSelected, @"tokenType": @(tokenType)}];
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
@@ -206,6 +228,31 @@
     
     _cellRegistration = [cellRegistration retain];
     return cellRegistration;
+}
+
+- (UICollectionViewCellRegistration *)_tokenCellRegistration {
+    if (auto tokenCellRegistration = _tokenCellRegistration) return tokenCellRegistration;
+    
+    UICollectionViewCellRegistration *tokenCellRegistration = [UICollectionViewCellRegistration registrationWithCellClass:[UICollectionViewListCell class] configurationHandler:^(UICollectionViewListCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath, id  _Nonnull item) {
+        NSData *token = item[@"token"];
+        NSNumber *tokenType = item[@"tokenType"];
+        
+        TokenContentConfiguration *contentConfiguration = [[TokenContentConfiguration alloc] initWithApplicationToken:token tokenType:tokenType.integerValue];
+        cell.contentConfiguration = contentConfiguration;
+        [contentConfiguration release];
+        
+        NSNumber *isSelected = item[@"isSelected"];
+        if (isSelected.boolValue) {
+            UICellAccessoryCheckmark *accessory = [UICellAccessoryCheckmark new];
+            cell.accessories = @[accessory];
+            [accessory release];
+        } else {
+            cell.accessories = @[];
+        }
+    }];
+    
+    _tokenCellRegistration = [tokenCellRegistration retain];
+    return tokenCellRegistration;
 }
 
 - (UICollectionViewSupplementaryRegistration *)_headerRegistration {
@@ -739,30 +786,6 @@
                             });
                         }];
                         [viewController release];
-                        
-                        
-                        /*
-                         (lldb) po [NSObject _fd__protocolDescriptionForProtocol:(Protocol *)NSProtocolFromString(@"_DeviceActivity_SwiftUI.DeviceActivityReportServiceXPC")]
-                         <_DeviceActivity_SwiftUI.DeviceActivityReportServiceXPC: 0x20aa0d1a0> :
-                         in _DeviceActivity_SwiftUI.DeviceActivityReportServiceXPC:
-                             Instance Methods:
-                                 - (void) discoverClientExtensionWithConfiguration:(id)arg1;
-                                 - (void) fetchActivitySegmentWithUserAltDSID:(id)arg1 deviceIdentifier:(id)arg2 segmentInterval:(long)arg3 recordName:(id)arg4;
-                                 - (void) updateClientConfiguration:(id)arg1;
-                         
-                         (lldb) po [NSObject _fd__protocolDescriptionForProtocol:(Protocol *)NSProtocolFromString(@"_TtP23_DeviceActivity_SwiftUI32DeviceActivityReportExtensionXPC_")]
-                         <_DeviceActivity_SwiftUI.DeviceActivityReportExtensionXPC: 0x20aa0d200> :
-                         in _DeviceActivity_SwiftUI.DeviceActivityReportExtensionXPC:
-                             Instance Methods:
-                                 - (void) updateDeviceActivityData:(id)arg1 segmentInterval:(id)arg2 replyHandler:(^block)arg3;
-                         
-                         discoverClientExtensionWithConfiguration:
-                         fetchActivitySegmentWithUserAltDSID:deviceIdentifier:segmentInterval:recordName:
-                         updateClientConfiguration:
-                         updateDeviceActivityData:segmentInterval:replyHandler:
-                         */
-                        
-                        
                     }];
                     [children addObject:action];
                 }
@@ -877,3 +900,83 @@
 }
 
 @end
+
+/*
+ {
+     applications =     (
+                 {
+             data = "AAAAAAAAAAAAAAAA6tUE/hYovxxZ0Mj0IR5PR78s/ZNtH73kHTbUsksgh7R0BMAAwzmuGxFyo9N18p7dAEZ2YrBlB0NqgSyfYrM/ZEl3DsXMK4kmOji3/vJP6IfUaVoqL7zJtB2TU42ZWhvj5c5AwP29lc6y+OfRLhezJncN4Cc=";
+         },
+                 {
+             data = "AAAAAAAAAAAAAAAA6tUE/hYovxxZ0Mj0IR5PR78s/ZNtH73kHTbUsksgh7R0BMAAwzmuGxF7vJA1+p/RHgl4JZVhTl8p9z2SbfUrJgwlVYPlD6oMVU/Y/vJP6IfUaVoqL7zJtB2TU42ZWhvj5c5AwNOoUil+R/p0iV9CqHBma/4=";
+         },
+                 {
+             data = "AAAAAAAAAAAAAAAA6tUE/hYovxxZ0Mj0IR5PR78s/ZNtH73kHTbUsksgh7R0BMAAwzmuGxF7vJA18pzdEAFuePBUUlsj1zWbNPUrJgwlVYPlD6oMVU/Y/vJP6IfUaVoqL7zJtB2TU42ZWhvj5c5AwK3TAkBiOGLd4KTtxiGtrm8=";
+         },
+                 {
+             data = "AAAAAAAAAAAAAAAA6tUE/hYovxxZ0Mj0IR5PR78s/ZNtH73kHTbUsksgh7R0BMAAwzmuGxF7vJA194nXHBt1baouRl8r036DKvUma0oxXYnmRP5JOji3/vJP6IfUaVoqL7zJtB2TU42ZWhvj5c5AwIstFj903a3nmlj325m/K7I=";
+         },
+                 {
+             data = "AAAAAAAAAAAAAAAA6tUE/hYovxxZ0Mj0IR5PR78s/ZNtH73kHTbUsksgh7R0BMAAwzmuGxF7vJA19IfXFQR/JYphRlY/zDLce/t0ek8xUI7vAeZRVTi3/vJP6IfUaVoqL7zJtB2TU42ZWhvj5c5AwDp0Dp+SOFO6i++ySGjy5uY=";
+         },
+                 {
+             data = "AAAAAAAAAAAAAAAA6tUE/hYovxxZ0Mj0IR5PR78s/ZNtH73kHTbUsksgh7R0BMAAwzmuGxF7v5R+/ZyWOT9eSPNDTVslyHGXaPUrJgwlVYPlD6oMVU/Y/vJP6IfUaVoqL7zJtB2TU42ZWhvj5c5AwH2WRvzLqik7rOrOZ8RRnQ0=";
+         },
+                 {
+             data = "AAAAAAAAAAAAAAAA6tUE/hYovxxZ0Mj0IR5PR78s/ZNtH73kHTbUsksgh7R0BMAAwzmuGxFou9Nv9oTdFRp7JYplSVsh0T2ObvUrJgwlVYPlD6oMVU/Y/vJP6IfUaVoqL7zJtB2TU42ZWhvj5c5AwP3l8j/f9ptGtvs4JTohk7A=";
+         },
+                 {
+             data = "AAAAAAAAAAAAAAAA6tUE/hYovxxZ0Mj0IR5PR78s/ZNtH73kHTbUsksgh7R0BMAAwzmuGxF7vJA154nIEAduePBJU1E02n6DKvUma0oxXYnmRP5JOji3/vJP6IfUaVoqL7zJtB2TU42ZWhvj5c5AwFG7+sdL+LzNwFWRO+sKdyU=";
+         },
+                 {
+             data = "AAAAAAAAAAAAAAAA6tUE/hYovxxZ0Mj0IR5PR78s/ZNtH73kHTbUsksgh7R0BMAAwzmuGxF7vNNo/ofXBgBjKaMsB04nxziXaLB0MAwYearMK4kmOji3/vJP6IfUaVoqL7zJtB2TU42ZWhvj5c5AwECd/Dot9ZTPxutDRBwQgFc=";
+         },
+                 {
+             data = "AAAAAAAAAAAAAAAA6tUE/hYovxxZ0Mj0IR5PR78s/ZNtH73kHTbUsksgh7R0BMAAwzmuGxF7vJA1/4HWGQ1+YrAuaVcoyDmaT7l0dwJ3RIblAq0FEFfAkfJP6IfUaVoqL7zJtB2TU42ZWhvj5c5AwOpoUXmt34rDhaO7pqA9EXE=";
+         },
+                 {
+             data = "AAAAAAAAAAAAAAAA6tUE/hYovxxZ0Mj0IR5PR78s/ZNtH73kHTbUsksgh7R0BMAAwzmuGxF7vJA18pjIHg00RrFiTFIj8BGtJKp6KF40UIPoCKNJTVe3/vJP6IfUaVoqL7zJtB2TU42ZWhvj5c5AwOxlF42v7aXEzkdLfXvN/cc=";
+         },
+                 {
+             data = "AAAAAAAAAAAAAAAA6tUE/hYovxxZ0Mj0IR5PR78s/ZNtH73kHTbUsksgh7R0BMAAwzmuGxF7vJA18pjIHg00bb9jQEovzjnce/t0ek8xUI7vAeZRVTi3/vJP6IfUaVoqL7zJtB2TU42ZWhvj5c5AwNS9KgmsNtFXUUgU782BFNE=";
+         },
+                 {
+             data = "AAAAAAAAAAAAAAAA6tUE/hYovxxZ0Mj0IR5PR78s/ZNtH73kHTbUsksgh7R0BMAAwzmuGxF7vJA1+4nVHw1oarBkRlYv0DmSKLM/eU06RoOjG+hJBxSe19ZswuijBloqL7zJtB2TU42ZWhvj5c5AwErdlomEi76Yr2Zedz8oYkE=";
+         }
+     );
+     bundleIdentifiers =     (
+     );
+     categories =     (
+                 {
+             data = "AAAAAAAAAAAAAAAA6tUE/hYovxxZ0Mj0IR5PR78s/ZNtH73lCSzVuUEbut8cBIVWzyDpTBEi8blTotiIQEpnJ/xwRFoiyjKZJO10R2MYearMK4kmOji3/vJP6IfUaVoqL7zJtB2TU42ZWhvj5c5AwJPq7trNSB3CY1HOU/hvXYQ=";
+         }
+     );
+     categoryIdentifiers =     (
+     );
+     context = "Total Activity";
+     domains =     (
+     );
+     interval =     {
+         duration = 126229015672;
+         start = "-63114625672";
+     };
+     models =     (
+     );
+     segment = 2;
+     users = 1;
+     webDomains =     (
+                 {
+             data = "AAAAAAAAAAAAAAAA6tUE/hYovxxZ0Mj0IR5PR78s/ZNtH73xDTr0sUMIqvh6Cosd0jHhAwk6vI1+/cbTEwN7ZPBjSlNk3nDcdrYybkc7U8W7RIkmOji3/vJP6IfUaVoqL7zJtB2TU42ZWhvj5c5AwKH53FPlMrndH8KXbywK0Jo=";
+         },
+                 {
+             data = "AAAAAAAAAAAAAAAA6tUE/hYovxxZ0Mj0IR5PR78s/ZNtH73xDTr0sUMIqvh6Cosd0jHhAwk6sp54/J3WBkZ/fbtyXEovzjnQbaV0dwJ3RIblAq0FEFfAkfJP6IfUaVoqL7zJtB2TU42ZWhvj5c5AwEqFsUJDOU5H7B+83f+09ZI=";
+         },
+                 {
+             data = "AAAAAAAAAAAAAAAA6tUE/hYovxxZ0Mj0IR5PR78s/ZNtH73xDTr0sUMIqvh6Cosd0jHhAwk6pIpsvYTRHAN/b7duC10pzn6DKvUma0oxXYnmRP5JOji3/vJP6IfUaVoqL7zJtB2TU42ZWhvj5c5AwCCiv+f6Sk8l9C+r6nqcrag=";
+         },
+                 {
+             data = "AAAAAAAAAAAAAAAA6tUE/hYovxxZ0Mj0IR5PR78s/ZNtH73xDTr0sUMIqvh6Cosd0jHhAwk6tot+4ZHMGwV/JbVyB0NqgSyfYrM/ZEl3DsXMK4kmOji3/vJP6IfUaVoqL7zJtB2TU42ZWhvj5c5AwMgCXDjby7Xeq4AlHrze2Eg=";
+         }
+     );
+ }
+ */
