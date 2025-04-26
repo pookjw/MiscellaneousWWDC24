@@ -10,17 +10,17 @@
  #import <objc/runtime.h>
  
  namespace cp__NSCFString {
- namespace isEqualToString {
+ namespace hasPrefix_ {
  BOOL (*original)(NSString *self, SEL _cmd, NSString *other);
  BOOL custom(NSString *self, SEL _cmd, NSString *other) {
-     if (original(self, _cmd, NSBundle.mainBundle.bundleIdentifier) and original(other, _cmd, @"com.apple.Compose")) {
+     if ([other isEqualToString:@"com.apple.Compose"]) {
          return YES;
      }
      
      return original(self, _cmd, other);
  }
  void swizzle() {
-     Method method = class_getInstanceMethod(objc_lookUpClass("__NSCFString"), sel_registerName("isEqualToString:"));
+     Method method = class_getInstanceMethod(objc_lookUpClass("__NSCFString"), sel_registerName("hasPrefix:"));
      original = reinterpret_cast<decltype(original)>(method_getImplementation(method));
      method_setImplementation(method, reinterpret_cast<IMP>(custom));
  }
@@ -30,7 +30,7 @@
  @implementation NSString (Category)
  
  + (void)load {
-     cp__NSCFString::isEqualToString::swizzle();
+     cp__NSCFString::hasPrefix_::swizzle();
  }
  
  @end
