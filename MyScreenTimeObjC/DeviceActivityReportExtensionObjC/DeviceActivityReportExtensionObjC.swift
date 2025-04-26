@@ -37,6 +37,7 @@ struct TotalActivityExtensionScene: AppExtensionScene {
                 table.setObject(connection, forKey: key as NSUUID)
             }
             
+            connection.remoteObjectInterface = NSXPCInterface(with: NSProtocolFromString("_TtP23_DeviceActivity_SwiftUI30DeviceActivityReportServiceXPC_")!)
             connection.resume()
             return true
         }
