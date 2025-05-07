@@ -43,6 +43,16 @@
     [traitStorageList release];
     
     [centerView release];
+    
+    //
+    
+    UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(_doneBarButtonItemDidTrigger:)];
+    self.navigationItem.rightBarButtonItem = doneBarButtonItem;
+    [doneBarButtonItem release];
+}
+
+- (void)_doneBarButtonItemDidTrigger:(UIBarButtonItem *)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
